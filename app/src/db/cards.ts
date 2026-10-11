@@ -1,0 +1,183 @@
+import { and, asc, eq, inArray, isNull, like, or, sql } from 'drizzle-orm';
+
+import { newId } from '@/lib/id';
+import { newCard } from '@/lib/scheduler';
+
+import { db } from './client';
+import { cards, type CardRow } from './schema';
+import { transaction } from './transaction';
+
+export type CardInput = {
+  deckId: string;
+  front: string;
+  back: string;
+  tags: string[];
+  /** Also keep a second, linked card with front and back swapped. */
+  reverse: boolean;
+};
+
+const live = isNull(cards.deleted_at);
+
+function buildCard(
+  fields: Pick<CardRow, 'deck_id' | 'front' | 'back' | 'tags' | 'reverse_of'>,
+  now: number,
+): CardRow {
+  return {
+    id: newId(),
+    image_uri: null,
+    ...fields,
+    ...newCard(now),
+    created_at: now,
+    updated_at: now,
+    deleted_at: null,
+  };
+}
+
+/** Creates a card, plus its reverse card when asked. Returns the main card. */
+export function createCard(input: CardInput, now = Date.now()): CardRow {
+  const card = buildCard(
+    {
+      deck_id: input.deckId,
+      front: input.front.trim(),
+      back: input.back.trim(),
+      tags: input.tags,
+      reverse_of: null,
+    },
+    now,
+  );
+  transaction(() => {
+    db.insert(cards).values(card).run();
+    if (input.reverse) db.insert(cards).values(reverseOf(card, now)).run();
+  });
+  return card;
+}
+
+function reverseOf(card: CardRow, now: number): CardRow {
+  return buildCard(
+    {
+      deck_id: card.deck_id,
+      front: card.back,
+      back: card.front,
+      tags: card.tags,
+      reverse_of: card.id,
+    },
+    now,
+  );
+}
+
+export function getCard(id: string): CardRow | undefined {
+  return db
+    .select()
+    .from(cards)
+    .where(and(eq(cards.id, id), live))
+    .get();
+}
+
+function liveReverse(primaryId: string): CardRow | undefined {
+  return db
+    .select()
+    .from(cards)
+    .where(and(eq(cards.reverse_of, primaryId), live))
+    .get();
+}
+
+/**
+ * The card to show in the editor. Opening a reverse card edits its main card, so the pair is
+ * always edited together.
+ */
+export function getCardForEdit(id: string): { card: CardRow; hasReverse: boolean } | undefined {
+  const opened = getCard(id);
+  if (!opened) return undefined;
+  const card = (opened.reverse_of && getCard(opened.reverse_of)) || opened;
+  return { card, hasReverse: card.id !== opened.id || liveReverse(card.id) !== undefined };
+}
+
+/** Updates the text of a card (and its reverse). Scheduling is untouched. */
+export function updateCard(id: string, input: CardInput, now = Date.now()): void {
+  const main = getCard(id);
+  if (!main) return;
+  const front = input.front.trim();
+  const back = input.back.trim();
+  const reverse = liveReverse(id);
+  transaction(() => {
+    db.update(cards)
+      .set({ deck_id: input.deckId, front, back, tags: input.tags, updated_at: now })
+      .where(eq(cards.id, id))
+      .run();
+    if (input.reverse && reverse) {
+      db.update(cards)
+        .set({ deck_id: input.deckId, front: back, back: front, tags: input.tags, updated_at: now })
+        .where(eq(cards.id, reverse.id))
+        .run();
+    } else if (input.reverse) {
+      const updated = { ...main, deck_id: input.deckId, front, back, tags: input.tags };
+      db.insert(cards).values(reverseOf(updated, now)).run();
+    } else if (reverse) {
+      db.update(cards)
+        .set({ deleted_at: now, updated_at: now })
+        .where(eq(cards.id, reverse.id))
+        .run();
+    }
+  });
+}
+
+/**
+ * Soft-deletes cards. Deleting a main card also deletes its reverse card.
+ * Returns every id that was deleted, for "Undo".
+ */
+export function deleteCards(ids: string[], now = Date.now()): string[] {
+  if (ids.length === 0) return [];
+  const reverses = db
+    .select({ id: cards.id })
+    .from(cards)
+    .where(and(inArray(cards.reverse_of, ids), live))
+    .all()
+    .map((r) => r.id);
+  const all = [...new Set([...ids, ...reverses])];
+  db.update(cards)
+    .set({ deleted_at: now, updated_at: now })
+    .where(and(inArray(cards.id, all), live))
+    .run();
+  return all;
+}
+
+export function restoreCards(ids: string[], now = Date.now()): void {
+  if (ids.length === 0) return;
+  db.update(cards).set({ deleted_at: null, updated_at: now }).where(inArray(cards.id, ids)).run();
+}
+
+export function countCards(deckId: string): number {
+  const row = db
+    .select({ n: sql<number>`count(*)` })
+    .from(cards)
+    .where(and(eq(cards.deck_id, deckId), live))
+    .get();
+  return row?.n ?? 0;
+}
+
+function escapeLike(term: string): string {
+  return term.replace(/[\\%_]/g, (c) => `\\${c}`);
+}
+
+/** Cards in a deck, optionally filtered by text. Returns a query for `useLiveQuery`. */
+export function deckCardsQuery(deckId: string, search: string) {
+  const term = search.trim();
+  const pattern = `%${escapeLike(term)}%`;
+  const matches = term
+    ? or(
+        like(cards.front, sql`${pattern} ESCAPE '\\'`),
+        like(cards.back, sql`${pattern} ESCAPE '\\'`),
+      )
+    : undefined;
+  return db
+    .select({
+      id: cards.id,
+      front: cards.front,
+      back: cards.back,
+      reverse_of: cards.reverse_of,
+      state: cards.state,
+    })
+    .from(cards)
+    .where(and(eq(cards.deck_id, deckId), live, matches))
+    .orderBy(asc(cards.created_at), asc(cards.id));
+}

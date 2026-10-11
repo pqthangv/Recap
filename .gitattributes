@@ -1,0 +1,6 @@
+# Keep LF everywhere so Prettier doesn't flag every file on Windows checkouts.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jks binary
+*.keystore binary

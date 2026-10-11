@@ -1,0 +1,8 @@
+android/
+ios/
+.expo/
+dist/
+coverage/
+package-lock.json
+drizzle/
+src/db/migrations.ts
