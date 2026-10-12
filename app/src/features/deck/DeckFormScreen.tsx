@@ -60,7 +60,11 @@ export default function DeckFormScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+    <ScrollView
+      contentContainerStyle={styles.content}
+      keyboardShouldPersistTaps="handled"
+      automaticallyAdjustKeyboardInsets // iOS: scroll fields above the keyboard
+    >
       <Stack.Screen options={{ title: existing ? 'Edit deck' : 'New deck' }} />
       {inside ? <Text style={styles.inside}>Inside “{inside}”</Text> : null}
       <Text style={styles.label}>Name</Text>

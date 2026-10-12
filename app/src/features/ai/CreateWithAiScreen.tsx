@@ -26,6 +26,7 @@ import type { AiSource } from '@/lib/aiReview';
 import { plural } from '@/lib/format';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
+import { askAiConsent } from './consent';
 import { ai, useAiDraft } from './api';
 import { readTextFromPhoto } from './photo';
 
@@ -107,8 +108,9 @@ export default function CreateWithAiScreen() {
     }
   };
 
-  const generate = () =>
-    run('Making cards…', async () => {
+  const generate = async () => {
+    if (!(await askAiConsent())) return; // iPhone asks once (see consent.ts)
+    await run('Making cards…', async () => {
       const source: AiSource =
         tab === 'topic'
           ? { kind: 'topic', topic }
@@ -126,6 +128,7 @@ export default function CreateWithAiScreen() {
       useAiDraft.setState({ cards: result.cards, source });
       router.push('/ai/review');
     });
+  };
 
   const choosePdf = () =>
     run('Reading the PDF…', async () => {

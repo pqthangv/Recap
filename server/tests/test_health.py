@@ -33,3 +33,13 @@ def test_privacy_policy_is_public():
     assert response.headers["content-type"].startswith("text/html")
     assert "Recap privacy policy" in response.text
     assert "recap.flashcards@gmail.com" in response.text
+
+
+def test_support_page_is_public():
+    with TestClient(fastapi_app) as client:
+        response = client.get("/support")
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("text/html")
+    assert "Recap support" in response.text
+    assert "recap.flashcards@gmail.com" in response.text
+    assert 'href="/privacy"' in response.text

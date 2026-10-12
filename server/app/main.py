@@ -46,9 +46,16 @@ def health() -> dict[str, bool]:
 
 
 PRIVACY_POLICY = (Path(__file__).parent / "privacy.html").read_text(encoding="utf-8")
+SUPPORT_PAGE = (Path(__file__).parent / "support.html").read_text(encoding="utf-8")
 
 
 @app.get("/privacy", response_class=HTMLResponse, include_in_schema=False)
 def privacy() -> str:
     """The privacy policy (Google Play needs a public URL; the website will host it later)."""
     return PRIVACY_POLICY
+
+
+@app.get("/support", response_class=HTMLResponse, include_in_schema=False)
+def support() -> str:
+    """Help and contact page (the App Store needs a support URL)."""
+    return SUPPORT_PAGE

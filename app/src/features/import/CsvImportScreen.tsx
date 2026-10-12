@@ -46,7 +46,11 @@ function CsvImport({ fileName, table }: TableDraft) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.content}>
+    <ScrollView
+      contentContainerStyle={styles.content}
+      keyboardShouldPersistTaps="handled"
+      automaticallyAdjustKeyboardInsets // iOS: keep the new deck name above the keyboard
+    >
       <Text style={styles.help}>
         {fileName} · {plural(table.rows.length, 'row')}
       </Text>

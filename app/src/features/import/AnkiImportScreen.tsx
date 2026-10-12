@@ -138,7 +138,11 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.content}>
+    <ScrollView
+      contentContainerStyle={styles.content}
+      keyboardShouldPersistTaps="handled"
+      automaticallyAdjustKeyboardInsets // iOS: keep the new deck name above the keyboard
+    >
       <Text style={styles.title}>
         {plural(deck.cards.length, 'card')} in {plural(perDeck.size, 'deck')}
       </Text>
