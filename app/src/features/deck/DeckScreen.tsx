@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ActionSheet } from '@/components/ActionSheet';
 import { Button } from '@/components/Button';
 import { Checkbox } from '@/components/Checkbox';
 import { Fab } from '@/components/Fab';
@@ -34,6 +35,7 @@ export default function DeckScreen() {
   // null = normal mode; a set = choosing cards (to move them to another deck).
   const [selected, setSelected] = useState<Set<string> | null>(null);
   const [moving, setMoving] = useState(false);
+  const [adding, setAdding] = useState(false);
   const toStudy = counts.due + counts.new;
 
   const edit = (cardId: string) => router.push({ pathname: '/card/edit', params: { id: cardId } });
@@ -192,11 +194,22 @@ export default function DeckScreen() {
           />
         </View>
       ) : (
-        <Fab
-          accessibilityLabel="Add card"
-          onPress={() => router.push({ pathname: '/card/edit', params: { deckId: id } })}
-        />
+        <Fab accessibilityLabel="Add a card or a deck inside" onPress={() => setAdding(true)} />
       )}
+      <ActionSheet
+        visible={adding}
+        onClose={() => setAdding(false)}
+        options={[
+          {
+            label: 'Add card',
+            onPress: () => router.push({ pathname: '/card/edit', params: { deckId: id } }),
+          },
+          {
+            label: `New deck inside “${deck.name}”`,
+            onPress: () => router.push({ pathname: '/deck/edit', params: { parent: deck.name } }),
+          },
+        ]}
+      />
       <MoveCardsSheet
         visible={moving}
         decks={otherDecks}

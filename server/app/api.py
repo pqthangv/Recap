@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import Engine
 
 from app import quota
+from app.abuse import client_ip, limits, rate_limit
 from app.config import Settings, get_settings
 from app.db import DatabaseNotConfigured, get_engine
 from app.errors import ApiError
@@ -20,7 +21,8 @@ from app.llm.cleaning import clean_cards
 from app.pdf import extract_text
 
 log = logging.getLogger(__name__)
-router = APIRouter(prefix="/v1")
+# Every /v1 request counts toward the per-address rate limit (app/abuse.py).
+router = APIRouter(prefix="/v1", dependencies=[Depends(rate_limit)])
 
 SettingsDep = Annotated[Settings, Depends(get_settings)]
 
@@ -93,7 +95,11 @@ class GenerateResponse(BaseModel):
 
 @router.post("/generate", dependencies=AppCheck)
 def generate(
-    body: GenerateRequest, settings: SettingsDep, engine: EngineDep, provider: ProviderDep
+    body: GenerateRequest,
+    http_request: Request,
+    settings: SettingsDep,
+    engine: EngineDep,
+    provider: ProviderDep,
 ) -> GenerateResponse:
     text = body.text.strip()
     if not text:
@@ -103,8 +109,18 @@ def generate(
         raise ApiError(413, "too_long", f"That's too long. Keep it under {limit:,} characters.")
 
     device_id, day, daily = str(body.device_id), quota.today_utc(), settings.daily_card_quota
+    ip = client_ip(http_request)
     wanted = min(body.max_cards, settings.max_cards_per_request)
-    reserved = quota.reserve(engine, device_id, day, wanted, daily)
+    # Two daily limits: per network address (stops invented device ids), then per device.
+    allowed = limits.reserve_cards(ip, day, wanted, settings.ip_daily_card_quota)
+    if allowed == 0:
+        raise ApiError(
+            429,
+            "ip_quota_exceeded",
+            "Lots of AI cards were made from your network today. More tomorrow!",
+        )
+    reserved = quota.reserve(engine, device_id, day, allowed, daily)
+    limits.refund_cards(ip, day, allowed - reserved)
     if reserved == 0:
         raise ApiError(
             429,
@@ -113,6 +129,10 @@ def generate(
             remaining=0,
         )
 
+    def give_back(cards: int) -> None:
+        quota.refund(engine, device_id, day, cards)
+        limits.refund_cards(ip, day, cards)
+
     started = time.monotonic()
     request = GenerationRequest(
         text=text, mode=body.mode, max_cards=reserved, language=body.language
@@ -120,21 +140,21 @@ def generate(
     try:
         raw = provider.generate(request)
     except ProviderBusy as e:
-        quota.refund(engine, device_id, day, reserved)
+        give_back(reserved)
         log.warning("ai busy", extra={"reason": str(e)})
         raise ApiError(503, "ai_busy", "AI is busy, try again later.") from e
     except ProviderFailed as e:
-        quota.refund(engine, device_id, day, reserved)
+        give_back(reserved)
         log.error("ai failed", extra={"reason": str(e)})
         raise ApiError(
             502, "ai_failed", "The AI couldn't make cards this time. Please try again."
         ) from e
     except Exception:
-        quota.refund(engine, device_id, day, reserved)
+        give_back(reserved)
         raise
 
     cards = clean_cards(raw, reserved)
-    quota.refund(engine, device_id, day, reserved - len(cards))
+    give_back(reserved - len(cards))
     left = quota.remaining(engine, device_id, day, daily)
     log.info(
         "generated",

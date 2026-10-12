@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     llm_provider: Literal["gemini", "fake"] = "gemini"
 
     daily_card_quota: int = 50
+    # Per network address (see app/abuse.py): stops one machine inventing device ids.
+    ip_daily_card_quota: int = 200
+    ip_requests_per_minute: int = 30
+    # API docs (/docs, /redoc, /openapi.json). Off in production; set ENABLE_DOCS=true locally.
+    enable_docs: bool = False
     max_input_chars: int = 15_000
     max_cards_per_request: int = 30
     max_topic_chars: int = 200

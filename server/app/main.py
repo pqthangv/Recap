@@ -20,7 +20,15 @@ setup_logging(settings.log_level)
 # ephemeral and nothing is stored. BodySizeLimit caps the upload size first.
 MultiPartParser.spool_max_size = settings.max_pdf_bytes + 1
 
-app = FastAPI(title="Recap API", version="1.0.0")
+# No public API docs in production (ENABLE_DOCS=true turns them on locally).
+docs = settings.enable_docs
+app = FastAPI(
+    title="Recap API",
+    version="1.0.0",
+    docs_url="/docs" if docs else None,
+    redoc_url="/redoc" if docs else None,
+    openapi_url="/openapi.json" if docs else None,
+)
 app.add_exception_handler(ApiError, api_error_handler)
 app.add_exception_handler(RequestValidationError, validation_error_handler)
 app.add_middleware(

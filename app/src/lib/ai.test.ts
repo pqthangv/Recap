@@ -103,6 +103,12 @@ describe('errorFromResponse', () => {
       message: 'Something went wrong on our side. Please try again later.',
     });
     expect(errorFromResponse(502, null).kind).toBe('server');
+    expect(
+      errorFromResponse(429, { error: 'rate_limited', message: 'Wait a minute.' }),
+    ).toMatchObject({ kind: 'busy', message: 'Wait a minute.' });
+    expect(
+      errorFromResponse(429, { error: 'ip_quota_exceeded', message: 'More tomorrow!' }).kind,
+    ).toBe('quota');
   });
 });
 

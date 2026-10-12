@@ -14,6 +14,13 @@ they stay on the phone.
 Errors are always `{"error": <code>, "message": <friendly text>}`, e.g. `quota_exceeded` (429),
 `ai_busy` (503, after 3 tries with backoff), `too_long` (413), `pdf_no_text` (422).
 
+**Abuse limits.** Besides the per-device quota (the phone makes its own id, so it can't stop a
+script on its own), each network address gets at most `IP_DAILY_CARD_QUOTA` cards a day and
+`IP_REQUESTS_PER_MINUTE` requests a minute (`rate_limited`, `ip_quota_exceeded`). The address comes
+from Cloudflare's `CF-Connecting-IP` on Render (callers can't fake it); limits are in memory and
+reset on restart. API docs (`/docs`, `/openapi.json`) are off unless `ENABLE_DOCS=true`. Later
+(Phase 5), `verify_app` in `app/api.py` will check Google Play Integrity tokens.
+
 ## Run it locally (Windows)
 
 ```powershell

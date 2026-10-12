@@ -4,17 +4,28 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 
 import { Button } from '@/components/Button';
 import { countCards } from '@/db/cards';
-import { createDeck, deleteDeck, getDeck, updateDeck } from '@/db/decks';
+import { createDeck, deleteDeck, getDeck, listDecks, updateDeck } from '@/db/decks';
+import { childDeckName } from '@/lib/deckGroups';
 import { plural } from '@/lib/format';
 import { colors, deckColors, radius, touchTarget } from '@/lib/theme';
 
-/** New deck, or edit an existing one when opened with `?id=`. */
+/**
+ * New deck, or edit an existing one when opened with `?id=`. With `?parent=` the new deck goes
+ * inside that deck or group ("SAT" → "SAT › Week 1") and starts with the parent's color.
+ */
 export default function DeckFormScreen() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const { id, parent } = useLocalSearchParams<{ id?: string; parent?: string }>();
   const router = useRouter();
   const [existing] = useState(() => (id ? getDeck(id) : undefined));
+  const inside = !existing && parent?.trim() ? parent.trim() : null;
   const [name, setName] = useState(existing?.name ?? '');
-  const [color, setColor] = useState<string>(existing?.color ?? deckColors[0]);
+  const [color, setColor] = useState<string>(
+    () =>
+      existing?.color ??
+      (inside &&
+        listDecks().find((d) => d.name.trim().toLowerCase() === inside.toLowerCase())?.color) ??
+      deckColors[0],
+  );
   const canSave = name.trim().length > 0;
 
   const save = () => {
@@ -23,7 +34,7 @@ export default function DeckFormScreen() {
       updateDeck(existing.id, { name, color });
       router.back();
     } else {
-      const deck = createDeck({ name, color });
+      const deck = createDeck({ name: inside ? childDeckName(inside, name) : name, color });
       router.replace({ pathname: '/deck/[id]', params: { id: deck.id } });
     }
   };
@@ -51,11 +62,12 @@ export default function DeckFormScreen() {
   return (
     <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
       <Stack.Screen options={{ title: existing ? 'Edit deck' : 'New deck' }} />
+      {inside ? <Text style={styles.inside}>Inside “{inside}”</Text> : null}
       <Text style={styles.label}>Name</Text>
       <TextInput
         value={name}
         onChangeText={setName}
-        placeholder="e.g. Biology"
+        placeholder={inside ? 'e.g. Week 1' : 'e.g. Biology'}
         placeholderTextColor={colors.muted}
         accessibilityLabel="Deck name"
         autoFocus={!existing}
@@ -90,6 +102,7 @@ export default function DeckFormScreen() {
 const styles = StyleSheet.create({
   content: { padding: 20, gap: 8 },
   label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
+  inside: { fontSize: 16, color: colors.text },
   input: {
     minHeight: touchTarget,
     borderRadius: radius.button,

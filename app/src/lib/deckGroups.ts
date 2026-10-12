@@ -106,3 +106,8 @@ export function sortDecks<D extends { color: string }>(decks: readonly D[], by: 
   if (by === 'name') return [...decks];
   return [...decks].sort((a, b) => colorRank(a.color) - colorRank(b.color));
 }
+
+/** Name for a deck inside another: ("SAT", "Week 1") → "SAT › Week 1". */
+export function childDeckName(parent: string, name: string): string {
+  return `${parent.trim()}${DECK_PATH_SEPARATOR}${name.trim()}`;
+}

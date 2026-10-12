@@ -46,6 +46,8 @@ const SERVER = 'Something went wrong on our side. Please try again later.';
 
 const KIND_BY_CODE: Record<string, AiErrorKind> = {
   quota_exceeded: 'quota',
+  ip_quota_exceeded: 'quota',
+  rate_limited: 'busy',
   ai_busy: 'busy',
   too_long: 'input',
   too_large: 'input',

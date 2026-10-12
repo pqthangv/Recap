@@ -26,3 +26,7 @@ services:
         value: "50"
       - key: MAX_INPUT_CHARS
         value: "15000"
+      - key: IP_DAILY_CARD_QUOTA # per network address (stops invented device ids)
+        value: "200"
+      - key: IP_REQUESTS_PER_MINUTE
+        value: "30"

@@ -1,4 +1,5 @@
 import {
+  childDeckName,
   colorRank,
   decksInGroup,
   groupColor,
@@ -103,5 +104,18 @@ describe('sorting decks by color', () => {
   it('uses the group-named deck for the group color', () => {
     expect(groupColor([d('SAT › A', RED), d('SAT', GREEN)])).toBe(GREEN);
     expect(groupColor([d('SAT › A', RED), d('SAT › B', GREEN)])).toBe(RED);
+  });
+});
+
+describe('decks inside decks', () => {
+  it('names a deck inside another so it joins that group', () => {
+    expect(childDeckName(' Biology ', ' Cells ')).toBe('Biology › Cells');
+    expect(childDeckName('SAT › Archaic', 'Old words')).toBe('SAT › Archaic › Old words');
+    const decks = [
+      { id: '1', name: 'Biology', color: '#000' },
+      { id: '2', name: childDeckName('Biology', 'Cells'), color: '#000' },
+    ];
+    expect(groupDecks(decks)).toMatchObject([{ kind: 'group', name: 'Biology' }]);
+    expect(nameInGroup(decks[1].name)).toBe('Cells');
   });
 });

@@ -2,6 +2,7 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
+import { Fab } from '@/components/Fab';
 import { countCards } from '@/db/cards';
 import { deleteDecks, listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
@@ -92,13 +93,17 @@ export default function DeckGroupScreen() {
           />
         }
       />
+      <Fab
+        accessibilityLabel={`New deck in ${name}`}
+        onPress={() => router.push({ pathname: '/deck/edit', params: { parent: name } })}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
-  list: { paddingHorizontal: 20, paddingBottom: 48 },
+  list: { paddingHorizontal: 20, paddingBottom: 120 },
   header: { gap: 12, paddingTop: 8 },
   section: { marginTop: 12, marginBottom: 4, fontSize: 15, fontWeight: '600', color: colors.muted },
   delete: { marginTop: 32 },

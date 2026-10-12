@@ -12,7 +12,7 @@ import type { AiSource } from '@/lib/aiReview';
  */
 export const API_URL =
   process.env.EXPO_PUBLIC_API_URL ??
-  (__DEV__ ? 'http://10.0.2.2:8000' : 'https://recap-api.onrender.com');
+  (__DEV__ ? 'http://10.0.2.2:8000' : 'https://recap-api-ictj.onrender.com');
 
 export const ai = createAiClient({ baseUrl: API_URL, deviceId: () => getDeviceId() });
 
