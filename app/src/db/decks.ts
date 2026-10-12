@@ -1,4 +1,4 @@
-import { and, asc, eq, isNull, sql } from 'drizzle-orm';
+import { and, asc, eq, inArray, isNull, sql } from 'drizzle-orm';
 
 import { newId } from '@/lib/id';
 
@@ -49,11 +49,20 @@ export function updateDeck(id: string, input: DeckInput, now = Date.now()): void
 
 /** Soft-deletes the deck and all its cards (the UI asks for confirmation first). */
 export function deleteDeck(id: string, now = Date.now()): void {
+  deleteDecks([id], now);
+}
+
+/** Soft-deletes several decks (a deck group) and their cards, all at once. */
+export function deleteDecks(ids: readonly string[], now = Date.now()): void {
+  if (ids.length === 0) return;
   transaction(() => {
-    db.update(decks).set({ deleted_at: now, updated_at: now }).where(eq(decks.id, id)).run();
+    db.update(decks)
+      .set({ deleted_at: now, updated_at: now })
+      .where(inArray(decks.id, [...ids]))
+      .run();
     db.update(cards)
       .set({ deleted_at: now, updated_at: now })
-      .where(and(eq(cards.deck_id, id), isNull(cards.deleted_at)))
+      .where(and(inArray(cards.deck_id, [...ids]), isNull(cards.deleted_at)))
       .run();
   });
 }

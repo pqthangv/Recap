@@ -51,6 +51,7 @@ const CARD_SPEC = {
   front: 'string',
   back: 'string',
   image_uri: 'string?',
+  image_side: 'string?',
   tags: 'tags',
   reverse_of: 'string?',
   due: 'number',

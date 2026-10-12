@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import { useState, type ReactNode } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { showSnackbar } from '@/components/Snackbar';
@@ -13,6 +13,7 @@ import { resetDeckSchedule } from '@/db/study';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { requestReminderPermission, syncReminders } from '@/features/reminders/reminders';
 import { BackupError } from '@/lib/backup';
+import { CONTACT_EMAIL } from '@/lib/contact';
 import { formatTimeOfDay, plural } from '@/lib/format';
 import { MAX_RETENTION, MIN_RETENTION } from '@/lib/scheduler';
 import { NEW_PER_DAY_MAX } from '@/lib/settings';
@@ -107,6 +108,18 @@ export default function SettingsScreen() {
       <Text style={styles.footer}>
         Recap {Constants.expoConfig?.version ?? ''} · Free forever. Your cards stay on this phone.
       </Text>
+      <Pressable
+        accessibilityRole="link"
+        accessibilityLabel={`Email ${CONTACT_EMAIL}`}
+        onPress={() =>
+          Linking.openURL(`mailto:${CONTACT_EMAIL}?subject=Recap%20feedback`).catch(() =>
+            Alert.alert('Contact us', CONTACT_EMAIL),
+          )
+        }
+        style={styles.contact}
+      >
+        <Text style={styles.contactText}>Questions or feedback? {CONTACT_EMAIL}</Text>
+      </Pressable>
     </ScrollView>
   );
 }
@@ -231,4 +244,6 @@ const styles = StyleSheet.create({
   deckName: { flex: 1, fontSize: 16, color: colors.text },
   resetText: { fontSize: 15, color: colors.danger, fontWeight: '600' },
   footer: { marginTop: 16, fontSize: 13, color: colors.muted, textAlign: 'center' },
+  contact: { minHeight: touchTarget, justifyContent: 'center' },
+  contactText: { fontSize: 13, color: colors.primary, textAlign: 'center' },
 });

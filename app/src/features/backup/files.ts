@@ -45,6 +45,12 @@ export async function pickAndImportBackup(): Promise<ImportResult | null> {
     copyToCacheDirectory: true,
   });
   if (picked.canceled || picked.assets.length === 0) return null;
-  const text = await new File(picked.assets[0].uri).text();
+  const file = new File(picked.assets[0].uri);
+  const text = await file.text();
+  try {
+    file.delete(); // the picker's copy in the cache isn't needed any more
+  } catch (e) {
+    console.warn(e);
+  }
   return importBackup(parseBackup(text));
 }

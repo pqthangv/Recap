@@ -1,8 +1,11 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
+import { listDecks } from '@/db/decks';
+import { decksInGroup } from '@/lib/deckGroups';
 import { plural } from '@/lib/format';
 import { colors } from '@/lib/theme';
 
@@ -11,10 +14,14 @@ import { GradeButtons } from './GradeButtons';
 import { useStudySession } from './useStudySession';
 
 export default function StudyScreen() {
-  const { deckId } = useLocalSearchParams<{ deckId?: string }>();
+  const { deckId, group } = useLocalSearchParams<{ deckId?: string; group?: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const session = useStudySession(deckId);
+  // A deck group is studied as the decks it has when the session starts.
+  const [scope] = useState(() =>
+    group ? decksInGroup(listDecks(), group).map((d) => d.id) : deckId,
+  );
+  const session = useStudySession(scope);
   const { card, previews } = session;
 
   return (
@@ -43,6 +50,8 @@ export default function StudyScreen() {
             flipped={session.revealed}
             onFlip={session.flip}
             autoRead={session.readAloud}
+            imageUri={card.image_uri}
+            imageSide={card.image_side}
           />
           <View style={styles.actions}>
             {previews ? (

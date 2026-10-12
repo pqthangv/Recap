@@ -31,6 +31,7 @@ export function AddMenu({ visible, hasDecks, onClose }: Props) {
           disabled={!hasDecks}
           onPress={() => go('/card/edit')}
         />
+        <Option label="Import cards" onPress={() => go('/import')} />
         <Option label="Create with AI" hint="Coming soon" disabled onPress={onClose} />
         <Option label="Cancel" onPress={onClose} muted />
       </View>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useReducedMotion,
@@ -18,10 +18,23 @@ type Props = {
   onFlip: () => void;
   /** Read the front aloud when the card appears and the back when it is flipped. */
   autoRead: boolean;
+  /** Optional picture, shown on the side it belongs to (question pictures stay visible on the answer side). */
+  imageUri?: string | null;
+  imageSide?: 'front' | 'back' | null;
 };
 
 /** The card. Tap to turn it over. Mount it with a new `key` for each card so it starts face-down. */
-export function FlipCard({ front, back, flipped, onFlip, autoRead }: Props) {
+export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, imageSide }: Props) {
+  const picture = (small = false) =>
+    imageUri ? (
+      <Image
+        source={{ uri: imageUri }}
+        style={[styles.picture, small && styles.pictureSmall]}
+        resizeMode="contain"
+        accessibilityIgnoresInvertColors
+      />
+    ) : null;
+  const onFront = imageSide !== 'back';
   const reduceMotion = useReducedMotion();
   const rotation = useSharedValue(0);
 
@@ -64,6 +77,7 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead }: Props) {
           importantForAccessibility="no-hide-descendants"
         >
           <ScrollView contentContainerStyle={styles.faceContent}>
+            {onFront ? picture() : null}
             <Text style={styles.frontText}>{front}</Text>
             <Text style={styles.tapHint}>Tap to show answer</Text>
           </ScrollView>
@@ -74,9 +88,11 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead }: Props) {
           importantForAccessibility="no-hide-descendants"
         >
           <ScrollView contentContainerStyle={styles.faceContent}>
+            {onFront ? picture(true) : null}
             <Text style={styles.frontSmall}>{front}</Text>
             <View style={styles.divider} />
             <Text style={styles.backText}>{back}</Text>
+            {onFront ? null : picture()}
           </ScrollView>
         </Animated.View>
       </Pressable>
@@ -94,6 +110,8 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  picture: { width: '100%', height: 200, marginBottom: 16, borderRadius: radius.button },
+  pictureSmall: { height: 120 },
   speaker: {
     position: 'absolute',
     top: 12,

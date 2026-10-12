@@ -1,0 +1,133 @@
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { Button } from '@/components/Button';
+import { listDecks } from '@/db/decks';
+import { importCards, type ImportTarget } from '@/db/import';
+import { useLive } from '@/db/live';
+import { plural } from '@/lib/format';
+import { guessColumns, tableToCards, type ColumnChoice } from '@/lib/import/csv';
+import { colors } from '@/lib/theme';
+
+import { Chip, DeckTarget } from './DeckTarget';
+import { baseName, useImportDraft, type TableDraft } from './files';
+import { CardPreview, defaultTarget, targetIsValid, useFinishImport } from './shared';
+
+export default function CsvImportScreen() {
+  const router = useRouter();
+  const draft = useImportDraft((s) => s.table);
+  if (!draft) {
+    return (
+      <View style={styles.content}>
+        <Text style={styles.help}>Choose a file to import first.</Text>
+        <Button label="Back" onPress={() => router.back()} />
+      </View>
+    );
+  }
+  return <CsvImport fileName={draft.fileName} table={draft.table} />;
+}
+
+function CsvImport({ fileName, table }: TableDraft) {
+  const decks = useLive(listDecks, ['decks']);
+  const finish = useFinishImport();
+  const name = baseName(fileName);
+  const [choice, setChoice] = useState<ColumnChoice>(() => guessColumns(table));
+  const [target, setTarget] = useState<ImportTarget>(() =>
+    defaultTarget(name, guessColumns(table).deck >= 0 ? name : undefined),
+  );
+  const cards = tableToCards(table, choice);
+  const canImport = cards.length > 0 && targetIsValid(target, decks);
+  const set = (key: keyof ColumnChoice, value: number) =>
+    setChoice((c) => ({ ...c, [key]: value }));
+
+  const save = () => {
+    if (canImport) finish(importCards(cards, target));
+  };
+
+  return (
+    <ScrollView contentContainerStyle={styles.content}>
+      <Text style={styles.help}>
+        {fileName} · {plural(table.rows.length, 'row')}
+      </Text>
+      <ColumnPicker
+        label="Front"
+        columns={table.columns}
+        value={choice.front}
+        onChange={(v) => set('front', v)}
+      />
+      <ColumnPicker
+        label="Back"
+        columns={table.columns}
+        value={choice.back}
+        onChange={(v) => set('back', v)}
+      />
+      {table.columns.length > 2 ? (
+        <ColumnPicker
+          label="Tags (optional)"
+          columns={table.columns}
+          value={choice.tags}
+          onChange={(v) => set('tags', v)}
+          allowNone
+        />
+      ) : null}
+      {choice.front === choice.back ? (
+        <Text style={styles.warning}>Front and back need different columns.</Text>
+      ) : null}
+      <CardPreview cards={cards.slice(0, 10)} total={cards.length} />
+      <DeckTarget
+        value={target}
+        onChange={setTarget}
+        decks={decks}
+        suggestedName={name}
+        fromFile={
+          choice.deck >= 0
+            ? { label: `Decks from the "${table.columns[choice.deck]}" column`, fallbackName: name }
+            : undefined
+        }
+      />
+      <Button
+        size="lg"
+        label={cards.length > 0 ? `Import ${plural(cards.length, 'card')}` : 'Import'}
+        onPress={save}
+        disabled={!canImport}
+      />
+    </ScrollView>
+  );
+}
+
+function ColumnPicker(props: {
+  label: string;
+  columns: string[];
+  value: number;
+  onChange: (index: number) => void;
+  allowNone?: boolean;
+}) {
+  return (
+    <View style={styles.picker}>
+      <Text style={styles.label}>{props.label}</Text>
+      <View style={styles.chips} accessibilityRole="radiogroup" accessibilityLabel={props.label}>
+        {props.allowNone ? (
+          <Chip label="None" selected={props.value === -1} onPress={() => props.onChange(-1)} />
+        ) : null}
+        {props.columns.map((col, i) => (
+          <Chip
+            key={i}
+            label={col}
+            selected={props.value === i}
+            onPress={() => props.onChange(i)}
+          />
+        ))}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  content: { padding: 20, gap: 16, paddingBottom: 48 },
+  help: { fontSize: 15, color: colors.muted },
+  picker: { gap: 8 },
+  label: { fontSize: 15, fontWeight: '600', color: colors.muted },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  warning: { fontSize: 15, color: colors.danger },
+});

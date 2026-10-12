@@ -19,12 +19,14 @@ export type CardInput = {
 const live = isNull(cards.deleted_at);
 
 function buildCard(
-  fields: Pick<CardRow, 'deck_id' | 'front' | 'back' | 'tags' | 'reverse_of'>,
+  fields: Pick<CardRow, 'deck_id' | 'front' | 'back' | 'tags' | 'reverse_of'> &
+    Partial<Pick<CardRow, 'image_uri' | 'image_side'>>,
   now: number,
 ): CardRow {
   return {
     id: newId(),
     image_uri: null,
+    image_side: null,
     ...fields,
     ...newCard(now),
     created_at: now,
@@ -60,6 +62,9 @@ function reverseOf(card: CardRow, now: number): CardRow {
       back: card.front,
       tags: card.tags,
       reverse_of: card.id,
+      // A picture stays with its text, so it moves to the other side on the reverse card.
+      image_uri: card.image_uri,
+      image_side: card.image_uri ? (card.image_side === 'back' ? 'front' : 'back') : null,
     },
     now,
   );
@@ -146,11 +151,14 @@ export function restoreCards(ids: string[], now = Date.now()): void {
   db.update(cards).set({ deleted_at: null, updated_at: now }).where(inArray(cards.id, ids)).run();
 }
 
-export function countCards(deckId: string): number {
+/** Cards in one deck, or in several (a deck group). */
+export function countCards(deckIds: string | readonly string[]): number {
+  const ids = typeof deckIds === 'string' ? [deckIds] : [...deckIds];
+  if (ids.length === 0) return 0;
   const row = db
     .select({ n: sql<number>`count(*)` })
     .from(cards)
-    .where(and(eq(cards.deck_id, deckId), live))
+    .where(and(inArray(cards.deck_id, ids), live))
     .get();
   return row?.n ?? 0;
 }

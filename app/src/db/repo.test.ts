@@ -1,8 +1,15 @@
 import { clearTestDb, migrateTestDb, rawQuery } from '../../test/db';
 
 import { exportBackup, exportCardsCsv, importBackup } from './backup';
-import { createCard, deleteCards, getCardForEdit, restoreCards, updateCard } from './cards';
-import { createDeck, deleteDeck, listDecks } from './decks';
+import {
+  countCards,
+  createCard,
+  deleteCards,
+  getCardForEdit,
+  restoreCards,
+  updateCard,
+} from './cards';
+import { createDeck, deleteDeck, deleteDecks, listDecks } from './decks';
 import { setSetting } from './settings';
 import { getStats } from './stats';
 import {
@@ -273,5 +280,30 @@ describe('csv export', () => {
     const csv = exportCardsCsv();
     expect(csv.startsWith('﻿deck,front,back,tags,state,')).toBe(true);
     expect(csv).toContain('"Words, ""quoted""","Line 1\nLine 2",Tiếng Việt,"a, b",new,');
+  });
+});
+
+describe('deck groups', () => {
+  it('studies, counts and deletes several decks together', () => {
+    const a = addDeck('SAT › Priority 1');
+    const b = addDeck('SAT › Priority 2');
+    const other = addDeck('Biology');
+    addCards(a.id, 2);
+    addCards(b.id, 3);
+    addCards(other.id, 4);
+
+    const queue = getDueQueue([a.id, b.id], NOW);
+    expect(queue).toHaveLength(5);
+    expect(new Set(queue.map((c) => c.deck_id))).toEqual(new Set([a.id, b.id]));
+    expect(getDueQueue([], NOW)).toEqual([]);
+    expect(countCards([a.id, b.id])).toBe(5);
+
+    deleteDecks([a.id, b.id], NOW + 1);
+    expect(listDecks().map((d) => d.name)).toEqual(['Biology']);
+    expect(getDueQueue(undefined, NOW + 2).every((c) => c.deck_id === other.id)).toBe(true);
+    // Soft deletes: the rows stay (with a tombstone) so the delete can sync.
+    expect(rawQuery('SELECT count(*) AS n FROM cards WHERE deleted_at = ?', NOW + 1)).toEqual([
+      { n: 5 },
+    ]);
   });
 });

@@ -31,6 +31,8 @@ export const cards = sqliteTable(
     front: text('front').notNull(),
     back: text('back').notNull(),
     image_uri: text('image_uri'),
+    // Which side shows the picture (imported decks can have it on either side).
+    image_side: text('image_side').$type<'front' | 'back'>(),
     tags: text('tags', { mode: 'json' })
       .$type<string[]>()
       .notNull()

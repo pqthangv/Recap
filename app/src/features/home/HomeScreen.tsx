@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import logo from '@/assets/images/splash-icon.png';
@@ -8,10 +8,11 @@ import { Button } from '@/components/Button';
 import { Fab } from '@/components/Fab';
 import { listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
-import type { Deck } from '@/db/schema';
-import { getStudyCounts, type DeckCounts } from '@/db/study';
+import { getStudyCounts } from '@/db/study';
+import { DeckRow } from '@/features/deck/DeckRow';
+import { groupCounts, groupDecks } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { colors } from '@/lib/theme';
 
 import { AddMenu } from './AddMenu';
 
@@ -19,6 +20,8 @@ export default function HomeScreen() {
   const router = useRouter();
   const counts = useLive(() => getStudyCounts(), ['cards', 'decks', 'review_logs', 'settings']);
   const decks = useLive(listDecks, ['decks']);
+  // Sub-decks ("SAT › Priority 1", "SAT › Priority 2") show as one "SAT" group.
+  const items = groupDecks(decks);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -35,8 +38,8 @@ export default function HomeScreen() {
       </View>
 
       <FlatList
-        data={decks}
-        keyExtractor={(d) => d.id}
+        data={items}
+        keyExtractor={(item) => (item.kind === 'deck' ? item.deck.id : `group:${item.name}`)}
         contentContainerStyle={styles.list}
         ListHeaderComponent={
           <View style={styles.hero}>
@@ -56,13 +59,27 @@ export default function HomeScreen() {
             ) : null}
           </View>
         }
-        renderItem={({ item }) => (
-          <DeckRow
-            deck={item}
-            counts={counts.byDeck[item.id]}
-            onPress={() => router.push({ pathname: '/deck/[id]', params: { id: item.id } })}
-          />
-        )}
+        renderItem={({ item }) =>
+          item.kind === 'deck' ? (
+            <DeckRow
+              name={item.deck.name}
+              color={item.deck.color}
+              counts={counts.byDeck[item.deck.id]}
+              onPress={() => router.push({ pathname: '/deck/[id]', params: { id: item.deck.id } })}
+            />
+          ) : (
+            <DeckRow
+              name={item.name}
+              color={item.decks[0].color}
+              counts={groupCounts(item.decks, counts.byDeck, counts.new)}
+              detail={`${item.decks.length} decks`}
+              stacked
+              onPress={() =>
+                router.push({ pathname: '/group/[name]', params: { name: item.name } })
+              }
+            />
+          )
+        }
         ListEmptyComponent={
           <Text style={styles.empty}>No decks yet. Tap + to make your first one.</Text>
         }
@@ -71,34 +88,6 @@ export default function HomeScreen() {
       <Fab accessibilityLabel="Add a deck or card" onPress={() => setMenuOpen(true)} />
       <AddMenu visible={menuOpen} hasDecks={decks.length > 0} onClose={() => setMenuOpen(false)} />
     </SafeAreaView>
-  );
-}
-
-function DeckRow({
-  deck,
-  counts = { due: 0, new: 0 },
-  onPress,
-}: {
-  deck: Deck;
-  counts?: DeckCounts;
-  onPress: () => void;
-}) {
-  const summary =
-    counts.due + counts.new === 0 ? 'Nothing due' : `${counts.due} due · ${counts.new} new`;
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${deck.name}, ${summary}`}
-      onPress={onPress}
-      style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
-    >
-      <View style={[styles.dot, { backgroundColor: deck.color }]} />
-      <View style={styles.rowText}>
-        <Text style={styles.deckName}>{deck.name}</Text>
-        <Text style={styles.deckCounts}>{summary}</Text>
-      </View>
-      <Text style={styles.chevron}>›</Text>
-    </Pressable>
   );
 }
 
@@ -119,20 +108,4 @@ const styles = StyleSheet.create({
   caught: { color: colors.muted, fontSize: 15, textAlign: 'center' },
   section: { marginTop: 20, marginBottom: 4, fontSize: 15, fontWeight: '600', color: colors.muted },
   empty: { marginTop: 48, color: colors.muted, fontSize: 16, textAlign: 'center' },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    minHeight: touchTarget + 16,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    marginHorizontal: -12,
-    borderRadius: radius.button,
-    gap: 14,
-  },
-  rowPressed: { backgroundColor: colors.surface },
-  dot: { width: 14, height: 14, borderRadius: 7 },
-  rowText: { flex: 1 },
-  deckName: { fontSize: 17, fontWeight: '600', color: colors.text },
-  deckCounts: { fontSize: 14, color: colors.muted, marginTop: 2 },
-  chevron: { fontSize: 26, color: colors.muted },
 });

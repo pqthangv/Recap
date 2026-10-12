@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { getCard } from '@/db/cards';
 import type { CardRow } from '@/db/schema';
 import { getSettings } from '@/db/settings';
-import { answerCard, getDueQueue, undoAnswer } from '@/db/study';
+import { answerCard, getDueQueue, undoAnswer, type StudyScope } from '@/db/study';
 import { countReadyNow, previewIntervals, type Grade, type Preview } from '@/lib/scheduler';
 
 /** Answer times above this are treated as "walked away" so they don't skew stats. */
@@ -16,9 +16,9 @@ type Answered = { before: CardRow; logId: string };
  * One study session. The queue is rebuilt after every answer, so cards you forget come back
  * and the daily new-card limit stays exact.
  */
-export function useStudySession(deckId: string | undefined) {
+export function useStudySession(scope: StudyScope) {
   const [settings] = useState(getSettings);
-  const [queue, setQueue] = useState(() => getDueQueue(deckId));
+  const [queue, setQueue] = useState(() => getDueQueue(scope));
   const [shownAt, setShownAt] = useState(() => Date.now());
   const [ready, setReady] = useState(() => countReadyNow(queue, shownAt));
   // Changes every time a card is put on screen, so the card view starts face-down.
@@ -55,7 +55,7 @@ export function useStudySession(deckId: string | undefined) {
       now,
     );
     setHistory((h) => [...h, { before: card, logId }]);
-    show(getDueQueue(deckId));
+    show(getDueQueue(scope));
   };
 
   const undo = () => {
@@ -64,7 +64,7 @@ export function useStudySession(deckId: string | undefined) {
     undoAnswer(last.before, last.logId);
     setHistory((h) => h.slice(0, -1));
     const restored = getCard(last.before.id);
-    const rest = getDueQueue(deckId).filter((c) => c.id !== last.before.id);
+    const rest = getDueQueue(scope).filter((c) => c.id !== last.before.id);
     show(restored ? [restored, ...rest] : rest);
   };
 

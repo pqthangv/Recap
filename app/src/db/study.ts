@@ -23,7 +23,15 @@ import { transaction } from './transaction';
 
 const liveDeckIds = db.select({ id: decks.id }).from(decks).where(isNull(decks.deleted_at));
 const liveCard = and(isNull(cards.deleted_at), inArray(cards.deck_id, liveDeckIds));
-const inDeck = (deckId?: string) => (deckId ? eq(cards.deck_id, deckId) : undefined);
+/** What to study: one deck id, several (a deck group), or undefined for all decks. */
+export type StudyScope = string | readonly string[] | undefined;
+
+const inScope = (scope: StudyScope) =>
+  scope === undefined
+    ? undefined
+    : typeof scope === 'string'
+      ? eq(cards.deck_id, scope)
+      : inArray(cards.deck_id, [...scope]);
 
 /** New cards introduced (answered for the first time) during the current study day. */
 export function getNewDoneToday(now: number): number {
@@ -48,22 +56,23 @@ export function getLimits(now: number): QueueLimits {
 
 const queueColumns = { id: cards.id, state: cards.state, due: cards.due };
 
-/** The cards to study next, in order. `deckId` limits it to one deck. */
-export function getDueQueue(deckId: string | undefined, now = Date.now()): CardRow[] {
+/** The cards to study next, in order. `scope` limits it to one deck or a group of decks. */
+export function getDueQueue(scope: StudyScope, now = Date.now()): CardRow[] {
+  if (Array.isArray(scope) && scope.length === 0) return [];
   const limits = getLimits(now);
   // Order using just id/state/due (new cards are shuffled across the whole deck, so all of them
   // are candidates), then load the full rows for the cards that made the queue.
   const due = db
     .select(queueColumns)
     .from(cards)
-    .where(and(liveCard, inDeck(deckId), ne(cards.state, State.New), lt(cards.due, dueCutoff(now))))
+    .where(and(liveCard, inScope(scope), ne(cards.state, State.New), lt(cards.due, dueCutoff(now))))
     .all();
   const fresh =
     newCardsRemaining(limits) > 0
       ? db
           .select(queueColumns)
           .from(cards)
-          .where(and(liveCard, inDeck(deckId), eq(cards.state, State.New)))
+          .where(and(liveCard, inScope(scope), eq(cards.state, State.New)))
           .all()
       : [];
   const order = buildQueue([...due, ...fresh], limits, now).map((c) => c.id);

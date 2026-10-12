@@ -63,11 +63,16 @@ export default function RootLayout() {
       >
         <Stack.Screen name="index" options={{ headerShown: false, title: 'Home' }} />
         <Stack.Screen name="deck/[id]" options={{ title: '' }} />
+        <Stack.Screen name="group/[name]" options={{ title: '' }} />
         <Stack.Screen name="deck/edit" options={{ presentation: 'modal', title: 'New deck' }} />
         <Stack.Screen name="card/edit" options={{ presentation: 'modal', title: 'Add card' }} />
         <Stack.Screen name="study" options={{ title: 'Study' }} />
         <Stack.Screen name="settings" options={{ title: 'Settings' }} />
         <Stack.Screen name="stats" options={{ title: 'Stats' }} />
+        <Stack.Screen name="import/index" options={{ title: 'Import cards' }} />
+        <Stack.Screen name="import/paste" options={{ title: 'Paste a list' }} />
+        <Stack.Screen name="import/csv" options={{ title: 'Import a file' }} />
+        <Stack.Screen name="import/anki" options={{ title: 'Import an Anki deck' }} />
       </Stack>
       <SnackbarHost />
       <StatusBar style="dark" />

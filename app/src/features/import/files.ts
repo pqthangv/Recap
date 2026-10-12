@@ -1,0 +1,149 @@
+// Files for import: picking them, reading them, and saving Anki pictures into the app.
+import * as DocumentPicker from 'expo-document-picker';
+import { Directory, File, Paths } from 'expo-file-system';
+import { deserializeDatabaseAsync } from 'expo-sqlite';
+import { create } from 'zustand';
+
+import { deletePictures, storePicture } from '@/features/pictures/files';
+import { readAnkiCollection, type AnkiCard } from '@/lib/import/anki';
+import { isImageName, openApkg, type ApkgPackage } from '@/lib/import/apkg';
+import { parseTable, type Table } from '@/lib/import/csv';
+
+export class ImportFileError extends Error {}
+
+export type TableDraft = { fileName: string; table: Table };
+export type AnkiDraft = { fileName: string; uri: string; size: number | undefined };
+
+/** Hands the picked file from the Import screen to the screen that imports it. */
+export const useImportDraft = create<{ table: TableDraft | null; anki: AnkiDraft | null }>(() => ({
+  table: null,
+  anki: null,
+}));
+
+/** "Spanish words.apkg" → "Spanish words" */
+export function baseName(fileName: string): string {
+  return fileName.replace(/\.[^.]+$/, '').trim() || 'Imported cards';
+}
+
+/**
+ * The document picker copies each picked file into the cache and never removes it, so a few big
+ * decks would quietly fill the phone. Copies from earlier imports are deleted before each pick,
+ * and after a deck is imported.
+ */
+export function clearPickedFiles(): void {
+  try {
+    const dir = new Directory(Paths.cache, 'DocumentPicker');
+    if (dir.exists) dir.delete();
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+async function pick(type: string[]) {
+  clearPickedFiles();
+  const picked = await DocumentPicker.getDocumentAsync({ type, copyToCacheDirectory: true });
+  return picked.canceled || picked.assets.length === 0 ? null : picked.assets[0];
+}
+
+/** Pick a CSV/TSV file and parse it. Returns null if the user cancelled. */
+export async function pickTableFile(): Promise<TableDraft | null> {
+  // Android labels CSV files inconsistently, so accept any file and check the name.
+  const asset = await pick(['*/*']);
+  if (!asset) return null;
+  if (/\.(xlsx?|numbers|ods)$/i.test(asset.name)) {
+    throw new ImportFileError(
+      'Save the spreadsheet as CSV first (in Excel: File › Save As › CSV UTF-8), then import that file.',
+    );
+  }
+  const table = parseTable(await new File(asset.uri).text());
+  if (table.rows.length === 0) throw new ImportFileError("That file doesn't have any rows.");
+  if (table.columns.length < 2) {
+    throw new ImportFileError(
+      'That file needs at least two columns: one for the front, one for the back.',
+    );
+  }
+  return { fileName: asset.name, table };
+}
+
+/** Pick an Anki .apkg file. Returns null if the user cancelled. */
+export async function pickAnkiFile(): Promise<AnkiDraft | null> {
+  const asset = await pick(['*/*']);
+  if (!asset) return null;
+  if (!/\.(apkg|colpkg)$/i.test(asset.name)) {
+    throw new ImportFileError('Choose an Anki deck file. Its name ends in .apkg.');
+  }
+  return { fileName: asset.name, uri: asset.uri, size: asset.size };
+}
+
+const MAX_DECK_BYTES = 300 * 1024 * 1024;
+
+export type LoadedAnkiDeck = { cards: AnkiCard[]; skipped: number; pkg: ApkgPackage };
+
+/** Opens the package and reads its cards (the collection database is opened in memory). */
+export async function loadAnkiDeck(draft: AnkiDraft): Promise<LoadedAnkiDeck> {
+  if (draft.size && draft.size > MAX_DECK_BYTES) {
+    throw new ImportFileError(
+      'This deck is too big to open on a phone. In Anki, export it again without sounds, or split it.',
+    );
+  }
+  const pkg = await openApkg(await new File(draft.uri).bytes());
+  const db = await deserializeDatabaseAsync(pkg.collection);
+  try {
+    const result = readAnkiCollection(
+      { all: <T>(sql: string) => db.getAllSync<T>(sql) },
+      baseName(draft.fileName),
+    );
+    return { ...result, pkg };
+  } finally {
+    await db.closeAsync();
+  }
+}
+
+/** Different pictures the cards use (that Recap can show), in order. */
+function pictureNames(cards: readonly AnkiCard[]): string[] {
+  return [
+    ...new Set(cards.flatMap((c) => (c.image && isImageName(c.image.name) ? [c.image.name] : []))),
+  ];
+}
+
+/** How many of the cards' pictures are in the package, and how many it left out. */
+export function pictureCounts(
+  cards: readonly AnkiCard[],
+  pkg: ApkgPackage,
+): { found: number; missing: number } {
+  const names = pictureNames(cards);
+  const found = names.filter((name) => pkg.hasMedia(name)).length;
+  return { found, missing: names.length - found };
+}
+
+/**
+ * Saves the pictures the cards use into the app (shrunk and compressed). Returns file name →
+ * local URI. Only referenced pictures are saved; sounds are skipped (shared decks can carry lots
+ * of audio).
+ */
+export async function copyPictures(
+  cards: readonly AnkiCard[],
+  pkg: ApkgPackage,
+  onProgress: (done: number, total: number) => void,
+): Promise<Map<string, string>> {
+  const names = pictureNames(cards).filter((name) => pkg.hasMedia(name));
+  const uris = new Map<string, string>();
+  try {
+    for (const [i, name] of names.entries()) {
+      onProgress(i, names.length);
+      const bytes = await pkg.readMedia(name);
+      if (bytes) uris.set(name, await storePicture(bytes, name));
+    }
+  } catch (e) {
+    deletePictures(uris.values()); // don't leave half an import behind
+    throw e;
+  }
+  onProgress(names.length, names.length);
+  return uris;
+}
+
+/** Deletes saved pictures that no imported card uses (e.g. every card was already there). */
+export function removeUnusedPictures(copied: Map<string, string>, used: readonly string[]): void {
+  const keep = new Set(used);
+  deletePictures([...copied.values()].filter((uri) => !keep.has(uri)));
+}

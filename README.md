@@ -100,3 +100,7 @@ npm test
 ```
 
 `npm run format` rewrites files with Prettier.
+
+## Contact
+
+Questions, feedback or privacy requests: [recap.flashcards@gmail.com](mailto:recap.flashcards@gmail.com)
