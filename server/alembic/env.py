@@ -6,7 +6,9 @@ from app.db import get_engine
 from app.models import Base
 
 if context.config.config_file_name is not None:
-    fileConfig(context.config.config_file_name)
+    # Keep the app's loggers on: the tests run migrations in the same process (on PostgreSQL in
+    # CI), and fileConfig's default would silence every logger that already exists.
+    fileConfig(context.config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = Base.metadata
 

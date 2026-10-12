@@ -36,8 +36,10 @@ export default function HomeScreen() {
             Recap
           </Text>
         </View>
-        <Button variant="text" label="Statistics" onPress={() => router.push('/stats')} />
-        <Button variant="text" label="Settings" onPress={() => router.push('/settings')} />
+        <View style={styles.links}>
+          <Button variant="text" label="Statistics" onPress={() => router.push('/stats')} />
+          <Button variant="text" label="Settings" onPress={() => router.push('/settings')} />
+        </View>
       </View>
 
       <FlatList
@@ -117,14 +119,17 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
+  // With large system text the links move to a second line instead of covering the title.
   header: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 8,
     paddingTop: 8,
   },
-  brand: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+  brand: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  links: { flexDirection: 'row', marginLeft: 'auto' },
   // The mark without padding (logo-mark.png), about as tall as the word.
   logo: { width: 32, height: 32 },
   // No extra font padding, so the word and the mark center on the same line.

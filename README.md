@@ -80,51 +80,6 @@ to `app/drizzle/` and regenerates `app/src/db/migrations.ts`. Migrations run whe
 How the data is stored (and kept ready for CSV export and future sync) is explained in the
 comments at the top of `app/src/db/schema.ts` and `app/src/lib/backup.ts`.
 
-## Release build (Google Play)
-
-The release build bundles the JavaScript, so it runs with no dev server and talks to the Render
-server. It makes an `.aab` for Google Play and an `.apk` for test phones.
-
-**One-time setup**
-
-1. **CMake 3.31.6** (Android Studio → SDK Manager → SDK Tools → tick "Show Package Details" →
-   CMake 3.31.6). The CMake that ships by default uses a ninja that fails on Windows paths over
-   260 characters ("Filename longer than 260 characters"). `app/plugins/withWindowsLongPathCmake.js`
-   points the build at the newest CMake ≥ 3.31 automatically. (`subst` drive letters don't work:
-   the build mixes the drive letter and the real path.)
-2. **Upload key.** Keep the keystore outside the repo (the repo is public) and back it up. Put its
-   location and passwords in `%USERPROFILE%\.gradle\gradle.properties` (never in the repo):
-
-   ```properties
-   RECAP_UPLOAD_STORE_FILE=C:/Users/<you>/recap-signing/recap-upload.jks
-   RECAP_UPLOAD_KEY_ALIAS=recap-upload
-   RECAP_UPLOAD_STORE_PASSWORD=...
-   RECAP_UPLOAD_KEY_PASSWORD=...
-   ```
-
-   `app/plugins/withReleaseSigning.js` signs release builds with it. Without these lines, release
-   builds fall back to the debug key (fine for the emulator, not for Google Play).
-
-**Build** (from `app/` in PowerShell):
-
-```powershell
-npx expo prebuild --clean --platform android   # only when app.json or plugins changed
-cd android
-.\gradlew.bat bundleRelease assembleRelease    # about 15 minutes the first time
-```
-
-- Google Play: `app/android/app/build/outputs/bundle/release/app-release.aab`
-- Test phones: `app/android/app/build/outputs/apk/release/app-release.apk`
-- Before each Play upload, raise `version` and `android.versionCode` in `app/app.json`.
-
-The development build and the release build are signed with different keys, so one can't be
-installed over the other: uninstall first, which deletes the app's cards on that phone. Save them
-with Settings → Advanced → Export backup and import them again afterwards.
-
-Store listing text, screenshots and the Play Console checklist are kept outside the repo
-(`Desktop\Recap-play-listing\`). iOS builds run on GitHub Actions (`.github/workflows/ios.yml`) and
-Codemagic (`codemagic.yaml`), so no Mac is needed.
-
 ## Checks
 
 Run these from `app/` before committing:
