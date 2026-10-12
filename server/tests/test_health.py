@@ -24,3 +24,12 @@ def test_endpoints_explain_a_missing_database():
         )
     assert response.status_code == 503
     assert response.json()["error"] == "not_configured"
+
+
+def test_privacy_policy_is_public():
+    with TestClient(fastapi_app) as client:
+        response = client.get("/privacy")
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("text/html")
+    assert "Recap privacy policy" in response.text
+    assert "recap.flashcards@gmail.com" in response.text

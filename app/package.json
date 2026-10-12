@@ -20,6 +20,7 @@
     }
   },
   "dependencies": {
+    "@expo/vector-icons": "^15.0.2",
     "drizzle-orm": "^0.45.4",
     "expo": "~57.0.27",
     "expo-constants": "~57.0.21",

@@ -66,3 +66,56 @@ export function deleteDecks(ids: readonly string[], now = Date.now()): void {
       .run();
   });
 }
+
+/** How long deleted decks stay in "Recently deleted" (their tombstones stay for sync). */
+export const RESTORE_DAYS = 30;
+const RESTORE_MS = RESTORE_DAYS * 24 * 60 * 60 * 1000;
+
+export type DeletedDeck = Deck & { deleted_at: number; cards: number };
+
+/** Decks deleted in the last 30 days, newest first, with how many cards went with them. */
+export function listDeletedDecks(now = Date.now()): DeletedDeck[] {
+  const rows = db
+    .select()
+    .from(decks)
+    .where(sql`${decks.deleted_at} >= ${now - RESTORE_MS}`)
+    .orderBy(sql`${decks.deleted_at} desc`, asc(sql`lower(${decks.name})`))
+    .all();
+  return rows.map((deck) => ({
+    ...deck,
+    deleted_at: deck.deleted_at ?? now,
+    // The cards deleted together with the deck (same moment), not ones deleted earlier.
+    cards:
+      db
+        .select({ n: sql<number>`count(*)` })
+        .from(cards)
+        .where(and(eq(cards.deck_id, deck.id), eq(cards.deleted_at, deck.deleted_at ?? -1)))
+        .get()?.n ?? 0,
+  }));
+}
+
+/**
+ * Brings deleted decks back with the cards that were deleted along with them. Cards someone had
+ * deleted on their own before stay deleted.
+ */
+export function restoreDecks(ids: readonly string[], now = Date.now()): void {
+  if (ids.length === 0) return;
+  transaction(() => {
+    const deleted = db
+      .select({ id: decks.id, deleted_at: decks.deleted_at })
+      .from(decks)
+      .where(inArray(decks.id, [...ids]))
+      .all();
+    for (const deck of deleted) {
+      if (deck.deleted_at === null) continue;
+      db.update(cards)
+        .set({ deleted_at: null, updated_at: now })
+        .where(and(eq(cards.deck_id, deck.id), eq(cards.deleted_at, deck.deleted_at)))
+        .run();
+      db.update(decks)
+        .set({ deleted_at: null, updated_at: now })
+        .where(eq(decks.id, deck.id))
+        .run();
+    }
+  });
+}

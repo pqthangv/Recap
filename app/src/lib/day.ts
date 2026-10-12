@@ -1,5 +1,5 @@
 // One definition of "today" for the whole app: the new-card limit, "reviewed today", the streak,
-// the due cutoff and the 7-day forecast all use these functions.
+// the due cutoff and the statistics all use these functions.
 //
 // A study day starts at 4 AM local time, so a late-night session still counts as the same day.
 

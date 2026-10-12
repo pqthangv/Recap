@@ -1,0 +1,1 @@
+ALTER TABLE `review_logs` ADD `goal_met` integer DEFAULT 0 NOT NULL;

@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
 import { decksInGroup } from '@/lib/deckGroups';
-import { plural } from '@/lib/format';
+import { count, plural } from '@/lib/format';
 import { colors } from '@/lib/theme';
 
 import { FlipCard } from './FlipCard';
@@ -28,7 +28,7 @@ export default function StudyScreen() {
     <View style={[styles.screen, { paddingBottom: insets.bottom + 16 }]}>
       <Stack.Screen
         options={{
-          title: card ? `${session.remaining} left` : 'Study',
+          title: card ? `${count(session.remaining)} left` : 'Study',
           headerRight: session.canUndo
             ? () => (
                 <Button

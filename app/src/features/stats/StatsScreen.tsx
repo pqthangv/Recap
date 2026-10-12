@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { FlameIcon } from '@/components/FlameIcon';
 import { useLive } from '@/db/live';
 import { getStats } from '@/db/stats';
-import { plural } from '@/lib/format';
+import { count, formatStudyTime, formatStudyTimeLong, plural } from '@/lib/format';
 import { colors, radius } from '@/lib/theme';
 
 const BAR_MAX_HEIGHT = 140;
@@ -13,50 +15,119 @@ function dayLabel(offset: number, day: number): string {
 }
 
 export default function StatsScreen() {
-  const stats = useLive(() => getStats(), ['review_logs', 'cards', 'decks']);
-  const max = Math.max(1, ...stats.forecast.map((d) => d.count));
+  // Cards, decks and settings change today's new-card goal.
+  const stats = useLive(() => getStats(), ['review_logs', 'cards', 'decks', 'settings']);
+  const { done, goal } = stats.goal;
+  const last = stats.lastWeek.length - 1;
+  const max = Math.max(1, ...stats.lastWeek.map((d) => d.cards));
 
   return (
     <ScrollView contentContainerStyle={styles.content}>
       <View style={styles.tiles}>
-        <Tile label="Reviewed today" value={String(stats.reviewedToday)} />
-        <Tile label="Streak" value={plural(stats.streak, 'day')} />
+        <Tile
+          label="New cards today"
+          value={`${count(done)} / ${count(goal)}`}
+          spoken={`${count(done)} of ${count(goal)}`}
+          detail={
+            stats.goalMetToday
+              ? 'Streak kept today'
+              : goal > 0
+                ? 'Finish them for your streak'
+                : 'Study any card for your streak'
+          }
+        />
+        <Tile
+          label="Streak"
+          value={plural(stats.streak, 'day')}
+          icon={<FlameIcon size={30} lit={stats.streak > 0} />}
+        />
+      </View>
+      <View style={styles.tiles}>
+        <Tile
+          label="Studied today"
+          value={formatStudyTime(stats.timeToday)}
+          spoken={formatStudyTimeLong(stats.timeToday)}
+        />
+        <Tile
+          label="Total time studied"
+          value={formatStudyTime(stats.timeTotal)}
+          spoken={formatStudyTimeLong(stats.timeTotal)}
+        />
       </View>
 
       <Text accessibilityRole="header" style={styles.heading}>
-        Cards due, next 7 days
+        Cards studied, last 7 days
       </Text>
       <View style={styles.chart}>
-        {stats.forecast.map(({ day, count: n }, i) => (
+        {stats.lastWeek.map(({ day, cards: n, newCards }, i) => (
           <View
             key={i}
             style={styles.barColumn}
             accessible
-            accessibilityLabel={`${dayLabel(i, day)}: ${plural(n, 'card')}`}
+            accessibilityLabel={`${dayLabel(i - last, day)}: ${split(n, newCards)}`}
           >
-            <Text style={styles.barValue}>{n}</Text>
+            <Text style={styles.barValue} numberOfLines={1}>
+              {count(n)}
+            </Text>
+            {/* New cards stacked on top of reviews. */}
             <View
               style={[
                 styles.bar,
                 { height: Math.max(4, (n / max) * BAR_MAX_HEIGHT) },
                 n === 0 && styles.barEmpty,
               ]}
-            />
+            >
+              <View style={[styles.barNew, { flex: newCards }]} />
+              <View style={{ flex: n - newCards }} />
+            </View>
             <Text style={styles.barLabel} numberOfLines={1}>
-              {dayLabel(i, day)}
+              {dayLabel(i - last, day)}
             </Text>
           </View>
         ))}
+      </View>
+      <View style={styles.legend} importantForAccessibility="no-hide-descendants">
+        <View style={[styles.swatch, styles.swatchReview]} />
+        <Text style={styles.legendText}>Reviews</Text>
+        <View style={[styles.swatch, styles.barNew]} />
+        <Text style={styles.legendText}>New cards</Text>
       </View>
     </ScrollView>
   );
 }
 
-function Tile({ label, value }: { label: string; value: string }) {
+/** "26 reviews · 8 new" */
+function split(cards: number, newCards: number): string {
+  return `${plural(cards - newCards, 'review')} · ${count(newCards)} new`;
+}
+
+function Tile({
+  label,
+  value,
+  spoken = value,
+  detail,
+  icon,
+}: {
+  label: string;
+  value: string;
+  /** A small line under the label, e.g. "26 reviews · 8 new". */
+  detail?: string;
+  /** How a screen reader says `value`, if different (e.g. "1 hour 5 minutes" for "1 h 5 min"). */
+  spoken?: string;
+  icon?: ReactNode;
+}) {
   return (
-    <View style={styles.tile} accessible accessibilityLabel={`${label}: ${value}`}>
-      <Text style={styles.tileValue}>{value}</Text>
+    <View
+      style={styles.tile}
+      accessible
+      accessibilityLabel={[`${label}: ${spoken}`, detail].filter(Boolean).join('. ')}
+    >
+      <View style={styles.tileTop}>
+        {icon}
+        <Text style={styles.tileValue}>{value}</Text>
+      </View>
       <Text style={styles.tileLabel}>{label}</Text>
+      {detail ? <Text style={styles.tileDetail}>{detail}</Text> : null}
     </View>
   );
 }
@@ -64,14 +135,39 @@ function Tile({ label, value }: { label: string; value: string }) {
 const styles = StyleSheet.create({
   content: { padding: 20, gap: 16 },
   tiles: { flexDirection: 'row', gap: 12 },
-  tile: { flex: 1, backgroundColor: colors.tint, borderRadius: radius.card, padding: 16 },
-  tileValue: { fontSize: 28, fontWeight: '700', color: colors.text },
-  tileLabel: { fontSize: 14, color: colors.muted, marginTop: 4 },
+  tile: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.tint,
+    borderRadius: radius.card,
+    padding: 16,
+  },
+  tileTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  tileValue: {
+    flexShrink: 1,
+    fontSize: 28,
+    fontWeight: '700',
+    color: colors.text,
+    textAlign: 'center',
+  },
+  tileLabel: { fontSize: 14, color: colors.muted, marginTop: 4, textAlign: 'center' },
+  tileDetail: { fontSize: 13, color: colors.muted, marginTop: 2, textAlign: 'center' },
   heading: { fontSize: 17, fontWeight: '600', color: colors.text, marginTop: 8 },
   chart: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
   barColumn: { flex: 1, alignItems: 'center', gap: 6 },
   barValue: { fontSize: 13, color: colors.muted },
-  bar: { alignSelf: 'stretch', backgroundColor: colors.primary, borderRadius: 6 },
+  bar: {
+    alignSelf: 'stretch',
+    backgroundColor: colors.primary,
+    borderRadius: 6,
+    overflow: 'hidden',
+  },
+  barNew: { backgroundColor: colors.chartNew },
   barEmpty: { backgroundColor: colors.hairline },
   barLabel: { fontSize: 13, color: colors.muted },
+  legend: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  swatch: { width: 12, height: 12, borderRadius: 3, marginLeft: 10 },
+  swatchReview: { backgroundColor: colors.primary },
+  legendText: { fontSize: 13, color: colors.muted },
 });

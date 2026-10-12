@@ -183,10 +183,15 @@ export function resetCard(card: SchedulableCard, now: number): ReviewResult {
  * the whole study day it falls on. Learning/relearning steps are minutes, so they use the exact
  * time, plus LEARN_AHEAD_MS so a session can finish its learning cards instead of stopping early.
  * Home counts, deck counts, reminders and the study queue all use this one rule.
+ * `nextDay` is nextDayStart(now): pass it when checking many cards, it's slow to work out.
  */
-export function isDueForStudy(card: Pick<FsrsFields, 'state' | 'due'>, now: number): boolean {
+export function isDueForStudy(
+  card: Pick<FsrsFields, 'state' | 'due'>,
+  now: number,
+  nextDay = nextDayStart(now),
+): boolean {
   if (card.state === State.New) return false;
-  if (card.state === State.Review) return card.due < nextDayStart(now);
+  if (card.state === State.Review) return card.due < nextDay;
   return card.due <= now + LEARN_AHEAD_MS;
 }
 
@@ -251,27 +256,28 @@ export function buildQueue<T extends QueueCard>(cards: T[], limits: QueueLimits,
   const reviews: T[] = [];
   const fresh: T[] = [];
   const learnAhead: T[] = [];
+  const nextDay = nextDayStart(now);
   for (const c of cards) {
     if (c.state === State.New) fresh.push(c);
-    else if (!isDueForStudy(c, now)) continue;
+    else if (!isDueForStudy(c, now, nextDay)) continue;
     else if (c.state === State.Review) reviews.push(c);
     else if (c.due <= now) learningNow.push(c);
     else learnAhead.push(c);
   }
-  const day = dayKey(now);
-  const mix = new Map(cards.map((c) => [c.id, hash(`${day}:${c.id}`)]));
-  const shuffled = (a: T, b: T) =>
-    (mix.get(a.id) ?? 0) - (mix.get(b.id) ?? 0) || a.id.localeCompare(b.id);
   const byDue = (a: T, b: T) => a.due - b.due || a.id.localeCompare(b.id);
   learningNow.sort(byDue);
   learnAhead.sort(byDue);
-  reviews.sort((a, b) => dayStart(a.due) - dayStart(b.due) || shuffled(a, b));
-  fresh.sort(shuffled);
-  return [
-    ...learningNow,
-    ...interleave(reviews, fresh.slice(0, newCardsRemaining(limits))),
-    ...learnAhead,
-  ];
+  // Sort keys are worked out once per card, not in every comparison: with thousands of cards due,
+  // dates and hashes in the comparator made each answer in a 10,000-card deck take half a second.
+  const seed = dayKey(now);
+  const shuffle = (list: T[], dayOf: (c: T) => number) =>
+    list
+      .map((c) => ({ c, day: dayOf(c), mix: hash(`${seed}:${c.id}`) }))
+      .sort((a, b) => a.day - b.day || a.mix - b.mix || a.c.id.localeCompare(b.c.id))
+      .map(({ c }) => c);
+  const reviewsInOrder = shuffle(reviews, (c) => dayStart(c.due));
+  const freshInOrder = shuffle(fresh, () => 0).slice(0, newCardsRemaining(limits));
+  return [...learningNow, ...interleave(reviewsInOrder, freshInOrder), ...learnAhead];
 }
 
 /**

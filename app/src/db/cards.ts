@@ -200,7 +200,7 @@ function escapeLike(term: string): string {
   return term.replace(/[\\%_]/g, (c) => `\\${c}`);
 }
 
-/** Cards in a deck, optionally filtered by text. Returns a query for `useLiveQuery`. */
+/** Cards in a deck, optionally filtered by text. Returns a query (`.all()` runs it). */
 export function deckCardsQuery(deckId: string, search: string) {
   const term = search.trim();
   const pattern = `%${escapeLike(term)}%`;

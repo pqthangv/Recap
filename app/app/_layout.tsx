@@ -10,6 +10,9 @@ import { seedIfNeeded } from '@/features/onboarding/seed';
 import { syncReminders } from '@/features/reminders/reminders';
 import { colors } from '@/lib/theme';
 
+// Last resort if the layout itself crashes (each screen has its own, see ErrorScreen.tsx).
+export { RootErrorBoundary as ErrorBoundary } from '@/components/ErrorScreen';
+
 SplashScreen.preventAutoHideAsync();
 
 type Status = 'loading' | 'ready' | 'error';
@@ -68,7 +71,8 @@ export default function RootLayout() {
         <Stack.Screen name="card/edit" options={{ presentation: 'modal', title: 'Add card' }} />
         <Stack.Screen name="study" options={{ title: 'Study' }} />
         <Stack.Screen name="settings" options={{ title: 'Settings' }} />
-        <Stack.Screen name="stats" options={{ title: 'Stats' }} />
+        <Stack.Screen name="stats" options={{ title: 'Statistics' }} />
+        <Stack.Screen name="deleted" options={{ title: 'Recently deleted' }} />
         <Stack.Screen name="import/index" options={{ title: 'Import cards' }} />
         <Stack.Screen name="import/paste" options={{ title: 'Paste a list' }} />
         <Stack.Screen name="import/csv" options={{ title: 'Import a file' }} />

@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import logo from '@/assets/images/splash-icon.png';
+import logo from '@/assets/images/logo-mark.png';
 import { Button } from '@/components/Button';
 import { Fab } from '@/components/Fab';
-import { listDecks } from '@/db/decks';
+import { listDecks, listDeletedDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
 import { getSettings, setSetting } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
@@ -22,6 +22,7 @@ export default function HomeScreen() {
   const counts = useLive(() => getStudyCounts(), ['cards', 'decks', 'review_logs', 'settings']);
   const decks = useLive(listDecks, ['decks']);
   const sort = useLive(() => getSettings().deckSort, ['settings']);
+  const deletedCount = useLive(() => listDeletedDecks().length, ['decks']);
   // Sub-decks ("SAT › Priority 1", "SAT › Priority 2") show as one "SAT" group.
   const items = sortDeckItems(groupDecks(decks), sort);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,7 +36,7 @@ export default function HomeScreen() {
             Recap
           </Text>
         </View>
-        <Button variant="text" label="Stats" onPress={() => router.push('/stats')} />
+        <Button variant="text" label="Statistics" onPress={() => router.push('/stats')} />
         <Button variant="text" label="Settings" onPress={() => router.push('/settings')} />
       </View>
 
@@ -95,6 +96,17 @@ export default function HomeScreen() {
         ListEmptyComponent={
           <Text style={styles.empty}>No decks yet. Tap + to make your first one.</Text>
         }
+        ListFooterComponent={
+          deletedCount > 0 ? (
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => router.push('/deleted')}
+              style={({ pressed }) => [styles.deletedLink, pressed && styles.sortPressed]}
+            >
+              <Text style={styles.deletedText}>Recently deleted · {deletedCount}</Text>
+            </Pressable>
+          ) : null
+        }
       />
 
       <Fab accessibilityLabel="Add a deck or card" onPress={() => setMenuOpen(true)} />
@@ -112,9 +124,11 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingTop: 8,
   },
-  brand: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 },
-  logo: { width: 40, height: 40 },
-  title: { fontSize: 28, fontWeight: '700', color: colors.text },
+  brand: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+  // The mark without padding (logo-mark.png), about as tall as the word.
+  logo: { width: 32, height: 32 },
+  // No extra font padding, so the word and the mark center on the same line.
+  title: { fontSize: 28, fontWeight: '700', color: colors.text, includeFontPadding: false },
   list: { paddingHorizontal: 20, paddingBottom: 120 },
   hero: { paddingTop: 24, gap: 12 },
   caught: { color: colors.muted, fontSize: 15, textAlign: 'center' },
@@ -134,5 +148,14 @@ const styles = StyleSheet.create({
   },
   sortPressed: { backgroundColor: colors.surface },
   sortText: { fontSize: 15, fontWeight: '600', color: colors.primary },
+  deletedLink: {
+    minHeight: touchTarget,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    paddingHorizontal: 16,
+    marginTop: 16,
+    borderRadius: radius.button,
+  },
+  deletedText: { fontSize: 15, color: colors.muted },
   empty: { marginTop: 48, color: colors.muted, fontSize: 16, textAlign: 'center' },
 });

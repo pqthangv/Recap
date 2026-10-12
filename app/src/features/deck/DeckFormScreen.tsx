@@ -4,7 +4,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 
 
 import { Button } from '@/components/Button';
 import { countCards } from '@/db/cards';
-import { createDeck, deleteDeck, getDeck, listDecks, updateDeck } from '@/db/decks';
+import { createDeck, deleteDeck, getDeck, listDecks, RESTORE_DAYS, updateDeck } from '@/db/decks';
 import { childDeckName } from '@/lib/deckGroups';
 import { plural } from '@/lib/format';
 import { colors, deckColors, radius, touchTarget } from '@/lib/theme';
@@ -44,7 +44,7 @@ export default function DeckFormScreen() {
     const n = countCards(existing.id);
     Alert.alert(
       'Delete this deck?',
-      `"${existing.name}" and its ${plural(n, 'card')} will be deleted. This can't be undone.`,
+      `"${existing.name}" and its ${plural(n, 'card')} will be deleted. You can restore them from Recently deleted for ${RESTORE_DAYS} days.`,
       [
         { text: 'Cancel', style: 'cancel' },
         {

@@ -2,6 +2,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Deck } from '@/db/schema';
+import { plural } from '@/lib/format';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 type Props = {
@@ -26,7 +27,7 @@ export function MoveCardsSheet({ visible, decks, count, onMove, onClose }: Props
       />
       <View style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}>
         <Text accessibilityRole="header" style={styles.title}>
-          Move {count === 1 ? '1 card' : `${count} cards`} to…
+          Move {plural(count, 'card')} to…
         </Text>
         {decks.length === 0 ? (
           <Text style={styles.empty}>Make another deck first.</Text>

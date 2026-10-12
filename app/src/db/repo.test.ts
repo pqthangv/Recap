@@ -10,11 +10,19 @@ import {
   restoreCards,
   updateCard,
 } from './cards';
-import { createDeck, deleteDeck, deleteDecks, listDecks } from './decks';
+import {
+  createDeck,
+  deleteDeck,
+  deleteDecks,
+  listDecks,
+  listDeletedDecks,
+  restoreDecks,
+} from './decks';
 import { setSetting } from './settings';
 import { getStats } from './stats';
 import {
   answerCard,
+  getDailyGoal,
   getDueQueue,
   getNewDoneToday,
   getStudyCounts,
@@ -23,6 +31,7 @@ import {
 } from './study';
 
 import { parseBackup } from '@/lib/backup';
+import { dayStart } from '@/lib/day';
 import { previewIntervals, Rating, review, State } from '@/lib/scheduler';
 import { seedIfNeeded, WELCOME_DECKS } from '@/features/onboarding/seed';
 
@@ -196,7 +205,7 @@ describe('study', () => {
 });
 
 describe('stats', () => {
-  it('counts today, the streak and the next 7 days', () => {
+  it('counts today, the streak, study time and the last 7 days', () => {
     // One card per deck, so each day's answer is a different (new) card.
     for (const daysAgo of [2, 1, 0]) {
       const deck = addDeck(`Deck ${daysAgo}`);
@@ -206,8 +215,51 @@ describe('stats', () => {
     const stats = getStats(NOW);
     expect(stats.reviewedToday).toBe(1);
     expect(stats.streak).toBe(3);
-    expect(stats.forecast).toHaveLength(7);
-    expect(stats.forecast[0].count).toBe(3); // all three are learning cards due today
+    // Each answer took 4 seconds (see answerNext).
+    expect(stats.timeToday).toBe(4000);
+    expect(stats.timeTotal).toBe(12000);
+    expect(stats.lastWeek.map((d) => d.cards)).toEqual([0, 0, 0, 0, 1, 1, 1]);
+    expect(stats.newToday).toBe(1); // each was a new card
+    expect(stats.lastWeek.map((d) => d.newCards)).toEqual([0, 0, 0, 0, 1, 1, 1]);
+    expect(stats.lastWeek.map((d) => d.ms)).toEqual([0, 0, 0, 0, 4000, 4000, 4000]);
+    expect(stats.lastWeek.at(-1)?.day).toBe(dayStart(NOW)); // the last one is today
+  });
+
+  it("counts a streak day only once that day's new-card goal is met", () => {
+    setSetting('newPerDay', 2, NOW - 2 * DAY);
+    const deck = addDeck();
+    addCards(deck.id, 5);
+    answerNext(Rating.Good, NOW - DAY, deck.id); // yesterday: 1 of 2 new cards
+    expect(getStats(NOW).streak).toBe(0);
+
+    // Today: keep studying until 2 new cards are done (yesterday's card comes back first).
+    let last = answerNext(Rating.Good, NOW, deck.id);
+    for (let i = 1; getDailyGoal(NOW + i).done < 2 && i < 6; i++) {
+      expect(getStats(NOW + i).goalMetToday).toBe(false);
+      last = answerNext(Rating.Good, NOW + i * 1000, deck.id);
+    }
+    let stats = getStats(NOW + 10_000);
+    expect(stats.goal).toEqual({ done: 2, goal: 2 });
+    expect(stats.goalMetToday).toBe(true);
+    expect(stats.streak).toBe(1);
+
+    // Raising the goal later doesn't take the day back; undoing the answer that met it does.
+    setSetting('newPerDay', 4, NOW + 20_000);
+    stats = getStats(NOW + 30_000);
+    expect(stats.goal).toEqual({ done: 2, goal: 4 });
+    expect(stats.streak).toBe(1);
+    undoAnswer(last.card, last.logId, NOW + 40_000);
+    expect(getStats(NOW + 50_000).streak).toBe(0);
+  });
+
+  it('counts any answer when no new cards are left', () => {
+    const deck = addDeck();
+    addCards(deck.id, 1);
+    answerNext(Rating.Good, NOW - DAY, deck.id); // the only new card: goal 1 of 1
+    answerNext(Rating.Good, NOW, deck.id); // no new cards left: goal 0
+    const stats = getStats(NOW);
+    expect(stats.goal).toEqual({ done: 0, goal: 0 });
+    expect(stats.streak).toBe(2);
   });
 });
 
@@ -335,5 +387,33 @@ describe('moving cards', () => {
     moveCards(moved, from.id, NOW + 6000); // undo
     expect(rawQuery('SELECT DISTINCT deck_id FROM cards')).toEqual([{ deck_id: from.id }]);
     expect(moveCards([], to.id)).toEqual([]);
+  });
+});
+
+describe('recently deleted decks', () => {
+  it('lists decks deleted in the last 30 days and restores them with their cards', () => {
+    const deck = addDeck('Spanish');
+    const [keep, alreadyGone] = addCards(deck.id, 2);
+    deleteCards([alreadyGone.id], NOW + 1); // deleted on its own, earlier
+    deleteDeck(deck.id, NOW + 2);
+    expect(listDecks()).toEqual([]);
+
+    const [deleted] = listDeletedDecks(NOW + 3);
+    expect(deleted).toMatchObject({ id: deck.id, name: 'Spanish', cards: 1, deleted_at: NOW + 2 });
+
+    restoreDecks([deck.id], NOW + 4);
+    expect(listDecks().map((d) => d.name)).toEqual(['Spanish']);
+    expect(rawQuery('SELECT id FROM cards WHERE deleted_at IS NULL')).toEqual([{ id: keep.id }]);
+    expect(listDeletedDecks(NOW + 5)).toEqual([]);
+    restoreDecks([deck.id], NOW + 6); // restoring twice changes nothing
+    expect(listDecks()).toHaveLength(1);
+  });
+
+  it('hides decks deleted more than 30 days ago (their tombstones stay for sync)', () => {
+    const deck = addDeck('Old');
+    deleteDeck(deck.id, NOW);
+    expect(listDeletedDecks(NOW + 29 * DAY)).toHaveLength(1);
+    expect(listDeletedDecks(NOW + 31 * DAY)).toHaveLength(0);
+    expect(rawQuery('SELECT deleted_at FROM decks')).toEqual([{ deleted_at: NOW }]);
   });
 });

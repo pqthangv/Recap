@@ -65,7 +65,9 @@ export function guessColumns(table: Table): ColumnChoice {
       deck: findColumn(table.columns, HEADER_WORDS.deck),
     };
   }
-  return { front: 0, back: Math.min(1, table.columns.length - 1), tags: -1, deck: -1 };
+  // No header: front, back, then tags, as the import screen's example shows.
+  const tags = table.columns.length >= 3 ? 2 : -1;
+  return { front: 0, back: Math.min(1, table.columns.length - 1), tags, deck: -1 };
 }
 
 /** Rows → cards, skipping rows where front or back is empty. */

@@ -13,7 +13,7 @@ import { resetDeckSchedule } from '@/db/study';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { requestReminderPermission, syncReminders } from '@/features/reminders/reminders';
 import { BackupError } from '@/lib/backup';
-import { CONTACT_EMAIL } from '@/lib/contact';
+import { CONTACT_EMAIL, PRIVACY_POLICY_URL } from '@/lib/contact';
 import { formatTimeOfDay, plural } from '@/lib/format';
 import { MAX_RETENTION, MIN_RETENTION } from '@/lib/scheduler';
 import { NEW_PER_DAY_MAX } from '@/lib/settings';
@@ -119,6 +119,17 @@ export default function SettingsScreen() {
         style={styles.contact}
       >
         <Text style={styles.contactText}>Questions or feedback? {CONTACT_EMAIL}</Text>
+      </Pressable>
+      <Pressable
+        accessibilityRole="link"
+        onPress={() =>
+          Linking.openURL(PRIVACY_POLICY_URL).catch(() =>
+            Alert.alert('Privacy policy', PRIVACY_POLICY_URL),
+          )
+        }
+        style={styles.contact}
+      >
+        <Text style={styles.contactText}>Privacy policy</Text>
       </Pressable>
     </ScrollView>
   );

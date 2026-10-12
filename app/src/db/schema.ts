@@ -80,6 +80,10 @@ export const reviewLogs = sqliteTable(
     learning_steps: integer('learning_steps').notNull(),
     reviewed_at: integer('reviewed_at').notNull(),
     duration_ms: integer('duration_ms').notNull(),
+    // 1 if that study day's new-card goal was met by this answer or an earlier one that day: those
+    // days count for the streak. Saved when answering, so changing "New cards per day" later doesn't
+    // rewrite past days.
+    goal_met: integer('goal_met').notNull().default(0),
     deleted_at: integer('deleted_at'),
   },
   (t) => [

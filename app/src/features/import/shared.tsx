@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { showSnackbar } from '@/components/Snackbar';
 import type { ImportSummary, ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
-import { plural } from '@/lib/format';
+import { count, plural } from '@/lib/format';
 import { colors } from '@/lib/theme';
 
 /** Default "Add to": decks from the file if offered, else a new deck named after the file. */
@@ -23,7 +23,7 @@ export function targetIsValid(target: ImportTarget, decks: readonly Deck[]): boo
 export function summaryText(s: ImportSummary): string {
   if (s.added === 0) return 'Nothing new to add — those cards are already there.';
   const where = s.decks.length === 1 ? ` to ${s.decks[0].name}` : ` to ${s.decks.length} decks`;
-  const dupes = s.skipped ? ` · ${s.skipped} already there` : '';
+  const dupes = s.skipped ? ` · ${count(s.skipped)} already there` : '';
   return `Added ${plural(s.added, 'card')}${where}${dupes}`;
 }
 

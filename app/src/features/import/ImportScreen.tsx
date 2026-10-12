@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -60,10 +60,12 @@ export default function ImportScreen() {
       />
       <Option
         title="CSV or spreadsheet file"
-        detail="A .csv or .tsv file from Excel, Google Sheets or a Recap export."
+        detail="A .csv or .tsv file from Excel, Google Sheets or a Recap export. One card per row: front, back, then tags if you like."
         onPress={csv}
         disabled={busy}
-      />
+      >
+        <ExampleTable />
+      </Option>
       <Option
         title="Anki deck (.apkg)"
         detail="Shared decks or your own. Cards start fresh as new cards."
@@ -75,7 +77,39 @@ export default function ImportScreen() {
   );
 }
 
-function Option(props: { title: string; detail: string; onPress: () => void; disabled: boolean }) {
+// What a spreadsheet for import looks like (tags are optional).
+const EXAMPLE = [
+  ['front1', 'back1', 'tag1, tag2, tag3'],
+  ['front2', 'back2', 'tag1'],
+  ['front3', 'back3', 'tag3'],
+];
+
+function ExampleTable() {
+  return (
+    <View style={styles.table} importantForAccessibility="no-hide-descendants">
+      {EXAMPLE.map((row, r) => (
+        <View key={r} style={[styles.tableRow, r > 0 && styles.tableRowLine]}>
+          {row.map((cell, c) => (
+            <Text
+              key={c}
+              style={[styles.cell, c > 0 && styles.cellLine, c === 2 && styles.tagsCell]}
+            >
+              {cell}
+            </Text>
+          ))}
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function Option(props: {
+  title: string;
+  detail: string;
+  onPress: () => void;
+  disabled: boolean;
+  children?: ReactNode;
+}) {
   return (
     <Pressable
       accessibilityRole="button"
@@ -88,6 +122,7 @@ function Option(props: { title: string; detail: string; onPress: () => void; dis
       <View style={styles.optionText}>
         <Text style={styles.title}>{props.title}</Text>
         <Text style={styles.detail}>{props.detail}</Text>
+        {props.children}
       </View>
       <Text style={styles.chevron}>›</Text>
     </Pressable>
@@ -111,5 +146,18 @@ const styles = StyleSheet.create({
   title: { fontSize: 17, fontWeight: '600', color: colors.text },
   detail: { fontSize: 14, color: colors.muted, marginTop: 4 },
   chevron: { fontSize: 26, color: colors.muted },
+  table: {
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: colors.hairline,
+    borderRadius: 8,
+    backgroundColor: colors.surface,
+    overflow: 'hidden',
+  },
+  tableRow: { flexDirection: 'row' },
+  tableRowLine: { borderTopWidth: 1, borderTopColor: colors.hairline },
+  cell: { flex: 1, paddingHorizontal: 8, paddingVertical: 6, fontSize: 13, color: colors.text },
+  cellLine: { borderLeftWidth: 1, borderLeftColor: colors.hairline },
+  tagsCell: { flex: 1.8 },
   spinner: { marginTop: 12 },
 });

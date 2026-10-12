@@ -94,6 +94,15 @@ describe('CSV import', () => {
     });
   });
 
+  it('reads front, back and tags without a header, like the example on the import screen', () => {
+    const table = parseTable('front1\tback1\ttag1, tag2, tag3\nfront2\tback2\ttag1\n');
+    expect(guessColumns(table)).toEqual({ front: 0, back: 1, tags: 2, deck: -1 });
+    expect(tableToCards(table, guessColumns(table))).toEqual([
+      { front: 'front1', back: 'back1', tags: ['tag1', 'tag2', 'tag3'] },
+      { front: 'front2', back: 'back2', tags: ['tag1'] },
+    ]);
+  });
+
   it('detects tabs and semicolons', () => {
     expect(
       tableToCards(

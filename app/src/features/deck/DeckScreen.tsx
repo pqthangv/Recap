@@ -1,4 +1,3 @@
-import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -14,7 +13,7 @@ import { getDeck, listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
 import type { Deck } from '@/db/schema';
 import { getStudyCounts } from '@/db/study';
-import { plural } from '@/lib/format';
+import { count, plural } from '@/lib/format';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { MoveCardsSheet } from './MoveCardsSheet';
@@ -31,7 +30,7 @@ export default function DeckScreen() {
     id,
   );
   const [search, setSearch] = useState('');
-  const { data: cards } = useLiveQuery(deckCardsQuery(id, search), [id, search]);
+  const cards = useLive(() => deckCardsQuery(id, search).all(), ['cards'], `${id}|${search}`);
   // null = normal mode; a set = choosing cards (to move them to another deck).
   const [selected, setSelected] = useState<Set<string> | null>(null);
   const [moving, setMoving] = useState(false);
@@ -73,7 +72,7 @@ export default function DeckScreen() {
     <View style={styles.screen}>
       <Stack.Screen
         options={{
-          title: selected ? `${selected.size} selected` : deck.name,
+          title: selected ? `${count(selected.size)} selected` : deck.name,
           headerRight: () =>
             selected ? (
               <Button variant="text" label="Cancel" onPress={() => setSelected(null)} />
@@ -107,7 +106,9 @@ export default function DeckScreen() {
             {selected ? null : (
               <Button
                 size="lg"
-                label={toStudy > 0 ? `Study this deck · ${toStudy}` : 'Nothing due in this deck'}
+                label={
+                  toStudy > 0 ? `Study this deck · ${count(toStudy)}` : 'Nothing due in this deck'
+                }
                 disabled={toStudy === 0}
                 onPress={() => router.push({ pathname: '/study', params: { deckId: id } })}
               />

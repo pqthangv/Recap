@@ -4,12 +4,12 @@ import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 import { Button } from '@/components/Button';
 import { Fab } from '@/components/Fab';
 import { countCards } from '@/db/cards';
-import { deleteDecks, listDecks } from '@/db/decks';
+import { deleteDecks, listDecks, RESTORE_DAYS } from '@/db/decks';
 import { useLive } from '@/db/live';
 import { getSettings } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
 import { decksInGroup, groupCounts, nameInGroup, sortDecks } from '@/lib/deckGroups';
-import { plural } from '@/lib/format';
+import { count, plural } from '@/lib/format';
 import { colors } from '@/lib/theme';
 
 import { DeckRow } from './DeckRow';
@@ -32,7 +32,7 @@ export default function DeckGroupScreen() {
     const cards = countCards(ids);
     Alert.alert(
       `Delete ${plural(decks.length, 'deck')}?`,
-      `All decks in "${name}" and their ${plural(cards, 'card')} will be deleted. This can't be undone.`,
+      `All decks in "${name}" and their ${plural(cards, 'card')} will be deleted. You can restore them from Recently deleted for ${RESTORE_DAYS} days.`,
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -67,7 +67,7 @@ export default function DeckGroupScreen() {
           <View style={styles.header}>
             <Button
               size="lg"
-              label={toStudy > 0 ? `Study all · ${toStudy}` : 'Nothing due in these decks'}
+              label={toStudy > 0 ? `Study all · ${count(toStudy)}` : 'Nothing due in these decks'}
               disabled={toStudy === 0}
               onPress={() => router.push({ pathname: '/study', params: { group: name } })}
             />

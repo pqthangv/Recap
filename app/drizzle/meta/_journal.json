@@ -15,6 +15,13 @@
       "when": 1791761705199,
       "tag": "0001_card_image_side",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791792479719,
+      "tag": "0002_review_log_goal_met",
+      "breakpoints": true
     }
   ]
 }

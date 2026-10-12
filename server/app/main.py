@@ -3,8 +3,11 @@
 Run locally:  uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 """
 
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
+from fastapi.responses import HTMLResponse
 from starlette.formparsers import MultiPartParser
 
 from app.api import router
@@ -40,3 +43,12 @@ def health() -> dict[str, bool]:
     """For uptime pings and Render's health check. Never touches the database, so pings can't
     keep Neon awake."""
     return {"ok": True}
+
+
+PRIVACY_POLICY = (Path(__file__).parent / "privacy.html").read_text(encoding="utf-8")
+
+
+@app.get("/privacy", response_class=HTMLResponse, include_in_schema=False)
+def privacy() -> str:
+    """The privacy policy (Google Play needs a public URL; the website will host it later)."""
+    return PRIVACY_POLICY

@@ -10,6 +10,10 @@ export const colors = {
   tint: '#EEEAFD',
   hairline: '#E6E3EF',
   danger: '#B3261E',
+  // New cards in the statistics chart (a lighter accent, ≥ 3:1 on white).
+  chartNew: '#9A80EC',
+  // The streak flame (an icon, not an accent color).
+  flame: '#D9530F',
 } as const;
 
 // Colors a user can pick for a deck (shown as a small dot, ≥ 3:1 contrast on white).

@@ -3,7 +3,13 @@ import { useState } from 'react';
 import { getCard } from '@/db/cards';
 import type { CardRow } from '@/db/schema';
 import { getSettings } from '@/db/settings';
-import { answerCard, getDueQueue, undoAnswer, type StudyScope } from '@/db/study';
+import {
+  answerCard,
+  getQueueOrder,
+  undoAnswer,
+  type QueueEntry,
+  type StudyScope,
+} from '@/db/study';
 import { countReadyNow, previewIntervals, type Grade, type Preview } from '@/lib/scheduler';
 
 /** Answer times above this are treated as "walked away" so they don't skew stats. */
@@ -12,25 +18,29 @@ const MAX_ANSWER_MS = 5 * 60 * 1000;
 type Revealed = { at: number; previews: Record<Grade, Preview> };
 type Answered = { before: CardRow; logId: string };
 
+/** The full row of the card at the front of the queue (only that one is loaded). */
+function headOf(queue: readonly QueueEntry[]): CardRow | null {
+  return queue[0] ? (getCard(queue[0].id) ?? null) : null;
+}
+
 /**
  * One study session. The queue is rebuilt after every answer, so cards you forget come back
  * and the daily new-card limit stays exact.
  */
 export function useStudySession(scope: StudyScope) {
   const [settings] = useState(getSettings);
-  const [queue, setQueue] = useState(() => getDueQueue(scope));
+  const [first] = useState(() => getQueueOrder(scope));
+  const [card, setCard] = useState(() => headOf(first));
   const [shownAt, setShownAt] = useState(() => Date.now());
-  const [ready, setReady] = useState(() => countReadyNow(queue, shownAt));
+  const [ready, setReady] = useState(() => countReadyNow(first, shownAt));
   // Changes every time a card is put on screen, so the card view starts face-down.
   const [turn, setTurn] = useState(0);
   const [revealed, setRevealed] = useState<Revealed | null>(null);
   const [history, setHistory] = useState<Answered[]>([]);
 
-  const card = queue[0] ?? null;
-
-  const show = (next: CardRow[]) => {
+  const show = (next: QueueEntry[], head = headOf(next)) => {
     const now = Date.now();
-    setQueue(next);
+    setCard(head);
     setReady(countReadyNow(next, now));
     setRevealed(null);
     setTurn((t) => t + 1);
@@ -55,7 +65,7 @@ export function useStudySession(scope: StudyScope) {
       now,
     );
     setHistory((h) => [...h, { before: card, logId }]);
-    show(getDueQueue(scope));
+    show(getQueueOrder(scope));
   };
 
   const undo = () => {
@@ -64,8 +74,9 @@ export function useStudySession(scope: StudyScope) {
     undoAnswer(last.before, last.logId);
     setHistory((h) => h.slice(0, -1));
     const restored = getCard(last.before.id);
-    const rest = getDueQueue(scope).filter((c) => c.id !== last.before.id);
-    show(restored ? [restored, ...rest] : rest);
+    const rest = getQueueOrder(scope).filter((c) => c.id !== last.before.id);
+    if (restored) show([restored, ...rest], restored);
+    else show(rest);
   };
 
   return {

@@ -1,3 +1,4 @@
+import { useIsFocused } from 'expo-router';
 import { addDatabaseChangeListener } from 'expo-sqlite';
 import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
@@ -6,9 +7,12 @@ export type TableName = 'decks' | 'cards' | 'review_logs' | 'settings';
 
 /**
  * Re-runs a synchronous query whenever one of `tables` changes, and when the app comes back to
- * the foreground (due counts change with time). Use drizzle's `useLiveQuery` for plain lists from
- * one table; use this for counts and anything that reads several tables.
- * `key` re-runs the query when its inputs change (e.g. a deck id).
+ * the foreground (due counts change with time). `key` re-runs it when its inputs change (e.g. a
+ * deck id).
+ *
+ * Screens under another screen (Home and the deck while you study) don't re-run on every change:
+ * they wait until they're shown again and re-run once. With a 10,000-card deck, re-running them
+ * after each answer froze studying for over half a second.
  */
 export function useLive<T>(compute: () => T, tables: readonly TableName[], key = ''): T {
   const [value, setValue] = useState(compute);
@@ -16,9 +20,16 @@ export function useLive<T>(compute: () => T, tables: readonly TableName[], key =
   useEffect(() => {
     latest.current = compute;
   });
+  const focused = useIsFocused();
+  // The first render already computed the value, so the first subscription doesn't re-run it.
+  const fresh = useRef(true);
 
   const watched = tables.join(',');
   useEffect(() => {
+    if (!focused) {
+      fresh.current = false; // re-run when shown
+      return;
+    }
     const names = watched.split(',');
     let timer: ReturnType<typeof setTimeout> | undefined;
     // Batches bursts of row changes (an import touches many rows) into one re-run.
@@ -26,7 +37,8 @@ export function useLive<T>(compute: () => T, tables: readonly TableName[], key =
       clearTimeout(timer);
       timer = setTimeout(() => setValue(() => latest.current()), 16);
     };
-    refresh();
+    if (fresh.current) fresh.current = false;
+    else refresh(); // shown again, or `key` changed
     const dbSub = addDatabaseChangeListener(({ tableName }) => {
       if (names.includes(tableName)) refresh();
     });
@@ -38,7 +50,7 @@ export function useLive<T>(compute: () => T, tables: readonly TableName[], key =
       dbSub.remove();
       appSub.remove();
     };
-  }, [watched, key]);
+  }, [watched, key, focused]);
 
   return value;
 }

@@ -4,13 +4,18 @@ const DAY = 24 * HOUR;
 const MONTH = 30 * DAY;
 const YEAR = 365 * DAY;
 
+/** 7936 → "7,936". English separators, like the rest of the app's text. */
+export function count(n: number): string {
+  return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 /** Label for the main home-screen button, e.g. "Study · 12 due". */
 export function studyButtonLabel(dueCount: number): string {
-  return `Study · ${dueCount} due`;
+  return `Study · ${count(dueCount)} due`;
 }
 
 export function plural(n: number, one: string, many = `${one}s`): string {
-  return `${n} ${n === 1 ? one : many}`;
+  return `${count(n)} ${n === 1 ? one : many}`;
 }
 
 function oneDecimal(n: number): string {
@@ -26,6 +31,27 @@ export function formatInterval(ms: number): string {
   if (ms < MONTH) return `${Math.round(ms / DAY)}d`;
   if (ms < YEAR) return `${oneDecimal(ms / MONTH)}mo`;
   return `${oneDecimal(ms / YEAR)}y`;
+}
+
+/** Time spent studying: "<1 min", "12 min", "1 h 5 min", "3 h". */
+export function formatStudyTime(ms: number): string {
+  if (ms <= 0) return '0 min';
+  const minutes = Math.round(ms / MINUTE);
+  if (minutes < 1) return '<1 min';
+  if (minutes < 60) return `${minutes} min`;
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return m ? `${count(h)} h ${m} min` : `${count(h)} h`;
+}
+
+/** The same in words, for screen readers: "1 hour 5 minutes". */
+export function formatStudyTimeLong(ms: number): string {
+  if (ms <= 0) return 'no time';
+  const minutes = Math.round(ms / MINUTE);
+  if (minutes < 1) return 'less than a minute';
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return [h ? plural(h, 'hour') : '', m ? plural(m, 'minute') : ''].filter(Boolean).join(' ');
 }
 
 /** The same interval in words, for screen readers: "in 4 days". */
@@ -64,4 +90,17 @@ export function parseTags(input: string): string[] {
 
 export function formatTags(tags: readonly string[]): string {
   return tags.join(', ');
+}
+
+/** "today", "yesterday", "3 days ago" (by calendar day). */
+export function daysAgo(at: number, now: number): string {
+  const day = (t: number) => {
+    const d = new Date(t);
+    d.setHours(0, 0, 0, 0);
+    return d.getTime();
+  };
+  const days = Math.round((day(now) - day(at)) / (24 * 60 * 60 * 1000));
+  if (days <= 0) return 'today';
+  if (days === 1) return 'yesterday';
+  return `${days} days ago`;
 }

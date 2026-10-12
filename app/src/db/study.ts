@@ -2,7 +2,7 @@
 // scheduler.buildQueue, so the home screen, deck rows, reminders and the session always agree.
 import { and, eq, gt, gte, inArray, isNull, lt, ne, sql } from 'drizzle-orm';
 
-import { dayStart, isSameStudyDay } from '@/lib/day';
+import { dayStart, isSameStudyDay, nextDayStart } from '@/lib/day';
 import { newId } from '@/lib/id';
 import {
   buildQueue,
@@ -50,18 +50,43 @@ export function getNewDoneToday(now: number): number {
   return row?.n ?? 0;
 }
 
+/** Cards in live decks that have never been answered. */
+function newCardsLeft(): number {
+  const row = db
+    .select({ n: sql<number>`count(*)` })
+    .from(cards)
+    .where(and(liveCard, eq(cards.state, State.New)))
+    .get();
+  return row?.n ?? 0;
+}
+
+export type DailyGoal = { done: number; goal: number };
+
+/**
+ * Today's new-card goal: "New cards per day", or every new card that's left if there are fewer.
+ * A study day counts for the streak once it's met (see answerCard).
+ */
+export function getDailyGoal(now = Date.now()): DailyGoal {
+  const done = getNewDoneToday(now);
+  return { done, goal: Math.min(getSettings().newPerDay, done + newCardsLeft()) };
+}
+
 export function getLimits(now: number): QueueLimits {
   return { newPerDay: getSettings().newPerDay, newDoneToday: getNewDoneToday(now) };
 }
 
 const queueColumns = { id: cards.id, state: cards.state, due: cards.due };
+export type QueueEntry = { id: string; state: number; due: number };
 
-/** The cards to study next, in order. `scope` limits it to one deck or a group of decks. */
-export function getDueQueue(scope: StudyScope, now = Date.now()): CardRow[] {
+/**
+ * The order to study cards in, as just id/state/due: cheap even with thousands of cards due, so
+ * the session rebuilds it after every answer and loads only the card on screen.
+ * `scope` limits it to one deck or a group of decks.
+ */
+export function getQueueOrder(scope: StudyScope, now = Date.now()): QueueEntry[] {
   if (Array.isArray(scope) && scope.length === 0) return [];
   const limits = getLimits(now);
-  // Order using just id/state/due (new cards are shuffled across the whole deck, so all of them
-  // are candidates), then load the full rows for the cards that made the queue.
+  // New cards are shuffled across the whole deck, so all of them are candidates.
   const due = db
     .select(queueColumns)
     .from(cards)
@@ -75,7 +100,12 @@ export function getDueQueue(scope: StudyScope, now = Date.now()): CardRow[] {
           .where(and(liveCard, inScope(scope), eq(cards.state, State.New)))
           .all()
       : [];
-  const order = buildQueue([...due, ...fresh], limits, now).map((c) => c.id);
+  return buildQueue([...due, ...fresh], limits, now);
+}
+
+/** The cards to study next, in order, as full rows. */
+export function getDueQueue(scope: StudyScope, now = Date.now()): CardRow[] {
+  const order = getQueueOrder(scope, now).map((c) => c.id);
   const rows = new Map<string, CardRow>();
   for (let i = 0; i < order.length; i += 500) {
     const ids = order.slice(i, i + 500);
@@ -104,8 +134,9 @@ export function getStudyCounts(now = Date.now(), at = now): StudyCounts {
     .from(cards)
     .where(and(liveCard, ne(cards.state, State.New), lt(cards.due, dueCutoff(at))))
     .all();
+  const nextDay = nextDayStart(at);
   for (const c of candidates) {
-    if (!isDueForStudy(c, at)) continue;
+    if (!isDueForStudy(c, at, nextDay)) continue;
     deck(c.deck_id).due++;
     due++;
   }
@@ -151,12 +182,17 @@ export function answerCard(
       .set({ ...fsrsColumns(result.card), updated_at: now })
       .where(eq(cards.id, cardId))
       .run();
+    // Does this answer meet today's new-card goal? (Logs are never edited, so it's decided now.)
+    const firstTime = result.log.state === State.New && result.log.rating > 0;
+    const done = getNewDoneToday(now) + (firstTime ? 1 : 0);
+    const goal = Math.min(getSettings().newPerDay, done + newCardsLeft());
     db.insert(reviewLogs)
       .values({
         id: logId,
         card_id: cardId,
         ...result.log,
         duration_ms: Math.max(0, Math.round(durationMs)),
+        goal_met: done >= goal ? 1 : 0,
         deleted_at: null,
       })
       .run();

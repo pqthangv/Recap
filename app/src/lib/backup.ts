@@ -39,7 +39,8 @@ export function buildBackup(
 
 // --- Validation: only known columns with the right types get through. ---
 
-type Kind = 'string' | 'string?' | 'number' | 'number?' | 'tags';
+// 'flag' is 0 or 1, and 0 when missing (older backups).
+type Kind = 'string' | 'string?' | 'number' | 'number?' | 'flag' | 'tags';
 type Spec = Record<string, Kind>;
 
 const TIMESTAMPS = { created_at: 'number', updated_at: 'number', deleted_at: 'number?' } as const;
@@ -80,6 +81,7 @@ const LOG_SPEC = {
   learning_steps: 'number',
   reviewed_at: 'number',
   duration_ms: 'number',
+  goal_met: 'flag',
   deleted_at: 'number?',
 } as const;
 const SETTING_SPEC = { key: 'string', value: 'string', updated_at: 'number' } as const;
@@ -93,6 +95,11 @@ function checkRow(raw: unknown, spec: Spec, table: string): Record<string, unkno
     const optional = kind.endsWith('?');
     if (optional && (v === null || v === undefined)) {
       out[col] = null;
+    } else if (kind === 'flag') {
+      if (v !== undefined && v !== null && v !== 0 && v !== 1 && typeof v !== 'boolean') {
+        throw new BackupError(`Bad ${col} in ${table}`);
+      }
+      out[col] = v === 1 || v === true ? 1 : 0;
     } else if (kind === 'tags') {
       if (!Array.isArray(v) || !v.every((t) => typeof t === 'string')) {
         throw new BackupError(`Bad ${col} in ${table}`);
