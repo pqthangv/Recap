@@ -50,8 +50,9 @@ function expoLikeClient(raw: DatabaseSync) {
   };
 }
 
-export function createTestClient() {
-  const raw = new DatabaseSync(':memory:');
+/** `file`: write the database to this file instead of memory (scripts/demo-db.test.ts). */
+export function createTestClient(file = ':memory:') {
+  const raw = new DatabaseSync(file);
   const sqlite = expoLikeClient(raw) as unknown as SQLiteDatabase;
   const db = drizzle(sqlite, { schema });
   testState = { raw, db };
@@ -75,6 +76,11 @@ export function clearTestDb(): void {
   const { raw } = state();
   for (const table of ['decks', 'cards', 'review_logs', 'settings'])
     raw.exec(`DELETE FROM ${table}`);
+}
+
+/** Closes the database (so a file database is complete on disk). */
+export function closeTestDb(): void {
+  state().raw.close();
 }
 
 /** Raw SQL access for assertions. */

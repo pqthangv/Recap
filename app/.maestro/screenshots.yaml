@@ -1,0 +1,70 @@
+# Takes Recap's App Store screenshots in the iPhone simulator. Run by .github/workflows/ios.yml
+# (Actions > iOS build > Run workflow, "screenshots" ticked) after it has copied the demo database
+# (scripts/demo-db.test.ts) into the app, so the screens show the demo decks:
+#   maestro test --test-output-dir DIR .maestro/screenshots.yaml
+# Screenshots land in DIR/<run>/<flow>/takeScreenshot/; the names match the store graphics script
+# (home, study, ai, ai-review, stats, deck). Buttons are found by their accessibility labels.
+# Never clearState here: it would wipe the demo database.
+appId: com.recapcards.app
+---
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 120000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: home
+
+# A deck, then studying it with the answer showing (no answer is given, so the data stays the same).
+- tapOn: 'IELTS vocabulary.*'
+- extendedWaitUntil:
+    visible: 'Study this deck.*'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: deck
+- tapOn: 'Study this deck.*'
+- extendedWaitUntil:
+    visible: Show answer
+    timeout: 30000
+- tapOn: Show answer
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: study
+
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
+- tapOn: Statistics
+- extendedWaitUntil:
+    visible: 'Cards studied, last 7 days'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: stats
+
+# Create with AI uses the real server (the workflow wakes it up first) and the free Gemini quota.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
+- tapOn: Add a deck or card
+- tapOn: Create with AI
+- tapOn: Text to make cards from
+- inputText: 'Photosynthesis is how plants make their own food. Chlorophyll in the chloroplasts captures sunlight. Plants turn water and carbon dioxide into glucose and release oxygen.'
+- hideKeyboard
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: ai
+- tapOn: Make cards
+# iPhone asks once before sending text to Google Gemini (src/features/ai/consent.ts).
+- tapOn:
+    text: Allow
+    optional: true
+- extendedWaitUntil:
+    visible: Review cards
+    timeout: 150000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: ai-review
