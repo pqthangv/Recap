@@ -101,6 +101,7 @@ export default function DeckScreen() {
         keyExtractor={(c) => c.id}
         contentContainerStyle={[styles.list, selected && { paddingBottom: 140 + insets.bottom }]}
         keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets // iOS: the whole list stays reachable while searching
         ListHeaderComponent={
           <View style={styles.header}>
             {selected ? null : (

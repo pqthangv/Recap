@@ -10,6 +10,7 @@ import { listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
 import { getSettings, setSetting } from '@/db/settings';
 import { resetDeckSchedule } from '@/db/study';
+import { ASKS_FOR_AI_CONSENT, hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { requestReminderPermission, syncReminders } from '@/features/reminders/reminders';
 import { BackupError } from '@/lib/backup';
@@ -137,6 +138,7 @@ export default function SettingsScreen() {
 
 function AdvancedSettings() {
   const decks = useLive(listDecks, ['decks']);
+  const aiConsent = useLive(hasAiConsent, ['settings']);
 
   const run = async (task: () => Promise<void>, failure: string) => {
     try {
@@ -179,6 +181,14 @@ function AdvancedSettings() {
 
   return (
     <View style={styles.section}>
+      {ASKS_FOR_AI_CONSENT ? (
+        <SwitchRow
+          label="Send text to Google Gemini"
+          description="Create with AI needs this to write cards. When it's off, Recap asks first."
+          value={aiConsent}
+          onChange={setAiConsent}
+        />
+      ) : null}
       <Text style={styles.description}>
         A backup has everything: decks, cards, review history and settings. Importing one merges it
         with what&apos;s here — nothing is deleted.

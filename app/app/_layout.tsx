@@ -1,9 +1,10 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { AppState, StyleSheet, Text, View } from 'react-native';
+import { AppState, Platform, StyleSheet, Text, View } from 'react-native';
 
+import { Button } from '@/components/Button';
 import { SnackbarHost } from '@/components/Snackbar';
 import { setupDatabase } from '@/db/setup';
 import { seedIfNeeded } from '@/features/onboarding/seed';
@@ -14,6 +15,15 @@ import { colors } from '@/lib/theme';
 export { RootErrorBoundary as ErrorBoundary } from '@/components/ErrorScreen';
 
 SplashScreen.preventAutoHideAsync();
+
+// iPhone modals have no back arrow (only a swipe down), so they get a visible Cancel.
+const modal = {
+  presentation: 'modal',
+  headerLeft:
+    Platform.OS === 'ios'
+      ? () => <Button variant="text" label="Cancel" onPress={() => router.back()} />
+      : undefined,
+} as const;
 
 type Status = 'loading' | 'ready' | 'error';
 
@@ -67,8 +77,8 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false, title: 'Home' }} />
         <Stack.Screen name="deck/[id]" options={{ title: '' }} />
         <Stack.Screen name="group/[name]" options={{ title: '' }} />
-        <Stack.Screen name="deck/edit" options={{ presentation: 'modal', title: 'New deck' }} />
-        <Stack.Screen name="card/edit" options={{ presentation: 'modal', title: 'Add card' }} />
+        <Stack.Screen name="deck/edit" options={{ ...modal, title: 'New deck' }} />
+        <Stack.Screen name="card/edit" options={{ ...modal, title: 'Add card' }} />
         <Stack.Screen name="study" options={{ title: 'Study' }} />
         <Stack.Screen name="settings" options={{ title: 'Settings' }} />
         <Stack.Screen name="stats" options={{ title: 'Statistics' }} />
