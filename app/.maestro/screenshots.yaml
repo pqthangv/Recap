@@ -51,9 +51,12 @@ appId: com.recapcards.app
     timeout: 60000
 - tapOn: Add a deck or card
 - tapOn: Create with AI
-- tapOn: Text to make cards from
+# iOS reads a text box as its label plus its placeholder, so match the start only.
+- tapOn: 'Text to make cards from.*'
 - inputText: 'Photosynthesis is how plants make their own food. Chlorophyll in the chloroplasts captures sunlight. Plants turn water and carbon dioxide into glucose and release oxygen.'
-- hideKeyboard
+# Close the keyboard the way a person would: tap something that isn't a button (hideKeyboard
+# is unreliable on iOS).
+- tapOn: Cards
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: ai
