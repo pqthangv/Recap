@@ -5,8 +5,9 @@ import { Button } from '@/components/Button';
 import { countCards } from '@/db/cards';
 import { deleteDecks, listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
+import { getSettings } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
-import { decksInGroup, groupCounts, nameInGroup } from '@/lib/deckGroups';
+import { decksInGroup, groupCounts, nameInGroup, sortDecks } from '@/lib/deckGroups';
 import { plural } from '@/lib/format';
 import { colors } from '@/lib/theme';
 
@@ -16,7 +17,11 @@ import { DeckRow } from './DeckRow';
 export default function DeckGroupScreen() {
   const { name } = useLocalSearchParams<{ name: string }>();
   const router = useRouter();
-  const decks = useLive(() => decksInGroup(listDecks(), name), ['decks'], name);
+  const sort = useLive(() => getSettings().deckSort, ['settings']);
+  const decks = sortDecks(
+    useLive(() => decksInGroup(listDecks(), name), ['decks'], name),
+    sort,
+  );
   const counts = useLive(() => getStudyCounts(), ['cards', 'decks', 'review_logs', 'settings']);
   const total = groupCounts(decks, counts.byDeck, counts.new);
   const toStudy = total.due + total.new;

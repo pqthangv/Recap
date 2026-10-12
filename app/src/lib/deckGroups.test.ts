@@ -1,4 +1,14 @@
-import { decksInGroup, groupCounts, groupDecks, groupOf, nameInGroup } from './deckGroups';
+import {
+  colorRank,
+  decksInGroup,
+  groupColor,
+  groupCounts,
+  groupDecks,
+  groupOf,
+  nameInGroup,
+  sortDeckItems,
+  sortDecks,
+} from './deckGroups';
 
 const deck = (name: string, id = name) => ({ id, name });
 
@@ -43,5 +53,55 @@ describe('deck groups', () => {
     const byDeck = { a: { due: 3, new: 20 }, b: { due: 2, new: 20 }, c: { due: 0, new: 5 } };
     expect(groupCounts([deck('A', 'a'), deck('B', 'b')], byDeck, 20)).toEqual({ due: 5, new: 20 });
     expect(groupCounts([deck('C', 'c'), deck('D', 'd')], byDeck, 20)).toEqual({ due: 0, new: 5 });
+  });
+});
+
+describe('sorting decks by color', () => {
+  const PURPLE = '#5A31D6';
+  const GREEN = '#0B8043';
+  const RED = '#C5221F';
+  const d = (name: string, color: string) => ({ id: name, name, color });
+
+  it('orders decks and groups by palette color, keeping name order for equal colors', () => {
+    const items = groupDecks([
+      d('Art', RED),
+      d('Biology', GREEN),
+      d('Chemistry', PURPLE),
+      d('SAT', GREEN),
+      d('SAT › Archaic', RED),
+      d('Zoology', PURPLE),
+    ]);
+    const names = (list: typeof items) =>
+      list.map((i) => (i.kind === 'group' ? `[${i.name}]` : i.deck.name));
+    expect(names(sortDeckItems(items, 'name'))).toEqual([
+      'Art',
+      'Biology',
+      'Chemistry',
+      '[SAT]',
+      'Zoology',
+    ]);
+    // The SAT group takes the color of its "SAT" deck (green).
+    expect(names(sortDeckItems(items, 'color'))).toEqual([
+      'Chemistry',
+      'Zoology',
+      'Biology',
+      '[SAT]',
+      'Art',
+    ]);
+  });
+
+  it('puts colors from outside the palette last', () => {
+    expect(colorRank(PURPLE)).toBe(0);
+    expect(colorRank('#5a31d6')).toBe(0);
+    expect(colorRank('#123456')).toBeGreaterThan(colorRank(RED));
+    expect(sortDecks([d('A', '#123456'), d('B', RED)], 'color').map((x) => x.name)).toEqual([
+      'B',
+      'A',
+    ]);
+  });
+
+  it('uses the group-named deck for the group color', () => {
+    expect(groupColor([d('SAT › A', RED), d('SAT', GREEN)])).toBe(GREEN);
+    expect(groupColor([d('SAT › A', RED), d('SAT › B', GREEN)])).toBe(RED);
   });
 });

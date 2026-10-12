@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import logo from '@/assets/images/splash-icon.png';
@@ -8,11 +8,12 @@ import { Button } from '@/components/Button';
 import { Fab } from '@/components/Fab';
 import { listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
+import { getSettings, setSetting } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
 import { DeckRow } from '@/features/deck/DeckRow';
-import { groupCounts, groupDecks } from '@/lib/deckGroups';
+import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
-import { colors } from '@/lib/theme';
+import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { AddMenu } from './AddMenu';
 
@@ -20,8 +21,9 @@ export default function HomeScreen() {
   const router = useRouter();
   const counts = useLive(() => getStudyCounts(), ['cards', 'decks', 'review_logs', 'settings']);
   const decks = useLive(listDecks, ['decks']);
+  const sort = useLive(() => getSettings().deckSort, ['settings']);
   // Sub-decks ("SAT › Priority 1", "SAT › Priority 2") show as one "SAT" group.
-  const items = groupDecks(decks);
+  const items = sortDeckItems(groupDecks(decks), sort);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -53,9 +55,19 @@ export default function HomeScreen() {
               <Text style={styles.caught}>All caught up. See you tomorrow.</Text>
             ) : null}
             {decks.length > 0 ? (
-              <Text accessibilityRole="header" style={styles.section}>
-                Decks
-              </Text>
+              <View style={styles.sectionRow}>
+                <Text accessibilityRole="header" style={styles.section}>
+                  Decks
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`Sorted by ${sort}. Sort by ${sort === 'name' ? 'color' : 'name'}`}
+                  onPress={() => setSetting('deckSort', sort === 'name' ? 'color' : 'name')}
+                  style={({ pressed }) => [styles.sort, pressed && styles.sortPressed]}
+                >
+                  <Text style={styles.sortText}>Sort: {sort === 'name' ? 'Name' : 'Color'}</Text>
+                </Pressable>
+              </View>
             ) : null}
           </View>
         }
@@ -70,7 +82,7 @@ export default function HomeScreen() {
           ) : (
             <DeckRow
               name={item.name}
-              color={item.decks[0].color}
+              color={groupColor(item.decks)}
               counts={groupCounts(item.decks, counts.byDeck, counts.new)}
               detail={`${item.decks.length} decks`}
               stacked
@@ -106,6 +118,21 @@ const styles = StyleSheet.create({
   list: { paddingHorizontal: 20, paddingBottom: 120 },
   hero: { paddingTop: 24, gap: 12 },
   caught: { color: colors.muted, fontSize: 15, textAlign: 'center' },
-  section: { marginTop: 20, marginBottom: 4, fontSize: 15, fontWeight: '600', color: colors.muted },
+  sectionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 12,
+  },
+  section: { fontSize: 15, fontWeight: '600', color: colors.muted },
+  sort: {
+    minHeight: touchTarget,
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    marginRight: -12,
+    borderRadius: radius.button,
+  },
+  sortPressed: { backgroundColor: colors.surface },
+  sortText: { fontSize: 15, fontWeight: '600', color: colors.primary },
   empty: { marginTop: 48, color: colors.muted, fontSize: 16, textAlign: 'center' },
 });

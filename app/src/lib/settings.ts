@@ -11,7 +11,11 @@ export type Settings = {
   reminderEnabled: boolean;
   /** Reminder time as minutes after midnight, local time. */
   reminderMinutes: number;
+  /** Home's deck list order. */
+  deckSort: DeckSort;
 };
+
+export type DeckSort = 'name' | 'color';
 
 export const DEFAULT_SETTINGS: Settings = {
   retention: DEFAULT_RETENTION,
@@ -20,6 +24,7 @@ export const DEFAULT_SETTINGS: Settings = {
   newPerDay: 20,
   reminderEnabled: false,
   reminderMinutes: 20 * 60,
+  deckSort: 'name',
 };
 
 export const NEW_PER_DAY_MAX = 200;
@@ -32,14 +37,22 @@ export const SETTING_KEYS = {
   newPerDay: 'new_cards_per_day',
   reminderEnabled: 'reminder_enabled',
   reminderMinutes: 'reminder_minutes',
+  deckSort: 'deck_sort',
 } as const satisfies Record<keyof Settings, string>;
 
 /** Set once the welcome decks have been created (stops them coming back after you delete them). */
 export const SEEDED_KEY = 'seeded';
 
+/**
+ * Random id for this install, sent with AI requests for the daily quota. Never copied to another
+ * phone (two phones would share a quota); Phase 6 links devices to an optional account instead.
+ */
+export const DEVICE_ID_KEY = 'device_id';
+
 /** Settings that belong to this device and are left out of backups (and, later, sync). */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
   SEEDED_KEY,
+  DEVICE_ID_KEY,
   SETTING_KEYS.reminderEnabled,
   SETTING_KEYS.reminderMinutes,
 ];
@@ -66,6 +79,7 @@ export function parseSettings(rows: readonly { key: string; value: string }[]): 
   const fourButtons = get('fourButtons');
   const readAloud = get('readAloud');
   const reminderEnabled = get('reminderEnabled');
+  const deckSort = get('deckSort');
   return {
     retention:
       typeof retention === 'number' ? clampRetention(retention) : DEFAULT_SETTINGS.retention,
@@ -75,5 +89,6 @@ export function parseSettings(rows: readonly { key: string; value: string }[]): 
     reminderEnabled:
       typeof reminderEnabled === 'boolean' ? reminderEnabled : DEFAULT_SETTINGS.reminderEnabled,
     reminderMinutes: int(get('reminderMinutes'), DEFAULT_SETTINGS.reminderMinutes, 0, 24 * 60 - 1),
+    deckSort: deckSort === 'color' ? 'color' : 'name',
   };
 }

@@ -151,6 +151,39 @@ export function restoreCards(ids: string[], now = Date.now()): void {
   db.update(cards).set({ deleted_at: null, updated_at: now }).where(inArray(cards.id, ids)).run();
 }
 
+const CHUNK = 500;
+
+/**
+ * Moves cards to another deck, keeping each card and its reverse card together. Scheduling and
+ * history are untouched. Returns every id that moved, so "Undo" can move them back.
+ */
+export function moveCards(ids: readonly string[], deckId: string, now = Date.now()): string[] {
+  if (ids.length === 0) return [];
+  const all = new Set(ids);
+  transaction(() => {
+    for (let i = 0; i < ids.length; i += CHUNK) {
+      const chunk = ids.slice(i, i + CHUNK);
+      const partners = db
+        .select({ id: cards.id, reverse_of: cards.reverse_of })
+        .from(cards)
+        .where(and(or(inArray(cards.reverse_of, chunk), inArray(cards.id, chunk)), live))
+        .all();
+      for (const p of partners) {
+        all.add(p.id);
+        if (p.reverse_of) all.add(p.reverse_of);
+      }
+    }
+    const moving = [...all];
+    for (let i = 0; i < moving.length; i += CHUNK) {
+      db.update(cards)
+        .set({ deck_id: deckId, updated_at: now })
+        .where(and(inArray(cards.id, moving.slice(i, i + CHUNK)), live))
+        .run();
+    }
+  });
+  return [...all];
+}
+
 /** Cards in one deck, or in several (a deck group). */
 export function countCards(deckIds: string | readonly string[]): number {
   const ids = typeof deckIds === 'string' ? [deckIds] : [...deckIds];

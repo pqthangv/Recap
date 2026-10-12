@@ -6,6 +6,7 @@ import {
   createCard,
   deleteCards,
   getCardForEdit,
+  moveCards,
   restoreCards,
   updateCard,
 } from './cards';
@@ -305,5 +306,34 @@ describe('deck groups', () => {
     expect(rawQuery('SELECT count(*) AS n FROM cards WHERE deleted_at = ?', NOW + 1)).toEqual([
       { n: 5 },
     ]);
+  });
+});
+
+describe('moving cards', () => {
+  it('moves cards with their reverse cards, keeps their schedule, and can be undone', () => {
+    const from = addDeck('Spanish');
+    const to = addDeck('Vocabulary');
+    const pair = createCard(
+      { deckId: from.id, front: 'hola', back: 'hello', tags: [], reverse: true },
+      NOW,
+    );
+    const [single] = addCards(from.id, 1);
+    const reverse = rawQuery('SELECT id FROM cards WHERE reverse_of = ?', pair.id)[0] as {
+      id: string;
+    };
+    answerNext(Rating.Good, NOW + 1000, from.id);
+    const before = rawQuery('SELECT id, due, state, reps FROM cards ORDER BY id');
+
+    // Selecting only the reverse card still moves the pair together.
+    const moved = moveCards([reverse.id, single.id], to.id, NOW + 5000);
+    expect(new Set(moved)).toEqual(new Set([pair.id, reverse.id, single.id]));
+    expect(rawQuery('SELECT DISTINCT deck_id, updated_at FROM cards')).toEqual([
+      { deck_id: to.id, updated_at: NOW + 5000 },
+    ]);
+    expect(rawQuery('SELECT id, due, state, reps FROM cards ORDER BY id')).toEqual(before);
+
+    moveCards(moved, from.id, NOW + 6000); // undo
+    expect(rawQuery('SELECT DISTINCT deck_id FROM cards')).toEqual([{ deck_id: from.id }]);
+    expect(moveCards([], to.id)).toEqual([]);
   });
 });

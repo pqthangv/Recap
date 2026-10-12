@@ -1,0 +1,26 @@
+# Render Blueprint: Recap's API as a free web service. Steps: server/README.md → "Deploy".
+# Secrets (DATABASE_URL, GEMINI_API_KEY) are entered in the Render dashboard, never here.
+services:
+  - type: web
+    name: recap-api
+    runtime: python
+    plan: free
+    region: oregon # same area as Neon's AWS US West 2 (Oregon)
+    rootDir: server
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.15"
+      - key: DATABASE_URL # Neon's pooled connection string
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.8-flash,gemini-3.6-flash,gemini-3.1-flash-lite-preview,gemma-4-26b-a4b-it,gemma-4-31b-it # best first; rate-limited models are skipped for a while
+      - key: DAILY_CARD_QUOTA
+        value: "50"
+      - key: MAX_INPUT_CHARS
+        value: "15000"

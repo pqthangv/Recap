@@ -32,7 +32,7 @@ export function AddMenu({ visible, hasDecks, onClose }: Props) {
           onPress={() => go('/card/edit')}
         />
         <Option label="Import cards" onPress={() => go('/import')} />
-        <Option label="Create with AI" hint="Coming soon" disabled onPress={onClose} />
+        <Option label="Create with AI" onPress={() => go('/ai')} />
         <Option label="Cancel" onPress={onClose} muted />
       </View>
     </Modal>

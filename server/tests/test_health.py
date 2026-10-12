@@ -1,0 +1,26 @@
+from fastapi.testclient import TestClient
+
+import app.db
+from app.main import app as fastapi_app
+
+
+def test_health_never_touches_the_database(monkeypatch):
+    def no_database():
+        raise AssertionError("/health must not use the database")
+
+    monkeypatch.setattr(app.db, "get_engine", no_database)
+    app.db.set_engine(None)
+    with TestClient(fastapi_app) as client:
+        response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"ok": True}
+
+
+def test_endpoints_explain_a_missing_database():
+    app.db.set_engine(None)  # DATABASE_URL is empty in tests
+    with TestClient(fastapi_app) as client:
+        response = client.get(
+            "/v1/quota", params={"device_id": "6f1c2b9e-3d4a-4e5f-8a7b-1c2d3e4f5a6b"}
+        )
+    assert response.status_code == 503
+    assert response.json()["error"] == "not_configured"

@@ -60,6 +60,19 @@ Recap on the emulator. Rebuild with `npm run android` after adding a native pack
 
 Run the dev server in its own terminal window and leave it running while you work.
 
+### 4. AI cards (optional)
+
+"Create with AI" talks to Recap's server. To try it locally, run the server in `server/` (see
+[server/README.md](server/README.md): Python 3.12, a free Gemini API key in `server/.env`):
+
+```powershell
+cd server
+.venv\Scripts\uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Development builds reach it at `http://10.0.2.2:8000`. Deploying it for free (Render + Neon) is
+described in [server/README.md](server/README.md) → "Deploy".
+
 ## Changing the database
 
 Edit `app/src/db/schema.ts`, then run `npm run db:generate` in `app/`. It writes a SQL migration

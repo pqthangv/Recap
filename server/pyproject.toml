@@ -1,0 +1,22 @@
+[project]
+name = "recap-server"
+version = "1.0.0"
+description = "Recap's API: AI card generation and quotas"
+requires-python = ">=3.12,<3.13"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Starlette suggests httpx2 for its test client; httpx works and is the approved dependency.
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`"]
+
+[tool.ruff.lint.isort]
+# server/alembic/ holds the migrations; the alembic package itself is third-party.
+known-first-party = ["app", "tests"]
+known-third-party = ["alembic"]

@@ -43,7 +43,16 @@
           "icon": "./assets/images/android-icon-monochrome.png",
           "color": "#5A31D6"
         }
-      ]
+      ],
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Recap uses the camera to read your notes and make cards from them.",
+          "photosPermission": "Recap reads the text in photos you choose to make cards from them.",
+          "microphonePermission": false
+        }
+      ],
+      "expo-mlkit-ocr"
     ],
     "experiments": {
       "typedRoutes": true,

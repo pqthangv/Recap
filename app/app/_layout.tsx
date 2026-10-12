@@ -73,6 +73,8 @@ export default function RootLayout() {
         <Stack.Screen name="import/paste" options={{ title: 'Paste a list' }} />
         <Stack.Screen name="import/csv" options={{ title: 'Import a file' }} />
         <Stack.Screen name="import/anki" options={{ title: 'Import an Anki deck' }} />
+        <Stack.Screen name="ai/index" options={{ title: 'Create with AI' }} />
+        <Stack.Screen name="ai/review" options={{ title: 'Review cards' }} />
       </Stack>
       <SnackbarHost />
       <StatusBar style="dark" />

@@ -17,6 +17,7 @@ ios/
 
 # Python (server)
 server/.venv/
+server/*.db
 __pycache__/
 *.pyc
 .pytest_cache/

@@ -30,7 +30,12 @@ export default function CardEditorScreen() {
   const params = useLocalSearchParams<{ id?: string; deckId?: string }>();
   const router = useRouter();
   const [editing] = useState(() => (params.id ? getCardForEdit(params.id) : undefined));
-  const [decks] = useState(listDecks);
+  // The card's deck comes first, so it's visible in the scrolling row (tap another to move it).
+  const [decks] = useState(() => {
+    const all = listDecks();
+    const current = editing?.card.deck_id ?? params.deckId;
+    return [...all.filter((d) => d.id === current), ...all.filter((d) => d.id !== current)];
+  });
   const [deckId, setDeckId] = useState(
     editing?.card.deck_id ?? params.deckId ?? decks[0]?.id ?? '',
   );

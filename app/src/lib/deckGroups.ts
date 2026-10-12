@@ -2,6 +2,9 @@
 // "SAT Vocab" group. Groups come only from deck names (no extra column), so renaming a deck moves
 // it in or out of a group, and they sync like any other name. Anki imports name sub-decks this way.
 
+import type { DeckSort } from './settings';
+import { deckColors } from './theme';
+
 /** Between the parts of a deck name ("Languages › Spanish"). */
 export const DECK_PATH_SEPARATOR = ' › ';
 
@@ -71,4 +74,35 @@ export function groupCounts(
     fresh += byDeck[d.id]?.new ?? 0;
   }
   return { due, new: Math.min(fresh, totalNew) };
+}
+
+/** A group's dot: the color of the deck named like the group, else of its first deck. */
+export function groupColor(decks: readonly { name: string; color: string }[]): string {
+  if (decks.length === 0) return deckColors[0];
+  const key = groupKey(decks[0].name);
+  return (decks.find((d) => d.name.trim().toLowerCase() === key) ?? decks[0]).color;
+}
+
+/** Position of a color in the deck palette; colors from elsewhere (imports) go last. */
+export function colorRank(color: string): number {
+  const index = deckColors.findIndex((c) => c.toLowerCase() === color.toLowerCase());
+  return index === -1 ? deckColors.length : index;
+}
+
+const itemColor = <D extends Named & { color: string }>(item: DeckListItem<D>) =>
+  item.kind === 'deck' ? item.deck.color : groupColor(item.decks);
+
+/** By name (the order decks come in), or by color in palette order (then by name). */
+export function sortDeckItems<D extends Named & { color: string }>(
+  items: readonly DeckListItem<D>[],
+  by: DeckSort,
+): DeckListItem<D>[] {
+  if (by === 'name') return [...items];
+  // Array.prototype.sort is stable, so equal colors keep their name order.
+  return [...items].sort((a, b) => colorRank(itemColor(a)) - colorRank(itemColor(b)));
+}
+
+export function sortDecks<D extends { color: string }>(decks: readonly D[], by: DeckSort): D[] {
+  if (by === 'name') return [...decks];
+  return [...decks].sort((a, b) => colorRank(a.color) - colorRank(b.color));
 }
