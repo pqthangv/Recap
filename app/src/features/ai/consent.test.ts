@@ -19,20 +19,20 @@ function answer(text: string) {
   });
 }
 
-describe('AI consent (iPhone)', () => {
+describe('AI consent', () => {
   it('asks once, then remembers "Allow"', async () => {
     const alert = answer('Allow');
-    await expect(askAiConsent(true)).resolves.toBe(true);
+    await expect(askAiConsent()).resolves.toBe(true);
     expect(hasAiConsent()).toBe(true);
-    await expect(askAiConsent(true)).resolves.toBe(true);
+    await expect(askAiConsent()).resolves.toBe(true);
     expect(alert).toHaveBeenCalledTimes(1);
   });
 
   it('sends nothing after "Not now", and asks again next time', async () => {
     const alert = answer('Not now');
-    await expect(askAiConsent(true)).resolves.toBe(false);
+    await expect(askAiConsent()).resolves.toBe(false);
     expect(hasAiConsent()).toBe(false);
-    await expect(askAiConsent(true)).resolves.toBe(false);
+    await expect(askAiConsent()).resolves.toBe(false);
     expect(alert).toHaveBeenCalledTimes(2);
   });
 
@@ -40,13 +40,7 @@ describe('AI consent (iPhone)', () => {
     setAiConsent(true);
     setAiConsent(false);
     const alert = answer('Not now');
-    await expect(askAiConsent(true)).resolves.toBe(false);
+    await expect(askAiConsent()).resolves.toBe(false);
     expect(alert).toHaveBeenCalledTimes(1);
-  });
-
-  it("doesn't ask on Android", async () => {
-    const alert = answer('Not now');
-    await expect(askAiConsent(false)).resolves.toBe(true);
-    expect(alert).not.toHaveBeenCalled();
   });
 });

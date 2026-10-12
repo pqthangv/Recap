@@ -10,11 +10,11 @@ import { listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
 import { getSettings, setSetting } from '@/db/settings';
 import { resetDeckSchedule } from '@/db/study';
-import { ASKS_FOR_AI_CONSENT, hasAiConsent, setAiConsent } from '@/features/ai/consent';
+import { hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { requestReminderPermission, syncReminders } from '@/features/reminders/reminders';
 import { BackupError } from '@/lib/backup';
-import { CONTACT_EMAIL, PRIVACY_POLICY_URL } from '@/lib/contact';
+import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { formatTimeOfDay, plural } from '@/lib/format';
 import { MAX_RETENTION, MIN_RETENTION } from '@/lib/scheduler';
 import { NEW_PER_DAY_MAX } from '@/lib/settings';
@@ -107,7 +107,7 @@ export default function SettingsScreen() {
       {advanced ? <AdvancedSettings /> : null}
 
       <Text style={styles.footer}>
-        Recap {Constants.expoConfig?.version ?? ''} · Free forever. Your cards stay on this phone.
+        Recap {Constants.expoConfig?.version ?? ''} · All free. Your cards stay on this phone.
       </Text>
       <Pressable
         accessibilityRole="link"
@@ -120,6 +120,13 @@ export default function SettingsScreen() {
         style={styles.contact}
       >
         <Text style={styles.contactText}>Questions or feedback? {CONTACT_EMAIL}</Text>
+      </Pressable>
+      <Pressable
+        accessibilityRole="link"
+        onPress={() => Linking.openURL(SUPPORT_URL).catch(() => Alert.alert('Help', SUPPORT_URL))}
+        style={styles.contact}
+      >
+        <Text style={styles.contactText}>Help</Text>
       </Pressable>
       <Pressable
         accessibilityRole="link"
@@ -181,14 +188,12 @@ function AdvancedSettings() {
 
   return (
     <View style={styles.section}>
-      {ASKS_FOR_AI_CONSENT ? (
-        <SwitchRow
-          label="Send text to Google Gemini"
-          description="Create with AI needs this to write cards. When it's off, Recap asks first."
-          value={aiConsent}
-          onChange={setAiConsent}
-        />
-      ) : null}
+      <SwitchRow
+        label="Send text to Google Gemini"
+        description="Create with AI needs this to write cards. When it's off, Recap asks first."
+        value={aiConsent}
+        onChange={setAiConsent}
+      />
       <Text style={styles.description}>
         A backup has everything: decks, cards, review history and settings. Importing one merges it
         with what&apos;s here — nothing is deleted.

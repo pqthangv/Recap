@@ -109,7 +109,7 @@ export default function CreateWithAiScreen() {
   };
 
   const generate = async () => {
-    if (!(await askAiConsent())) return; // iPhone asks once (see consent.ts)
+    if (!(await askAiConsent())) return; // asks once before the first use (see consent.ts)
     await run('Making cards…', async () => {
       const source: AiSource =
         tab === 'topic'
