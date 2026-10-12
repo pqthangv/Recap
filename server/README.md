@@ -44,6 +44,7 @@ Tests use an in-memory SQLite database and never call Gemini (it's mocked).
 Production uses Neon's free Postgres through its **pooled** connection string. Tables:
 `devices(id, created_at)` and `ai_usage(device_id, day, cards_generated)`. The day is the UTC date.
 After changing `app/models.py`, add a migration with `alembic revision -m "..."` and edit it.
+Render applies it on the next deploy (the start command runs `alembic upgrade head`).
 
 ## Deploy (free: Render + Neon)
 
@@ -53,18 +54,14 @@ Both are free and need no credit card. You do these steps; nothing here pushes c
 1. Go to <https://neon.tech> → **Sign up** (GitHub or email).
 2. **Create project**: name `recap`, region **AWS Asia Pacific 1 (Singapore)** (same area as the
    Render service in `render.yaml`), default Postgres version.
-3. On the project dashboard click **Connect**. Copy the connection string **twice**:
-   - with **Connection pooling** switched **on** (host contains `-pooler`): this is the app's
-     `DATABASE_URL`;
-   - with it switched **off**: only for running migrations (step 2).
+3. On the project dashboard click **Connect**, switch **Connection pooling** on, and copy the
+   connection string (host contains `-pooler`). This is the app's `DATABASE_URL`.
 
-**2. Create the tables** (from your PC, once, and again after any new migration):
-```powershell
-cd server
-$env:DATABASE_URL = "<the NON-pooled string from Neon>"
-.venv\Scripts\alembic upgrade head
-Remove-Item Env:DATABASE_URL
-```
+**2. Tables: nothing to do.** Render's start command runs `alembic upgrade head` before starting
+the server, so the tables are created on the first deploy and updated by any later migration. If a
+migration fails, the new version doesn't start and Render keeps the old one running (see the
+service's Logs). To run migrations by hand anyway, from `server/`:
+`$env:DATABASE_URL = '<Neon string>'; .venv\Scripts\alembic upgrade head`.
 
 **3. Push the code to GitHub** (you run `git push`; Render deploys from GitHub).
 

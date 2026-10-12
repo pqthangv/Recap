@@ -8,7 +8,9 @@ services:
     region: singapore # near the first testers; Neon project in AWS Asia Pacific (Singapore)
     rootDir: server
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    # Creates/updates the tables first (a quick no-op when they're current). If a migration fails,
+    # the server doesn't start and Render keeps the previous version running.
+    startCommand: alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     autoDeployTrigger: commit
     envVars:
