@@ -21,9 +21,31 @@ def generate(client, device=DEVICE, ip="203.0.113.7", cards=10):
 
 def test_no_public_api_docs(client):
     assert get_settings().enable_docs is False
+    assert get_settings().admin_token == ""
     for path in ("/docs", "/redoc", "/openapi.json"):
         assert client.get(path).status_code == 404
-    assert fastapi_app.openapi_url is None
+    assert fastapi_app.openapi_url is None  # FastAPI's own open docs are never on
+
+
+def test_docs_need_the_admin_token(client, monkeypatch):
+    monkeypatch.setattr(get_settings(), "admin_token", "s3cret-token")
+    missing = client.get("/docs")
+    assert missing.status_code == 401
+    assert missing.headers["www-authenticate"].startswith("Basic")  # browser shows a login box
+    assert client.get("/openapi.json", auth=("admin", "wrong")).status_code == 401
+    page = client.get("/docs", auth=("admin", "s3cret-token"))
+    assert page.status_code == 200
+    assert "swagger" in page.text.lower()
+    schema = client.get("/openapi.json", auth=("admin", "s3cret-token")).json()
+    assert "/v1/generate" in schema["paths"]
+    assert "/openapi.json" not in schema["paths"]  # the docs pages aren't listed themselves
+    assert client.get("/redoc", auth=("admin", "s3cret-token")).status_code == 200
+
+
+def test_docs_are_open_locally_with_enable_docs(client, monkeypatch):
+    monkeypatch.setattr(get_settings(), "enable_docs", True)
+    assert client.get("/docs").status_code == 200
+    assert client.get("/openapi.json").status_code == 200
 
 
 def test_too_many_requests_from_one_address_are_refused(client, monkeypatch):

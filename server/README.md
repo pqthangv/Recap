@@ -18,7 +18,9 @@ Errors are always `{"error": <code>, "message": <friendly text>}`, e.g. `quota_e
 script on its own), each network address gets at most `IP_DAILY_CARD_QUOTA` cards a day and
 `IP_REQUESTS_PER_MINUTE` requests a minute (`rate_limited`, `ip_quota_exceeded`). The address comes
 from Cloudflare's `CF-Connecting-IP` on Render (callers can't fake it); limits are in memory and
-reset on restart. API docs (`/docs`, `/openapi.json`) are off unless `ENABLE_DOCS=true`. Later
+reset on restart. API docs (`/docs`, `/redoc`, `/openapi.json`) are hidden: locally set
+`ENABLE_DOCS=true`; on Render open `/docs` and log in with user `admin` and the `ADMIN_TOKEN` that
+Render generated (service → Environment). Later
 (Phase 5), `verify_app` in `app/api.py` will check Google Play Integrity tokens.
 
 ## Run it locally (Windows)

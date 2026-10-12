@@ -27,8 +27,10 @@ class Settings(BaseSettings):
     # Per network address (see app/abuse.py): stops one machine inventing device ids.
     ip_daily_card_quota: int = 200
     ip_requests_per_minute: int = 30
-    # API docs (/docs, /redoc, /openapi.json). Off in production; set ENABLE_DOCS=true locally.
+    # API docs (/docs, /redoc, /openapi.json), see app/docs.py: open with ENABLE_DOCS=true
+    # (local only), or log in with user "admin" and ADMIN_TOKEN as the password (Render).
     enable_docs: bool = False
+    admin_token: str = ""
     max_input_chars: int = 15_000
     max_cards_per_request: int = 30
     max_topic_chars: int = 200
