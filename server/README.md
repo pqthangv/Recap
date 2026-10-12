@@ -1,96 +1,30 @@
 # server
 
-Recap's API: makes flashcards with AI (Google Gemini, free tier), enforces a per-device daily
-quota, and reads text out of PDFs. FastAPI on Python 3.12. Decks and study data never come here;
-they stay on the phone.
+Recap's small API. It only does what the phone can't do alone: it makes flashcards with AI
+(Google Gemini), keeps a fair daily limit per device, and reads text out of PDFs. FastAPI on
+Python 3.12. Decks and study data never come here; they stay on the phone.
 
 | Endpoint | What it does |
 | --- | --- |
-| `GET /health` | `{"ok": true}`. Never touches the database (uptime pings must not keep Neon awake). |
+| `GET /health` | `{"ok": true}`. Never touches the database. |
 | `GET /v1/quota?device_id=` | Cards left today: `{"remaining", "limit"}`. |
 | `POST /v1/generate` | `{device_id, text, mode: "text" \| "topic", max_cards ≤ 30, language?}` → `{cards: [{front, back}], remaining}` |
 | `POST /v1/extract-pdf` | Multipart `device_id` + `file` (≤ 10 MB) → `{text, pages, truncated}`. Read in memory, never saved. |
+| `GET /privacy`, `GET /support` | The privacy policy and the help page. |
 
 Errors are always `{"error": <code>, "message": <friendly text>}`, e.g. `quota_exceeded` (429),
 `ai_busy` (503, after 3 tries with backoff), `too_long` (413), `pdf_no_text` (422).
 
-**Abuse limits.** Besides the per-device quota (the phone makes its own id, so it can't stop a
-script on its own), each network address gets at most `IP_DAILY_CARD_QUOTA` cards a day and
-`IP_REQUESTS_PER_MINUTE` requests a minute (`rate_limited`, `ip_quota_exceeded`). The address comes
-from Cloudflare's `CF-Connecting-IP` on Render (callers can't fake it); limits are in memory and
-reset on restart. API docs (`/docs`, `/redoc`, `/openapi.json`) are hidden: locally set
-`ENABLE_DOCS=true`; on Render open `/docs` and log in with user `admin` and the `ADMIN_TOKEN` that
-Render generated (service → Environment). Later
-(Phase 5), `verify_app` in `app/api.py` will check Google Play Integrity tokens.
+**How the AI part works.** `app/llm/gemini.py` tries a list of free Gemini/Gemma models in order,
+with per-model cooldowns, so one model running out of quota doesn't stop card making. The provider
+sits behind a small interface (`app/llm/base.py`), so it can be swapped later. The study material
+is never logged: logs record only sizes and counts.
 
-## Run it locally (Windows)
+**Abuse limits.** Besides the per-device quota (the phone makes its own random id, so that alone
+can't stop a script), each network address gets a daily card limit and a per-minute request limit
+(`rate_limited`, `ip_quota_exceeded`), kept in memory. The interactive API docs are not public.
 
-```powershell
-cd server
-py -3.12 -m venv .venv
-.venv\Scripts\python -m pip install -r requirements-dev.txt
-copy .env.example .env          # then put your Gemini key in .env (or set LLM_PROVIDER=fake)
-.venv\Scripts\alembic upgrade head
-.venv\Scripts\uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
+**Database.** Postgres in production (SQLite in tests), managed with Alembic. Two tables:
+`devices(id, created_at)` and `ai_usage(device_id, day, cards_generated)` (the day is the UTC date).
 
-The Android emulator reaches it at `http://10.0.2.2:8000`, which is what development builds of
-the app use. `LLM_PROVIDER=fake` makes predictable cards without a key; put `[fake:busy]` or
-`[fake:garbage]` in the text to see the app's error messages.
-
-## Checks
-
-```powershell
-.venv\Scripts\ruff check .
-.venv\Scripts\ruff format --check .
-.venv\Scripts\pytest
-```
-
-Tests use an in-memory SQLite database and never call Gemini (it's mocked).
-
-## Database
-
-Production uses Neon's free Postgres through its **pooled** connection string. Tables:
-`devices(id, created_at)` and `ai_usage(device_id, day, cards_generated)`. The day is the UTC date.
-After changing `app/models.py`, add a migration with `alembic revision -m "..."` and edit it.
-Render applies it on the next deploy (the start command runs `alembic upgrade head`).
-
-## Deploy (free: Render + Neon)
-
-Both are free and need no credit card. You do these steps; nothing here pushes code for you.
-
-**1. Database (Neon)**
-1. Go to <https://neon.tech> → **Sign up** (GitHub or email).
-2. **Create project**: name `recap`, region **AWS Asia Pacific 1 (Singapore)** (same area as the
-   Render service in `render.yaml`), default Postgres version.
-3. On the project dashboard click **Connect**, switch **Connection pooling** on, and copy the
-   connection string (host contains `-pooler`). This is the app's `DATABASE_URL`.
-
-**2. Tables: nothing to do.** Render's start command runs `alembic upgrade head` before starting
-the server, so the tables are created on the first deploy and updated by any later migration. If a
-migration fails, the new version doesn't start and Render keeps the old one running (see the
-service's Logs). To run migrations by hand anyway, from `server/`:
-`$env:DATABASE_URL = '<Neon string>'; .venv\Scripts\alembic upgrade head`.
-
-**3. Push the code to GitHub** (you run `git push`; Render deploys from GitHub).
-
-**4. Web service (Render)**
-1. Go to <https://render.com> → **Get Started** → sign up with GitHub.
-2. **New** (top right) → **Blueprint** → connect your GitHub account → pick the Recap repository.
-3. Render reads `render.yaml` and asks for the secret values:
-   - `DATABASE_URL` → the **pooled** Neon string;
-   - `GEMINI_API_KEY` → your key from <https://aistudio.google.com/apikey>.
-4. **Apply**. The first build takes a few minutes. When it's live, open
-   `https://<your-service>.onrender.com/health` → `{"ok":true}`. (If the name `recap-api` was taken,
-   Render adds a suffix; use the URL shown on the service page.)
-
-**5. Keep it awake** (free services sleep after 15 minutes and take ~1 minute to wake):
-1. Go to <https://cron-job.org> → sign up (free).
-2. **Create cronjob** → URL `https://<your-service>.onrender.com/health` → every **10 minutes** →
-   **Create**. `/health` never touches the database, so Neon can still sleep. One service awake all
-   month fits in Render's 750 free hours.
-
-**6. Point the app at it**: create `app/.env` with
-`EXPO_PUBLIC_API_URL=https://<your-service>.onrender.com`, restart the dev server, then build the
-release APK (root README → "Release APK"). While that line is in `app/.env`, development builds
-use Render too; remove it to go back to your local server (`http://10.0.2.2:8000`).
+Tests (`pytest`) use an in-memory SQLite database and never call Gemini (it's mocked).

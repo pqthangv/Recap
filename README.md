@@ -1,97 +1,77 @@
-# Recap: Simple AI Flashcards
+<p align="center">
+  <img src="app/assets/images/icon.png" width="96" alt="Recap icon">
+</p>
 
-A free, simple, AI-assisted spaced-repetition flashcard app. Android first, iOS later.
-Local-first: your decks and study history live on your device and work offline with no account.
+<h1 align="center">Recap: Simple AI Flashcards</h1>
 
-## Repository layout
+<p align="center">
+  Turn your notes into flashcards in seconds, then study a few minutes a day.<br>
+  Free, no ads, no account. Your cards stay on your phone.
+</p>
 
-```
-app/      Expo (React Native) app: routes in app/app/, code in app/src/
-server/   FastAPI service for AI card generation (Phase 3)
-```
+<p align="center">
+  <img src="media/home.png" width="200" alt="Home: one Study button and your decks">
+  <img src="media/study.png" width="200" alt="Studying a card with Forgot and Got it">
+  <img src="media/ai-review.png" width="200" alt="Checking cards made by AI">
+  <img src="media/stats.png" width="200" alt="Statistics with a daily streak">
+</p>
 
-## Setup (Windows)
+<p align="center"><b>Android:</b> in testing on Google Play · <b>iPhone:</b> coming soon</p>
 
-### 1. Install the tools
+## Remember more, study less
 
-| Tool | Notes |
+- **Spaced repetition with FSRS**, a modern, research-based memory algorithm. Cards come back right
+  before you would forget them.
+- **Active recall:** see the question, think of the answer, then tap **Forgot** or **Got it**. Each
+  button shows when you'll see the card again.
+- **One big Study button** shows everything that's due. No settings to learn first.
+
+## Make cards in seconds with AI
+
+- Paste your notes, snap a photo of a textbook page, add a PDF, or just type a topic.
+- Check every card before you save it: edit or remove anything that isn't right.
+- Exam soon? Go from notes to a full deck in a minute.
+
+## Bring the cards you already have
+
+- Import a spreadsheet (`.csv` or `.tsv` from Excel or Google Sheets): front, back and tags.
+- Paste a list like `chat - cat`, one card per line.
+- Open shared `.apkg` decks.
+
+## Stay on track
+
+- A daily streak that counts when you finish your new cards for the day.
+- See how many cards you studied and how much time you spent, day by day.
+- An optional daily reminder when you have cards due.
+
+## Made for real studying
+
+- Vocabulary for IELTS and SAT, languages, biology, history, medicine and more.
+- Decks inside decks (like "Biology › Cells") to keep things tidy.
+- Pictures on cards, and cards read aloud in English or Vietnamese.
+- Deleted decks can be restored for 30 days.
+
+## Private by design
+
+Your decks, cards and study history live on your phone and work offline. There are no ads, no
+tracking and no account. Only the text you choose to turn into cards with "Create with AI" leaves
+your phone: it goes to Google's Gemini AI to write the cards (on iPhone, Recap asks first).
+Read the [privacy policy](https://recap-api-ictj.onrender.com/privacy).
+
+## How it's built
+
+For anyone reading the code:
+
+| Part | What's inside |
 | --- | --- |
-| [Node.js LTS](https://nodejs.org/) | Includes npm. |
-| [Git](https://git-scm.com/download/win) | |
-| JDK 17 | [Temurin 17](https://adoptium.net/temurin/releases/?version=17), or point `JAVA_HOME` at Android Studio's bundled JDK (`C:\Program Files\Android\Android Studio\jbr`). |
-| [Android Studio](https://developer.android.com/studio) | Open **More Actions → SDK Manager** and install an **Android SDK Platform**, **Android SDK Platform-Tools** and **Android Emulator**. Then open **Device Manager** and create an emulator with an x86_64 system image. |
+| [`app/`](app) | The phone app: Expo (React Native) + TypeScript, Expo Router. Everything is stored on the device in SQLite (Drizzle ORM); scheduling uses [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs). Text in photos is read on the device. |
+| [`server/`](server) | A small FastAPI service that only makes AI cards: it sends the user's text to Google's Gemini API, with a daily limit per device. |
 
-### 2. Set environment variables
+The data layer is built for optional sync later: every row has a UUID, timestamps and soft
+deletes, and review history is append-only (see the comments in
+[`app/src/db/schema.ts`](app/src/db/schema.ts)).
 
-In **Start → "Edit environment variables for your account"**:
+## Feedback
 
-- `ANDROID_HOME` = `%LOCALAPPDATA%\Android\Sdk`
-- `JAVA_HOME` = your JDK 17 folder
-- Add to `Path`: `%ANDROID_HOME%\platform-tools` and `%ANDROID_HOME%\emulator`
-
-Open a new terminal and check that everything is found:
-
-```powershell
-node --version
-java -version          # should say 17
-adb --version
-emulator -list-avds    # should list at least one emulator
-```
-
-### 3. Run the app
-
-Start your emulator from Android Studio's Device Manager (or `emulator -avd <name>`), then:
-
-```powershell
-cd app
-npm install
-npm run android        # builds the development build, installs it, starts the dev server
-```
-
-The first build downloads Gradle and compiles native code, so it can take 10+ minutes.
-Later builds are much faster.
-
-This project uses a development build, not Expo Go. The `android/` and `ios/` folders are
-generated by Expo and are not committed. Change native settings in `app/app.json` instead.
-
-After the first build you only need the dev server: run `npx expo start` in `app/` and open
-Recap on the emulator. Rebuild with `npm run android` after adding a native package or changing
-`app.json` (if `app.json` changed, run `npx expo prebuild --clean --platform android` first).
-
-Run the dev server in its own terminal window and leave it running while you work.
-
-### 4. AI cards (optional)
-
-"Create with AI" talks to Recap's server. To try it locally, run the server in `server/` (see
-[server/README.md](server/README.md): Python 3.12, a free Gemini API key in `server/.env`):
-
-```powershell
-cd server
-.venv\Scripts\uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
-
-Development builds reach it at `http://10.0.2.2:8000`. Deploying it for free (Render + Neon) is
-described in [server/README.md](server/README.md) → "Deploy".
-
-## Changing the database
-
-Edit `app/src/db/schema.ts`, then run `npm run db:generate` in `app/`. It writes a SQL migration
-to `app/drizzle/` and regenerates `app/src/db/migrations.ts`. Migrations run when the app starts.
-How the data is stored (and kept ready for CSV export and future sync) is explained in the
-comments at the top of `app/src/db/schema.ts` and `app/src/lib/backup.ts`.
-
-## Checks
-
-Run these from `app/` before committing:
-
-```powershell
-npm run typecheck
-npm run lint
-npm test
-```
-
-`npm run format` rewrites files with Prettier.
-
-## Contact
-
-Questions, feedback or privacy requests: [recap.flashcards@gmail.com](mailto:recap.flashcards@gmail.com)
+Questions, ideas or bugs: [recap.flashcards@gmail.com](mailto:recap.flashcards@gmail.com) ·
+[Help page](https://recap-api-ictj.onrender.com/support)
