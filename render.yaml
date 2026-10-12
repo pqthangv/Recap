@@ -5,7 +5,7 @@ services:
     name: recap-api
     runtime: python
     plan: free
-    region: oregon # same area as Neon's AWS US West 2 (Oregon)
+    region: singapore # near the first testers; Neon project in AWS Asia Pacific (Singapore)
     rootDir: server
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT

@@ -51,7 +51,8 @@ Both are free and need no credit card. You do these steps; nothing here pushes c
 
 **1. Database (Neon)**
 1. Go to <https://neon.tech> → **Sign up** (GitHub or email).
-2. **Create project**: name `recap`, region **AWS US West 2 (Oregon)**, default Postgres version.
+2. **Create project**: name `recap`, region **AWS Asia Pacific 1 (Singapore)** (same area as the
+   Render service in `render.yaml`), default Postgres version.
 3. On the project dashboard click **Connect**. Copy the connection string **twice**:
    - with **Connection pooling** switched **on** (host contains `-pooler`): this is the app's
      `DATABASE_URL`;
