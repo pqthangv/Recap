@@ -55,7 +55,7 @@
 
 Your decks, cards and study history live on your phone and work offline. There are no ads, no
 tracking and no account. Only the text you choose to turn into cards with "Create with AI" leaves
-your phone: it goes to Google's Gemini AI to write the cards (on iPhone, Recap asks first).
+your phone: it goes to Google's Gemini AI to write the cards, and Recap asks before it sends anything.
 Read the [privacy policy](https://recap-api-ictj.onrender.com/privacy).
 
 ## How it's built

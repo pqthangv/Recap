@@ -50,8 +50,8 @@ export const SEEDED_KEY = 'seeded';
 export const DEVICE_ID_KEY = 'device_id';
 
 /**
- * iPhone only: the user allowed "Create with AI" to send their text to Google Gemini (Apple asks for
- * explicit permission before data goes to a third-party AI, guideline 5.1.2(i)). Per phone.
+ * The user allowed "Create with AI" to send their text to Google Gemini (Apple requires explicit
+ * permission before data goes to a third-party AI, guideline 5.1.2(i); Android asks the same). Per phone.
  */
 export const AI_CONSENT_KEY = 'ai_consent';
 
