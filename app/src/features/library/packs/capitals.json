@@ -1,0 +1,806 @@
+{
+  "decks": [
+    {
+      "name": "Africa",
+      "cards": [
+        {
+          "front": "Capital of Algeria",
+          "back": "Algiers"
+        },
+        {
+          "front": "Capital of Angola",
+          "back": "Luanda"
+        },
+        {
+          "front": "Capital of Benin",
+          "back": "Porto-Novo\n\nCotonou is the seat of government."
+        },
+        {
+          "front": "Capital of Botswana",
+          "back": "Gaborone"
+        },
+        {
+          "front": "Capital of Burkina Faso",
+          "back": "Ouagadougou"
+        },
+        {
+          "front": "Capital of Burundi",
+          "back": "Gitega\n\nBujumbura, the former capital, is the largest city."
+        },
+        {
+          "front": "Capital of Cabo Verde (Cape Verde)",
+          "back": "Praia"
+        },
+        {
+          "front": "Capital of Cameroon",
+          "back": "Yaoundé"
+        },
+        {
+          "front": "Capital of the Central African Republic",
+          "back": "Bangui"
+        },
+        {
+          "front": "Capital of Chad",
+          "back": "N'Djamena"
+        },
+        {
+          "front": "Capital of Comoros",
+          "back": "Moroni"
+        },
+        {
+          "front": "Capital of Côte d'Ivoire (Ivory Coast)",
+          "back": "Yamoussoukro\n\nAbidjan is the largest city and has most government offices."
+        },
+        {
+          "front": "Capital of the Democratic Republic of the Congo",
+          "back": "Kinshasa"
+        },
+        {
+          "front": "Capital of Djibouti",
+          "back": "Djibouti"
+        },
+        {
+          "front": "Capital of Egypt",
+          "back": "Cairo"
+        },
+        {
+          "front": "Capital of Equatorial Guinea",
+          "back": "Malabo"
+        },
+        {
+          "front": "Capital of Eritrea",
+          "back": "Asmara"
+        },
+        {
+          "front": "Capital of Eswatini (Swaziland)",
+          "back": "Mbabane\n\nLobamba is the royal and legislative capital."
+        },
+        {
+          "front": "Capital of Ethiopia",
+          "back": "Addis Ababa"
+        },
+        {
+          "front": "Capital of Gabon",
+          "back": "Libreville"
+        },
+        {
+          "front": "Capital of the Gambia",
+          "back": "Banjul"
+        },
+        {
+          "front": "Capital of Ghana",
+          "back": "Accra"
+        },
+        {
+          "front": "Capital of Guinea",
+          "back": "Conakry"
+        },
+        {
+          "front": "Capital of Guinea-Bissau",
+          "back": "Bissau"
+        },
+        {
+          "front": "Capital of Kenya",
+          "back": "Nairobi"
+        },
+        {
+          "front": "Capital of Lesotho",
+          "back": "Maseru"
+        },
+        {
+          "front": "Capital of Liberia",
+          "back": "Monrovia"
+        },
+        {
+          "front": "Capital of Libya",
+          "back": "Tripoli"
+        },
+        {
+          "front": "Capital of Madagascar",
+          "back": "Antananarivo"
+        },
+        {
+          "front": "Capital of Malawi",
+          "back": "Lilongwe"
+        },
+        {
+          "front": "Capital of Mali",
+          "back": "Bamako"
+        },
+        {
+          "front": "Capital of Mauritania",
+          "back": "Nouakchott"
+        },
+        {
+          "front": "Capital of Mauritius",
+          "back": "Port Louis"
+        },
+        {
+          "front": "Capital of Morocco",
+          "back": "Rabat"
+        },
+        {
+          "front": "Capital of Mozambique",
+          "back": "Maputo"
+        },
+        {
+          "front": "Capital of Namibia",
+          "back": "Windhoek"
+        },
+        {
+          "front": "Capital of Niger",
+          "back": "Niamey"
+        },
+        {
+          "front": "Capital of Nigeria",
+          "back": "Abuja"
+        },
+        {
+          "front": "Capital of the Republic of the Congo",
+          "back": "Brazzaville"
+        },
+        {
+          "front": "Capital of Rwanda",
+          "back": "Kigali"
+        },
+        {
+          "front": "Capital of São Tomé and Príncipe",
+          "back": "São Tomé"
+        },
+        {
+          "front": "Capital of Senegal",
+          "back": "Dakar"
+        },
+        {
+          "front": "Capital of Seychelles",
+          "back": "Victoria"
+        },
+        {
+          "front": "Capital of Sierra Leone",
+          "back": "Freetown"
+        },
+        {
+          "front": "Capital of Somalia",
+          "back": "Mogadishu"
+        },
+        {
+          "front": "Capital of South Africa",
+          "back": "Pretoria\n\nPretoria is the executive capital, Cape Town the legislative and Bloemfontein the judicial."
+        },
+        {
+          "front": "Capital of South Sudan",
+          "back": "Juba"
+        },
+        {
+          "front": "Capital of Sudan",
+          "back": "Khartoum"
+        },
+        {
+          "front": "Capital of Tanzania",
+          "back": "Dodoma\n\nDar es Salaam is the largest city."
+        },
+        {
+          "front": "Capital of Togo",
+          "back": "Lomé"
+        },
+        {
+          "front": "Capital of Tunisia",
+          "back": "Tunis"
+        },
+        {
+          "front": "Capital of Uganda",
+          "back": "Kampala"
+        },
+        {
+          "front": "Capital of Zambia",
+          "back": "Lusaka"
+        },
+        {
+          "front": "Capital of Zimbabwe",
+          "back": "Harare"
+        }
+      ]
+    },
+    {
+      "name": "Asia",
+      "cards": [
+        {
+          "front": "Capital of Afghanistan",
+          "back": "Kabul"
+        },
+        {
+          "front": "Capital of Armenia",
+          "back": "Yerevan"
+        },
+        {
+          "front": "Capital of Azerbaijan",
+          "back": "Baku"
+        },
+        {
+          "front": "Capital of Bahrain",
+          "back": "Manama"
+        },
+        {
+          "front": "Capital of Bangladesh",
+          "back": "Dhaka"
+        },
+        {
+          "front": "Capital of Bhutan",
+          "back": "Thimphu"
+        },
+        {
+          "front": "Capital of Brunei",
+          "back": "Bandar Seri Begawan"
+        },
+        {
+          "front": "Capital of Cambodia",
+          "back": "Phnom Penh"
+        },
+        {
+          "front": "Capital of China",
+          "back": "Beijing"
+        },
+        {
+          "front": "Capital of Georgia",
+          "back": "Tbilisi"
+        },
+        {
+          "front": "Capital of India",
+          "back": "New Delhi"
+        },
+        {
+          "front": "Capital of Indonesia",
+          "back": "Jakarta\n\nA new capital, Nusantara, is being built on Borneo."
+        },
+        {
+          "front": "Capital of Iran",
+          "back": "Tehran"
+        },
+        {
+          "front": "Capital of Iraq",
+          "back": "Baghdad"
+        },
+        {
+          "front": "Capital of Israel",
+          "back": "Jerusalem\n\nIsrael's capital by its own law; its status is disputed internationally."
+        },
+        {
+          "front": "Capital of Japan",
+          "back": "Tokyo"
+        },
+        {
+          "front": "Capital of Jordan",
+          "back": "Amman"
+        },
+        {
+          "front": "Capital of Kazakhstan",
+          "back": "Astana"
+        },
+        {
+          "front": "Capital of Kuwait",
+          "back": "Kuwait City"
+        },
+        {
+          "front": "Capital of Kyrgyzstan",
+          "back": "Bishkek"
+        },
+        {
+          "front": "Capital of Laos",
+          "back": "Vientiane"
+        },
+        {
+          "front": "Capital of Lebanon",
+          "back": "Beirut"
+        },
+        {
+          "front": "Capital of Malaysia",
+          "back": "Kuala Lumpur\n\nPutrajaya is the seat of government."
+        },
+        {
+          "front": "Capital of the Maldives",
+          "back": "Malé"
+        },
+        {
+          "front": "Capital of Mongolia",
+          "back": "Ulaanbaatar"
+        },
+        {
+          "front": "Capital of Myanmar (Burma)",
+          "back": "Naypyidaw"
+        },
+        {
+          "front": "Capital of Nepal",
+          "back": "Kathmandu"
+        },
+        {
+          "front": "Capital of North Korea",
+          "back": "Pyongyang"
+        },
+        {
+          "front": "Capital of Oman",
+          "back": "Muscat"
+        },
+        {
+          "front": "Capital of Pakistan",
+          "back": "Islamabad"
+        },
+        {
+          "front": "Capital of the Philippines",
+          "back": "Manila"
+        },
+        {
+          "front": "Capital of Qatar",
+          "back": "Doha"
+        },
+        {
+          "front": "Capital of Saudi Arabia",
+          "back": "Riyadh"
+        },
+        {
+          "front": "Capital of Singapore",
+          "back": "Singapore"
+        },
+        {
+          "front": "Capital of South Korea",
+          "back": "Seoul"
+        },
+        {
+          "front": "Capital of Sri Lanka",
+          "back": "Sri Jayawardenepura Kotte\n\nColombo is the largest city."
+        },
+        {
+          "front": "Capital of Syria",
+          "back": "Damascus"
+        },
+        {
+          "front": "Capital of Tajikistan",
+          "back": "Dushanbe"
+        },
+        {
+          "front": "Capital of Thailand",
+          "back": "Bangkok"
+        },
+        {
+          "front": "Capital of Timor-Leste (East Timor)",
+          "back": "Dili"
+        },
+        {
+          "front": "Capital of Turkey (Türkiye)",
+          "back": "Ankara"
+        },
+        {
+          "front": "Capital of Turkmenistan",
+          "back": "Ashgabat"
+        },
+        {
+          "front": "Capital of the United Arab Emirates",
+          "back": "Abu Dhabi"
+        },
+        {
+          "front": "Capital of Uzbekistan",
+          "back": "Tashkent"
+        },
+        {
+          "front": "Capital of Vietnam",
+          "back": "Hanoi"
+        },
+        {
+          "front": "Capital of Yemen",
+          "back": "Sanaa\n\nSanaa is the capital under the constitution; the recognised government works from Aden."
+        }
+      ]
+    },
+    {
+      "name": "Europe",
+      "cards": [
+        {
+          "front": "Capital of Albania",
+          "back": "Tirana"
+        },
+        {
+          "front": "Capital of Andorra",
+          "back": "Andorra la Vella"
+        },
+        {
+          "front": "Capital of Austria",
+          "back": "Vienna"
+        },
+        {
+          "front": "Capital of Belarus",
+          "back": "Minsk"
+        },
+        {
+          "front": "Capital of Belgium",
+          "back": "Brussels"
+        },
+        {
+          "front": "Capital of Bosnia and Herzegovina",
+          "back": "Sarajevo"
+        },
+        {
+          "front": "Capital of Bulgaria",
+          "back": "Sofia"
+        },
+        {
+          "front": "Capital of Croatia",
+          "back": "Zagreb"
+        },
+        {
+          "front": "Capital of Cyprus",
+          "back": "Nicosia"
+        },
+        {
+          "front": "Capital of Czechia (Czech Republic)",
+          "back": "Prague"
+        },
+        {
+          "front": "Capital of Denmark",
+          "back": "Copenhagen"
+        },
+        {
+          "front": "Capital of Estonia",
+          "back": "Tallinn"
+        },
+        {
+          "front": "Capital of Finland",
+          "back": "Helsinki"
+        },
+        {
+          "front": "Capital of France",
+          "back": "Paris"
+        },
+        {
+          "front": "Capital of Germany",
+          "back": "Berlin"
+        },
+        {
+          "front": "Capital of Greece",
+          "back": "Athens"
+        },
+        {
+          "front": "Capital of Hungary",
+          "back": "Budapest"
+        },
+        {
+          "front": "Capital of Iceland",
+          "back": "Reykjavík"
+        },
+        {
+          "front": "Capital of Ireland",
+          "back": "Dublin"
+        },
+        {
+          "front": "Capital of Italy",
+          "back": "Rome"
+        },
+        {
+          "front": "Capital of Latvia",
+          "back": "Riga"
+        },
+        {
+          "front": "Capital of Liechtenstein",
+          "back": "Vaduz"
+        },
+        {
+          "front": "Capital of Lithuania",
+          "back": "Vilnius"
+        },
+        {
+          "front": "Capital of Luxembourg",
+          "back": "Luxembourg"
+        },
+        {
+          "front": "Capital of Malta",
+          "back": "Valletta"
+        },
+        {
+          "front": "Capital of Moldova",
+          "back": "Chișinău"
+        },
+        {
+          "front": "Capital of Monaco",
+          "back": "Monaco"
+        },
+        {
+          "front": "Capital of Montenegro",
+          "back": "Podgorica"
+        },
+        {
+          "front": "Capital of the Netherlands",
+          "back": "Amsterdam\n\nThe Hague is the seat of government."
+        },
+        {
+          "front": "Capital of North Macedonia",
+          "back": "Skopje"
+        },
+        {
+          "front": "Capital of Norway",
+          "back": "Oslo"
+        },
+        {
+          "front": "Capital of Poland",
+          "back": "Warsaw"
+        },
+        {
+          "front": "Capital of Portugal",
+          "back": "Lisbon"
+        },
+        {
+          "front": "Capital of Romania",
+          "back": "Bucharest"
+        },
+        {
+          "front": "Capital of Russia",
+          "back": "Moscow"
+        },
+        {
+          "front": "Capital of San Marino",
+          "back": "San Marino"
+        },
+        {
+          "front": "Capital of Serbia",
+          "back": "Belgrade"
+        },
+        {
+          "front": "Capital of Slovakia",
+          "back": "Bratislava"
+        },
+        {
+          "front": "Capital of Slovenia",
+          "back": "Ljubljana"
+        },
+        {
+          "front": "Capital of Spain",
+          "back": "Madrid"
+        },
+        {
+          "front": "Capital of Sweden",
+          "back": "Stockholm"
+        },
+        {
+          "front": "Capital of Switzerland",
+          "back": "Bern"
+        },
+        {
+          "front": "Capital of Ukraine",
+          "back": "Kyiv"
+        },
+        {
+          "front": "Capital of the United Kingdom",
+          "back": "London"
+        }
+      ]
+    },
+    {
+      "name": "North America",
+      "cards": [
+        {
+          "front": "Capital of Antigua and Barbuda",
+          "back": "St. John's"
+        },
+        {
+          "front": "Capital of the Bahamas",
+          "back": "Nassau"
+        },
+        {
+          "front": "Capital of Barbados",
+          "back": "Bridgetown"
+        },
+        {
+          "front": "Capital of Belize",
+          "back": "Belmopan"
+        },
+        {
+          "front": "Capital of Canada",
+          "back": "Ottawa"
+        },
+        {
+          "front": "Capital of Costa Rica",
+          "back": "San José"
+        },
+        {
+          "front": "Capital of Cuba",
+          "back": "Havana"
+        },
+        {
+          "front": "Capital of Dominica",
+          "back": "Roseau"
+        },
+        {
+          "front": "Capital of the Dominican Republic",
+          "back": "Santo Domingo"
+        },
+        {
+          "front": "Capital of El Salvador",
+          "back": "San Salvador"
+        },
+        {
+          "front": "Capital of Grenada",
+          "back": "St. George's"
+        },
+        {
+          "front": "Capital of Guatemala",
+          "back": "Guatemala City"
+        },
+        {
+          "front": "Capital of Haiti",
+          "back": "Port-au-Prince"
+        },
+        {
+          "front": "Capital of Honduras",
+          "back": "Tegucigalpa"
+        },
+        {
+          "front": "Capital of Jamaica",
+          "back": "Kingston"
+        },
+        {
+          "front": "Capital of Mexico",
+          "back": "Mexico City"
+        },
+        {
+          "front": "Capital of Nicaragua",
+          "back": "Managua"
+        },
+        {
+          "front": "Capital of Panama",
+          "back": "Panama City"
+        },
+        {
+          "front": "Capital of Saint Kitts and Nevis",
+          "back": "Basseterre"
+        },
+        {
+          "front": "Capital of Saint Lucia",
+          "back": "Castries"
+        },
+        {
+          "front": "Capital of Saint Vincent and the Grenadines",
+          "back": "Kingstown"
+        },
+        {
+          "front": "Capital of Trinidad and Tobago",
+          "back": "Port of Spain"
+        },
+        {
+          "front": "Capital of the United States",
+          "back": "Washington, D.C."
+        }
+      ]
+    },
+    {
+      "name": "South America",
+      "cards": [
+        {
+          "front": "Capital of Argentina",
+          "back": "Buenos Aires"
+        },
+        {
+          "front": "Capital of Bolivia",
+          "back": "Sucre\n\nSucre is the constitutional capital; La Paz is the seat of government."
+        },
+        {
+          "front": "Capital of Brazil",
+          "back": "Brasília"
+        },
+        {
+          "front": "Capital of Chile",
+          "back": "Santiago"
+        },
+        {
+          "front": "Capital of Colombia",
+          "back": "Bogotá"
+        },
+        {
+          "front": "Capital of Ecuador",
+          "back": "Quito"
+        },
+        {
+          "front": "Capital of Guyana",
+          "back": "Georgetown"
+        },
+        {
+          "front": "Capital of Paraguay",
+          "back": "Asunción"
+        },
+        {
+          "front": "Capital of Peru",
+          "back": "Lima"
+        },
+        {
+          "front": "Capital of Suriname",
+          "back": "Paramaribo"
+        },
+        {
+          "front": "Capital of Uruguay",
+          "back": "Montevideo"
+        },
+        {
+          "front": "Capital of Venezuela",
+          "back": "Caracas"
+        }
+      ]
+    },
+    {
+      "name": "Oceania",
+      "cards": [
+        {
+          "front": "Capital of Australia",
+          "back": "Canberra"
+        },
+        {
+          "front": "Capital of Fiji",
+          "back": "Suva"
+        },
+        {
+          "front": "Capital of Kiribati",
+          "back": "South Tarawa"
+        },
+        {
+          "front": "Capital of the Marshall Islands",
+          "back": "Majuro"
+        },
+        {
+          "front": "Capital of Micronesia",
+          "back": "Palikir"
+        },
+        {
+          "front": "Capital of Nauru",
+          "back": "Yaren\n\nNauru has no official capital; government offices are in Yaren."
+        },
+        {
+          "front": "Capital of New Zealand",
+          "back": "Wellington"
+        },
+        {
+          "front": "Capital of Palau",
+          "back": "Ngerulmud"
+        },
+        {
+          "front": "Capital of Papua New Guinea",
+          "back": "Port Moresby"
+        },
+        {
+          "front": "Capital of Samoa",
+          "back": "Apia"
+        },
+        {
+          "front": "Capital of the Solomon Islands",
+          "back": "Honiara"
+        },
+        {
+          "front": "Capital of Tonga",
+          "back": "Nukuʻalofa"
+        },
+        {
+          "front": "Capital of Tuvalu",
+          "back": "Funafuti"
+        },
+        {
+          "front": "Capital of Vanuatu",
+          "back": "Port Vila"
+        }
+      ]
+    }
+  ]
+}

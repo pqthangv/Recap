@@ -3,7 +3,7 @@
 # (scripts/demo-db.test.ts) into the app, so the screens show the demo decks:
 #   maestro test --test-output-dir DIR .maestro/screenshots.yaml
 # Screenshots land in DIR/<run>/<flow>/takeScreenshot/; the names match the store graphics script
-# (home, study, ai, ai-review, stats, deck). Buttons are found by their accessibility labels.
+# (home, library, study, ai, ai-review, stats, deck). Buttons are found by their accessibility labels.
 # Never clearState here: it would wipe the demo database.
 appId: com.recapcards.app
 ---
@@ -14,6 +14,19 @@ appId: com.recapcards.app
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: home
+
+# The Library of ready-made decks (nothing is added).
+- tapOn: Library
+- extendedWaitUntil:
+    visible: 'Ready-made decks.*'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: library
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
 
 # A deck, then studying it with the answer showing (no answer is given, so the data stays the same).
 - tapOn: 'IELTS vocabulary.*'

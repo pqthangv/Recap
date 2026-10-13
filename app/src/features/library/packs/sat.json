@@ -1,0 +1,2029 @@
+{
+  "decks": [
+    {
+      "name": "Set 1",
+      "cards": [
+        {
+          "front": "abundant",
+          "back": "(adjective) existing in large amounts; more than enough\n\nAfter the spring rains, wildflowers were abundant across the hillsides near our school."
+        },
+        {
+          "front": "accessible",
+          "back": "(adjective) easy to reach, enter, use, or understand\n\nThe museum added ramps and elevators so that every gallery would be accessible to wheelchair users."
+        },
+        {
+          "front": "accommodate",
+          "back": "(verb) to make room for someone or something, or to adjust to meet a need\n\nThe teacher rearranged the desks to accommodate the three new students who joined the class."
+        },
+        {
+          "front": "acknowledge",
+          "back": "(verb) to admit or accept that something is true or exists\n\nIn her final report, the scientist acknowledged that her sample size was too small to be conclusive."
+        },
+        {
+          "front": "adapt",
+          "back": "(verb) to change in order to suit new conditions\n\nOver thousands of years, desert plants have adapted to survive long periods without rain."
+        },
+        {
+          "front": "adequate",
+          "back": "(adjective) good enough or large enough for a particular need\n\nThe lab had adequate supplies for the experiment, though the students wished they had more time."
+        },
+        {
+          "front": "advocate",
+          "back": "(verb) to publicly support or argue in favor of a cause, idea, or policy\n\nThe nineteenth-century reformer advocated free public schooling for every child in the city."
+        },
+        {
+          "front": "aesthetic",
+          "back": "(adjective) relating to beauty and the appreciation of art\n\nThe architect cared about the bridge's aesthetic appeal as much as its strength."
+        },
+        {
+          "front": "affirm",
+          "back": "(verb) to state clearly that something is true, or to show strong support for it\n\nThe new study affirmed earlier findings that sleep plays a key role in memory."
+        },
+        {
+          "front": "alleviate",
+          "back": "(verb) to ease pain, suffering, or a problem, making it easier to bear\n\nOpening a second bridge helped alleviate traffic congestion in the crowded downtown area."
+        },
+        {
+          "front": "ambiguous",
+          "back": "(adjective) able to be understood in more than one way; not clear\n\nThe poem's ambiguous ending left readers arguing about whether the hero had survived."
+        },
+        {
+          "front": "ambivalent",
+          "back": "(adjective) having mixed or conflicting feelings about something\n\nMaya felt ambivalent about moving abroad: excited by the adventure but sad to leave her friends."
+        },
+        {
+          "front": "analogous",
+          "back": "(adjective) similar in certain ways, so that a useful comparison can be made\n\nThe structure of an atom is sometimes described as analogous to a tiny solar system."
+        },
+        {
+          "front": "anomaly",
+          "back": "(noun) something that differs from what is normal or expected\n\nThe astronomers noticed an anomaly in the star's brightness that their models could not explain."
+        },
+        {
+          "front": "apathy",
+          "back": "(noun) a lack of interest, concern, or enthusiasm\n\nThe student council worried that apathy among voters would keep turnout low in the school election."
+        },
+        {
+          "front": "arbitrary",
+          "back": "(adjective) based on chance or personal choice rather than on reason or a system\n\nStudents complained that the new dress code seemed arbitrary, since no one explained the reasons behind it."
+        },
+        {
+          "front": "articulate",
+          "back": "(verb) to express an idea or feeling clearly in words\n\nIn the essay's opening paragraph, the writer articulates the main question she hopes to answer."
+        },
+        {
+          "front": "assert",
+          "back": "(verb) to state something firmly and confidently as true\n\nThe historian asserts that trade, not war, was the main force that shaped the ancient city."
+        },
+        {
+          "front": "assess",
+          "back": "(verb) to carefully judge the quality, value, or condition of something\n\nEngineers assessed the old bridge to decide whether it was still safe for heavy trucks."
+        },
+        {
+          "front": "attribute",
+          "back": "(verb) to believe or say that something was caused or made by a particular person or thing\n\nResearchers attribute the decline in bee populations partly to the loss of wild habitats."
+        },
+        {
+          "front": "authentic",
+          "back": "(adjective) real and genuine, not a fake or a copy\n\nExperts examined the letter's ink and paper to confirm that it was an authentic document from 1776."
+        },
+        {
+          "front": "benevolent",
+          "back": "(adjective) kind, generous, and wanting to help others\n\nIn the novel, a benevolent stranger pays for the orphan's education without asking for anything in return."
+        },
+        {
+          "front": "bias",
+          "back": "(noun) an unfair preference for or against someone or something\n\nTo avoid bias, the judges scored the essays without seeing the students' names."
+        },
+        {
+          "front": "candid",
+          "back": "(adjective) honest and direct, even about difficult or uncomfortable things\n\nIn a candid interview, the retired coach admitted that he had made many mistakes early in his career."
+        },
+        {
+          "front": "coherent",
+          "back": "(adjective) logical and well organized, with parts that fit together clearly\n\nHer argument was coherent because each paragraph built on the one before it."
+        },
+        {
+          "front": "compelling",
+          "back": "(adjective) so convincing or interesting that it holds your attention\n\nThe scientists presented compelling evidence that an ancient lake had once covered the entire valley."
+        },
+        {
+          "front": "complement",
+          "back": "(verb) to go well with something and improve it by adding what it lacks\n\nThe tangy sauce complemented the sweet flavor of the roasted vegetables."
+        },
+        {
+          "front": "comprehensive",
+          "back": "(adjective) complete; including all or nearly all parts or details\n\nThe guidebook gives a comprehensive overview of the national park, covering every trail, campsite, and lake."
+        },
+        {
+          "front": "concede",
+          "back": "(verb) to admit, often unwillingly, that something is true\n\nAfter reviewing the data, the scientist conceded that her original theory had been wrong."
+        },
+        {
+          "front": "concise",
+          "back": "(adjective) giving a lot of information clearly in few words\n\nThe teacher asked for a concise summary of the chapter, no longer than five sentences."
+        },
+        {
+          "front": "conform",
+          "back": "(verb) to follow the rules, standards, or customs that others expect\n\nIn the novel, the young artist refuses to conform to her village's strict traditions."
+        },
+        {
+          "front": "consensus",
+          "back": "(noun) general agreement among all or most members of a group\n\nAfter a long debate, the committee reached a consensus on where to build the new library."
+        },
+        {
+          "front": "constrain",
+          "back": "(verb) to limit or restrict what someone or something can do\n\nA tight budget constrained the team's plans for a bigger science fair this year."
+        },
+        {
+          "front": "contemplate",
+          "back": "(verb) to think deeply and carefully about something for a long time\n\nShe sat by the window and contemplated whether to accept the scholarship overseas."
+        },
+        {
+          "front": "contend",
+          "back": "(verb) to argue or claim that something is true\n\nSome historians contend that the war could have been avoided with better diplomacy."
+        },
+        {
+          "front": "conventional",
+          "back": "(adjective) following what is usual, traditional, or widely accepted\n\nRather than using conventional paint, the artist created her portraits from colored sand."
+        },
+        {
+          "front": "convey",
+          "back": "(verb) to communicate or express an idea, feeling, or message\n\nThe poet uses images of falling leaves to convey a sense of loss."
+        },
+        {
+          "front": "corroborate",
+          "back": "(verb) to support a claim or finding with additional evidence\n\nTwo independent laboratories corroborated the team's results by repeating the experiment."
+        },
+        {
+          "front": "credible",
+          "back": "(adjective) able to be believed or trusted\n\nThe reporter relied only on credible sources, such as official records and eyewitness accounts."
+        },
+        {
+          "front": "cultivate",
+          "back": "(verb) to develop a skill, quality, or relationship through steady effort\n\nReading widely helps students cultivate a richer vocabulary and a deeper understanding of the world."
+        },
+        {
+          "front": "cynical",
+          "back": "(adjective) distrustful of others, believing they act mainly out of selfishness\n\nAfter years of broken promises, the townspeople had grown cynical about the mayor's plans."
+        },
+        {
+          "front": "debilitate",
+          "back": "(verb) to make someone or something very weak\n\nThe long illness debilitated the runner, who needed months to regain her strength."
+        },
+        {
+          "front": "deduce",
+          "back": "(verb) to reach a conclusion by reasoning from known facts\n\nFrom the muddy footprints by the door, the detective deduced that someone had come in from the garden."
+        },
+        {
+          "front": "deficient",
+          "back": "(adjective) lacking something necessary, or not good enough\n\nPlants grown in soil deficient in nitrogen often have pale, yellowing leaves."
+        },
+        {
+          "front": "deliberate",
+          "back": "(adjective) done on purpose; also, slow and careful in thought or action\n\nThe author's deliberate use of short sentences creates a sense of tension in the final chapter."
+        },
+        {
+          "front": "depict",
+          "back": "(verb) to show or describe someone or something in pictures or words\n\nThe mural depicts farmers harvesting wheat under a bright summer sky."
+        },
+        {
+          "front": "deter",
+          "back": "(verb) to discourage someone from acting, often by making them fear the results\n\nThe high fines were meant to deter drivers from speeding near the school."
+        },
+        {
+          "front": "diligent",
+          "back": "(adjective) showing steady, careful effort in work or duties\n\nA diligent student, Leo reviewed his notes every evening instead of cramming before tests."
+        },
+        {
+          "front": "diminish",
+          "back": "(verb) to become or make smaller, weaker, or less important\n\nThe river's flow diminished during the long drought, leaving the fishing boats stranded."
+        },
+        {
+          "front": "discern",
+          "back": "(verb) to notice or understand something, especially something hard to see\n\nThrough the thick fog, the sailors could barely discern the outline of the lighthouse."
+        },
+        {
+          "front": "disparity",
+          "back": "(noun) a large difference between two or more things, often an unfair one\n\nResearchers noted a striking disparity between the number of doctors in rural areas and in large cities."
+        },
+        {
+          "front": "dispel",
+          "back": "(verb) to make a doubt, fear, or false belief go away\n\nThe museum's exhibit aims to dispel the myth that dinosaurs and humans lived at the same time."
+        },
+        {
+          "front": "distinct",
+          "back": "(adjective) clearly different or separate from others; also, easy to see or hear\n\nThe two species of frogs look alike but have distinct calls that are easy to tell apart."
+        },
+        {
+          "front": "diverge",
+          "back": "(verb) to separate and go in different directions, or to become different\n\nThe two paths diverge at the old oak tree, one leading to the lake and the other uphill."
+        },
+        {
+          "front": "dubious",
+          "back": "(adjective) probably not true, honest, or reliable; questionable\n\nThe website made dubious claims that a single fruit could cure every illness."
+        },
+        {
+          "front": "elicit",
+          "back": "(verb) to draw out a response, reaction, or information from someone\n\nThe teacher's surprising question elicited a lively discussion among the students."
+        },
+        {
+          "front": "eloquent",
+          "back": "(adjective) expressing ideas in a clear, moving, and persuasive way\n\nHer eloquent speech at graduation moved many parents and teachers to tears."
+        },
+        {
+          "front": "embody",
+          "back": "(verb) to be a clear example or expression of an idea or quality\n\nFor many readers, the novel's hero embodies the courage and loyalty of an ideal friend."
+        },
+        {
+          "front": "empirical",
+          "back": "(adjective) based on observation or experiment rather than theory alone\n\nThe researchers gathered empirical data by measuring the temperature of the lake every day for a year."
+        },
+        {
+          "front": "endorse",
+          "back": "(verb) to publicly approve of or support someone or something\n\nThe science club endorsed the plan to install solar panels on the school roof."
+        },
+        {
+          "front": "enhance",
+          "back": "(verb) to improve the quality, value, or strength of something\n\nAdding a few clear charts would enhance the readability of your lab report."
+        },
+        {
+          "front": "ephemeral",
+          "back": "(adjective) lasting for only a very short time\n\nMayflies live ephemeral lives, with many adults surviving for only a single day."
+        },
+        {
+          "front": "evoke",
+          "back": "(verb) to bring a feeling, memory, or image to mind\n\nThe smell of fresh bread evoked memories of her grandmother's kitchen."
+        },
+        {
+          "front": "exacerbate",
+          "back": "(verb) to make a problem, situation, or feeling worse\n\nCutting down the forest exacerbated the flooding, since fewer roots held the soil in place."
+        },
+        {
+          "front": "explicit",
+          "back": "(adjective) stated clearly and directly, leaving no doubt about the meaning\n\nThe instructions were explicit: no phones were allowed in the exam room."
+        },
+        {
+          "front": "facilitate",
+          "back": "(verb) to make an action or process easier\n\nThe new online system facilitates communication between teachers and parents."
+        },
+        {
+          "front": "feasible",
+          "back": "(adjective) possible to do or achieve; practical\n\nEngineers studied whether it was feasible to build a tunnel beneath the mountain."
+        },
+        {
+          "front": "fluctuate",
+          "back": "(verb) to rise and fall or change often and irregularly\n\nTemperatures in the desert fluctuate sharply, from scorching days to near-freezing nights."
+        },
+        {
+          "front": "foster",
+          "back": "(verb) to encourage the growth or development of something\n\nThe school started a garden club to foster students' interest in plants and nature."
+        },
+        {
+          "front": "frugal",
+          "back": "(adjective) careful to spend little money and avoid waste\n\nBy living a frugal life, the young couple saved enough to buy their first home."
+        },
+        {
+          "front": "hinder",
+          "back": "(verb) to make it harder for something to happen or progress\n\nHeavy snow hindered the rescue team's progress up the mountain."
+        },
+        {
+          "front": "hypothetical",
+          "back": "(adjective) based on an imagined situation rather than on known facts\n\nThe teacher asked us to imagine a hypothetical world in which Earth had no moon."
+        },
+        {
+          "front": "imminent",
+          "back": "(adjective) about to happen very soon\n\nDark clouds and strong winds warned the hikers that a storm was imminent."
+        },
+        {
+          "front": "impartial",
+          "back": "(adjective) fair and not favoring one side over another\n\nA good referee must remain impartial, no matter which team the crowd supports."
+        },
+        {
+          "front": "implicit",
+          "back": "(adjective) suggested or understood without being stated directly\n\nAlthough the author never says so, there is an implicit criticism of city life throughout the story."
+        },
+        {
+          "front": "inevitable",
+          "back": "(adjective) certain to happen and impossible to avoid\n\nWith so little rain all summer, a poor harvest seemed inevitable."
+        },
+        {
+          "front": "inherent",
+          "back": "(adjective) existing as a natural, permanent part of something\n\nThere are inherent risks in exploring deep caves, no matter how careful the team is."
+        },
+        {
+          "front": "innovative",
+          "back": "(adjective) introducing new ideas or methods; original and creative\n\nThe students designed an innovative water filter using sand, charcoal, and old plastic bottles."
+        },
+        {
+          "front": "integral",
+          "back": "(adjective) necessary and important as part of a whole\n\nMusic was an integral part of daily life in the ancient city, played at markets and festivals."
+        },
+        {
+          "front": "intricate",
+          "back": "(adjective) having many small parts or details arranged in a complex way\n\nThe quilt's intricate pattern took the artist nearly a year to complete."
+        },
+        {
+          "front": "intuitive",
+          "back": "(adjective) known or understood through instinct and feeling rather than careful reasoning\n\nSome solutions in math feel intuitive, but they still need to be proven step by step."
+        },
+        {
+          "front": "irony",
+          "back": "(noun) a contrast between what is expected and what actually happens or is meant\n\nThe irony was that the weather forecaster, who had predicted the storm, forgot his own umbrella."
+        },
+        {
+          "front": "meticulous",
+          "back": "(adjective) showing great attention to detail; very careful and precise\n\nThe archaeologist kept meticulous records of every bone and tool found at the site."
+        },
+        {
+          "front": "mitigate",
+          "back": "(verb) to reduce how harmful, serious, or painful something is\n\nWearing sunscreen can mitigate the damage that strong sunlight does to your skin."
+        },
+        {
+          "front": "notion",
+          "back": "(noun) an idea or belief about something\n\nSixteenth-century astronomers challenged the notion that the sun revolves around Earth."
+        },
+        {
+          "front": "novel",
+          "back": "(adjective) new and original in an interesting way\n\nThe engineers proposed a novel method for turning ocean waves into electricity."
+        },
+        {
+          "front": "objective",
+          "back": "(adjective) not influenced by personal feelings or opinions; based on facts\n\nScientists try to remain objective by letting the data, not their hopes, guide their conclusions."
+        },
+        {
+          "front": "obscure",
+          "back": "(adjective) not well known, or hard to see or understand\n\nThe professor discovered the poem in an obscure journal that few scholars had ever read."
+        },
+        {
+          "front": "persevere",
+          "back": "(verb) to keep trying despite difficulties or slow progress\n\nDespite many failed attempts, the inventor persevered until her lamp finally worked."
+        },
+        {
+          "front": "plausible",
+          "back": "(adjective) seeming reasonable or likely to be true\n\nThe detective's theory was plausible, but she needed more evidence to prove it."
+        },
+        {
+          "front": "pragmatic",
+          "back": "(adjective) dealing with problems in a practical, realistic way\n\nInstead of arguing about the perfect plan, the team took a pragmatic approach and fixed the easiest problems first."
+        },
+        {
+          "front": "prevalent",
+          "back": "(adjective) widespread; common in a particular place or time\n\nIn the 1800s, diseases such as cholera were prevalent in crowded cities with unclean water."
+        },
+        {
+          "front": "profound",
+          "back": "(adjective) very deep or intense, or showing great insight and understanding\n\nThe invention of the printing press had a profound effect on how knowledge spread."
+        },
+        {
+          "front": "prominent",
+          "back": "(adjective) important and well known, or easy to see\n\nShe became a prominent scientist after her research on coral reefs won international praise."
+        },
+        {
+          "front": "refute",
+          "back": "(verb) to prove that a claim or argument is wrong\n\nWith careful measurements, the student refuted her classmate's claim that heavier objects always fall faster."
+        },
+        {
+          "front": "resilient",
+          "back": "(adjective) able to recover quickly from difficulty, damage, or change\n\nChildren are often remarkably resilient, adjusting quickly to new schools and new friends."
+        },
+        {
+          "front": "scrutinize",
+          "back": "(verb) to examine something very carefully and closely\n\nBefore signing the lease, Ana scrutinized every line for hidden fees."
+        },
+        {
+          "front": "skeptical",
+          "back": "(adjective) not easily convinced; having doubts about whether something is true\n\nMany scientists were skeptical of the bold claim until other labs repeated the experiment."
+        },
+        {
+          "front": "subtle",
+          "back": "(adjective) so slight or delicate that it is hard to notice, though often important\n\nThe painter used subtle changes in color to show the light fading at sunset."
+        },
+        {
+          "front": "undermine",
+          "back": "(verb) to weaken something gradually, often in a hidden way\n\nConstant interruptions undermined the speaker's confidence as the debate went on."
+        }
+      ]
+    },
+    {
+      "name": "Set 2",
+      "cards": [
+        {
+          "front": "abstract",
+          "back": "(adjective) existing as an idea rather than as something physical or concrete\n\nJustice is an abstract concept, so the teacher used real court cases to help students grasp it."
+        },
+        {
+          "front": "acute",
+          "back": "(adjective) very sharp or keen, as in hearing or sight; also, severe or intense\n\nOwls have such acute hearing that they can locate a mouse moving under the snow."
+        },
+        {
+          "front": "adverse",
+          "back": "(adjective) harmful or unfavorable; working against success or well-being\n\nStrong winds and icy roads created adverse conditions for the cross-country race."
+        },
+        {
+          "front": "affluent",
+          "back": "(adjective) having plenty of money and possessions; wealthy\n\nThe affluent merchant family paid for the town's first public library in 1850."
+        },
+        {
+          "front": "allude",
+          "back": "(verb) to refer to something indirectly, by hinting at it\n\nThe poet alludes to an ancient myth without ever naming its hero."
+        },
+        {
+          "front": "amiable",
+          "back": "(adjective) friendly, pleasant, and easy to like\n\nOur amiable new neighbor quickly learned everyone's names and offered to help with the gardening."
+        },
+        {
+          "front": "ample",
+          "back": "(adjective) more than enough; plentiful\n\nThe teacher gave students ample time to finish the exam, so no one felt rushed."
+        },
+        {
+          "front": "antagonize",
+          "back": "(verb) to make someone feel angry or unfriendly toward you\n\nThe colonial governor antagonized local farmers by raising taxes without consulting them."
+        },
+        {
+          "front": "apprehensive",
+          "back": "(adjective) worried or nervous that something bad may happen\n\nMaya felt apprehensive before her first driving test, but she passed easily."
+        },
+        {
+          "front": "arduous",
+          "back": "(adjective) requiring great effort and hard work; very difficult\n\nThe explorers made an arduous journey across the frozen mountains to reach the coast."
+        },
+        {
+          "front": "aspire",
+          "back": "(verb) to strongly hope and work to achieve something important\n\nMany students who aspire to become doctors volunteer at local hospitals during high school."
+        },
+        {
+          "front": "assimilate",
+          "back": "(verb) to take in and fully absorb new ideas, or to become part of a new group or culture\n\nImmigrant families often assimilated into their new communities while keeping some old traditions."
+        },
+        {
+          "front": "astute",
+          "back": "(adjective) clever and quick to notice what really matters in a situation\n\nAn astute reader will notice that the narrator's story changes slightly each time he tells it."
+        },
+        {
+          "front": "audacious",
+          "back": "(adjective) showing a bold willingness to take risks\n\nThe audacious plan to fly alone across the Atlantic amazed people in the 1920s."
+        },
+        {
+          "front": "augment",
+          "back": "(verb) to make something greater or larger by adding to it\n\nThe museum augmented its fossil collection with several bones discovered in the desert."
+        },
+        {
+          "front": "austere",
+          "back": "(adjective) very plain and simple, without comfort or decoration; also, strict\n\nThe monks lived in austere rooms with only a narrow bed and a wooden chair."
+        },
+        {
+          "front": "autonomy",
+          "back": "(noun) the freedom to make your own decisions and control your own affairs\n\nTeenagers often want more autonomy, such as choosing their own classes and schedules."
+        },
+        {
+          "front": "banal",
+          "back": "(adjective) so ordinary or overused that it is dull and unoriginal\n\nCritics found the film's dialogue banal, full of phrases they had heard countless times."
+        },
+        {
+          "front": "belittle",
+          "back": "(verb) to make someone or something seem unimportant or worthless\n\nThe older scientists belittled her discovery at first, but later experiments proved her right."
+        },
+        {
+          "front": "benign",
+          "back": "(adjective) kind and gentle, or causing no harm\n\nThe doctor explained that the small growth was benign and needed no treatment."
+        },
+        {
+          "front": "bolster",
+          "back": "(verb) to support or strengthen something, such as an argument or a feeling\n\nThe lawyer bolstered her argument with letters written by witnesses at the time."
+        },
+        {
+          "front": "brevity",
+          "back": "(noun) the quality of being short in time or using few words\n\nThe speech was praised for its brevity, lasting only two minutes yet moving the crowd."
+        },
+        {
+          "front": "callous",
+          "back": "(adjective) showing no concern for the feelings or suffering of others\n\nIn the novel, the landlord's callous refusal to fix the heating leaves families freezing all winter."
+        },
+        {
+          "front": "catalyst",
+          "back": "(noun) something that causes or speeds up an important change or event\n\nA single letter to the editor became the catalyst for a citywide recycling program."
+        },
+        {
+          "front": "censure",
+          "back": "(verb) to criticize someone strongly and officially\n\nThe medical board censured the doctor for ignoring safety rules during surgery."
+        },
+        {
+          "front": "coerce",
+          "back": "(verb) to force someone to do something by using threats or pressure\n\nThe workers claimed they had been coerced into signing the contract without reading it."
+        },
+        {
+          "front": "cognizant",
+          "back": "(adjective) aware of or having knowledge of something\n\nHikers should be cognizant of changing weather before climbing above the tree line."
+        },
+        {
+          "front": "cohesive",
+          "back": "(adjective) forming a united whole whose parts work well together\n\nAfter months of practice, the choir became a cohesive group that sang as one voice."
+        },
+        {
+          "front": "collaborate",
+          "back": "(verb) to work together with others to reach a shared goal\n\nScientists from twelve countries collaborated to build the giant telescope in Chile."
+        },
+        {
+          "front": "commend",
+          "back": "(verb) to praise someone or something, often formally or publicly\n\nThe principal commended the students for organizing the food drive on their own."
+        },
+        {
+          "front": "compile",
+          "back": "(verb) to collect information or items and put them together in an organized way\n\nThe historian compiled hundreds of letters into a single book about the war."
+        },
+        {
+          "front": "complacent",
+          "back": "(adjective) too pleased with your situation to notice dangers or keep working hard\n\nAfter winning every game, the team grew complacent and lost to a much weaker opponent."
+        },
+        {
+          "front": "comply",
+          "back": "(verb) to obey a rule, request, or order\n\nAll new buildings in the city must comply with strict earthquake safety codes."
+        },
+        {
+          "front": "conceive",
+          "back": "(verb) to form an idea or plan in your mind; to imagine\n\nThe engineer first conceived the idea for the bridge while sketching on a napkin at lunch."
+        },
+        {
+          "front": "condone",
+          "back": "(verb) to accept or overlook behavior that is morally wrong\n\nThe school does not condone cheating, even when students are under great pressure."
+        },
+        {
+          "front": "conjecture",
+          "back": "(noun) an opinion or guess formed without full evidence\n\nEarly ideas about the moon's origin were mostly conjecture until rock samples were studied."
+        },
+        {
+          "front": "conspicuous",
+          "back": "(adjective) very easy to see or notice; standing out\n\nIn his bright orange coat, Leo was conspicuous among the crowd of gray suits."
+        },
+        {
+          "front": "contemporary",
+          "back": "(adjective) living or happening during the same period of time; also, modern\n\nHistorians checked the diary against contemporary newspapers printed during the same month."
+        },
+        {
+          "front": "contradict",
+          "back": "(verb) to say or show that the opposite of something is true\n\nNew fossil evidence contradicted the old theory that the species lived only in Asia."
+        },
+        {
+          "front": "conviction",
+          "back": "(noun) a strong, firmly held belief\n\nShe spoke with deep conviction about the need to protect the town's wetlands."
+        },
+        {
+          "front": "cordial",
+          "back": "(adjective) warm, polite, and friendly\n\nAlthough the two rival teams competed hard, their captains kept a cordial relationship."
+        },
+        {
+          "front": "culminate",
+          "back": "(verb) to reach a final high point or result after a long process\n\nYears of research culminated in a vaccine that saved millions of lives."
+        },
+        {
+          "front": "curtail",
+          "back": "(verb) to reduce or limit something, or cut it short\n\nThe city curtailed water use during the drought by banning lawn watering."
+        },
+        {
+          "front": "dearth",
+          "back": "(noun) a lack or shortage of something\n\nA dearth of rain left the farmers' fields dry and cracked by midsummer."
+        },
+        {
+          "front": "decisive",
+          "back": "(adjective) settling a question clearly and finally; also, able to make firm choices quickly\n\nThe discovery of the hidden letter was the decisive piece of evidence in the case."
+        },
+        {
+          "front": "deference",
+          "back": "(noun) polite respect shown by accepting another person's wishes or opinions\n\nIn deference to her grandmother, Ana removed her shoes before entering the house."
+        },
+        {
+          "front": "defiant",
+          "back": "(adjective) openly refusing to obey or show respect to authority\n\nThe defiant student kept talking even after the teacher asked her twice to stop."
+        },
+        {
+          "front": "delegate",
+          "back": "(verb) to give part of your work or authority to someone else\n\nA good team leader delegates tasks so that everyone can use their strongest skills."
+        },
+        {
+          "front": "denounce",
+          "back": "(verb) to publicly declare that someone or something is wrong or evil\n\nScientists publicly denounced the fake study, warning that its data had been invented."
+        },
+        {
+          "front": "deplete",
+          "back": "(verb) to use up much of something so that little is left\n\nOverfishing has depleted cod populations in parts of the North Atlantic."
+        },
+        {
+          "front": "deride",
+          "back": "(verb) to mock or make fun of someone or something as worthless\n\nCritics derided the painter's early work, but museums now display it proudly."
+        },
+        {
+          "front": "derive",
+          "back": "(verb) to get or develop something from a particular source\n\nMany English words are derived from Latin and Greek roots."
+        },
+        {
+          "front": "detrimental",
+          "back": "(adjective) causing harm or damage\n\nStaying up late every night can be detrimental to your grades and your health."
+        },
+        {
+          "front": "deviate",
+          "back": "(verb) to move away from a usual or planned path, rule, or way of acting\n\nThe pilot had to deviate from the planned route to avoid a large storm."
+        },
+        {
+          "front": "didactic",
+          "back": "(adjective) meant to teach or give a moral lesson, sometimes too obviously\n\nThe fable is didactic, ending with a clear lesson about the dangers of greed."
+        },
+        {
+          "front": "digress",
+          "back": "(verb) to wander away from the main topic when speaking or writing\n\nOur history teacher often digresses into funny stories about his own school days."
+        },
+        {
+          "front": "discrepancy",
+          "back": "(noun) a difference between things that should match or be the same\n\nThe scientist noticed a discrepancy between her results and those in the published study."
+        },
+        {
+          "front": "disdain",
+          "back": "(noun) a feeling that someone or something is not worth respect\n\nThe proud duke treated the village farmers with open disdain, refusing even to greet them."
+        },
+        {
+          "front": "disseminate",
+          "back": "(verb) to spread information or ideas widely to many people\n\nHealth workers disseminated leaflets about clean water to every village in the region."
+        },
+        {
+          "front": "divulge",
+          "back": "(verb) to reveal information that was secret or private\n\nThe magician refused to divulge how he made the bird vanish from the cage."
+        },
+        {
+          "front": "dogmatic",
+          "back": "(adjective) insisting your beliefs are right without considering other views or evidence\n\nThe dogmatic professor refused to even look at data that challenged his theory."
+        },
+        {
+          "front": "eclectic",
+          "back": "(adjective) drawn from a wide variety of styles, sources, or tastes\n\nHer eclectic music collection includes jazz, folk songs, opera, and video game soundtracks."
+        },
+        {
+          "front": "egregious",
+          "back": "(adjective) shockingly bad in a very obvious way\n\nThe essay contained an egregious error, placing the American Revolution in the 1900s."
+        },
+        {
+          "front": "elusive",
+          "back": "(adjective) hard to find, catch, remember, or understand\n\nThe snow leopard is so elusive that researchers rely on hidden cameras to study it."
+        },
+        {
+          "front": "emulate",
+          "back": "(verb) to try to match or copy someone you admire\n\nYoung painters often emulate the great masters before developing a style of their own."
+        },
+        {
+          "front": "encompass",
+          "back": "(verb) to include or contain a wide range of things\n\nThe national park encompasses forests, lakes, and three active volcanoes."
+        },
+        {
+          "front": "enigma",
+          "back": "(noun) a person or thing that is mysterious and hard to understand\n\nHow the ancient builders moved such huge stones remains an enigma to archaeologists."
+        },
+        {
+          "front": "entail",
+          "back": "(verb) to involve something as a necessary part or result\n\nBecoming a nurse entails years of study and many long shifts at the hospital."
+        },
+        {
+          "front": "enumerate",
+          "back": "(verb) to name things one by one, as in a list\n\nThe report enumerates five main causes of the river's pollution."
+        },
+        {
+          "front": "erratic",
+          "back": "(adjective) irregular and unpredictable; changing without a clear pattern\n\nThe patient's erratic heartbeat worried the doctors, so they kept him overnight."
+        },
+        {
+          "front": "erudite",
+          "back": "(adjective) having or showing deep knowledge gained from study and reading\n\nThe erudite librarian could discuss ancient poetry, chemistry, and medieval law with ease."
+        },
+        {
+          "front": "escalate",
+          "back": "(verb) to become, or make something, more intense or serious\n\nA small argument over a parking spot escalated into a shouting match."
+        },
+        {
+          "front": "esteem",
+          "back": "(noun) respect and admiration for someone\n\nThe village held the old doctor in high esteem for his many years of service."
+        },
+        {
+          "front": "exemplify",
+          "back": "(verb) to be a typical case or perfect model of something\n\nThe cathedral's pointed arches exemplify the Gothic style of architecture."
+        },
+        {
+          "front": "exhaustive",
+          "back": "(adjective) complete and thorough, covering every part or detail\n\nAfter an exhaustive search of the archives, she finally found the missing map."
+        },
+        {
+          "front": "exonerate",
+          "back": "(verb) to officially clear someone of blame or guilt\n\nNew DNA evidence exonerated the man who had spent ten years in prison."
+        },
+        {
+          "front": "expedite",
+          "back": "(verb) to make a process or action happen more quickly\n\nThe library expedited my request so that the book arrived before my exam."
+        },
+        {
+          "front": "exploit",
+          "back": "(verb) to use something for your own advantage, or to use someone unfairly\n\nThe factory owners exploited child workers, paying them almost nothing for long hours."
+        },
+        {
+          "front": "extol",
+          "back": "(verb) to praise someone or something very highly\n\nThe travel writer extolled the island's beaches, calling them the most beautiful she had seen."
+        },
+        {
+          "front": "fallacy",
+          "back": "(noun) a mistaken belief or an error in reasoning\n\nIt is a common fallacy that people use only ten percent of their brains."
+        },
+        {
+          "front": "fervent",
+          "back": "(adjective) showing very strong, sincere, and passionate feeling\n\nAs a fervent supporter of the arts, she attended every play the school produced."
+        },
+        {
+          "front": "fortify",
+          "back": "(verb) to make something stronger, especially to protect it against attack\n\nMedieval towns were fortified with thick stone walls to keep out invaders."
+        },
+        {
+          "front": "futile",
+          "back": "(adjective) having no chance of success; useless or pointless\n\nTrying to bail out the sinking boat with a teacup proved futile."
+        },
+        {
+          "front": "galvanize",
+          "back": "(verb) to shock or excite people into taking action\n\nThe flood galvanized residents to build stronger levees along the river."
+        },
+        {
+          "front": "gratuitous",
+          "back": "(adjective) done without a good reason; unnecessary and uncalled-for\n\nThe editor cut the gratuitous insults from the letter, since they weakened its argument."
+        },
+        {
+          "front": "gregarious",
+          "back": "(adjective) enjoying the company of others; very sociable\n\nGregarious by nature, Sam made friends with nearly everyone on the first day of camp."
+        },
+        {
+          "front": "hamper",
+          "back": "(verb) to slow down or get in the way of progress or movement\n\nHeavy snow hampered the rescue team's efforts to reach the stranded hikers."
+        },
+        {
+          "front": "haughty",
+          "back": "(adjective) acting as if you are better than others; proud and arrogant\n\nThe haughty queen in the story refuses to speak to anyone without a royal title."
+        },
+        {
+          "front": "heed",
+          "back": "(verb) to pay careful attention to advice or a warning\n\nThe sailors who heeded the storm warning stayed in port and remained safe."
+        },
+        {
+          "front": "hostile",
+          "back": "(adjective) very unfriendly or strongly opposed to something\n\nEarly critics were hostile to the idea that the Earth moves around the Sun."
+        },
+        {
+          "front": "idealize",
+          "back": "(verb) to think of or show something as perfect or better than it really is\n\nMany people idealize their childhood and forget the hard times they went through."
+        },
+        {
+          "front": "illuminate",
+          "back": "(verb) to make something clearer or easier to understand; also, to light up\n\nThe newly discovered letters illuminate the author's private struggles while she wrote the novel."
+        },
+        {
+          "front": "impede",
+          "back": "(verb) to block or delay the progress or movement of something\n\nFallen trees impeded traffic on the mountain road for hours after the storm."
+        },
+        {
+          "front": "impetuous",
+          "back": "(adjective) acting suddenly without thinking carefully about the results\n\nIn an impetuous moment, Theo quit his job without having another one lined up."
+        },
+        {
+          "front": "implement",
+          "back": "(verb) to put a plan, decision, or system into action\n\nThe school implemented a new recycling program that cut its waste in half."
+        },
+        {
+          "front": "incentive",
+          "back": "(noun) something that encourages a person to take an action or work harder\n\nThe city offered tax credits as an incentive for homeowners to install solar panels."
+        },
+        {
+          "front": "incessant",
+          "back": "(adjective) never stopping; continuing without a break\n\nThe incessant barking of the neighbor's dog kept me awake all night."
+        },
+        {
+          "front": "incite",
+          "back": "(verb) to stir up strong feelings or actions, often harmful ones\n\nThe rumor of a food shortage incited panic buying across the city."
+        },
+        {
+          "front": "incongruous",
+          "back": "(adjective) out of place; not fitting with the surroundings or situation\n\nA modern glass tower looked incongruous among the old stone cottages of the village."
+        },
+        {
+          "front": "indifferent",
+          "back": "(adjective) not interested in or concerned about something\n\nMost of the audience seemed indifferent to the speaker, checking their phones throughout the talk."
+        }
+      ]
+    },
+    {
+      "name": "Set 3",
+      "cards": [
+        {
+          "front": "indignant",
+          "back": "(adjective) angry because something seems unfair or insulting\n\nThe students were indignant when the test covered chapters the teacher had never assigned."
+        },
+        {
+          "front": "indulge",
+          "back": "(verb) to let yourself or others enjoy something, often more than is wise\n\nAfter finishing her exams, Maya indulged in a long afternoon of reading mystery novels."
+        },
+        {
+          "front": "ineffable",
+          "back": "(adjective) too great or powerful to be described in words\n\nStanding at the edge of the canyon at sunrise, the hikers felt an ineffable sense of wonder."
+        },
+        {
+          "front": "infer",
+          "back": "(verb) to reach a conclusion from evidence or clues rather than from direct statements\n\nBecause the streets were wet, we inferred that it had rained during the night."
+        },
+        {
+          "front": "ingenious",
+          "back": "(adjective) clever and original, especially in solving a problem\n\nThe engineer came up with an ingenious way to pump water using only the power of the wind."
+        },
+        {
+          "front": "inhibit",
+          "back": "(verb) to slow down, limit, or prevent a process or action\n\nCold temperatures inhibit the growth of bacteria, which is why we keep food in the refrigerator."
+        },
+        {
+          "front": "innate",
+          "back": "(adjective) present from birth rather than learned\n\nSome researchers argue that the ability to learn language is innate in all human infants."
+        },
+        {
+          "front": "innocuous",
+          "back": "(adjective) harmless and not likely to offend or upset anyone\n\nWhat seemed like an innocuous question about her weekend made Lena suddenly go quiet."
+        },
+        {
+          "front": "insatiable",
+          "back": "(adjective) never feeling you have had enough; always wanting more\n\nThe young astronomer had an insatiable curiosity about how stars and planets are formed."
+        },
+        {
+          "front": "insightful",
+          "back": "(adjective) showing a deep and clear understanding of people or situations\n\nThe teacher praised the essay for its insightful analysis of the narrator's hidden motives."
+        },
+        {
+          "front": "instigate",
+          "back": "(verb) to cause an action or process to begin, often one that leads to trouble\n\nA single rumor instigated a fierce argument among the members of the chess club."
+        },
+        {
+          "front": "insular",
+          "back": "(adjective) focused only on your own group and closed to outside ideas or people\n\nThe village had grown so insular that newcomers found it hard to make friends there."
+        },
+        {
+          "front": "intrepid",
+          "back": "(adjective) brave and willing to face danger or difficulty\n\nThe intrepid explorers crossed the frozen Arctic sea with only sleds and a team of dogs."
+        },
+        {
+          "front": "inundate",
+          "back": "(verb) to overwhelm with a huge amount of something; also, to flood\n\nAfter the bakery announced its free cookie day, it was inundated with phone calls."
+        },
+        {
+          "front": "invoke",
+          "back": "(verb) to mention a law, principle, or authority to support an argument or action\n\nThe lawyer invoked an old court ruling to support her client's claim to the land."
+        },
+        {
+          "front": "jeopardize",
+          "back": "(verb) to put something at risk of being harmed or lost\n\nSkipping practice before the final game could jeopardize the team's chance at the championship."
+        },
+        {
+          "front": "judicious",
+          "back": "(adjective) wise and sensible in making decisions\n\nA judicious editor cut the weakest chapters and made the novel far stronger."
+        },
+        {
+          "front": "juxtapose",
+          "back": "(verb) to place two things side by side, especially to highlight their differences\n\nThe museum juxtaposed ancient stone tools with modern gadgets to show how technology has changed."
+        },
+        {
+          "front": "lament",
+          "back": "(verb) to express deep sadness or regret about something\n\nIn the poem, the speaker laments the loss of the forest where she played as a child."
+        },
+        {
+          "front": "latent",
+          "back": "(adjective) present but hidden, or not yet developed or active\n\nSome viruses can remain latent in the body for years before causing any symptoms."
+        },
+        {
+          "front": "lavish",
+          "back": "(adjective) very rich, generous, or expensive, often more than is needed\n\nThe king hosted a lavish banquet with dozens of dishes and musicians from across the realm."
+        },
+        {
+          "front": "lethargic",
+          "back": "(adjective) lacking energy and moving or acting slowly\n\nThe heat made the children so lethargic that few of them wanted to play outside at recess."
+        },
+        {
+          "front": "lucid",
+          "back": "(adjective) clear and easy to understand\n\nThe professor gave a lucid explanation of a theory that the textbook had made confusing."
+        },
+        {
+          "front": "magnanimous",
+          "back": "(adjective) generous and forgiving, especially toward a rival or someone weaker\n\nThe magnanimous champion shook hands with her opponent and praised her skill."
+        },
+        {
+          "front": "malevolent",
+          "back": "(adjective) wishing or intending to cause harm to others\n\nIn the fairy tale, a malevolent witch casts a spell that puts the whole kingdom to sleep."
+        },
+        {
+          "front": "malleable",
+          "back": "(adjective) easily shaped or changed, either physically or by outside influence\n\nGold is so malleable that it can be hammered into sheets thinner than paper."
+        },
+        {
+          "front": "mandate",
+          "back": "(noun) an official order, or the authority given to carry out a task\n\nThe committee's mandate was to find a new location for the town library."
+        },
+        {
+          "front": "marginal",
+          "back": "(adjective) small and not very important; slight\n\nThe new fertilizer produced only a marginal increase in the farm's tomato harvest."
+        },
+        {
+          "front": "mediate",
+          "back": "(verb) to help two opposing sides reach an agreement\n\nThe counselor mediated a dispute between two roommates who could not agree on chores."
+        },
+        {
+          "front": "mundane",
+          "back": "(adjective) ordinary and dull; part of everyday routine\n\nThe novel turns mundane tasks like washing dishes into moments of quiet beauty."
+        },
+        {
+          "front": "myriad",
+          "back": "(adjective) extremely many; too numerous to count\n\nOn a clear night in the desert, myriad stars fill the sky above the campground."
+        },
+        {
+          "front": "naive",
+          "back": "(adjective) lacking experience and too ready to trust or believe things\n\nIt was naive of the young writer to expect her first novel to become an instant success."
+        },
+        {
+          "front": "negligent",
+          "back": "(adjective) failing to take proper care in doing something\n\nThe landlord was found negligent for ignoring the broken stair that caused a tenant to fall."
+        },
+        {
+          "front": "nostalgia",
+          "back": "(noun) a fond, slightly sad longing for a happy time in the past\n\nLooking through old photo albums filled Grandpa with nostalgia for his childhood summers."
+        },
+        {
+          "front": "nuance",
+          "back": "(noun) a slight, subtle difference in meaning, feeling, or tone\n\nA good translator captures every nuance of the original poem, not just its literal meaning."
+        },
+        {
+          "front": "oblivious",
+          "back": "(adjective) completely unaware of something, often what is going on nearby\n\nAbsorbed in his book, Theo was oblivious to the rain soaking through his jacket."
+        },
+        {
+          "front": "obsolete",
+          "back": "(adjective) no longer used because something newer has replaced it\n\nOnce digital cameras became common, film cameras quickly became nearly obsolete."
+        },
+        {
+          "front": "ominous",
+          "back": "(adjective) suggesting that something bad is about to happen\n\nDark clouds gathered on the horizon, and an ominous silence fell over the fields."
+        },
+        {
+          "front": "opaque",
+          "back": "(adjective) not letting light pass through; also, hard to understand\n\nThe instructions were so opaque that no one in the class could figure out the assignment."
+        },
+        {
+          "front": "optimal",
+          "back": "(adjective) best or most favorable for a particular purpose\n\nThe biologists tested which water temperature was optimal for the growth of the young coral."
+        },
+        {
+          "front": "ostentatious",
+          "back": "(adjective) meant to impress others with wealth or importance; showy\n\nThe mansion's ostentatious gold fountains seemed out of place in the quiet farming town."
+        },
+        {
+          "front": "paradox",
+          "back": "(noun) a statement or situation that seems contradictory but may still be true\n\nIt is a paradox that adding more lanes to a highway can sometimes make traffic worse."
+        },
+        {
+          "front": "partisan",
+          "back": "(adjective) strongly favoring one side or party, often in a biased way\n\nThe historian warned that the old newspaper's partisan reporting made it an unreliable source."
+        },
+        {
+          "front": "paucity",
+          "back": "(noun) a lack or very small amount of something\n\nThe paucity of fossils from that period makes it hard to know what early birds looked like."
+        },
+        {
+          "front": "perpetuate",
+          "back": "(verb) to make something, often something harmful, continue for a long time\n\nRepeating old myths in textbooks only perpetuates misunderstandings about history."
+        },
+        {
+          "front": "pervasive",
+          "back": "(adjective) spread throughout every part of something\n\nPlastic pollution is now so pervasive that scientists have found it in the deepest ocean trenches."
+        },
+        {
+          "front": "pessimistic",
+          "back": "(adjective) expecting that bad things will happen or that things will go badly\n\nDespite the team's strong record, the coach remained pessimistic about their chances in the finals."
+        },
+        {
+          "front": "philanthropic",
+          "back": "(adjective) generously giving money or help to improve the lives of others\n\nA philanthropic foundation paid to rebuild the town's library after the flood."
+        },
+        {
+          "front": "pivotal",
+          "back": "(adjective) of central importance; having a major effect on what happens next\n\nThe discovery of penicillin was a pivotal moment in the history of medicine."
+        },
+        {
+          "front": "placate",
+          "back": "(verb) to make someone less angry by doing or saying things that please them\n\nThe waiter placated the frustrated diners by offering them a free dessert."
+        },
+        {
+          "front": "polarize",
+          "back": "(verb) to divide people into two sharply opposed groups\n\nThe debate over the new school schedule polarized parents into two opposing camps."
+        },
+        {
+          "front": "pompous",
+          "back": "(adjective) acting as if you are more important or wiser than others\n\nThe pompous professor corrected everyone's grammar but never admitted his own mistakes."
+        },
+        {
+          "front": "ponder",
+          "back": "(verb) to think about something carefully for a long time\n\nSitting by the lake, the poet pondered how to end the final stanza of her poem."
+        },
+        {
+          "front": "potent",
+          "back": "(adjective) very strong, powerful, or effective\n\nEven a small dose of the potent medicine was enough to ease the patient's pain."
+        },
+        {
+          "front": "precarious",
+          "back": "(adjective) unstable and likely to fall, fail, or become dangerous\n\nThe climbers rested on a precarious ledge hundreds of feet above the valley floor."
+        },
+        {
+          "front": "precedent",
+          "back": "(noun) an earlier event or decision used as an example or rule for later ones\n\nThe court's ruling set a precedent that judges would follow for decades."
+        },
+        {
+          "front": "preclude",
+          "back": "(verb) to make something impossible or prevent it from happening\n\nA knee injury precluded the runner from competing in the spring track season."
+        },
+        {
+          "front": "predominant",
+          "back": "(adjective) most common, strongest, or most noticeable\n\nPine trees are the predominant species in the forests of the northern mountains."
+        },
+        {
+          "front": "premise",
+          "back": "(noun) an idea assumed to be true and used as the basis of an argument\n\nThe scientist's whole argument rested on the premise that the samples had not been contaminated."
+        },
+        {
+          "front": "presumptuous",
+          "back": "(adjective) too confident or bold, doing things you have no right to do\n\nIt was presumptuous of the new intern to rearrange the manager's desk without asking."
+        },
+        {
+          "front": "prolific",
+          "back": "(adjective) producing a large amount of work, offspring, or results\n\nThe prolific author published more than sixty novels during her long career."
+        },
+        {
+          "front": "propensity",
+          "back": "(noun) a natural tendency to behave in a particular way\n\nMy little brother has a propensity for asking questions at the worst possible moments."
+        },
+        {
+          "front": "prosperity",
+          "back": "(noun) the state of being successful and financially comfortable\n\nThe new railroad brought prosperity to the small town as merchants arrived from the east."
+        },
+        {
+          "front": "provoke",
+          "back": "(verb) to cause a reaction, especially anger or another strong feeling\n\nThe novel's surprising ending provoked a heated discussion in the book club."
+        },
+        {
+          "front": "prudent",
+          "back": "(adjective) careful and sensible, especially about avoiding risks\n\nIt is prudent to save part of every paycheck in case of unexpected expenses."
+        },
+        {
+          "front": "quell",
+          "back": "(verb) to put an end to or calm something, such as unrest or fear\n\nThe teacher's calm voice helped quell the students' fears during the fire drill."
+        },
+        {
+          "front": "rampant",
+          "back": "(adjective) spreading or growing quickly and out of control\n\nBefore clean water systems, diseases like cholera were rampant in crowded cities."
+        },
+        {
+          "front": "ratify",
+          "back": "(verb) to officially approve an agreement or document, making it valid\n\nThe treaty did not take effect until both nations had ratified it."
+        },
+        {
+          "front": "rebuke",
+          "back": "(verb) to criticize someone sharply for something they did\n\nThe coach rebuked the players for arriving late to the last practice before the championship."
+        },
+        {
+          "front": "reciprocate",
+          "back": "(verb) to respond to an action or feeling by giving something similar in return\n\nWhen her neighbors brought soup during her illness, Mira reciprocated by baking them bread."
+        },
+        {
+          "front": "reconcile",
+          "back": "(verb) to make conflicting people or ideas agree or fit together\n\nScientists struggled to reconcile the new data with the theory they had trusted for decades."
+        },
+        {
+          "front": "redundant",
+          "back": "(adjective) unnecessary because it repeats something already said or done\n\nThe editor removed several redundant sentences that repeated the essay's opening point."
+        },
+        {
+          "front": "refine",
+          "back": "(verb) to improve something by making small, careful changes\n\nThe students refined their robot's design after each test run in the gym."
+        },
+        {
+          "front": "reinforce",
+          "back": "(verb) to strengthen or support something, such as an idea or structure\n\nThe results of the second experiment reinforced the team's original hypothesis."
+        },
+        {
+          "front": "relentless",
+          "back": "(adjective) continuing without stopping or weakening\n\nThe relentless wind battered the old lighthouse for three days straight."
+        },
+        {
+          "front": "relinquish",
+          "back": "(verb) to give up control, power, or possession of something\n\nThe founder finally relinquished control of the company she had run for forty years."
+        },
+        {
+          "front": "reluctant",
+          "back": "(adjective) unwilling and hesitant to do something\n\nReluctant to leave the warm cabin, the campers delayed their hike until noon."
+        },
+        {
+          "front": "remedy",
+          "back": "(noun) a way of curing an illness or fixing a problem\n\nHot tea with honey is a popular home remedy for a sore throat."
+        },
+        {
+          "front": "renounce",
+          "back": "(verb) to formally give up a claim, belief, or right\n\nThe young prince renounced his claim to the crown so that he could study medicine."
+        },
+        {
+          "front": "replicate",
+          "back": "(verb) to repeat or copy something exactly, such as an experiment\n\nOther labs were unable to replicate the surprising results, so the study was questioned."
+        },
+        {
+          "front": "reprehensible",
+          "back": "(adjective) deserving strong criticism; morally wrong\n\nHiding the safety test results from the public was a reprehensible act by the factory owners."
+        },
+        {
+          "front": "repudiate",
+          "back": "(verb) to reject something as untrue, wrong, or unacceptable\n\nIn his later writings, the philosopher repudiated many ideas he had defended as a young man."
+        },
+        {
+          "front": "resolute",
+          "back": "(adjective) firmly determined and unwilling to change your mind\n\nThe team stayed resolute after losing the first game and went on to win the next five."
+        },
+        {
+          "front": "restrain",
+          "back": "(verb) to hold back or control someone or something\n\nThe child could barely restrain her excitement as the curtain rose on her first play."
+        },
+        {
+          "front": "reticent",
+          "back": "(adjective) unwilling to share your thoughts or feelings; reserved\n\nUsually reticent in class, Omar surprised everyone with a passionate speech about ocean pollution."
+        },
+        {
+          "front": "revere",
+          "back": "(verb) to feel deep respect and admiration for someone or something\n\nThe villagers revered the old healer, who had cared for them for over fifty years."
+        },
+        {
+          "front": "rhetoric",
+          "back": "(noun) language designed to persuade or impress an audience\n\nThe essay examines how the speaker's rhetoric, full of vivid images, stirred her listeners to act."
+        },
+        {
+          "front": "rigorous",
+          "back": "(adjective) extremely thorough, careful, and strict\n\nBefore a new drug is approved, it must pass rigorous testing in several clinical trials."
+        },
+        {
+          "front": "robust",
+          "back": "(adjective) strong and healthy; able to hold up under pressure or testing\n\nThe researchers' robust findings held up even when they tested a much larger sample."
+        },
+        {
+          "front": "sanction",
+          "back": "(verb) to give official permission or approval for something\n\nThe league refused to sanction the match because the field did not meet safety rules."
+        },
+        {
+          "front": "scrupulous",
+          "back": "(adjective) very careful to be honest, accurate, and thorough\n\nThe scrupulous accountant checked every receipt twice before signing the report."
+        },
+        {
+          "front": "sentiment",
+          "back": "(noun) a feeling or opinion about something, often shaped by emotion\n\nThe general sentiment among the students was that the field trip should be held in spring."
+        },
+        {
+          "front": "serene",
+          "back": "(adjective) completely calm, with no sign of worry or disturbance\n\nThe lake looked serene at dawn, its surface as smooth as glass."
+        },
+        {
+          "front": "solace",
+          "back": "(noun) something that eases sadness or makes a hard time easier to bear\n\nAfter her old dog died, Ana found solace in long walks through the park."
+        },
+        {
+          "front": "sporadic",
+          "back": "(adjective) happening only now and then, not regularly\n\nThe forecast called for sporadic showers, so we packed umbrellas just in case."
+        },
+        {
+          "front": "spurious",
+          "back": "(adjective) false or not genuine, though it may appear true or valid\n\nThe link between shoe size and reading skill in children proved spurious, since both increase with age."
+        },
+        {
+          "front": "squander",
+          "back": "(verb) to waste money, time, or opportunities carelessly\n\nThe team squandered a ten-point lead in the final quarter and lost the game."
+        },
+        {
+          "front": "stagnant",
+          "back": "(adjective) not flowing or moving; also, not growing or developing\n\nMosquitoes breed quickly in stagnant water left in old tires and buckets."
+        },
+        {
+          "front": "staunch",
+          "back": "(adjective) firm and faithful in backing a person, cause, or idea\n\nA staunch supporter of the local library, she volunteered there every Saturday for years."
+        },
+        {
+          "front": "stoic",
+          "back": "(adjective) accepting pain or hardship quietly, without showing much feeling\n\nThe stoic patient smiled at the nurses despite weeks of painful treatment."
+        }
+      ]
+    },
+    {
+      "name": "Set 4",
+      "cards": [
+        {
+          "front": "strenuous",
+          "back": "(adjective) needing a lot of physical effort or energy\n\nAfter a strenuous hike up the canyon trail, the students rested in the shade."
+        },
+        {
+          "front": "stringent",
+          "back": "(adjective) very tough and demanding, especially about rules or standards\n\nThe laboratory follows stringent safety rules to prevent chemical spills."
+        },
+        {
+          "front": "subjective",
+          "back": "(adjective) based on personal feelings or opinions rather than facts\n\nJudging a poetry contest is partly subjective, since readers respond to different styles."
+        },
+        {
+          "front": "subordinate",
+          "back": "(adjective) lower in rank, position, or importance than someone or something else\n\nIn the novel, the ambitious clerk resents being subordinate to his younger cousin."
+        },
+        {
+          "front": "subsequent",
+          "back": "(adjective) coming after something else in time or order\n\nThe first experiment failed, but subsequent trials produced much more reliable results."
+        },
+        {
+          "front": "substantiate",
+          "back": "(verb) to support a claim with evidence or proof\n\nThe historian found letters that substantiate her theory about the treaty's origins."
+        },
+        {
+          "front": "succinct",
+          "back": "(adjective) brief and to the point, using no more words than needed\n\nHer succinct answer covered the whole problem in one clear sentence."
+        },
+        {
+          "front": "superficial",
+          "back": "(adjective) concerned only with what is obvious or on the outside; not deep or thorough\n\nA superficial reading of the poem misses the grief hidden beneath its cheerful rhymes."
+        },
+        {
+          "front": "superfluous",
+          "back": "(adjective) more than is needed; unnecessary\n\nThe editor cut several superfluous paragraphs that repeated the same point."
+        },
+        {
+          "front": "supplant",
+          "back": "(verb) to take the place of something or someone, especially something older\n\nIn most offices, email gradually supplanted paper memos as the main way to share news."
+        },
+        {
+          "front": "surpass",
+          "back": "(verb) to be greater, better, or more than something\n\nBy noon the temperature had surpassed the record set the previous summer."
+        },
+        {
+          "front": "susceptible",
+          "back": "(adjective) easily affected, influenced, or harmed by something\n\nYoung seedlings are especially susceptible to frost, so the gardener covered them at night."
+        },
+        {
+          "front": "sustain",
+          "back": "(verb) to keep something going over time; also, to suffer an injury or loss\n\nThe small island could not sustain a large population without importing food."
+        },
+        {
+          "front": "symbolic",
+          "back": "(adjective) standing for or representing an idea, quality, or feeling\n\nIn the novel, the broken clock is symbolic of the family's frozen grief."
+        },
+        {
+          "front": "synthesize",
+          "back": "(verb) to combine separate ideas or parts into a connected whole\n\nFor the research paper, students had to synthesize findings from four different studies."
+        },
+        {
+          "front": "tactful",
+          "back": "(adjective) careful to say things in a way that does not upset or offend others\n\nThe coach gave tactful feedback, praising the team's effort before pointing out mistakes."
+        },
+        {
+          "front": "tangible",
+          "back": "(adjective) real enough to be seen, touched, or measured\n\nThe new tutoring program produced tangible improvements in the students' test scores."
+        },
+        {
+          "front": "tedious",
+          "back": "(adjective) long, dull, and tiring\n\nCopying the data by hand was tedious, so the team wrote a program to do it."
+        },
+        {
+          "front": "temperament",
+          "back": "(noun) a person's usual nature, especially how they tend to feel and react\n\nWith her calm temperament, the nurse stayed steady even on the busiest nights."
+        },
+        {
+          "front": "tentative",
+          "back": "(adjective) not definite or final; done with some hesitation\n\nThe club made tentative plans for a spring trip, pending approval from the principal."
+        },
+        {
+          "front": "tenuous",
+          "back": "(adjective) very weak or slight; not firmly supported\n\nThe lawyer's argument rested on a tenuous link between the two events."
+        },
+        {
+          "front": "tenacious",
+          "back": "(adjective) determined and persistent; refusing to let go or give up\n\nThe tenacious reporter kept asking questions until officials released the records."
+        },
+        {
+          "front": "terse",
+          "back": "(adjective) using very few words, often in a way that seems unfriendly\n\nHer terse reply of just one word made it clear she did not want to talk."
+        },
+        {
+          "front": "thrive",
+          "back": "(verb) to grow, develop, or succeed very well\n\nCacti thrive in dry desert soil where most other plants would wither."
+        },
+        {
+          "front": "trivial",
+          "back": "(adjective) of little importance or value\n\nThe two friends stopped arguing once they realized the disagreement was trivial."
+        },
+        {
+          "front": "tumultuous",
+          "back": "(adjective) full of noise, confusion, or sudden change\n\nAfter a tumultuous first year of college, Maya finally settled into a steady routine."
+        },
+        {
+          "front": "ubiquitous",
+          "back": "(adjective) found everywhere; extremely common\n\nSmartphones have become so ubiquitous that few students remember life without them."
+        },
+        {
+          "front": "unprecedented",
+          "back": "(adjective) never done, known, or experienced before\n\nThe long drought caused an unprecedented drop in the lake's water level."
+        },
+        {
+          "front": "unscrupulous",
+          "back": "(adjective) without moral principles; willing to cheat or deceive to get ahead\n\nAn unscrupulous landlord tried to keep the tenants' deposits without giving any reason."
+        },
+        {
+          "front": "uphold",
+          "back": "(verb) to support or keep something, such as a rule, decision, or principle\n\nEvery member of the honor council promises to uphold the school's code of conduct."
+        },
+        {
+          "front": "utilitarian",
+          "back": "(adjective) designed to be practical and functional rather than attractive\n\nThe cabin's furniture was utilitarian: a plain table, two chairs, and a narrow bed."
+        },
+        {
+          "front": "vacillate",
+          "back": "(verb) to keep switching between different opinions or choices\n\nShe vacillated between studying biology and history until the deadline forced a decision."
+        },
+        {
+          "front": "validate",
+          "back": "(verb) to show or confirm that something is true or correct\n\nFurther experiments validated the team's prediction about how fast the bacteria would grow."
+        },
+        {
+          "front": "venerate",
+          "back": "(verb) to show deep respect and honor for someone or something\n\nThe villagers venerated their ancestors, leaving flowers at the shrine each spring."
+        },
+        {
+          "front": "verbose",
+          "back": "(adjective) using more words than are needed\n\nThe verbose instructions ran three pages when a single paragraph would have done."
+        },
+        {
+          "front": "viable",
+          "back": "(adjective) capable of working or succeeding; workable\n\nEngineers tested whether solar power was a viable option for the remote research station."
+        },
+        {
+          "front": "vigilant",
+          "back": "(adjective) watchful and alert for possible danger or trouble\n\nLifeguards must stay vigilant, scanning the water even when the beach seems calm."
+        },
+        {
+          "front": "vindicate",
+          "back": "(verb) to show that someone was right, or not to blame, after being doubted\n\nThe discovery of the fossil vindicated the scientist whose theory had been mocked for years."
+        },
+        {
+          "front": "volatile",
+          "back": "(adjective) likely to change suddenly and unpredictably; also, turning to vapor easily\n\nThe market for rare minerals was volatile, with prices rising and falling every week."
+        },
+        {
+          "front": "vulnerable",
+          "back": "(adjective) open to being hurt, damaged, or attacked\n\nCoastal towns are especially vulnerable to rising sea levels and stronger storms."
+        },
+        {
+          "front": "wary",
+          "back": "(adjective) cautious because of possible danger or problems\n\nThe deer was wary of the hikers and kept its distance at the edge of the field."
+        },
+        {
+          "front": "whimsical",
+          "back": "(adjective) playfully unusual or fanciful, often in an amusing way\n\nThe children's book features whimsical drawings of teacups with legs and talking clouds."
+        },
+        {
+          "front": "zealous",
+          "back": "(adjective) full of strong, eager devotion to a cause or goal\n\nThe zealous volunteers knocked on every door to recruit members for the recycling program."
+        },
+        {
+          "front": "abate",
+          "back": "(verb) to become weaker or less intense\n\nThe ferry stayed in the harbor until the storm finally began to abate."
+        },
+        {
+          "front": "aberration",
+          "back": "(noun) something that differs from what is normal, usual, or expected\n\nThe team's poor score was an aberration in an otherwise excellent season."
+        },
+        {
+          "front": "abhor",
+          "back": "(verb) to hate something very strongly, often for moral reasons\n\nThe narrator abhors cruelty to animals and refuses to attend the hunt."
+        },
+        {
+          "front": "abolish",
+          "back": "(verb) to officially end a law, system, or practice\n\nMany nations abolished slavery in the nineteenth century after long campaigns by reformers."
+        },
+        {
+          "front": "abrasive",
+          "back": "(adjective) harsh and unkind in manner; also, rough enough to scrape or wear away\n\nHis abrasive comments during group projects left several classmates feeling hurt."
+        },
+        {
+          "front": "abstain",
+          "back": "(verb) to choose not to do or have something, such as voting or eating\n\nThree committee members abstained from the vote because they had not read the proposal."
+        },
+        {
+          "front": "accentuate",
+          "back": "(verb) to make something stand out or more noticeable\n\nThe painter used dark shadows to accentuate the brightness of the candle's flame."
+        },
+        {
+          "front": "acclaim",
+          "back": "(noun) strong public praise and approval\n\nHer first novel won wide acclaim from critics and readers alike."
+        },
+        {
+          "front": "acquiesce",
+          "back": "(verb) to accept or agree to something without protest, often reluctantly\n\nAfter hours of debate, the council acquiesced to the residents' demand for a new park."
+        },
+        {
+          "front": "admonish",
+          "back": "(verb) to warn or scold someone firmly but calmly\n\nThe librarian admonished the students for talking loudly in the reading room."
+        },
+        {
+          "front": "adept",
+          "back": "(adjective) very skilled at doing something\n\nOctopuses are adept at escaping from tanks, slipping through the smallest gaps."
+        },
+        {
+          "front": "adversary",
+          "back": "(noun) an opponent or enemy in a contest, conflict, or argument\n\nThe two chess players had been adversaries for years but respected each other deeply."
+        },
+        {
+          "front": "alienate",
+          "back": "(verb) to make someone feel isolated, unwelcome, or no longer friendly\n\nThe author's harsh comments alienated many of his longtime readers."
+        },
+        {
+          "front": "altruistic",
+          "back": "(adjective) unselfishly concerned with helping others\n\nSome birds show altruistic behavior, warning the flock of danger at their own risk."
+        },
+        {
+          "front": "amass",
+          "back": "(verb) to gather or collect a large amount of something over time\n\nOver forty years, the collector amassed thousands of rare insects from around the world."
+        },
+        {
+          "front": "ameliorate",
+          "back": "(verb) to make something bad or unpleasant better\n\nThe new irrigation system helped ameliorate the effects of the long drought on local farms."
+        },
+        {
+          "front": "amenable",
+          "back": "(adjective) open and willing to agree or be persuaded\n\nThe principal was amenable to the students' idea of a later start time."
+        },
+        {
+          "front": "anecdote",
+          "back": "(noun) a short, interesting story about a real event or person\n\nThe professor opened her lecture with a funny anecdote about her first research trip."
+        },
+        {
+          "front": "animosity",
+          "back": "(noun) strong dislike or hostility toward someone\n\nYears of competition created deep animosity between the two rival families in the novel."
+        },
+        {
+          "front": "antithesis",
+          "back": "(noun) the exact opposite of someone or something\n\nThe quiet, orderly library was the antithesis of the noisy cafeteria next door."
+        },
+        {
+          "front": "appease",
+          "back": "(verb) to calm or satisfy someone by giving them what they want\n\nTo appease the hungry toddler, his father handed him a cracker."
+        },
+        {
+          "front": "apprehend",
+          "back": "(verb) to understand or grasp an idea; also, to catch and arrest someone\n\nOnly years later did she fully apprehend the meaning of her grandmother's advice."
+        },
+        {
+          "front": "archaic",
+          "back": "(adjective) very old, or no longer in common use\n\nTo modern readers, many words in Shakespeare's plays sound archaic and hard to follow."
+        },
+        {
+          "front": "ardent",
+          "back": "(adjective) showing strong passion or enthusiasm\n\nAn ardent bird-watcher, Leo woke at dawn every Saturday to visit the marsh."
+        },
+        {
+          "front": "ascertain",
+          "back": "(verb) to find out or confirm something by checking carefully\n\nInvestigators worked to ascertain the cause of the fire in the old warehouse."
+        },
+        {
+          "front": "assuage",
+          "back": "(verb) to make a bad feeling, such as fear or guilt, less intense\n\nThe pilot's calm announcement assuaged the passengers' fears during the turbulence."
+        },
+        {
+          "front": "attenuate",
+          "back": "(verb) to reduce the strength, force, or size of something\n\nThick walls attenuate the sound of traffic, keeping the classrooms quiet."
+        },
+        {
+          "front": "avid",
+          "back": "(adjective) very eager and enthusiastic\n\nAn avid reader, Priya finished three mystery novels during spring break."
+        },
+        {
+          "front": "belligerent",
+          "back": "(adjective) hostile and aggressive; ready to fight or argue\n\nThe belligerent customer shouted at the cashier over a small mistake on his bill."
+        },
+        {
+          "front": "berate",
+          "back": "(verb) to criticize or scold someone angrily and at length\n\nThe captain berated the crew for leaving the ship's supplies out in the rain."
+        },
+        {
+          "front": "bequeath",
+          "back": "(verb) to leave property to someone in a will; to pass something down to later generations\n\nThe painter bequeathed her entire collection to the city museum."
+        },
+        {
+          "front": "blatant",
+          "back": "(adjective) very obvious and open, often in a shameless way\n\nCopying a classmate's essay word for word is a blatant act of plagiarism."
+        },
+        {
+          "front": "boisterous",
+          "back": "(adjective) loud, lively, and full of energy\n\nThe boisterous fans cheered and stomped as the home team took the field."
+        },
+        {
+          "front": "buoyant",
+          "back": "(adjective) cheerful and optimistic; also, able to float easily\n\nHer buoyant mood lasted all day after she learned she had passed the exam."
+        },
+        {
+          "front": "cajole",
+          "back": "(verb) to persuade someone by gentle urging, flattery, or sweet talk\n\nShe cajoled her little brother into eating his vegetables by promising a bedtime story."
+        },
+        {
+          "front": "capricious",
+          "back": "(adjective) likely to change suddenly and without a clear reason\n\nThe capricious spring weather swung from sunshine to hail within an hour."
+        },
+        {
+          "front": "caustic",
+          "back": "(adjective) bitterly harsh or mocking; also, able to burn through things chemically\n\nThe critic's caustic review mocked nearly every scene of the play."
+        },
+        {
+          "front": "chronicle",
+          "back": "(verb) to record a series of events in the order they happened\n\nHer diary chronicles daily life in a small mining town during the 1890s."
+        },
+        {
+          "front": "circumvent",
+          "back": "(verb) to find a way to avoid a rule, problem, or obstacle\n\nSome students tried to circumvent the website filter by using a different browser."
+        },
+        {
+          "front": "clandestine",
+          "back": "(adjective) kept secret or done in hiding, often because it is not allowed\n\nDuring the war, members of the resistance held clandestine meetings in a bakery cellar."
+        },
+        {
+          "front": "clarity",
+          "back": "(noun) the quality of being easy to understand, see, or hear\n\nThe teacher praised the clarity of Jamal's explanation, which every classmate could follow."
+        },
+        {
+          "front": "coalesce",
+          "back": "(verb) to come together and form a single group or mass\n\nOver millions of years, clouds of dust and gas coalesced into planets."
+        },
+        {
+          "front": "cogent",
+          "back": "(adjective) logical and convincing; persuasive\n\nThe student made a cogent argument for longer library hours, backed by survey data."
+        },
+        {
+          "front": "commemorate",
+          "back": "(verb) to honor a past person or event, often with a ceremony or monument\n\nThe town built a statue to commemorate the opening of its first public library."
+        },
+        {
+          "front": "compassion",
+          "back": "(noun) sympathy for the suffering of others, together with a desire to help\n\nThe doctor's compassion for her patients showed in the way she listened to every worry."
+        },
+        {
+          "front": "compromise",
+          "back": "(verb) to weaken or endanger something; also, to settle a dispute by meeting halfway\n\nLeaving the lab door unlocked could compromise the safety of the experiment."
+        },
+        {
+          "front": "concur",
+          "back": "(verb) to agree; to share the same opinion\n\nThe three judges concurred that the essay deserved first prize."
+        },
+        {
+          "front": "condescending",
+          "back": "(adjective) showing that one thinks one is better or smarter than others\n\nThe tour guide's condescending tone made the visitors feel foolish for asking questions."
+        },
+        {
+          "front": "confound",
+          "back": "(verb) to puzzle or bewilder someone; also, to prove an expectation wrong\n\nThe results confounded the researchers, who had predicted the opposite outcome."
+        },
+        {
+          "front": "conscientious",
+          "back": "(adjective) careful and thorough in doing one's work or duty\n\nA conscientious student, Amara checked every answer twice before turning in the test."
+        },
+        {
+          "front": "consolidate",
+          "back": "(verb) to combine several things into one, or to make something stronger\n\nThe district consolidated its two small high schools into one larger campus."
+        },
+        {
+          "front": "contrite",
+          "back": "(adjective) feeling sincere regret and guilt for a wrong one has done\n\nThe contrite boy apologized to his neighbor and offered to repair the broken window."
+        },
+        {
+          "front": "copious",
+          "back": "(adjective) existing in large amounts; plentiful\n\nShe took copious notes during the lecture, filling nearly ten pages."
+        },
+        {
+          "front": "covert",
+          "back": "(adjective) done secretly or kept hidden\n\nThe scientists made covert observations of the gorillas from behind a screen of leaves."
+        },
+        {
+          "front": "criterion",
+          "back": "(noun) a standard used to judge or decide something\n\nOriginality was the main criterion the judges used to choose the winning science project."
+        },
+        {
+          "front": "crucial",
+          "back": "(adjective) extremely important, often deciding the outcome\n\nGetting enough sleep is crucial for students who want to remember what they studied."
+        },
+        {
+          "front": "cursory",
+          "back": "(adjective) done quickly and without close attention to detail\n\nA cursory glance at the map suggested the trail was short, but it took all day."
+        }
+      ]
+    },
+    {
+      "name": "Set 5",
+      "cards": [
+        {
+          "front": "daunting",
+          "back": "(adjective) seeming so difficult or frightening that it makes you lose confidence\n\nFacing a stack of twenty college applications, Maya found the task daunting at first."
+        },
+        {
+          "front": "debunk",
+          "back": "(verb) to show that a popular belief, claim or idea is false\n\nThe museum exhibit debunks the popular myth that Viking warriors wore horned helmets."
+        },
+        {
+          "front": "decorum",
+          "back": "(noun) polite, dignified behavior suited to a formal situation\n\nThe students maintained perfect decorum during the graduation ceremony, even when the microphone failed."
+        },
+        {
+          "front": "deflect",
+          "back": "(verb) to turn something aside or away, such as a question, blame or a moving object\n\nWhen asked about the missing cookies, my little brother tried to deflect attention onto the dog."
+        },
+        {
+          "front": "degrade",
+          "back": "(verb) to make something worse in quality or condition, or to break down over time\n\nYears of constant sunlight slowly degraded the colors in the museum's oldest tapestries."
+        },
+        {
+          "front": "deliberation",
+          "back": "(noun) long, careful thought or discussion before making a decision\n\nAfter two days of deliberation, the jury finally reached a unanimous verdict."
+        },
+        {
+          "front": "demeanor",
+          "back": "(noun) the outward way a person behaves or looks, showing their mood or character\n\nDespite the chaos in the emergency room, the nurse kept a calm and reassuring demeanor."
+        },
+        {
+          "front": "demise",
+          "back": "(noun) the end or failure of something; also a person's death\n\nThe rise of online streaming contributed to the demise of many small video rental stores."
+        },
+        {
+          "front": "deprecate",
+          "back": "(verb) to express disapproval of something or play down its value\n\nThe modest inventor tended to deprecate his own achievements, giving credit to his assistants instead."
+        },
+        {
+          "front": "desolate",
+          "back": "(adjective) empty, bleak and without people; also feeling very lonely and miserable\n\nThe explorers crossed a desolate plain where nothing grew except a few patches of gray moss."
+        },
+        {
+          "front": "despondent",
+          "back": "(adjective) very sad and without hope, often after a disappointment\n\nAfter failing his driving test for the third time, Leo felt despondent and stayed in his room."
+        },
+        {
+          "front": "destitute",
+          "back": "(adjective) extremely poor and lacking basic needs such as food and shelter\n\nThe Great Depression left many once-comfortable families destitute and desperate for work."
+        },
+        {
+          "front": "devoid",
+          "back": "(adjective) completely lacking something (followed by \"of\")\n\nThe first draft of her essay was neatly organized but devoid of any original ideas."
+        },
+        {
+          "front": "devout",
+          "back": "(adjective) deeply religious, or sincerely committed to a belief or cause\n\nThe devout pilgrims walked for weeks to reach the ancient temple in the mountains."
+        },
+        {
+          "front": "diffident",
+          "back": "(adjective) shy and lacking confidence in one's own abilities\n\nDiffident at first, the new student slowly began to share her ideas during class discussions."
+        },
+        {
+          "front": "discredit",
+          "back": "(verb) to make people stop trusting or believing someone or something\n\nSeveral careless errors discredited an otherwise strong report on the city budget."
+        },
+        {
+          "front": "disparage",
+          "back": "(verb) to speak of someone or something as unimportant or of little value\n\nSome critics disparaged the young poet's work, but her books later became classics."
+        },
+        {
+          "front": "dissent",
+          "back": "(noun) the act of disagreeing with an official or widely accepted view\n\nAlthough most of the committee approved the plan, two members voiced strong dissent."
+        },
+        {
+          "front": "dissipate",
+          "back": "(verb) to gradually disappear or scatter, or to cause something to do so\n\nThe thick morning fog dissipated as the sun rose higher over the valley."
+        },
+        {
+          "front": "distort",
+          "back": "(verb) to twist something out of its true shape or meaning, making it misleading\n\nBy quoting only half of the sentence, the article distorted what the scientist had actually said."
+        },
+        {
+          "front": "docile",
+          "back": "(adjective) calm, gentle and easy to control or teach\n\nAlthough the horse looked wild, it was docile enough for young children to ride."
+        },
+        {
+          "front": "dormant",
+          "back": "(adjective) inactive or asleep for a time, but able to become active again\n\nThe volcano had been dormant for centuries before it suddenly began to release steam."
+        },
+        {
+          "front": "dynamic",
+          "back": "(adjective) always changing and developing, or full of energy and new ideas\n\nEcosystems are dynamic, shifting constantly as species adapt to changes in climate."
+        },
+        {
+          "front": "earnest",
+          "back": "(adjective) serious and sincere in what one says or intends\n\nIn an earnest voice, the boy promised to repay every cent he had borrowed."
+        },
+        {
+          "front": "ebullient",
+          "back": "(adjective) bubbling over with cheerful energy and enthusiasm\n\nThe ebullient coach jumped up and down when her team won the championship."
+        },
+        {
+          "front": "efficacy",
+          "back": "(noun) the ability to produce the intended result, especially of a medicine or treatment\n\nResearchers ran a large trial to test the efficacy of the new vaccine."
+        },
+        {
+          "front": "elated",
+          "back": "(adjective) extremely happy and excited, usually because of success or good news\n\nElated by her acceptance letter, Priya called her grandparents to share the news."
+        },
+        {
+          "front": "embellish",
+          "back": "(verb) to decorate something, or to add interesting but often untrue details to a story\n\nEvery time Grandpa told the fishing story, he embellished it, and the fish grew a little bigger."
+        },
+        {
+          "front": "eminent",
+          "back": "(adjective) famous and highly respected, especially within a particular field\n\nAn eminent historian was invited to give the opening lecture at the conference."
+        },
+        {
+          "front": "empathy",
+          "back": "(noun) the ability to understand and share another person's feelings\n\nReading novels can build empathy by letting us see the world through a character's eyes."
+        },
+        {
+          "front": "endemic",
+          "back": "(adjective) native to and found only in one area; also regularly found among a group\n\nMany plants endemic to the Hawaiian Islands grow nowhere else on Earth."
+        },
+        {
+          "front": "enervate",
+          "back": "(verb) to drain someone's energy, leaving them weak and tired\n\nThe long, humid afternoon enervated the hikers, who stopped often to rest in the shade."
+        },
+        {
+          "front": "engender",
+          "back": "(verb) to cause a feeling, situation or condition to develop\n\nThe teacher's patience engendered trust among students who had once been afraid to ask questions."
+        },
+        {
+          "front": "enmity",
+          "back": "(noun) deep, lasting hostility between people or groups\n\nThe enmity between the two families in the play lasted for generations."
+        },
+        {
+          "front": "entice",
+          "back": "(verb) to attract or tempt someone, often by offering something pleasant\n\nThe club offered free snacks to entice more students to the evening lecture."
+        },
+        {
+          "front": "equitable",
+          "back": "(adjective) fair and reasonable, treating everyone justly\n\nThe siblings worked out an equitable plan so that each of them did the same amount of chores."
+        },
+        {
+          "front": "equivocal",
+          "back": "(adjective) unclear and open to more than one meaning, often on purpose\n\nThe study's results were equivocal, so the researchers called for further experiments."
+        },
+        {
+          "front": "eradicate",
+          "back": "(verb) to destroy or remove something completely\n\nThanks to a global vaccination campaign, smallpox was declared eradicated in 1980."
+        },
+        {
+          "front": "esoteric",
+          "back": "(adjective) understood by or meant for only a small group with special knowledge\n\nThe professor's lecture on medieval tax law was too esoteric for most of the first-year students."
+        },
+        {
+          "front": "euphemism",
+          "back": "(noun) a mild or indirect word used in place of one that seems harsh or unpleasant\n\nThe principal described the noisy cafeteria as \"lively,\" a polite euphemism for chaos."
+        },
+        {
+          "front": "evasive",
+          "back": "(adjective) trying to avoid giving a clear, direct answer\n\nWhen asked about her grades, my sister gave an evasive reply and quickly changed the subject."
+        },
+        {
+          "front": "exacting",
+          "back": "(adjective) requiring great care, effort and precision; very demanding\n\nThe watchmaker's exacting standards meant that each piece took weeks to complete."
+        },
+        {
+          "front": "exasperate",
+          "back": "(verb) to make someone extremely annoyed and frustrated\n\nThe constant beeping of the broken smoke alarm exasperated everyone in the house."
+        },
+        {
+          "front": "exhilarate",
+          "back": "(verb) to make someone feel very happy, excited and full of energy\n\nRacing down the snowy hill on a sled exhilarated the children, who begged to go again."
+        },
+        {
+          "front": "exorbitant",
+          "back": "(adjective) far higher than is reasonable or fair, especially in price\n\nThe hotel charged an exorbitant fee for a small bottle of water from the minibar."
+        },
+        {
+          "front": "expansive",
+          "back": "(adjective) covering a wide area or range; also friendly, open and talkative\n\nFrom the hilltop, we had an expansive view of farmland stretching to the horizon."
+        },
+        {
+          "front": "expedient",
+          "back": "(adjective) useful for reaching a goal quickly, even if not entirely fair or right\n\nRather than fixing the leaky roof properly, the landlord found it expedient to place buckets under the drips."
+        },
+        {
+          "front": "explicate",
+          "back": "(verb) to explain the meaning of an idea or a piece of writing in detail\n\nFor homework, each student had to explicate a short poem, line by line."
+        },
+        {
+          "front": "exuberant",
+          "back": "(adjective) full of lively energy, excitement and joy\n\nThe exuberant puppy raced around the yard, leaping at every falling leaf."
+        },
+        {
+          "front": "fabricate",
+          "back": "(verb) to make up something false in order to deceive; also to build or manufacture\n\nThe researcher lost her job after investigators found she had fabricated the data in her study."
+        },
+        {
+          "front": "facetious",
+          "back": "(adjective) joking about serious matters in an inappropriate way\n\nHis facetious comment about the fire drill annoyed the teacher, who wanted everyone to take it seriously."
+        },
+        {
+          "front": "fastidious",
+          "back": "(adjective) very careful about accuracy, detail or cleanliness; hard to please\n\nA fastidious editor, she checked every comma and date in the manuscript twice."
+        },
+        {
+          "front": "fickle",
+          "back": "(adjective) changing feelings, loyalties or plans often and without warning\n\nSpring weather in the mountains is fickle, turning from sunshine to snow within an hour."
+        },
+        {
+          "front": "flagrant",
+          "back": "(adjective) shockingly obvious, usually describing a wrong or offensive act\n\nCopying the entire essay from a website was a flagrant violation of the school's honesty policy."
+        },
+        {
+          "front": "flourish",
+          "back": "(verb) to grow strongly and healthily, or to be very successful; to thrive\n\nArt, science and trade flourished in Florence during the Renaissance."
+        },
+        {
+          "front": "foreshadow",
+          "back": "(verb) to give a hint or sign of something that will happen later\n\nIn the opening chapter, a broken mirror foreshadows the misfortune awaiting the family."
+        },
+        {
+          "front": "forthright",
+          "back": "(adjective) direct and honest in what one says, without hesitating or hiding anything\n\nAsked for her opinion, the coach was forthright: the team needed to practice harder."
+        },
+        {
+          "front": "fortuitous",
+          "back": "(adjective) happening by chance, often in a lucky or helpful way\n\nTheir meeting at the station was fortuitous, since neither had planned to travel that day."
+        },
+        {
+          "front": "frivolous",
+          "back": "(adjective) not serious or sensible; lacking real importance or purpose\n\nShe realized she had spent her savings on frivolous purchases instead of the textbooks she needed."
+        },
+        {
+          "front": "fundamental",
+          "back": "(adjective) forming the base or most important part of something; essential\n\nUnderstanding fractions is fundamental to success in later math courses like algebra."
+        },
+        {
+          "front": "garner",
+          "back": "(verb) to gather or earn something, such as support, praise or attention\n\nThe student's science project garnered attention from local news reporters."
+        },
+        {
+          "front": "genial",
+          "back": "(adjective) friendly, warm and pleasant in manner\n\nThe genial librarian greeted every visitor with a smile and a helpful suggestion."
+        },
+        {
+          "front": "gullible",
+          "back": "(adjective) easily tricked because one believes things too readily\n\nThe gullible tourist paid twenty dollars for a \"magic\" stone that was just an ordinary pebble."
+        },
+        {
+          "front": "hackneyed",
+          "back": "(adjective) used so often that it has become dull and unoriginal\n\nThe teacher urged us to avoid hackneyed phrases like \"at the end of the day\" in our essays."
+        },
+        {
+          "front": "harbinger",
+          "back": "(noun) a sign that shows something is about to happen or arrive\n\nIn many regions, the first robin of the year is seen as a harbinger of spring."
+        },
+        {
+          "front": "hiatus",
+          "back": "(noun) a pause or break in an activity, series or process\n\nAfter a two-year hiatus, the band returned to the stage with an entirely new album."
+        },
+        {
+          "front": "hierarchy",
+          "back": "(noun) a system that ranks people or things in levels from highest to lowest\n\nIn the medieval social hierarchy, peasants ranked far below nobles and kings."
+        },
+        {
+          "front": "homogeneous",
+          "back": "(adjective) made up of parts that are all the same kind or very similar throughout\n\nStir the mixture until it becomes homogeneous, with no lumps of flour left."
+        },
+        {
+          "front": "hubris",
+          "back": "(noun) extreme pride or overconfidence, often leading to a person's downfall\n\nIn the Greek myth, Icarus's hubris leads him to fly too close to the sun."
+        },
+        {
+          "front": "hyperbole",
+          "back": "(noun) deliberate exaggeration used for emphasis, not meant to be taken literally\n\nWhen Jen said her backpack weighed a ton, she was using hyperbole."
+        },
+        {
+          "front": "iconoclast",
+          "back": "(noun) a person who attacks or challenges traditional beliefs or institutions\n\nAn iconoclast in her field, the young physicist questioned theories her professors considered settled."
+        },
+        {
+          "front": "idiosyncrasy",
+          "back": "(noun) an unusual habit or way of behaving that is typical of one person\n\nOne of the author's idiosyncrasies was writing all his novels while standing up."
+        },
+        {
+          "front": "illicit",
+          "back": "(adjective) forbidden by law, rules or custom\n\nBorder officials inspected the ship's cargo for illicit goods such as smuggled ivory."
+        },
+        {
+          "front": "immutable",
+          "back": "(adjective) unable to change or be changed\n\nScientists once thought the continents were immutable, but we now know they slowly drift."
+        },
+        {
+          "front": "impeccable",
+          "back": "(adjective) without any faults or mistakes; perfect\n\nThe pianist's performance was impeccable; she didn't miss a single note."
+        },
+        {
+          "front": "imperative",
+          "back": "(adjective) extremely important and urgent; absolutely necessary\n\nIt is imperative that hikers carry enough water when crossing the desert."
+        },
+        {
+          "front": "impervious",
+          "back": "(adjective) not affected by something, or not letting liquid or gas pass through\n\nThe coach seemed impervious to criticism, sticking with her strategy despite the crowd's complaints."
+        },
+        {
+          "front": "impudent",
+          "back": "(adjective) rude and disrespectful, especially toward someone in authority\n\nThe impudent student rolled his eyes and talked back when the teacher asked him to sit down."
+        },
+        {
+          "front": "inadvertent",
+          "back": "(adjective) not done on purpose; accidental\n\nAn inadvertent click sent the unfinished email to the entire class."
+        },
+        {
+          "front": "incisive",
+          "back": "(adjective) showing sharp, clear thinking that gets straight to the heart of an issue\n\nHer incisive questions quickly exposed the weak points in the opposing team's argument."
+        },
+        {
+          "front": "inclination",
+          "back": "(noun) a natural tendency or a feeling that makes you want to do something\n\nDespite her inclination to stay in bed, Ana got up early to study for her chemistry test."
+        },
+        {
+          "front": "incoherent",
+          "back": "(adjective) not clear or logical, and therefore hard to understand\n\nExhausted after the overnight flight, he gave an incoherent explanation of where he had left his luggage."
+        },
+        {
+          "front": "incumbent",
+          "back": "(adjective) required as a duty or responsibility; also, currently holding an office\n\nIt is incumbent on every lab member to clean and store the equipment after each experiment."
+        },
+        {
+          "front": "indispensable",
+          "back": "(adjective) absolutely necessary; impossible to manage without\n\nA good dictionary is indispensable for anyone learning a new language."
+        },
+        {
+          "front": "induce",
+          "back": "(verb) to cause something to happen, or to persuade someone to do something\n\nWarm temperatures can induce the seeds to sprout earlier than usual."
+        },
+        {
+          "front": "inept",
+          "back": "(adjective) lacking skill or ability; clumsy and incompetent\n\nThe inept magician dropped his cards twice and accidentally revealed the trick."
+        },
+        {
+          "front": "inexorable",
+          "back": "(adjective) impossible to stop or prevent; relentless\n\nThe inexorable rise of the tide slowly swallowed the children's sandcastle."
+        },
+        {
+          "front": "infamous",
+          "back": "(adjective) well known for something bad\n\nThe town was infamous for its traffic jams, which could stretch for miles at rush hour."
+        },
+        {
+          "front": "influx",
+          "back": "(noun) the arrival of a large number of people or things at the same time\n\nThe gold rush brought a sudden influx of settlers to California in 1849."
+        },
+        {
+          "front": "ingrained",
+          "back": "(adjective) firmly fixed and difficult to change, like a deep habit or belief\n\nThe habit of reading before bed was so ingrained that she couldn't sleep without a book."
+        },
+        {
+          "front": "inquisitive",
+          "back": "(adjective) eager to learn and ask questions; curious\n\nThe inquisitive child asked the museum guide dozens of questions about the dinosaur skeletons."
+        },
+        {
+          "front": "integrity",
+          "back": "(noun) honesty and strong moral principles; also the state of being whole and sound\n\nThe cashier showed integrity by returning the extra change a customer had accidentally given her."
+        },
+        {
+          "front": "intermittent",
+          "back": "(adjective) starting and stopping at irregular times; not continuous\n\nIntermittent rain throughout the afternoon kept interrupting the soccer game."
+        },
+        {
+          "front": "intractable",
+          "back": "(adjective) very hard to solve, manage or control\n\nTraffic congestion has proved an intractable problem for many growing cities."
+        },
+        {
+          "front": "intransigent",
+          "back": "(adjective) refusing to change one's views or to compromise; stubborn\n\nBecause both sides remained intransigent, the negotiations collapsed after only an hour."
+        },
+        {
+          "front": "introspective",
+          "back": "(adjective) tending to examine one's own thoughts and feelings\n\nKeeping a journal made Sam more introspective about why he reacted so strongly to criticism."
+        },
+        {
+          "front": "inverse",
+          "back": "(adjective) opposite in order, direction or effect\n\nIn this experiment, there is an inverse relationship between temperature and the time the ice takes to melt."
+        },
+        {
+          "front": "irreverent",
+          "back": "(adjective) showing a lack of respect for things usually treated seriously, often humorously\n\nThe novel's irreverent narrator pokes fun at the stuffy traditions of his boarding school."
+        },
+        {
+          "front": "jovial",
+          "back": "(adjective) cheerful, friendly and full of good humor\n\nThe jovial host told funny stories and made every guest feel welcome at the party."
+        },
+        {
+          "front": "keen",
+          "back": "(adjective) sharp and quick, as of the senses or mind; also, very eager or interested\n\nA keen observer would notice the tiny change in the painting's colors."
+        }
+      ]
+    }
+  ]
+}

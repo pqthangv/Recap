@@ -33,11 +33,13 @@ class IpLimits:
         self._recent: dict[str, deque[float]] = defaultdict(deque)
         self._cards_day: date | None = None
         self._cards: dict[str, int] = defaultdict(int)
+        self._reports: dict[str, int] = defaultdict(int)
 
     def reset(self) -> None:
         with self._lock:
             self._recent.clear()
             self._cards.clear()
+            self._reports.clear()
             self._cards_day = None
 
     def check_rate(self, ip: str, per_minute: int) -> None:
@@ -60,6 +62,7 @@ class IpLimits:
         if self._cards_day != day:
             self._cards_day = day
             self._cards.clear()
+            self._reports.clear()
 
     def reserve_cards(self, ip: str, day: date, wanted: int, daily: int) -> int:
         """Like the device quota: takes up to `wanted` of today's cards for this address."""
@@ -73,6 +76,15 @@ class IpLimits:
         with self._lock:
             if self._cards_day == day and cards > 0:
                 self._cards[ip] = max(0, self._cards[ip] - cards)
+
+    def take_report(self, ip: str, day: date, daily: int) -> bool:
+        """Counts one report from this address today. False once it has sent `daily`."""
+        with self._lock:
+            self._today(day)
+            if self._reports[ip] >= daily:
+                return False
+            self._reports[ip] += 1
+            return True
 
 
 limits = IpLimits()

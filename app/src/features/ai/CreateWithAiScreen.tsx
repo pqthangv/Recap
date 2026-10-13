@@ -130,8 +130,10 @@ export default function CreateWithAiScreen() {
     });
   };
 
-  const choosePdf = () =>
-    run('Reading the PDF…', async () => {
+  const choosePdf = async () => {
+    // The PDF itself goes to Recap's server to be read, so ask before it's even picked.
+    if (!(await askAiConsent())) return;
+    await run('Reading the PDF…', async () => {
       const picked = await DocumentPicker.getDocumentAsync({
         type: 'application/pdf',
         copyToCacheDirectory: true,
@@ -152,6 +154,7 @@ export default function CreateWithAiScreen() {
         }
       }
     });
+  };
 
   const choosePhoto = (from: 'camera' | 'library') =>
     run('Reading the photo…', async () => {

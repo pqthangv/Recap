@@ -11,6 +11,8 @@ import { useLive } from '@/db/live';
 import { getSettings, setSetting } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
 import { DeckRow } from '@/features/deck/DeckRow';
+import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
+import { TutorialTip } from '@/features/onboarding/TutorialTip';
 import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
 import { colors, radius, touchTarget } from '@/lib/theme';
@@ -23,6 +25,8 @@ export default function HomeScreen() {
   const decks = useLive(listDecks, ['decks']);
   const sort = useLive(() => getSettings().deckSort, ['settings']);
   const deletedCount = useLive(() => listDeletedDecks().length, ['decks']);
+  // First launch only: a tip above "How to use Recap" (Start / Skip).
+  const tutorialDeck = useLive(getTutorialDeckId, ['settings', 'decks']);
   // Sub-decks ("SAT › Priority 1", "SAT › Priority 2") show as one "SAT" group.
   const items = sortDeckItems(groupDecks(decks), sort);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,8 +41,24 @@ export default function HomeScreen() {
           </Text>
         </View>
         <View style={styles.links}>
-          <Button variant="text" label="Statistics" onPress={() => router.push('/stats')} />
-          <Button variant="text" label="Settings" onPress={() => router.push('/settings')} />
+          <Button
+            variant="text"
+            label="Library"
+            onPress={() => router.push('/library')}
+            style={styles.link}
+          />
+          <Button
+            variant="text"
+            label="Statistics"
+            onPress={() => router.push('/stats')}
+            style={styles.link}
+          />
+          <Button
+            variant="text"
+            label="Settings"
+            onPress={() => router.push('/settings')}
+            style={styles.link}
+          />
         </View>
       </View>
 
@@ -76,12 +96,27 @@ export default function HomeScreen() {
         }
         renderItem={({ item }) =>
           item.kind === 'deck' ? (
-            <DeckRow
-              name={item.deck.name}
-              color={item.deck.color}
-              counts={counts.byDeck[item.deck.id]}
-              onPress={() => router.push({ pathname: '/deck/[id]', params: { id: item.deck.id } })}
-            />
+            <>
+              {item.deck.id === tutorialDeck ? (
+                <TutorialTip
+                  onStart={() => {
+                    endTutorial();
+                    router.push({ pathname: '/study', params: { deckId: item.deck.id } });
+                  }}
+                  onSkip={() => endTutorial()}
+                />
+              ) : null}
+              <DeckRow
+                name={item.deck.name}
+                color={item.deck.color}
+                counts={counts.byDeck[item.deck.id]}
+                highlighted={item.deck.id === tutorialDeck}
+                onPress={() => {
+                  if (item.deck.id === tutorialDeck) endTutorial();
+                  router.push({ pathname: '/deck/[id]', params: { id: item.deck.id } });
+                }}
+              />
+            </>
           ) : (
             <DeckRow
               name={item.name}
@@ -96,7 +131,9 @@ export default function HomeScreen() {
           )
         }
         ListEmptyComponent={
-          <Text style={styles.empty}>No decks yet. Tap + to make your first one.</Text>
+          <Text style={styles.empty}>
+            No decks yet. Tap + to make your first one, or get one from Library.
+          </Text>
         }
         ListFooterComponent={
           deletedCount > 0 ? (
@@ -125,11 +162,13 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     paddingLeft: 20,
-    paddingRight: 8,
+    paddingRight: 14, // + the links' 6 = the screen's 20
     paddingTop: 8,
   },
   brand: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   links: { flexDirection: 'row', marginLeft: 'auto' },
+  // Close together, so the three read as one group, apart from the title (still ≥ 48dp each).
+  link: { paddingHorizontal: 6 },
   // The mark without padding (logo-mark.png), about as tall as the word.
   logo: { width: 32, height: 32 },
   // No extra font padding, so the word and the mark center on the same line.

@@ -2,14 +2,14 @@ import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { AppState, Platform, StyleSheet, Text, View } from 'react-native';
+import { AppState, Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { SnackbarHost } from '@/components/Snackbar';
 import { setupDatabase } from '@/db/setup';
 import { seedIfNeeded } from '@/features/onboarding/seed';
 import { syncReminders } from '@/features/reminders/reminders';
-import { colors } from '@/lib/theme';
+import { colors, sideSpace } from '@/lib/theme';
 
 // Last resort if the layout itself crashes (each screen has its own, see ErrorScreen.tsx).
 export { RootErrorBoundary as ErrorBoundary } from '@/components/ErrorScreen';
@@ -29,6 +29,7 @@ type Status = 'loading' | 'ready' | 'error';
 
 export default function RootLayout() {
   const [status, setStatus] = useState<Status>('loading');
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     setupDatabase()
@@ -71,7 +72,8 @@ export default function RootLayout() {
           headerTintColor: colors.primary,
           headerTitleStyle: { color: colors.text },
           headerShadowVisible: false,
-          contentStyle: { backgroundColor: colors.background },
+          // Every screen's content in one centered column on wide windows (theme.maxContentWidth).
+          contentStyle: { backgroundColor: colors.background, paddingHorizontal: sideSpace(width) },
         }}
       >
         <Stack.Screen name="index" options={{ headerShown: false, title: 'Home' }} />
@@ -82,6 +84,7 @@ export default function RootLayout() {
         <Stack.Screen name="study" options={{ title: 'Study' }} />
         <Stack.Screen name="settings" options={{ title: 'Settings' }} />
         <Stack.Screen name="stats" options={{ title: 'Statistics' }} />
+        <Stack.Screen name="library" options={{ title: 'Library' }} />
         <Stack.Screen name="deleted" options={{ title: 'Recently deleted' }} />
         <Stack.Screen name="import/index" options={{ title: 'Import cards' }} />
         <Stack.Screen name="import/paste" options={{ title: 'Paste a list' }} />

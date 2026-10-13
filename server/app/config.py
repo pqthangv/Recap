@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     # Per network address (see app/abuse.py): stops one machine inventing device ids.
     ip_daily_card_quota: int = 200
     ip_requests_per_minute: int = 30
+    # Reports of AI cards (app/reports.py): per device and per network address, per UTC day.
+    daily_report_quota: int = 20
+    ip_daily_report_quota: int = 60
     # API docs (/docs, /redoc, /openapi.json), see app/docs.py: open with ENABLE_DOCS=true
     # (local only), or log in with user "admin" and ADMIN_TOKEN as the password (Render).
     enable_docs: bool = False

@@ -29,5 +29,14 @@ export const deckColors = [
 
 export const radius = { card: 20, button: 14, chip: 999 } as const;
 
+// Widest a screen's content gets (dp). Tablets, foldables and phones turned sideways get white space
+// on both sides instead of very long lines and far-apart buttons.
+export const maxContentWidth = 680;
+
+/** Space on each side that keeps content within maxContentWidth on a window this wide. */
+export function sideSpace(windowWidth: number): number {
+  return Math.max(0, Math.round((windowWidth - maxContentWidth) / 2));
+}
+
 // Minimum touch target (dp), per the UX rules.
 export const touchTarget = 48;

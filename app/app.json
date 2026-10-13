@@ -2,8 +2,8 @@
   "expo": {
     "name": "Recap",
     "slug": "recap",
-    "version": "1.0.1",
-    "orientation": "portrait",
+    "version": "1.0.2",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "recapcards",
     "userInterfaceStyle": "light",
@@ -51,7 +51,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
@@ -78,26 +78,26 @@
         }
       ],
       [
+        "expo-audio",
+        {
+          "microphonePermission": "Recap never records audio. It only plays sound when it reads your cards aloud.",
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": false,
+          "enableBackgroundRecording": false
+        }
+      ],
+      [
         "expo-image-picker",
         {
-          "cameraPermission": "Recap uses the camera to read your notes and make cards from them.",
-          "photosPermission": "Recap reads the text in photos you choose to make cards from them.",
+          "cameraPermission": "Recap uses the camera when you take a photo of your notes. It reads the text on your phone to make flashcards, and the photo isn't kept.",
+          "photosPermission": "Recap opens the photo of your notes that you pick. It reads the text on your phone to make flashcards, and the photo isn't kept.",
           "microphonePermission": false
         }
       ],
       "expo-mlkit-ocr",
       "./plugins/withReleaseSigning",
       "./plugins/withAndroidCodeOptimization",
-      "./plugins/withWindowsLongPathCmake",
-      [
-        "expo-audio",
-        {
-          "microphonePermission": false,
-          "recordAudioAndroid": false,
-          "enableBackgroundPlayback": false,
-          "enableBackgroundRecording": false
-        }
-      ]
+      "./plugins/withWindowsLongPathCmake"
     ],
     "experiments": {
       "typedRoutes": true,

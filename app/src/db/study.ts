@@ -4,6 +4,7 @@ import { and, eq, gt, gte, inArray, isNull, lt, ne, sql } from 'drizzle-orm';
 
 import { dayStart, isSameStudyDay, nextDayStart } from '@/lib/day';
 import { newId } from '@/lib/id';
+import { TUTORIAL_DECK_KEY } from '@/lib/settings';
 import {
   buildQueue,
   dueCutoff,
@@ -18,7 +19,7 @@ import {
 
 import { db } from './client';
 import { cards, decks, reviewLogs, type CardRow } from './schema';
-import { getSettings } from './settings';
+import { getRawSetting, getSettings } from './settings';
 import { transaction } from './transaction';
 
 const liveDeckIds = db.select({ id: decks.id }).from(decks).where(isNull(decks.deleted_at));
@@ -76,6 +77,7 @@ export function getLimits(now: number): QueueLimits {
 }
 
 const queueColumns = { id: cards.id, state: cards.state, due: cards.due };
+const freshColumns = { ...queueColumns, deck_id: cards.deck_id, created_at: cards.created_at };
 export type QueueEntry = { id: string; state: number; due: number };
 
 /**
@@ -95,12 +97,19 @@ export function getQueueOrder(scope: StudyScope, now = Date.now()): QueueEntry[]
   const fresh =
     newCardsRemaining(limits) > 0
       ? db
-          .select(queueColumns)
+          .select(freshColumns)
           .from(cards)
           .where(and(liveCard, inScope(scope), eq(cards.state, State.New)))
           .all()
       : [];
-  return buildQueue([...due, ...fresh], limits, now);
+  // "How to use Recap" teaches the app step by step, so its new cards keep their written order.
+  const tutorial = getRawSetting(TUTORIAL_DECK_KEY);
+  return buildQueue<QueueEntry & Partial<Pick<CardRow, 'deck_id' | 'created_at'>>>(
+    [...due, ...fresh],
+    limits,
+    now,
+    (c) => (c.deck_id === tutorial ? c.created_at : undefined),
+  );
 }
 
 /** The cards to study next, in order, as full rows. */

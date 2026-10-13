@@ -1,4 +1,4 @@
-import { colors, deckColors } from './theme';
+import { colors, deckColors, maxContentWidth, sideSpace } from './theme';
 
 // WCAG 2.x contrast ratio between two #RRGGBB colors.
 function luminance(hex: string): number {
@@ -41,5 +41,14 @@ describe('theme contrast (WCAG AA)', () => {
 
   it('deck color dots stand out on white', () => {
     for (const c of deckColors) expect(contrast(c, colors.background)).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe('wide screens', () => {
+  it('centers content in a column no wider than maxContentWidth', () => {
+    expect(sideSpace(411)).toBe(0); // a phone held upright: full width
+    expect(sideSpace(maxContentWidth)).toBe(0);
+    expect(sideSpace(914)).toBe(117); // a phone turned sideways
+    expect(1280 - 2 * sideSpace(1280)).toBe(maxContentWidth); // a tablet
   });
 });

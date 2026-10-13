@@ -251,7 +251,26 @@ function interleave<T>(reviews: readonly T[], fresh: readonly T[]): T[] {
  * rebuilt after every answer) but different every day — cards never come in the order they were
  * added or learned.
  */
-export function buildQueue<T extends QueueCard>(cards: T[], limits: QueueLimits, now: number): T[] {
+/**
+ * Keeps some cards in the order they were written while everything else is shuffled: they fill
+ * the places the shuffle gave them, in `orderOf` order. Used for the "How to use Recap" deck.
+ */
+function keepWrittenOrder<T>(list: T[], orderOf: (c: T) => number | undefined): T[] {
+  const ordered = list
+    .filter((c) => orderOf(c) !== undefined)
+    .sort((a, b) => (orderOf(a) ?? 0) - (orderOf(b) ?? 0));
+  if (ordered.length === 0) return list;
+  let next = 0;
+  return list.map((c) => (orderOf(c) === undefined ? c : ordered[next++]));
+}
+
+export function buildQueue<T extends QueueCard>(
+  cards: T[],
+  limits: QueueLimits,
+  now: number,
+  /** For new cards that must keep their written order: their place in it; else undefined. */
+  writtenOrder: (c: T) => number | undefined = () => undefined,
+): T[] {
   const learningNow: T[] = [];
   const reviews: T[] = [];
   const fresh: T[] = [];
@@ -276,7 +295,10 @@ export function buildQueue<T extends QueueCard>(cards: T[], limits: QueueLimits,
       .sort((a, b) => a.day - b.day || a.mix - b.mix || a.c.id.localeCompare(b.c.id))
       .map(({ c }) => c);
   const reviewsInOrder = shuffle(reviews, (c) => dayStart(c.due));
-  const freshInOrder = shuffle(fresh, () => 0).slice(0, newCardsRemaining(limits));
+  const freshInOrder = keepWrittenOrder(
+    shuffle(fresh, () => 0),
+    writtenOrder,
+  ).slice(0, newCardsRemaining(limits));
   return [...learningNow, ...interleave(reviewsInOrder, freshInOrder), ...learnAhead];
 }
 

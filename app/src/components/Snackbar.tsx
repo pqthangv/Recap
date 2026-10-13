@@ -1,9 +1,16 @@
 import { useEffect } from 'react';
-import { AccessibilityInfo, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  AccessibilityInfo,
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { create } from 'zustand';
 
-import { colors, touchTarget } from '@/lib/theme';
+import { colors, sideSpace, touchTarget } from '@/lib/theme';
 
 type Snack = { id: number; message: string; actionLabel?: string; onAction?: () => void };
 
@@ -33,6 +40,7 @@ const SNACKBAR_OFFSET = 104;
 export function SnackbarHost() {
   const snack = useSnackbar((s) => s.snack);
   const insets = useSafeAreaInsets();
+  const side = 16 + sideSpace(useWindowDimensions().width);
 
   useEffect(() => {
     if (!snack) return;
@@ -46,7 +54,7 @@ export function SnackbarHost() {
   return (
     <View
       pointerEvents="box-none"
-      style={[styles.wrap, { bottom: insets.bottom + SNACKBAR_OFFSET }]}
+      style={[styles.wrap, { bottom: insets.bottom + SNACKBAR_OFFSET, left: side, right: side }]}
       accessibilityLiveRegion="polite"
     >
       <View style={styles.bar}>
@@ -69,7 +77,7 @@ export function SnackbarHost() {
 }
 
 const styles = StyleSheet.create({
-  wrap: { position: 'absolute', left: 16, right: 16 },
+  wrap: { position: 'absolute' },
   bar: {
     flexDirection: 'row',
     alignItems: 'center',
