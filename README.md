@@ -47,8 +47,8 @@
 
 ## Made for real studying
 
-- Ready-made IELTS and SAT vocabulary decks in the Library, plus your own for languages, biology,
-  history, medicine and more.
+- Ready-made decks in the Library (IELTS and SAT vocabulary, world capitals), plus your own for
+  languages, biology, history, medicine and more.
 - Decks inside decks (like "Biology › Cells") to keep things tidy.
 - Pictures on cards, and cards read aloud in English or Vietnamese.
 - Deleted decks can be restored for 30 days.
