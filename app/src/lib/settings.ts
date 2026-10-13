@@ -44,6 +44,16 @@ export const SETTING_KEYS = {
 export const SEEDED_KEY = 'seeded';
 
 /**
+ * The "How to use Recap" deck made on first launch. Its cards are studied in the order written
+ * (every other deck is mixed), and the first-launch tip points at it. Installs from before 1.0.2
+ * have no value: their welcome deck stays mixed and they never see the tip.
+ */
+export const TUTORIAL_DECK_KEY = 'tutorial_deck';
+
+/** Set once the first-launch tip ("New to Recap? Start / Skip") has been used or skipped. */
+export const TUTORIAL_TIP_DONE_KEY = 'tutorial_tip_done';
+
+/**
  * Random id for this install, sent with AI requests for the daily quota. Never copied to another
  * phone (two phones would share a quota); Phase 6 links devices to an optional account instead.
  */
@@ -58,6 +68,8 @@ export const AI_CONSENT_KEY = 'ai_consent';
 /** Settings that belong to this device and are left out of backups (and, later, sync). */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
   SEEDED_KEY,
+  TUTORIAL_DECK_KEY,
+  TUTORIAL_TIP_DONE_KEY,
   DEVICE_ID_KEY,
   AI_CONSENT_KEY,
   SETTING_KEYS.reminderEnabled,

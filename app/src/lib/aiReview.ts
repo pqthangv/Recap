@@ -1,5 +1,5 @@
 // The "Review cards" list: nothing the AI made is saved until the user has looked at it here.
-import type { GeneratedCard } from './ai';
+import type { GeneratedCard, ReportReason } from './ai';
 
 export type ReviewItem = { key: string; front: string; back: string; selected: boolean };
 
@@ -9,6 +9,13 @@ export type AiSource =
   | { kind: 'photo' }
   | { kind: 'pdf'; fileName: string }
   | { kind: 'topic'; topic: string };
+
+/** The choices behind "Report" on each card (Google Play: people must be able to flag AI content). */
+export const REPORT_REASONS: readonly { reason: ReportReason; label: string }[] = [
+  { reason: 'offensive', label: 'Offensive or inappropriate' },
+  { reason: 'wrong', label: 'Wrong or harmful' },
+  { reason: 'other', label: 'Something else' },
+];
 
 export function toReviewItems(cards: readonly GeneratedCard[]): ReviewItem[] {
   return cards.map((c, i) => ({ key: String(i), front: c.front, back: c.back, selected: true }));

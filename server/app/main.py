@@ -1,4 +1,4 @@
-"""Recap's server: AI card generation, quotas, and (later) share links and sync.
+"""Recap's server: AI card generation, quotas, AI card reports, and (later) share links and sync.
 
 Run locally:  uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 """
@@ -10,6 +10,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import HTMLResponse
 from starlette.formparsers import MultiPartParser
 
+from app.admin import router as admin_router
 from app.api import router
 from app.config import get_settings
 from app.docs import add_docs
@@ -35,6 +36,7 @@ app.add_middleware(
     path_limits={"/v1/extract-pdf": settings.max_pdf_bytes + 64 * 1024},
 )
 app.include_router(router)
+app.include_router(admin_router)
 add_docs(app)
 
 

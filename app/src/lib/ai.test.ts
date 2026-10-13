@@ -75,6 +75,32 @@ describe('AI client', () => {
     });
   });
 
+  it('reports a card with the device id and reason', async () => {
+    const fetch = jest.fn().mockResolvedValue(jsonResponse(201, { ok: true }));
+    const back = 'b'.repeat(5_000); // edited past the server's limit: cut to fit
+    await expect(client(fetch).report({ front: 'Q', back }, 'offensive')).resolves.toBeUndefined();
+    const [url, init] = fetch.mock.calls[0];
+    expect(url).toBe('http://server/v1/report');
+    expect(init.method).toBe('POST');
+    expect(JSON.parse(init.body)).toEqual({
+      device_id: DEVICE,
+      front: 'Q',
+      back: 'b'.repeat(4_000),
+      reason: 'offensive',
+    });
+  });
+
+  it('explains too many reports', async () => {
+    const message = "You've sent a lot of reports today. Thanks! More tomorrow.";
+    const fetch = jest
+      .fn()
+      .mockResolvedValue(jsonResponse(429, { error: 'too_many_reports', message }));
+    await expect(client(fetch).report({ front: 'Q', back: 'A' }, 'wrong')).rejects.toMatchObject({
+      kind: 'quota',
+      message,
+    });
+  });
+
   it('warm-up never throws', async () => {
     const fetch = jest.fn().mockRejectedValue(new Error('down'));
     await expect(client(fetch).warmUp()).resolves.toBeUndefined();

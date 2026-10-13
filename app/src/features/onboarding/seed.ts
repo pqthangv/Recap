@@ -2,11 +2,12 @@ import { createCard } from '@/db/cards';
 import { createDeck } from '@/db/decks';
 import { getRawSetting, setRawSetting } from '@/db/settings';
 import { transaction } from '@/db/transaction';
-import { SEEDED_KEY } from '@/lib/settings';
+import { SEEDED_KEY, TUTORIAL_DECK_KEY } from '@/lib/settings';
 import { deckColors } from '@/lib/theme';
 
 type SeedDeck = { name: string; color: string; cards: [front: string, back: string][] };
 
+// World capitals used to be here too; it's a Library pack now (src/features/library/packs.ts).
 export const WELCOME_DECKS: SeedDeck[] = [
   {
     name: 'How to use Recap',
@@ -39,30 +40,16 @@ export const WELCOME_DECKS: SeedDeck[] = [
       ],
     ],
   },
-  {
-    name: 'World capitals',
-    color: deckColors[2],
-    cards: [
-      ['Capital of Japan', 'Tokyo'],
-      ['Capital of Vietnam', 'Hanoi'],
-      ['Capital of Australia', 'Canberra'],
-      ['Capital of Canada', 'Ottawa'],
-      ['Capital of Brazil', 'Brasilia'],
-      ['Capital of Kenya', 'Nairobi'],
-      ['Capital of Egypt', 'Cairo'],
-      ['Capital of Germany', 'Berlin'],
-      ['Capital of Peru', 'Lima'],
-      ['Capital of New Zealand', 'Wellington'],
-    ],
-  },
 ];
 
-/** Creates the welcome decks on first launch only — not again if the user deletes them. */
+/** Creates the welcome decks on first launch only — not again if the user deletes them. The
+ *  first one ("How to use Recap") gets the home screen's first-launch tip. */
 export function seedIfNeeded(now = Date.now()): boolean {
   if (getRawSetting(SEEDED_KEY) === true) return false;
   transaction(() => {
     WELCOME_DECKS.forEach((deck, d) => {
       const { id } = createDeck({ name: deck.name, color: deck.color }, now + d);
+      if (d === 0) setRawSetting(TUTORIAL_DECK_KEY, id, now);
       // Stagger creation times so new cards are shown in the order written here.
       deck.cards.forEach(([front, back], i) => {
         createCard({ deckId: id, front, back, tags: [], reverse: false }, now + d * 100 + i);

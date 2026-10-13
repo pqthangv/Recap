@@ -48,6 +48,7 @@ def postgres_engine():
 def engine(postgres_engine):
     if postgres_engine is not None:
         with postgres_engine.begin() as connection:
+            connection.execute(text("DELETE FROM ai_reports"))
             connection.execute(text("DELETE FROM ai_usage"))
             connection.execute(text("DELETE FROM devices"))
         set_engine(postgres_engine)

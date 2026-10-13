@@ -8,10 +8,13 @@ export type SheetOption = { label: string; onPress: () => void };
 /** A bottom sheet with a few choices and Cancel (e.g. behind a "+" button). */
 export function ActionSheet({
   visible,
+  title,
   options,
   onClose,
 }: {
   visible: boolean;
+  /** Optional line above the choices, e.g. "Why are you reporting this card?". */
+  title?: string;
   options: readonly SheetOption[];
   onClose: () => void;
 }) {
@@ -25,6 +28,11 @@ export function ActionSheet({
         accessibilityLabel="Close menu"
       />
       <View style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}>
+        {title ? (
+          <Text style={styles.title} accessibilityRole="header">
+            {title}
+          </Text>
+        ) : null}
         {[...options, { label: 'Cancel', onPress: onClose }].map((option, i) => (
           <Pressable
             key={option.label}
@@ -59,6 +67,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: radius.button,
     justifyContent: 'center',
+  },
+  title: {
+    fontSize: 15,
+    color: colors.muted,
+    fontWeight: '600',
+    paddingHorizontal: 16,
+    paddingTop: 4,
+    paddingBottom: 8,
   },
   pressed: { backgroundColor: colors.surface },
   label: { fontSize: 18, color: colors.text, fontWeight: '500' },

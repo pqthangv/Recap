@@ -12,11 +12,21 @@ type Props = {
   detail?: string;
   /** Draws stacked dots, so a group of decks looks different from one deck. */
   stacked?: boolean;
+  /** Outlined in the accent color (the deck the first-launch tip points at). */
+  highlighted?: boolean;
   onPress: () => void;
 };
 
 /** A deck (or deck group) in a list: color, name, what's due, and a chevron. */
-export function DeckRow({ name, color, counts, detail, stacked = false, onPress }: Props) {
+export function DeckRow({
+  name,
+  color,
+  counts,
+  detail,
+  stacked = false,
+  highlighted = false,
+  onPress,
+}: Props) {
   const due = counts ?? { due: 0, new: 0 };
   const countText =
     due.due + due.new === 0 ? 'Nothing due' : `${count(due.due)} due · ${count(due.new)} new`;
@@ -26,7 +36,11 @@ export function DeckRow({ name, color, counts, detail, stacked = false, onPress 
       accessibilityRole="button"
       accessibilityLabel={`${name}, ${summary}`}
       onPress={onPress}
-      style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
+      style={({ pressed }) => [
+        styles.row,
+        highlighted && styles.highlighted,
+        pressed && styles.rowPressed,
+      ]}
     >
       <View style={styles.dots}>
         {stacked ? <View style={[styles.dot, styles.backDot, { borderColor: color }]} /> : null}
@@ -51,6 +65,13 @@ const styles = StyleSheet.create({
     marginHorizontal: -12,
     borderRadius: radius.button,
     gap: 14,
+  },
+  // The 2dp border replaces 2dp of padding, so the text doesn't move.
+  highlighted: {
+    borderWidth: 2,
+    borderColor: colors.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
   rowPressed: { backgroundColor: colors.surface },
   dots: { width: 20, height: 20, justifyContent: 'center' },

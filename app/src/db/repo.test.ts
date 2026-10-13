@@ -34,6 +34,7 @@ import { parseBackup } from '@/lib/backup';
 import { dayStart } from '@/lib/day';
 import { previewIntervals, Rating, review, State } from '@/lib/scheduler';
 import { seedIfNeeded, WELCOME_DECKS } from '@/features/onboarding/seed';
+import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
 
 // jest.mock factories can't use imports, so this one needs require().
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -80,6 +81,36 @@ describe('migrations and seed', () => {
     for (const d of listDecks()) deleteDeck(d.id, NOW);
     expect(seedIfNeeded(NOW)).toBe(false);
     expect(listDecks()).toHaveLength(0);
+  });
+
+  it('points the first-launch tip at "How to use Recap" until it is used or skipped', () => {
+    expect(getTutorialDeckId()).toBeNull(); // installs from before the tip never see it
+    seedIfNeeded(NOW);
+    const howTo = listDecks().find((d) => d.name === WELCOME_DECKS[0].name);
+    expect(getTutorialDeckId()).toBe(howTo?.id);
+    endTutorial(NOW);
+    expect(getTutorialDeckId()).toBeNull();
+  });
+
+  it('studies "How to use Recap" in the order written, even after the tip is gone', () => {
+    seedIfNeeded(NOW);
+    const howTo = getTutorialDeckId()!;
+    const written = WELCOME_DECKS[0].cards.map(([front]) => front);
+    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
+    endTutorial(NOW);
+    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
+    // Studying everything at once: still in order among themselves.
+    const another = addDeck('Other');
+    addCards(another.id, 10);
+    const mixed = getDueQueue(undefined, NOW).map((c) => c.front);
+    expect(mixed.filter((f) => written.includes(f))).toEqual(written);
+  });
+
+  it('drops the tip when its deck is deleted', () => {
+    seedIfNeeded(NOW);
+    const id = getTutorialDeckId();
+    deleteDeck(id!, NOW);
+    expect(getTutorialDeckId()).toBeNull();
   });
 });
 

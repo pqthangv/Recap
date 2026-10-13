@@ -5,6 +5,8 @@ export type GeneratedCard = { front: string; back: string };
 export type AiMode = 'text' | 'topic';
 export type Quota = { remaining: number; limit: number };
 export type PdfText = { text: string; pages: number; truncated: boolean };
+/** Why someone reports an AI card (server/app/reports.py). */
+export type ReportReason = 'offensive' | 'wrong' | 'other';
 
 /** OCR text, tidied: spaces collapsed, blank lines between blocks kept to one. */
 export function tidyOcrText(text: string): string {
@@ -19,6 +21,9 @@ export function tidyOcrText(text: string): string {
 export const MAX_INPUT_CHARS = 15_000;
 export const MAX_TOPIC_CHARS = 200;
 export const MAX_CARDS_PER_REQUEST = 30;
+// The server's limits for a reported card; an edited card that's longer is cut to fit.
+const MAX_REPORT_FRONT = 2_000;
+const MAX_REPORT_BACK = 4_000;
 
 export type AiErrorKind =
   | 'offline'
@@ -56,6 +61,7 @@ const KIND_BY_CODE: Record<string, AiErrorKind> = {
   bad_pdf: 'input',
   pdf_locked: 'input',
   pdf_no_text: 'input',
+  too_many_reports: 'quota',
   invalid_request: 'input',
 };
 
@@ -81,7 +87,7 @@ export type AiClientOptions = {
 /** A file to upload: a Blob, or expo-file-system's File (same reading methods, read from disk). */
 export type UploadFile = Blob | { name: string; type: string; bytes(): Promise<Uint8Array> };
 
-const TIMEOUTS = { health: 70_000, quota: 70_000, generate: 120_000, pdf: 90_000 };
+const TIMEOUTS = { health: 70_000, quota: 70_000, generate: 120_000, pdf: 90_000, report: 70_000 };
 
 export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: AiClientOptions) {
   const base = baseUrl.replace(/\/+$/, '');
@@ -145,6 +151,24 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
         },
         TIMEOUTS.generate,
       );
+    },
+
+    /** Flags an AI-made card as offensive, wrong or harmful (Google Play requires this). */
+    report(card: GeneratedCard, reason: ReportReason): Promise<void> {
+      return request(
+        '/v1/report',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            device_id: deviceId(),
+            front: card.front.slice(0, MAX_REPORT_FRONT),
+            back: card.back.slice(0, MAX_REPORT_BACK),
+            reason,
+          }),
+        },
+        TIMEOUTS.report,
+      ).then(() => undefined);
     },
 
     /** Uploads a PDF (multipart) and gets its text. */

@@ -7,7 +7,7 @@ short transaction: no connection is held while waiting for the AI.
 
 from datetime import UTC, date, datetime
 
-from sqlalchemy import Engine, select, update
+from sqlalchemy import Connection, Engine, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 
@@ -20,6 +20,11 @@ def today_utc(now: datetime | None = None) -> date:
 
 def _insert(engine: Engine):
     return pg_insert if engine.dialect.name == "postgresql" else sqlite_insert
+
+
+def ensure_device(conn: Connection, device_id: str) -> None:
+    """Adds the device's row the first time a phone shows up."""
+    conn.execute(_insert(conn.engine)(Device).values(id=device_id).on_conflict_do_nothing())
 
 
 def used_today(engine: Engine, device_id: str, day: date) -> int:
@@ -38,11 +43,10 @@ def remaining(engine: Engine, device_id: str, day: date, quota: int) -> int:
 
 def reserve(engine: Engine, device_id: str, day: date, wanted: int, quota: int) -> int:
     """Reserves up to `wanted` cards for today. Returns how many were reserved (0 = quota used)."""
-    insert = _insert(engine)
     with engine.begin() as conn:
-        conn.execute(insert(Device).values(id=device_id).on_conflict_do_nothing())
+        ensure_device(conn, device_id)
         conn.execute(
-            insert(AiUsage)
+            _insert(engine)(AiUsage)
             .values(device_id=device_id, day=day, cards_generated=0)
             .on_conflict_do_nothing()
         )

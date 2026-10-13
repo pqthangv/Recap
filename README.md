@@ -29,7 +29,8 @@
 ## Make cards in seconds with AI
 
 - Paste your notes, snap a photo of a textbook page, add a PDF, or just type a topic.
-- Check every card before you save it: edit or remove anything that isn't right.
+- Check every card before you save it: edit or remove anything that isn't right, or report a card
+  that's wrong or offensive.
 - Exam soon? Go from notes to a full deck in a minute.
 
 ## Bring the cards you already have
@@ -46,7 +47,8 @@
 
 ## Made for real studying
 
-- Vocabulary for IELTS and SAT, languages, biology, history, medicine and more.
+- Ready-made IELTS and SAT vocabulary decks in the Library, plus your own for languages, biology,
+  history, medicine and more.
 - Decks inside decks (like "Biology › Cells") to keep things tidy.
 - Pictures on cards, and cards read aloud in English or Vietnamese.
 - Deleted decks can be restored for 30 days.
@@ -56,6 +58,7 @@
 Your decks, cards and study history live on your phone and work offline. There are no ads, no
 tracking and no account. Only the text you choose to turn into cards with "Create with AI" leaves
 your phone: it goes to Google's Gemini AI to write the cards, and Recap asks before it sends anything.
+A card you report goes to the developer to review.
 Read the [privacy policy](https://recap-api-ictj.onrender.com/privacy).
 
 ## How it's built

@@ -137,6 +137,20 @@ describe('buildQueue', () => {
     expect(buildQueue(cards, { newPerDay: 20, newDoneToday: 25 }, NOW)).toHaveLength(0);
   });
 
+  it('keeps cards with a written order in that order, and still mixes the rest', () => {
+    const cards = Array.from({ length: 40 }, (_, i) => card(`n${i}`, State.New, NOW));
+    const order = (c: { id: string }) => {
+      const n = Number(c.id.slice(1));
+      return n < 5 ? n : undefined; // n0…n4 are the tutorial
+    };
+    const queue = ids(buildQueue(cards, unlimited, NOW, order));
+    expect(queue.filter((id) => Number(id.slice(1)) < 5)).toEqual(['n0', 'n1', 'n2', 'n3', 'n4']);
+    expect(queue).not.toEqual(ids(cards)); // the others are still shuffled
+    expect(ids(buildQueue(cards.slice(0, 5), unlimited, NOW, order))).toEqual(
+      ['n0', 'n1', 'n2', 'n3', 'n4'], // studying just that deck: fully in order
+    );
+  });
+
   it('puts learning cards first, mixes new cards into reviews, learn-ahead last', () => {
     const cards = [
       card('new', State.New, NOW),

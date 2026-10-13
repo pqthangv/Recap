@@ -1,4 +1,5 @@
-"""API docs (/docs, /redoc, /openapi.json), for the developer only.
+"""API docs (/docs, /redoc, /openapi.json) and the admin pages (/admin, app/admin.py), for the
+developer only.
 
 - Locally: ENABLE_DOCS=true opens them.
 - On Render: set ADMIN_TOKEN (render.yaml has Render generate one; read it in the service's
@@ -17,7 +18,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 from app.config import get_settings
 
-_basic = HTTPBasic(auto_error=False, realm="Recap API docs")
+_basic = HTTPBasic(auto_error=False, realm="Recap admin")
 
 
 def require_admin(
@@ -33,7 +34,7 @@ def require_admin(
         raise HTTPException(
             401,
             "Log in with user admin and your ADMIN_TOKEN.",
-            headers={"WWW-Authenticate": 'Basic realm="Recap API docs"'},
+            headers={"WWW-Authenticate": 'Basic realm="Recap admin"'},
         )
 
 

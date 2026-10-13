@@ -11,7 +11,7 @@ from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel, Field
 from sqlalchemy import Engine
 
-from app import quota
+from app import quota, reports
 from app.abuse import client_ip, limits, rate_limit
 from app.config import Settings, get_settings
 from app.db import DatabaseNotConfigured, get_engine
@@ -176,6 +176,38 @@ def generate(
             remaining=left,
         )
     return GenerateResponse(cards=cards, remaining=left)
+
+
+class ReportRequest(BaseModel):
+    device_id: UUID
+    front: str = Field(max_length=reports.MAX_FRONT_CHARS)
+    back: str = Field(max_length=reports.MAX_BACK_CHARS)
+    reason: reports.Reason
+
+
+class ReportResponse(BaseModel):
+    ok: bool = True
+
+
+@router.post("/report", status_code=201, dependencies=AppCheck)
+def report_card(
+    body: ReportRequest, http_request: Request, settings: SettingsDep, engine: EngineDep
+) -> ReportResponse:
+    """Flags an AI-made card from the app's Review cards screen. Read reports on /admin."""
+    front, back = body.front.strip(), body.back.strip()
+    if not front and not back:
+        raise ApiError(422, "empty", "That card is empty.")
+    device_id, day = str(body.device_id), quota.today_utc()
+    if reports.count_today(engine, device_id, day) >= settings.daily_report_quota or (
+        not limits.take_report(client_ip(http_request), day, settings.ip_daily_report_quota)
+    ):
+        raise ApiError(
+            429, "too_many_reports", "You've sent a lot of reports today. Thanks! More tomorrow."
+        )
+    reports.add(engine, device_id, front, back, body.reason)
+    # A warning, so new reports stand out in Render's logs. Never the card's text.
+    log.warning("ai card reported", extra={"reason": body.reason})
+    return ReportResponse()
 
 
 class PdfResponse(BaseModel):

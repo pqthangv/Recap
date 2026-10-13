@@ -10,16 +10,19 @@ import {
   View,
 } from 'react-native';
 
+import { ActionSheet } from '@/components/ActionSheet';
 import { Button } from '@/components/Button';
 import { Checkbox } from '@/components/Checkbox';
+import { showSnackbar } from '@/components/Snackbar';
 import { listDecks } from '@/db/decks';
 import { importCards, type ImportTarget } from '@/db/import';
 import { useLive } from '@/db/live';
 import { DeckTarget } from '@/features/import/DeckTarget';
 import { targetIsValid, useFinishImport } from '@/features/import/shared';
-import type { GeneratedCard } from '@/lib/ai';
+import { AiError, type GeneratedCard, type ReportReason } from '@/lib/ai';
 import {
   cardsToSave,
+  REPORT_REASONS,
   setAllSelected,
   suggestDeckName,
   toReviewItems,
@@ -29,7 +32,7 @@ import {
 import { plural } from '@/lib/format';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
-import { useAiDraft } from './api';
+import { ai, useAiDraft } from './api';
 
 /** Check, edit and choose the AI's cards. Nothing is saved until "Save". */
 export default function ReviewCardsScreen() {
@@ -59,6 +62,28 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
   const change = (key: string, patch: Partial<ReviewItem>) =>
     setItems((list) => list.map((i) => (i.key === key ? { ...i, ...patch } : i)));
   const remove = (key: string) => setItems((list) => list.filter((i) => i.key !== key));
+
+  // Reporting: the reasons sheet is open for `reporting`; `sending` holds cards on their way.
+  const [reporting, setReporting] = useState<ReviewItem | null>(null);
+  const [sending, setSending] = useState<ReadonlySet<string>>(() => new Set());
+  const report = async (item: ReviewItem, reason: ReportReason) => {
+    setSending((keys) => new Set(keys).add(item.key));
+    try {
+      await ai.report(item, reason);
+      remove(item.key);
+      showSnackbar('Thanks for reporting. The card was removed.');
+    } catch (e) {
+      showSnackbar(
+        e instanceof AiError ? e.message : "Couldn't send the report. Please try again.",
+      );
+    } finally {
+      setSending((keys) => {
+        const next = new Set(keys);
+        next.delete(item.key);
+        return next;
+      });
+    }
+  };
 
   const save = () => {
     if (!canSave) return;
@@ -95,12 +120,21 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
                 <Checkbox checked={item.selected} />
                 <Text style={styles.cardNumber}>Card {index + 1}</Text>
               </Pressable>
-              <Button
-                variant="text"
-                label="Remove"
-                accessibilityLabel={`Remove card ${index + 1}`}
-                onPress={() => remove(item.key)}
-              />
+              <View style={styles.cardActions}>
+                <Button
+                  variant="text"
+                  label={sending.has(item.key) ? 'Reporting…' : 'Report'}
+                  accessibilityLabel={`Report card ${index + 1}`}
+                  onPress={() => setReporting(item)}
+                  disabled={sending.has(item.key)}
+                />
+                <Button
+                  variant="text"
+                  label="Remove"
+                  accessibilityLabel={`Remove card ${index + 1}`}
+                  onPress={() => remove(item.key)}
+                />
+              </View>
             </View>
             <TextInput
               value={item.front}
@@ -127,6 +161,15 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
           disabled={!canSave}
         />
       </ScrollView>
+      <ActionSheet
+        visible={reporting !== null}
+        title="Report this card to Recap. What's wrong with it?"
+        options={REPORT_REASONS.map(({ reason, label }) => ({
+          label,
+          onPress: () => reporting && report(reporting, reason),
+        }))}
+        onClose={() => setReporting(null)}
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -145,7 +188,13 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   cardOff: { opacity: 0.55 },
-  cardTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  cardTop: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  cardActions: { flexDirection: 'row', marginLeft: 'auto' },
   checkHit: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: touchTarget },
   cardNumber: { fontSize: 15, color: colors.muted, fontWeight: '600' },
   input: {

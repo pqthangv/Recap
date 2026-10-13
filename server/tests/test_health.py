@@ -43,3 +43,13 @@ def test_support_page_is_public():
     assert "Recap support" in response.text
     assert "recap.flashcards@gmail.com" in response.text
     assert 'href="/privacy"' in response.text
+
+
+def test_ip_addresses_are_not_logged():
+    """Uvicorn's access log prints each caller's address; the privacy policy says Recap never logs
+    IP addresses, so app startup turns it off."""
+    import logging
+
+    import app.main  # noqa: F401  (sets up logging)
+
+    assert logging.getLogger("uvicorn.access").disabled

@@ -35,3 +35,6 @@ def setup_logging(level: str) -> None:
     # Libraries that log every request at INFO; our own "generated" line already covers it.
     for noisy in ("httpx", "google_genai"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
+    # Uvicorn's access log writes each caller's IP address. Recap never logs IP addresses
+    # (privacy policy), so it's off.
+    logging.getLogger("uvicorn.access").disabled = True
