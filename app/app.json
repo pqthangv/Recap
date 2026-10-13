@@ -20,7 +20,8 @@
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": false,
           "NSAllowsLocalNetworking": true
-        }
+        },
+        "CFBundleAllowMixedLocalizations": true
       },
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
@@ -97,8 +98,18 @@
       "expo-mlkit-ocr",
       "./plugins/withReleaseSigning",
       "./plugins/withAndroidCodeOptimization",
-      "./plugins/withWindowsLongPathCmake"
+      "./plugins/withWindowsLongPathCmake",
+      [
+        "expo-localization",
+        {
+          "supportedLocales": ["en", "vi"],
+          "allowDynamicLocaleChangesAndroid": true
+        }
+      ]
     ],
+    "locales": {
+      "vi": "./languages/vi.json"
+    },
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

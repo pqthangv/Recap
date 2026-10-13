@@ -10,6 +10,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { create } from 'zustand';
 
+import { t } from '@/lib/i18n';
 import { colors, sideSpace, touchTarget } from '@/lib/theme';
 
 type Snack = { id: number; message: string; actionLabel?: string; onAction?: () => void };
@@ -24,7 +25,7 @@ export function showSnackbar(message: string, action?: { label: string; onPress:
     snack: { id: nextId++, message, actionLabel: action?.label, onAction: action?.onPress },
   });
   AccessibilityInfo.announceForAccessibility(
-    action ? `${message}. ${action.label} available.` : message,
+    action ? t('snackbar.actionAvailable', { message, action: action.label }) : message,
   );
 }
 

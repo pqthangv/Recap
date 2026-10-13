@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { formatInterval, formatIntervalLong } from '@/lib/format';
+import { t, type StringKey } from '@/lib/i18n';
 import {
   FOUR_BUTTON_GRADES,
   Rating,
@@ -10,15 +11,15 @@ import {
   type Preview,
 } from '@/lib/scheduler';
 
-const TWO_LABELS: Partial<Record<Grade, string>> = {
-  [Rating.Again]: 'Forgot',
-  [Rating.Good]: 'Got it',
+const TWO_LABELS: Partial<Record<Grade, StringKey>> = {
+  [Rating.Again]: 'grade.forgot',
+  [Rating.Good]: 'grade.gotIt',
 };
-const FOUR_LABELS: Record<Grade, string> = {
-  [Rating.Again]: 'Again',
-  [Rating.Hard]: 'Hard',
-  [Rating.Good]: 'Good',
-  [Rating.Easy]: 'Easy',
+const FOUR_LABELS: Record<Grade, StringKey> = {
+  [Rating.Again]: 'grade.again',
+  [Rating.Hard]: 'grade.hard',
+  [Rating.Good]: 'grade.good',
+  [Rating.Easy]: 'grade.easy',
 };
 
 type Props = {
@@ -33,14 +34,15 @@ export function GradeButtons({ previews, fourButtons, onGrade }: Props) {
   return (
     <View style={styles.row}>
       {grades.map((grade) => {
-        const name = (fourButtons ? FOUR_LABELS[grade] : TWO_LABELS[grade]) ?? '';
+        const key = fourButtons ? FOUR_LABELS[grade] : TWO_LABELS[grade];
+        const name = key ? t(key) : '';
         const ms = previews[grade].intervalMs;
         return (
           <Button
             key={grade}
             label={fourButtons ? name : `${name} · ${formatInterval(ms)}`}
             sublabel={fourButtons ? formatInterval(ms) : undefined}
-            accessibilityLabel={`${name}, see it again ${formatIntervalLong(ms)}`}
+            accessibilityLabel={t('grade.a11y', { name, when: formatIntervalLong(ms) })}
             variant={grade === Rating.Good ? 'primary' : 'secondary'}
             size="lg"
             onPress={() => onGrade(grade)}

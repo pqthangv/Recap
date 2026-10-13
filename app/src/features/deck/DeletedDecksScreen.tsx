@@ -5,7 +5,8 @@ import { showSnackbar } from '@/components/Snackbar';
 import { listDeletedDecks, RESTORE_DAYS, restoreDecks, type DeletedDeck } from '@/db/decks';
 import { useLive } from '@/db/live';
 import { groupColor, groupDecks, type DeckListItem } from '@/lib/deckGroups';
-import { daysAgo, plural } from '@/lib/format';
+import { daysAgo } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, touchTarget } from '@/lib/theme';
 
 /** Decks deleted in the last 30 days, with Restore. A deleted group shows as one row. */
@@ -20,7 +21,9 @@ export default function DeletedDecksScreen() {
   const restore = (item: DeckListItem<DeletedDeck>) => {
     const decks = item.kind === 'deck' ? [item.deck] : item.decks;
     restoreDecks(decks.map((d) => d.id));
-    showSnackbar(`Restored “${item.kind === 'deck' ? item.deck.name : item.name}”`);
+    showSnackbar(
+      t('deleted.restored', { name: item.kind === 'deck' ? item.deck.name : item.name }),
+    );
   };
 
   return (
@@ -29,10 +32,7 @@ export default function DeletedDecksScreen() {
       keyExtractor={(item) => (item.kind === 'deck' ? item.deck.id : `group:${item.name}`)}
       contentContainerStyle={styles.list}
       ListHeaderComponent={
-        <Text style={styles.help}>
-          Deleted decks stay here for {RESTORE_DAYS} days. Restoring brings back the deck and its
-          cards, with their study progress.
-        </Text>
+        <Text style={styles.help}>{t('deleted.help', { days: RESTORE_DAYS })}</Text>
       }
       renderItem={({ item }) => {
         const decks = item.kind === 'deck' ? [item.deck] : item.decks;
@@ -40,9 +40,9 @@ export default function DeletedDecksScreen() {
         const cardCount = decks.reduce((n, d) => n + d.cards, 0);
         const latest = Math.max(...decks.map((d) => d.deleted_at));
         const detail = [
-          item.kind === 'group' ? plural(decks.length, 'deck') : null,
-          plural(cardCount, 'card'),
-          `deleted ${daysAgo(latest, now)}`,
+          item.kind === 'group' ? tn('count.deck', decks.length) : null,
+          tn('count.card', cardCount),
+          t('deleted.when', { when: daysAgo(latest, now) }),
         ]
           .filter(Boolean)
           .join(' · ');
@@ -60,17 +60,15 @@ export default function DeletedDecksScreen() {
             </View>
             <Button
               variant="text"
-              label={item.kind === 'group' ? 'Restore all' : 'Restore'}
-              accessibilityLabel={`Restore ${name}`}
+              label={t(item.kind === 'group' ? 'deleted.restoreAll' : 'deleted.restore')}
+              accessibilityLabel={t('deleted.restoreA11y', { name })}
               onPress={() => restore(item)}
             />
           </View>
         );
       }}
       ListEmptyComponent={
-        <Text style={styles.empty}>
-          Nothing here. Deleted decks appear here for {RESTORE_DAYS} days.
-        </Text>
+        <Text style={styles.empty}>{t('deleted.empty', { days: RESTORE_DAYS })}</Text>
       }
     />
   );

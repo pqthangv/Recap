@@ -2,6 +2,7 @@
 import Papa from 'papaparse';
 
 import { parseTags } from '../format';
+import { t } from '../i18n';
 
 export type Table = {
   /** Column titles: from the header row, or "Column 1", "Column 2", … */
@@ -24,7 +25,7 @@ export type TableCard = { front: string; back: string; tags: string[]; deckName?
 const HEADER_WORDS = {
   front: ['front', 'question', 'term', 'word', 'mặt trước', 'câu hỏi', 'từ'],
   back: ['back', 'answer', 'definition', 'meaning', 'mặt sau', 'câu trả lời', 'nghĩa'],
-  tags: ['tags', 'tag', 'thẻ'],
+  tags: ['tags', 'tag', 'thẻ', 'nhãn'],
   deck: ['deck', 'bộ thẻ'],
 };
 
@@ -48,7 +49,7 @@ export function parseTable(text: string): Table {
   const hasHeader =
     findColumn(first, HEADER_WORDS.front) >= 0 && findColumn(first, HEADER_WORDS.back) >= 0;
   const columns = Array.from({ length: width }, (_, i) =>
-    hasHeader && first[i] ? first[i] : `Column ${i + 1}`,
+    hasHeader && first[i] ? first[i] : t('csv.column', { n: i + 1 }),
   );
   return { columns, rows: hasHeader ? raw.slice(1) : raw, hasHeader };
 }

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { showSnackbar } from '@/components/Snackbar';
 import type { ImportSummary, ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
-import { count, plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors } from '@/lib/theme';
 
 /** Default "Add to": decks from the file if offered, else a new deck named after the file. */
@@ -21,10 +21,12 @@ export function targetIsValid(target: ImportTarget, decks: readonly Deck[]): boo
 }
 
 export function summaryText(s: ImportSummary): string {
-  if (s.added === 0) return 'Nothing new to add — those cards are already there.';
-  const where = s.decks.length === 1 ? ` to ${s.decks[0].name}` : ` to ${s.decks.length} decks`;
-  const dupes = s.skipped ? ` · ${count(s.skipped)} already there` : '';
-  return `Added ${plural(s.added, 'card')}${where}${dupes}`;
+  if (s.added === 0) return t('import.nothingNew');
+  const added = t('import.addedTo', {
+    cards: tn('count.card', s.added),
+    deck: s.decks.length === 1 ? s.decks[0].name : tn('count.deck', s.decks.length),
+  });
+  return s.skipped ? `${added} · ${t('import.alreadyThere', { n: s.skipped })}` : added;
 }
 
 /** After an import: say what happened, then go to the deck (or home, for several decks). */
@@ -51,7 +53,9 @@ export function CardPreview({
   return (
     <View style={styles.preview}>
       <Text style={styles.label}>
-        Preview{total > cards.length ? ` (first ${cards.length} of ${total})` : ''}
+        {total > cards.length
+          ? t('import.previewFirst', { shown: cards.length, total })
+          : t('import.preview')}
       </Text>
       {cards.map((c, i) => (
         <View key={i} style={styles.row}>

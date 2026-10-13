@@ -32,6 +32,7 @@ import {
 
 import { parseBackup } from '@/lib/backup';
 import { dayStart } from '@/lib/day';
+import { setLanguage } from '@/lib/i18n';
 import { previewIntervals, Rating, review, State } from '@/lib/scheduler';
 import { seedIfNeeded, WELCOME_DECKS } from '@/features/onboarding/seed';
 import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
@@ -74,8 +75,8 @@ describe('migrations and seed', () => {
 
   it('seeds the welcome decks once, and not again after they are deleted', () => {
     expect(seedIfNeeded(NOW)).toBe(true);
-    expect(listDecks().map((d) => d.name)).toEqual(WELCOME_DECKS.map((d) => d.name));
-    const total = WELCOME_DECKS.reduce((n, d) => n + d.cards.length, 0);
+    expect(listDecks().map((d) => d.name)).toEqual(WELCOME_DECKS.en.map((d) => d.name));
+    const total = WELCOME_DECKS.en.reduce((n, d) => n + d.cards.length, 0);
     expect(rawQuery('select count(*) as n from cards')[0].n).toBe(total);
 
     for (const d of listDecks()) deleteDeck(d.id, NOW);
@@ -86,7 +87,7 @@ describe('migrations and seed', () => {
   it('points the first-launch tip at "How to use Recap" until it is used or skipped', () => {
     expect(getTutorialDeckId()).toBeNull(); // installs from before the tip never see it
     seedIfNeeded(NOW);
-    const howTo = listDecks().find((d) => d.name === WELCOME_DECKS[0].name);
+    const howTo = listDecks().find((d) => d.name === WELCOME_DECKS.en[0].name);
     expect(getTutorialDeckId()).toBe(howTo?.id);
     endTutorial(NOW);
     expect(getTutorialDeckId()).toBeNull();
@@ -95,7 +96,7 @@ describe('migrations and seed', () => {
   it('studies "How to use Recap" in the order written, even after the tip is gone', () => {
     seedIfNeeded(NOW);
     const howTo = getTutorialDeckId()!;
-    const written = WELCOME_DECKS[0].cards.map(([front]) => front);
+    const written = WELCOME_DECKS.en[0].cards.map(([front]) => front);
     expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
     endTutorial(NOW);
     expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
@@ -111,6 +112,20 @@ describe('migrations and seed', () => {
     const id = getTutorialDeckId();
     deleteDeck(id!, NOW);
     expect(getTutorialDeckId()).toBeNull();
+  });
+
+  it("seeds the welcome deck in the phone's language", () => {
+    setLanguage('vi');
+    try {
+      seedIfNeeded(NOW);
+    } finally {
+      setLanguage('en');
+    }
+    expect(listDecks().map((d) => d.name)).toEqual(['Cách dùng Recap']);
+    const howTo = getTutorialDeckId()!;
+    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(
+      WELCOME_DECKS.vi[0].cards.map(([front]) => front),
+    );
   });
 });
 

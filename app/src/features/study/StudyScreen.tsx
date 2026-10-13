@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
 import { decksInGroup } from '@/lib/deckGroups';
-import { count, plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors } from '@/lib/theme';
 
 import { FlipCard } from './FlipCard';
@@ -28,13 +28,13 @@ export default function StudyScreen() {
     <View style={[styles.screen, { paddingBottom: insets.bottom + 16 }]}>
       <Stack.Screen
         options={{
-          title: card ? `${count(session.remaining)} left` : 'Study',
+          title: card ? t('study.left', { n: session.remaining }) : t('screen.study'),
           headerRight: session.canUndo
             ? () => (
                 <Button
                   variant="text"
-                  label="Undo"
-                  accessibilityLabel="Undo last answer"
+                  label={t('common.undo')}
+                  accessibilityLabel={t('study.undoA11y')}
                   onPress={session.undo}
                 />
               )
@@ -61,7 +61,12 @@ export default function StudyScreen() {
                 onGrade={session.answer}
               />
             ) : (
-              <Button size="lg" variant="secondary" label="Show answer" onPress={session.flip} />
+              <Button
+                size="lg"
+                variant="secondary"
+                label={t('study.showAnswer')}
+                onPress={session.flip}
+              />
             )}
           </View>
         </>
@@ -69,11 +74,15 @@ export default function StudyScreen() {
         <View style={styles.done}>
           <Text accessibilityRole="header" style={styles.doneTitle}>
             {session.reviewed > 0
-              ? `Nice work — ${plural(session.reviewed, 'card')}.`
-              : 'Nothing to study right now.'}
+              ? t('study.niceWork', { cards: tn('count.card', session.reviewed) })
+              : t('study.nothing')}
           </Text>
-          <Text style={styles.doneText}>See you tomorrow.</Text>
-          <Button label="Done" onPress={() => router.back()} style={styles.doneButton} />
+          <Text style={styles.doneText}>{t('study.seeYou')}</Text>
+          <Button
+            label={t('common.done')}
+            onPress={() => router.back()}
+            style={styles.doneButton}
+          />
         </View>
       )}
     </View>

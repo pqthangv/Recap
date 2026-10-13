@@ -4,6 +4,7 @@ import * as Speech from 'expo-speech';
 import { Platform } from 'react-native';
 
 import { showSnackbar } from '@/components/Snackbar';
+import { t } from '@/lib/i18n';
 import { detectLanguage, SPEECH_LOCALES, type SpeechLanguage } from '@/lib/language';
 
 let voices: Promise<Speech.Voice[]> | undefined;
@@ -48,9 +49,7 @@ export function speak(text: string): void {
     hasVoice(lang).then((ok) => {
       if (ok || warned.has(lang)) return;
       warned.add(lang);
-      showSnackbar(
-        "This phone has no Vietnamese voice yet. Add one in your phone's Settings › Text-to-speech.",
-      );
+      showSnackbar(t('speech.noVietnameseVoice'));
     });
   }
 }

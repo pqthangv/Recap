@@ -4,16 +4,14 @@ import * as ImagePicker from 'expo-image-picker';
 import { recognizeText } from 'expo-mlkit-ocr';
 
 import { AiError, tidyOcrText } from '@/lib/ai';
+import { t } from '@/lib/i18n';
 
 /** The photo's text, or null if the user cancelled. */
 export async function readTextFromPhoto(from: 'camera' | 'library'): Promise<string | null> {
   if (from === 'camera') {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
-      throw new AiError(
-        'input',
-        'Recap needs the camera to take a photo. You can allow it in your phone’s Settings.',
-      );
+      throw new AiError('input', t('ai.needCamera'));
     }
   }
   const options: ImagePicker.ImagePickerOptions = { mediaTypes: ['images'], quality: 1 };
@@ -27,10 +25,7 @@ export async function readTextFromPhoto(from: 'camera' | 'library'): Promise<str
   try {
     const text = tidyOcrText((await recognizeText(uri)).text);
     if (!text) {
-      throw new AiError(
-        'input',
-        "Couldn't find any text in that photo. Try a closer, sharper photo in good light.",
-      );
+      throw new AiError('input', t('ai.noTextInPhoto'));
     }
     return text;
   } finally {

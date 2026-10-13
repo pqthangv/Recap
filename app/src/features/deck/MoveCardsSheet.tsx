@@ -2,7 +2,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Deck } from '@/db/schema';
-import { plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 type Props = {
@@ -23,21 +23,21 @@ export function MoveCardsSheet({ visible, decks, count, onMove, onClose }: Props
         style={styles.backdrop}
         onPress={onClose}
         accessibilityRole="button"
-        accessibilityLabel="Close"
+        accessibilityLabel={t('common.close')}
       />
       <View style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}>
         <Text accessibilityRole="header" style={styles.title}>
-          Move {plural(count, 'card')} to…
+          {t('move.title', { cards: tn('count.card', count) })}
         </Text>
         {decks.length === 0 ? (
-          <Text style={styles.empty}>Make another deck first.</Text>
+          <Text style={styles.empty}>{t('move.makeAnother')}</Text>
         ) : (
           <ScrollView style={styles.list}>
             {decks.map((deck) => (
               <Pressable
                 key={deck.id}
                 accessibilityRole="button"
-                accessibilityLabel={`Move to ${deck.name}`}
+                accessibilityLabel={t('move.toA11y', { deck: deck.name })}
                 onPress={() => onMove(deck)}
                 style={({ pressed }) => [styles.row, pressed && styles.pressed]}
               >
@@ -52,7 +52,7 @@ export function MoveCardsSheet({ visible, decks, count, onMove, onClose }: Props
           onPress={onClose}
           style={({ pressed }) => [styles.row, pressed && styles.pressed]}
         >
-          <Text style={styles.cancel}>Cancel</Text>
+          <Text style={styles.cancel}>{t('common.cancel')}</Text>
         </Pressable>
       </View>
     </Modal>

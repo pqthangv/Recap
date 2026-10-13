@@ -6,6 +6,7 @@ import { Platform } from 'react-native';
 
 import { getSettings } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
+import { t } from '@/lib/i18n';
 import { reminderText, reminderTimes } from '@/lib/reminders';
 import { colors } from '@/lib/theme';
 
@@ -23,7 +24,7 @@ Notifications.setNotificationHandler({
 async function ensureChannel() {
   if (Platform.OS !== 'android') return;
   await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
-    name: 'Daily reminder',
+    name: t('reminder.channel'),
     importance: Notifications.AndroidImportance.DEFAULT,
     lightColor: colors.primary,
   });

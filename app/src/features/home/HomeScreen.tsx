@@ -15,6 +15,7 @@ import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
 import { TutorialTip } from '@/features/onboarding/TutorialTip';
 import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { AddMenu } from './AddMenu';
@@ -43,19 +44,19 @@ export default function HomeScreen() {
         <View style={styles.links}>
           <Button
             variant="text"
-            label="Library"
+            label={t('screen.library')}
             onPress={() => router.push('/library')}
             style={styles.link}
           />
           <Button
             variant="text"
-            label="Statistics"
+            label={t('screen.stats')}
             onPress={() => router.push('/stats')}
             style={styles.link}
           />
           <Button
             variant="text"
-            label="Settings"
+            label={t('screen.settings')}
             onPress={() => router.push('/settings')}
             style={styles.link}
           />
@@ -75,20 +76,27 @@ export default function HomeScreen() {
               onPress={() => router.push('/study')}
             />
             {counts.total === 0 && decks.length > 0 ? (
-              <Text style={styles.caught}>All caught up. See you tomorrow.</Text>
+              <Text style={styles.caught}>{t('home.caughtUp')}</Text>
             ) : null}
             {decks.length > 0 ? (
               <View style={styles.sectionRow}>
                 <Text accessibilityRole="header" style={styles.section}>
-                  Decks
+                  {t('home.decks')}
                 </Text>
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={`Sorted by ${sort}. Sort by ${sort === 'name' ? 'color' : 'name'}`}
+                  accessibilityLabel={t('home.sortA11y', {
+                    current: t(sort === 'name' ? 'home.sortNameLower' : 'home.sortColorLower'),
+                    next: t(sort === 'name' ? 'home.sortColorLower' : 'home.sortNameLower'),
+                  })}
                   onPress={() => setSetting('deckSort', sort === 'name' ? 'color' : 'name')}
                   style={({ pressed }) => [styles.sort, pressed && styles.sortPressed]}
                 >
-                  <Text style={styles.sortText}>Sort: {sort === 'name' ? 'Name' : 'Color'}</Text>
+                  <Text style={styles.sortText}>
+                    {t('home.sortLabel', {
+                      by: t(sort === 'name' ? 'home.sortName' : 'home.sortColor'),
+                    })}
+                  </Text>
                 </Pressable>
               </View>
             ) : null}
@@ -122,7 +130,7 @@ export default function HomeScreen() {
               name={item.name}
               color={groupColor(item.decks)}
               counts={groupCounts(item.decks, counts.byDeck, counts.new)}
-              detail={`${item.decks.length} decks`}
+              detail={tn('count.deck', item.decks.length)}
               stacked
               onPress={() =>
                 router.push({ pathname: '/group/[name]', params: { name: item.name } })
@@ -130,11 +138,7 @@ export default function HomeScreen() {
             />
           )
         }
-        ListEmptyComponent={
-          <Text style={styles.empty}>
-            No decks yet. Tap + to make your first one, or get one from Library.
-          </Text>
-        }
+        ListEmptyComponent={<Text style={styles.empty}>{t('home.empty')}</Text>}
         ListFooterComponent={
           deletedCount > 0 ? (
             <Pressable
@@ -142,13 +146,15 @@ export default function HomeScreen() {
               onPress={() => router.push('/deleted')}
               style={({ pressed }) => [styles.deletedLink, pressed && styles.sortPressed]}
             >
-              <Text style={styles.deletedText}>Recently deleted · {deletedCount}</Text>
+              <Text style={styles.deletedText}>
+                {t('home.recentlyDeleted', { n: deletedCount })}
+              </Text>
             </Pressable>
           ) : null
         }
       />
 
-      <Fab accessibilityLabel="Add a deck or card" onPress={() => setMenuOpen(true)} />
+      <Fab accessibilityLabel={t('home.fab')} onPress={() => setMenuOpen(true)} />
       <AddMenu visible={menuOpen} hasDecks={decks.length > 0} onClose={() => setMenuOpen(false)} />
     </SafeAreaView>
   );
