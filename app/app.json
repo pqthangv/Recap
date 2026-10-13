@@ -88,7 +88,16 @@
       "expo-mlkit-ocr",
       "./plugins/withReleaseSigning",
       "./plugins/withAndroidCodeOptimization",
-      "./plugins/withWindowsLongPathCmake"
+      "./plugins/withWindowsLongPathCmake",
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": false,
+          "enableBackgroundRecording": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
