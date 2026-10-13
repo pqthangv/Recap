@@ -23,9 +23,13 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
-# Signing keys
+# Signing keys (Recap-private/ holds them locally; never committed)
+Recap-private/
 *.keystore
 *.jks
+*.p12
+*.p8
+*.mobileprovision
 
 # Misc
 *.log
