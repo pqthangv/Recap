@@ -47,9 +47,14 @@ def test_support_page_is_public():
 
 def test_ip_addresses_are_not_logged():
     """Uvicorn's access log prints each caller's address; the privacy policy says Recap never logs
-    IP addresses, so app startup turns it off."""
+    IP addresses, so the app's logging setup turns it off (and render.yaml starts uvicorn with
+    --no-access-log)."""
     import logging
 
-    import app.main  # noqa: F401  (sets up logging)
+    from app.logs import setup_logging
 
-    assert logging.getLogger("uvicorn.access").disabled
+    access = logging.getLogger("uvicorn.access")
+    # Alembic's logging config (the tests run migrations) switches existing loggers back on.
+    access.disabled = False
+    setup_logging("INFO")
+    assert access.disabled

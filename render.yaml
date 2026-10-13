@@ -9,8 +9,9 @@ services:
     rootDir: server
     buildCommand: pip install -r requirements.txt
     # Creates/updates the tables first (a quick no-op when they're current). If a migration fails,
-    # the server doesn't start and Render keeps the previous version running.
-    startCommand: alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    # the server doesn't start and Render keeps the previous version running. No access log: it
+    # would record callers' IP addresses (the privacy policy says Recap never logs them).
+    startCommand: alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT --no-access-log
     healthCheckPath: /health
     autoDeployTrigger: commit
     envVars:
