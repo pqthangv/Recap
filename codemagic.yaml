@@ -8,7 +8,7 @@ workflows:
     instance_type: mac_mini_m2
     working_directory: app
     integrations:
-      app_store_connect: Recap App Store Connect
+      app_store_connect: FloodShield App Store Connect # the same Apple account and API key as FloodShield
     environment:
       ios_signing:
         distribution_type: app_store
@@ -16,7 +16,7 @@ workflows:
       vars:
         XCODE_WORKSPACE: Recap.xcworkspace
         XCODE_SCHEME: Recap
-        APP_STORE_APPLE_ID: 0000000000 # REPLACE with the app's Apple ID number
+        APP_STORE_APPLE_ID: 6822104894 # REPLACE with the app's Apple ID number
       node: 24
       xcode: latest
     scripts:
