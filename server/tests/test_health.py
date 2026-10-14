@@ -26,23 +26,13 @@ def test_endpoints_explain_a_missing_database():
     assert response.json()["error"] == "not_configured"
 
 
-def test_privacy_policy_is_public():
+def test_old_privacy_and_support_links_go_to_the_website():
+    """App versions up to 1.0.3 (and the old Play listing) link to the server's pages."""
     with TestClient(fastapi_app) as client:
-        response = client.get("/privacy")
-    assert response.status_code == 200
-    assert response.headers["content-type"].startswith("text/html")
-    assert "Recap privacy policy" in response.text
-    assert "support@recapflashcards.com" in response.text
-
-
-def test_support_page_is_public():
-    with TestClient(fastapi_app) as client:
-        response = client.get("/support")
-    assert response.status_code == 200
-    assert response.headers["content-type"].startswith("text/html")
-    assert "Recap support" in response.text
-    assert "support@recapflashcards.com" in response.text
-    assert 'href="/privacy"' in response.text
+        for path in ("/privacy", "/support"):
+            response = client.get(path, follow_redirects=False)
+            assert response.status_code == 301
+            assert response.headers["location"] == f"https://recapflashcards.com{path}"
 
 
 def test_ip_addresses_are_not_logged():

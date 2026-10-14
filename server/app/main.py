@@ -3,11 +3,9 @@
 Run locally:  uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 """
 
-from pathlib import Path
-
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 from starlette.formparsers import MultiPartParser
 
 from app.admin import router as admin_router
@@ -47,17 +45,17 @@ def health() -> dict[str, bool]:
     return {"ok": True}
 
 
-PRIVACY_POLICY = (Path(__file__).parent / "privacy.html").read_text(encoding="utf-8")
-SUPPORT_PAGE = (Path(__file__).parent / "support.html").read_text(encoding="utf-8")
+# The privacy policy and help page live on the website (site/ in the repo, on Cloudflare Pages).
+# The server used to serve them, and app versions up to 1.0.3 still link here, so these stay as
+# permanent redirects.
+SITE_URL = "https://recapflashcards.com"
 
 
-@app.get("/privacy", response_class=HTMLResponse, include_in_schema=False)
-def privacy() -> str:
-    """The privacy policy (Google Play needs a public URL; the website will host it later)."""
-    return PRIVACY_POLICY
+@app.get("/privacy", include_in_schema=False)
+def privacy() -> RedirectResponse:
+    return RedirectResponse(f"{SITE_URL}/privacy", status_code=301)
 
 
-@app.get("/support", response_class=HTMLResponse, include_in_schema=False)
-def support() -> str:
-    """Help and contact page (the App Store needs a support URL)."""
-    return SUPPORT_PAGE
+@app.get("/support", include_in_schema=False)
+def support() -> RedirectResponse:
+    return RedirectResponse(f"{SITE_URL}/support", status_code=301)
