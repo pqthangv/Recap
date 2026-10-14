@@ -30,7 +30,7 @@ import {
 import { listDecks } from '@/db/decks';
 import { Chip } from '@/features/import/DeckTarget';
 import { PictureError, pictureUri } from '@/features/pictures/files';
-import { CameraPermissionError, pickPicture } from '@/features/pictures/pick';
+import { pickPicture } from '@/features/pictures/pick';
 import { formatTags, parseTags } from '@/lib/format';
 import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
@@ -81,11 +81,9 @@ export default function CardEditorScreen() {
       console.warn(e);
       Alert.alert(
         t('card.pictureFailed'),
-        e instanceof CameraPermissionError
-          ? t('card.needCamera')
-          : e instanceof PictureError && e.kind === 'tooBig'
-            ? t('card.pictureTooBig')
-            : t('card.pictureUnreadable'),
+        e instanceof PictureError && e.kind === 'tooBig'
+          ? t('card.pictureTooBig')
+          : t('card.pictureUnreadable'),
       );
     } finally {
       setAddingPicture(false);

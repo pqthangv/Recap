@@ -192,6 +192,15 @@ export const en = {
   'card.added': 'Card added',
   'card.deleted': 'Card deleted',
   'card.deletedWithReverse': 'Card and reverse card deleted',
+  'camera.whyTitle': 'Use the camera?',
+  'camera.whyCard':
+    'Recap uses the camera to take a photo for this card. The photo stays on your phone.',
+  'camera.whyNotes':
+    'Recap uses the camera to take a photo of your notes and read their text on your phone. The photo isn’t kept.',
+  'camera.continue': 'Continue',
+  'camera.offTitle': 'The camera is off for Recap',
+  'camera.offBody': 'To take a photo, allow the camera for Recap in your phone’s Settings.',
+  'camera.openSettings': 'Open Settings',
   'card.picture': 'Picture (optional)',
   'card.takePhoto': 'Take photo',
   'card.choosePhoto': 'Choose photo',
@@ -203,8 +212,6 @@ export const en = {
   'card.pictureFailed': "Couldn't add the picture",
   'card.pictureTooBig': 'This picture is too big. Try a smaller one.',
   'card.pictureUnreadable': "Recap couldn't open this picture. Try another one.",
-  'card.needCamera':
-    'Recap needs the camera to take a photo. You can allow it in your phone’s Settings.',
 
   // Studying
   'study.left': '{n} left',
@@ -409,8 +416,6 @@ export const en = {
   'ai.checkingQuota': 'Checking your AI cards for today…',
   'ai.left': '{cards} left today',
   'ai.noneLeft': 'No AI cards left today. More tomorrow!',
-  'ai.needCamera':
-    'Recap needs the camera to take a photo. You can allow it in your phone’s Settings.',
   'ai.noTextInPhoto':
     "Couldn't find any text in that photo. Try a closer, sharper photo in good light.",
   'ai.deckDefault': 'AI cards',

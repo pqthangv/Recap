@@ -194,6 +194,15 @@ export const vi: Strings = {
   'card.added': 'Đã thêm thẻ',
   'card.deleted': 'Đã xóa thẻ',
   'card.deletedWithReverse': 'Đã xóa thẻ và thẻ đảo ngược',
+  'camera.whyTitle': 'Dùng máy ảnh?',
+  'camera.whyCard':
+    'Recap dùng máy ảnh để chụp ảnh cho thẻ này. Ảnh chỉ ở trên điện thoại của bạn.',
+  'camera.whyNotes':
+    'Recap dùng máy ảnh để chụp ghi chú và đọc chữ ngay trên điện thoại. Ảnh không được lưu lại.',
+  'camera.continue': 'Tiếp tục',
+  'camera.offTitle': 'Recap chưa được dùng máy ảnh',
+  'camera.offBody': 'Để chụp ảnh, hãy cho phép Recap dùng máy ảnh trong Cài đặt của điện thoại.',
+  'camera.openSettings': 'Mở Cài đặt',
   'card.picture': 'Ảnh (không bắt buộc)',
   'card.takePhoto': 'Chụp ảnh',
   'card.choosePhoto': 'Chọn ảnh',
@@ -205,8 +214,6 @@ export const vi: Strings = {
   'card.pictureFailed': 'Không thêm được ảnh',
   'card.pictureTooBig': 'Ảnh này quá lớn. Hãy thử ảnh nhỏ hơn.',
   'card.pictureUnreadable': 'Recap không mở được ảnh này. Hãy thử ảnh khác.',
-  'card.needCamera':
-    'Recap cần dùng máy ảnh để chụp. Bạn có thể cho phép trong Cài đặt của điện thoại.',
 
   // Studying
   'study.left': 'Còn {n}',
@@ -410,8 +417,6 @@ export const vi: Strings = {
   'ai.checkingQuota': 'Đang kiểm tra số thẻ AI hôm nay…',
   'ai.left': 'Hôm nay còn {cards}',
   'ai.noneLeft': 'Hôm nay đã hết thẻ AI. Mai bạn quay lại nhé!',
-  'ai.needCamera':
-    'Recap cần dùng máy ảnh để chụp. Bạn có thể cho phép trong Cài đặt của điện thoại.',
   'ai.noTextInPhoto': 'Không tìm thấy chữ trong ảnh. Hãy chụp gần hơn, rõ hơn và đủ sáng.',
   'ai.deckDefault': 'Thẻ AI',
   'ai.deckPdf': 'Ghi chú PDF',

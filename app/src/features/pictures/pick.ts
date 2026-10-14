@@ -5,16 +5,15 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { PICTURE_MAX_BYTES } from '@/lib/pictures';
 
+import { allowCamera } from './camera';
 import { PictureError, storePicture } from './files';
 
-export class CameraPermissionError extends Error {}
-
-/** Takes or chooses a photo and stores it. Its reference, or null if the user cancelled. */
+/**
+ * Takes or chooses a photo and stores it. Its reference, or null if the user cancelled (or
+ * didn't allow the camera: allowCamera has said what to do).
+ */
 export async function pickPicture(from: 'camera' | 'library'): Promise<string | null> {
-  if (from === 'camera') {
-    const permission = await ImagePicker.requestCameraPermissionsAsync();
-    if (!permission.granted) throw new CameraPermissionError();
-  }
+  if (from === 'camera' && !(await allowCamera('card'))) return null;
   const options: ImagePicker.ImagePickerOptions = {
     mediaTypes: ['images'],
     // Android: the file as it is, without the picker decoding it first; Recap checks its size
