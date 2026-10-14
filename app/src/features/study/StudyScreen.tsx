@@ -1,10 +1,12 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
+import { ReminderOffer } from '@/features/reminders/ReminderOffer';
+import { syncReminders } from '@/features/reminders/reminders';
 import { decksInGroup } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
 import { colors } from '@/lib/theme';
@@ -23,6 +25,19 @@ export default function StudyScreen() {
   );
   const session = useStudySession(scope);
   const { card, previews } = session;
+  const finished = card === null;
+
+  // Studying can keep the streak, so re-plan the reminders when a session ends or is left (e.g.
+  // tonight's "streak ends tonight" goes), not only when the app goes to the background.
+  useEffect(() => {
+    if (finished) void syncReminders();
+  }, [finished]);
+  useEffect(
+    () => () => {
+      void syncReminders();
+    },
+    [],
+  );
 
   return (
     <View style={[styles.screen, { paddingBottom: insets.bottom + 16 }]}>
@@ -78,6 +93,7 @@ export default function StudyScreen() {
               : t('study.nothing')}
           </Text>
           <Text style={styles.doneText}>{t('study.seeYou')}</Text>
+          {session.reviewed > 0 ? <ReminderOffer /> : null}
           <Button
             label={t('common.done')}
             onPress={() => router.back()}

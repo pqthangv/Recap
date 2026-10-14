@@ -21,6 +21,8 @@ export const en = {
   // Counts ("1 card", "2 cards")
   'count.card_one': '{n} card',
   'count.card_other': '{n} cards',
+  'count.newCard_one': '{n} new card',
+  'count.newCard_other': '{n} new cards',
   'count.deck_one': '{n} deck',
   'count.deck_other': '{n} decks',
   'count.review_one': '{n} review',
@@ -225,7 +227,8 @@ export const en = {
     'Reads each side in English or Vietnamese as it appears. You can always tap the speaker on a card.',
   'settings.reminder': 'Reminder',
   'settings.dailyReminder': 'Daily reminder',
-  'settings.dailyReminderHelp': 'A notification when you have cards due.',
+  'settings.dailyReminderHelp':
+    'A notification when you have cards due, and one in the evening if your streak is about to end.',
   'settings.time': 'Time',
   'settings.language': 'Language',
   'settings.languageAuto': "Phone's language",
@@ -274,7 +277,19 @@ export const en = {
 
   // Reminders
   'reminder.channel': 'Daily reminder',
+  // Offered once, after the first finished study session.
+  'reminderOffer.title': 'Remind you to study?',
+  'reminderOffer.body':
+    'A notification at {time} when cards are due, and one in the evening if your streak is about to end. You can change this in Settings.',
+  'reminderOffer.yes': 'Remind me',
+  'reminderOffer.no': 'Not now',
+  'reminderOffer.on': 'Reminder on at {time}. Change it in Settings.',
   'reminder.body': 'You have {cards} due',
+  // {n} is the streak in days ("5-day streak"); {cards} the new cards still needed today.
+  'reminder.streak': '{n}-day streak! {cards} left today to keep it going.',
+  'reminder.streakAny': '{n}-day streak! Study one card today to keep it going.',
+  'reminder.lastCall': 'Your {n}-day streak ends tonight. {cards} left to keep it.',
+  'reminder.lastCallAny': 'Your {n}-day streak ends tonight. Study one card to keep it.',
 
   // Import
   'import.paste': 'Paste a list',
