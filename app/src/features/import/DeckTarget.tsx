@@ -2,6 +2,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 
 import type { ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 type Props = {
@@ -18,7 +19,7 @@ export function DeckTarget({ value, onChange, decks, fromFile, suggestedName }: 
   const newName = value.kind === 'new' ? value.name : suggestedName;
   return (
     <View style={styles.wrap}>
-      <Text style={styles.label}>Add to</Text>
+      <Text style={styles.label}>{t('import.addTo')}</Text>
       <View style={styles.chips} accessibilityRole="radiogroup">
         {fromFile ? (
           <Chip
@@ -28,7 +29,7 @@ export function DeckTarget({ value, onChange, decks, fromFile, suggestedName }: 
           />
         ) : null}
         <Chip
-          label="New deck"
+          label={t('import.newDeck')}
           selected={value.kind === 'new'}
           onPress={() => onChange({ kind: 'new', name: newName })}
         />
@@ -37,9 +38,9 @@ export function DeckTarget({ value, onChange, decks, fromFile, suggestedName }: 
         <TextInput
           value={value.name}
           onChangeText={(name) => onChange({ kind: 'new', name })}
-          placeholder="Deck name"
+          placeholder={t('import.deckName')}
           placeholderTextColor={colors.muted}
-          accessibilityLabel="New deck name"
+          accessibilityLabel={t('import.newDeckA11y')}
           style={styles.input}
           maxLength={80}
         />
@@ -51,7 +52,7 @@ export function DeckTarget({ value, onChange, decks, fromFile, suggestedName }: 
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.deckRow}
           accessibilityRole="radiogroup"
-          accessibilityLabel="Your decks"
+          accessibilityLabel={t('import.yourDecks')}
         >
           {decks.map((d) => (
             <Chip

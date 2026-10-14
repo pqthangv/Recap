@@ -12,36 +12,45 @@ import { getSettings, setSetting } from '@/db/settings';
 import { resetDeckSchedule } from '@/db/study';
 import { hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
-import { requestReminderPermission, syncReminders } from '@/features/reminders/reminders';
+import { Chip } from '@/features/import/DeckTarget';
+import { syncReminders, turnOnReminders } from '@/features/reminders/reminders';
 import { BackupError } from '@/lib/backup';
 import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
-import { formatTimeOfDay, plural } from '@/lib/format';
+import { formatTimeOfDay } from '@/lib/format';
+import { LANGUAGE_NAMES, setLanguageChoice, t, tn, type LanguageChoice } from '@/lib/i18n';
 import { MAX_RETENTION, MIN_RETENTION } from '@/lib/scheduler';
 import { NEW_PER_DAY_MAX } from '@/lib/settings';
 import { colors, radius, touchTarget } from '@/lib/theme';
+
+const LANGUAGE_CHOICES: readonly LanguageChoice[] = ['auto', 'en', 'vi'];
 
 export default function SettingsScreen() {
   const settings = useLive(getSettings, ['settings']);
   const [advanced, setAdvanced] = useState(false);
 
   const setReminder = async (enabled: boolean) => {
-    if (enabled && !(await requestReminderPermission())) {
-      Alert.alert(
-        'Notifications are off',
-        "To get reminders, allow notifications for Recap in your phone's settings.",
-      );
+    if (enabled) {
+      if (!(await turnOnReminders())) {
+        Alert.alert(t('settings.notificationsOff'), t('settings.notificationsOffBody'));
+      }
       return;
     }
-    setSetting('reminderEnabled', enabled);
+    setSetting('reminderEnabled', false);
     syncReminders();
+  };
+
+  const chooseLanguage = (choice: LanguageChoice) => {
+    setSetting('language', choice);
+    setLanguageChoice(choice); // every screen shows the new language right away
+    syncReminders(); // reminders already scheduled are in the old language
   };
 
   return (
     <ScrollView contentContainerStyle={styles.content}>
-      <Section title="Studying">
+      <Section title={t('settings.studying')}>
         <Stepper
-          label="Target retention"
-          description="How much you want to remember. Higher means more reviews."
+          label={t('settings.retention')}
+          description={t('settings.retentionHelp')}
           value={Math.round(settings.retention * 100)}
           display={`${Math.round(settings.retention * 100)}%`}
           min={Math.round(MIN_RETENTION * 100)}
@@ -50,7 +59,7 @@ export default function SettingsScreen() {
           onChange={(v) => setSetting('retention', v / 100)}
         />
         <Stepper
-          label="New cards per day"
+          label={t('settings.newPerDay')}
           value={settings.newPerDay}
           display={String(settings.newPerDay)}
           min={0}
@@ -59,29 +68,29 @@ export default function SettingsScreen() {
           onChange={(v) => setSetting('newPerDay', v)}
         />
         <SwitchRow
-          label="Show 4 answer buttons"
-          description="Again, Hard, Good and Easy instead of Forgot and Got it."
+          label={t('settings.fourButtons')}
+          description={t('settings.fourButtonsHelp')}
           value={settings.fourButtons}
           onChange={(v) => setSetting('fourButtons', v)}
         />
         <SwitchRow
-          label="Read cards aloud"
-          description="Reads each side in English or Vietnamese as it appears. You can always tap the speaker on a card."
+          label={t('settings.readAloud')}
+          description={t('settings.readAloudHelp')}
           value={settings.readAloud}
           onChange={(v) => setSetting('readAloud', v)}
         />
       </Section>
 
-      <Section title="Reminder">
+      <Section title={t('settings.reminder')}>
         <SwitchRow
-          label="Daily reminder"
-          description="A notification when you have cards due."
+          label={t('settings.dailyReminder')}
+          description={t('settings.dailyReminderHelp')}
           value={settings.reminderEnabled}
           onChange={setReminder}
         />
         {settings.reminderEnabled ? (
           <Stepper
-            label="Time"
+            label={t('settings.time')}
             value={settings.reminderMinutes}
             display={formatTimeOfDay(settings.reminderMinutes)}
             min={0}
@@ -95,49 +104,68 @@ export default function SettingsScreen() {
         ) : null}
       </Section>
 
+      <Section title={t('settings.language')}>
+        <View
+          style={styles.chips}
+          accessibilityRole="radiogroup"
+          accessibilityLabel={t('settings.language')}
+        >
+          {LANGUAGE_CHOICES.map((choice) => (
+            <Chip
+              key={choice}
+              label={choice === 'auto' ? t('settings.languageAuto') : LANGUAGE_NAMES[choice]}
+              selected={settings.language === choice}
+              onPress={() => chooseLanguage(choice)}
+            />
+          ))}
+        </View>
+      </Section>
+
       <Pressable
         accessibilityRole="button"
         accessibilityState={{ expanded: advanced }}
         onPress={() => setAdvanced((a) => !a)}
         style={styles.advancedToggle}
       >
-        <Text style={styles.sectionTitle}>Advanced</Text>
+        <Text style={styles.sectionTitle}>{t('settings.advanced')}</Text>
         <Text style={styles.chevron}>{advanced ? '⌃' : '⌄'}</Text>
       </Pressable>
       {advanced ? <AdvancedSettings /> : null}
 
       <Text style={styles.footer}>
-        Recap {Constants.expoConfig?.version ?? ''} · All free. Your cards stay on this phone.
+        {t('settings.footer', { version: Constants.expoConfig?.version ?? '' })}
       </Text>
       <Pressable
         accessibilityRole="link"
-        accessibilityLabel={`Email ${CONTACT_EMAIL}`}
+        accessibilityLabel={t('settings.emailA11y', { email: CONTACT_EMAIL })}
         onPress={() =>
-          Linking.openURL(`mailto:${CONTACT_EMAIL}?subject=Recap%20feedback`).catch(() =>
-            Alert.alert('Contact us', CONTACT_EMAIL),
-          )
+          Linking.openURL(
+            `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('settings.emailSubject'))}`,
+          ).catch(() => Alert.alert(t('settings.contactUs'), CONTACT_EMAIL))
         }
         style={styles.contact}
       >
-        <Text style={styles.contactText}>Questions or feedback? {CONTACT_EMAIL}</Text>
+        <Text style={styles.contactText}>{t('settings.feedback', { email: CONTACT_EMAIL })}</Text>
       </Pressable>
       <Pressable
         accessibilityRole="link"
-        onPress={() => Linking.openURL(SUPPORT_URL).catch(() => Alert.alert('Help', SUPPORT_URL))}
+        onPress={() =>
+          Linking.openURL(SUPPORT_URL).catch(() => Alert.alert(t('settings.help'), SUPPORT_URL))
+        }
         style={styles.contact}
       >
-        <Text style={styles.contactText}>Help</Text>
+        <Text style={styles.contactText}>{t('settings.help')}</Text>
       </Pressable>
       <Pressable
         accessibilityRole="link"
         onPress={() =>
           Linking.openURL(PRIVACY_POLICY_URL).catch(() =>
-            Alert.alert('Privacy policy', PRIVACY_POLICY_URL),
+            Alert.alert(t('settings.privacy'), PRIVACY_POLICY_URL),
           )
         }
         style={styles.contact}
       >
-        <Text style={styles.contactText}>Privacy policy</Text>
+        <Text style={styles.contactText}>{t('settings.privacy')}</Text>
       </Pressable>
     </ScrollView>
   );
@@ -152,7 +180,7 @@ function AdvancedSettings() {
       await task();
     } catch (e) {
       console.warn(e);
-      Alert.alert(failure, e instanceof BackupError ? e.message : 'Please try again.');
+      Alert.alert(failure, e instanceof BackupError ? e.message : t('common.tryAgain'));
     }
   };
 
@@ -162,67 +190,64 @@ function AdvancedSettings() {
       if (!result) return;
       const changed = result.decks + result.cards + result.reviews;
       Alert.alert(
-        'Backup imported',
+        t('settings.backupImported'),
         changed === 0
-          ? 'Everything in this backup is already here.'
-          : `${plural(result.decks, 'deck')}, ${plural(result.cards, 'card')} and ${plural(result.reviews, 'review')} added or updated.`,
+          ? t('settings.backupNothingNew')
+          : t('settings.backupAdded', {
+              decks: tn('count.deck', result.decks),
+              cards: tn('count.card', result.cards),
+              reviews: tn('count.review', result.reviews),
+            }),
       );
-    }, "Couldn't import that file");
+    }, t('settings.importFailed'));
 
   const confirmReset = (deckId: string, name: string) =>
-    Alert.alert(
-      'Reset schedule?',
-      `Every card in "${name}" will start over as new. Your review history is kept.`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Reset',
-          style: 'destructive',
-          onPress: () => {
-            const n = resetDeckSchedule(deckId);
-            showSnackbar(`${plural(n, 'card')} reset`);
-          },
+    Alert.alert(t('settings.resetTitle'), t('settings.resetBody', { name }), [
+      { text: t('common.cancel'), style: 'cancel' },
+      {
+        text: t('settings.reset'),
+        style: 'destructive',
+        onPress: () => {
+          const n = resetDeckSchedule(deckId);
+          showSnackbar(t('settings.resetDone', { cards: tn('count.card', n) }));
         },
-      ],
-    );
+      },
+    ]);
 
   return (
     <View style={styles.section}>
       <SwitchRow
-        label="Send text to Google Gemini"
-        description="Create with AI needs this to write cards. When it's off, Recap asks first."
+        label={t('settings.aiConsent')}
+        description={t('settings.aiConsentHelp')}
         value={aiConsent}
         onChange={setAiConsent}
       />
-      <Text style={styles.description}>
-        A backup has everything: decks, cards, review history and settings. Importing one merges it
-        with what&apos;s here — nothing is deleted.
-      </Text>
+      <Text style={styles.description}>{t('settings.backupHelp')}</Text>
       <Button
         variant="secondary"
-        label="Export backup"
-        onPress={() => run(shareBackup, "Couldn't export")}
+        label={t('settings.exportBackup')}
+        onPress={() => run(shareBackup, t('settings.exportFailed'))}
       />
-      <Button variant="secondary" label="Import backup" onPress={importBackup} />
+      <Button variant="secondary" label={t('settings.importBackup')} onPress={importBackup} />
       <Button
         variant="secondary"
-        label="Export cards as CSV"
-        onPress={() => run(shareCardsCsv, "Couldn't export")}
+        label={t('settings.exportCsv')}
+        onPress={() => run(shareCardsCsv, t('settings.exportFailed'))}
       />
 
-      <Text style={[styles.label, styles.spaced]}>Reset a deck&apos;s schedule</Text>
-      {decks.length === 0 ? <Text style={styles.description}>No decks yet.</Text> : null}
+      <Text style={[styles.label, styles.spaced]}>{t('settings.resetSection')}</Text>
+      {decks.length === 0 ? <Text style={styles.description}>{t('settings.noDecks')}</Text> : null}
       {decks.map((d) => (
         <Pressable
           key={d.id}
           accessibilityRole="button"
-          accessibilityLabel={`Reset schedule for ${d.name}`}
+          accessibilityLabel={t('settings.resetA11y', { name: d.name })}
           onPress={() => confirmReset(d.id, d.name)}
           style={({ pressed }) => [styles.deckRow, pressed && styles.pressed]}
         >
           <View style={[styles.dot, { backgroundColor: d.color }]} />
           <Text style={styles.deckName}>{d.name}</Text>
-          <Text style={styles.resetText}>Reset</Text>
+          <Text style={styles.resetText}>{t('settings.reset')}</Text>
         </Pressable>
       ))}
     </View>
@@ -247,6 +272,7 @@ const styles = StyleSheet.create({
   label: { fontSize: 16, color: colors.text, fontWeight: '500' },
   description: { fontSize: 14, color: colors.muted, marginTop: 2 },
   spaced: { marginTop: 16 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   flex: { flex: 1 },
   advancedToggle: {
     flexDirection: 'row',

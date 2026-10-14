@@ -13,7 +13,7 @@ import { getDeck, listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
 import type { Deck } from '@/db/schema';
 import { getStudyCounts } from '@/db/study';
-import { count, plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { MoveCardsSheet } from './MoveCardsSheet';
@@ -53,8 +53,8 @@ export default function DeckScreen() {
     const moved = moveCards([...selected], target.id);
     setMoving(false);
     setSelected(null);
-    showSnackbar(`Moved ${plural(moved.length, 'card')} to ${target.name}`, {
-      label: 'Undo',
+    showSnackbar(t('deck.moved', { cards: tn('count.card', moved.length), deck: target.name }), {
+      label: t('common.undo'),
       onPress: () => moveCards(moved, id),
     });
   };
@@ -63,7 +63,7 @@ export default function DeckScreen() {
     return (
       <View style={styles.screen}>
         <Stack.Screen options={{ title: '' }} />
-        <Text style={styles.empty}>This deck was deleted.</Text>
+        <Text style={styles.empty}>{t('deck.wasDeleted')}</Text>
       </View>
     );
   }
@@ -72,24 +72,24 @@ export default function DeckScreen() {
     <View style={styles.screen}>
       <Stack.Screen
         options={{
-          title: selected ? `${count(selected.size)} selected` : deck.name,
+          title: selected ? t('deck.selected', { n: selected.size }) : deck.name,
           headerRight: () =>
             selected ? (
-              <Button variant="text" label="Cancel" onPress={() => setSelected(null)} />
+              <Button variant="text" label={t('common.cancel')} onPress={() => setSelected(null)} />
             ) : (
               <View style={styles.headerButtons}>
                 {cards.length > 0 ? (
                   <Button
                     variant="text"
-                    label="Select"
-                    accessibilityLabel="Select cards to move"
+                    label={t('common.select')}
+                    accessibilityLabel={t('deck.selectA11y')}
                     onPress={() => setSelected(new Set())}
                   />
                 ) : null}
                 <Button
                   variant="text"
-                  label="Edit"
-                  accessibilityLabel="Edit deck"
+                  label={t('common.edit')}
+                  accessibilityLabel={t('deck.editA11y')}
                   onPress={() => router.push({ pathname: '/deck/edit', params: { id } })}
                 />
               </View>
@@ -107,9 +107,7 @@ export default function DeckScreen() {
             {selected ? null : (
               <Button
                 size="lg"
-                label={
-                  toStudy > 0 ? `Study this deck · ${count(toStudy)}` : 'Nothing due in this deck'
-                }
+                label={toStudy > 0 ? t('deck.study', { n: toStudy }) : t('deck.nothingDueHere')}
                 disabled={toStudy === 0}
                 onPress={() => router.push({ pathname: '/study', params: { deckId: id } })}
               />
@@ -117,19 +115,19 @@ export default function DeckScreen() {
             <TextInput
               value={search}
               onChangeText={setSearch}
-              placeholder="Search cards"
+              placeholder={t('deck.search')}
               placeholderTextColor={colors.muted}
-              accessibilityLabel="Search cards"
+              accessibilityLabel={t('deck.search')}
               style={styles.search}
               returnKeyType="search"
               autoCorrect={false}
             />
             <View style={styles.countRow}>
-              <Text style={styles.count}>{plural(cards.length, 'card')}</Text>
+              <Text style={styles.count}>{tn('count.card', cards.length)}</Text>
               {selected ? (
                 <Button
                   variant="text"
-                  label={allSelected ? 'Deselect all' : 'Select all'}
+                  label={t(allSelected ? 'common.deselectAll' : 'common.selectAll')}
                   onPress={() =>
                     setSelected(allSelected ? new Set() : new Set(cards.map((c) => c.id)))
                   }
@@ -165,7 +163,7 @@ export default function DeckScreen() {
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={`${item.front}. ${item.back}`}
-              accessibilityHint="Double tap to edit or delete"
+              accessibilityHint={t('deck.cardHint')}
               onPress={() => edit(item.id)}
               style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
             >
@@ -180,9 +178,7 @@ export default function DeckScreen() {
         }
         ListEmptyComponent={
           <Text style={styles.empty}>
-            {search.trim()
-              ? `No cards match "${search.trim()}".`
-              : 'No cards yet. Tap + to add one.'}
+            {search.trim() ? t('deck.noMatch', { query: search.trim() }) : t('deck.noCards')}
           </Text>
         }
       />
@@ -190,24 +186,28 @@ export default function DeckScreen() {
         <View style={[styles.actionBar, { paddingBottom: insets.bottom + 16 }]}>
           <Button
             size="lg"
-            label={selected.size > 0 ? `Move ${plural(selected.size, 'card')}` : 'Move'}
+            label={
+              selected.size > 0
+                ? t('deck.moveN', { cards: tn('count.card', selected.size) })
+                : t('deck.move')
+            }
             onPress={() => setMoving(true)}
             disabled={selected.size === 0}
           />
         </View>
       ) : (
-        <Fab accessibilityLabel="Add a card or a deck inside" onPress={() => setAdding(true)} />
+        <Fab accessibilityLabel={t('deck.fab')} onPress={() => setAdding(true)} />
       )}
       <ActionSheet
         visible={adding}
         onClose={() => setAdding(false)}
         options={[
           {
-            label: 'Add card',
+            label: t('screen.addCard'),
             onPress: () => router.push({ pathname: '/card/edit', params: { deckId: id } }),
           },
           {
-            label: `New deck inside “${deck.name}”`,
+            label: t('deck.newInside', { name: deck.name }),
             onPress: () => router.push({ pathname: '/deck/edit', params: { parent: deck.name } }),
           },
         ]}

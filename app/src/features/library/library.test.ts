@@ -15,7 +15,7 @@ const NOW = new Date(2026, 9, 12, 12, 0, 0).getTime();
 const PACK: Pack = {
   id: 'test',
   name: 'Test words',
-  description: 'For tests',
+  description: 'pack.sat',
   color: '#1A73E8',
   logo: { icon: 'public' },
   decks: [

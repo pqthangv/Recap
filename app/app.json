@@ -2,7 +2,7 @@
   "expo": {
     "name": "Recap",
     "slug": "recap",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "recapcards",
@@ -20,7 +20,8 @@
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": false,
           "NSAllowsLocalNetworking": true
-        }
+        },
+        "CFBundleAllowMixedLocalizations": true
       },
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
@@ -51,7 +52,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
@@ -89,16 +90,27 @@
       [
         "expo-image-picker",
         {
-          "cameraPermission": "Recap uses the camera when you take a photo of your notes. It reads the text on your phone to make flashcards, and the photo isn't kept.",
-          "photosPermission": "Recap opens the photo of your notes that you pick. It reads the text on your phone to make flashcards, and the photo isn't kept.",
+          "cameraPermission": "Recap uses the camera when you take a photo, to add it to a card or to read the text of your notes. Photos stay on your phone.",
+          "photosPermission": "Recap opens the photo you pick, to add it to a card or to read the text of your notes. Photos stay on your phone.",
           "microphonePermission": false
         }
       ],
       "expo-mlkit-ocr",
       "./plugins/withReleaseSigning",
       "./plugins/withAndroidCodeOptimization",
-      "./plugins/withWindowsLongPathCmake"
+      "./plugins/withWindowsLongPathCmake",
+      "./plugins/withOptionalCamera",
+      [
+        "expo-localization",
+        {
+          "supportedLocales": ["en", "vi"],
+          "allowDynamicLocaleChangesAndroid": true
+        }
+      ]
     ],
+    "locales": {
+      "vi": "./languages/vi.json"
+    },
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

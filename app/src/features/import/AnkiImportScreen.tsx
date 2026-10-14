@@ -6,7 +6,7 @@ import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
 import { importCards, type ImportTarget } from '@/db/import';
 import { useLive } from '@/db/live';
-import { plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { AnkiImportError } from '@/lib/import/anki';
 import { colors } from '@/lib/theme';
 
@@ -21,6 +21,7 @@ import {
   removeUnusedPictures,
   useImportDraft,
   type AnkiDraft,
+  type CopiedPictures,
   type LoadedAnkiDeck,
 } from './files';
 import { CardPreview, defaultTarget, targetIsValid, useFinishImport } from './shared';
@@ -31,16 +32,9 @@ type Phase =
   | { step: 'saving'; deck: LoadedAnkiDeck; message: string }
   | { step: 'failed'; message: string };
 
-/** Decks can be exported without their media; say so instead of promising pictures. */
-function missingPictures(n: number): string {
-  if (n === 0) return '';
-  if (n === 1) return "1 picture isn't in this file, so its card shows without it. ";
-  return `${n} pictures aren't in this file, so those cards show without them. `;
-}
-
 function friendly(e: unknown): string {
   if (e instanceof AnkiImportError || e instanceof ImportFileError) return e.message;
-  return "Recap couldn't read this deck. It may be damaged, or too big for this phone.";
+  return t('anki.unreadable');
 }
 
 export default function AnkiImportScreen() {
@@ -49,8 +43,8 @@ export default function AnkiImportScreen() {
   if (!draft) {
     return (
       <View style={styles.content}>
-        <Text style={styles.help}>Choose a deck to import first.</Text>
-        <Button label="Back" onPress={() => router.back()} />
+        <Text style={styles.help}>{t('import.chooseDeckFirst')}</Text>
+        <Button label={t('common.back')} onPress={() => router.back()} />
       </View>
     );
   }
@@ -84,7 +78,7 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
       <View style={styles.center}>
         <ActivityIndicator size="large" color={colors.primary} />
         <Text style={styles.help} accessibilityLiveRegion="polite">
-          {phase.step === 'reading' ? 'Reading the deck…' : phase.message}
+          {phase.step === 'reading' ? t('anki.reading') : phase.message}
         </Text>
       </View>
     );
@@ -92,9 +86,9 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
   if (phase.step === 'failed') {
     return (
       <View style={styles.content}>
-        <Text style={styles.title}>Couldn&apos;t import this deck</Text>
+        <Text style={styles.title}>{t('anki.failedTitle')}</Text>
         <Text style={styles.help}>{phase.message}</Text>
-        <Button label="Back" onPress={() => router.back()} />
+        <Button label={t('common.back')} onPress={() => router.back()} />
       </View>
     );
   }
@@ -108,32 +102,33 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
   const save = async () => {
     if (!canImport) return;
     const saving = (message: string) => setPhase({ step: 'saving', deck, message });
-    saving('Saving cards…');
-    let uris = new Map<string, string>();
+    saving(t('import.savingCards'));
+    let copied: CopiedPictures | null = null;
     try {
-      uris = await copyPictures(deck.cards, deck.pkg, (done, total) =>
-        saving(`Saving pictures… ${done} of ${total}`),
+      copied = await copyPictures(deck.cards, deck.pkg, (done, total) =>
+        saving(t('import.savingPictures', { done, total })),
       );
-      saving('Saving cards…');
+      saving(t('import.savingCards'));
+      const refs = copied.refs;
       const items = deck.cards.map((c) => {
-        const uri = c.image ? uris.get(c.image.name) : undefined;
+        const ref = c.image ? refs.get(c.image.name) : undefined;
         return {
           front: c.front,
           back: c.back,
           tags: c.tags,
           deckName: c.deckName,
-          imageUri: uri ?? null,
-          imageSide: uri ? c.image?.side : null,
+          imageUri: ref ?? null,
+          imageSide: ref ? c.image?.side : null,
         };
       });
       const summary = importCards(items, target);
-      removeUnusedPictures(uris, summary.imageUris);
+      removeUnusedPictures(copied);
       clearPickedFiles();
-      finish(summary);
+      finish(summary, copied.refused > 0 ? tn('anki.picturesRefused', copied.refused) : undefined);
     } catch (e) {
       console.warn(e);
-      removeUnusedPictures(uris, []);
-      setPhase({ step: 'failed', message: "Recap couldn't save these cards. Please try again." });
+      removeUnusedPictures(copied);
+      setPhase({ step: 'failed', message: t('import.saveFailed') });
     }
   };
 
@@ -144,7 +139,10 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
       automaticallyAdjustKeyboardInsets // iOS: keep the new deck name above the keyboard
     >
       <Text style={styles.title}>
-        {plural(deck.cards.length, 'card')} in {plural(perDeck.size, 'deck')}
+        {t('anki.summary', {
+          cards: tn('count.card', deck.cards.length),
+          decks: tn('count.deck', perDeck.size),
+        })}
       </Text>
       <View>
         {[...perDeck].map(([deckName, n]) => (
@@ -154,10 +152,17 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
         ))}
       </View>
       <Text style={styles.help}>
-        {pictures.found > 0 ? `${plural(pictures.found, 'picture')} will be saved. ` : ''}
-        {missingPictures(pictures.missing)}
-        Cards start as new cards. Sounds aren&apos;t imported; Recap can read cards aloud instead.
-        {deck.skipped > 0 ? ` ${plural(deck.skipped, 'card')} with no text will be skipped.` : ''}
+        {[
+          // Decks can be exported without their media; say so instead of promising pictures.
+          pictures.found > 0
+            ? t('anki.picturesSaved', { pictures: tn('count.picture', pictures.found) })
+            : null,
+          pictures.missing > 0 ? tn('anki.missingPictures', pictures.missing) : null,
+          t('anki.startNew'),
+          deck.skipped > 0 ? t('anki.skipped', { cards: tn('count.card', deck.skipped) }) : null,
+        ]
+          .filter(Boolean)
+          .join(' ')}
       </Text>
       <CardPreview cards={deck.cards.slice(0, 5)} total={deck.cards.length} />
       <DeckTarget
@@ -166,13 +171,13 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
         decks={decks}
         suggestedName={name}
         fromFile={{
-          label: perDeck.size > 1 ? 'Same decks as the file' : `“${[...perDeck.keys()][0]}”`,
+          label: perDeck.size > 1 ? t('anki.sameDecks') : `“${[...perDeck.keys()][0]}”`,
           fallbackName: name,
         }}
       />
       <Button
         size="lg"
-        label={`Import ${plural(deck.cards.length, 'card')}`}
+        label={t('import.importN', { cards: tn('count.card', deck.cards.length) })}
         onPress={save}
         disabled={!canImport}
       />

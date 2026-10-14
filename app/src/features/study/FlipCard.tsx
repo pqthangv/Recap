@@ -8,7 +8,9 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { SpeakerIcon } from '@/components/SpeakerIcon';
+import { pictureUri } from '@/features/pictures/files';
 import { speak, stopSpeaking } from '@/features/speech/speech';
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 type Props = {
@@ -18,13 +20,17 @@ type Props = {
   onFlip: () => void;
   /** Read the front aloud when the card appears and the back when it is flipped. */
   autoRead: boolean;
-  /** Optional picture, shown on the side it belongs to (question pictures stay visible on the answer side). */
-  imageUri?: string | null;
+  /**
+   * Optional picture ("media/<name>"), shown on the side it belongs to (question pictures stay
+   * visible on the answer side).
+   */
+  imageRef?: string | null;
   imageSide?: 'front' | 'back' | null;
 };
 
 /** The card. Tap to turn it over. Mount it with a new `key` for each card so it starts face-down. */
-export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, imageSide }: Props) {
+export function FlipCard({ front, back, flipped, onFlip, autoRead, imageRef, imageSide }: Props) {
+  const imageUri = pictureUri(imageRef);
   const picture = (small = false) =>
     imageUri ? (
       <Image
@@ -68,8 +74,8 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, ima
         disabled={flipped}
         style={StyleSheet.absoluteFill}
         accessibilityRole="button"
-        accessibilityLabel={flipped ? `${front}. Answer: ${back}` : front}
-        accessibilityHint={flipped ? undefined : 'Double tap to show the answer'}
+        accessibilityLabel={flipped ? t('study.answerA11y', { front, back }) : front}
+        accessibilityHint={flipped ? undefined : t('study.flipHint')}
       >
         <Animated.View
           style={[styles.face, frontStyle]}
@@ -79,7 +85,7 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, ima
           <ScrollView contentContainerStyle={styles.faceContent}>
             {onFront ? picture() : null}
             <Text style={styles.frontText}>{front}</Text>
-            <Text style={styles.tapHint}>Tap to show answer</Text>
+            <Text style={styles.tapHint}>{t('study.tapToShow')}</Text>
           </ScrollView>
         </Animated.View>
         <Animated.View
@@ -98,7 +104,7 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, ima
       </Pressable>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={flipped ? 'Read the answer aloud' : 'Read the question aloud'}
+        accessibilityLabel={t(flipped ? 'study.readAnswer' : 'study.readQuestion')}
         onPress={() => speak(flipped ? back : front)}
         style={({ pressed }) => [styles.speaker, pressed && styles.speakerPressed]}
       >

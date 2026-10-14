@@ -1,12 +1,14 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
+import { ReminderOffer } from '@/features/reminders/ReminderOffer';
+import { syncReminders } from '@/features/reminders/reminders';
 import { decksInGroup } from '@/lib/deckGroups';
-import { count, plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors } from '@/lib/theme';
 
 import { FlipCard } from './FlipCard';
@@ -23,18 +25,31 @@ export default function StudyScreen() {
   );
   const session = useStudySession(scope);
   const { card, previews } = session;
+  const finished = card === null;
+
+  // Studying can keep the streak, so re-plan the reminders when a session ends or is left (e.g.
+  // tonight's "streak ends tonight" goes), not only when the app goes to the background.
+  useEffect(() => {
+    if (finished) void syncReminders();
+  }, [finished]);
+  useEffect(
+    () => () => {
+      void syncReminders();
+    },
+    [],
+  );
 
   return (
     <View style={[styles.screen, { paddingBottom: insets.bottom + 16 }]}>
       <Stack.Screen
         options={{
-          title: card ? `${count(session.remaining)} left` : 'Study',
+          title: card ? t('study.left', { n: session.remaining }) : t('screen.study'),
           headerRight: session.canUndo
             ? () => (
                 <Button
                   variant="text"
-                  label="Undo"
-                  accessibilityLabel="Undo last answer"
+                  label={t('common.undo')}
+                  accessibilityLabel={t('study.undoA11y')}
                   onPress={session.undo}
                 />
               )
@@ -50,7 +65,7 @@ export default function StudyScreen() {
             flipped={session.revealed}
             onFlip={session.flip}
             autoRead={session.readAloud}
-            imageUri={card.image_uri}
+            imageRef={card.image_uri}
             imageSide={card.image_side}
           />
           <View style={styles.actions}>
@@ -61,7 +76,12 @@ export default function StudyScreen() {
                 onGrade={session.answer}
               />
             ) : (
-              <Button size="lg" variant="secondary" label="Show answer" onPress={session.flip} />
+              <Button
+                size="lg"
+                variant="secondary"
+                label={t('study.showAnswer')}
+                onPress={session.flip}
+              />
             )}
           </View>
         </>
@@ -69,11 +89,16 @@ export default function StudyScreen() {
         <View style={styles.done}>
           <Text accessibilityRole="header" style={styles.doneTitle}>
             {session.reviewed > 0
-              ? `Nice work — ${plural(session.reviewed, 'card')}.`
-              : 'Nothing to study right now.'}
+              ? t('study.niceWork', { cards: tn('count.card', session.reviewed) })
+              : t('study.nothing')}
           </Text>
-          <Text style={styles.doneText}>See you tomorrow.</Text>
-          <Button label="Done" onPress={() => router.back()} style={styles.doneButton} />
+          <Text style={styles.doneText}>{t('study.seeYou')}</Text>
+          {session.reviewed > 0 ? <ReminderOffer /> : null}
+          <Button
+            label={t('common.done')}
+            onPress={() => router.back()}
+            style={styles.doneButton}
+          />
         </View>
       )}
     </View>

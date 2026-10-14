@@ -2,6 +2,7 @@ import { useRouter, type Href } from 'expo-router';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 type Props = { visible: boolean; hasDecks: boolean; onClose: () => void };
@@ -21,19 +22,19 @@ export function AddMenu({ visible, hasDecks, onClose }: Props) {
         style={styles.backdrop}
         onPress={onClose}
         accessibilityRole="button"
-        accessibilityLabel="Close menu"
+        accessibilityLabel={t('common.closeMenu')}
       />
       <View style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}>
-        <Option label="New deck" onPress={() => go('/deck/edit')} />
+        <Option label={t('screen.newDeck')} onPress={() => go('/deck/edit')} />
         <Option
-          label="Add card"
-          hint={hasDecks ? undefined : 'Make a deck first'}
+          label={t('screen.addCard')}
+          hint={hasDecks ? undefined : t('home.makeDeckFirst')}
           disabled={!hasDecks}
           onPress={() => go('/card/edit')}
         />
-        <Option label="Import cards" onPress={() => go('/import')} />
-        <Option label="Create with AI" onPress={() => go('/ai')} />
-        <Option label="Cancel" onPress={onClose} muted />
+        <Option label={t('screen.import')} onPress={() => go('/import')} />
+        <Option label={t('screen.ai')} onPress={() => go('/ai')} />
+        <Option label={t('common.cancel')} onPress={onClose} muted />
       </View>
     </Modal>
   );

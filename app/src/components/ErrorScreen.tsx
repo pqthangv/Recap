@@ -2,6 +2,7 @@ import { useRouter, type ErrorBoundaryProps } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
+import { t } from '@/lib/i18n';
 import { colors } from '@/lib/theme';
 
 /**
@@ -15,12 +16,16 @@ export function ErrorBoundary({ retry }: ErrorBoundaryProps) {
   return (
     <View style={styles.screen}>
       <Text style={styles.title} accessibilityRole="header">
-        Something went wrong
+        {t('error.title')}
       </Text>
-      <Text style={styles.body}>Your cards are safe. Try again, or go back to your decks.</Text>
+      <Text style={styles.body}>{t('error.body')}</Text>
       <View style={styles.actions}>
-        <Button label="Try again" onPress={() => void retry()} />
-        <Button variant="secondary" label="Go to decks" onPress={() => router.dismissTo('/')} />
+        <Button label={t('error.tryAgain')} onPress={() => void retry()} />
+        <Button
+          variant="secondary"
+          label={t('error.goToDecks')}
+          onPress={() => router.dismissTo('/')}
+        />
       </View>
     </View>
   );
@@ -31,11 +36,11 @@ export function RootErrorBoundary({ retry }: ErrorBoundaryProps) {
   return (
     <View style={styles.screen}>
       <Text style={styles.title} accessibilityRole="header">
-        Something went wrong
+        {t('error.title')}
       </Text>
-      <Text style={styles.body}>Your cards are safe. Please try again.</Text>
+      <Text style={styles.body}>{t('error.rootBody')}</Text>
       <View style={styles.actions}>
-        <Button label="Try again" onPress={() => void retry()} />
+        <Button label={t('error.tryAgain')} onPress={() => void retry()} />
       </View>
     </View>
   );

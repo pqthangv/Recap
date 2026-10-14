@@ -29,7 +29,7 @@ import {
   type AiSource,
   type ReviewItem,
 } from '@/lib/aiReview';
-import { plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { ai, useAiDraft } from './api';
@@ -41,8 +41,8 @@ export default function ReviewCardsScreen() {
   if (!cards || cards.length === 0) {
     return (
       <View style={styles.content}>
-        <Text style={styles.help}>No cards to review.</Text>
-        <Button label="Back" onPress={() => router.back()} />
+        <Text style={styles.help}>{t('review.none')}</Text>
+        <Button label={t('common.back')} onPress={() => router.back()} />
       </View>
     );
   }
@@ -71,11 +71,9 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
     try {
       await ai.report(item, reason);
       remove(item.key);
-      showSnackbar('Thanks for reporting. The card was removed.');
+      showSnackbar(t('review.reported'));
     } catch (e) {
-      showSnackbar(
-        e instanceof AiError ? e.message : "Couldn't send the report. Please try again.",
-      );
+      showSnackbar(e instanceof AiError ? e.message : t('review.reportFailed'));
     } finally {
       setSending((keys) => {
         const next = new Set(keys);
@@ -97,15 +95,18 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <View style={styles.header}>
           <Text style={styles.title}>
-            {toSave.length} of {plural(items.length, 'card')} selected
+            {t('review.selected', {
+              selected: toSave.length,
+              cards: tn('count.card', items.length),
+            })}
           </Text>
           <Button
             variant="text"
-            label={allSelected ? 'Deselect all' : 'Select all'}
+            label={t(allSelected ? 'common.deselectAll' : 'common.selectAll')}
             onPress={() => setItems((list) => setAllSelected(list, !allSelected))}
           />
         </View>
-        <Text style={styles.help}>Check each card. Edit anything that isn&apos;t quite right.</Text>
+        <Text style={styles.help}>{t('review.help')}</Text>
 
         {items.map((item, index) => (
           <View key={item.key} style={[styles.card, !item.selected && styles.cardOff]}>
@@ -113,25 +114,25 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
               <Pressable
                 accessibilityRole="checkbox"
                 accessibilityState={{ checked: item.selected }}
-                accessibilityLabel={`Keep card ${index + 1}`}
+                accessibilityLabel={t('review.keepA11y', { n: index + 1 })}
                 onPress={() => change(item.key, { selected: !item.selected })}
                 style={styles.checkHit}
               >
                 <Checkbox checked={item.selected} />
-                <Text style={styles.cardNumber}>Card {index + 1}</Text>
+                <Text style={styles.cardNumber}>{t('review.cardN', { n: index + 1 })}</Text>
               </Pressable>
               <View style={styles.cardActions}>
                 <Button
                   variant="text"
-                  label={sending.has(item.key) ? 'Reporting…' : 'Report'}
-                  accessibilityLabel={`Report card ${index + 1}`}
+                  label={t(sending.has(item.key) ? 'review.reporting' : 'review.report')}
+                  accessibilityLabel={t('review.reportA11y', { n: index + 1 })}
                   onPress={() => setReporting(item)}
                   disabled={sending.has(item.key)}
                 />
                 <Button
                   variant="text"
-                  label="Remove"
-                  accessibilityLabel={`Remove card ${index + 1}`}
+                  label={t('review.remove')}
+                  accessibilityLabel={t('review.removeA11y', { n: index + 1 })}
                   onPress={() => remove(item.key)}
                 />
               </View>
@@ -139,14 +140,14 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
             <TextInput
               value={item.front}
               onChangeText={(front) => change(item.key, { front })}
-              accessibilityLabel={`Card ${index + 1} front`}
+              accessibilityLabel={t('review.frontA11y', { n: index + 1 })}
               multiline
               style={[styles.input, styles.front]}
             />
             <TextInput
               value={item.back}
               onChangeText={(back) => change(item.key, { back })}
-              accessibilityLabel={`Card ${index + 1} back`}
+              accessibilityLabel={t('review.backA11y', { n: index + 1 })}
               multiline
               style={styles.input}
             />
@@ -156,16 +157,20 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
         <DeckTarget value={target} onChange={setTarget} decks={decks} suggestedName={suggested} />
         <Button
           size="lg"
-          label={toSave.length > 0 ? `Save ${plural(toSave.length, 'card')}` : 'Save'}
+          label={
+            toSave.length > 0
+              ? t('review.saveN', { cards: tn('count.card', toSave.length) })
+              : t('common.save')
+          }
           onPress={save}
           disabled={!canSave}
         />
       </ScrollView>
       <ActionSheet
         visible={reporting !== null}
-        title="Report this card to Recap. What's wrong with it?"
+        title={t('review.reportTitle')}
         options={REPORT_REASONS.map(({ reason, label }) => ({
-          label,
+          label: t(label),
           onPress: () => reporting && report(reporting, reason),
         }))}
         onClose={() => setReporting(null)}

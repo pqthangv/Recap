@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { ImportFileError, pickAnkiFile, pickTableFile, useImportDraft } from './files';
@@ -26,8 +27,8 @@ export default function ImportScreen() {
     } catch (e) {
       console.warn(e);
       Alert.alert(
-        "Couldn't open that file",
-        e instanceof ImportFileError ? e.message : 'Please try another file.',
+        t('import.openFailed'),
+        e instanceof ImportFileError ? e.message : t('import.tryAnotherFile'),
       );
     } finally {
       setBusy(false);
@@ -53,22 +54,17 @@ export default function ImportScreen() {
   return (
     <ScrollView contentContainerStyle={styles.content}>
       <Option
-        title="Paste a list"
-        detail="One card per line, like “chat - cat”."
+        title={t('import.paste')}
+        detail={t('import.pasteDetail')}
         onPress={() => router.push('/import/paste')}
         disabled={busy}
       />
-      <Option
-        title="CSV or spreadsheet file"
-        detail="A .csv or .tsv file from Excel, Google Sheets or a Recap export. One card per row: front, back, then tags if you like."
-        onPress={csv}
-        disabled={busy}
-      >
+      <Option title={t('import.csv')} detail={t('import.csvDetail')} onPress={csv} disabled={busy}>
         <ExampleTable />
       </Option>
       <Option
-        title="Anki deck (.apkg)"
-        detail="Shared decks or your own. Cards start fresh as new cards."
+        title={t('import.anki')}
+        detail={t('import.ankiDetail')}
         onPress={anki}
         disabled={busy}
       />
@@ -78,16 +74,21 @@ export default function ImportScreen() {
 }
 
 // What a spreadsheet for import looks like (tags are optional).
-const EXAMPLE = [
-  ['front1', 'back1', 'tag1, tag2, tag3'],
-  ['front2', 'back2', 'tag1'],
-  ['front3', 'back3', 'tag3'],
-];
+function exampleRows(): string[][] {
+  const front = (n: number) => t('import.exampleFront', { n });
+  const back = (n: number) => t('import.exampleBack', { n });
+  const tag = (n: number) => t('import.exampleTag', { n });
+  return [
+    [front(1), back(1), `${tag(1)}, ${tag(2)}, ${tag(3)}`],
+    [front(2), back(2), tag(1)],
+    [front(3), back(3), tag(3)],
+  ];
+}
 
 function ExampleTable() {
   return (
     <View style={styles.table} importantForAccessibility="no-hide-descendants">
-      {EXAMPLE.map((row, r) => (
+      {exampleRows().map((row, r) => (
         <View key={r} style={[styles.tableRow, r > 0 && styles.tableRowLine]}>
           {row.map((cell, c) => (
             <Text

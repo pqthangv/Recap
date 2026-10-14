@@ -9,10 +9,8 @@
 import { decompress } from 'fzstd';
 import JSZip from 'jszip';
 
+import { t } from '../i18n';
 import { AnkiImportError, protobufFields } from './anki';
-
-export const NEW_FORMAT_MESSAGE =
-  "Recap couldn't read this deck's newer Anki format. In Anki, export it again with 'Support older Anki versions' checked.";
 
 export type ApkgPackage = {
   /** The SQLite collection to read cards from. */
@@ -107,7 +105,7 @@ export async function openApkg(bytes: Uint8Array): Promise<ApkgPackage> {
   try {
     zip = await JSZip.loadAsync(bytes);
   } catch {
-    throw new AnkiImportError("This file isn't an Anki deck (.apkg).");
+    throw new AnkiImportError(t('anki.notApkg'));
   }
 
   const latest = zip.file('collection.anki21b');
@@ -117,12 +115,12 @@ export async function openApkg(bytes: Uint8Array): Promise<ApkgPackage> {
     try {
       collection = unzstd(await latest.async('uint8array'));
     } catch {
-      throw new AnkiImportError(NEW_FORMAT_MESSAGE);
+      throw new AnkiImportError(t('anki.newFormat'));
     }
   } else if (classic) {
     collection = await classic.async('uint8array');
   } else {
-    throw new AnkiImportError("This file doesn't contain an Anki deck.");
+    throw new AnkiImportError(t('anki.noDeck'));
   }
 
   // Map real file names to zip entries. Without a readable map, cards import without pictures.

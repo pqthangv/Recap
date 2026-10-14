@@ -1,5 +1,6 @@
 // Talking to Recap's server for AI cards. No API keys here: the server holds them.
 // Errors come back as AiError with a friendly message to show as-is.
+import { language, t, type StringKey } from './i18n';
 
 export type GeneratedCard = { front: string; back: string };
 export type AiMode = 'text' | 'topic';
@@ -45,10 +46,6 @@ export class AiError extends Error {
   }
 }
 
-const OFFLINE = "Can't reach Recap's server. Check your internet connection and try again.";
-const TIMEOUT = 'That took too long. Please try again.';
-const SERVER = 'Something went wrong on our side. Please try again later.';
-
 const KIND_BY_CODE: Record<string, AiErrorKind> = {
   quota_exceeded: 'quota',
   ip_quota_exceeded: 'quota',
@@ -65,15 +62,47 @@ const KIND_BY_CODE: Record<string, AiErrorKind> = {
   invalid_request: 'input',
 };
 
+// The server writes its messages in English. In another language the app shows its own text for
+// the error instead (by code, or by kind for a code it doesn't know).
+const MESSAGE_BY_CODE: Record<string, StringKey> = {
+  quota_exceeded: 'aiError.quota',
+  ip_quota_exceeded: 'aiError.networkQuota',
+  rate_limited: 'aiError.rateLimited',
+  ai_busy: 'aiError.busy',
+  not_configured: 'aiError.notConfigured',
+  too_long: 'aiError.tooLong',
+  too_large: 'aiError.tooLarge',
+  empty: 'aiError.empty',
+  no_cards: 'aiError.noCards',
+  bad_pdf: 'aiError.badPdf',
+  pdf_locked: 'aiError.pdfLocked',
+  pdf_no_text: 'aiError.pdfNoText',
+  too_many_reports: 'aiError.tooManyReports',
+};
+const MESSAGE_BY_KIND: Record<AiErrorKind, StringKey> = {
+  offline: 'aiError.offline',
+  timeout: 'aiError.timeout',
+  quota: 'aiError.quota',
+  busy: 'aiError.busy',
+  input: 'common.somethingWrong',
+  server: 'aiError.server',
+};
+
 /** Turns an error response ({error, message}) into an AiError. */
 export function errorFromResponse(status: number, body: unknown): AiError {
   const data = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>;
   const code = typeof data.error === 'string' ? data.error : '';
-  const message = typeof data.message === 'string' && data.message ? data.message : SERVER;
   const remaining = typeof data.remaining === 'number' ? data.remaining : undefined;
   const kind =
     KIND_BY_CODE[code] ?? (status === 429 ? 'quota' : status === 503 ? 'busy' : 'server');
-  return new AiError(kind, kind === 'server' ? SERVER : message, remaining);
+  const serverMessage = typeof data.message === 'string' && data.message ? data.message : null;
+  const message =
+    kind === 'server'
+      ? t('aiError.server')
+      : language() === 'en' && serverMessage
+        ? serverMessage
+        : t(MESSAGE_BY_CODE[code] ?? MESSAGE_BY_KIND[kind]);
+  return new AiError(kind, message, remaining);
 }
 
 type Fetch = (url: string, init?: RequestInit) => Promise<Response>;
@@ -100,8 +129,8 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
       response = await doFetch(`${base}${path}`, { ...init, signal: controller.signal });
     } catch (e) {
       throw controller.signal.aborted
-        ? new AiError('timeout', TIMEOUT, undefined, e)
-        : new AiError('offline', OFFLINE, undefined, e);
+        ? new AiError('timeout', t('aiError.timeout'), undefined, e)
+        : new AiError('offline', t('aiError.offline'), undefined, e);
     } finally {
       clearTimeout(timer);
     }
@@ -112,7 +141,7 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
       // Not JSON (e.g. a proxy error page).
     }
     if (!response.ok) throw errorFromResponse(response.status, body);
-    if (body === null) throw new AiError('server', SERVER);
+    if (body === null) throw new AiError('server', t('aiError.server'));
     return body as T;
   }
 

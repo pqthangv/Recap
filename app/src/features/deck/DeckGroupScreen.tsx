@@ -9,7 +9,7 @@ import { useLive } from '@/db/live';
 import { getSettings } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
 import { decksInGroup, groupCounts, nameInGroup, sortDecks } from '@/lib/deckGroups';
-import { count, plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors } from '@/lib/theme';
 
 import { DeckRow } from './DeckRow';
@@ -31,12 +31,12 @@ export default function DeckGroupScreen() {
     const ids = decks.map((d) => d.id);
     const cards = countCards(ids);
     Alert.alert(
-      `Delete ${plural(decks.length, 'deck')}?`,
-      `All decks in "${name}" and their ${plural(cards, 'card')} will be deleted. You can restore them from Recently deleted for ${RESTORE_DAYS} days.`,
+      t('group.deleteTitle', { decks: tn('count.deck', decks.length) }),
+      t('group.deleteBody', { name, cards: tn('count.card', cards), days: RESTORE_DAYS }),
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: t('common.cancel'), style: 'cancel' },
         {
-          text: 'Delete',
+          text: t('common.delete'),
           style: 'destructive',
           onPress: () => {
             deleteDecks(ids);
@@ -51,7 +51,7 @@ export default function DeckGroupScreen() {
     return (
       <View style={styles.screen}>
         <Stack.Screen options={{ title: '' }} />
-        <Text style={styles.empty}>These decks were deleted.</Text>
+        <Text style={styles.empty}>{t('group.wasDeleted')}</Text>
       </View>
     );
   }
@@ -67,12 +67,12 @@ export default function DeckGroupScreen() {
           <View style={styles.header}>
             <Button
               size="lg"
-              label={toStudy > 0 ? `Study all · ${count(toStudy)}` : 'Nothing due in these decks'}
+              label={toStudy > 0 ? t('group.studyAll', { n: toStudy }) : t('group.nothingDue')}
               disabled={toStudy === 0}
               onPress={() => router.push({ pathname: '/study', params: { group: name } })}
             />
             <Text accessibilityRole="header" style={styles.section}>
-              {plural(decks.length, 'deck')}
+              {tn('count.deck', decks.length)}
             </Text>
           </View>
         }
@@ -87,14 +87,14 @@ export default function DeckGroupScreen() {
         ListFooterComponent={
           <Button
             variant="danger"
-            label={`Delete all ${plural(decks.length, 'deck')}`}
+            label={t('group.deleteAll', { decks: tn('count.deck', decks.length) })}
             onPress={confirmDelete}
             style={styles.delete}
           />
         }
       />
       <Fab
-        accessibilityLabel={`New deck in ${name}`}
+        accessibilityLabel={t('group.fab', { name })}
         onPress={() => router.push({ pathname: '/deck/edit', params: { parent: name } })}
       />
     </View>

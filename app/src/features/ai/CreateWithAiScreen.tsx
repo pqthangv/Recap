@@ -23,7 +23,7 @@ import {
   type PdfText,
 } from '@/lib/ai';
 import type { AiSource } from '@/lib/aiReview';
-import { plural } from '@/lib/format';
+import { count, t, tn, type StringKey } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { askAiConsent } from './consent';
@@ -32,11 +32,11 @@ import { readTextFromPhoto } from './photo';
 
 type Tab = 'text' | 'photo' | 'pdf' | 'topic';
 
-const TABS: { key: Tab; label: string }[] = [
-  { key: 'text', label: 'Paste text' },
-  { key: 'photo', label: 'Photo' },
-  { key: 'pdf', label: 'PDF' },
-  { key: 'topic', label: 'Topic' },
+const TABS: { key: Tab; label: StringKey }[] = [
+  { key: 'text', label: 'ai.tabText' },
+  { key: 'photo', label: 'ai.tabPhoto' },
+  { key: 'pdf', label: 'ai.tabPdf' },
+  { key: 'topic', label: 'ai.tabTopic' },
 ];
 
 type QuotaState =
@@ -45,9 +45,8 @@ type QuotaState =
   | { status: 'failed'; message: string };
 
 const MAX_PDF_BYTES = 10 * 1024 * 1024;
-const SOMETHING_WRONG = 'Something went wrong. Please try again.';
 
-const messageOf = (e: unknown) => (e instanceof AiError ? e.message : SOMETHING_WRONG);
+const messageOf = (e: unknown) => (e instanceof AiError ? e.message : t('common.somethingWrong'));
 
 /** "Create with AI": paste text, a photo of notes, a PDF or a topic → cards to review. */
 export default function CreateWithAiScreen() {
@@ -110,7 +109,7 @@ export default function CreateWithAiScreen() {
 
   const generate = async () => {
     if (!(await askAiConsent())) return; // asks once before the first use (see consent.ts)
-    await run('Making cards…', async () => {
+    await run(t('ai.making'), async () => {
       const source: AiSource =
         tab === 'topic'
           ? { kind: 'topic', topic }
@@ -133,7 +132,7 @@ export default function CreateWithAiScreen() {
   const choosePdf = async () => {
     // The PDF itself goes to Recap's server to be read, so ask before it's even picked.
     if (!(await askAiConsent())) return;
-    await run('Reading the PDF…', async () => {
+    await run(t('ai.readingPdf'), async () => {
       const picked = await DocumentPicker.getDocumentAsync({
         type: 'application/pdf',
         copyToCacheDirectory: true,
@@ -142,7 +141,7 @@ export default function CreateWithAiScreen() {
       const asset = picked.assets[0];
       try {
         if (asset.size && asset.size > MAX_PDF_BYTES) {
-          throw new AiError('input', 'That PDF is too big. The limit is 10 MB.');
+          throw new AiError('input', t('ai.pdfTooBig'));
         }
         const result = await ai.extractPdf(new File(asset.uri), asset.name);
         setPdf({ ...result, fileName: asset.name });
@@ -157,7 +156,7 @@ export default function CreateWithAiScreen() {
   };
 
   const choosePhoto = (from: 'camera' | 'library') =>
-    run('Reading the photo…', async () => {
+    run(t('ai.readingPhoto'), async () => {
       const text = await readTextFromPhoto(from);
       if (text !== null) setPhotoText(text);
     });
@@ -172,25 +171,25 @@ export default function CreateWithAiScreen() {
             style={styles.banner}
           >
             <Text style={styles.bannerText}>
-              {plural(draft.length, 'card')} waiting for review · Review
+              {t('ai.waiting', { cards: tn('count.card', draft.length) })}
             </Text>
           </Pressable>
         ) : null}
 
         <View style={styles.tabs} accessibilityRole="tablist">
-          {TABS.map((t) => (
+          {TABS.map((item) => (
             <Pressable
-              key={t.key}
+              key={item.key}
               accessibilityRole="tab"
-              accessibilityState={{ selected: tab === t.key }}
+              accessibilityState={{ selected: tab === item.key }}
               onPress={() => {
-                setTab(t.key);
+                setTab(item.key);
                 setError(null);
               }}
-              style={[styles.tab, tab === t.key && styles.tabSelected]}
+              style={[styles.tab, tab === item.key && styles.tabSelected]}
             >
-              <Text style={[styles.tabText, tab === t.key && styles.tabTextSelected]}>
-                {t.label}
+              <Text style={[styles.tabText, tab === item.key && styles.tabTextSelected]}>
+                {t(item.label)}
               </Text>
             </Pressable>
           ))}
@@ -200,27 +199,25 @@ export default function CreateWithAiScreen() {
           <TextArea
             value={pasted}
             onChange={setPasted}
-            placeholder="Paste your notes, an article or a list of words."
-            label="Text to make cards from"
+            placeholder={t('ai.textPlaceholder')}
+            label={t('ai.textA11y')}
           />
         ) : null}
 
         {tab === 'photo' ? (
           <>
-            <Text style={styles.help}>
-              Take a clear photo of your notes or a page. The text is read on your phone.
-            </Text>
+            <Text style={styles.help}>{t('ai.photoHelp')}</Text>
             <View style={styles.row}>
               <Button
                 variant="secondary"
-                label="Take a photo"
+                label={t('ai.takePhoto')}
                 onPress={() => choosePhoto('camera')}
                 disabled={!!busy}
                 style={styles.flex}
               />
               <Button
                 variant="secondary"
-                label="Choose a photo"
+                label={t('ai.choosePhoto')}
                 onPress={() => choosePhoto('library')}
                 disabled={!!busy}
                 style={styles.flex}
@@ -228,10 +225,8 @@ export default function CreateWithAiScreen() {
             </View>
             {photoText ? (
               <>
-                <Text style={styles.help}>
-                  Text from your photo. Fix anything that looks wrong.
-                </Text>
-                <TextArea value={photoText} onChange={setPhotoText} label="Text from your photo" />
+                <Text style={styles.help}>{t('ai.photoTextHelp')}</Text>
+                <TextArea value={photoText} onChange={setPhotoText} label={t('ai.photoTextA11y')} />
               </>
             ) : null}
           </>
@@ -241,26 +236,24 @@ export default function CreateWithAiScreen() {
           <>
             <Button
               variant="secondary"
-              label={pdf ? 'Choose another PDF' : 'Choose a PDF'}
+              label={t(pdf ? 'ai.chooseAnotherPdf' : 'ai.choosePdf')}
               onPress={choosePdf}
               disabled={!!busy}
             />
             {pdf ? (
               <>
                 <Text style={styles.help}>
-                  {pdf.fileName} · {plural(pdf.pages, 'page')}
-                  {pdf.truncated
-                    ? ` · Only the first ${MAX_INPUT_CHARS.toLocaleString('en-US')} characters are used.`
-                    : ''}
+                  {pdf.fileName} · {tn('count.page', pdf.pages)}
+                  {pdf.truncated ? ` · ${t('ai.pdfTruncated', { n: MAX_INPUT_CHARS })}` : ''}
                 </Text>
                 <TextArea
                   value={pdf.text}
                   onChange={(text) => setPdf({ ...pdf, text })}
-                  label="Text from your PDF"
+                  label={t('ai.pdfTextA11y')}
                 />
               </>
             ) : (
-              <Text style={styles.help}>PDFs with selectable text, up to 10 MB.</Text>
+              <Text style={styles.help}>{t('ai.pdfHelp')}</Text>
             )}
           </>
         ) : null}
@@ -269,9 +262,9 @@ export default function CreateWithAiScreen() {
           <TextInput
             value={topic}
             onChangeText={setTopic}
-            placeholder="e.g. The water cycle"
+            placeholder={t('ai.topicPlaceholder')}
             placeholderTextColor={colors.muted}
-            accessibilityLabel="Topic"
+            accessibilityLabel={t('ai.tabTopic')}
             maxLength={MAX_TOPIC_CHARS}
             returnKeyType="done"
             style={styles.topic}
@@ -280,13 +273,12 @@ export default function CreateWithAiScreen() {
 
         {tab !== 'topic' && input ? (
           <Text style={[styles.counter, tooLong && styles.error]}>
-            {input.trim().length.toLocaleString('en-US')} /{' '}
-            {MAX_INPUT_CHARS.toLocaleString('en-US')} characters
+            {t('ai.counter', { n: count(input.trim().length), max: count(MAX_INPUT_CHARS) })}
           </Text>
         ) : null}
 
         <Stepper
-          label="Cards"
+          label={t('ai.cards')}
           value={Math.min(maxCards, cardLimit)}
           display={String(Math.min(maxCards, cardLimit))}
           min={1}
@@ -295,7 +287,7 @@ export default function CreateWithAiScreen() {
           onChange={setMaxCards}
         />
 
-        <Button size="lg" label="Make cards" onPress={generate} disabled={!canGenerate} />
+        <Button size="lg" label={t('ai.make')} onPress={generate} disabled={!canGenerate} />
 
         {busy ? (
           <View style={styles.busy} accessibilityLiveRegion="polite">
@@ -311,12 +303,12 @@ export default function CreateWithAiScreen() {
 
         <Text style={styles.quota}>
           {quota.status === 'loading'
-            ? 'Checking your AI cards for today…'
+            ? t('ai.checkingQuota')
             : quota.status === 'failed'
               ? quota.message
               : quota.remaining > 0
-                ? `${plural(quota.remaining, 'AI card')} left today`
-                : 'No AI cards left today. More tomorrow!'}
+                ? t('ai.left', { cards: tn('count.aiCard', quota.remaining) })
+                : t('ai.noneLeft')}
         </Text>
       </ScrollView>
     </KeyboardAvoidingView>

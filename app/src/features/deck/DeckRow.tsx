@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { DeckCounts } from '@/db/study';
-import { count } from '@/lib/format';
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 type Props = {
@@ -29,7 +29,9 @@ export function DeckRow({
 }: Props) {
   const due = counts ?? { due: 0, new: 0 };
   const countText =
-    due.due + due.new === 0 ? 'Nothing due' : `${count(due.due)} due · ${count(due.new)} new`;
+    due.due + due.new === 0
+      ? t('deck.nothingDue')
+      : t('deck.dueNew', { due: due.due, new: due.new });
   const summary = detail ? `${detail} · ${countText}` : countText;
   return (
     <Pressable

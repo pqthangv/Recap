@@ -6,7 +6,10 @@ import {
   createCard,
   deleteCards,
   getCardForEdit,
+  keptPictureRefs,
   moveCards,
+  normalizeStoredPictureRefs,
+  pictureRefsInUse,
   restoreCards,
   updateCard,
 } from './cards';
@@ -32,6 +35,7 @@ import {
 
 import { parseBackup } from '@/lib/backup';
 import { dayStart } from '@/lib/day';
+import { setLanguage } from '@/lib/i18n';
 import { previewIntervals, Rating, review, State } from '@/lib/scheduler';
 import { seedIfNeeded, WELCOME_DECKS } from '@/features/onboarding/seed';
 import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
@@ -74,8 +78,8 @@ describe('migrations and seed', () => {
 
   it('seeds the welcome decks once, and not again after they are deleted', () => {
     expect(seedIfNeeded(NOW)).toBe(true);
-    expect(listDecks().map((d) => d.name)).toEqual(WELCOME_DECKS.map((d) => d.name));
-    const total = WELCOME_DECKS.reduce((n, d) => n + d.cards.length, 0);
+    expect(listDecks().map((d) => d.name)).toEqual(WELCOME_DECKS.en.map((d) => d.name));
+    const total = WELCOME_DECKS.en.reduce((n, d) => n + d.cards.length, 0);
     expect(rawQuery('select count(*) as n from cards')[0].n).toBe(total);
 
     for (const d of listDecks()) deleteDeck(d.id, NOW);
@@ -86,7 +90,7 @@ describe('migrations and seed', () => {
   it('points the first-launch tip at "How to use Recap" until it is used or skipped', () => {
     expect(getTutorialDeckId()).toBeNull(); // installs from before the tip never see it
     seedIfNeeded(NOW);
-    const howTo = listDecks().find((d) => d.name === WELCOME_DECKS[0].name);
+    const howTo = listDecks().find((d) => d.name === WELCOME_DECKS.en[0].name);
     expect(getTutorialDeckId()).toBe(howTo?.id);
     endTutorial(NOW);
     expect(getTutorialDeckId()).toBeNull();
@@ -95,7 +99,7 @@ describe('migrations and seed', () => {
   it('studies "How to use Recap" in the order written, even after the tip is gone', () => {
     seedIfNeeded(NOW);
     const howTo = getTutorialDeckId()!;
-    const written = WELCOME_DECKS[0].cards.map(([front]) => front);
+    const written = WELCOME_DECKS.en[0].cards.map(([front]) => front);
     expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
     endTutorial(NOW);
     expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
@@ -111,6 +115,20 @@ describe('migrations and seed', () => {
     const id = getTutorialDeckId();
     deleteDeck(id!, NOW);
     expect(getTutorialDeckId()).toBeNull();
+  });
+
+  it("seeds the welcome deck in the phone's language", () => {
+    setLanguage('vi');
+    try {
+      seedIfNeeded(NOW);
+    } finally {
+      setLanguage('en');
+    }
+    expect(listDecks().map((d) => d.name)).toEqual(['Cách dùng Recap']);
+    const howTo = getTutorialDeckId()!;
+    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(
+      WELCOME_DECKS.vi[0].cards.map(([front]) => front),
+    );
   });
 });
 
@@ -155,6 +173,88 @@ describe('cards', () => {
     expect(getStudyCounts(NOW).total).toBe(0);
     restoreCards(deleted, NOW);
     expect(getStudyCounts(NOW).total).toBe(2);
+  });
+
+  it('keeps a picture with its text: the reverse card shows it on the other side', () => {
+    const deck = addDeck();
+    const picture = { ref: 'media/abc.webp', side: 'front' as const };
+    const card = createCard(
+      { deckId: deck.id, front: 'Which bird?', back: 'Robin', tags: [], reverse: true, picture },
+      NOW,
+    );
+    const sides = () =>
+      rawQuery('select front, image_uri, image_side from cards order by reverse_of is not null');
+    expect(sides()).toEqual([
+      { front: 'Which bird?', image_uri: 'media/abc.webp', image_side: 'front' },
+      { front: 'Robin', image_uri: 'media/abc.webp', image_side: 'back' },
+    ]);
+
+    const input = { deckId: deck.id, front: 'Which bird?', back: 'Robin', tags: [], reverse: true };
+    updateCard(card.id, input, NOW + 1); // no `picture`: kept as it was
+    expect(sides()[1]).toMatchObject({ image_uri: 'media/abc.webp', image_side: 'back' });
+
+    updateCard(card.id, { ...input, picture: { ref: 'media/new.webp', side: 'back' } }, NOW + 2);
+    expect(sides()).toEqual([
+      { front: 'Which bird?', image_uri: 'media/new.webp', image_side: 'back' },
+      { front: 'Robin', image_uri: 'media/new.webp', image_side: 'front' },
+    ]);
+
+    updateCard(card.id, { ...input, picture: null }, NOW + 3);
+    expect(sides().map((r) => [r.image_uri, r.image_side])).toEqual([
+      [null, null],
+      [null, null],
+    ]);
+  });
+
+  it('knows which pictures are still needed', () => {
+    const deck = addDeck();
+    const make = (ref: string) =>
+      createCard(
+        {
+          deckId: deck.id,
+          front: ref,
+          back: 'A',
+          tags: [],
+          reverse: false,
+          picture: { ref, side: 'front' },
+        },
+        NOW,
+      );
+    make('media/live.webp');
+    const undoable = make('media/just-deleted.webp');
+    const old = make('media/deleted-long-ago.webp');
+    deleteCards([old.id], NOW - 40 * DAY);
+    deleteCards([undoable.id], NOW);
+
+    // Kept on the phone: live cards, and deleted ones that can still come back.
+    expect(keptPictureRefs(NOW).sort()).toEqual(['media/just-deleted.webp', 'media/live.webp']);
+    // In use at all (deleted cards too), so nothing is deleted under Undo.
+    expect(
+      pictureRefsInUse(['media/live.webp', 'media/deleted-long-ago.webp', 'media/never.webp']),
+    ).toEqual(new Set(['media/live.webp', 'media/deleted-long-ago.webp']));
+  });
+
+  it('rewrites full picture paths from older versions, without counting it as an edit', () => {
+    const deck = addDeck();
+    const old = 'file:///data/user/0/com.recapcards.app/files/media/1f2e3d.webp';
+    const card = createCard(
+      {
+        deckId: deck.id,
+        front: 'Q',
+        back: 'A',
+        tags: [],
+        reverse: true,
+        picture: { ref: old, side: 'front' },
+      },
+      NOW,
+    );
+    expect(normalizeStoredPictureRefs()).toBe(1);
+    expect(rawQuery('select image_uri, updated_at from cards')).toEqual([
+      { image_uri: 'media/1f2e3d.webp', updated_at: NOW },
+      { image_uri: 'media/1f2e3d.webp', updated_at: NOW },
+    ]);
+    expect(normalizeStoredPictureRefs()).toBe(0);
+    expect(getCardForEdit(card.id)?.card.image_uri).toBe('media/1f2e3d.webp');
   });
 
   it('hides cards of a deleted deck everywhere', () => {
@@ -340,6 +440,32 @@ describe('backup', () => {
     importBackup(after);
     expect(getStudyCounts(NOW).total).toBe(0);
     expect(rawQuery('select deleted_at from review_logs')[0].deleted_at).toBe(NOW + 1000);
+  });
+
+  it('reads old picture paths as "media/<name>", and drops ones that point elsewhere', () => {
+    const deck = addDeck();
+    createCard(
+      {
+        deckId: deck.id,
+        front: 'Q',
+        back: 'A',
+        tags: [],
+        reverse: false,
+        picture: { ref: 'media/x.webp', side: 'back' },
+      },
+      NOW,
+    );
+    const backup = exportBackup(NOW);
+    const card = backup.cards[0];
+    const read = (image_uri: string | null, image_side: string | null) =>
+      parseBackup(JSON.stringify({ ...backup, cards: [{ ...card, image_uri, image_side }] }))
+        .cards[0];
+
+    expect(
+      read('file:///var/mobile/Containers/Data/Application/1/Documents/media/x.webp', 'back'),
+    ).toMatchObject({ image_uri: 'media/x.webp', image_side: 'back' });
+    expect(read('media/..', 'front')).toMatchObject({ image_uri: null, image_side: null });
+    expect(read('media/x.webp', 'sideways')).toMatchObject({ image_side: 'front' });
   });
 
   it('rejects files that are not Recap backups', () => {

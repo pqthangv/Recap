@@ -6,6 +6,7 @@ import * as Sharing from 'expo-sharing';
 import { exportBackup, exportCardsCsv, importBackup, type ImportResult } from '@/db/backup';
 import { parseBackup } from '@/lib/backup';
 import { fileDate } from '@/lib/format';
+import { t } from '@/lib/i18n';
 
 async function shareText(
   name: string,
@@ -25,7 +26,7 @@ export async function shareBackup(): Promise<void> {
   await shareText(`recap-backup-${fileDate(now)}.json`, JSON.stringify(exportBackup(now)), {
     mimeType: 'application/json',
     UTI: 'public.json',
-    dialogTitle: 'Save your Recap backup',
+    dialogTitle: t('backup.shareTitle'),
   });
 }
 
@@ -33,7 +34,7 @@ export async function shareCardsCsv(): Promise<void> {
   await shareText(`recap-cards-${fileDate(Date.now())}.csv`, exportCardsCsv(), {
     mimeType: 'text/csv',
     UTI: 'public.comma-separated-values-text',
-    dialogTitle: 'Export cards',
+    dialogTitle: t('backup.exportCardsTitle'),
   });
 }
 

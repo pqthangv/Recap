@@ -2,6 +2,7 @@
 // Only the file format is used here: notes, note types and decks. Cards are imported as new;
 // review history isn't carried over.
 import { DECK_PATH_SEPARATOR } from '../deckGroups';
+import { t } from '../i18n';
 
 import { extractImages, htmlToText } from './html';
 
@@ -312,12 +313,12 @@ function firstImage(html: string) {
 export function readAnkiCollection(db: SqlReader, fileName: string): AnkiReadResult {
   const tables = tableNames(db);
   if (!tables.has('notes') || !tables.has('cards')) {
-    throw new AnkiImportError("This file doesn't contain any cards.");
+    throw new AnkiImportError(t('anki.noCards'));
   }
   const structure =
     (tables.has('col') ? readSchema11(db) : null) ??
     (tables.has('notetypes') ? readSchema18(db) : null);
-  if (!structure) throw new AnkiImportError("This file doesn't look like an Anki deck.");
+  if (!structure) throw new AnkiImportError(t('anki.notAnki'));
   const { models, decks } = structure;
 
   const rows = db.all<{

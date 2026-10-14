@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSCameraUsageDescription": "Recap dùng máy ảnh khi bạn chụp ảnh để thêm vào thẻ hoặc để đọc chữ trong ghi chú. Ảnh chỉ ở trên điện thoại của bạn.",
+    "NSPhotoLibraryUsageDescription": "Recap mở ảnh bạn chọn để thêm vào thẻ hoặc để đọc chữ trong ghi chú. Ảnh chỉ ở trên điện thoại của bạn.",
+    "NSMicrophoneUsageDescription": "Recap không bao giờ ghi âm. Recap chỉ phát âm thanh khi đọc thẻ của bạn thành tiếng."
+  }
+}

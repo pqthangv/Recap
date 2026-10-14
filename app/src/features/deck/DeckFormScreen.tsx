@@ -6,7 +6,7 @@ import { Button } from '@/components/Button';
 import { countCards } from '@/db/cards';
 import { createDeck, deleteDeck, getDeck, listDecks, RESTORE_DAYS, updateDeck } from '@/db/decks';
 import { childDeckName } from '@/lib/deckGroups';
-import { plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, deckColors, radius, touchTarget } from '@/lib/theme';
 
 /**
@@ -43,12 +43,12 @@ export default function DeckFormScreen() {
     if (!existing) return;
     const n = countCards(existing.id);
     Alert.alert(
-      'Delete this deck?',
-      `"${existing.name}" and its ${plural(n, 'card')} will be deleted. You can restore them from Recently deleted for ${RESTORE_DAYS} days.`,
+      t('deck.deleteTitle'),
+      t('deck.deleteBody', { name: existing.name, cards: tn('count.card', n), days: RESTORE_DAYS }),
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: t('common.cancel'), style: 'cancel' },
         {
-          text: 'Delete',
+          text: t('common.delete'),
           style: 'destructive',
           onPress: () => {
             deleteDeck(existing.id);
@@ -65,15 +65,15 @@ export default function DeckFormScreen() {
       keyboardShouldPersistTaps="handled"
       automaticallyAdjustKeyboardInsets // iOS: scroll fields above the keyboard
     >
-      <Stack.Screen options={{ title: existing ? 'Edit deck' : 'New deck' }} />
-      {inside ? <Text style={styles.inside}>Inside “{inside}”</Text> : null}
-      <Text style={styles.label}>Name</Text>
+      <Stack.Screen options={{ title: t(existing ? 'screen.editDeck' : 'screen.newDeck') }} />
+      {inside ? <Text style={styles.inside}>{t('deck.inside', { name: inside })}</Text> : null}
+      <Text style={styles.label}>{t('deck.name')}</Text>
       <TextInput
         value={name}
         onChangeText={setName}
-        placeholder={inside ? 'e.g. Week 1' : 'e.g. Biology'}
+        placeholder={t(inside ? 'deck.namePlaceholderInside' : 'deck.namePlaceholder')}
         placeholderTextColor={colors.muted}
-        accessibilityLabel="Deck name"
+        accessibilityLabel={t('deck.nameA11y')}
         autoFocus={!existing}
         returnKeyType="done"
         onSubmitEditing={save}
@@ -81,13 +81,13 @@ export default function DeckFormScreen() {
         maxLength={80}
       />
 
-      <Text style={styles.label}>Color</Text>
+      <Text style={styles.label}>{t('deck.color')}</Text>
       <View style={styles.colors} accessibilityRole="radiogroup">
         {deckColors.map((c, i) => (
           <Pressable
             key={c}
             accessibilityRole="radio"
-            accessibilityLabel={`Color ${i + 1}`}
+            accessibilityLabel={t('deck.colorN', { n: i + 1 })}
             accessibilityState={{ checked: c === color }}
             onPress={() => setColor(c)}
             style={[styles.swatchHit, c === color && styles.swatchSelected]}
@@ -97,8 +97,10 @@ export default function DeckFormScreen() {
         ))}
       </View>
 
-      <Button label="Save" onPress={save} disabled={!canSave} style={styles.save} />
-      {existing ? <Button variant="danger" label="Delete deck" onPress={confirmDelete} /> : null}
+      <Button label={t('common.save')} onPress={save} disabled={!canSave} style={styles.save} />
+      {existing ? (
+        <Button variant="danger" label={t('deck.delete')} onPress={confirmDelete} />
+      ) : null}
     </ScrollView>
   );
 }
