@@ -59,7 +59,7 @@ Your decks, cards and study history live on your phone and work offline. There a
 tracking and no account. Only the text you choose to turn into cards with "Create with AI" leaves
 your phone: it goes to Google's Gemini AI to write the cards, and Recap asks before it sends anything.
 A card you report goes to the developer to review.
-Read the [privacy policy](https://recap-api-ictj.onrender.com/privacy).
+Read the [privacy policy](https://recapflashcards.com/privacy).
 
 ## How it's built
 
@@ -68,6 +68,7 @@ For anyone reading the code:
 | Part | What's inside |
 | --- | --- |
 | [`app/`](app) | The phone app: Expo (React Native) + TypeScript, Expo Router. Everything is stored on the device in SQLite (Drizzle ORM); scheduling uses [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs). Text in photos is read on the device. |
+| [`site/`](site) | The website ([recapflashcards.com](https://recapflashcards.com)): plain HTML pages for the home page, help and the privacy policy, hosted on Cloudflare Pages. |
 | [`server/`](server) | A small FastAPI service that only makes AI cards: it sends the user's text to Google's Gemini API, with a daily limit per device. |
 
 The data layer is built for optional sync later: every row has a UUID, timestamps and soft
@@ -76,5 +77,5 @@ deletes, and review history is append-only (see the comments in
 
 ## Feedback
 
-Questions, ideas or bugs: [recap.flashcards@gmail.com](mailto:recap.flashcards@gmail.com) ·
-[Help page](https://recap-api-ictj.onrender.com/support)
+Questions, ideas or bugs: [support@recapflashcards.com](mailto:support@recapflashcards.com) ·
+[Help page](https://recapflashcards.com/support) · [Website](https://recapflashcards.com)
