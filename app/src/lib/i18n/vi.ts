@@ -194,6 +194,26 @@ export const vi: Strings = {
   'card.added': 'Đã thêm thẻ',
   'card.deleted': 'Đã xóa thẻ',
   'card.deletedWithReverse': 'Đã xóa thẻ và thẻ đảo ngược',
+  'camera.whyTitle': 'Dùng máy ảnh?',
+  'camera.whyCard':
+    'Recap dùng máy ảnh để chụp ảnh cho thẻ này. Ảnh chỉ ở trên điện thoại của bạn.',
+  'camera.whyNotes':
+    'Recap dùng máy ảnh để chụp ghi chú và đọc chữ ngay trên điện thoại. Ảnh không được lưu lại.',
+  'camera.continue': 'Tiếp tục',
+  'camera.offTitle': 'Recap chưa được dùng máy ảnh',
+  'camera.offBody': 'Để chụp ảnh, hãy cho phép Recap dùng máy ảnh trong Cài đặt của điện thoại.',
+  'camera.openSettings': 'Mở Cài đặt',
+  'card.picture': 'Ảnh (không bắt buộc)',
+  'card.takePhoto': 'Chụp ảnh',
+  'card.choosePhoto': 'Chọn ảnh',
+  'card.addingPicture': 'Đang thêm ảnh…',
+  'card.pictureShowOn': 'Hiện ở',
+  'card.pictureOnFrontA11y': 'Ảnh của thẻ, ở mặt trước',
+  'card.pictureOnBackA11y': 'Ảnh của thẻ, ở mặt sau',
+  'card.removePicture': 'Bỏ ảnh',
+  'card.pictureFailed': 'Không thêm được ảnh',
+  'card.pictureTooBig': 'Ảnh này quá lớn. Hãy thử ảnh nhỏ hơn.',
+  'card.pictureUnreadable': 'Recap không mở được ảnh này. Hãy thử ảnh khác.',
 
   // Studying
   'study.left': 'Còn {n}',
@@ -355,6 +375,8 @@ export const vi: Strings = {
   'anki.missingPictures_one': '{n} ảnh không có trong tệp này, nên thẻ đó sẽ hiện không có ảnh.',
   'anki.missingPictures_other':
     '{n} ảnh không có trong tệp này, nên các thẻ đó sẽ hiện không có ảnh.',
+  'anki.picturesRefused_one': '{n} ảnh quá lớn hoặc bị hỏng nên thẻ đó không có ảnh',
+  'anki.picturesRefused_other': '{n} ảnh quá lớn hoặc bị hỏng nên các thẻ đó không có ảnh',
   'anki.startNew':
     'Thẻ bắt đầu như thẻ mới. Âm thanh không được nhập; thay vào đó Recap có thể đọc thẻ thành tiếng.',
   'anki.skipped': '{cards} không có chữ sẽ bị bỏ qua.',
@@ -395,8 +417,6 @@ export const vi: Strings = {
   'ai.checkingQuota': 'Đang kiểm tra số thẻ AI hôm nay…',
   'ai.left': 'Hôm nay còn {cards}',
   'ai.noneLeft': 'Hôm nay đã hết thẻ AI. Mai bạn quay lại nhé!',
-  'ai.needCamera':
-    'Recap cần dùng máy ảnh để chụp. Bạn có thể cho phép trong Cài đặt của điện thoại.',
   'ai.noTextInPhoto': 'Không tìm thấy chữ trong ảnh. Hãy chụp gần hơn, rõ hơn và đủ sáng.',
   'ai.deckDefault': 'Thẻ AI',
   'ai.deckPdf': 'Ghi chú PDF',

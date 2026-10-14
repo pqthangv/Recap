@@ -9,6 +9,7 @@ import { SnackbarHost } from '@/components/Snackbar';
 import { getSettings } from '@/db/settings';
 import { setupDatabase } from '@/db/setup';
 import { seedIfNeeded } from '@/features/onboarding/seed';
+import { sweepPictures } from '@/features/pictures/files';
 import { syncReminders } from '@/features/reminders/reminders';
 import { refreshLanguage, setLanguageChoice, t, useLanguage } from '@/lib/i18n';
 import { colors, sideSpace } from '@/lib/theme';
@@ -29,6 +30,7 @@ export default function RootLayout() {
         // Settings › Language, before anything is shown (the welcome deck is written in it too).
         setLanguageChoice(getSettings().language);
         seedIfNeeded();
+        sweepPictures(); // before any screen, so it never meets a picture being added
         setStatus('ready');
       })
       .catch((e: unknown) => {

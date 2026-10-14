@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { SpeakerIcon } from '@/components/SpeakerIcon';
+import { pictureUri } from '@/features/pictures/files';
 import { speak, stopSpeaking } from '@/features/speech/speech';
 import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
@@ -19,13 +20,17 @@ type Props = {
   onFlip: () => void;
   /** Read the front aloud when the card appears and the back when it is flipped. */
   autoRead: boolean;
-  /** Optional picture, shown on the side it belongs to (question pictures stay visible on the answer side). */
-  imageUri?: string | null;
+  /**
+   * Optional picture ("media/<name>"), shown on the side it belongs to (question pictures stay
+   * visible on the answer side).
+   */
+  imageRef?: string | null;
   imageSide?: 'front' | 'back' | null;
 };
 
 /** The card. Tap to turn it over. Mount it with a new `key` for each card so it starts face-down. */
-export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, imageSide }: Props) {
+export function FlipCard({ front, back, flipped, onFlip, autoRead, imageRef, imageSide }: Props) {
+  const imageUri = pictureUri(imageRef);
   const picture = (small = false) =>
     imageUri ? (
       <Image

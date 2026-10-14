@@ -4,7 +4,7 @@ import { Directory, File, Paths } from 'expo-file-system';
 import { deserializeDatabaseAsync } from 'expo-sqlite';
 import { create } from 'zustand';
 
-import { deletePictures, storePicture } from '@/features/pictures/files';
+import { deleteUnusedPictures, PictureError, storePicture } from '@/features/pictures/files';
 import { readAnkiCollection, type AnkiCard } from '@/lib/import/anki';
 import { isImageName, openApkg, type ApkgPackage } from '@/lib/import/apkg';
 import { t } from '@/lib/i18n';
@@ -111,34 +111,50 @@ export function pictureCounts(
   return { found, missing: names.length - found };
 }
 
+export type CopiedPictures = {
+  /** File name in the deck → picture reference ("media/<name>"). */
+  refs: Map<string, string>;
+  /** Pictures left out because they're too big to open safely (or not really pictures). */
+  refused: number;
+};
+
 /**
- * Saves the pictures the cards use into the app (shrunk and compressed). Returns file name →
- * local URI. Only referenced pictures are saved; sounds are skipped (shared decks can carry lots
- * of audio).
+ * Saves the pictures the cards use into the app (checked, shrunk and compressed). Only referenced
+ * pictures are saved; sounds are skipped (shared decks can carry lots of audio). A picture that's
+ * refused (see storePicture) is left out, and its card comes in without it.
  */
 export async function copyPictures(
   cards: readonly AnkiCard[],
   pkg: ApkgPackage,
   onProgress: (done: number, total: number) => void,
-): Promise<Map<string, string>> {
+): Promise<CopiedPictures> {
   const names = pictureNames(cards).filter((name) => pkg.hasMedia(name));
-  const uris = new Map<string, string>();
+  const refs = new Map<string, string>();
+  let refused = 0;
   try {
     for (const [i, name] of names.entries()) {
       onProgress(i, names.length);
       const bytes = await pkg.readMedia(name);
-      if (bytes) uris.set(name, await storePicture(bytes, name));
+      if (!bytes) continue;
+      try {
+        refs.set(name, await storePicture(bytes, name));
+      } catch (e) {
+        if (!(e instanceof PictureError)) throw e;
+        refused++;
+      }
     }
   } catch (e) {
-    deletePictures(uris.values()); // don't leave half an import behind
+    deleteUnusedPictures(refs.values()); // don't leave half an import behind
     throw e;
   }
   onProgress(names.length, names.length);
-  return uris;
+  return { refs, refused };
 }
 
-/** Deletes saved pictures that no imported card uses (e.g. every card was already there). */
-export function removeUnusedPictures(copied: Map<string, string>, used: readonly string[]): void {
-  const keep = new Set(used);
-  deletePictures([...copied.values()].filter((uri) => !keep.has(uri)));
+/**
+ * Deletes saved pictures no card uses, e.g. when every card was already there. Pictures are named
+ * by their content, so one may also belong to an older card: that one stays.
+ */
+export function removeUnusedPictures(copied: CopiedPictures | null): void {
+  if (copied) deleteUnusedPictures(copied.refs.values());
 }

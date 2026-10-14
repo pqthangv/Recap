@@ -21,6 +21,7 @@ import {
   removeUnusedPictures,
   useImportDraft,
   type AnkiDraft,
+  type CopiedPictures,
   type LoadedAnkiDeck,
 } from './files';
 import { CardPreview, defaultTarget, targetIsValid, useFinishImport } from './shared';
@@ -102,30 +103,31 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
     if (!canImport) return;
     const saving = (message: string) => setPhase({ step: 'saving', deck, message });
     saving(t('import.savingCards'));
-    let uris = new Map<string, string>();
+    let copied: CopiedPictures | null = null;
     try {
-      uris = await copyPictures(deck.cards, deck.pkg, (done, total) =>
+      copied = await copyPictures(deck.cards, deck.pkg, (done, total) =>
         saving(t('import.savingPictures', { done, total })),
       );
       saving(t('import.savingCards'));
+      const refs = copied.refs;
       const items = deck.cards.map((c) => {
-        const uri = c.image ? uris.get(c.image.name) : undefined;
+        const ref = c.image ? refs.get(c.image.name) : undefined;
         return {
           front: c.front,
           back: c.back,
           tags: c.tags,
           deckName: c.deckName,
-          imageUri: uri ?? null,
-          imageSide: uri ? c.image?.side : null,
+          imageUri: ref ?? null,
+          imageSide: ref ? c.image?.side : null,
         };
       });
       const summary = importCards(items, target);
-      removeUnusedPictures(uris, summary.imageUris);
+      removeUnusedPictures(copied);
       clearPickedFiles();
-      finish(summary);
+      finish(summary, copied.refused > 0 ? tn('anki.picturesRefused', copied.refused) : undefined);
     } catch (e) {
       console.warn(e);
-      removeUnusedPictures(uris, []);
+      removeUnusedPictures(copied);
       setPhase({ step: 'failed', message: t('import.saveFailed') });
     }
   };

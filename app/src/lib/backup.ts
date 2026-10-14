@@ -6,6 +6,7 @@
 import type { CardRow, Deck, ReviewLogRow, SettingRow } from '@/db/schema';
 
 import { t } from './i18n';
+import { normalizePictureRef } from './pictures';
 import { DEVICE_SETTING_KEYS } from './settings';
 
 export const BACKUP_FORMAT = 'recap-backup';
@@ -115,6 +116,16 @@ function checkRow(raw: unknown, spec: Spec, table: string): Record<string, unkno
   return out;
 }
 
+/**
+ * Pictures are referenced as "media/<name>". Backups from before 1.0.3 hold full paths, which are
+ * rewritten the same way the phone's own cards are; anything else (a crafted path) is dropped.
+ */
+function checkCardPicture(card: CardRow): CardRow {
+  const image_uri = normalizePictureRef(card.image_uri);
+  const image_side = !image_uri ? null : card.image_side === 'back' ? 'back' : 'front';
+  return { ...card, image_uri, image_side };
+}
+
 function checkTable<T>(raw: unknown, spec: Spec, table: string): T[] {
   if (raw === undefined) return [];
   if (!Array.isArray(raw)) throw new BackupError(t('backup.badTable', { table }));
@@ -140,7 +151,7 @@ export function parseBackup(text: string): Backup {
     version: b.version,
     exported_at: typeof b.exported_at === 'number' ? b.exported_at : 0,
     decks: checkTable<Deck>(b.decks, DECK_SPEC, 'decks'),
-    cards: checkTable<CardRow>(b.cards, CARD_SPEC, 'cards'),
+    cards: checkTable<CardRow>(b.cards, CARD_SPEC, 'cards').map(checkCardPicture),
     review_logs: checkTable<ReviewLogRow>(b.review_logs, LOG_SPEC, 'review_logs'),
     settings: checkTable<SettingRow>(b.settings, SETTING_SPEC, 'settings').filter(
       (s) => !DEVICE_SETTING_KEYS.includes(s.key),
