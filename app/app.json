@@ -2,7 +2,7 @@
   "expo": {
     "name": "Recap",
     "slug": "recap",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "recapcards",
@@ -52,7 +52,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
@@ -99,6 +99,7 @@
       "./plugins/withReleaseSigning",
       "./plugins/withAndroidCodeOptimization",
       "./plugins/withWindowsLongPathCmake",
+      "./plugins/withOptionalCamera",
       [
         "expo-localization",
         {
