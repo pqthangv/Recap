@@ -1,6 +1,7 @@
-// Recap's text in the phone's language: English or Vietnamese (any other language gets English).
-// Android 13+ and iOS also let people pick a language just for Recap in the system settings, so
-// the language is read at start and again whenever the app comes back to the foreground.
+// Recap's text in English or Vietnamese. By default it follows the phone (any other language gets
+// English); Settings › Language can pick one instead. Android 13+ and iOS also let people pick a
+// language for Recap in the system settings, so the phone's language is read at start and again
+// whenever the app comes back to the foreground.
 import { getLocales } from 'expo-localization';
 import { useSyncExternalStore } from 'react';
 
@@ -11,6 +12,12 @@ import { vi } from './vi';
 export type { PluralKey, StringKey } from './types';
 
 export type Language = 'en' | 'vi';
+
+/** Settings › Language: a language, or 'auto' to follow the phone. */
+export type LanguageChoice = Language | 'auto';
+
+/** Each language's own name, the same in every language, so people can find theirs. */
+export const LANGUAGE_NAMES: Record<Language, string> = { en: 'English', vi: 'Tiếng Việt' };
 
 const STRINGS: Record<Language, Strings> = { en, vi };
 
@@ -30,6 +37,7 @@ export function phoneLanguage(): Language {
   return 'en';
 }
 
+let choice: LanguageChoice = 'auto';
 let current: Language = phoneLanguage();
 const listeners = new Set<() => void>();
 
@@ -47,9 +55,15 @@ export function setLanguage(next: Language): void {
   for (const listener of listeners) listener();
 }
 
+/** Applies Settings › Language (read from the database at start, and when it's changed). */
+export function setLanguageChoice(next: LanguageChoice): void {
+  choice = next;
+  refreshLanguage();
+}
+
 /** Picks up a language change made in the phone's settings while Recap was in the background. */
 export function refreshLanguage(): void {
-  setLanguage(phoneLanguage());
+  setLanguage(choice === 'auto' ? phoneLanguage() : choice);
 }
 
 function subscribe(listener: () => void) {
@@ -59,7 +73,7 @@ function subscribe(listener: () => void) {
   };
 }
 
-/** The current language. The root layout remounts the screens with it as their key. */
+/** The current language. The root layout remounts each screen's content with it as the key. */
 export function useLanguage(): Language {
   return useSyncExternalStore(subscribe, language);
 }

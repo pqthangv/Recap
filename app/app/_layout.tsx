@@ -1,15 +1,16 @@
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { AppState, Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { SnackbarHost } from '@/components/Snackbar';
+import { getSettings } from '@/db/settings';
 import { setupDatabase } from '@/db/setup';
 import { seedIfNeeded } from '@/features/onboarding/seed';
 import { syncReminders } from '@/features/reminders/reminders';
-import { refreshLanguage, t, useLanguage } from '@/lib/i18n';
+import { refreshLanguage, setLanguageChoice, t, useLanguage } from '@/lib/i18n';
 import { colors, sideSpace } from '@/lib/theme';
 
 // Last resort if the layout itself crashes (each screen has its own, see ErrorScreen.tsx).
@@ -21,11 +22,12 @@ type Status = 'loading' | 'ready' | 'error';
 
 export default function RootLayout() {
   const [status, setStatus] = useState<Status>('loading');
-  const language = useLanguage();
 
   useEffect(() => {
     setupDatabase()
       .then(() => {
+        // Settings › Language, before anything is shown (the welcome deck is written in it too).
+        setLanguageChoice(getSettings().language);
         seedIfNeeded();
         setStatus('ready');
       })
@@ -58,8 +60,7 @@ export default function RootLayout() {
 
   return (
     <>
-      {/* A new language remounts every screen, so all of them show the new text. */}
-      <Screens key={language} />
+      <Screens />
       <SnackbarHost />
       <StatusBar style="dark" />
     </>
@@ -67,6 +68,9 @@ export default function RootLayout() {
 }
 
 function Screens() {
+  // Not memoized by the React Compiler: the titles below are re-read in the new language.
+  'use no memo';
+  const language = useLanguage();
   const { width } = useWindowDimensions();
   // iPhone modals have no back arrow (only a swipe down), so they get a visible Cancel.
   const modal = {
@@ -79,6 +83,9 @@ function Screens() {
 
   return (
     <Stack
+      // A new language remounts what's inside every screen, so all of them show the new text;
+      // the screens themselves stay, so you stay where you were (e.g. in Settings).
+      screenLayout={({ children }) => <Fragment key={language}>{children}</Fragment>}
       screenOptions={{
         headerStyle: { backgroundColor: colors.background },
         headerTintColor: colors.primary,

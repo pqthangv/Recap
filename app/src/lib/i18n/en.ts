@@ -227,6 +227,8 @@ export const en = {
   'settings.dailyReminder': 'Daily reminder',
   'settings.dailyReminderHelp': 'A notification when you have cards due.',
   'settings.time': 'Time',
+  'settings.language': 'Language',
+  'settings.languageAuto': "Phone's language",
   'settings.notificationsOff': 'Notifications are off',
   'settings.notificationsOffBody':
     "To get reminders, allow notifications for Recap in your phone's settings.",

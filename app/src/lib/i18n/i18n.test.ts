@@ -5,7 +5,15 @@ import { errorFromResponse } from '@/lib/ai';
 import { reminderText } from '@/lib/reminders';
 
 import { en } from './en';
-import { language, phoneLanguage, refreshLanguage, setLanguage, t, tn } from './index';
+import {
+  language,
+  phoneLanguage,
+  refreshLanguage,
+  setLanguage,
+  setLanguageChoice,
+  t,
+  tn,
+} from './index';
 import { vi } from './vi';
 
 jest.mock('expo-localization', () => ({ getLocales: jest.fn(() => [{ languageCode: 'en' }]) }));
@@ -14,8 +22,8 @@ jest.mock('@/db/client', () => require('../../../test/db').createTestClient());
 const mockLocales = getLocales as jest.Mock;
 
 afterEach(() => {
-  setLanguage('en');
   mockLocales.mockImplementation(() => [{ languageCode: 'en' }]);
+  setLanguageChoice('auto');
 });
 
 const placeholders = (text: string) => [...text.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
@@ -88,6 +96,19 @@ describe('phoneLanguage', () => {
     });
     expect(phoneLanguage()).toBe('en');
     warn.mockRestore();
+  });
+
+  it("gives way to the language picked in Settings, until it's back on the phone's", () => {
+    mockLocales.mockImplementation(() => [{ languageCode: 'en' }]);
+    setLanguageChoice('vi');
+    expect(language()).toBe('vi');
+    refreshLanguage(); // coming back to the app keeps the choice
+    expect(language()).toBe('vi');
+    setLanguageChoice('auto');
+    expect(language()).toBe('en');
+    mockLocales.mockImplementation(() => [{ languageCode: 'vi' }]);
+    setLanguageChoice('en');
+    expect(language()).toBe('en');
   });
 
   it('is picked up again when the app comes back', () => {

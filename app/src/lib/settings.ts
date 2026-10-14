@@ -1,3 +1,4 @@
+import type { LanguageChoice } from './i18n';
 import { clampRetention, DEFAULT_RETENTION } from './scheduler';
 
 export type Settings = {
@@ -13,6 +14,8 @@ export type Settings = {
   reminderMinutes: number;
   /** Home's deck list order. */
   deckSort: DeckSort;
+  /** The app's language: the phone's ('auto'), or one picked in Settings. */
+  language: LanguageChoice;
 };
 
 export type DeckSort = 'name' | 'color';
@@ -25,6 +28,7 @@ export const DEFAULT_SETTINGS: Settings = {
   reminderEnabled: false,
   reminderMinutes: 20 * 60,
   deckSort: 'name',
+  language: 'auto',
 };
 
 export const NEW_PER_DAY_MAX = 200;
@@ -38,6 +42,7 @@ export const SETTING_KEYS = {
   reminderEnabled: 'reminder_enabled',
   reminderMinutes: 'reminder_minutes',
   deckSort: 'deck_sort',
+  language: 'app_language',
 } as const satisfies Record<keyof Settings, string>;
 
 /** Set once the welcome decks have been created (stops them coming back after you delete them). */
@@ -74,6 +79,8 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   AI_CONSENT_KEY,
   SETTING_KEYS.reminderEnabled,
   SETTING_KEYS.reminderMinutes,
+  // Like the phone's own language, a choice for this phone.
+  SETTING_KEYS.language,
 ];
 
 function decode(value: string | undefined): unknown {
@@ -99,6 +106,7 @@ export function parseSettings(rows: readonly { key: string; value: string }[]): 
   const readAloud = get('readAloud');
   const reminderEnabled = get('reminderEnabled');
   const deckSort = get('deckSort');
+  const language = get('language');
   return {
     retention:
       typeof retention === 'number' ? clampRetention(retention) : DEFAULT_SETTINGS.retention,
@@ -109,5 +117,6 @@ export function parseSettings(rows: readonly { key: string; value: string }[]): 
       typeof reminderEnabled === 'boolean' ? reminderEnabled : DEFAULT_SETTINGS.reminderEnabled,
     reminderMinutes: int(get('reminderMinutes'), DEFAULT_SETTINGS.reminderMinutes, 0, 24 * 60 - 1),
     deckSort: deckSort === 'color' ? 'color' : 'name',
+    language: language === 'en' || language === 'vi' ? language : 'auto',
   };
 }

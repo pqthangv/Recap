@@ -229,6 +229,8 @@ export const vi: Strings = {
   'settings.dailyReminder': 'Nhắc học hằng ngày',
   'settings.dailyReminderHelp': 'Gửi thông báo khi bạn có thẻ cần ôn.',
   'settings.time': 'Giờ',
+  'settings.language': 'Ngôn ngữ',
+  'settings.languageAuto': 'Theo điện thoại',
   'settings.notificationsOff': 'Thông báo đang tắt',
   'settings.notificationsOffBody':
     'Để nhận lời nhắc, hãy cho phép Recap gửi thông báo trong phần cài đặt của điện thoại.',

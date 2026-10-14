@@ -12,14 +12,17 @@ import { getSettings, setSetting } from '@/db/settings';
 import { resetDeckSchedule } from '@/db/study';
 import { hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
+import { Chip } from '@/features/import/DeckTarget';
 import { requestReminderPermission, syncReminders } from '@/features/reminders/reminders';
 import { BackupError } from '@/lib/backup';
 import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { formatTimeOfDay } from '@/lib/format';
-import { t, tn } from '@/lib/i18n';
+import { LANGUAGE_NAMES, setLanguageChoice, t, tn, type LanguageChoice } from '@/lib/i18n';
 import { MAX_RETENTION, MIN_RETENTION } from '@/lib/scheduler';
 import { NEW_PER_DAY_MAX } from '@/lib/settings';
 import { colors, radius, touchTarget } from '@/lib/theme';
+
+const LANGUAGE_CHOICES: readonly LanguageChoice[] = ['auto', 'en', 'vi'];
 
 export default function SettingsScreen() {
   const settings = useLive(getSettings, ['settings']);
@@ -32,6 +35,12 @@ export default function SettingsScreen() {
     }
     setSetting('reminderEnabled', enabled);
     syncReminders();
+  };
+
+  const chooseLanguage = (choice: LanguageChoice) => {
+    setSetting('language', choice);
+    setLanguageChoice(choice); // every screen shows the new language right away
+    syncReminders(); // reminders already scheduled are in the old language
   };
 
   return (
@@ -91,6 +100,23 @@ export default function SettingsScreen() {
             }}
           />
         ) : null}
+      </Section>
+
+      <Section title={t('settings.language')}>
+        <View
+          style={styles.chips}
+          accessibilityRole="radiogroup"
+          accessibilityLabel={t('settings.language')}
+        >
+          {LANGUAGE_CHOICES.map((choice) => (
+            <Chip
+              key={choice}
+              label={choice === 'auto' ? t('settings.languageAuto') : LANGUAGE_NAMES[choice]}
+              selected={settings.language === choice}
+              onPress={() => chooseLanguage(choice)}
+            />
+          ))}
+        </View>
       </Section>
 
       <Pressable
@@ -244,6 +270,7 @@ const styles = StyleSheet.create({
   label: { fontSize: 16, color: colors.text, fontWeight: '500' },
   description: { fontSize: 14, color: colors.muted, marginTop: 2 },
   spaced: { marginTop: 16 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   flex: { flex: 1 },
   advancedToggle: {
     flexDirection: 'row',
