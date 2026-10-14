@@ -1,13 +1,14 @@
 // Daily study reminder, local notifications only. A repeating notification can't say how many
-// cards are due, so we schedule the next 7 days one by one with the count each day will have,
-// and redo it whenever the app opens or goes to the background.
+// cards are due or whether the streak is at stake, so the next days are scheduled one by one
+// (planReminders) and redone whenever the app opens or goes to the background.
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
 import { getSettings } from '@/db/settings';
+import { getStats } from '@/db/stats';
 import { getStudyCounts } from '@/db/study';
 import { t } from '@/lib/i18n';
-import { reminderText, reminderTimes } from '@/lib/reminders';
+import { planReminders } from '@/lib/reminders';
 import { colors } from '@/lib/theme';
 
 const CHANNEL_ID = 'study-reminder';
@@ -55,11 +56,16 @@ async function schedule(): Promise<void> {
     if (!(await Notifications.getPermissionsAsync()).granted) return;
     await ensureChannel();
     const now = Date.now();
-    for (const at of reminderTimes(now, settings.reminderMinutes)) {
-      const due = getStudyCounts(now, at).total;
-      if (due === 0) continue;
+    const { streak, goalMetToday } = getStats(now);
+    const plan = planReminders({
+      now,
+      minutes: settings.reminderMinutes,
+      streak: { streak, goalMetToday },
+      countsAt: (at) => getStudyCounts(now, at),
+    });
+    for (const { at, body } of plan) {
       await Notifications.scheduleNotificationAsync({
-        content: { title: 'Recap', body: reminderText(due) },
+        content: { title: 'Recap', body },
         trigger: {
           type: Notifications.SchedulableTriggerInputTypes.DATE,
           date: at,

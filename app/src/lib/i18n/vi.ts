@@ -23,6 +23,8 @@ export const vi: Strings = {
   // Counts
   'count.card_one': '{n} thẻ',
   'count.card_other': '{n} thẻ',
+  'count.newCard_one': '{n} thẻ mới',
+  'count.newCard_other': '{n} thẻ mới',
   'count.deck_one': '{n} bộ thẻ',
   'count.deck_other': '{n} bộ thẻ',
   'count.review_one': '{n} lượt ôn',
@@ -227,7 +229,8 @@ export const vi: Strings = {
     'Đọc từng mặt thẻ bằng tiếng Anh hoặc tiếng Việt khi hiện ra. Bạn luôn có thể chạm vào loa trên thẻ.',
   'settings.reminder': 'Nhắc nhở',
   'settings.dailyReminder': 'Nhắc học hằng ngày',
-  'settings.dailyReminderHelp': 'Gửi thông báo khi bạn có thẻ cần ôn.',
+  'settings.dailyReminderHelp':
+    'Gửi thông báo khi bạn có thẻ cần ôn, và một lần vào buổi tối nếu sắp mất chuỗi ngày.',
   'settings.time': 'Giờ',
   'settings.language': 'Ngôn ngữ',
   'settings.languageAuto': 'Theo điện thoại',
@@ -278,6 +281,10 @@ export const vi: Strings = {
   // Reminders
   'reminder.channel': 'Nhắc học hằng ngày',
   'reminder.body': 'Bạn có {cards} cần ôn',
+  'reminder.streak': 'Chuỗi {n} ngày! Hôm nay còn {cards} để giữ chuỗi.',
+  'reminder.streakAny': 'Chuỗi {n} ngày! Học một thẻ hôm nay để giữ chuỗi.',
+  'reminder.lastCall': 'Chuỗi {n} ngày sẽ mất tối nay. Còn {cards} để giữ chuỗi.',
+  'reminder.lastCallAny': 'Chuỗi {n} ngày sẽ mất tối nay. Học một thẻ để giữ chuỗi.',
 
   // Import
   'import.paste': 'Dán danh sách',
