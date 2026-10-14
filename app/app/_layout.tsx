@@ -12,6 +12,7 @@ import { seedIfNeeded } from '@/features/onboarding/seed';
 import { sweepPictures } from '@/features/pictures/files';
 import { syncReminders } from '@/features/reminders/reminders';
 import { refreshLanguage, setLanguageChoice, t, useLanguage } from '@/lib/i18n';
+import { isWeb } from '@/lib/platform';
 import { colors, sideSpace } from '@/lib/theme';
 
 // Last resort if the layout itself crashes (each screen has its own, see ErrorScreen.tsx).
@@ -19,7 +20,11 @@ export { RootErrorBoundary as ErrorBoundary } from '@/components/ErrorScreen';
 
 SplashScreen.preventAutoHideAsync();
 
-type Status = 'loading' | 'ready' | 'error';
+type Status = 'loading' | 'ready' | 'error' | 'otherTab';
+
+/** On the web, the browser lets only one tab at a time open the cards' storage (OPFS). */
+const openInOtherTab = (e: unknown) =>
+  isWeb && /NoModificationAllowedError|Access Handle/i.test(String(e));
 
 export default function RootLayout() {
   const [status, setStatus] = useState<Status>('loading');
@@ -35,7 +40,7 @@ export default function RootLayout() {
       })
       .catch((e: unknown) => {
         console.error('Database setup failed', e);
-        setStatus('error');
+        setStatus(openInOtherTab(e) ? 'otherTab' : 'error');
       })
       .finally(() => SplashScreen.hideAsync());
   }, []);
@@ -52,10 +57,18 @@ export default function RootLayout() {
   }, [status]);
 
   if (status === 'loading') return null;
-  if (status === 'error') {
+  if (status === 'error' || status === 'otherTab') {
     return (
       <View style={styles.error}>
-        <Text style={styles.errorText}>{t('app.openFailed')}</Text>
+        <Text style={styles.errorText}>
+          {t(
+            status === 'otherTab'
+              ? 'app.openInOtherTab'
+              : isWeb
+                ? 'app.openFailedWeb'
+                : 'app.openFailed',
+          )}
+        </Text>
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import logo from '@/assets/images/logo-mark.png';
@@ -13,9 +13,11 @@ import { getStudyCounts } from '@/db/study';
 import { DeckRow } from '@/features/deck/DeckRow';
 import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
 import { TutorialTip } from '@/features/onboarding/TutorialTip';
+import { PLAY_STORE_URL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
+import { isWeb } from '@/lib/platform';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { AddMenu } from './AddMenu';
@@ -140,23 +142,49 @@ export default function HomeScreen() {
         }
         ListEmptyComponent={<Text style={styles.empty}>{t('home.empty')}</Text>}
         ListFooterComponent={
-          deletedCount > 0 ? (
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => router.push('/deleted')}
-              style={({ pressed }) => [styles.deletedLink, pressed && styles.sortPressed]}
-            >
-              <Text style={styles.deletedText}>
-                {t('home.recentlyDeleted', { n: deletedCount })}
-              </Text>
-            </Pressable>
-          ) : null
+          <>
+            {deletedCount > 0 ? (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => router.push('/deleted')}
+                style={({ pressed }) => [styles.deletedLink, pressed && styles.sortPressed]}
+              >
+                <Text style={styles.deletedText}>
+                  {t('home.recentlyDeleted', { n: deletedCount })}
+                </Text>
+              </Pressable>
+            ) : null}
+            {isWeb ? <WebLinks /> : null}
+          </>
         }
       />
 
       <Fab accessibilityLabel={t('home.fab')} onPress={() => setMenuOpen(true)} />
       <AddMenu visible={menuOpen} hasDecks={decks.length > 0} onClose={() => setMenuOpen(false)} />
     </SafeAreaView>
+  );
+}
+
+/** The website's footer: the phone app, help and the privacy policy. */
+function WebLinks() {
+  const links = [
+    { label: t('home.getAndroid'), url: PLAY_STORE_URL },
+    { label: t('settings.help'), url: SUPPORT_URL },
+    { label: t('settings.privacy'), url: PRIVACY_POLICY_URL },
+  ];
+  return (
+    <View style={styles.webLinks}>
+      {links.map((link) => (
+        <Pressable
+          key={link.url}
+          accessibilityRole="link"
+          onPress={() => Linking.openURL(link.url)}
+          style={({ pressed }) => [styles.webLink, pressed && styles.sortPressed]}
+        >
+          <Text style={styles.webLinkText}>{link.label}</Text>
+        </Pressable>
+      ))}
+    </View>
   );
 }
 
@@ -207,5 +235,21 @@ const styles = StyleSheet.create({
     borderRadius: radius.button,
   },
   deletedText: { fontSize: 15, color: colors.muted },
+  webLinks: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 32,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: colors.hairline,
+  },
+  webLink: {
+    minHeight: touchTarget,
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    borderRadius: radius.button,
+  },
+  webLinkText: { fontSize: 14, color: colors.primary },
   empty: { marginTop: 48, color: colors.muted, fontSize: 16, textAlign: 'center' },
 });

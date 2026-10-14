@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { Fab } from '@/components/Fab';
@@ -11,6 +11,7 @@ import { getStudyCounts } from '@/db/study';
 import { decksInGroup, groupCounts, nameInGroup, sortDecks } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
 import { colors } from '@/lib/theme';
+import { showAlert } from '@/lib/alert';
 
 import { DeckRow } from './DeckRow';
 
@@ -30,7 +31,7 @@ export default function DeckGroupScreen() {
   const confirmDelete = () => {
     const ids = decks.map((d) => d.id);
     const cards = countCards(ids);
-    Alert.alert(
+    showAlert(
       t('group.deleteTitle', { decks: tn('count.deck', decks.length) }),
       t('group.deleteBody', { name, cards: tn('count.card', cards), days: RESTORE_DAYS }),
       [

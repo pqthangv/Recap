@@ -10,3 +10,6 @@ sqlite.execSync('PRAGMA journal_mode = WAL');
 export const db = drizzle(sqlite, { schema });
 
 export type Db = typeof db;
+
+/** On a phone the database is already open; the web version (client.web.ts) opens it here. */
+export async function openDatabase(): Promise<void> {}

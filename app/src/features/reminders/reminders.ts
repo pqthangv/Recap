@@ -10,6 +10,7 @@ import { getStudyCounts } from '@/db/study';
 import { t } from '@/lib/i18n';
 import { planReminders } from '@/lib/reminders';
 import { colors } from '@/lib/theme';
+import { can } from '@/lib/platform';
 
 const CHANNEL_ID = 'study-reminder';
 
@@ -42,7 +43,7 @@ export async function requestReminderPermission(): Promise<boolean> {
 
 /** Turns the daily reminder on, asking for notification permission first; false if not allowed. */
 export async function turnOnReminders(): Promise<boolean> {
-  if (!(await requestReminderPermission())) return false;
+  if (!can.reminders || !(await requestReminderPermission())) return false;
   setSetting('reminderEnabled', true);
   await syncReminders();
   return true;
@@ -52,6 +53,7 @@ let running: Promise<void> = Promise.resolve();
 
 /** Replace the scheduled reminders with fresh ones (or none, if reminders are off). */
 export function syncReminders(): Promise<void> {
+  if (!can.reminders) return Promise.resolve(); // the web version has no reminders
   running = running.then(schedule, schedule);
   return running;
 }

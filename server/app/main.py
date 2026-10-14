@@ -5,6 +5,7 @@ Run locally:  uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from starlette.formparsers import MultiPartParser
 
@@ -32,6 +33,15 @@ app.add_middleware(
     default_limit=settings.max_json_bytes,
     # Room for the multipart wrapping around the file.
     path_limits={"/v1/extract-pdf": settings.max_pdf_bytes + 64 * 1024},
+)
+# Added last, so it runs first: the browser's preflight check (OPTIONS) is answered here, before
+# the size limit or the rate limit see it. Only the web version's own pages may call the API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[o.strip() for o in settings.web_origins.split(",") if o.strip()],
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+    max_age=600,
 )
 app.include_router(router)
 app.include_router(admin_router)

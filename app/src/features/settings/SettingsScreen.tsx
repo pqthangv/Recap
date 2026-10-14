@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import { useState, type ReactNode } from 'react';
-import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { showSnackbar } from '@/components/Snackbar';
@@ -19,8 +19,10 @@ import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { formatTimeOfDay } from '@/lib/format';
 import { LANGUAGE_NAMES, setLanguageChoice, t, tn, type LanguageChoice } from '@/lib/i18n';
 import { MAX_RETENTION, MIN_RETENTION } from '@/lib/scheduler';
+import { can, isWeb } from '@/lib/platform';
 import { NEW_PER_DAY_MAX } from '@/lib/settings';
 import { colors, radius, touchTarget } from '@/lib/theme';
+import { showAlert } from '@/lib/alert';
 
 const LANGUAGE_CHOICES: readonly LanguageChoice[] = ['auto', 'en', 'vi'];
 
@@ -31,7 +33,7 @@ export default function SettingsScreen() {
   const setReminder = async (enabled: boolean) => {
     if (enabled) {
       if (!(await turnOnReminders())) {
-        Alert.alert(t('settings.notificationsOff'), t('settings.notificationsOffBody'));
+        showAlert(t('settings.notificationsOff'), t('settings.notificationsOffBody'));
       }
       return;
     }
@@ -81,28 +83,30 @@ export default function SettingsScreen() {
         />
       </Section>
 
-      <Section title={t('settings.reminder')}>
-        <SwitchRow
-          label={t('settings.dailyReminder')}
-          description={t('settings.dailyReminderHelp')}
-          value={settings.reminderEnabled}
-          onChange={setReminder}
-        />
-        {settings.reminderEnabled ? (
-          <Stepper
-            label={t('settings.time')}
-            value={settings.reminderMinutes}
-            display={formatTimeOfDay(settings.reminderMinutes)}
-            min={0}
-            max={24 * 60 - 15}
-            step={15}
-            onChange={(v) => {
-              setSetting('reminderMinutes', v);
-              syncReminders();
-            }}
+      {can.reminders ? (
+        <Section title={t('settings.reminder')}>
+          <SwitchRow
+            label={t('settings.dailyReminder')}
+            description={t('settings.dailyReminderHelp')}
+            value={settings.reminderEnabled}
+            onChange={setReminder}
           />
-        ) : null}
-      </Section>
+          {settings.reminderEnabled ? (
+            <Stepper
+              label={t('settings.time')}
+              value={settings.reminderMinutes}
+              display={formatTimeOfDay(settings.reminderMinutes)}
+              min={0}
+              max={24 * 60 - 15}
+              step={15}
+              onChange={(v) => {
+                setSetting('reminderMinutes', v);
+                syncReminders();
+              }}
+            />
+          ) : null}
+        </Section>
+      ) : null}
 
       <Section title={t('settings.language')}>
         <View
@@ -113,7 +117,11 @@ export default function SettingsScreen() {
           {LANGUAGE_CHOICES.map((choice) => (
             <Chip
               key={choice}
-              label={choice === 'auto' ? t('settings.languageAuto') : LANGUAGE_NAMES[choice]}
+              label={
+                choice === 'auto'
+                  ? t(isWeb ? 'settings.languageAutoWeb' : 'settings.languageAuto')
+                  : LANGUAGE_NAMES[choice]
+              }
               selected={settings.language === choice}
               onPress={() => chooseLanguage(choice)}
             />
@@ -133,7 +141,9 @@ export default function SettingsScreen() {
       {advanced ? <AdvancedSettings /> : null}
 
       <Text style={styles.footer}>
-        {t('settings.footer', { version: Constants.expoConfig?.version ?? '' })}
+        {t(isWeb ? 'settings.footerWeb' : 'settings.footer', {
+          version: Constants.expoConfig?.version ?? '',
+        })}
       </Text>
       <Pressable
         accessibilityRole="link"
@@ -141,7 +151,7 @@ export default function SettingsScreen() {
         onPress={() =>
           Linking.openURL(
             `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(t('settings.emailSubject'))}`,
-          ).catch(() => Alert.alert(t('settings.contactUs'), CONTACT_EMAIL))
+          ).catch(() => showAlert(t('settings.contactUs'), CONTACT_EMAIL))
         }
         style={styles.contact}
       >
@@ -150,7 +160,7 @@ export default function SettingsScreen() {
       <Pressable
         accessibilityRole="link"
         onPress={() =>
-          Linking.openURL(SUPPORT_URL).catch(() => Alert.alert(t('settings.help'), SUPPORT_URL))
+          Linking.openURL(SUPPORT_URL).catch(() => showAlert(t('settings.help'), SUPPORT_URL))
         }
         style={styles.contact}
       >
@@ -160,7 +170,7 @@ export default function SettingsScreen() {
         accessibilityRole="link"
         onPress={() =>
           Linking.openURL(PRIVACY_POLICY_URL).catch(() =>
-            Alert.alert(t('settings.privacy'), PRIVACY_POLICY_URL),
+            showAlert(t('settings.privacy'), PRIVACY_POLICY_URL),
           )
         }
         style={styles.contact}
@@ -180,7 +190,7 @@ function AdvancedSettings() {
       await task();
     } catch (e) {
       console.warn(e);
-      Alert.alert(failure, e instanceof BackupError ? e.message : t('common.tryAgain'));
+      showAlert(failure, e instanceof BackupError ? e.message : t('common.tryAgain'));
     }
   };
 
@@ -189,7 +199,7 @@ function AdvancedSettings() {
       const result = await pickAndImportBackup();
       if (!result) return;
       const changed = result.decks + result.cards + result.reviews;
-      Alert.alert(
+      showAlert(
         t('settings.backupImported'),
         changed === 0
           ? t('settings.backupNothingNew')
@@ -202,7 +212,7 @@ function AdvancedSettings() {
     }, t('settings.importFailed'));
 
   const confirmReset = (deckId: string, name: string) =>
-    Alert.alert(t('settings.resetTitle'), t('settings.resetBody', { name }), [
+    showAlert(t('settings.resetTitle'), t('settings.resetBody', { name }), [
       { text: t('common.cancel'), style: 'cancel' },
       {
         text: t('settings.reset'),

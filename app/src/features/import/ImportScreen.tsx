@@ -1,17 +1,11 @@
 import { useRouter } from 'expo-router';
 import { useState, type ReactNode } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
+import { showAlert } from '@/lib/alert';
+import { can } from '@/lib/platform';
 
 import { ImportFileError, pickAnkiFile, pickTableFile, useImportDraft } from './files';
 
@@ -26,7 +20,7 @@ export default function ImportScreen() {
       await task();
     } catch (e) {
       console.warn(e);
-      Alert.alert(
+      showAlert(
         t('import.openFailed'),
         e instanceof ImportFileError ? e.message : t('import.tryAnotherFile'),
       );
@@ -62,12 +56,14 @@ export default function ImportScreen() {
       <Option title={t('import.csv')} detail={t('import.csvDetail')} onPress={csv} disabled={busy}>
         <ExampleTable />
       </Option>
-      <Option
-        title={t('import.anki')}
-        detail={t('import.ankiDetail')}
-        onPress={anki}
-        disabled={busy}
-      />
+      {can.apkgImport ? (
+        <Option
+          title={t('import.anki')}
+          detail={t('import.ankiDetail')}
+          onPress={anki}
+          disabled={busy}
+        />
+      ) : null}
       {busy ? <ActivityIndicator color={colors.primary} style={styles.spinner} /> : null}
     </ScrollView>
   );
