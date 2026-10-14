@@ -1,4 +1,4 @@
-import { plural } from './format';
+import { t, tn } from './i18n';
 
 /** The next `count` times (epoch ms) at `minutes` after local midnight, strictly after `now`. */
 export function reminderTimes(now: number, minutes: number, count = 7): number[] {
@@ -13,5 +13,5 @@ export function reminderTimes(now: number, minutes: number, count = 7): number[]
 }
 
 export function reminderText(dueCount: number): string {
-  return `You have ${plural(dueCount, 'card')} due`;
+  return t('reminder.body', { cards: tn('count.card', dueCount) });
 }

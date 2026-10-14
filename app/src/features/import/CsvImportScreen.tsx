@@ -6,7 +6,7 @@ import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
 import { importCards, type ImportTarget } from '@/db/import';
 import { useLive } from '@/db/live';
-import { plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { guessColumns, tableToCards, type ColumnChoice } from '@/lib/import/csv';
 import { colors } from '@/lib/theme';
 
@@ -20,8 +20,8 @@ export default function CsvImportScreen() {
   if (!draft) {
     return (
       <View style={styles.content}>
-        <Text style={styles.help}>Choose a file to import first.</Text>
-        <Button label="Back" onPress={() => router.back()} />
+        <Text style={styles.help}>{t('import.chooseFileFirst')}</Text>
+        <Button label={t('common.back')} onPress={() => router.back()} />
       </View>
     );
   }
@@ -52,23 +52,23 @@ function CsvImport({ fileName, table }: TableDraft) {
       automaticallyAdjustKeyboardInsets // iOS: keep the new deck name above the keyboard
     >
       <Text style={styles.help}>
-        {fileName} · {plural(table.rows.length, 'row')}
+        {fileName} · {tn('count.row', table.rows.length)}
       </Text>
       <ColumnPicker
-        label="Front"
+        label={t('card.front')}
         columns={table.columns}
         value={choice.front}
         onChange={(v) => set('front', v)}
       />
       <ColumnPicker
-        label="Back"
+        label={t('card.back')}
         columns={table.columns}
         value={choice.back}
         onChange={(v) => set('back', v)}
       />
       {table.columns.length > 2 ? (
         <ColumnPicker
-          label="Tags (optional)"
+          label={t('card.tags')}
           columns={table.columns}
           value={choice.tags}
           onChange={(v) => set('tags', v)}
@@ -76,7 +76,7 @@ function CsvImport({ fileName, table }: TableDraft) {
         />
       ) : null}
       {choice.front === choice.back ? (
-        <Text style={styles.warning}>Front and back need different columns.</Text>
+        <Text style={styles.warning}>{t('csv.sameColumn')}</Text>
       ) : null}
       <CardPreview cards={cards.slice(0, 10)} total={cards.length} />
       <DeckTarget
@@ -86,13 +86,20 @@ function CsvImport({ fileName, table }: TableDraft) {
         suggestedName={name}
         fromFile={
           choice.deck >= 0
-            ? { label: `Decks from the "${table.columns[choice.deck]}" column`, fallbackName: name }
+            ? {
+                label: t('csv.fromColumn', { column: table.columns[choice.deck] }),
+                fallbackName: name,
+              }
             : undefined
         }
       />
       <Button
         size="lg"
-        label={cards.length > 0 ? `Import ${plural(cards.length, 'card')}` : 'Import'}
+        label={
+          cards.length > 0
+            ? t('import.importN', { cards: tn('count.card', cards.length) })
+            : t('import.import')
+        }
         onPress={save}
         disabled={!canImport}
       />
@@ -112,7 +119,11 @@ function ColumnPicker(props: {
       <Text style={styles.label}>{props.label}</Text>
       <View style={styles.chips} accessibilityRole="radiogroup" accessibilityLabel={props.label}>
         {props.allowNone ? (
-          <Chip label="None" selected={props.value === -1} onPress={() => props.onChange(-1)} />
+          <Chip
+            label={t('csv.none')}
+            selected={props.value === -1}
+            onPress={() => props.onChange(-1)}
+          />
         ) : null}
         {props.columns.map((col, i) => (
           <Chip

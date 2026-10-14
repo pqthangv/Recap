@@ -9,7 +9,8 @@ import {
   renderTemplate,
   type AnkiCard,
 } from './anki';
-import { isImageName, NEW_FORMAT_MESSAGE, openApkg } from './apkg';
+import { t } from '../i18n';
+import { isImageName, openApkg } from './apkg';
 import { guessColumns, parseTable, tableToCards } from './csv';
 import { decodeEntities, extractImages, htmlToText } from './html';
 import { detectSeparator, parsePaste } from './paste';
@@ -322,7 +323,7 @@ describe('Anki packages', () => {
   });
 
   it('explains how to re-export decks in the newest format', async () => {
-    await expect(openApkg(fixtureBytes('new-format.apkg'))).rejects.toThrow(NEW_FORMAT_MESSAGE);
+    await expect(openApkg(fixtureBytes('new-format.apkg'))).rejects.toThrow(t('anki.newFormat'));
   });
 
   it('rejects files that are not decks', async () => {

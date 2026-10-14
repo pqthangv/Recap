@@ -1,5 +1,6 @@
 // The "Review cards" list: nothing the AI made is saved until the user has looked at it here.
 import type { GeneratedCard, ReportReason } from './ai';
+import { t, type StringKey } from './i18n';
 
 export type ReviewItem = { key: string; front: string; back: string; selected: boolean };
 
@@ -11,10 +12,10 @@ export type AiSource =
   | { kind: 'topic'; topic: string };
 
 /** The choices behind "Report" on each card (Google Play: people must be able to flag AI content). */
-export const REPORT_REASONS: readonly { reason: ReportReason; label: string }[] = [
-  { reason: 'offensive', label: 'Offensive or inappropriate' },
-  { reason: 'wrong', label: 'Wrong or harmful' },
-  { reason: 'other', label: 'Something else' },
+export const REPORT_REASONS: readonly { reason: ReportReason; label: StringKey }[] = [
+  { reason: 'offensive', label: 'report.offensive' },
+  { reason: 'wrong', label: 'report.wrong' },
+  { reason: 'other', label: 'report.other' },
 ];
 
 export function toReviewItems(cards: readonly GeneratedCard[]): ReviewItem[] {
@@ -36,13 +37,13 @@ export function suggestDeckName(source: AiSource): string {
   switch (source.kind) {
     case 'topic': {
       const topic = source.topic.trim().replace(/\s+/g, ' ');
-      return topic.length > 60 ? `${topic.slice(0, 59).trimEnd()}…` : topic || 'AI cards';
+      return topic.length > 60 ? `${topic.slice(0, 59).trimEnd()}…` : topic || t('ai.deckDefault');
     }
     case 'pdf':
-      return source.fileName.replace(/\.pdf$/i, '').trim() || 'PDF notes';
+      return source.fileName.replace(/\.pdf$/i, '').trim() || t('ai.deckPdf');
     case 'photo':
-      return 'Photo notes';
+      return t('ai.deckPhoto');
     default:
-      return 'AI cards';
+      return t('ai.deckDefault');
   }
 }

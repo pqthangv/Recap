@@ -7,6 +7,7 @@ import { create } from 'zustand';
 import { deletePictures, storePicture } from '@/features/pictures/files';
 import { readAnkiCollection, type AnkiCard } from '@/lib/import/anki';
 import { isImageName, openApkg, type ApkgPackage } from '@/lib/import/apkg';
+import { t } from '@/lib/i18n';
 import { parseTable, type Table } from '@/lib/import/csv';
 
 export class ImportFileError extends Error {}
@@ -22,7 +23,7 @@ export const useImportDraft = create<{ table: TableDraft | null; anki: AnkiDraft
 
 /** "Spanish words.apkg" → "Spanish words" */
 export function baseName(fileName: string): string {
-  return fileName.replace(/\.[^.]+$/, '').trim() || 'Imported cards';
+  return fileName.replace(/\.[^.]+$/, '').trim() || t('import.defaultDeck');
 }
 
 /**
@@ -51,16 +52,12 @@ export async function pickTableFile(): Promise<TableDraft | null> {
   const asset = await pick(['*/*']);
   if (!asset) return null;
   if (/\.(xlsx?|numbers|ods)$/i.test(asset.name)) {
-    throw new ImportFileError(
-      'Save the spreadsheet as CSV first (in Excel: File › Save As › CSV UTF-8), then import that file.',
-    );
+    throw new ImportFileError(t('import.errorSpreadsheet'));
   }
   const table = parseTable(await new File(asset.uri).text());
-  if (table.rows.length === 0) throw new ImportFileError("That file doesn't have any rows.");
+  if (table.rows.length === 0) throw new ImportFileError(t('import.errorNoRows'));
   if (table.columns.length < 2) {
-    throw new ImportFileError(
-      'That file needs at least two columns: one for the front, one for the back.',
-    );
+    throw new ImportFileError(t('import.errorTwoColumns'));
   }
   return { fileName: asset.name, table };
 }
@@ -70,7 +67,7 @@ export async function pickAnkiFile(): Promise<AnkiDraft | null> {
   const asset = await pick(['*/*']);
   if (!asset) return null;
   if (!/\.(apkg|colpkg)$/i.test(asset.name)) {
-    throw new ImportFileError('Choose an Anki deck file. Its name ends in .apkg.');
+    throw new ImportFileError(t('import.errorNotApkgName'));
   }
   return { fileName: asset.name, uri: asset.uri, size: asset.size };
 }
@@ -82,9 +79,7 @@ export type LoadedAnkiDeck = { cards: AnkiCard[]; skipped: number; pkg: ApkgPack
 /** Opens the package and reads its cards (the collection database is opened in memory). */
 export async function loadAnkiDeck(draft: AnkiDraft): Promise<LoadedAnkiDeck> {
   if (draft.size && draft.size > MAX_DECK_BYTES) {
-    throw new ImportFileError(
-      'This deck is too big to open on a phone. In Anki, export it again without sounds, or split it.',
-    );
+    throw new ImportFileError(t('import.errorTooBig'));
   }
   const pkg = await openApkg(await new File(draft.uri).bytes());
   const db = await deserializeDatabaseAsync(pkg.collection);

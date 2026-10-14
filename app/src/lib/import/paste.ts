@@ -1,5 +1,6 @@
 // "Paste a list": one card per line, `term - definition`, `term<TAB>definition` or
 // `term;definition`. The separator is detected from the text.
+import { t } from '../i18n';
 
 export type Separator = 'tab' | 'dash' | 'semicolon';
 
@@ -22,11 +23,10 @@ const PATTERNS: Record<Separator, RegExp> = {
 // When two separators are equally common, prefer the more deliberate one.
 const PRIORITY: Separator[] = ['tab', 'dash', 'semicolon'];
 
-export const SEPARATOR_LABELS: Record<Separator, string> = {
-  tab: 'tab',
-  dash: 'dash ( - )',
-  semicolon: 'semicolon ( ; )',
-};
+/** How the import screen names each separator ("split by dash ( - )"). */
+export function separatorLabel(separator: Separator): string {
+  return t(`paste.${separator}`);
+}
 
 export function detectSeparator(lines: readonly string[]): Separator | null {
   let best: Separator | null = null;

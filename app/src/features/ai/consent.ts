@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
 
 import { getRawSetting, setRawSetting } from '@/db/settings';
+import { t } from '@/lib/i18n';
 import { AI_CONSENT_KEY } from '@/lib/settings';
 
 /*
@@ -23,12 +24,12 @@ export function askAiConsent(): Promise<boolean> {
   if (hasAiConsent()) return Promise.resolve(true);
   return new Promise((resolve) => {
     Alert.alert(
-      'Send to Google Gemini?',
-      "To write your cards, Recap sends your text or PDF to its server and to Google's Gemini AI. Google may use it to improve its products. Nothing else leaves your phone.",
+      t('consent.title'),
+      t('consent.body'),
       [
-        { text: 'Not now', style: 'cancel', onPress: () => resolve(false) },
+        { text: t('consent.notNow'), style: 'cancel', onPress: () => resolve(false) },
         {
-          text: 'Allow',
+          text: t('consent.allow'),
           onPress: () => {
             setAiConsent(true);
             resolve(true);

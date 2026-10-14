@@ -6,7 +6,7 @@ import { Button } from '@/components/Button';
 import { showSnackbar } from '@/components/Snackbar';
 import { listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
-import { plural } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, radius } from '@/lib/theme';
 
 import { addPack, isPackAdded, packCardCount } from './library';
@@ -21,15 +21,15 @@ export default function LibraryScreen() {
     router.push({ pathname: '/group/[name]', params: { name: pack.name } });
   const add = (pack: Pack) => {
     const { added } = addPack(pack);
-    showSnackbar(`Added ${pack.name} · ${plural(added, 'card')}`, {
-      label: 'Open',
+    showSnackbar(t('library.added', { name: pack.name, cards: tn('count.card', added) }), {
+      label: t('common.open'),
       onPress: () => open(pack),
     });
   };
 
   return (
     <ScrollView contentContainerStyle={styles.content}>
-      <Text style={styles.help}>Ready-made decks to add to yours.</Text>
+      <Text style={styles.help}>{t('library.help')}</Text>
       {PACKS.map((pack) => {
         const examples =
           pack.examples ?? pack.decks[0]?.cards.slice(0, 3).map((c) => c.front) ?? [];
@@ -41,22 +41,22 @@ export default function LibraryScreen() {
                 {pack.name}
               </Text>
             </View>
-            <Text style={styles.description}>{pack.description}</Text>
+            <Text style={styles.description}>{t(pack.description)}</Text>
             <Text style={styles.meta}>
-              {plural(pack.decks.length, 'deck')} · {plural(packCardCount(pack), 'card')}
+              {tn('count.deck', pack.decks.length)} · {tn('count.card', packCardCount(pack))}
               {examples.length > 0 ? ` · ${examples.join(', ')}…` : ''}
             </Text>
             {isPackAdded(pack, decks) ? (
               <Button
                 variant="secondary"
-                label="Open"
-                accessibilityLabel={`Open ${pack.name}`}
+                label={t('common.open')}
+                accessibilityLabel={t('library.openA11y', { name: pack.name })}
                 onPress={() => open(pack)}
               />
             ) : (
               <Button
-                label="Add to my decks"
-                accessibilityLabel={`Add ${pack.name} to my decks`}
+                label={t('library.add')}
+                accessibilityLabel={t('library.addA11y', { name: pack.name })}
                 onPress={() => add(pack)}
               />
             )}

@@ -1,6 +1,7 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 export type SheetOption = { label: string; onPress: () => void };
@@ -25,7 +26,7 @@ export function ActionSheet({
         style={styles.backdrop}
         onPress={onClose}
         accessibilityRole="button"
-        accessibilityLabel="Close menu"
+        accessibilityLabel={t('common.closeMenu')}
       />
       <View style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}>
         {title ? (
@@ -33,7 +34,7 @@ export function ActionSheet({
             {title}
           </Text>
         ) : null}
-        {[...options, { label: 'Cancel', onPress: onClose }].map((option, i) => (
+        {[...options, { label: t('common.cancel'), onPress: onClose }].map((option, i) => (
           <Pressable
             key={option.label}
             accessibilityRole="button"

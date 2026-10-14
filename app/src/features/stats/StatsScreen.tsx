@@ -4,14 +4,16 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { FlameIcon } from '@/components/FlameIcon';
 import { useLive } from '@/db/live';
 import { getStats } from '@/db/stats';
-import { count, formatStudyTime, formatStudyTimeLong, plural } from '@/lib/format';
+import { count, formatStudyTime, formatStudyTimeLong, weekdayShort } from '@/lib/format';
+import { t, tn } from '@/lib/i18n';
 import { colors, radius } from '@/lib/theme';
 
 const BAR_MAX_HEIGHT = 140;
 
-function dayLabel(offset: number, day: number): string {
-  if (offset === 0) return 'Today';
-  return new Date(day).toLocaleDateString(undefined, { weekday: 'short' });
+/** Under each bar: "Mon", …, "Today" (`short` for the narrow label, else for screen readers). */
+function dayLabel(offset: number, day: number, short = false): string {
+  if (offset === 0) return t(short ? 'stats.todayShort' : 'stats.today');
+  return weekdayShort(day);
 }
 
 export default function StatsScreen() {
@@ -25,38 +27,38 @@ export default function StatsScreen() {
     <ScrollView contentContainerStyle={styles.content}>
       <View style={styles.tiles}>
         <Tile
-          label="New cards today"
+          label={t('stats.newToday')}
           value={`${count(done)} / ${count(goal)}`}
-          spoken={`${count(done)} of ${count(goal)}`}
-          detail={
+          spoken={t('stats.ofGoal', { done, goal })}
+          detail={t(
             stats.goalMetToday
-              ? 'Streak kept today'
+              ? 'stats.streakKept'
               : goal > 0
-                ? 'Finish them for your streak'
-                : 'Study any card for your streak'
-          }
+                ? 'stats.finishForStreak'
+                : 'stats.anyForStreak',
+          )}
         />
         <Tile
-          label="Streak"
-          value={plural(stats.streak, 'day')}
+          label={t('stats.streak')}
+          value={tn('count.day', stats.streak)}
           icon={<FlameIcon size={30} lit={stats.streak > 0} />}
         />
       </View>
       <View style={styles.tiles}>
         <Tile
-          label="Studied today"
+          label={t('stats.studiedToday')}
           value={formatStudyTime(stats.timeToday)}
           spoken={formatStudyTimeLong(stats.timeToday)}
         />
         <Tile
-          label="Total time studied"
+          label={t('stats.totalTime')}
           value={formatStudyTime(stats.timeTotal)}
           spoken={formatStudyTimeLong(stats.timeTotal)}
         />
       </View>
 
       <Text accessibilityRole="header" style={styles.heading}>
-        Cards studied, last 7 days
+        {t('stats.lastWeek')}
       </Text>
       <View style={styles.chart}>
         {stats.lastWeek.map(({ day, cards: n, newCards }, i) => (
@@ -81,16 +83,16 @@ export default function StatsScreen() {
               <View style={{ flex: n - newCards }} />
             </View>
             <Text style={styles.barLabel} numberOfLines={1}>
-              {dayLabel(i - last, day)}
+              {dayLabel(i - last, day, true)}
             </Text>
           </View>
         ))}
       </View>
       <View style={styles.legend} importantForAccessibility="no-hide-descendants">
         <View style={[styles.swatch, styles.swatchReview]} />
-        <Text style={styles.legendText}>Reviews</Text>
+        <Text style={styles.legendText}>{t('stats.reviews')}</Text>
         <View style={[styles.swatch, styles.barNew]} />
-        <Text style={styles.legendText}>New cards</Text>
+        <Text style={styles.legendText}>{t('stats.newCards')}</Text>
       </View>
     </ScrollView>
   );
@@ -98,7 +100,7 @@ export default function StatsScreen() {
 
 /** "26 reviews · 8 new" */
 function split(cards: number, newCards: number): string {
-  return `${plural(cards - newCards, 'review')} · ${count(newCards)} new`;
+  return t('stats.split', { reviews: tn('count.review', cards - newCards), n: newCards });
 }
 
 function Tile({

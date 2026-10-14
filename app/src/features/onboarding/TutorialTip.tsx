@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
+import { t } from '@/lib/i18n';
 import { colors, radius } from '@/lib/theme';
 
 /** "New to Recap?" right above the welcome deck: Start studies it, Skip hides the tip for good. */
@@ -8,12 +9,17 @@ export function TutorialTip({ onStart, onSkip }: { onStart: () => void; onSkip: 
   return (
     <View style={styles.tip}>
       <Text style={styles.title} accessibilityRole="header">
-        New to Recap?
+        {t('tip.title')}
       </Text>
-      <Text style={styles.body}>Study this deck to learn the app. It takes about a minute.</Text>
+      <Text style={styles.body}>{t('tip.body')}</Text>
       <View style={styles.buttons}>
-        <Button label="Start" accessibilityLabel="Start learning the app" onPress={onStart} />
-        <Button variant="text" label="Skip" accessibilityLabel="Skip the tip" onPress={onSkip} />
+        <Button label={t('tip.start')} accessibilityLabel={t('tip.startA11y')} onPress={onStart} />
+        <Button
+          variant="text"
+          label={t('tip.skip')}
+          accessibilityLabel={t('tip.skipA11y')}
+          onPress={onSkip}
+        />
       </View>
       {/* Points down at the deck. */}
       <View style={styles.arrow} />

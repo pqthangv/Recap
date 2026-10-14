@@ -9,6 +9,7 @@ import Animated, {
 
 import { SpeakerIcon } from '@/components/SpeakerIcon';
 import { speak, stopSpeaking } from '@/features/speech/speech';
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 type Props = {
@@ -68,8 +69,8 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, ima
         disabled={flipped}
         style={StyleSheet.absoluteFill}
         accessibilityRole="button"
-        accessibilityLabel={flipped ? `${front}. Answer: ${back}` : front}
-        accessibilityHint={flipped ? undefined : 'Double tap to show the answer'}
+        accessibilityLabel={flipped ? t('study.answerA11y', { front, back }) : front}
+        accessibilityHint={flipped ? undefined : t('study.flipHint')}
       >
         <Animated.View
           style={[styles.face, frontStyle]}
@@ -79,7 +80,7 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, ima
           <ScrollView contentContainerStyle={styles.faceContent}>
             {onFront ? picture() : null}
             <Text style={styles.frontText}>{front}</Text>
-            <Text style={styles.tapHint}>Tap to show answer</Text>
+            <Text style={styles.tapHint}>{t('study.tapToShow')}</Text>
           </ScrollView>
         </Animated.View>
         <Animated.View
@@ -98,7 +99,7 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageUri, ima
       </Pressable>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={flipped ? 'Read the answer aloud' : 'Read the question aloud'}
+        accessibilityLabel={t(flipped ? 'study.readAnswer' : 'study.readQuestion')}
         onPress={() => speak(flipped ? back : front)}
         style={({ pressed }) => [styles.speaker, pressed && styles.speakerPressed]}
       >

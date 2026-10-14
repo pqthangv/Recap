@@ -21,6 +21,12 @@ describe('parseSettings', () => {
     expect(s).toMatchObject({ retention: 0.85, readAloud: true, newPerDay: 35 });
   });
 
+  it('reads the language choice', () => {
+    expect(parseSettings([]).language).toBe('auto');
+    expect(parseSettings([row(SETTING_KEYS.language, 'vi')]).language).toBe('vi');
+    expect(parseSettings([row(SETTING_KEYS.language, 'fr')]).language).toBe('auto');
+  });
+
   it('clamps or ignores bad values', () => {
     const s = parseSettings([
       row(SETTING_KEYS.retention, 0.99),

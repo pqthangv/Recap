@@ -5,6 +5,7 @@
 // Deleted rows are exported too, so deleting something on one device deletes it on the other.
 import type { CardRow, Deck, ReviewLogRow, SettingRow } from '@/db/schema';
 
+import { t } from './i18n';
 import { DEVICE_SETTING_KEYS } from './settings';
 
 export const BACKUP_FORMAT = 'recap-backup';
@@ -87,7 +88,7 @@ const LOG_SPEC = {
 const SETTING_SPEC = { key: 'string', value: 'string', updated_at: 'number' } as const;
 
 function checkRow(raw: unknown, spec: Spec, table: string): Record<string, unknown> {
-  if (typeof raw !== 'object' || raw === null) throw new BackupError(`Bad row in ${table}`);
+  if (typeof raw !== 'object' || raw === null) throw new BackupError(t('backup.badRow', { table }));
   const src = raw as Record<string, unknown>;
   const out: Record<string, unknown> = {};
   for (const [col, kind] of Object.entries(spec)) {
@@ -97,18 +98,18 @@ function checkRow(raw: unknown, spec: Spec, table: string): Record<string, unkno
       out[col] = null;
     } else if (kind === 'flag') {
       if (v !== undefined && v !== null && v !== 0 && v !== 1 && typeof v !== 'boolean') {
-        throw new BackupError(`Bad ${col} in ${table}`);
+        throw new BackupError(t('backup.badValue', { column: col, table }));
       }
       out[col] = v === 1 || v === true ? 1 : 0;
     } else if (kind === 'tags') {
-      if (!Array.isArray(v) || !v.every((t) => typeof t === 'string')) {
-        throw new BackupError(`Bad ${col} in ${table}`);
+      if (!Array.isArray(v) || !v.every((tag) => typeof tag === 'string')) {
+        throw new BackupError(t('backup.badValue', { column: col, table }));
       }
       out[col] = v;
     } else if (kind.startsWith('string') ? typeof v === 'string' : Number.isFinite(v)) {
       out[col] = v;
     } else {
-      throw new BackupError(`Bad ${col} in ${table}`);
+      throw new BackupError(t('backup.badValue', { column: col, table }));
     }
   }
   return out;
@@ -116,7 +117,7 @@ function checkRow(raw: unknown, spec: Spec, table: string): Record<string, unkno
 
 function checkTable<T>(raw: unknown, spec: Spec, table: string): T[] {
   if (raw === undefined) return [];
-  if (!Array.isArray(raw)) throw new BackupError(`Bad ${table}`);
+  if (!Array.isArray(raw)) throw new BackupError(t('backup.badTable', { table }));
   return raw.map((r) => checkRow(r, spec, table) as T);
 }
 
@@ -126,13 +127,13 @@ export function parseBackup(text: string): Backup {
   try {
     json = JSON.parse(text.replace(/^﻿/, ''));
   } catch {
-    throw new BackupError('Not a JSON file');
+    throw new BackupError(t('backup.notJson'));
   }
-  if (typeof json !== 'object' || json === null) throw new BackupError('Not a Recap backup');
+  if (typeof json !== 'object' || json === null) throw new BackupError(t('backup.notBackup'));
   const b = json as Record<string, unknown>;
-  if (b.format !== BACKUP_FORMAT) throw new BackupError('Not a Recap backup');
+  if (b.format !== BACKUP_FORMAT) throw new BackupError(t('backup.notBackup'));
   if (typeof b.version !== 'number' || b.version > BACKUP_VERSION) {
-    throw new BackupError('This backup is from a newer version of Recap');
+    throw new BackupError(t('backup.newer'));
   }
   return {
     format: BACKUP_FORMAT,

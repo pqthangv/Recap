@@ -23,6 +23,7 @@ import {
 } from '@/db/cards';
 import { listDecks } from '@/db/decks';
 import { formatTags, parseTags } from '@/lib/format';
+import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 /** Add a card (optionally into `?deckId=`), or edit one with `?id=`. */
@@ -62,15 +63,15 @@ export default function CardEditorScreen() {
     setFront('');
     setBack('');
     frontInput.current?.focus();
-    showSnackbar('Card added');
+    showSnackbar(t('card.added'));
   };
 
   const remove = () => {
     if (!editing) return;
     const ids = deleteCards([editing.card.id]);
     router.back();
-    showSnackbar(ids.length > 1 ? 'Card and reverse card deleted' : 'Card deleted', {
-      label: 'Undo',
+    showSnackbar(t(ids.length > 1 ? 'card.deletedWithReverse' : 'card.deleted'), {
+      label: t('common.undo'),
       onPress: () => restoreCards(ids),
     });
   };
@@ -78,17 +79,17 @@ export default function CardEditorScreen() {
   if (decks.length === 0) {
     return (
       <View style={styles.content}>
-        <Text style={styles.label}>Cards live in decks. Make a deck first.</Text>
-        <Button label="New deck" onPress={() => router.replace('/deck/edit')} />
+        <Text style={styles.label}>{t('card.needDeck')}</Text>
+        <Button label={t('screen.newDeck')} onPress={() => router.replace('/deck/edit')} />
       </View>
     );
   }
 
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="padding">
-      <Stack.Screen options={{ title: editing ? 'Edit card' : 'Add card' }} />
+      <Stack.Screen options={{ title: t(editing ? 'screen.editCard' : 'screen.addCard') }} />
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-        <Text style={styles.label}>Deck</Text>
+        <Text style={styles.label}>{t('card.deck')}</Text>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -110,14 +111,14 @@ export default function CardEditorScreen() {
           ))}
         </ScrollView>
 
-        <Text style={styles.label}>Front</Text>
+        <Text style={styles.label}>{t('card.front')}</Text>
         <TextInput
           ref={frontInput}
           value={front}
           onChangeText={setFront}
-          placeholder="Question or word"
+          placeholder={t('card.frontPlaceholder')}
           placeholderTextColor={colors.muted}
-          accessibilityLabel="Front"
+          accessibilityLabel={t('card.front')}
           multiline
           autoFocus={!editing}
           style={[styles.input, styles.multiline]}
@@ -126,27 +127,27 @@ export default function CardEditorScreen() {
           returnKeyType="next"
         />
 
-        <Text style={styles.label}>Back</Text>
+        <Text style={styles.label}>{t('card.back')}</Text>
         <TextInput
           ref={backInput}
           value={back}
           onChangeText={setBack}
-          placeholder="Answer"
+          placeholder={t('card.backPlaceholder')}
           placeholderTextColor={colors.muted}
-          accessibilityLabel="Back"
+          accessibilityLabel={t('card.back')}
           multiline
           style={[styles.input, styles.multiline]}
         />
 
-        <SwitchRow label="Also create reverse card" value={reverse} onChange={setReverse} />
+        <SwitchRow label={t('card.reverse')} value={reverse} onChange={setReverse} />
 
-        <Text style={styles.label}>Tags (optional)</Text>
+        <Text style={styles.label}>{t('card.tags')}</Text>
         <TextInput
           value={tags}
           onChangeText={setTags}
-          placeholder="e.g. chapter 1, verbs"
+          placeholder={t('card.tagsPlaceholder')}
           placeholderTextColor={colors.muted}
-          accessibilityLabel="Tags, separated by commas"
+          accessibilityLabel={t('card.tagsA11y')}
           autoCapitalize="none"
           style={styles.input}
         />
@@ -155,15 +156,15 @@ export default function CardEditorScreen() {
           {editing ? null : (
             <Button
               variant="secondary"
-              label="Save & add another"
+              label={t('card.saveAndAdd')}
               onPress={saveAndAddAnother}
               disabled={!canSave}
               style={styles.flex}
             />
           )}
-          <Button label="Save" onPress={save} disabled={!canSave} style={styles.flex} />
+          <Button label={t('common.save')} onPress={save} disabled={!canSave} style={styles.flex} />
         </View>
-        {editing ? <Button variant="danger" label="Delete card" onPress={remove} /> : null}
+        {editing ? <Button variant="danger" label={t('card.delete')} onPress={remove} /> : null}
       </ScrollView>
     </KeyboardAvoidingView>
   );
