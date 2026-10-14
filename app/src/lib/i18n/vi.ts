@@ -280,6 +280,12 @@ export const vi: Strings = {
 
   // Reminders
   'reminder.channel': 'Nhắc học hằng ngày',
+  'reminderOffer.title': 'Nhắc bạn học mỗi ngày?',
+  'reminderOffer.body':
+    'Một thông báo lúc {time} khi có thẻ cần ôn, và một lần vào buổi tối nếu sắp mất chuỗi ngày. Bạn có thể đổi trong Cài đặt.',
+  'reminderOffer.yes': 'Nhắc tôi',
+  'reminderOffer.no': 'Để sau',
+  'reminderOffer.on': 'Đã bật nhắc lúc {time}. Bạn có thể đổi trong Cài đặt.',
   'reminder.body': 'Bạn có {cards} cần ôn',
   'reminder.streak': 'Chuỗi {n} ngày! Hôm nay còn {cards} để giữ chuỗi.',
   'reminder.streakAny': 'Chuỗi {n} ngày! Học một thẻ hôm nay để giữ chuỗi.',

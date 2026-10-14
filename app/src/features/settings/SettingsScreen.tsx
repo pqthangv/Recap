@@ -13,7 +13,7 @@ import { resetDeckSchedule } from '@/db/study';
 import { hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { Chip } from '@/features/import/DeckTarget';
-import { requestReminderPermission, syncReminders } from '@/features/reminders/reminders';
+import { syncReminders, turnOnReminders } from '@/features/reminders/reminders';
 import { BackupError } from '@/lib/backup';
 import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { formatTimeOfDay } from '@/lib/format';
@@ -29,11 +29,13 @@ export default function SettingsScreen() {
   const [advanced, setAdvanced] = useState(false);
 
   const setReminder = async (enabled: boolean) => {
-    if (enabled && !(await requestReminderPermission())) {
-      Alert.alert(t('settings.notificationsOff'), t('settings.notificationsOffBody'));
+    if (enabled) {
+      if (!(await turnOnReminders())) {
+        Alert.alert(t('settings.notificationsOff'), t('settings.notificationsOffBody'));
+      }
       return;
     }
-    setSetting('reminderEnabled', enabled);
+    setSetting('reminderEnabled', false);
     syncReminders();
   };
 

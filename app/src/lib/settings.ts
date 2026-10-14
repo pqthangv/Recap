@@ -70,6 +70,9 @@ export const DEVICE_ID_KEY = 'device_id';
  */
 export const AI_CONSENT_KEY = 'ai_consent';
 
+/** Set once "Remind you to study?" has been offered after a finished session (asked only once). */
+export const REMINDER_OFFERED_KEY = 'reminder_offered';
+
 /** Settings that belong to this device and are left out of backups (and, later, sync). */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
   SEEDED_KEY,
@@ -77,6 +80,7 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   TUTORIAL_TIP_DONE_KEY,
   DEVICE_ID_KEY,
   AI_CONSENT_KEY,
+  REMINDER_OFFERED_KEY,
   SETTING_KEYS.reminderEnabled,
   SETTING_KEYS.reminderMinutes,
   // Like the phone's own language, a choice for this phone.

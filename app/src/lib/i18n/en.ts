@@ -277,6 +277,13 @@ export const en = {
 
   // Reminders
   'reminder.channel': 'Daily reminder',
+  // Offered once, after the first finished study session.
+  'reminderOffer.title': 'Remind you to study?',
+  'reminderOffer.body':
+    'A notification at {time} when cards are due, and one in the evening if your streak is about to end. You can change this in Settings.',
+  'reminderOffer.yes': 'Remind me',
+  'reminderOffer.no': 'Not now',
+  'reminderOffer.on': 'Reminder on at {time}. Change it in Settings.',
   'reminder.body': 'You have {cards} due',
   // {n} is the streak in days ("5-day streak"); {cards} the new cards still needed today.
   'reminder.streak': '{n}-day streak! {cards} left today to keep it going.',

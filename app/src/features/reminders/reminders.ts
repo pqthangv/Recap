@@ -4,7 +4,7 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
-import { getSettings } from '@/db/settings';
+import { getSettings, setSetting } from '@/db/settings';
 import { getStats } from '@/db/stats';
 import { getStudyCounts } from '@/db/study';
 import { t } from '@/lib/i18n';
@@ -38,6 +38,14 @@ export async function requestReminderPermission(): Promise<boolean> {
   if (current.granted) return true;
   if (!current.canAskAgain) return false;
   return (await Notifications.requestPermissionsAsync()).granted;
+}
+
+/** Turns the daily reminder on, asking for notification permission first; false if not allowed. */
+export async function turnOnReminders(): Promise<boolean> {
+  if (!(await requestReminderPermission())) return false;
+  setSetting('reminderEnabled', true);
+  await syncReminders();
+  return true;
 }
 
 let running: Promise<void> = Promise.resolve();

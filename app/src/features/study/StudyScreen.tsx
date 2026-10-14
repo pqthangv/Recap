@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
+import { ReminderOffer } from '@/features/reminders/ReminderOffer';
 import { syncReminders } from '@/features/reminders/reminders';
 import { decksInGroup } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
@@ -92,6 +93,7 @@ export default function StudyScreen() {
               : t('study.nothing')}
           </Text>
           <Text style={styles.doneText}>{t('study.seeYou')}</Text>
+          {session.reviewed > 0 ? <ReminderOffer /> : null}
           <Button
             label={t('common.done')}
             onPress={() => router.back()}
