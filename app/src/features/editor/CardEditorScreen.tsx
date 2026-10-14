@@ -1,6 +1,9 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useRef, useState } from 'react';
 import {
+  ActivityIndicator,
+  Alert,
+  Image,
   KeyboardAvoidingView,
   Pressable,
   ScrollView,
@@ -14,14 +17,20 @@ import { Button } from '@/components/Button';
 import { showSnackbar } from '@/components/Snackbar';
 import { SwitchRow } from '@/components/SwitchRow';
 import {
+  cardPicture,
   createCard,
   deleteCards,
   getCardForEdit,
   restoreCards,
   updateCard,
   type CardInput,
+  type CardPicture,
+  type PictureSide,
 } from '@/db/cards';
 import { listDecks } from '@/db/decks';
+import { Chip } from '@/features/import/DeckTarget';
+import { PictureError, pictureUri } from '@/features/pictures/files';
+import { CameraPermissionError, pickPicture } from '@/features/pictures/pick';
 import { formatTags, parseTags } from '@/lib/format';
 import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
@@ -44,11 +53,44 @@ export default function CardEditorScreen() {
   const [back, setBack] = useState(editing?.card.back ?? '');
   const [reverse, setReverse] = useState(editing?.hasReverse ?? false);
   const [tags, setTags] = useState(formatTags(editing?.card.tags ?? []));
+  const [picture, setPicture] = useState<CardPicture | null>(() =>
+    editing ? cardPicture(editing.card) : null,
+  );
+  const [addingPicture, setAddingPicture] = useState(false);
   const frontInput = useRef<TextInput>(null);
   const backInput = useRef<TextInput>(null);
 
-  const canSave = front.trim() !== '' && back.trim() !== '' && deckId !== '';
-  const input = (): CardInput => ({ deckId, front, back, tags: parseTags(tags), reverse });
+  const canSave = front.trim() !== '' && back.trim() !== '' && deckId !== '' && !addingPicture;
+  const input = (): CardInput => ({
+    deckId,
+    front,
+    back,
+    tags: parseTags(tags),
+    reverse,
+    picture,
+  });
+
+  // A replaced or removed picture isn't deleted here: the start-up clean-up removes pictures no
+  // card uses (see sweepPictures), so leaving without saving loses nothing.
+  const addPicture = async (from: 'camera' | 'library') => {
+    setAddingPicture(true);
+    try {
+      const ref = await pickPicture(from);
+      if (ref) setPicture((p) => ({ ref, side: p?.side ?? 'front' }));
+    } catch (e) {
+      console.warn(e);
+      Alert.alert(
+        t('card.pictureFailed'),
+        e instanceof CameraPermissionError
+          ? t('card.needCamera')
+          : e instanceof PictureError && e.kind === 'tooBig'
+            ? t('card.pictureTooBig')
+            : t('card.pictureUnreadable'),
+      );
+    } finally {
+      setAddingPicture(false);
+    }
+  };
 
   const save = () => {
     if (!canSave) return;
@@ -62,6 +104,7 @@ export default function CardEditorScreen() {
     createCard(input());
     setFront('');
     setBack('');
+    setPicture(null);
     frontInput.current?.focus();
     showSnackbar(t('card.added'));
   };
@@ -139,6 +182,35 @@ export default function CardEditorScreen() {
           style={[styles.input, styles.multiline]}
         />
 
+        <Text style={styles.label}>{t('card.picture')}</Text>
+        {picture ? (
+          <PictureField
+            picture={picture}
+            onSide={(side) => setPicture({ ...picture, side })}
+            onRemove={() => setPicture(null)}
+          />
+        ) : addingPicture ? (
+          <View style={styles.adding} accessibilityLiveRegion="polite">
+            <ActivityIndicator color={colors.primary} />
+            <Text style={styles.addingText}>{t('card.addingPicture')}</Text>
+          </View>
+        ) : (
+          <View style={styles.row}>
+            <Button
+              variant="secondary"
+              label={t('card.takePhoto')}
+              onPress={() => addPicture('camera')}
+              style={styles.flex}
+            />
+            <Button
+              variant="secondary"
+              label={t('card.choosePhoto')}
+              onPress={() => addPicture('library')}
+              style={styles.flex}
+            />
+          </View>
+        )}
+
         <SwitchRow label={t('card.reverse')} value={reverse} onChange={setReverse} />
 
         <Text style={styles.label}>{t('card.tags')}</Text>
@@ -167,6 +239,53 @@ export default function CardEditorScreen() {
         {editing ? <Button variant="danger" label={t('card.delete')} onPress={remove} /> : null}
       </ScrollView>
     </KeyboardAvoidingView>
+  );
+}
+
+const SIDES: readonly PictureSide[] = ['front', 'back'];
+
+/** The card's picture: which side it shows on, and a way to remove it. */
+function PictureField({
+  picture,
+  onSide,
+  onRemove,
+}: {
+  picture: CardPicture;
+  onSide: (side: PictureSide) => void;
+  onRemove: () => void;
+}) {
+  const uri = pictureUri(picture.ref);
+  return (
+    <View style={styles.pictureField}>
+      {uri ? (
+        <Image
+          source={{ uri }}
+          style={styles.picture}
+          resizeMode="contain"
+          accessible
+          accessibilityLabel={t(
+            picture.side === 'back' ? 'card.pictureOnBackA11y' : 'card.pictureOnFrontA11y',
+          )}
+          accessibilityIgnoresInvertColors
+        />
+      ) : null}
+      <View
+        style={styles.row}
+        accessibilityRole="radiogroup"
+        accessibilityLabel={t('card.pictureShowOn')}
+      >
+        <Text style={styles.showOn}>{t('card.pictureShowOn')}</Text>
+        {SIDES.map((side) => (
+          <Chip
+            key={side}
+            label={t(side === 'front' ? 'card.front' : 'card.back')}
+            selected={picture.side === side}
+            onPress={() => onSide(side)}
+          />
+        ))}
+      </View>
+      <Button variant="text" label={t('card.removePicture')} onPress={onRemove} />
+    </View>
   );
 }
 
@@ -199,6 +318,17 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   multiline: { minHeight: 88, textAlignVertical: 'top' },
+  row: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
+  adding: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: touchTarget },
+  addingText: { fontSize: 15, color: colors.muted },
+  pictureField: { gap: 8 },
+  picture: {
+    width: '100%',
+    height: 180,
+    borderRadius: radius.button,
+    backgroundColor: colors.surface,
+  },
+  showOn: { fontSize: 15, color: colors.text },
   actions: { flexDirection: 'row', gap: 12, marginTop: 20 },
   flex: { flex: 1 },
 });

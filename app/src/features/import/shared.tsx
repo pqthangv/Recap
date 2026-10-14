@@ -32,8 +32,8 @@ export function summaryText(s: ImportSummary): string {
 /** After an import: say what happened, then go to the deck (or home, for several decks). */
 export function useFinishImport() {
   const router = useRouter();
-  return (summary: ImportSummary) => {
-    showSnackbar(summaryText(summary));
+  return (summary: ImportSummary, note?: string) => {
+    showSnackbar(note ? `${summaryText(summary)} · ${note}` : summaryText(summary));
     router.dismissTo('/');
     if (summary.decks.length === 1) {
       router.push({ pathname: '/deck/[id]', params: { id: summary.decks[0].id } });

@@ -65,7 +65,7 @@ export default function StudyScreen() {
             flipped={session.revealed}
             onFlip={session.flip}
             autoRead={session.readAloud}
-            imageUri={card.image_uri}
+            imageRef={card.image_uri}
             imageSide={card.image_side}
           />
           <View style={styles.actions}>

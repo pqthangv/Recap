@@ -1,11 +1,16 @@
-import { and, asc, eq, inArray, isNull, like, or, sql } from 'drizzle-orm';
+import { and, asc, eq, gte, inArray, isNotNull, isNull, like, or, sql } from 'drizzle-orm';
 
 import { newId } from '@/lib/id';
+import { normalizePictureRef } from '@/lib/pictures';
 import { newCard } from '@/lib/scheduler';
 
 import { db } from './client';
+import { RESTORE_DAYS } from './decks';
 import { cards, type CardRow } from './schema';
 import { transaction } from './transaction';
+
+export type PictureSide = 'front' | 'back';
+export type CardPicture = { ref: string; side: PictureSide };
 
 export type CardInput = {
   deckId: string;
@@ -14,7 +19,22 @@ export type CardInput = {
   tags: string[];
   /** Also keep a second, linked card with front and back swapped. */
   reverse: boolean;
+  /** A picture ("media/<name>", see lib/pictures.ts) and the side it shows on. */
+  picture?: CardPicture | null;
 };
+
+const flip = (side: PictureSide): PictureSide => (side === 'back' ? 'front' : 'back');
+
+/** The card's picture as stored in its row (the reverse card shows it on the other side). */
+function pictureColumns(picture: CardPicture | null | undefined, reverse = false) {
+  if (!picture) return { image_uri: null, image_side: null };
+  return { image_uri: picture.ref, image_side: reverse ? flip(picture.side) : picture.side };
+}
+
+/** The picture of a card row, for the editor. */
+export function cardPicture(card: Pick<CardRow, 'image_uri' | 'image_side'>): CardPicture | null {
+  return card.image_uri ? { ref: card.image_uri, side: card.image_side ?? 'front' } : null;
+}
 
 const live = isNull(cards.deleted_at);
 
@@ -44,6 +64,7 @@ export function createCard(input: CardInput, now = Date.now()): CardRow {
       back: input.back.trim(),
       tags: input.tags,
       reverse_of: null,
+      ...pictureColumns(input.picture),
     },
     now,
   );
@@ -64,7 +85,7 @@ function reverseOf(card: CardRow, now: number): CardRow {
       reverse_of: card.id,
       // A picture stays with its text, so it moves to the other side on the reverse card.
       image_uri: card.image_uri,
-      image_side: card.image_uri ? (card.image_side === 'back' ? 'front' : 'back') : null,
+      image_side: card.image_uri ? flip(card.image_side ?? 'front') : null,
     },
     now,
   );
@@ -97,25 +118,50 @@ export function getCardForEdit(id: string): { card: CardRow; hasReverse: boolean
   return { card, hasReverse: card.id !== opened.id || liveReverse(card.id) !== undefined };
 }
 
-/** Updates the text of a card (and its reverse). Scheduling is untouched. */
+/**
+ * Updates the text and picture of a card (and its reverse). Scheduling is untouched. Leaving
+ * `picture` out keeps the card's picture as it is.
+ */
 export function updateCard(id: string, input: CardInput, now = Date.now()): void {
   const main = getCard(id);
   if (!main) return;
   const front = input.front.trim();
   const back = input.back.trim();
+  const picture = input.picture === undefined ? cardPicture(main) : input.picture;
   const reverse = liveReverse(id);
   transaction(() => {
     db.update(cards)
-      .set({ deck_id: input.deckId, front, back, tags: input.tags, updated_at: now })
+      .set({
+        deck_id: input.deckId,
+        front,
+        back,
+        tags: input.tags,
+        ...pictureColumns(picture),
+        updated_at: now,
+      })
       .where(eq(cards.id, id))
       .run();
     if (input.reverse && reverse) {
       db.update(cards)
-        .set({ deck_id: input.deckId, front: back, back: front, tags: input.tags, updated_at: now })
+        .set({
+          deck_id: input.deckId,
+          front: back,
+          back: front,
+          tags: input.tags,
+          ...pictureColumns(picture, true),
+          updated_at: now,
+        })
         .where(eq(cards.id, reverse.id))
         .run();
     } else if (input.reverse) {
-      const updated = { ...main, deck_id: input.deckId, front, back, tags: input.tags };
+      const updated = {
+        ...main,
+        deck_id: input.deckId,
+        front,
+        back,
+        tags: input.tags,
+        ...pictureColumns(picture),
+      };
       db.insert(cards).values(reverseOf(updated, now)).run();
     } else if (reverse) {
       db.update(cards)
@@ -221,4 +267,58 @@ export function deckCardsQuery(deckId: string, search: string) {
     .from(cards)
     .where(and(eq(cards.deck_id, deckId), live, matches))
     .orderBy(asc(cards.created_at), asc(cards.id));
+}
+
+const DAY = 24 * 60 * 60 * 1000;
+
+/**
+ * Pictures that must stay on the phone: those of live cards, and of cards deleted recently enough
+ * to come back ("Recently deleted" decks, with a day to spare).
+ */
+export function keptPictureRefs(now = Date.now()): string[] {
+  const since = now - (RESTORE_DAYS + 1) * DAY;
+  return db
+    .selectDistinct({ ref: cards.image_uri })
+    .from(cards)
+    .where(
+      and(isNotNull(cards.image_uri), or(isNull(cards.deleted_at), gte(cards.deleted_at, since))),
+    )
+    .all()
+    .flatMap((r) => (r.ref ? [r.ref] : []));
+}
+
+/** Which of these pictures any card uses, deleted cards included (Undo can bring those back). */
+export function pictureRefsInUse(refs: readonly string[]): Set<string> {
+  const used = new Set<string>();
+  for (let i = 0; i < refs.length; i += CHUNK) {
+    db.selectDistinct({ ref: cards.image_uri })
+      .from(cards)
+      .where(inArray(cards.image_uri, refs.slice(i, i + CHUNK)))
+      .all()
+      .forEach((r) => r.ref && used.add(r.ref));
+  }
+  return used;
+}
+
+/**
+ * Cards from before 1.0.3 stored their picture's full path, which changes on iPhone when the app
+ * is updated. Rewrites those to "media/<name>" (run at start-up). The picture is the same, only
+ * written differently, so `updated_at` stays; backups are rewritten the same way when read.
+ */
+export function normalizeStoredPictureRefs(): number {
+  const old = db
+    .selectDistinct({ ref: cards.image_uri })
+    .from(cards)
+    .where(like(cards.image_uri, 'file:%'))
+    .all();
+  let changed = 0;
+  transaction(() => {
+    for (const { ref } of old) {
+      const normalized = normalizePictureRef(ref);
+      if (!ref || !normalized) continue;
+      db.update(cards).set({ image_uri: normalized }).where(eq(cards.image_uri, ref)).run();
+      changed++;
+    }
+  });
+  return changed;
 }

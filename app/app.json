@@ -90,8 +90,8 @@
       [
         "expo-image-picker",
         {
-          "cameraPermission": "Recap uses the camera when you take a photo of your notes. It reads the text on your phone to make flashcards, and the photo isn't kept.",
-          "photosPermission": "Recap opens the photo of your notes that you pick. It reads the text on your phone to make flashcards, and the photo isn't kept.",
+          "cameraPermission": "Recap uses the camera when you take a photo, to add it to a card or to read the text of your notes. Photos stay on your phone.",
+          "photosPermission": "Recap opens the photo you pick, to add it to a card or to read the text of your notes. Photos stay on your phone.",
           "microphonePermission": false
         }
       ],

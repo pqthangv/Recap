@@ -192,6 +192,19 @@ export const en = {
   'card.added': 'Card added',
   'card.deleted': 'Card deleted',
   'card.deletedWithReverse': 'Card and reverse card deleted',
+  'card.picture': 'Picture (optional)',
+  'card.takePhoto': 'Take photo',
+  'card.choosePhoto': 'Choose photo',
+  'card.addingPicture': 'Adding picture…',
+  'card.pictureShowOn': 'Show on',
+  'card.pictureOnFrontA11y': 'Card picture, on the front',
+  'card.pictureOnBackA11y': 'Card picture, on the back',
+  'card.removePicture': 'Remove picture',
+  'card.pictureFailed': "Couldn't add the picture",
+  'card.pictureTooBig': 'This picture is too big. Try a smaller one.',
+  'card.pictureUnreadable': "Recap couldn't open this picture. Try another one.",
+  'card.needCamera':
+    'Recap needs the camera to take a photo. You can allow it in your phone’s Settings.',
 
   // Studying
   'study.left': '{n} left',
@@ -354,6 +367,8 @@ export const en = {
   'anki.missingPictures_one': "{n} picture isn't in this file, so its card shows without it.",
   'anki.missingPictures_other':
     "{n} pictures aren't in this file, so those cards show without them.",
+  'anki.picturesRefused_one': '{n} picture was too big or damaged, so its card has none',
+  'anki.picturesRefused_other': '{n} pictures were too big or damaged, so their cards have none',
   'anki.startNew':
     "Cards start as new cards. Sounds aren't imported; Recap can read cards aloud instead.",
   'anki.skipped': '{cards} with no text will be skipped.',

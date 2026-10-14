@@ -43,7 +43,8 @@ const key = (front: string, back: string) => `${front}\u0000${back}`;
  * twice doesn't make two Spanish decks, and duplicates are skipped: cards whose front and back
  * are already in the deck (so importing a file again adds nothing), and repeats within the file.
  * Within the file the picture counts too, so "Which bird?" with two different photos stays two
- * cards; pictures get new file names on every import, so they can't be compared with the deck.
+ * cards. Against the deck only the text counts: pictures saved before 1.0.3 have other names, so
+ * comparing them would add those cards again.
  */
 export function importCards(
   items: readonly ImportItem[],
