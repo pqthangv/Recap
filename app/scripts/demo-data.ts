@@ -14,6 +14,8 @@ const DECKS: {
   name: string;
   color: string;
   languages?: SideLanguages;
+  /** Only the first card is due today, so studying the deck always opens on it (screenshots). */
+  firstCardDueOnly?: boolean;
   cards: [string, string][];
 }[] = [
   {
@@ -137,6 +139,24 @@ const DECKS: {
       ['tenacious', 'holding firmly; persistent'],
     ],
   },
+  // Last, so the decks above keep the same random history. The typed-answer screenshot studies
+  // it: "der Apfel" is the one card due, and "the appel" gets "Almost" with Hard suggested.
+  {
+    name: 'German words',
+    color: '#C5221F',
+    languages: { front: 'de', back: 'en' },
+    firstCardDueOnly: true,
+    cards: [
+      ['der Apfel', 'the apple'],
+      ['das Brot', 'the bread'],
+      ['der Käse', 'the cheese'],
+      ['die Milch', 'the milk'],
+      ['das Wasser', 'the water'],
+      ['der Kaffee', 'the coffee'],
+      ['die Suppe', 'the soup'],
+      ['das Ei', 'the egg'],
+    ],
+  },
 ];
 
 /** Small seeded random numbers, so the same demo comes out every time. */
@@ -172,8 +192,29 @@ export function makeDemo(now: number) {
       const id = randomUUID();
       const cardCreated = created + i * 1000;
       let fields: FsrsFields = newCard(cardCreated);
+      if (spec.firstCardDueOnly) {
+        // Two good reviews last week; then the first card is due an hour ago and the rest later.
+        for (const daysAgo of [6, 5]) {
+          const at = today - daysAgo * DAY + 16 * 60 * 60 * 1000;
+          const result = review({ ...fields, id }, Rating.Good, at, 0.95);
+          fields = result.card;
+          logs.push({
+            id: randomUUID(),
+            card_id: id,
+            ...result.log,
+            duration_ms: 9000,
+            goal_met: 1,
+            deleted_at: null,
+          });
+        }
+        fields = { ...fields, due: i === 0 ? now - 60 * 60 * 1000 : today + (2 + i) * DAY };
+      }
       // About a quarter of each deck is still new; the rest started on one of the last 15 days.
-      const start = rnd() < 0.25 ? Infinity : 15 - Math.floor(rnd() * 15);
+      const start = spec.firstCardDueOnly
+        ? Infinity
+        : rnd() < 0.25
+          ? Infinity
+          : 15 - Math.floor(rnd() * 15);
       for (let daysAgo = Math.min(start, 15); daysAgo >= 0 && start !== Infinity; daysAgo--) {
         // Study around 8 pm each day (16 h after the 4 AM start). Today: in the last two hours,
         // but not before today's study day began, so "reviewed today" isn't empty.

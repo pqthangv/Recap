@@ -3,8 +3,10 @@
 # (scripts/demo-db.test.ts) into the app, so the screens show the demo decks:
 #   maestro test --test-output-dir DIR .maestro/screenshots.yaml
 # Screenshots land in DIR/<run>/<flow>/takeScreenshot/; the names match the store graphics script
-# (home, library, study, ai, ai-review, stats, deck). Buttons are found by their accessibility labels.
-# Never clearState here: it would wipe the demo database.
+# (home, study, voices, library, stats, ai, ai-review). Buttons are found by their accessibility
+# labels. Never clearState here: it would wipe the demo database.
+# 1.0.4: the shots lead with what's Recap's own: a typed answer checked with a suggested grade,
+# each deck read aloud in its own languages, and Create with AI in two languages.
 appId: com.recapcards.app
 ---
 - launchApp
@@ -15,35 +17,66 @@ appId: com.recapcards.app
     timeout: 10000
 - takeScreenshot: home
 
-# The Library of ready-made decks (nothing is added).
-- tapOn: Library
+# Typed recall. "German words" has one card due, "der Apfel" (scripts/demo-data.ts): type a near
+# miss and check it. Recap marks the swapped letters, says "Almost: check the spelling" and
+# highlights Hard. Nothing is graded, so the data stays the same.
+- tapOn: 'German words.*'
 - extendedWaitUntil:
-    visible: 'Ready-made decks.*'
+    visible: 'Study this deck.*'
+    timeout: 30000
+- tapOn: 'Study this deck.*'
+- extendedWaitUntil:
+    visible: 'Your answer.*'
+    timeout: 30000
+- tapOn: 'Your answer.*'
+- inputText: 'the appel'
+- tapOn: Check
+- extendedWaitUntil:
+    visible: 'Almost.*'
     timeout: 30000
 - waitForAnimationToEnd:
     timeout: 10000
-- takeScreenshot: library
+- takeScreenshot: study
+
+# Each deck's own voices: Spanish basics is read in Spanish and English. The shot shows the list
+# of 12 languages open, with Español ticked (nothing is changed).
 - launchApp
 - extendedWaitUntil:
     visible: 'Study · .* due'
     timeout: 60000
-
-# A deck, then studying it with the answer showing (no answer is given, so the data stays the same).
-- tapOn: 'IELTS vocabulary.*'
+- tapOn: 'Spanish basics.*'
 - extendedWaitUntil:
     visible: 'Study this deck.*'
     timeout: 30000
-- waitForAnimationToEnd:
-    timeout: 10000
-- takeScreenshot: deck
-- tapOn: 'Study this deck.*'
+- tapOn: Edit deck
 - extendedWaitUntil:
-    visible: Show answer
+    visible: Read aloud in
     timeout: 30000
-- tapOn: Show answer
+- tapOn: 'Language of the card fronts.*'
+- extendedWaitUntil:
+    visible: Read the front of the cards in
+    timeout: 30000
 - waitForAnimationToEnd:
     timeout: 10000
-- takeScreenshot: study
+- takeScreenshot: voices
+
+# The Library of ready-made decks, scrolled to TOEIC (nothing is added).
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
+- tapOn: Library
+- extendedWaitUntil:
+    visible: 'Ready-made decks.*'
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: TOEIC vocabulary
+    direction: DOWN
+    centerElement: true
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: library
 
 - launchApp
 - extendedWaitUntil:
@@ -57,19 +90,25 @@ appId: com.recapcards.app
     timeout: 10000
 - takeScreenshot: stats
 
-# Create with AI uses the real server (the workflow wakes it up first) and the free Gemini quota.
+# Create with AI in two languages. It uses the real server (the workflow wakes it up first) and
+# the free Gemini quota, so it comes last.
 - launchApp
 - extendedWaitUntil:
     visible: 'Study · .* due'
     timeout: 60000
 - tapOn: Add a deck or card
 - tapOn: Create with AI
-# iOS reads a text box as its label plus its placeholder, so match the start only.
-- tapOn: 'Text to make cards from.*'
-- inputText: 'Photosynthesis is how plants make their own food. Chlorophyll in the chloroplasts captures sunlight. Plants turn water and carbon dioxide into glucose and release oxygen.'
+# The Topic tab is just "Topic"; its text box reads as "Topic" plus its placeholder.
+- tapOn: Topic
+- tapOn: 'Topic.+'
+- inputText: German words for food
 # Close the keyboard the way a person would: tap something that isn't a button (hideKeyboard
 # is unreliable on iOS).
 - tapOn: Cards
+- tapOn: 'Language of the card fronts.*'
+- tapOn: Deutsch
+- tapOn: 'Language of the card backs.*'
+- tapOn: English
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: ai
