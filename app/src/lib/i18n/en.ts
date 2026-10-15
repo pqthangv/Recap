@@ -227,6 +227,14 @@ export const en = {
   'study.answerA11y': '{front}. Answer: {back}',
   'study.readQuestion': 'Read the question aloud',
   'study.readAnswer': 'Read the answer aloud',
+  'study.typePlaceholder': 'Type the answer',
+  'study.typeA11y': 'Your answer',
+  'study.check': 'Check',
+  'study.correct': 'Correct!',
+  'study.almostAccents': 'Almost: check the accents',
+  'study.almostSpelling': 'Almost: check the spelling',
+  'study.notQuite': 'Not quite',
+  'study.youTyped': 'You typed:',
   'study.niceWork': 'Nice work — {cards}.',
   'study.nothing': 'Nothing to study right now.',
   'study.seeYou': 'See you tomorrow.',
@@ -237,6 +245,7 @@ export const en = {
   'grade.good': 'Good',
   'grade.easy': 'Easy',
   'grade.a11y': '{name}, see it again {when}',
+  'grade.suggestedA11y': '{name}, suggested, see it again {when}',
   'speech.noVietnameseVoice':
     "This phone has no Vietnamese voice yet. Add one in your phone's Settings › Text-to-speech.",
 
@@ -245,6 +254,9 @@ export const en = {
   'settings.retention': 'Target retention',
   'settings.retentionHelp': 'How much you want to remember. Higher means more reviews.',
   'settings.newPerDay': 'New cards per day',
+  'settings.typeAnswer': 'Type the answer',
+  'settings.typeAnswerHelp':
+    'For short answers, type what you remember. Recap checks it and suggests a button.',
   'settings.fourButtons': 'Show 4 answer buttons',
   'settings.fourButtonsHelp': 'Again, Hard, Good and Easy instead of Forgot and Got it.',
   'settings.readAloud': 'Read cards aloud',

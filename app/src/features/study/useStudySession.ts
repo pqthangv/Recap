@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { getCard } from '@/db/cards';
 import type { CardRow } from '@/db/schema';
@@ -10,12 +10,21 @@ import {
   type QueueEntry,
   type StudyScope,
 } from '@/db/study';
+import { checkAnswer, isTypeable, QUICK_START_MS, suggestGrade } from '@/lib/answerCheck';
 import { countReadyNow, previewIntervals, type Grade, type Preview } from '@/lib/scheduler';
+
+import type { TypedCheck } from './FlipCard';
 
 /** Answer times above this are treated as "walked away" so they don't skew stats. */
 const MAX_ANSWER_MS = 5 * 60 * 1000;
 
-type Revealed = { at: number; previews: Record<Grade, Preview> };
+type Revealed = {
+  at: number;
+  previews: Record<Grade, Preview>;
+  // Typed cards only: what was typed and the grade Recap suggests for it.
+  check?: TypedCheck;
+  suggested?: Grade;
+};
 type Answered = { before: CardRow; logId: string };
 
 /** The full row of the card at the front of the queue (only that one is loaded). */
@@ -37,6 +46,10 @@ export function useStudySession(scope: StudyScope) {
   const [turn, setTurn] = useState(0);
   const [revealed, setRevealed] = useState<Revealed | null>(null);
   const [history, setHistory] = useState<Answered[]>([]);
+  // "Right and quick" (Easy) is timed from when the question was there to answer: the card
+  // appearing, or the end of reading it aloud. Refs: they never change what's on screen.
+  const questionReadyAt = useRef(shownAt);
+  const startedTypingAt = useRef<number | null>(null);
 
   const show = (next: QueueEntry[], head = headOf(next)) => {
     const now = Date.now();
@@ -45,14 +58,39 @@ export function useStudySession(scope: StudyScope) {
     setRevealed(null);
     setTurn((t) => t + 1);
     setShownAt(now);
+    questionReadyAt.current = now;
+    startedTypingAt.current = null;
   };
 
-  const flip = () => {
+  // Short answers are typed and checked (Settings › Type the answer); the rest are tapped.
+  const typing = !!card && settings.typeAnswer && isTypeable(card.back);
+
+  const reveal = (extra: Pick<Revealed, 'check' | 'suggested'> = {}) => {
     if (!card || revealed) return;
     // The intervals on the buttons are computed now, and exactly these results are saved when a
     // button is tapped, so "Got it · 3d" always means 3 days.
     const at = Date.now();
-    setRevealed({ at, previews: previewIntervals(card, at, settings.retention) });
+    setRevealed({ at, previews: previewIntervals(card, at, settings.retention), ...extra });
+  };
+
+  const flip = () => reveal();
+
+  /** Checks a typed answer (empty = "Show answer") and turns the card over with a suggestion. */
+  const checkTyped = (typed: string) => {
+    if (!card || revealed) return;
+    const result = checkAnswer(typed, card.back);
+    const started = startedTypingAt.current;
+    const quick = started !== null && started - questionReadyAt.current <= QUICK_START_MS;
+    reveal({ check: { typed, result }, suggested: suggestGrade(result, quick) });
+  };
+
+  const startTyping = () => {
+    startedTypingAt.current ??= Date.now();
+  };
+
+  /** The card on screen in turn `onTurn` has finished being read aloud. */
+  const questionRead = (onTurn: number) => {
+    if (onTurn === turn && startedTypingAt.current === null) questionReadyAt.current = Date.now();
   };
 
   const answer = (grade: Grade) => {
@@ -90,7 +128,13 @@ export function useStudySession(scope: StudyScope) {
     canUndo: history.length > 0,
     fourButtons: settings.fourButtons,
     readAloud: settings.readAloud,
+    typing,
+    typedCheck: revealed?.check ?? null,
+    suggested: revealed?.suggested ?? null,
     flip,
+    checkTyped,
+    startTyping,
+    questionRead,
     answer,
     undo,
   };

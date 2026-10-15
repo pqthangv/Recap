@@ -70,6 +70,12 @@ export default function SettingsScreen() {
           onChange={(v) => setSetting('newPerDay', v)}
         />
         <SwitchRow
+          label={t('settings.typeAnswer')}
+          description={t('settings.typeAnswerHelp')}
+          value={settings.typeAnswer}
+          onChange={(v) => setSetting('typeAnswer', v)}
+        />
+        <SwitchRow
           label={t('settings.fourButtons')}
           description={t('settings.fourButtonsHelp')}
           value={settings.fourButtons}
