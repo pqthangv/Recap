@@ -20,6 +20,7 @@ import {
   shouldCompress,
   unusedPictureFiles,
 } from '@/lib/pictures';
+import { can } from '@/lib/platform';
 
 /** A picture Recap won't store: too big to open safely, or not a picture it can read. */
 export class PictureError extends Error {
@@ -38,6 +39,7 @@ function mediaDir(): Directory {
 
 /** The file on this phone for a picture reference, or null. */
 export function pictureUri(ref: string | null | undefined): string | null {
+  if (!can.pictures) return null; // the web version has no picture files (cards show without them)
   const name = pictureName(ref);
   return name ? new File(Paths.document, PICTURE_FOLDER, name).uri : null;
 }
@@ -128,6 +130,7 @@ export function deleteUnusedPictures(refs: Iterable<string>): void {
  * anything is shown, so it never meets a picture that's being added or an Undo that's waiting.
  */
 export function sweepPictures(now = Date.now()): void {
+  if (!can.pictures) return;
   try {
     const dir = new Directory(Paths.document, PICTURE_FOLDER);
     if (!dir.exists) return;

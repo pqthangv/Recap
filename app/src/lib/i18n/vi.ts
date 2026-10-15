@@ -95,6 +95,10 @@ export const vi: Strings = {
 
   // App and error screens
   'app.openFailed': 'Recap không mở được thẻ của bạn. Vui lòng đóng ứng dụng rồi mở lại.',
+  'app.openInOtherTab':
+    'Recap đang mở ở một thẻ hoặc cửa sổ khác. Hãy đóng nó rồi tải lại trang này.',
+  'app.openFailedWeb':
+    'Recap không mở được thẻ của bạn trên trình duyệt này. Hãy tải lại trang, hoặc dùng Chrome, Edge, Firefox hay Safari bản mới (cửa sổ ẩn danh có thể không giữ thẻ).',
   'error.title': 'Đã có lỗi xảy ra',
   'error.body': 'Thẻ của bạn vẫn an toàn. Hãy thử lại, hoặc quay về danh sách bộ thẻ.',
   'error.rootBody': 'Thẻ của bạn vẫn an toàn. Vui lòng thử lại.',
@@ -114,6 +118,7 @@ export const vi: Strings = {
   'home.sortColorLower': 'màu',
   'home.empty': 'Chưa có bộ thẻ nào. Chạm + để tạo bộ đầu tiên, hoặc lấy một bộ từ Thư viện.',
   'home.recentlyDeleted': 'Đã xóa gần đây · {n}',
+  'home.getAndroid': 'Tải ứng dụng Android',
   'home.fab': 'Thêm bộ thẻ hoặc thẻ',
   'home.makeDeckFirst': 'Hãy tạo bộ thẻ trước',
 
@@ -254,12 +259,15 @@ export const vi: Strings = {
   'settings.time': 'Giờ',
   'settings.language': 'Ngôn ngữ',
   'settings.languageAuto': 'Theo điện thoại',
+  'settings.languageAutoWeb': 'Theo trình duyệt',
   'settings.notificationsOff': 'Thông báo đang tắt',
   'settings.notificationsOffBody':
     'Để nhận lời nhắc, hãy cho phép Recap gửi thông báo trong phần cài đặt của điện thoại.',
   'settings.advanced': 'Nâng cao',
   'settings.footer':
     'Recap {version} · Hoàn toàn miễn phí. Thẻ của bạn chỉ lưu trên điện thoại này.',
+  'settings.footerWeb':
+    'Recap {version} · Hoàn toàn miễn phí. Thẻ của bạn chỉ lưu trên trình duyệt này.',
   'settings.feedback': 'Câu hỏi hoặc góp ý? {email}',
   'settings.emailA11y': 'Gửi email đến {email}',
   'settings.emailSubject': 'Góp ý cho Recap',

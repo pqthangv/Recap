@@ -2,7 +2,6 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useRef, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Image,
   KeyboardAvoidingView,
   Pressable,
@@ -32,8 +31,10 @@ import { Chip } from '@/features/import/DeckTarget';
 import { PictureError, pictureUri } from '@/features/pictures/files';
 import { pickPicture } from '@/features/pictures/pick';
 import { formatTags, parseTags } from '@/lib/format';
+import { can } from '@/lib/platform';
 import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
+import { showAlert } from '@/lib/alert';
 
 /** Add a card (optionally into `?deckId=`), or edit one with `?id=`. */
 export default function CardEditorScreen() {
@@ -79,7 +80,7 @@ export default function CardEditorScreen() {
       if (ref) setPicture((p) => ({ ref, side: p?.side ?? 'front' }));
     } catch (e) {
       console.warn(e);
-      Alert.alert(
+      showAlert(
         t('card.pictureFailed'),
         e instanceof PictureError && e.kind === 'tooBig'
           ? t('card.pictureTooBig')
@@ -180,8 +181,8 @@ export default function CardEditorScreen() {
           style={[styles.input, styles.multiline]}
         />
 
-        <Text style={styles.label}>{t('card.picture')}</Text>
-        {picture ? (
+        {can.pictures ? <Text style={styles.label}>{t('card.picture')}</Text> : null}
+        {!can.pictures ? null : picture ? (
           <PictureField
             picture={picture}
             onSide={(side) => setPicture({ ...picture, side })}

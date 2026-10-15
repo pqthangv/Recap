@@ -93,6 +93,10 @@ export const en = {
 
   // App and error screens
   'app.openFailed': "Recap couldn't open your cards. Please close the app and open it again.",
+  'app.openInOtherTab':
+    'Recap is already open in another tab or window. Close it, then reload this page.',
+  'app.openFailedWeb':
+    "Recap couldn't open your cards in this browser. Reload the page, or use an up-to-date Chrome, Edge, Firefox or Safari (private windows may not keep cards).",
   'error.title': 'Something went wrong',
   'error.body': 'Your cards are safe. Try again, or go back to your decks.',
   'error.rootBody': 'Your cards are safe. Please try again.',
@@ -112,6 +116,7 @@ export const en = {
   'home.sortColorLower': 'color',
   'home.empty': 'No decks yet. Tap + to make your first one, or get one from Library.',
   'home.recentlyDeleted': 'Recently deleted · {n}',
+  'home.getAndroid': 'Get the Android app',
   'home.fab': 'Add a deck or card',
   'home.makeDeckFirst': 'Make a deck first',
 
@@ -252,11 +257,13 @@ export const en = {
   'settings.time': 'Time',
   'settings.language': 'Language',
   'settings.languageAuto': "Phone's language",
+  'settings.languageAutoWeb': "Browser's language",
   'settings.notificationsOff': 'Notifications are off',
   'settings.notificationsOffBody':
     "To get reminders, allow notifications for Recap in your phone's settings.",
   'settings.advanced': 'Advanced',
   'settings.footer': 'Recap {version} · All free. Your cards stay on this phone.',
+  'settings.footerWeb': 'Recap {version} · All free. Your cards stay in this browser.',
   'settings.feedback': 'Questions or feedback? {email}',
   'settings.emailA11y': 'Email {email}',
   'settings.emailSubject': 'Recap feedback',

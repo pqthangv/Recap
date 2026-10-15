@@ -1,6 +1,6 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { countCards } from '@/db/cards';
@@ -8,6 +8,7 @@ import { createDeck, deleteDeck, getDeck, listDecks, RESTORE_DAYS, updateDeck } 
 import { childDeckName } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
 import { colors, deckColors, radius, touchTarget } from '@/lib/theme';
+import { showAlert } from '@/lib/alert';
 
 /**
  * New deck, or edit an existing one when opened with `?id=`. With `?parent=` the new deck goes
@@ -42,7 +43,7 @@ export default function DeckFormScreen() {
   const confirmDelete = () => {
     if (!existing) return;
     const n = countCards(existing.id);
-    Alert.alert(
+    showAlert(
       t('deck.deleteTitle'),
       t('deck.deleteBody', { name: existing.name, cards: tn('count.card', n), days: RESTORE_DAYS }),
       [

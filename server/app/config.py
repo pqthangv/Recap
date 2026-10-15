@@ -41,6 +41,10 @@ class Settings(BaseSettings):
     # JSON bodies: 15,000 characters of Vietnamese can be ~60 KB of UTF-8, plus escaping.
     max_json_bytes: int = 256 * 1024
 
+    # Web pages allowed to call the API from a browser (CORS), comma-separated: the web version of
+    # Recap. Add http://localhost:8081 in server/.env to try the web version against a local server.
+    web_origins: str = "https://recapflashcards.com,https://www.recapflashcards.com"
+
     log_level: str = "INFO"
 
 

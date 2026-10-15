@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { showSnackbar } from '@/components/Snackbar';
@@ -7,6 +7,7 @@ import { getSettings } from '@/db/settings';
 import { formatTimeOfDay } from '@/lib/format';
 import { t } from '@/lib/i18n';
 import { colors, radius } from '@/lib/theme';
+import { showAlert } from '@/lib/alert';
 
 import { markReminderOffered, shouldOfferReminder } from './offer';
 import { turnOnReminders } from './reminders';
@@ -27,7 +28,7 @@ export function ReminderOffer() {
   const accept = async () => {
     setAnswered(true);
     if (await turnOnReminders()) showSnackbar(t('reminderOffer.on', { time }));
-    else Alert.alert(t('settings.notificationsOff'), t('settings.notificationsOffBody'));
+    else showAlert(t('settings.notificationsOff'), t('settings.notificationsOffBody'));
   };
 
   return (

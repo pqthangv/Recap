@@ -1,8 +1,9 @@
-import { Alert } from 'react-native';
+import {} from 'react-native';
 
 import { getRawSetting, setRawSetting } from '@/db/settings';
 import { t } from '@/lib/i18n';
 import { AI_CONSENT_KEY } from '@/lib/settings';
+import { showAlert } from '@/lib/alert';
 
 /*
  * "Create with AI" asks once, before the first text or PDF leaves the phone (a PDF goes to Recap's
@@ -23,7 +24,7 @@ export function setAiConsent(allowed: boolean): void {
 export function askAiConsent(): Promise<boolean> {
   if (hasAiConsent()) return Promise.resolve(true);
   return new Promise((resolve) => {
-    Alert.alert(
+    showAlert(
       t('consent.title'),
       t('consent.body'),
       [

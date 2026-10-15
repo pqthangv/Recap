@@ -4,11 +4,13 @@ import { Directory, File, Paths } from 'expo-file-system';
 import { deserializeDatabaseAsync } from 'expo-sqlite';
 import { create } from 'zustand';
 
+import { readPickedText } from '@/features/files/picked';
 import { deleteUnusedPictures, PictureError, storePicture } from '@/features/pictures/files';
 import { readAnkiCollection, type AnkiCard } from '@/lib/import/anki';
 import { isImageName, openApkg, type ApkgPackage } from '@/lib/import/apkg';
 import { t } from '@/lib/i18n';
 import { parseTable, type Table } from '@/lib/import/csv';
+import { isWeb } from '@/lib/platform';
 
 export class ImportFileError extends Error {}
 
@@ -32,6 +34,7 @@ export function baseName(fileName: string): string {
  * and after a deck is imported.
  */
 export function clearPickedFiles(): void {
+  if (isWeb) return; // the browser keeps picked files in memory only
   try {
     const dir = new Directory(Paths.cache, 'DocumentPicker');
     if (dir.exists) dir.delete();
@@ -54,7 +57,7 @@ export async function pickTableFile(): Promise<TableDraft | null> {
   if (/\.(xlsx?|numbers|ods)$/i.test(asset.name)) {
     throw new ImportFileError(t('import.errorSpreadsheet'));
   }
-  const table = parseTable(await new File(asset.uri).text());
+  const table = parseTable(await readPickedText(asset));
   if (table.rows.length === 0) throw new ImportFileError(t('import.errorNoRows'));
   if (table.columns.length < 2) {
     throw new ImportFileError(t('import.errorTwoColumns'));

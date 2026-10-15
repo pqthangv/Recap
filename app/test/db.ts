@@ -56,7 +56,7 @@ export function createTestClient(file = ':memory:') {
   const sqlite = expoLikeClient(raw) as unknown as SQLiteDatabase;
   const db = drizzle(sqlite, { schema });
   testState = { raw, db };
-  return { sqlite, db };
+  return { sqlite, db, openDatabase: async () => {} };
 }
 
 let testState: { raw: DatabaseSync; db: ReturnType<typeof drizzle<typeof schema>> } | undefined;

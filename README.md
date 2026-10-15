@@ -68,7 +68,7 @@ For anyone reading the code:
 | Part | What's inside |
 | --- | --- |
 | [`app/`](app) | The phone app: Expo (React Native) + TypeScript, Expo Router. Everything is stored on the device in SQLite (Drizzle ORM); scheduling uses [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs). Text in photos is read on the device. |
-| [`site/`](site) | The website ([recapflashcards.com](https://recapflashcards.com)): plain HTML pages for the home page, help and the privacy policy, hosted on Cloudflare Pages. |
+| [`app/`](app) on the web | The same app at [recapflashcards.com](https://recapflashcards.com) (Expo web, on Cloudflare Pages); cards stay in the browser. Help and the privacy policy are plain pages in [`app/public/`](app/public). |
 | [`server/`](server) | A small FastAPI service that only makes AI cards: it sends the user's text to Google's Gemini API, with a daily limit per device. |
 
 The data layer is built for optional sync later: every row has a UUID, timestamps and soft

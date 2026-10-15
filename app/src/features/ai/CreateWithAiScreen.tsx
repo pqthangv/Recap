@@ -1,5 +1,4 @@
 import * as DocumentPicker from 'expo-document-picker';
-import { File } from 'expo-file-system';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
@@ -15,6 +14,7 @@ import {
 
 import { Button } from '@/components/Button';
 import { Stepper } from '@/components/Stepper';
+import { discardPicked, pickedUpload } from '@/features/files/picked';
 import {
   AiError,
   MAX_CARDS_PER_REQUEST,
@@ -24,6 +24,7 @@ import {
 } from '@/lib/ai';
 import type { AiSource } from '@/lib/aiReview';
 import { count, t, tn, type StringKey } from '@/lib/i18n';
+import { can } from '@/lib/platform';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { askAiConsent } from './consent';
@@ -32,12 +33,14 @@ import { readTextFromPhoto } from './photo';
 
 type Tab = 'text' | 'photo' | 'pdf' | 'topic';
 
-const TABS: { key: Tab; label: StringKey }[] = [
+const ALL_TABS: { key: Tab; label: StringKey }[] = [
   { key: 'text', label: 'ai.tabText' },
   { key: 'photo', label: 'ai.tabPhoto' },
   { key: 'pdf', label: 'ai.tabPdf' },
   { key: 'topic', label: 'ai.tabTopic' },
 ];
+// Reading text in photos runs on the phone (ML Kit), which the web version doesn't have.
+const TABS = ALL_TABS.filter((tab) => tab.key !== 'photo' || can.photoText);
 
 type QuotaState =
   | { status: 'loading' }
@@ -143,14 +146,10 @@ export default function CreateWithAiScreen() {
         if (asset.size && asset.size > MAX_PDF_BYTES) {
           throw new AiError('input', t('ai.pdfTooBig'));
         }
-        const result = await ai.extractPdf(new File(asset.uri), asset.name);
+        const result = await ai.extractPdf(pickedUpload(asset), asset.name);
         setPdf({ ...result, fileName: asset.name });
       } finally {
-        try {
-          new File(asset.uri).delete(); // the picker's copy in the cache
-        } catch {
-          // Already gone.
-        }
+        discardPicked(asset); // the picker's copy in the cache
       }
     });
   };

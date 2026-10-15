@@ -6,16 +6,17 @@
 // Once the camera was refused for good (once on iPhone, twice on Android), no prompt can appear
 // again: Recap offers the phone's Settings instead of failing silently.
 import * as ImagePicker from 'expo-image-picker';
-import { Alert, Linking, Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
 
 import { t } from '@/lib/i18n';
+import { showAlert } from '@/lib/alert';
 
 export type CameraUse = 'card' | 'notes';
 
 /** An alert with Cancel and one other button; true if that button was tapped. */
 function confirm(title: string, message: string, ok: string): Promise<boolean> {
   return new Promise((resolve) =>
-    Alert.alert(
+    showAlert(
       title,
       message,
       [
