@@ -1,12 +1,17 @@
-import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { t } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
-export type SheetOption = { label: string; onPress: () => void };
+export type SheetOption = {
+  label: string;
+  onPress: () => void;
+  /** Set on every option of a pick-one list: the current choice gets a tick. */
+  selected?: boolean;
+};
 
-/** A bottom sheet with a few choices and Cancel (e.g. behind a "+" button). */
+/** A bottom sheet with choices and Cancel (e.g. behind a "+" button). Long lists scroll. */
 export function ActionSheet({
   visible,
   title,
@@ -34,21 +39,38 @@ export function ActionSheet({
             {title}
           </Text>
         ) : null}
-        {[...options, { label: t('common.cancel'), onPress: onClose }].map((option, i) => (
-          <Pressable
-            key={option.label}
-            accessibilityRole="button"
-            onPress={() => {
-              onClose();
-              if (i < options.length) option.onPress();
-            }}
-            style={({ pressed }) => [styles.option, pressed && styles.pressed]}
-          >
-            <Text style={[styles.label, i === options.length && styles.cancel]} numberOfLines={2}>
-              {option.label}
-            </Text>
-          </Pressable>
-        ))}
+        <ScrollView style={styles.list} bounces={false}>
+          {options.map((option) => (
+            <Pressable
+              key={option.label}
+              accessibilityRole="button"
+              accessibilityState={
+                option.selected === undefined ? undefined : { selected: option.selected }
+              }
+              onPress={() => {
+                onClose();
+                option.onPress();
+              }}
+              style={({ pressed }) => [styles.option, pressed && styles.pressed]}
+            >
+              <Text style={[styles.label, option.selected && styles.selected]} numberOfLines={2}>
+                {option.label}
+              </Text>
+              {option.selected ? (
+                <Text style={[styles.label, styles.selected]} importantForAccessibility="no">
+                  ✓
+                </Text>
+              ) : null}
+            </Pressable>
+          ))}
+        </ScrollView>
+        <Pressable
+          accessibilityRole="button"
+          onPress={onClose}
+          style={({ pressed }) => [styles.option, pressed && styles.pressed]}
+        >
+          <Text style={[styles.label, styles.cancel]}>{t('common.cancel')}</Text>
+        </Pressable>
       </View>
     </Modal>
   );
@@ -62,12 +84,17 @@ const styles = StyleSheet.create({
     borderTopRightRadius: radius.card,
     paddingTop: 12,
     paddingHorizontal: 12,
+    maxHeight: '85%',
   },
+  list: { flexGrow: 0, flexShrink: 1 },
   option: {
     minHeight: touchTarget + 8,
     paddingHorizontal: 16,
     borderRadius: radius.button,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
   },
   title: {
     fontSize: 15,
@@ -78,6 +105,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   pressed: { backgroundColor: colors.surface },
-  label: { fontSize: 18, color: colors.text, fontWeight: '500' },
+  label: { flexShrink: 1, fontSize: 18, color: colors.text, fontWeight: '500' },
+  selected: { color: colors.primary, fontWeight: '700' },
   cancel: { color: colors.muted },
 });

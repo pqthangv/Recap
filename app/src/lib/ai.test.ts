@@ -1,4 +1,14 @@
-import { AiError, createAiClient, errorFromResponse, tidyOcrText } from './ai';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+import {
+  AI_LANGUAGES,
+  AiError,
+  createAiClient,
+  errorFromResponse,
+  isAiLanguage,
+  tidyOcrText,
+} from './ai';
 
 const DEVICE = '6f1c2b9e-3d4a-4e5f-8a7b-1c2d3e4f5a6b';
 
@@ -29,6 +39,28 @@ describe('AI client', () => {
       mode: 'text',
       max_cards: 5,
     });
+  });
+
+  it("sends each side's language, and nothing for Auto", async () => {
+    const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { cards: [], remaining: 49 }));
+    await client(fetch).generate({
+      text: 'food',
+      mode: 'topic',
+      maxCards: 5,
+      frontLanguage: 'de',
+      backLanguage: 'vi',
+    });
+    await client(fetch).generate({
+      text: 'food',
+      mode: 'topic',
+      maxCards: 5,
+      frontLanguage: null,
+      backLanguage: 'vi',
+    });
+    const bodies = fetch.mock.calls.map(([, init]) => JSON.parse(init.body));
+    expect(bodies[0]).toMatchObject({ front_language: 'de', back_language: 'vi' });
+    expect(bodies[1]).not.toHaveProperty('front_language');
+    expect(bodies[1]).toMatchObject({ back_language: 'vi' });
   });
 
   it('asks for the quota with the device id', async () => {
@@ -104,6 +136,25 @@ describe('AI client', () => {
   it('warm-up never throws', async () => {
     const fetch = jest.fn().mockRejectedValue(new Error('down'));
     await expect(client(fetch).warmUp()).resolves.toBeUndefined();
+  });
+});
+
+describe('AI languages', () => {
+  it("are exactly the server's list, so the server never refuses one", () => {
+    const python = readFileSync(
+      join(__dirname, '..', '..', '..', 'server', 'app', 'llm', 'languages.py'),
+      'utf8',
+    );
+    const literal = /LanguageCode = Literal\[([^\]]+)\]/.exec(python)?.[1] ?? '';
+    const serverCodes = [...literal.matchAll(/"(\w+)"/g)].map((m) => m[1]);
+    expect(serverCodes.length).toBeGreaterThan(0);
+    expect(AI_LANGUAGES.map((l) => l.code).sort()).toEqual(serverCodes.sort());
+  });
+
+  it('checks stored values', () => {
+    expect(isAiLanguage('de')).toBe(true);
+    expect(isAiLanguage('German')).toBe(false);
+    expect(isAiLanguage(null)).toBe(false);
   });
 });
 

@@ -5,6 +5,8 @@ from typing import Literal, Protocol
 
 from pydantic import BaseModel
 
+from app.llm.languages import LanguageCode
+
 Mode = Literal["text", "topic"]
 
 
@@ -14,8 +16,9 @@ class GenerationRequest:
     text: str
     mode: Mode
     max_cards: int
-    # Write the cards in this language; None = the source's language.
-    language: str | None = None
+    # The language of each side of the cards; None = the source's language.
+    front_language: LanguageCode | None = None
+    back_language: LanguageCode | None = None
 
 
 class Card(BaseModel):
