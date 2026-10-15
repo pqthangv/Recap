@@ -1,6 +1,6 @@
 // "Type the answer": which cards are short enough to type, how close a typed answer is, and the
 // grade Recap suggests for it. You still pick the grade; the suggestion is highlighted.
-import { detectLanguage } from './language';
+import { detectLanguage, type CardLanguage } from './language';
 import { Rating, type Grade } from './scheduler';
 
 /**
@@ -39,13 +39,17 @@ export function expectedAnswer(back: string): string {
     .trim();
 }
 
-/** True when the card's answer is short enough to type and check letter by letter. */
-export function isTypeable(back: string): boolean {
+/**
+ * True when the card's answer is short enough to type and check letter by letter. `language`:
+ * the back's language when the deck sets one (otherwise guessed).
+ */
+export function isTypeable(back: string, language?: CardLanguage | null): boolean {
   const answer = expectedAnswer(back);
   if (!normalize(answer) || answer.includes('\n') || answer.length > MAX_CHARS) return false;
   if (CJK.test(answer) && !answer.includes(' ')) return [...answer].length <= MAX_CJK_CHARS;
   const words = answer.split(' ').length;
-  return words <= (detectLanguage(answer) === 'vi' ? MAX_VIETNAMESE_WORDS : MAX_WORDS);
+  const vietnamese = (language ?? detectLanguage(answer)) === 'vi';
+  return words <= (vietnamese ? MAX_VIETNAMESE_WORDS : MAX_WORDS);
 }
 
 // Lower case, the same Unicode form for accents typed either way, punctuation as spaces

@@ -166,6 +166,8 @@ describe('CSV import', () => {
           id: 'd1',
           name: 'Words, "quoted"',
           color: '#000',
+          front_lang: null,
+          back_lang: null,
           created_at: 0,
           updated_at: 0,
           deleted_at: null,

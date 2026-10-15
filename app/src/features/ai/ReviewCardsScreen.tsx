@@ -14,8 +14,9 @@ import { ActionSheet } from '@/components/ActionSheet';
 import { Button } from '@/components/Button';
 import { Checkbox } from '@/components/Checkbox';
 import { showSnackbar } from '@/components/Snackbar';
-import { listDecks } from '@/db/decks';
+import { adoptDeckLanguages, listDecks } from '@/db/decks';
 import { importCards, type ImportTarget } from '@/db/import';
+import { transaction } from '@/db/transaction';
 import { useLive } from '@/db/live';
 import { DeckTarget } from '@/features/import/DeckTarget';
 import { targetIsValid, useFinishImport } from '@/features/import/shared';
@@ -85,7 +86,13 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
 
   const save = () => {
     if (!canSave) return;
-    const summary = importCards(toSave, target);
+    const summary = transaction(() => {
+      const result = importCards(toSave, target);
+      // Read the deck aloud in the languages the cards were written in, unless it has its own.
+      const { languages } = useAiDraft.getState();
+      for (const deck of result.decks) adoptDeckLanguages(deck.id, languages);
+      return result;
+    });
     useAiDraft.setState({ cards: null });
     finish(summary);
   };

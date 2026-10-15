@@ -11,6 +11,7 @@ import { SpeakerIcon } from '@/components/SpeakerIcon';
 import { pictureUri } from '@/features/pictures/files';
 import { speak, stopSpeaking } from '@/features/speech/speech';
 import { markTyped, type AnswerResult } from '@/lib/answerCheck';
+import type { SideLanguages } from '@/lib/language';
 import { t, type StringKey } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
@@ -26,6 +27,8 @@ type Props = {
   autoRead: boolean;
   /** Called when the front has been read aloud by itself (autoRead), e.g. to time the answer. */
   onQuestionRead?: () => void;
+  /** What each side is read in (the deck's languages; null = guessed from the text). */
+  languages?: SideLanguages;
   check?: TypedCheck | null;
   /**
    * Optional picture ("media/<name>"), shown on the side it belongs to (question pictures stay
@@ -51,6 +54,7 @@ export function FlipCard({
   autoRead,
   onQuestionRead,
   check,
+  languages = { front: null, back: null },
   imageRef,
   imageSide,
 }: Props) {
@@ -73,14 +77,18 @@ export function FlipCard({
     else rotation.set(reduceMotion ? 180 : withTiming(180, { duration: 320 }));
   }, [flipped, reduceMotion, rotation]);
 
+  const frontLanguage = languages.front;
+  const backLanguage = languages.back;
   // An effect event, so a new callback on every render doesn't read the card again.
   const questionRead = useEffectEvent(() => onQuestionRead?.());
   useEffect(() => {
-    if (autoRead) speak(front, { auto: true, onDone: () => questionRead() });
-  }, [autoRead, front]);
+    if (autoRead) {
+      speak(front, { language: frontLanguage, auto: true, onDone: () => questionRead() });
+    }
+  }, [autoRead, front, frontLanguage]);
   useEffect(() => {
-    if (autoRead && flipped) speak(back, { auto: true });
-  }, [autoRead, flipped, back]);
+    if (autoRead && flipped) speak(back, { language: backLanguage, auto: true });
+  }, [autoRead, flipped, back, backLanguage]);
   // Stop talking when this card goes away (next card, or leaving the study screen).
   useEffect(() => stopSpeaking, []);
 
@@ -166,7 +174,9 @@ export function FlipCard({
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={t(flipped ? 'study.readAnswer' : 'study.readQuestion')}
-        onPress={() => speak(flipped ? back : front)}
+        onPress={() =>
+          speak(flipped ? back : front, { language: flipped ? backLanguage : frontLanguage })
+        }
         style={({ pressed }) => [styles.speaker, pressed && styles.speakerPressed]}
       >
         <SpeakerIcon size={26} />

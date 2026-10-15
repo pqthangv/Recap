@@ -5,13 +5,18 @@ import { Platform } from 'react-native';
 
 import { showSnackbar } from '@/components/Snackbar';
 import { t } from '@/lib/i18n';
-import { detectLanguage, SPEECH_LOCALES, type SpeechLanguage } from '@/lib/language';
+import {
+  cardLanguageName,
+  detectLanguage,
+  SPEECH_LOCALES,
+  type CardLanguage,
+} from '@/lib/language';
 
 let voices: Promise<Speech.Voice[]> | undefined;
 let audioMode: { inSilentMode: boolean; ready: Promise<void> } | undefined;
-const warned = new Set<SpeechLanguage>();
+const warned = new Set<CardLanguage>();
 
-function hasVoice(lang: SpeechLanguage): Promise<boolean> {
+function hasVoice(lang: CardLanguage): Promise<boolean> {
   voices ??= Speech.getAvailableVoicesAsync().catch(() => []);
   return voices.then(
     // If the engine reports no voices at all, assume it can still speak.
@@ -43,17 +48,21 @@ function prepareAudio(inSilentMode: boolean): Promise<void> {
 }
 
 /**
- * Read `text` aloud in English or Vietnamese (detected from the text), replacing anything playing.
- * `auto`: read by itself rather than from a tap (follows iPhone's Silent switch). `onDone` runs
- * when the reading ends or can't start (not when it's cut off by the next card).
+ * Read `text` aloud, replacing anything playing, in `language` (the deck's setting for that side)
+ * or, when that's null, the language guessed from the text. `auto`: read by itself rather than
+ * from a tap (follows iPhone's Silent switch). `onDone` runs when the reading ends or can't start
+ * (not when it's cut off by the next card).
  */
-export function speak(text: string, options: { auto?: boolean; onDone?: () => void } = {}): void {
+export function speak(
+  text: string,
+  options: { language?: CardLanguage | null; auto?: boolean; onDone?: () => void } = {},
+): void {
   const trimmed = text.trim();
   if (!trimmed) {
     options.onDone?.();
     return;
   }
-  const lang = detectLanguage(trimmed);
+  const lang = options.language ?? detectLanguage(trimmed);
   Speech.stop();
   void prepareAudio(!options.auto).then(() =>
     Speech.speak(trimmed, {
@@ -63,11 +72,12 @@ export function speak(text: string, options: { auto?: boolean; onDone?: () => vo
       onError: options.onDone,
     }),
   );
-  if (lang === 'vi' && !warned.has(lang)) {
+  // Every phone has an English voice; for the others, say once if this phone has none.
+  if (lang !== 'en' && !warned.has(lang)) {
     hasVoice(lang).then((ok) => {
       if (ok || warned.has(lang)) return;
       warned.add(lang);
-      showSnackbar(t('speech.noVietnameseVoice'));
+      showSnackbar(t('speech.noVoice', { language: cardLanguageName(lang) ?? lang }));
     });
   }
 }

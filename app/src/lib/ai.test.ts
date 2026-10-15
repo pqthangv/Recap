@@ -1,14 +1,4 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
-
-import {
-  AI_LANGUAGES,
-  AiError,
-  createAiClient,
-  errorFromResponse,
-  isAiLanguage,
-  tidyOcrText,
-} from './ai';
+import { AiError, createAiClient, errorFromResponse, tidyOcrText } from './ai';
 
 const DEVICE = '6f1c2b9e-3d4a-4e5f-8a7b-1c2d3e4f5a6b';
 
@@ -136,25 +126,6 @@ describe('AI client', () => {
   it('warm-up never throws', async () => {
     const fetch = jest.fn().mockRejectedValue(new Error('down'));
     await expect(client(fetch).warmUp()).resolves.toBeUndefined();
-  });
-});
-
-describe('AI languages', () => {
-  it("are exactly the server's list, so the server never refuses one", () => {
-    const python = readFileSync(
-      join(__dirname, '..', '..', '..', 'server', 'app', 'llm', 'languages.py'),
-      'utf8',
-    );
-    const literal = /LanguageCode = Literal\[([^\]]+)\]/.exec(python)?.[1] ?? '';
-    const serverCodes = [...literal.matchAll(/"(\w+)"/g)].map((m) => m[1]);
-    expect(serverCodes.length).toBeGreaterThan(0);
-    expect(AI_LANGUAGES.map((l) => l.code).sort()).toEqual(serverCodes.sort());
-  });
-
-  it('checks stored values', () => {
-    expect(isAiLanguage('de')).toBe(true);
-    expect(isAiLanguage('German')).toBe(false);
-    expect(isAiLanguage(null)).toBe(false);
   });
 });
 

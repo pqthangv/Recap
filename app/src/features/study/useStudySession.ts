@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 
 import { getCard } from '@/db/cards';
+import { getDeck } from '@/db/decks';
 import type { CardRow } from '@/db/schema';
 import { getSettings } from '@/db/settings';
 import {
@@ -11,6 +12,7 @@ import {
   type StudyScope,
 } from '@/db/study';
 import { checkAnswer, isTypeable, QUICK_START_MS, suggestGrade } from '@/lib/answerCheck';
+import { cardSideLanguages, type SideLanguages } from '@/lib/language';
 import { countReadyNow, previewIntervals, type Grade, type Preview } from '@/lib/scheduler';
 
 import type { TypedCheck } from './FlipCard';
@@ -32,6 +34,12 @@ function headOf(queue: readonly QueueEntry[]): CardRow | null {
   return queue[0] ? (getCard(queue[0].id) ?? null) : null;
 }
 
+/** What each side of the card is read in: its deck's languages, swapped on a reverse card. */
+function languagesOf(card: CardRow | null): SideLanguages {
+  if (!card) return { front: null, back: null };
+  return cardSideLanguages(getDeck(card.deck_id), card.reverse_of !== null);
+}
+
 /**
  * One study session. The queue is rebuilt after every answer, so cards you forget come back
  * and the daily new-card limit stays exact.
@@ -40,6 +48,7 @@ export function useStudySession(scope: StudyScope) {
   const [settings] = useState(getSettings);
   const [first] = useState(() => getQueueOrder(scope));
   const [card, setCard] = useState(() => headOf(first));
+  const [languages, setLanguages] = useState(() => languagesOf(card));
   const [shownAt, setShownAt] = useState(() => Date.now());
   const [ready, setReady] = useState(() => countReadyNow(first, shownAt));
   // Changes every time a card is put on screen, so the card view starts face-down.
@@ -54,6 +63,7 @@ export function useStudySession(scope: StudyScope) {
   const show = (next: QueueEntry[], head = headOf(next)) => {
     const now = Date.now();
     setCard(head);
+    setLanguages(languagesOf(head));
     setReady(countReadyNow(next, now));
     setRevealed(null);
     setTurn((t) => t + 1);
@@ -63,7 +73,7 @@ export function useStudySession(scope: StudyScope) {
   };
 
   // Short answers are typed and checked (Settings › Type the answer); the rest are tapped.
-  const typing = !!card && settings.typeAnswer && isTypeable(card.back);
+  const typing = !!card && settings.typeAnswer && isTypeable(card.back, languages.back);
 
   const reveal = (extra: Pick<Revealed, 'check' | 'suggested'> = {}) => {
     if (!card || revealed) return;
@@ -128,6 +138,7 @@ export function useStudySession(scope: StudyScope) {
     canUndo: history.length > 0,
     fourButtons: settings.fourButtons,
     readAloud: settings.readAloud,
+    languages,
     typing,
     typedCheck: revealed?.check ?? null,
     suggested: revealed?.suggested ?? null,

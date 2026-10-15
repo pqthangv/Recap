@@ -1,7 +1,8 @@
 """The languages "Create with AI" can write each side of a card in.
 
 Requests carry one of these codes, never a language name, so the prompt only ever contains the
-names below. The app's list (app/src/lib/ai.ts) must match; a test checks it.
+names below. The app's list (CARD_LANGUAGES in app/src/lib/language.ts) must match; a test there
+checks it.
 """
 
 from typing import Literal
