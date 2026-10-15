@@ -508,6 +508,8 @@ export const vi: Strings = {
   'pack.ielts':
     'Từ vựng học thuật IELTS theo 10 chủ đề, từ mô tả biểu đồ đến môi trường (giải nghĩa bằng tiếng Anh).',
   'pack.sat': 'Từ vựng trong các bài đọc SAT, mỗi bộ 100 từ (giải nghĩa bằng tiếng Anh).',
+  'pack.toeic':
+    'Tiếng Anh công sở cho TOEIC theo 10 chủ đề, từ cuộc họp đến vận chuyển và nhà ở (giải nghĩa bằng tiếng Anh).',
   'pack.capitals':
     'Thủ đô của mọi quốc gia thành viên Liên Hợp Quốc, theo châu lục (bằng tiếng Anh).',
 
