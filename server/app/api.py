@@ -18,6 +18,7 @@ from app.db import DatabaseNotConfigured, get_engine
 from app.errors import ApiError
 from app.llm.base import Card, CardProvider, GenerationRequest, Mode, ProviderBusy, ProviderFailed
 from app.llm.cleaning import clean_cards
+from app.llm.languages import LanguageCode
 from app.pdf import extract_text
 
 log = logging.getLogger(__name__)
@@ -85,7 +86,10 @@ class GenerateRequest(BaseModel):
     text: str
     mode: Mode = "text"
     max_cards: int = Field(default=10, ge=1)
-    language: str | None = Field(default=None, max_length=40)
+    # Each side's language as a code from a fixed list (anything else is refused before the AI or
+    # the daily quota is touched); None = the source's language.
+    front_language: LanguageCode | None = None
+    back_language: LanguageCode | None = None
 
 
 class GenerateResponse(BaseModel):
@@ -135,7 +139,11 @@ def generate(
 
     started = time.monotonic()
     request = GenerationRequest(
-        text=text, mode=body.mode, max_cards=reserved, language=body.language
+        text=text,
+        mode=body.mode,
+        max_cards=reserved,
+        front_language=body.front_language,
+        back_language=body.back_language,
     )
     try:
         raw = provider.generate(request)
