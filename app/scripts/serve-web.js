@@ -3,6 +3,8 @@
 // - Every response gets the two headers from public/_headers. Without them the browser won't let
 //   the database run (`npx expo start --web` doesn't add them to the page, so use this instead).
 // - "/privacy" serves privacy.html, and any other unknown path serves the app (index.html).
+// - Like Cloudflare, which never uploads a folder named node_modules, paths inside one get the app
+//   page too (scripts/rename-web-assets.js moves Expo's assets out of it).
 // Create with AI talks to the real server, which only accepts recapflashcards.com: to try it here,
 // run the local server with WEB_ORIGINS=http://localhost:8090 and build with EXPO_PUBLIC_API_URL.
 const fs = require('fs');
@@ -26,10 +28,12 @@ const types = {
 http
   .createServer((req, res) => {
     const url = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+    const uploaded = !url.split('/').includes('node_modules');
     const file =
-      [url, `${url}.html`, path.join(url, 'index.html')]
-        .map((p) => path.join(root, p))
-        .find((p) => p.startsWith(root) && fs.existsSync(p) && fs.statSync(p).isFile()) ??
+      (uploaded &&
+        [url, `${url}.html`, path.join(url, 'index.html')]
+          .map((p) => path.join(root, p))
+          .find((p) => p.startsWith(root) && fs.existsSync(p) && fs.statSync(p).isFile())) ||
       path.join(root, 'index.html');
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
