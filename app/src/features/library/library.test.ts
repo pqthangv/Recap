@@ -72,11 +72,27 @@ describe('the bundled packs', () => {
   const FORMAT: Record<string, RegExp> = {
     ielts: VOCAB,
     sat: VOCAB,
+    toeic: VOCAB,
     capitals: /^[^\n]+(\n\n[^\n]+\.)?$/,
   };
 
   it('every pack has a format check', () => {
     expect(PACKS.map((p) => p.id).sort()).toEqual(Object.keys(FORMAT).sort());
+  });
+
+  it('TOEIC vocabulary has 10 topics of 40 words', () => {
+    const toeic = PACKS.find((p) => p.id === 'toeic')!;
+    expect(toeic.decks.map((d) => d.cards.length)).toEqual(new Array(10).fill(40));
+  });
+
+  it('gives TOEIC its own words, none already in IELTS or SAT', () => {
+    // IELTS and SAT share some academic words on purpose; TOEIC is workplace English.
+    const words = (id: string) =>
+      PACKS.find((p) => p.id === id)!.decks.flatMap((d) =>
+        d.cards.map((c) => c.front.toLowerCase()),
+      );
+    const academic = new Set([...words('ielts'), ...words('sat')]);
+    expect(words('toeic').filter((word) => academic.has(word))).toEqual([]);
   });
 
   it('World capitals has all 193 UN members', () => {

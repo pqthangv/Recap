@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useEffectEvent } from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -10,8 +10,13 @@ import Animated, {
 import { SpeakerIcon } from '@/components/SpeakerIcon';
 import { pictureUri } from '@/features/pictures/files';
 import { speak, stopSpeaking } from '@/features/speech/speech';
-import { t } from '@/lib/i18n';
+import { markTyped, type AnswerResult } from '@/lib/answerCheck';
+import type { SideLanguages } from '@/lib/language';
+import { t, type StringKey } from '@/lib/i18n';
 import { colors, radius, touchTarget } from '@/lib/theme';
+
+/** What was typed and how close it was ("Type the answer"), shown on the answer side. */
+export type TypedCheck = { typed: string; result: AnswerResult };
 
 type Props = {
   front: string;
@@ -20,6 +25,11 @@ type Props = {
   onFlip: () => void;
   /** Read the front aloud when the card appears and the back when it is flipped. */
   autoRead: boolean;
+  /** Called when the front has been read aloud by itself (autoRead), e.g. to time the answer. */
+  onQuestionRead?: () => void;
+  /** What each side is read in (the deck's languages; null = guessed from the text). */
+  languages?: SideLanguages;
+  check?: TypedCheck | null;
   /**
    * Optional picture ("media/<name>"), shown on the side it belongs to (question pictures stay
    * visible on the answer side).
@@ -28,8 +38,26 @@ type Props = {
   imageSide?: 'front' | 'back' | null;
 };
 
+const VERDICT: Record<Exclude<AnswerResult, 'skipped'>, StringKey> = {
+  correct: 'study.correct',
+  accents: 'study.almostAccents',
+  typo: 'study.almostSpelling',
+  wrong: 'study.notQuite',
+};
+
 /** The card. Tap to turn it over. Mount it with a new `key` for each card so it starts face-down. */
-export function FlipCard({ front, back, flipped, onFlip, autoRead, imageRef, imageSide }: Props) {
+export function FlipCard({
+  front,
+  back,
+  flipped,
+  onFlip,
+  autoRead,
+  onQuestionRead,
+  check,
+  languages = { front: null, back: null },
+  imageRef,
+  imageSide,
+}: Props) {
   const imageUri = pictureUri(imageRef);
   const picture = (small = false) =>
     imageUri ? (
@@ -49,12 +77,18 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageRef, ima
     else rotation.set(reduceMotion ? 180 : withTiming(180, { duration: 320 }));
   }, [flipped, reduceMotion, rotation]);
 
+  const frontLanguage = languages.front;
+  const backLanguage = languages.back;
+  // An effect event, so a new callback on every render doesn't read the card again.
+  const questionRead = useEffectEvent(() => onQuestionRead?.());
   useEffect(() => {
-    if (autoRead) speak(front);
-  }, [autoRead, front]);
+    if (autoRead) {
+      speak(front, { language: frontLanguage, auto: true, onDone: () => questionRead() });
+    }
+  }, [autoRead, front, frontLanguage]);
   useEffect(() => {
-    if (autoRead && flipped) speak(back);
-  }, [autoRead, flipped, back]);
+    if (autoRead && flipped) speak(back, { language: backLanguage, auto: true });
+  }, [autoRead, flipped, back, backLanguage]);
   // Stop talking when this card goes away (next card, or leaving the study screen).
   useEffect(() => stopSpeaking, []);
 
@@ -74,7 +108,19 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageRef, ima
         disabled={flipped}
         style={StyleSheet.absoluteFill}
         accessibilityRole="button"
-        accessibilityLabel={flipped ? t('study.answerA11y', { front, back }) : front}
+        accessibilityLabel={
+          flipped
+            ? [
+                check && check.result !== 'skipped' ? t(VERDICT[check.result]) : '',
+                check && check.result !== 'skipped' && check.result !== 'correct'
+                  ? `${t('study.youTyped')} ${check.typed}.`
+                  : '',
+                t('study.answerA11y', { front, back }),
+              ]
+                .filter(Boolean)
+                .join(' ')
+            : front
+        }
         accessibilityHint={flipped ? undefined : t('study.flipHint')}
       >
         <Animated.View
@@ -94,6 +140,29 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageRef, ima
           importantForAccessibility="no-hide-descendants"
         >
           <ScrollView contentContainerStyle={styles.faceContent}>
+            {check && check.result !== 'skipped' ? (
+              <View style={styles.check}>
+                <Text
+                  style={[
+                    styles.verdict,
+                    check.result === 'correct' && styles.verdictCorrect,
+                    check.result === 'wrong' && styles.verdictWrong,
+                  ]}
+                >
+                  {t(VERDICT[check.result])}
+                </Text>
+                {check.result === 'correct' ? null : (
+                  <Text style={styles.typed}>
+                    {t('study.youTyped')}{' '}
+                    {markTyped(check.typed, back).map((part, i) => (
+                      <Text key={i} style={part.ok ? styles.typedOk : styles.typedWrong}>
+                        {part.text}
+                      </Text>
+                    ))}
+                  </Text>
+                )}
+              </View>
+            ) : null}
             {onFront ? picture(true) : null}
             <Text style={styles.frontSmall}>{front}</Text>
             <View style={styles.divider} />
@@ -105,7 +174,9 @@ export function FlipCard({ front, back, flipped, onFlip, autoRead, imageRef, ima
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={t(flipped ? 'study.readAnswer' : 'study.readQuestion')}
-        onPress={() => speak(flipped ? back : front)}
+        onPress={() =>
+          speak(flipped ? back : front, { language: flipped ? backLanguage : frontLanguage })
+        }
         style={({ pressed }) => [styles.speaker, pressed && styles.speakerPressed]}
       >
         <SpeakerIcon size={26} />
@@ -160,4 +231,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   backText: { fontSize: 24, lineHeight: 32, color: colors.text, textAlign: 'center' },
+  check: { alignItems: 'center', gap: 6, marginBottom: 20 },
+  verdict: { fontSize: 18, fontWeight: '700', color: colors.text, textAlign: 'center' },
+  verdictCorrect: { color: colors.primary },
+  verdictWrong: { color: colors.danger },
+  typed: { fontSize: 17, lineHeight: 24, color: colors.muted, textAlign: 'center' },
+  typedOk: { color: colors.text },
+  typedWrong: { color: colors.danger, textDecorationLine: 'underline', fontWeight: '700' },
 });

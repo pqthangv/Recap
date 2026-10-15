@@ -6,6 +6,7 @@
 import type { CardRow, Deck, ReviewLogRow, SettingRow } from '@/db/schema';
 
 import { t } from './i18n';
+import { isCardLanguage } from './language';
 import { normalizePictureRef } from './pictures';
 import { DEVICE_SETTING_KEYS } from './settings';
 
@@ -41,13 +42,21 @@ export function buildBackup(
 
 // --- Validation: only known columns with the right types get through. ---
 
-// 'flag' is 0 or 1, and 0 when missing (older backups).
-type Kind = 'string' | 'string?' | 'number' | 'number?' | 'flag' | 'tags';
+// 'flag' is 0 or 1, and 0 when missing (older backups). 'lang' is a CARD_LANGUAGES code, and null
+// (Auto) when missing (older backups) or not one Recap knows (a newer version's language).
+type Kind = 'string' | 'string?' | 'number' | 'number?' | 'flag' | 'tags' | 'lang';
 type Spec = Record<string, Kind>;
 
 const TIMESTAMPS = { created_at: 'number', updated_at: 'number', deleted_at: 'number?' } as const;
 
-const DECK_SPEC = { id: 'string', name: 'string', color: 'string', ...TIMESTAMPS } as const;
+const DECK_SPEC = {
+  id: 'string',
+  name: 'string',
+  color: 'string',
+  front_lang: 'lang',
+  back_lang: 'lang',
+  ...TIMESTAMPS,
+} as const;
 const CARD_SPEC = {
   id: 'string',
   deck_id: 'string',
@@ -97,6 +106,8 @@ function checkRow(raw: unknown, spec: Spec, table: string): Record<string, unkno
     const optional = kind.endsWith('?');
     if (optional && (v === null || v === undefined)) {
       out[col] = null;
+    } else if (kind === 'lang') {
+      out[col] = isCardLanguage(v) ? v : null;
     } else if (kind === 'flag') {
       if (v !== undefined && v !== null && v !== 0 && v !== 1 && typeof v !== 'boolean') {
         throw new BackupError(t('backup.badValue', { column: col, table }));

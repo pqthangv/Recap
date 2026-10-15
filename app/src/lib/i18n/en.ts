@@ -141,6 +141,12 @@ export const en = {
   'deck.nameA11y': 'Deck name',
   'deck.color': 'Color',
   'deck.colorN': 'Color {n}',
+  'deck.readAloudIn': 'Read aloud in',
+  'deck.frontLanguageTitle': 'Read the front of the cards in',
+  'deck.backLanguageTitle': 'Read the back of the cards in',
+  'deck.languageAutoOption': 'Auto: guessed from each card',
+  'deck.languagesHelp':
+    'So each side is read in the right voice. Auto knows English and Vietnamese best.',
   'deck.delete': 'Delete deck',
   'deck.wasDeleted': 'This deck was deleted.',
   'deck.selected': '{n} selected',
@@ -227,6 +233,14 @@ export const en = {
   'study.answerA11y': '{front}. Answer: {back}',
   'study.readQuestion': 'Read the question aloud',
   'study.readAnswer': 'Read the answer aloud',
+  'study.typePlaceholder': 'Type the answer',
+  'study.typeA11y': 'Your answer',
+  'study.check': 'Check',
+  'study.correct': 'Correct!',
+  'study.almostAccents': 'Almost: check the accents',
+  'study.almostSpelling': 'Almost: check the spelling',
+  'study.notQuite': 'Not quite',
+  'study.youTyped': 'You typed:',
   'study.niceWork': 'Nice work — {cards}.',
   'study.nothing': 'Nothing to study right now.',
   'study.seeYou': 'See you tomorrow.',
@@ -237,14 +251,20 @@ export const en = {
   'grade.good': 'Good',
   'grade.easy': 'Easy',
   'grade.a11y': '{name}, see it again {when}',
-  'speech.noVietnameseVoice':
-    "This phone has no Vietnamese voice yet. Add one in your phone's Settings › Text-to-speech.",
+  'grade.suggestedA11y': '{name}, suggested, see it again {when}',
+  'speech.noVoice':
+    "This phone has no voice for {language} yet. Add one in your phone's Settings › Text-to-speech.",
+  'speech.noVoiceWeb':
+    "This browser has no voice for {language} yet. Voices come from your computer's or phone's own speech settings.",
 
   // Settings
   'settings.studying': 'Studying',
   'settings.retention': 'Target retention',
   'settings.retentionHelp': 'How much you want to remember. Higher means more reviews.',
   'settings.newPerDay': 'New cards per day',
+  'settings.typeAnswer': 'Type the answer',
+  'settings.typeAnswerHelp':
+    'For short answers, type what you remember. Recap checks it and suggests a button.',
   'settings.fourButtons': 'Show 4 answer buttons',
   'settings.fourButtonsHelp': 'Again, Hard, Good and Easy instead of Forgot and Got it.',
   'settings.readAloud': 'Read cards aloud',
@@ -413,7 +433,15 @@ export const en = {
   'ai.pdfTextA11y': 'Text from your PDF',
   'ai.pdfHelp': 'PDFs with selectable text, up to 10 MB.',
   'ai.pdfTooBig': 'That PDF is too big. The limit is 10 MB.',
-  'ai.topicPlaceholder': 'e.g. The water cycle',
+  'ai.topicPlaceholder': 'e.g. The water cycle, or German words for food',
+  'languages.front': 'Front: {language}',
+  'languages.back': 'Back: {language}',
+  'languages.frontA11y': 'Language of the card fronts: {language}',
+  'languages.backA11y': 'Language of the card backs: {language}',
+  'languages.auto': 'Auto',
+  'ai.frontLanguageTitle': 'Write the front of the cards in',
+  'ai.backLanguageTitle': 'Write the back of the cards in',
+  'ai.languageAutoOption': 'Auto: the language you wrote in',
   'ai.counter': '{n} / {max} characters',
   'ai.cards': 'Cards',
   'ai.make': 'Make cards',
@@ -431,6 +459,8 @@ export const en = {
   'consent.title': 'Send to Google Gemini?',
   'consent.body':
     "To write your cards, Recap sends your text or PDF to its server and to Google's Gemini AI. Google may use it to improve its products. Nothing else leaves your phone.",
+  'consent.bodyWeb':
+    "To write your cards, Recap sends your text or PDF to its server and to Google's Gemini AI. Google may use it to improve its products. Nothing else leaves this browser.",
   'consent.notNow': 'Not now',
   'consent.allow': 'Allow',
   'review.none': 'No cards to review.',
@@ -480,6 +510,7 @@ export const en = {
   'library.added': 'Added {name} · {cards}',
   'pack.ielts': 'Academic words for IELTS in 10 topics, from describing charts to the environment.',
   'pack.sat': 'Words from SAT reading passages, in sets of 100.',
+  'pack.toeic': 'Workplace English for TOEIC in 10 topics, from meetings to shipping and housing.',
   'pack.capitals': 'The capital of every UN member country, by continent.',
 
   // Statistics

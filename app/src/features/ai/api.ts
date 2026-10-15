@@ -5,6 +5,7 @@ import { create } from 'zustand';
 import { getDeviceId } from '@/db/device';
 import { createAiClient, type GeneratedCard } from '@/lib/ai';
 import type { AiSource } from '@/lib/aiReview';
+import type { SideLanguages } from '@/lib/language';
 
 /** The deployed server (Render). Release builds use it. */
 export const PRODUCTION_API_URL = 'https://recap-api-ictj.onrender.com';
@@ -21,8 +22,14 @@ export const API_URL =
 export const ai = createAiClient({ baseUrl: API_URL, deviceId: () => getDeviceId() });
 
 /** Cards waiting for review. Kept until they're saved or replaced, so nothing is lost by
- *  leaving the review screen (making them used up AI quota). */
-export const useAiDraft = create<{ cards: GeneratedCard[] | null; source: AiSource }>(() => ({
+ *  leaving the review screen (making them used up AI quota). `languages`: what each side was
+ *  written in, for the deck they're saved to. */
+export const useAiDraft = create<{
+  cards: GeneratedCard[] | null;
+  source: AiSource;
+  languages: SideLanguages;
+}>(() => ({
   cards: null,
   source: { kind: 'text' },
+  languages: { front: null, back: null },
 }));

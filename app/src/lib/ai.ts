@@ -1,6 +1,7 @@
 // Talking to Recap's server for AI cards. No API keys here: the server holds them.
 // Errors come back as AiError with a friendly message to show as-is.
 import { language, t, type StringKey } from './i18n';
+import type { CardLanguage } from './language';
 
 export type GeneratedCard = { front: string; back: string };
 export type AiMode = 'text' | 'topic';
@@ -163,7 +164,9 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
       text: string;
       mode: AiMode;
       maxCards: number;
-      language?: string;
+      /** Each side's language (CARD_LANGUAGES); null or left out = the source's language. */
+      frontLanguage?: CardLanguage | null;
+      backLanguage?: CardLanguage | null;
     }): Promise<{ cards: GeneratedCard[]; remaining: number }> {
       return request(
         '/v1/generate',
@@ -175,7 +178,8 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
             text: input.text,
             mode: input.mode,
             max_cards: input.maxCards,
-            language: input.language,
+            front_language: input.frontLanguage ?? undefined,
+            back_language: input.backLanguage ?? undefined,
           }),
         },
         TIMEOUTS.generate,

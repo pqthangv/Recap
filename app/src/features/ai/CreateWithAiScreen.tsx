@@ -13,7 +13,9 @@ import {
 } from 'react-native';
 
 import { Button } from '@/components/Button';
+import { SideLanguages } from '@/components/SideLanguages';
 import { Stepper } from '@/components/Stepper';
+import { getRawSetting, setRawSetting } from '@/db/settings';
 import { discardPicked, pickedUpload } from '@/features/files/picked';
 import {
   AiError,
@@ -24,7 +26,9 @@ import {
 } from '@/lib/ai';
 import type { AiSource } from '@/lib/aiReview';
 import { count, t, tn, type StringKey } from '@/lib/i18n';
+import { isCardLanguage, type CardLanguage, type SideLanguages as Languages } from '@/lib/language';
 import { can } from '@/lib/platform';
+import { AI_BACK_LANGUAGE_KEY, AI_FRONT_LANGUAGE_KEY } from '@/lib/settings';
 import { colors, radius, touchTarget } from '@/lib/theme';
 
 import { askAiConsent } from './consent';
@@ -51,6 +55,20 @@ const MAX_PDF_BYTES = 10 * 1024 * 1024;
 
 const messageOf = (e: unknown) => (e instanceof AiError ? e.message : t('common.somethingWrong'));
 
+// Each side of the cards can be in its own language (e.g. German words, Vietnamese meanings).
+// null = Auto: the language of the text or topic. The last choice is kept on this phone, and the
+// deck the cards are saved to is read aloud in these languages (see ReviewCardsScreen).
+type Side = keyof Languages;
+const LANGUAGE_KEYS: Record<Side, string> = {
+  front: AI_FRONT_LANGUAGE_KEY,
+  back: AI_BACK_LANGUAGE_KEY,
+};
+
+function storedLanguage(side: Side): CardLanguage | null {
+  const value = getRawSetting(LANGUAGE_KEYS[side]);
+  return isCardLanguage(value) ? value : null;
+}
+
 /** "Create with AI": paste text, a photo of notes, a PDF or a topic → cards to review. */
 export default function CreateWithAiScreen() {
   const router = useRouter();
@@ -61,6 +79,10 @@ export default function CreateWithAiScreen() {
   const [pdf, setPdf] = useState<(PdfText & { fileName: string }) | null>(null);
   const [topic, setTopic] = useState('');
   const [maxCards, setMaxCards] = useState(10);
+  const [languages, setLanguages] = useState<Languages>(() => ({
+    front: storedLanguage('front'),
+    back: storedLanguage('back'),
+  }));
   const [quota, setQuota] = useState<QuotaState>({ status: 'loading' });
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -125,9 +147,11 @@ export default function CreateWithAiScreen() {
         text: input.trim(),
         mode: tab === 'topic' ? 'topic' : 'text',
         maxCards: Math.min(maxCards, cardLimit),
+        frontLanguage: languages.front,
+        backLanguage: languages.back,
       });
       setQuota({ status: 'ready', remaining: result.remaining });
-      useAiDraft.setState({ cards: result.cards, source });
+      useAiDraft.setState({ cards: result.cards, source, languages });
       router.push('/ai/review');
     });
   };
@@ -159,6 +183,11 @@ export default function CreateWithAiScreen() {
       const text = await readTextFromPhoto(from);
       if (text !== null) setPhotoText(text);
     });
+
+  const chooseLanguage = (side: Side, code: CardLanguage | null) => {
+    setLanguages((current) => ({ ...current, [side]: code }));
+    setRawSetting(LANGUAGE_KEYS[side], code);
+  };
 
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="padding">
@@ -275,6 +304,14 @@ export default function CreateWithAiScreen() {
             {t('ai.counter', { n: count(input.trim().length), max: count(MAX_INPUT_CHARS) })}
           </Text>
         ) : null}
+
+        <SideLanguages
+          value={languages}
+          onChange={chooseLanguage}
+          titles={{ front: t('ai.frontLanguageTitle'), back: t('ai.backLanguageTitle') }}
+          autoOption={t('ai.languageAutoOption')}
+          disabled={!!busy}
+        />
 
         <Stepper
           label={t('ai.cards')}

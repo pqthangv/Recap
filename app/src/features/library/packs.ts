@@ -1,6 +1,7 @@
 // The ready-made decks in the Library. Recap's own writing (word picks, definitions and examples),
 // not copied from any book or list, and bundled with the app so they work offline. Capitals are
-// plain facts (the 193 UN members), with a short note where a country has more than one.
+// plain facts (the 193 UN members), with a short note where a country has more than one. Exam
+// names (IELTS, SAT, TOEIC) only describe what the words are for; no exam logos.
 import type { ImageSourcePropType } from 'react-native';
 
 import flagUk from '@/assets/images/library/flag-uk.png';
@@ -11,11 +12,12 @@ import { deckColors } from '@/lib/theme';
 import capitals from './packs/capitals.json';
 import ielts from './packs/ielts.json';
 import sat from './packs/sat.json';
+import toeic from './packs/toeic.json';
 
 export type PackCard = { front: string; back: string };
 
 /** The round badge on the Library card: a flag (assets/images/library) or a Material icon. */
-export type PackLogo = { image: ImageSourcePropType } | { icon: 'public' };
+export type PackLogo = { image: ImageSourcePropType } | { icon: 'public' | 'business-center' };
 
 export type Pack = {
   id: string;
@@ -46,6 +48,14 @@ export const PACKS: readonly Pack[] = [
     color: deckColors[0],
     logo: { image: flagUs },
     decks: sat.decks,
+  },
+  {
+    id: 'toeic',
+    name: 'TOEIC vocabulary',
+    description: 'pack.toeic',
+    color: deckColors[3],
+    logo: { icon: 'business-center' }, // a briefcase: workplace English
+    decks: toeic.decks,
   },
   {
     id: 'capitals',

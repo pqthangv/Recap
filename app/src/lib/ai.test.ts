@@ -31,6 +31,28 @@ describe('AI client', () => {
     });
   });
 
+  it("sends each side's language, and nothing for Auto", async () => {
+    const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { cards: [], remaining: 49 }));
+    await client(fetch).generate({
+      text: 'food',
+      mode: 'topic',
+      maxCards: 5,
+      frontLanguage: 'de',
+      backLanguage: 'vi',
+    });
+    await client(fetch).generate({
+      text: 'food',
+      mode: 'topic',
+      maxCards: 5,
+      frontLanguage: null,
+      backLanguage: 'vi',
+    });
+    const bodies = fetch.mock.calls.map(([, init]) => JSON.parse(init.body));
+    expect(bodies[0]).toMatchObject({ front_language: 'de', back_language: 'vi' });
+    expect(bodies[1]).not.toHaveProperty('front_language');
+    expect(bodies[1]).toMatchObject({ back_language: 'vi' });
+  });
+
   it('asks for the quota with the device id', async () => {
     const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { remaining: 12, limit: 50 }));
     expect(await client(fetch).quota()).toEqual({ remaining: 12, limit: 50 });

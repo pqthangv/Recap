@@ -2,6 +2,7 @@ import { getLocales } from 'expo-localization';
 
 import { WELCOME_DECKS } from '@/features/onboarding/seed';
 import { errorFromResponse } from '@/lib/ai';
+import { isTypeable } from '@/lib/answerCheck';
 import { reminderText } from '@/lib/reminders';
 
 import { en } from './en';
@@ -143,8 +144,10 @@ describe('Vietnamese around the app', () => {
     for (const lang of ['en', 'vi'] as const) {
       setLanguage(lang);
       const text = WELCOME_DECKS[lang][0].cards.flat().join('\n');
-      expect(text).toContain(t('grade.forgot'));
-      expect(text).toContain(t('grade.gotIt'));
+      for (const grade of ['grade.again', 'grade.hard', 'grade.good', 'grade.easy'] as const) {
+        expect(text).toContain(t(grade));
+      }
+      expect(text).toContain(t('study.check'));
       expect(text).toContain(t('settings.readAloud'));
       expect(text).toContain(t('screen.addCard'));
       expect(text).toContain(t('deck.delete'));
@@ -155,5 +158,13 @@ describe('Vietnamese around the app', () => {
     expect(WELCOME_DECKS.vi[0].cards.flat().join('\n')).toContain(threeDays());
     setLanguage('en');
     expect(WELCOME_DECKS.en[0].cards.flat().join('\n')).toContain(threeDays());
+  });
+
+  it('starts the welcome deck with a card to type, then one to tap', () => {
+    for (const lang of ['en', 'vi'] as const) {
+      const [first, second] = WELCOME_DECKS[lang][0].cards;
+      expect(isTypeable(first[1])).toBe(true);
+      expect(isTypeable(second[1])).toBe(false);
+    }
   });
 });

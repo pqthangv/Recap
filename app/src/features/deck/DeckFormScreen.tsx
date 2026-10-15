@@ -3,10 +3,12 @@ import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { Button } from '@/components/Button';
+import { SideLanguages } from '@/components/SideLanguages';
 import { countCards } from '@/db/cards';
 import { createDeck, deleteDeck, getDeck, listDecks, RESTORE_DAYS, updateDeck } from '@/db/decks';
 import { childDeckName } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
+import { cardSideLanguages, type SideLanguages as Languages } from '@/lib/language';
 import { colors, deckColors, radius, touchTarget } from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 
@@ -19,23 +21,30 @@ export default function DeckFormScreen() {
   const router = useRouter();
   const [existing] = useState(() => (id ? getDeck(id) : undefined));
   const inside = !existing && parent?.trim() ? parent.trim() : null;
+  // A new deck inside another starts with that deck's color and languages.
+  const [parentDeck] = useState(() =>
+    inside ? listDecks().find((d) => d.name.trim().toLowerCase() === inside.toLowerCase()) : null,
+  );
   const [name, setName] = useState(existing?.name ?? '');
   const [color, setColor] = useState<string>(
-    () =>
-      existing?.color ??
-      (inside &&
-        listDecks().find((d) => d.name.trim().toLowerCase() === inside.toLowerCase())?.color) ??
-      deckColors[0],
+    () => existing?.color ?? parentDeck?.color ?? deckColors[0],
+  );
+  const [languages, setLanguages] = useState<Languages>(() =>
+    cardSideLanguages(existing ?? parentDeck ?? undefined, false),
   );
   const canSave = name.trim().length > 0;
 
   const save = () => {
     if (!canSave) return;
     if (existing) {
-      updateDeck(existing.id, { name, color });
+      updateDeck(existing.id, { name, color, languages });
       router.back();
     } else {
-      const deck = createDeck({ name: inside ? childDeckName(inside, name) : name, color });
+      const deck = createDeck({
+        name: inside ? childDeckName(inside, name) : name,
+        color,
+        languages,
+      });
       router.replace({ pathname: '/deck/[id]', params: { id: deck.id } });
     }
   };
@@ -98,6 +107,15 @@ export default function DeckFormScreen() {
         ))}
       </View>
 
+      <Text style={styles.label}>{t('deck.readAloudIn')}</Text>
+      <SideLanguages
+        value={languages}
+        onChange={(side, language) => setLanguages((l) => ({ ...l, [side]: language }))}
+        titles={{ front: t('deck.frontLanguageTitle'), back: t('deck.backLanguageTitle') }}
+        autoOption={t('deck.languageAutoOption')}
+      />
+      <Text style={styles.help}>{t('deck.languagesHelp')}</Text>
+
       <Button label={t('common.save')} onPress={save} disabled={!canSave} style={styles.save} />
       {existing ? (
         <Button variant="danger" label={t('deck.delete')} onPress={confirmDelete} />
@@ -110,6 +128,7 @@ const styles = StyleSheet.create({
   content: { padding: 20, gap: 8 },
   label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
   inside: { fontSize: 16, color: colors.text },
+  help: { fontSize: 14, color: colors.muted },
   input: {
     minHeight: touchTarget,
     borderRadius: radius.button,

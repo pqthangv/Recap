@@ -143,6 +143,12 @@ export const vi: Strings = {
   'deck.nameA11y': 'Tên bộ thẻ',
   'deck.color': 'Màu',
   'deck.colorN': 'Màu {n}',
+  'deck.readAloudIn': 'Đọc thành tiếng bằng',
+  'deck.frontLanguageTitle': 'Đọc mặt trước của thẻ bằng',
+  'deck.backLanguageTitle': 'Đọc mặt sau của thẻ bằng',
+  'deck.languageAutoOption': 'Tự động: đoán theo từng thẻ',
+  'deck.languagesHelp':
+    'Để mỗi mặt thẻ được đọc bằng đúng giọng. Chế độ Tự động nhận biết tốt nhất tiếng Anh và tiếng Việt.',
   'deck.delete': 'Xóa bộ thẻ',
   'deck.wasDeleted': 'Bộ thẻ này đã bị xóa.',
   'deck.selected': 'Đã chọn {n}',
@@ -232,6 +238,14 @@ export const vi: Strings = {
   'study.niceWork': 'Giỏi lắm! Bạn đã học {cards}.',
   'study.nothing': 'Hiện chưa có thẻ nào cần học.',
   'study.seeYou': 'Hẹn gặp bạn ngày mai.',
+  'study.typePlaceholder': 'Gõ câu trả lời',
+  'study.typeA11y': 'Câu trả lời của bạn',
+  'study.check': 'Kiểm tra',
+  'study.correct': 'Chính xác!',
+  'study.almostAccents': 'Gần đúng: kiểm tra lại dấu',
+  'study.almostSpelling': 'Gần đúng: kiểm tra lại chính tả',
+  'study.notQuite': 'Chưa đúng',
+  'study.youTyped': 'Bạn đã gõ:',
   'grade.forgot': 'Quên',
   'grade.gotIt': 'Nhớ',
   'grade.again': 'Lại',
@@ -239,8 +253,11 @@ export const vi: Strings = {
   'grade.good': 'Ổn',
   'grade.easy': 'Dễ',
   'grade.a11y': '{name}, gặp lại {when}',
-  'speech.noVietnameseVoice':
-    'Điện thoại này chưa có giọng đọc tiếng Việt. Hãy thêm trong Cài đặt › Chuyển văn bản thành giọng nói.',
+  'grade.suggestedA11y': '{name}, được gợi ý, gặp lại {when}',
+  'speech.noVoice':
+    'Điện thoại này chưa có giọng đọc cho {language}. Hãy thêm trong Cài đặt › Chuyển văn bản thành giọng nói.',
+  'speech.noVoiceWeb':
+    'Trình duyệt này chưa có giọng đọc cho {language}. Giọng đọc lấy từ phần cài đặt giọng nói của máy tính hoặc điện thoại.',
 
   // Settings
   'settings.studying': 'Học tập',
@@ -249,6 +266,9 @@ export const vi: Strings = {
   'settings.newPerDay': 'Thẻ mới mỗi ngày',
   'settings.fourButtons': 'Hiện 4 nút trả lời',
   'settings.fourButtonsHelp': 'Lại, Khó, Ổn và Dễ thay cho Quên và Nhớ.',
+  'settings.typeAnswer': 'Gõ câu trả lời',
+  'settings.typeAnswerHelp':
+    'Với câu trả lời ngắn, hãy gõ những gì bạn nhớ. Recap sẽ kiểm tra và gợi ý một nút.',
   'settings.readAloud': 'Đọc thẻ thành tiếng',
   'settings.readAloudHelp':
     'Đọc từng mặt thẻ bằng tiếng Anh hoặc tiếng Việt khi hiện ra. Bạn luôn có thể chạm vào loa trên thẻ.',
@@ -415,7 +435,15 @@ export const vi: Strings = {
   'ai.pdfTextA11y': 'Chữ trong tệp PDF',
   'ai.pdfHelp': 'Tệp PDF có chữ chọn được, tối đa 10 MB.',
   'ai.pdfTooBig': 'Tệp PDF quá lớn. Giới hạn là 10 MB.',
-  'ai.topicPlaceholder': 'VD: Vòng tuần hoàn của nước',
+  'ai.topicPlaceholder': 'VD: Vòng tuần hoàn của nước, hoặc từ vựng tiếng Đức về đồ ăn',
+  'languages.front': 'Mặt trước: {language}',
+  'languages.back': 'Mặt sau: {language}',
+  'languages.frontA11y': 'Ngôn ngữ mặt trước của thẻ: {language}',
+  'languages.backA11y': 'Ngôn ngữ mặt sau của thẻ: {language}',
+  'languages.auto': 'Tự động',
+  'ai.frontLanguageTitle': 'Viết mặt trước của thẻ bằng',
+  'ai.backLanguageTitle': 'Viết mặt sau của thẻ bằng',
+  'ai.languageAutoOption': 'Tự động: theo ngôn ngữ bạn nhập',
   'ai.counter': '{n} / {max} ký tự',
   'ai.cards': 'Số thẻ',
   'ai.make': 'Tạo thẻ',
@@ -432,6 +460,8 @@ export const vi: Strings = {
   'consent.title': 'Gửi cho Google Gemini?',
   'consent.body':
     'Để viết thẻ, Recap gửi văn bản hoặc tệp PDF của bạn đến máy chủ của Recap và AI Gemini của Google. Google có thể dùng nội dung này để cải thiện sản phẩm của họ. Ngoài ra không có gì khác rời khỏi điện thoại của bạn.',
+  'consent.bodyWeb':
+    'Để viết thẻ, Recap gửi văn bản hoặc tệp PDF của bạn đến máy chủ của Recap và AI Gemini của Google. Google có thể dùng nội dung này để cải thiện sản phẩm của họ. Ngoài ra không có gì khác rời khỏi trình duyệt này.',
   'consent.notNow': 'Để sau',
   'consent.allow': 'Cho phép',
   'review.none': 'Không có thẻ nào để xem lại.',
@@ -482,6 +512,8 @@ export const vi: Strings = {
   'pack.ielts':
     'Từ vựng học thuật IELTS theo 10 chủ đề, từ mô tả biểu đồ đến môi trường (giải nghĩa bằng tiếng Anh).',
   'pack.sat': 'Từ vựng trong các bài đọc SAT, mỗi bộ 100 từ (giải nghĩa bằng tiếng Anh).',
+  'pack.toeic':
+    'Tiếng Anh công sở cho TOEIC theo 10 chủ đề, từ cuộc họp đến vận chuyển và nhà ở (giải nghĩa bằng tiếng Anh).',
   'pack.capitals':
     'Thủ đô của mọi quốc gia thành viên Liên Hợp Quốc, theo châu lục (bằng tiếng Anh).',
 
