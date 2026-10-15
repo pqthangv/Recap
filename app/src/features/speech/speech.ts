@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 
 import { showSnackbar } from '@/components/Snackbar';
 import { t } from '@/lib/i18n';
+import { isWeb } from '@/lib/platform';
 import {
   cardLanguageName,
   detectLanguage,
@@ -77,7 +78,8 @@ export function speak(
     hasVoice(lang).then((ok) => {
       if (ok || warned.has(lang)) return;
       warned.add(lang);
-      showSnackbar(t('speech.noVoice', { language: cardLanguageName(lang) ?? lang }));
+      const message = isWeb ? 'speech.noVoiceWeb' : 'speech.noVoice';
+      showSnackbar(t(message, { language: cardLanguageName(lang) ?? lang }));
     });
   }
 }

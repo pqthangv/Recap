@@ -2,6 +2,7 @@ import {} from 'react-native';
 
 import { getRawSetting, setRawSetting } from '@/db/settings';
 import { t } from '@/lib/i18n';
+import { isWeb } from '@/lib/platform';
 import { AI_CONSENT_KEY } from '@/lib/settings';
 import { showAlert } from '@/lib/alert';
 
@@ -26,7 +27,7 @@ export function askAiConsent(): Promise<boolean> {
   return new Promise((resolve) => {
     showAlert(
       t('consent.title'),
-      t('consent.body'),
+      t(isWeb ? 'consent.bodyWeb' : 'consent.body'),
       [
         { text: t('consent.notNow'), style: 'cancel', onPress: () => resolve(false) },
         {

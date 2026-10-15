@@ -256,6 +256,8 @@ export const vi: Strings = {
   'grade.suggestedA11y': '{name}, được gợi ý, gặp lại {when}',
   'speech.noVoice':
     'Điện thoại này chưa có giọng đọc cho {language}. Hãy thêm trong Cài đặt › Chuyển văn bản thành giọng nói.',
+  'speech.noVoiceWeb':
+    'Trình duyệt này chưa có giọng đọc cho {language}. Giọng đọc lấy từ phần cài đặt giọng nói của máy tính hoặc điện thoại.',
 
   // Settings
   'settings.studying': 'Học tập',
@@ -458,6 +460,8 @@ export const vi: Strings = {
   'consent.title': 'Gửi cho Google Gemini?',
   'consent.body':
     'Để viết thẻ, Recap gửi văn bản hoặc tệp PDF của bạn đến máy chủ của Recap và AI Gemini của Google. Google có thể dùng nội dung này để cải thiện sản phẩm của họ. Ngoài ra không có gì khác rời khỏi điện thoại của bạn.',
+  'consent.bodyWeb':
+    'Để viết thẻ, Recap gửi văn bản hoặc tệp PDF của bạn đến máy chủ của Recap và AI Gemini của Google. Google có thể dùng nội dung này để cải thiện sản phẩm của họ. Ngoài ra không có gì khác rời khỏi trình duyệt này.',
   'consent.notNow': 'Để sau',
   'consent.allow': 'Cho phép',
   'review.none': 'Không có thẻ nào để xem lại.',
