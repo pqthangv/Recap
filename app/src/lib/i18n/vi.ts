@@ -143,6 +143,12 @@ export const vi: Strings = {
   'deck.nameA11y': 'Tên bộ thẻ',
   'deck.color': 'Màu',
   'deck.colorN': 'Màu {n}',
+  'deck.readAloudIn': 'Đọc thành tiếng bằng',
+  'deck.frontLanguageTitle': 'Đọc mặt trước của thẻ bằng',
+  'deck.backLanguageTitle': 'Đọc mặt sau của thẻ bằng',
+  'deck.languageAutoOption': 'Tự động: đoán theo từng thẻ',
+  'deck.languagesHelp':
+    'Để mỗi mặt thẻ được đọc bằng đúng giọng. Chế độ Tự động nhận biết tốt nhất tiếng Anh và tiếng Việt.',
   'deck.delete': 'Xóa bộ thẻ',
   'deck.wasDeleted': 'Bộ thẻ này đã bị xóa.',
   'deck.selected': 'Đã chọn {n}',
@@ -248,8 +254,8 @@ export const vi: Strings = {
   'grade.easy': 'Dễ',
   'grade.a11y': '{name}, gặp lại {when}',
   'grade.suggestedA11y': '{name}, được gợi ý, gặp lại {when}',
-  'speech.noVietnameseVoice':
-    'Điện thoại này chưa có giọng đọc tiếng Việt. Hãy thêm trong Cài đặt › Chuyển văn bản thành giọng nói.',
+  'speech.noVoice':
+    'Điện thoại này chưa có giọng đọc cho {language}. Hãy thêm trong Cài đặt › Chuyển văn bản thành giọng nói.',
 
   // Settings
   'settings.studying': 'Học tập',
@@ -428,13 +434,13 @@ export const vi: Strings = {
   'ai.pdfHelp': 'Tệp PDF có chữ chọn được, tối đa 10 MB.',
   'ai.pdfTooBig': 'Tệp PDF quá lớn. Giới hạn là 10 MB.',
   'ai.topicPlaceholder': 'VD: Vòng tuần hoàn của nước, hoặc từ vựng tiếng Đức về đồ ăn',
-  'ai.frontLanguage': 'Mặt trước: {language}',
-  'ai.backLanguage': 'Mặt sau: {language}',
-  'ai.frontLanguageA11y': 'Ngôn ngữ mặt trước của thẻ: {language}',
-  'ai.backLanguageA11y': 'Ngôn ngữ mặt sau của thẻ: {language}',
+  'languages.front': 'Mặt trước: {language}',
+  'languages.back': 'Mặt sau: {language}',
+  'languages.frontA11y': 'Ngôn ngữ mặt trước của thẻ: {language}',
+  'languages.backA11y': 'Ngôn ngữ mặt sau của thẻ: {language}',
+  'languages.auto': 'Tự động',
   'ai.frontLanguageTitle': 'Viết mặt trước của thẻ bằng',
   'ai.backLanguageTitle': 'Viết mặt sau của thẻ bằng',
-  'ai.languageAuto': 'Tự động',
   'ai.languageAutoOption': 'Tự động: theo ngôn ngữ bạn nhập',
   'ai.counter': '{n} / {max} ký tự',
   'ai.cards': 'Số thẻ',

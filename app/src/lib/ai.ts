@@ -1,6 +1,7 @@
 // Talking to Recap's server for AI cards. No API keys here: the server holds them.
 // Errors come back as AiError with a friendly message to show as-is.
 import { language, t, type StringKey } from './i18n';
+import type { CardLanguage } from './language';
 
 export type GeneratedCard = { front: string; back: string };
 export type AiMode = 'text' | 'topic';
@@ -8,30 +9,6 @@ export type Quota = { remaining: number; limit: number };
 export type PdfText = { text: string; pages: number; truncated: boolean };
 /** Why someone reports an AI card (server/app/reports.py). */
 export type ReportReason = 'offensive' | 'wrong' | 'other';
-
-/**
- * The languages "Create with AI" can write each side of a card in, named in their own language.
- * The server takes only these codes (server/app/llm/languages.py; ai.test.ts checks they match).
- */
-export const AI_LANGUAGES = [
-  { code: 'en', name: 'English' },
-  { code: 'vi', name: 'Tiếng Việt' },
-  { code: 'zh', name: '简体中文' },
-  { code: 'ja', name: '日本語' },
-  { code: 'ko', name: '한국어' },
-  { code: 'fr', name: 'Français' },
-  { code: 'de', name: 'Deutsch' },
-  { code: 'es', name: 'Español' },
-  { code: 'it', name: 'Italiano' },
-  { code: 'pt', name: 'Português' },
-  { code: 'ru', name: 'Русский' },
-  { code: 'th', name: 'ไทย' },
-] as const;
-export type AiLanguage = (typeof AI_LANGUAGES)[number]['code'];
-
-export function isAiLanguage(value: unknown): value is AiLanguage {
-  return AI_LANGUAGES.some((language) => language.code === value);
-}
 
 /** OCR text, tidied: spaces collapsed, blank lines between blocks kept to one. */
 export function tidyOcrText(text: string): string {
@@ -187,9 +164,9 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
       text: string;
       mode: AiMode;
       maxCards: number;
-      /** Each side's language; null or left out = the source's language. */
-      frontLanguage?: AiLanguage | null;
-      backLanguage?: AiLanguage | null;
+      /** Each side's language (CARD_LANGUAGES); null or left out = the source's language. */
+      frontLanguage?: CardLanguage | null;
+      backLanguage?: CardLanguage | null;
     }): Promise<{ cards: GeneratedCard[]; remaining: number }> {
       return request(
         '/v1/generate',

@@ -20,6 +20,10 @@ export const decks = sqliteTable('decks', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
   color: text('color').notNull(),
+  // The language each side is read aloud in (a code from CARD_LANGUAGES, src/lib/language.ts);
+  // null = Auto, guessed from the text. Reverse cards swap them.
+  front_lang: text('front_lang'),
+  back_lang: text('back_lang'),
   ...timestamps,
 });
 

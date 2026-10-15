@@ -79,7 +79,7 @@ export const AI_CONSENT_KEY = 'ai_consent';
 /** Set once "Remind you to study?" has been offered after a finished session (asked only once). */
 export const REMINDER_OFFERED_KEY = 'reminder_offered';
 
-/** "Create with AI"'s last Front / Back language (an `AI_LANGUAGES` code; null = Auto). Per phone. */
+/** "Create with AI"'s last Front / Back language (a `CARD_LANGUAGES` code; null = Auto). Per phone. */
 export const AI_FRONT_LANGUAGE_KEY = 'ai_front_language';
 export const AI_BACK_LANGUAGE_KEY = 'ai_back_language';
 

@@ -12,23 +12,21 @@ import {
   View,
 } from 'react-native';
 
-import { ActionSheet } from '@/components/ActionSheet';
 import { Button } from '@/components/Button';
+import { SideLanguages } from '@/components/SideLanguages';
 import { Stepper } from '@/components/Stepper';
 import { getRawSetting, setRawSetting } from '@/db/settings';
 import { discardPicked, pickedUpload } from '@/features/files/picked';
 import {
-  AI_LANGUAGES,
   AiError,
-  isAiLanguage,
   MAX_CARDS_PER_REQUEST,
   MAX_INPUT_CHARS,
   MAX_TOPIC_CHARS,
-  type AiLanguage,
   type PdfText,
 } from '@/lib/ai';
 import type { AiSource } from '@/lib/aiReview';
 import { count, t, tn, type StringKey } from '@/lib/i18n';
+import { isCardLanguage, type CardLanguage, type SideLanguages as Languages } from '@/lib/language';
 import { can } from '@/lib/platform';
 import { AI_BACK_LANGUAGE_KEY, AI_FRONT_LANGUAGE_KEY } from '@/lib/settings';
 import { colors, radius, touchTarget } from '@/lib/theme';
@@ -58,29 +56,18 @@ const MAX_PDF_BYTES = 10 * 1024 * 1024;
 const messageOf = (e: unknown) => (e instanceof AiError ? e.message : t('common.somethingWrong'));
 
 // Each side of the cards can be in its own language (e.g. German words, Vietnamese meanings).
-// null = Auto: the language of the text or topic. The last choice is kept on this phone.
-type Side = 'front' | 'back';
-const SIDES: readonly Side[] = ['front', 'back'];
+// null = Auto: the language of the text or topic. The last choice is kept on this phone, and the
+// deck the cards are saved to is read aloud in these languages (see ReviewCardsScreen).
+type Side = keyof Languages;
 const LANGUAGE_KEYS: Record<Side, string> = {
   front: AI_FRONT_LANGUAGE_KEY,
   back: AI_BACK_LANGUAGE_KEY,
 };
-const SIDE_TEXT: Record<Side, { label: StringKey; a11y: StringKey; title: StringKey }> = {
-  front: {
-    label: 'ai.frontLanguage',
-    a11y: 'ai.frontLanguageA11y',
-    title: 'ai.frontLanguageTitle',
-  },
-  back: { label: 'ai.backLanguage', a11y: 'ai.backLanguageA11y', title: 'ai.backLanguageTitle' },
-};
 
-function storedLanguage(side: Side): AiLanguage | null {
+function storedLanguage(side: Side): CardLanguage | null {
   const value = getRawSetting(LANGUAGE_KEYS[side]);
-  return isAiLanguage(value) ? value : null;
+  return isCardLanguage(value) ? value : null;
 }
-
-const languageName = (code: AiLanguage | null) =>
-  AI_LANGUAGES.find((language) => language.code === code)?.name ?? t('ai.languageAuto');
 
 /** "Create with AI": paste text, a photo of notes, a PDF or a topic → cards to review. */
 export default function CreateWithAiScreen() {
@@ -92,12 +79,10 @@ export default function CreateWithAiScreen() {
   const [pdf, setPdf] = useState<(PdfText & { fileName: string }) | null>(null);
   const [topic, setTopic] = useState('');
   const [maxCards, setMaxCards] = useState(10);
-  const [languages, setLanguages] = useState<Record<Side, AiLanguage | null>>(() => ({
+  const [languages, setLanguages] = useState<Languages>(() => ({
     front: storedLanguage('front'),
     back: storedLanguage('back'),
   }));
-  const [pickingSide, setPickingSide] = useState<Side>('front');
-  const [picking, setPicking] = useState(false);
   const [quota, setQuota] = useState<QuotaState>({ status: 'loading' });
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -166,7 +151,7 @@ export default function CreateWithAiScreen() {
         backLanguage: languages.back,
       });
       setQuota({ status: 'ready', remaining: result.remaining });
-      useAiDraft.setState({ cards: result.cards, source });
+      useAiDraft.setState({ cards: result.cards, source, languages });
       router.push('/ai/review');
     });
   };
@@ -199,7 +184,7 @@ export default function CreateWithAiScreen() {
       if (text !== null) setPhotoText(text);
     });
 
-  const chooseLanguage = (side: Side, code: AiLanguage | null) => {
+  const chooseLanguage = (side: Side, code: CardLanguage | null) => {
     setLanguages((current) => ({ ...current, [side]: code }));
     setRawSetting(LANGUAGE_KEYS[side], code);
   };
@@ -320,28 +305,13 @@ export default function CreateWithAiScreen() {
           </Text>
         ) : null}
 
-        <View style={styles.row}>
-          {SIDES.map((side) => (
-            <Pressable
-              key={side}
-              accessibilityRole="button"
-              accessibilityLabel={t(SIDE_TEXT[side].a11y, {
-                language: languageName(languages[side]),
-              })}
-              disabled={!!busy}
-              onPress={() => {
-                setPickingSide(side);
-                setPicking(true);
-              }}
-              style={({ pressed }) => [styles.languageButton, pressed && styles.pressed]}
-            >
-              <Text style={styles.languageText} numberOfLines={2}>
-                {t(SIDE_TEXT[side].label, { language: languageName(languages[side]) })}
-              </Text>
-              <Text style={styles.chevron}>⌄</Text>
-            </Pressable>
-          ))}
-        </View>
+        <SideLanguages
+          value={languages}
+          onChange={chooseLanguage}
+          titles={{ front: t('ai.frontLanguageTitle'), back: t('ai.backLanguageTitle') }}
+          autoOption={t('ai.languageAutoOption')}
+          disabled={!!busy}
+        />
 
         <Stepper
           label={t('ai.cards')}
@@ -377,19 +347,6 @@ export default function CreateWithAiScreen() {
                 : t('ai.noneLeft')}
         </Text>
       </ScrollView>
-
-      <ActionSheet
-        visible={picking}
-        title={t(SIDE_TEXT[pickingSide].title)}
-        options={[{ code: null, name: t('ai.languageAutoOption') }, ...AI_LANGUAGES].map(
-          ({ code, name }) => ({
-            label: name,
-            selected: languages[pickingSide] === code,
-            onPress: () => chooseLanguage(pickingSide, code),
-          }),
-        )}
-        onClose={() => setPicking(false)}
-      />
     </KeyboardAvoidingView>
   );
 }
@@ -464,21 +421,6 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   counter: { fontSize: 13, color: colors.muted, textAlign: 'right', marginTop: -8 },
-  languageButton: {
-    flex: 1,
-    minHeight: touchTarget,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-  },
-  languageText: { flexShrink: 1, fontSize: 15, color: colors.text },
-  chevron: { fontSize: 15, color: colors.muted },
-  pressed: { opacity: 0.7 },
   busy: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   error: { color: colors.danger },
   quota: { fontSize: 15, color: colors.text, textAlign: 'center' },

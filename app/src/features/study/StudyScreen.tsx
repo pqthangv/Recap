@@ -98,6 +98,7 @@ export default function StudyScreen() {
               onFlip={session.typing ? () => session.checkTyped('') : session.flip}
               autoRead={session.readAloud}
               onQuestionRead={() => session.questionRead(turn)}
+              languages={session.languages}
               check={session.typedCheck}
               imageRef={card.image_uri}
               imageSide={card.image_side}

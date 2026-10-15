@@ -14,12 +14,14 @@ import {
   updateCard,
 } from './cards';
 import {
+  adoptDeckLanguages,
   createDeck,
   deleteDeck,
   deleteDecks,
   listDecks,
   listDeletedDecks,
   restoreDecks,
+  updateDeck,
 } from './decks';
 import { setSetting } from './settings';
 import { getStats } from './stats';
@@ -471,6 +473,54 @@ describe('backup', () => {
   it('rejects files that are not Recap backups', () => {
     expect(() => parseBackup('hello')).toThrow('Not a JSON file');
     expect(() => parseBackup('{"format":"other"}')).toThrow('Not a Recap backup');
+  });
+
+  it("carries a deck's languages; older files and unknown languages are Auto", () => {
+    createDeck({ name: 'German', color: '#5A31D6', languages: { front: 'de', back: 'vi' } }, NOW);
+    const backup = parseBackup(JSON.stringify(exportBackup(NOW)));
+    expect(backup.decks[0]).toMatchObject({ front_lang: 'de', back_lang: 'vi' });
+
+    const deck = backup.decks[0] as Record<string, unknown>;
+    const { front_lang: _front, back_lang: _back, ...older } = deck;
+    expect(parseBackup(JSON.stringify({ ...backup, decks: [older] })).decks[0]).toMatchObject({
+      front_lang: null,
+      back_lang: null,
+    });
+    expect(
+      parseBackup(JSON.stringify({ ...backup, decks: [{ ...deck, front_lang: 'xx' }] })).decks[0],
+    ).toMatchObject({ front_lang: null, back_lang: 'vi' });
+  });
+});
+
+describe('deck languages', () => {
+  const langs = (id: string) =>
+    rawQuery(`select front_lang, back_lang from decks where id = '${id}'`)[0];
+
+  it('are set when a deck is made or edited, and kept when an edit leaves them out', () => {
+    const deck = createDeck(
+      { name: 'Spanish', color: '#5A31D6', languages: { front: 'es', back: 'en' } },
+      NOW,
+    );
+    expect(langs(deck.id)).toEqual({ front_lang: 'es', back_lang: 'en' });
+    updateDeck(deck.id, { name: 'Spanish 1', color: '#5A31D6' }, NOW + 1);
+    expect(langs(deck.id)).toEqual({ front_lang: 'es', back_lang: 'en' });
+    updateDeck(
+      deck.id,
+      { name: 'Spanish 1', color: '#5A31D6', languages: { front: 'es', back: null } },
+      NOW + 2,
+    );
+    expect(langs(deck.id)).toEqual({ front_lang: 'es', back_lang: null });
+    expect(addDeck('Plain').front_lang).toBeNull();
+  });
+
+  it("come from AI cards' languages only while the deck is on Auto", () => {
+    const deck = addDeck('Words');
+    expect(adoptDeckLanguages(deck.id, { front: null, back: null }, NOW)).toBe(false);
+    expect(adoptDeckLanguages(deck.id, { front: 'de', back: 'vi' }, NOW)).toBe(true);
+    expect(langs(deck.id)).toEqual({ front_lang: 'de', back_lang: 'vi' });
+    // The deck has its own now: later cards in other languages don't change it.
+    expect(adoptDeckLanguages(deck.id, { front: 'fr', back: 'en' }, NOW)).toBe(false);
+    expect(langs(deck.id)).toEqual({ front_lang: 'de', back_lang: 'vi' });
   });
 });
 

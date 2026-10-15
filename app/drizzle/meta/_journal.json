@@ -22,6 +22,13 @@
       "when": 1791792479719,
       "tag": "0002_review_log_goal_met",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792093402006,
+      "tag": "0003_deck_languages",
+      "breakpoints": true
     }
   ]
 }

@@ -141,6 +141,12 @@ export const en = {
   'deck.nameA11y': 'Deck name',
   'deck.color': 'Color',
   'deck.colorN': 'Color {n}',
+  'deck.readAloudIn': 'Read aloud in',
+  'deck.frontLanguageTitle': 'Read the front of the cards in',
+  'deck.backLanguageTitle': 'Read the back of the cards in',
+  'deck.languageAutoOption': 'Auto: guessed from each card',
+  'deck.languagesHelp':
+    'So each side is read in the right voice. Auto knows English and Vietnamese best.',
   'deck.delete': 'Delete deck',
   'deck.wasDeleted': 'This deck was deleted.',
   'deck.selected': '{n} selected',
@@ -246,8 +252,8 @@ export const en = {
   'grade.easy': 'Easy',
   'grade.a11y': '{name}, see it again {when}',
   'grade.suggestedA11y': '{name}, suggested, see it again {when}',
-  'speech.noVietnameseVoice':
-    "This phone has no Vietnamese voice yet. Add one in your phone's Settings › Text-to-speech.",
+  'speech.noVoice':
+    "This phone has no voice for {language} yet. Add one in your phone's Settings › Text-to-speech.",
 
   // Settings
   'settings.studying': 'Studying',
@@ -426,13 +432,13 @@ export const en = {
   'ai.pdfHelp': 'PDFs with selectable text, up to 10 MB.',
   'ai.pdfTooBig': 'That PDF is too big. The limit is 10 MB.',
   'ai.topicPlaceholder': 'e.g. The water cycle, or German words for food',
-  'ai.frontLanguage': 'Front: {language}',
-  'ai.backLanguage': 'Back: {language}',
-  'ai.frontLanguageA11y': 'Language of the card fronts: {language}',
-  'ai.backLanguageA11y': 'Language of the card backs: {language}',
+  'languages.front': 'Front: {language}',
+  'languages.back': 'Back: {language}',
+  'languages.frontA11y': 'Language of the card fronts: {language}',
+  'languages.backA11y': 'Language of the card backs: {language}',
+  'languages.auto': 'Auto',
   'ai.frontLanguageTitle': 'Write the front of the cards in',
   'ai.backLanguageTitle': 'Write the back of the cards in',
-  'ai.languageAuto': 'Auto',
   'ai.languageAutoOption': 'Auto: the language you wrote in',
   'ai.counter': '{n} / {max} characters',
   'ai.cards': 'Cards',

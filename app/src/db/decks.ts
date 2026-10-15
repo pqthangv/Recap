@@ -1,12 +1,14 @@
 import { and, asc, eq, inArray, isNull, sql } from 'drizzle-orm';
 
 import { newId } from '@/lib/id';
+import type { SideLanguages } from '@/lib/language';
 
 import { db } from './client';
 import { cards, decks, type Deck } from './schema';
 import { transaction } from './transaction';
 
-export type DeckInput = { name: string; color: string };
+/** `languages`: what each side is read aloud in (null = Auto); left out = unchanged / Auto. */
+export type DeckInput = { name: string; color: string; languages?: SideLanguages };
 
 const live = isNull(decks.deleted_at);
 
@@ -32,6 +34,8 @@ export function createDeck(input: DeckInput, now = Date.now()): Deck {
     id: newId(),
     name: input.name.trim(),
     color: input.color,
+    front_lang: input.languages?.front ?? null,
+    back_lang: input.languages?.back ?? null,
     created_at: now,
     updated_at: now,
     deleted_at: null,
@@ -40,11 +44,38 @@ export function createDeck(input: DeckInput, now = Date.now()): Deck {
   return deck;
 }
 
+/** Renames and recolors a deck; its languages change only when `input.languages` is given. */
 export function updateDeck(id: string, input: DeckInput, now = Date.now()): void {
   db.update(decks)
-    .set({ name: input.name.trim(), color: input.color, updated_at: now })
+    .set({
+      name: input.name.trim(),
+      color: input.color,
+      ...(input.languages
+        ? { front_lang: input.languages.front, back_lang: input.languages.back }
+        : {}),
+      updated_at: now,
+    })
     .where(eq(decks.id, id))
     .run();
+}
+
+/**
+ * Gives a deck the languages its new cards were made in (Create with AI), unless the deck already
+ * has languages of its own. Returns whether it changed anything.
+ */
+export function adoptDeckLanguages(
+  id: string,
+  languages: SideLanguages,
+  now = Date.now(),
+): boolean {
+  const deck = getDeck(id);
+  if (!deck || deck.front_lang || deck.back_lang) return false;
+  if (!languages.front && !languages.back) return false;
+  db.update(decks)
+    .set({ front_lang: languages.front, back_lang: languages.back, updated_at: now })
+    .where(eq(decks.id, id))
+    .run();
+  return true;
 }
 
 /** Soft-deletes the deck and all its cards (the UI asks for confirmation first). */

@@ -5,14 +5,21 @@ import { randomUUID } from 'crypto';
 
 import { buildBackup } from '@/lib/backup';
 import { dayStart } from '@/lib/day';
+import type { SideLanguages } from '@/lib/language';
 import { newCard, Rating, review, type FsrsFields } from '@/lib/scheduler';
 
 const DAY = 24 * 60 * 60 * 1000;
 
-const DECKS: { name: string; color: string; cards: [string, string][] }[] = [
+const DECKS: {
+  name: string;
+  color: string;
+  languages?: SideLanguages;
+  cards: [string, string][];
+}[] = [
   {
     name: 'Spanish basics',
     color: '#1A73E8',
+    languages: { front: 'es', back: 'en' },
     cards: [
       ['hola', 'hello'],
       ['gracias', 'thank you'],
@@ -155,6 +162,8 @@ export function makeDemo(now: number) {
       id: deckId,
       name: spec.name,
       color: spec.color,
+      front_lang: spec.languages?.front ?? null,
+      back_lang: spec.languages?.back ?? null,
       created_at: created,
       updated_at: created,
       deleted_at: null,
@@ -262,6 +271,8 @@ export function makeBig(now: number, size = 10_000) {
     id: deckId,
     name: '10,000 cards',
     color: '#5F6368',
+    front_lang: null,
+    back_lang: null,
     created_at: created,
     updated_at: created,
     deleted_at: null,

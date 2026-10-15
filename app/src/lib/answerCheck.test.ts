@@ -41,6 +41,14 @@ describe('isTypeable', () => {
   });
 });
 
+describe('isTypeable with the deck language', () => {
+  it("gives Vietnamese its longer allowance when the deck says so, even if the text can't tell", () => {
+    const unaccented = 'thanh pho ho chi minh'; // typed without accents: looks English
+    expect(isTypeable(unaccented)).toBe(false);
+    expect(isTypeable(unaccented, 'vi')).toBe(true);
+  });
+});
+
 describe('expectedAnswer', () => {
   it('uses the first paragraph without notes in brackets', () => {
     expect(expectedAnswer('Porto-Novo\n\nCotonou is the seat of government.')).toBe('Porto-Novo');

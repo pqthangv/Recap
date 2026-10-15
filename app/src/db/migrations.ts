@@ -23,13 +23,21 @@ const migrations = {
         "when": 1791792479719,
         "tag": "0002_review_log_goal_met",
         "breakpoints": true
+      },
+      {
+        "idx": 3,
+        "version": "6",
+        "when": 1792093402006,
+        "tag": "0003_deck_languages",
+        "breakpoints": true
       }
     ]
   },
   "migrations": {
     "m0000": "CREATE TABLE `cards` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`deck_id` text NOT NULL,\n\t`front` text NOT NULL,\n\t`back` text NOT NULL,\n\t`image_uri` text,\n\t`tags` text DEFAULT '[]' NOT NULL,\n\t`reverse_of` text,\n\t`due` integer NOT NULL,\n\t`stability` real NOT NULL,\n\t`difficulty` real NOT NULL,\n\t`elapsed_days` integer NOT NULL,\n\t`scheduled_days` integer NOT NULL,\n\t`learning_steps` integer NOT NULL,\n\t`reps` integer NOT NULL,\n\t`lapses` integer NOT NULL,\n\t`state` integer NOT NULL,\n\t`last_review` integer,\n\t`created_at` integer NOT NULL,\n\t`updated_at` integer NOT NULL,\n\t`deleted_at` integer\n);\n--> statement-breakpoint\nCREATE INDEX `cards_deck_idx` ON `cards` (`deck_id`);--> statement-breakpoint\nCREATE INDEX `cards_due_idx` ON `cards` (`state`,`due`);--> statement-breakpoint\nCREATE INDEX `cards_reverse_idx` ON `cards` (`reverse_of`);--> statement-breakpoint\nCREATE TABLE `decks` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`name` text NOT NULL,\n\t`color` text NOT NULL,\n\t`created_at` integer NOT NULL,\n\t`updated_at` integer NOT NULL,\n\t`deleted_at` integer\n);\n--> statement-breakpoint\nCREATE TABLE `review_logs` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`card_id` text NOT NULL,\n\t`rating` integer NOT NULL,\n\t`state` integer NOT NULL,\n\t`due` integer NOT NULL,\n\t`stability` real NOT NULL,\n\t`difficulty` real NOT NULL,\n\t`elapsed_days` integer NOT NULL,\n\t`last_elapsed_days` integer NOT NULL,\n\t`scheduled_days` integer NOT NULL,\n\t`learning_steps` integer NOT NULL,\n\t`reviewed_at` integer NOT NULL,\n\t`duration_ms` integer NOT NULL,\n\t`deleted_at` integer\n);\n--> statement-breakpoint\nCREATE INDEX `review_logs_card_idx` ON `review_logs` (`card_id`);--> statement-breakpoint\nCREATE INDEX `review_logs_reviewed_idx` ON `review_logs` (`reviewed_at`);--> statement-breakpoint\nCREATE TABLE `settings` (\n\t`key` text PRIMARY KEY NOT NULL,\n\t`value` text NOT NULL,\n\t`updated_at` integer NOT NULL\n);\n",
     "m0001": "ALTER TABLE `cards` ADD `image_side` text;",
-    "m0002": "ALTER TABLE `review_logs` ADD `goal_met` integer DEFAULT 0 NOT NULL;"
+    "m0002": "ALTER TABLE `review_logs` ADD `goal_met` integer DEFAULT 0 NOT NULL;",
+    "m0003": "ALTER TABLE `decks` ADD `front_lang` text;--> statement-breakpoint\nALTER TABLE `decks` ADD `back_lang` text;"
   }
 };
 
