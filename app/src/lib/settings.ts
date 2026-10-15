@@ -8,6 +8,8 @@ export type Settings = {
   fourButtons: boolean;
   /** Read the front aloud when a card appears, and the back when it is flipped. */
   readAloud: boolean;
+  /** Short answers are typed and checked, and Recap suggests a grade (src/lib/answerCheck.ts). */
+  typeAnswer: boolean;
   newPerDay: number;
   reminderEnabled: boolean;
   /** Reminder time as minutes after midnight, local time. */
@@ -22,8 +24,11 @@ export type DeckSort = 'name' | 'color';
 
 export const DEFAULT_SETTINGS: Settings = {
   retention: DEFAULT_RETENTION,
-  fourButtons: false,
-  readAloud: false,
+  // Active recall by default since 1.0.4 (user decision 2026-10-15): type the answer, hear the
+  // card, and pick from four grades with one suggested. Also for installs that never changed them.
+  fourButtons: true,
+  readAloud: true,
+  typeAnswer: true,
   newPerDay: 20,
   reminderEnabled: false,
   reminderMinutes: 20 * 60,
@@ -38,6 +43,7 @@ export const SETTING_KEYS = {
   retention: 'target_retention',
   fourButtons: 'four_buttons',
   readAloud: 'read_aloud',
+  typeAnswer: 'type_answer',
   newPerDay: 'new_cards_per_day',
   reminderEnabled: 'reminder_enabled',
   reminderMinutes: 'reminder_minutes',
@@ -114,6 +120,7 @@ export function parseSettings(rows: readonly { key: string; value: string }[]): 
   const retention = get('retention');
   const fourButtons = get('fourButtons');
   const readAloud = get('readAloud');
+  const typeAnswer = get('typeAnswer');
   const reminderEnabled = get('reminderEnabled');
   const deckSort = get('deckSort');
   const language = get('language');
@@ -122,6 +129,7 @@ export function parseSettings(rows: readonly { key: string; value: string }[]): 
       typeof retention === 'number' ? clampRetention(retention) : DEFAULT_SETTINGS.retention,
     fourButtons: typeof fourButtons === 'boolean' ? fourButtons : DEFAULT_SETTINGS.fourButtons,
     readAloud: typeof readAloud === 'boolean' ? readAloud : DEFAULT_SETTINGS.readAloud,
+    typeAnswer: typeof typeAnswer === 'boolean' ? typeAnswer : DEFAULT_SETTINGS.typeAnswer,
     newPerDay: int(get('newPerDay'), DEFAULT_SETTINGS.newPerDay, 0, NEW_PER_DAY_MAX),
     reminderEnabled:
       typeof reminderEnabled === 'boolean' ? reminderEnabled : DEFAULT_SETTINGS.reminderEnabled,

@@ -232,6 +232,14 @@ export const vi: Strings = {
   'study.niceWork': 'Giỏi lắm! Bạn đã học {cards}.',
   'study.nothing': 'Hiện chưa có thẻ nào cần học.',
   'study.seeYou': 'Hẹn gặp bạn ngày mai.',
+  'study.typePlaceholder': 'Gõ câu trả lời',
+  'study.typeA11y': 'Câu trả lời của bạn',
+  'study.check': 'Kiểm tra',
+  'study.correct': 'Chính xác!',
+  'study.almostAccents': 'Gần đúng: kiểm tra lại dấu',
+  'study.almostSpelling': 'Gần đúng: kiểm tra lại chính tả',
+  'study.notQuite': 'Chưa đúng',
+  'study.youTyped': 'Bạn đã gõ:',
   'grade.forgot': 'Quên',
   'grade.gotIt': 'Nhớ',
   'grade.again': 'Lại',
@@ -239,6 +247,7 @@ export const vi: Strings = {
   'grade.good': 'Ổn',
   'grade.easy': 'Dễ',
   'grade.a11y': '{name}, gặp lại {when}',
+  'grade.suggestedA11y': '{name}, được gợi ý, gặp lại {when}',
   'speech.noVietnameseVoice':
     'Điện thoại này chưa có giọng đọc tiếng Việt. Hãy thêm trong Cài đặt › Chuyển văn bản thành giọng nói.',
 
@@ -249,6 +258,9 @@ export const vi: Strings = {
   'settings.newPerDay': 'Thẻ mới mỗi ngày',
   'settings.fourButtons': 'Hiện 4 nút trả lời',
   'settings.fourButtonsHelp': 'Lại, Khó, Ổn và Dễ thay cho Quên và Nhớ.',
+  'settings.typeAnswer': 'Gõ câu trả lời',
+  'settings.typeAnswerHelp':
+    'Với câu trả lời ngắn, hãy gõ những gì bạn nhớ. Recap sẽ kiểm tra và gợi ý một nút.',
   'settings.readAloud': 'Đọc thẻ thành tiếng',
   'settings.readAloudHelp':
     'Đọc từng mặt thẻ bằng tiếng Anh hoặc tiếng Việt khi hiện ra. Bạn luôn có thể chạm vào loa trên thẻ.',

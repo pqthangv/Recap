@@ -8,7 +8,7 @@ import { t } from '@/lib/i18n';
 import { detectLanguage, SPEECH_LOCALES, type SpeechLanguage } from '@/lib/language';
 
 let voices: Promise<Speech.Voice[]> | undefined;
-let audioReady: Promise<void> | undefined;
+let audioMode: { inSilentMode: boolean; ready: Promise<void> } | undefined;
 const warned = new Set<SpeechLanguage>();
 
 function hasVoice(lang: SpeechLanguage): Promise<boolean> {
@@ -20,30 +20,48 @@ function hasVoice(lang: SpeechLanguage): Promise<boolean> {
 }
 
 /**
- * iPhone mutes an app's sound in Silent mode unless it says it plays audio on purpose. Reading a
- * card aloud is something you ask for (like a podcast), so Recap plays it in Silent mode too, and
- * mixes with any music instead of stopping it. Only the kind of audio is set here: nothing plays
- * until a card is read. Android has no Silent switch for media, so nothing changes there.
+ * iPhone mutes an app's sound in Silent mode unless it says it plays audio on purpose. Tapping the
+ * speaker is asking for sound (like a podcast), so that plays in Silent mode too. Cards read by
+ * themselves (Read cards aloud, on by default) follow the Silent switch, so a phone set to silent
+ * stays silent. Either way it mixes with any music instead of stopping it. Only the kind of audio
+ * is set here: nothing plays until a card is read. Android has no Silent switch for media.
  */
-function prepareAudio(): Promise<void> {
+function prepareAudio(inSilentMode: boolean): Promise<void> {
   if (Platform.OS !== 'ios') return Promise.resolve();
-  audioReady ??= setAudioModeAsync({
-    playsInSilentMode: true,
-    interruptionMode: 'mixWithOthers',
-  }).catch(
-    () => {}, // speaking still works, just not in Silent mode
-  );
-  return audioReady;
+  if (audioMode?.inSilentMode !== inSilentMode) {
+    audioMode = {
+      inSilentMode,
+      ready: setAudioModeAsync({
+        playsInSilentMode: inSilentMode,
+        interruptionMode: 'mixWithOthers',
+      }).catch(
+        () => {}, // speaking still works, just not in Silent mode
+      ),
+    };
+  }
+  return audioMode.ready;
 }
 
-/** Read `text` aloud in English or Vietnamese (detected from the text), replacing anything playing. */
-export function speak(text: string): void {
+/**
+ * Read `text` aloud in English or Vietnamese (detected from the text), replacing anything playing.
+ * `auto`: read by itself rather than from a tap (follows iPhone's Silent switch). `onDone` runs
+ * when the reading ends or can't start (not when it's cut off by the next card).
+ */
+export function speak(text: string, options: { auto?: boolean; onDone?: () => void } = {}): void {
   const trimmed = text.trim();
-  if (!trimmed) return;
+  if (!trimmed) {
+    options.onDone?.();
+    return;
+  }
   const lang = detectLanguage(trimmed);
   Speech.stop();
-  void prepareAudio().then(() =>
-    Speech.speak(trimmed, { language: SPEECH_LOCALES[lang], rate: 0.95 }),
+  void prepareAudio(!options.auto).then(() =>
+    Speech.speak(trimmed, {
+      language: SPEECH_LOCALES[lang],
+      rate: 0.95,
+      onDone: options.onDone,
+      onError: options.onDone,
+    }),
   );
   if (lang === 'vi' && !warned.has(lang)) {
     hasVoice(lang).then((ok) => {

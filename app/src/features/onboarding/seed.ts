@@ -10,17 +10,22 @@ type SeedDeck = { name: string; color: string; cards: [front: string, back: stri
 
 // World capitals used to be here too; it's a Library pack now (src/features/library/packs.ts).
 // One set per language: a new install gets the one in the phone's language. The cards name the
-// buttons ("Forgot", "Got it", "3d"), so keep them in step with en.ts / vi.ts.
+// buttons ("Check", "Again"…"Easy", "3d"), so keep them in step with en.ts / vi.ts. The first
+// card has a short answer, so it's typed (answerCheck.ts); the second is too long, so it's tapped.
 export const WELCOME_DECKS: Record<Language, SeedDeck[]> = {
   en: [
     {
       name: 'How to use Recap',
       color: deckColors[0],
       cards: [
-        ['Tap a card to see the answer.', 'Like this! Now tell Recap how it went.'],
+        ['What is the capital of France? Type the answer below, then tap "Check".', 'Paris'],
         [
-          'What do "Forgot" and "Got it" do?',
-          'They decide when you see a card again. Forgot brings it back soon; Got it waits longer each time.',
+          'Some answers are too long to type. Tap this card to see the answer.',
+          'Like this! Then pick the button that matches how well you remembered.',
+        ],
+        [
+          'What do "Again", "Hard", "Good" and "Easy" do?',
+          'They decide when you see a card again. Again brings it back soon; Hard, Good and Easy wait longer each time. When you type an answer, Recap highlights the one that fits.',
         ],
         [
           'What does the time on each button mean?',
@@ -36,7 +41,7 @@ export const WELCOME_DECKS: Record<Language, SeedDeck[]> = {
         ],
         [
           'Can Recap read cards to me?',
-          'Yes. Tap the speaker on a card, or turn on "Read cards aloud" in Settings. It reads English and Vietnamese.',
+          'It already does: each card is read aloud. Tap the speaker to hear it again, or turn off "Read cards aloud" in Settings. It reads English and Vietnamese.',
         ],
         [
           'Can I delete these welcome cards?',
@@ -50,10 +55,14 @@ export const WELCOME_DECKS: Record<Language, SeedDeck[]> = {
       name: 'Cách dùng Recap',
       color: deckColors[0],
       cards: [
-        ['Chạm vào thẻ để xem đáp án.', 'Như thế này! Giờ hãy cho Recap biết bạn có nhớ không.'],
+        ['Thủ đô của Pháp là gì? Gõ đáp án bên dưới, rồi chạm “Kiểm tra”.', 'Paris'],
         [
-          'Nút “Quên” và “Nhớ” để làm gì?',
-          'Chúng quyết định khi nào bạn gặp lại thẻ. Quên sẽ cho thẻ quay lại sớm; Nhớ sẽ chờ lâu hơn sau mỗi lần.',
+          'Có những đáp án quá dài để gõ. Chạm vào thẻ này để xem đáp án.',
+          'Như thế này! Rồi chọn nút hợp với mức bạn nhớ.',
+        ],
+        [
+          'Các nút “Lại”, “Khó”, “Ổn” và “Dễ” để làm gì?',
+          'Chúng quyết định khi nào bạn gặp lại thẻ. Lại cho thẻ quay lại sớm; Khó, Ổn và Dễ chờ lâu hơn sau mỗi lần. Khi bạn gõ đáp án, Recap sẽ tô sáng nút phù hợp.',
         ],
         [
           'Thời gian trên mỗi nút nghĩa là gì?',
@@ -69,7 +78,7 @@ export const WELCOME_DECKS: Record<Language, SeedDeck[]> = {
         ],
         [
           'Recap có đọc thẻ cho tôi nghe được không?',
-          'Có. Chạm vào loa trên thẻ, hoặc bật “Đọc thẻ thành tiếng” trong Cài đặt. Recap đọc được tiếng Anh và tiếng Việt.',
+          'Có, Recap đọc to từng thẻ. Chạm vào loa để nghe lại, hoặc tắt “Đọc thẻ thành tiếng” trong Cài đặt. Recap đọc được tiếng Anh và tiếng Việt.',
         ],
         [
           'Tôi có xóa được các thẻ chào mừng này không?',
