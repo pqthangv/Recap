@@ -506,6 +506,7 @@ export const en = {
   'library.added': 'Added {name} · {cards}',
   'pack.ielts': 'Academic words for IELTS in 10 topics, from describing charts to the environment.',
   'pack.sat': 'Words from SAT reading passages, in sets of 100.',
+  'pack.toeic': 'Workplace English for TOEIC in 10 topics, from meetings to shipping and housing.',
   'pack.capitals': 'The capital of every UN member country, by continent.',
 
   // Statistics
