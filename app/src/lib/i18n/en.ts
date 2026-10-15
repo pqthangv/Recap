@@ -254,6 +254,8 @@ export const en = {
   'grade.suggestedA11y': '{name}, suggested, see it again {when}',
   'speech.noVoice':
     "This phone has no voice for {language} yet. Add one in your phone's Settings › Text-to-speech.",
+  'speech.noVoiceWeb':
+    "This browser has no voice for {language} yet. Voices come from your computer's or phone's own speech settings.",
 
   // Settings
   'settings.studying': 'Studying',
@@ -457,6 +459,8 @@ export const en = {
   'consent.title': 'Send to Google Gemini?',
   'consent.body':
     "To write your cards, Recap sends your text or PDF to its server and to Google's Gemini AI. Google may use it to improve its products. Nothing else leaves your phone.",
+  'consent.bodyWeb':
+    "To write your cards, Recap sends your text or PDF to its server and to Google's Gemini AI. Google may use it to improve its products. Nothing else leaves this browser.",
   'consent.notNow': 'Not now',
   'consent.allow': 'Allow',
   'review.none': 'No cards to review.',

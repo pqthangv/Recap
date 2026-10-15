@@ -2,14 +2,13 @@
   "expo": {
     "name": "Recap",
     "slug": "recap",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "recapcards",
     "userInterfaceStyle": "light",
     "backgroundColor": "#FFFFFF",
     "ios": {
-      "icon": "./assets/images/icon.png",
       "bundleIdentifier": "com.recapcards.app",
       "buildNumber": "1",
       "supportsTablet": false,
@@ -52,7 +51,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 4
+      "versionCode": 5
     },
     "web": {
       "bundler": "metro",
