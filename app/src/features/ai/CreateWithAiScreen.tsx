@@ -17,14 +17,8 @@ import { SideLanguages } from '@/components/SideLanguages';
 import { Stepper } from '@/components/Stepper';
 import { getRawSetting, setRawSetting } from '@/db/settings';
 import { discardPicked, pickedUpload } from '@/features/files/picked';
-import {
-  AiError,
-  MAX_CARDS_PER_REQUEST,
-  MAX_INPUT_CHARS,
-  MAX_TOPIC_CHARS,
-  type PdfText,
-} from '@/lib/ai';
-import type { AiSource } from '@/lib/aiReview';
+import { AiError, MAX_CARDS_PER_REQUEST, MAX_INPUT_CHARS, MAX_TOPIC_CHARS } from '@/lib/ai';
+import { addToNotes, notesSourceAfter, type AiSource } from '@/lib/aiReview';
 import { count, t, tn, type StringKey } from '@/lib/i18n';
 import { isCardLanguage, type CardLanguage, type SideLanguages as Languages } from '@/lib/language';
 import { can } from '@/lib/platform';
@@ -35,16 +29,16 @@ import { askAiConsent } from './consent';
 import { ai, useAiDraft } from './api';
 import { readTextFromPhoto } from './photo';
 
-type Tab = 'text' | 'photo' | 'pdf' | 'topic';
+// Two ways to start, so they can't be mixed up: your own notes (typed, pasted, or read from a
+// photo or PDF into the same box) or just a topic.
+type Tab = 'notes' | 'topic';
 
-const ALL_TABS: { key: Tab; label: StringKey }[] = [
-  { key: 'text', label: 'ai.tabText' },
-  { key: 'photo', label: 'ai.tabPhoto' },
-  { key: 'pdf', label: 'ai.tabPdf' },
+const TABS: { key: Tab; label: StringKey }[] = [
+  { key: 'notes', label: 'ai.tabNotes' },
   { key: 'topic', label: 'ai.tabTopic' },
 ];
-// Reading text in photos runs on the phone (ML Kit), which the web version doesn't have.
-const TABS = ALL_TABS.filter((tab) => tab.key !== 'photo' || can.photoText);
+// One line under the tabs that says how they differ.
+const TAB_HELP: Record<Tab, StringKey> = { notes: 'ai.notesHelp', topic: 'ai.topicHelp' };
 
 type QuotaState =
   | { status: 'loading' }
@@ -69,14 +63,17 @@ function storedLanguage(side: Side): CardLanguage | null {
   return isCardLanguage(value) ? value : null;
 }
 
-/** "Create with AI": paste text, a photo of notes, a PDF or a topic → cards to review. */
+/** "Create with AI": your notes (typed, pasted, or read from photos and PDFs) or a topic →
+ *  cards to review. */
 export default function CreateWithAiScreen() {
   const router = useRouter();
   const draft = useAiDraft((s) => s.cards);
-  const [tab, setTab] = useState<Tab>('text');
-  const [pasted, setPasted] = useState('');
-  const [photoText, setPhotoText] = useState('');
-  const [pdf, setPdf] = useState<(PdfText & { fileName: string }) | null>(null);
+  const [tab, setTab] = useState<Tab>('notes');
+  const [notes, setNotes] = useState('');
+  // What the notes came from, for the suggested deck name (a PDF's file name, a photo or text).
+  const [notesSource, setNotesSource] = useState<AiSource>({ kind: 'text' });
+  // What was just added from a photo or PDF (and whether a long PDF was cut).
+  const [added, setAdded] = useState<string | null>(null);
   const [topic, setTopic] = useState('');
   const [maxCards, setMaxCards] = useState(10);
   const [languages, setLanguages] = useState<Languages>(() => ({
@@ -101,14 +98,7 @@ export default function CreateWithAiScreen() {
     };
   }, []);
 
-  const input =
-    tab === 'text'
-      ? pasted
-      : tab === 'photo'
-        ? photoText
-        : tab === 'pdf'
-          ? (pdf?.text ?? '')
-          : topic;
+  const input = tab === 'topic' ? topic : notes;
   const limit = tab === 'topic' ? MAX_TOPIC_CHARS : MAX_INPUT_CHARS;
   const tooLong = input.trim().length > limit;
   const remaining = quota.status === 'ready' ? quota.remaining : MAX_CARDS_PER_REQUEST;
@@ -135,14 +125,7 @@ export default function CreateWithAiScreen() {
   const generate = async () => {
     if (!(await askAiConsent())) return; // asks once before the first use (see consent.ts)
     await run(t('ai.making'), async () => {
-      const source: AiSource =
-        tab === 'topic'
-          ? { kind: 'topic', topic }
-          : tab === 'pdf' && pdf
-            ? { kind: 'pdf', fileName: pdf.fileName }
-            : tab === 'photo'
-              ? { kind: 'photo' }
-              : { kind: 'text' };
+      const source: AiSource = tab === 'topic' ? { kind: 'topic', topic } : notesSource;
       const result = await ai.generate({
         text: input.trim(),
         mode: tab === 'topic' ? 'topic' : 'text',
@@ -171,7 +154,16 @@ export default function CreateWithAiScreen() {
           throw new AiError('input', t('ai.pdfTooBig'));
         }
         const result = await ai.extractPdf(pickedUpload(asset), asset.name);
-        setPdf({ ...result, fileName: asset.name });
+        setNotes((current) => addToNotes(current, result.text));
+        setNotesSource((current) =>
+          notesSourceAfter(current, { kind: 'pdf', fileName: asset.name }),
+        );
+        const cut = result.truncated
+          ? ` ${t('ai.pdfTruncated', { n: count(MAX_INPUT_CHARS) })}`
+          : '';
+        setAdded(
+          t('ai.pdfAdded', { file: asset.name, pages: tn('count.page', result.pages) }) + cut,
+        );
       } finally {
         discardPicked(asset); // the picker's copy in the cache
       }
@@ -181,8 +173,20 @@ export default function CreateWithAiScreen() {
   const choosePhoto = (from: 'camera' | 'library') =>
     run(t('ai.readingPhoto'), async () => {
       const text = await readTextFromPhoto(from);
-      if (text !== null) setPhotoText(text);
+      if (text === null) return; // cancelled
+      setNotes((current) => addToNotes(current, text));
+      setNotesSource((current) => notesSourceAfter(current, { kind: 'photo' }));
+      setAdded(t('ai.photoAdded'));
     });
+
+  const editNotes = (text: string) => {
+    setNotes(text);
+    if (!text.trim()) {
+      // Emptied: nothing from a photo or PDF is left to name the deck after.
+      setNotesSource({ kind: 'text' });
+      setAdded(null);
+    }
+  };
 
   const chooseLanguage = (side: Side, code: CardLanguage | null) => {
     setLanguages((current) => ({ ...current, [side]: code }));
@@ -223,87 +227,64 @@ export default function CreateWithAiScreen() {
           ))}
         </View>
 
-        {tab === 'text' ? (
-          <TextArea
-            value={pasted}
-            onChange={setPasted}
-            placeholder={t('ai.textPlaceholder')}
-            label={t('ai.textA11y')}
-          />
-        ) : null}
+        <Text style={styles.help}>{t(TAB_HELP[tab])}</Text>
 
-        {tab === 'photo' ? (
+        {tab === 'notes' ? (
           <>
-            <Text style={styles.help}>{t('ai.photoHelp')}</Text>
-            <View style={styles.row}>
-              <Button
-                variant="secondary"
-                label={t('ai.takePhoto')}
-                onPress={() => choosePhoto('camera')}
-                disabled={!!busy}
-                style={styles.flex}
-              />
-              <Button
-                variant="secondary"
-                label={t('ai.choosePhoto')}
-                onPress={() => choosePhoto('library')}
-                disabled={!!busy}
-                style={styles.flex}
-              />
-            </View>
-            {photoText ? (
-              <>
-                <Text style={styles.help}>{t('ai.photoTextHelp')}</Text>
-                <TextArea value={photoText} onChange={setPhotoText} label={t('ai.photoTextA11y')} />
-              </>
+            <TextArea
+              value={notes}
+              onChange={editNotes}
+              placeholder={t('ai.textPlaceholder')}
+              label={t('ai.textA11y')}
+            />
+            {notes ? (
+              <Text style={[styles.counter, tooLong && styles.error]}>
+                {t('ai.counter', { n: count(notes.trim().length), max: count(MAX_INPUT_CHARS) })}
+              </Text>
             ) : null}
-          </>
-        ) : null}
-
-        {tab === 'pdf' ? (
-          <>
+            {/* Reading text in photos runs on the phone (ML Kit), which the web doesn't have. */}
+            {can.photoText ? (
+              <View style={styles.row}>
+                <Button
+                  variant="secondary"
+                  label={t('ai.takePhoto')}
+                  onPress={() => choosePhoto('camera')}
+                  disabled={!!busy}
+                  style={styles.flex}
+                />
+                <Button
+                  variant="secondary"
+                  label={t('ai.choosePhoto')}
+                  onPress={() => choosePhoto('library')}
+                  disabled={!!busy}
+                  style={styles.flex}
+                />
+              </View>
+            ) : null}
             <Button
               variant="secondary"
-              label={t(pdf ? 'ai.chooseAnotherPdf' : 'ai.choosePdf')}
+              label={t('ai.choosePdf')}
               onPress={choosePdf}
               disabled={!!busy}
             />
-            {pdf ? (
-              <>
-                <Text style={styles.help}>
-                  {pdf.fileName} · {tn('count.page', pdf.pages)}
-                  {pdf.truncated ? ` · ${t('ai.pdfTruncated', { n: MAX_INPUT_CHARS })}` : ''}
-                </Text>
-                <TextArea
-                  value={pdf.text}
-                  onChange={(text) => setPdf({ ...pdf, text })}
-                  label={t('ai.pdfTextA11y')}
-                />
-              </>
-            ) : (
-              <Text style={styles.help}>{t('ai.pdfHelp')}</Text>
-            )}
+            {added ? (
+              <Text style={styles.help} accessibilityLiveRegion="polite">
+                {added}
+              </Text>
+            ) : null}
           </>
-        ) : null}
-
-        {tab === 'topic' ? (
+        ) : (
           <TextInput
             value={topic}
             onChangeText={setTopic}
             placeholder={t('ai.topicPlaceholder')}
             placeholderTextColor={colors.muted}
-            accessibilityLabel={t('ai.tabTopic')}
+            accessibilityLabel={t('ai.topicA11y')}
             maxLength={MAX_TOPIC_CHARS}
             returnKeyType="done"
             style={styles.topic}
           />
-        ) : null}
-
-        {tab !== 'topic' && input ? (
-          <Text style={[styles.counter, tooLong && styles.error]}>
-            {t('ai.counter', { n: count(input.trim().length), max: count(MAX_INPUT_CHARS) })}
-          </Text>
-        ) : null}
+        )}
 
         <SideLanguages
           value={languages}

@@ -1,4 +1,11 @@
-import { cardsToSave, setAllSelected, suggestDeckName, toReviewItems } from './aiReview';
+import {
+  addToNotes,
+  cardsToSave,
+  notesSourceAfter,
+  setAllSelected,
+  suggestDeckName,
+  toReviewItems,
+} from './aiReview';
 
 describe('reviewing AI cards', () => {
   const items = toReviewItems([
@@ -33,5 +40,26 @@ describe('reviewing AI cards', () => {
     expect(suggestDeckName({ kind: 'pdf', fileName: 'Biology ch3.PDF' })).toBe('Biology ch3');
     expect(suggestDeckName({ kind: 'photo' })).toBe('Photo notes');
     expect(suggestDeckName({ kind: 'text' })).toBe('AI cards');
+  });
+});
+
+describe('"Your notes"', () => {
+  it('adds text from a photo or PDF below what is already there', () => {
+    expect(addToNotes('', '  Page one.  ')).toBe('Page one.');
+    expect(addToNotes('   \n', 'Page one.')).toBe('Page one.');
+    expect(addToNotes('My notes.\n', ' Page two. ')).toBe('My notes.\n\nPage two.');
+    expect(addToNotes('My notes.', '   ')).toBe('My notes.');
+  });
+
+  it('names the deck after the last PDF, else a photo, else plain text', () => {
+    const text = { kind: 'text' } as const;
+    const photo = { kind: 'photo' } as const;
+    const pdf = (fileName: string) => ({ kind: 'pdf', fileName }) as const;
+    expect(notesSourceAfter(text, photo)).toEqual(photo);
+    expect(notesSourceAfter(photo, pdf('Biology.pdf'))).toEqual(pdf('Biology.pdf'));
+    expect(notesSourceAfter(pdf('Biology.pdf'), photo)).toEqual(pdf('Biology.pdf'));
+    expect(notesSourceAfter(pdf('Biology.pdf'), pdf('Chemistry.pdf'))).toEqual(
+      pdf('Chemistry.pdf'),
+    );
   });
 });

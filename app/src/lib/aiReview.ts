@@ -47,3 +47,19 @@ export function suggestDeckName(source: AiSource): string {
       return t('ai.deckDefault');
   }
 }
+
+/** "Your notes": text read from a photo or PDF goes below what's already in the box, so a few
+ *  pages can be combined and edited before making cards. */
+export function addToNotes(notes: string, added: string): string {
+  const extra = added.trim();
+  if (!extra) return notes;
+  return notes.trim() ? `${notes.trimEnd()}\n\n${extra}` : extra;
+}
+
+/** What the notes came from, for the suggested deck name: the last PDF added names it; otherwise
+ *  a photo; otherwise it's just text. */
+export function notesSourceAfter(current: AiSource, added: AiSource): AiSource {
+  if (added.kind === 'pdf') return added;
+  if (added.kind === 'photo' && current.kind === 'text') return added;
+  return current;
+}

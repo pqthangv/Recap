@@ -98,13 +98,9 @@ appId: com.recapcards.app
     timeout: 60000
 - tapOn: Add a deck or card
 - tapOn: Create with AI
-# The Topic tab and its text box are both "Topic" on iPhone (Android adds the placeholder to the
-# box), so the box is the "Topic" below the row of tabs.
+# The tab is "Topic"; its text box has its own label (Android adds the placeholder to it).
 - tapOn: Topic
-- tapOn:
-    text: 'Topic.*'
-    below:
-      text: Paste text
+- tapOn: 'Topic to make cards about.*'
 - inputText: German words for food
 # Close the keyboard the way a person would: tap something that isn't a button (hideKeyboard
 # is unreliable on iOS).
