@@ -1,4 +1,5 @@
-// "Photo" tab: take or choose a photo of notes and read its text on the phone (ML Kit; no upload).
+// "Take a photo" / "Choose a photo" under Create with AI's notes: read a photo's text on the
+// phone (ML Kit; no upload).
 import { File } from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import { recognizeText } from 'expo-mlkit-ocr';

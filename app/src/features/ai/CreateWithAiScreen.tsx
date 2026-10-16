@@ -32,6 +32,8 @@ import { readTextFromPhoto } from './photo';
 // Two ways to start, so they can't be mixed up: your own notes (typed, pasted, or read from a
 // photo or PDF into the same box) or just a topic.
 type Tab = 'notes' | 'topic';
+/** Where a step's progress and errors show: under the photo / PDF buttons, or under Make cards. */
+type Where = 'notes' | 'make';
 
 const TABS: { key: Tab; label: StringKey }[] = [
   { key: 'notes', label: 'ai.tabNotes' },
@@ -81,8 +83,10 @@ export default function CreateWithAiScreen() {
     back: storedLanguage('back'),
   }));
   const [quota, setQuota] = useState<QuotaState>({ status: 'loading' });
-  const [busy, setBusy] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  // "Reading the photo…" and its errors show under the photo / PDF buttons, "Making cards…" and
+  // its errors under Make cards: each next to what was tapped, not below the fold.
+  const [busy, setBusy] = useState<{ label: string; where: Where } | null>(null);
+  const [error, setError] = useState<{ message: string; where: Where } | null>(null);
 
   // Wake the server (free hosting sleeps when idle), then ask how many cards are left today.
   useEffect(() => {
@@ -106,14 +110,15 @@ export default function CreateWithAiScreen() {
   const canGenerate =
     !busy && input.trim().length > 0 && !tooLong && !(quota.status === 'ready' && remaining === 0);
 
-  const run = async (label: string, task: () => Promise<void>) => {
-    setBusy(label);
+  const run = async (label: string, where: Where, task: () => Promise<void>) => {
+    setBusy({ label, where });
     setError(null);
+    if (where === 'notes') setAdded(null); // a new photo or PDF: the last "Added …" is old news
     try {
       await task();
     } catch (e) {
       console.warn(e);
-      setError(messageOf(e));
+      setError({ message: messageOf(e), where });
       if (e instanceof AiError && e.remaining !== undefined) {
         setQuota({ status: 'ready', remaining: e.remaining });
       }
@@ -124,7 +129,7 @@ export default function CreateWithAiScreen() {
 
   const generate = async () => {
     if (!(await askAiConsent())) return; // asks once before the first use (see consent.ts)
-    await run(t('ai.making'), async () => {
+    await run(t('ai.making'), 'make', async () => {
       const source: AiSource = tab === 'topic' ? { kind: 'topic', topic } : notesSource;
       const result = await ai.generate({
         text: input.trim(),
@@ -142,7 +147,7 @@ export default function CreateWithAiScreen() {
   const choosePdf = async () => {
     // The PDF itself goes to Recap's server to be read, so ask before it's even picked.
     if (!(await askAiConsent())) return;
-    await run(t('ai.readingPdf'), async () => {
+    await run(t('ai.readingPdf'), 'notes', async () => {
       const picked = await DocumentPicker.getDocumentAsync({
         type: 'application/pdf',
         copyToCacheDirectory: true,
@@ -171,7 +176,7 @@ export default function CreateWithAiScreen() {
   };
 
   const choosePhoto = (from: 'camera' | 'library') =>
-    run(t('ai.readingPhoto'), async () => {
+    run(t('ai.readingPhoto'), 'notes', async () => {
       const text = await readTextFromPhoto(from);
       if (text === null) return; // cancelled
       setNotes((current) => addToNotes(current, text));
@@ -267,11 +272,11 @@ export default function CreateWithAiScreen() {
               onPress={choosePdf}
               disabled={!!busy}
             />
-            {added ? (
-              <Text style={styles.help} accessibilityLiveRegion="polite">
-                {added}
-              </Text>
-            ) : null}
+            <Status
+              busy={busy?.where === 'notes' ? busy.label : null}
+              error={error?.where === 'notes' ? error.message : null}
+              note={added}
+            />
           </>
         ) : (
           <TextInput
@@ -310,17 +315,10 @@ export default function CreateWithAiScreen() {
 
         <Button size="lg" label={t('ai.make')} onPress={generate} disabled={!canGenerate} />
 
-        {busy ? (
-          <View style={styles.busy} accessibilityLiveRegion="polite">
-            <ActivityIndicator color={colors.primary} />
-            <Text style={styles.help}>{busy}</Text>
-          </View>
-        ) : null}
-        {error ? (
-          <Text style={[styles.help, styles.error]} accessibilityLiveRegion="polite">
-            {error}
-          </Text>
-        ) : null}
+        <Status
+          busy={busy?.where === 'make' ? busy.label : null}
+          error={error?.where === 'make' ? error.message : null}
+        />
 
         <Text style={styles.quota}>
           {quota.status === 'loading'
@@ -333,6 +331,33 @@ export default function CreateWithAiScreen() {
         </Text>
       </ScrollView>
     </KeyboardAvoidingView>
+  );
+}
+
+/** A spinner with what's happening, else an error, else a plain note (e.g. "Added notes.pdf"). */
+function Status({
+  busy,
+  error,
+  note = null,
+}: {
+  busy: string | null;
+  error: string | null;
+  note?: string | null;
+}) {
+  if (busy) {
+    return (
+      <View style={styles.busy} accessibilityLiveRegion="polite">
+        <ActivityIndicator color={colors.primary} />
+        <Text style={styles.help}>{busy}</Text>
+      </View>
+    );
+  }
+  const text = error ?? note;
+  if (!text) return null;
+  return (
+    <Text style={[styles.help, error && styles.error]} accessibilityLiveRegion="polite">
+      {text}
+    </Text>
   );
 }
 

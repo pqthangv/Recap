@@ -1,4 +1,5 @@
-// Asking for the camera, for a card's photo and for the "Photo" tab in Create with AI.
+// Asking for the camera, for a card's photo and for "Take a photo" under Create with AI's notes.
+// (Choosing a photo or a PDF uses the system pickers, which need no permission.)
 // - iPhone: its own prompt shows Recap's reason (cameraPermission in app.json, translated in
 //   languages/vi.json), so Recap asks directly.
 // - Android: its prompt can't hold any text ("Allow Recap to take pictures…?"), so Recap says why
