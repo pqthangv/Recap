@@ -131,15 +131,22 @@ export default function CreateWithAiScreen() {
     if (!(await askAiConsent())) return; // asks once before the first use (see consent.ts)
     await run(t('ai.making'), 'make', async () => {
       const source: AiSource = tab === 'topic' ? { kind: 'topic', topic } : notesSource;
+      const asked = Math.min(maxCards, cardLimit);
       const result = await ai.generate({
         text: input.trim(),
         mode: tab === 'topic' ? 'topic' : 'text',
-        maxCards: Math.min(maxCards, cardLimit),
+        maxCards: asked,
         frontLanguage: languages.front,
         backLanguage: languages.back,
       });
       setQuota({ status: 'ready', remaining: result.remaining });
-      useAiDraft.setState({ cards: result.cards, source, languages });
+      useAiDraft.setState({
+        cards: result.cards,
+        source,
+        languages,
+        asked,
+        left: result.remaining,
+      });
       router.push('/ai/review');
     });
   };

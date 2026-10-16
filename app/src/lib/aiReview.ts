@@ -1,6 +1,6 @@
 // The "Review cards" list: nothing the AI made is saved until the user has looked at it here.
 import type { GeneratedCard, ReportReason } from './ai';
-import { t, type StringKey } from './i18n';
+import { count, t, tn, type StringKey } from './i18n';
 
 export type ReviewItem = { key: string; front: string; back: string; selected: boolean };
 
@@ -46,6 +46,18 @@ export function suggestDeckName(source: AiSource): string {
     default:
       return t('ai.deckDefault');
   }
+}
+
+/**
+ * The line at the top of Review cards when the AI made fewer cards than asked, or null when it
+ * made them all. Fewer is fine (there wasn't more worth learning), but the user should know. With
+ * none left afterwards, the daily limit is why: the server only asked the AI for what was left.
+ * `left`: the AI cards left after this request (null if unknown).
+ */
+export function fewerCardsNote(made: number, asked: number, left: number | null): string | null {
+  if (made >= asked) return null;
+  if (left === 0) return tn('review.fewerLimit', made);
+  return t('review.fewer', { asked: tn('count.card', asked), made: count(made) });
 }
 
 /** "Your notes": text read from a photo or PDF goes below what's already in the box, so a few
