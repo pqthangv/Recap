@@ -280,6 +280,11 @@ export const vi: Strings = {
   'settings.language': 'Ngôn ngữ',
   'settings.languageAuto': 'Theo điện thoại',
   'settings.languageAutoWeb': 'Theo trình duyệt',
+  'settings.appearance': 'Giao diện',
+  'settings.appearanceAuto': 'Theo điện thoại',
+  'settings.appearanceAutoWeb': 'Theo trình duyệt',
+  'settings.appearanceLight': 'Sáng',
+  'settings.appearanceDark': 'Tối',
   'settings.notificationsOff': 'Thông báo đang tắt',
   'settings.notificationsOffBody':
     'Để nhận lời nhắc, hãy cho phép Recap gửi thông báo trong phần cài đặt của điện thoại.',

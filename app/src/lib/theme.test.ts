@@ -1,4 +1,4 @@
-import { colors, deckColors, maxContentWidth, sideSpace } from './theme';
+import { deckColors, maxContentWidth, palettes, shownDeckColor, sideSpace } from './theme';
 
 // WCAG 2.x contrast ratio between two #RRGGBB colors.
 function luminance(hex: string): number {
@@ -14,7 +14,8 @@ function contrast(a: string, b: string): number {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-describe('theme contrast (WCAG AA)', () => {
+describe.each(['light', 'dark'] as const)('theme contrast, %s look (WCAG AA)', (scheme) => {
+  const colors = palettes[scheme];
   const backgrounds = { background: colors.background, surface: colors.surface, tint: colors.tint };
 
   it.each(Object.entries(backgrounds))(
@@ -34,13 +35,36 @@ describe('theme contrast (WCAG AA)', () => {
     expect(contrast(colors.flame, colors.tint)).toBeGreaterThanOrEqual(3);
   });
 
-  it('the chart colors stand out on white', () => {
+  it('the chart colors stand out on the page', () => {
     expect(contrast(colors.chartNew, colors.background)).toBeGreaterThanOrEqual(3);
     expect(contrast(colors.primary, colors.background)).toBeGreaterThanOrEqual(3);
   });
 
-  it('deck color dots stand out on white', () => {
-    for (const c of deckColors) expect(contrast(c, colors.background)).toBeGreaterThanOrEqual(3);
+  it('deck color dots stand out on the page', () => {
+    for (const c of deckColors) {
+      expect(contrast(shownDeckColor(c, scheme), colors.background)).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it('has every color the other look has', () => {
+    expect(Object.keys(colors).sort()).toEqual(Object.keys(palettes.light).sort());
+  });
+});
+
+describe('deck colors in the dark look', () => {
+  it('stand out on every dark surface, not just the page', () => {
+    const { background, surface, tint } = palettes.dark;
+    for (const c of deckColors) {
+      for (const bg of [background, surface, tint]) {
+        expect(contrast(shownDeckColor(c, 'dark'), bg)).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
+
+  it('are drawn a little lighter, and stay as stored in the light look', () => {
+    expect(shownDeckColor('#5A31D6', 'light')).toBe('#5A31D6');
+    expect(shownDeckColor('#5A31D6', 'dark')).toBe('#8C6FE2');
+    expect(shownDeckColor('not a color', 'dark')).toBe('not a color');
   });
 });
 

@@ -278,6 +278,11 @@ export const en = {
   'settings.language': 'Language',
   'settings.languageAuto': "Phone's language",
   'settings.languageAutoWeb': "Browser's language",
+  'settings.appearance': 'Appearance',
+  'settings.appearanceAuto': "Phone's setting",
+  'settings.appearanceAutoWeb': "Browser's setting",
+  'settings.appearanceLight': 'Light',
+  'settings.appearanceDark': 'Dark',
   'settings.notificationsOff': 'Notifications are off',
   'settings.notificationsOffBody':
     "To get reminders, allow notifications for Recap in your phone's settings.",

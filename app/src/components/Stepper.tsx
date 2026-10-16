@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { colors, touchTarget } from '@/lib/theme';
+import { type Colors, touchTarget, useStyles } from '@/lib/theme';
 
 type Props = {
   label: string;
@@ -17,6 +17,7 @@ type Props = {
 
 /** − value + control. Screen readers treat it as one adjustable setting (swipe up/down). */
 export function Stepper({ label, description, value, display, min, max, step, onChange }: Props) {
+  const styles = useStyles(makeStyles);
   const set = (v: number) => onChange(Math.min(max, Math.max(min, v)));
   const down = () => set(value - step);
   const up = () => set(value + step);
@@ -57,27 +58,28 @@ export function Stepper({ label, description, value, display, min, max, step, on
   );
 }
 
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, gap: 12 },
-  text: { flex: 1 },
-  label: { fontSize: 16, color: colors.text, fontWeight: '500' },
-  description: { fontSize: 14, color: colors.muted, marginTop: 2 },
-  controls: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  button: {
-    width: touchTarget,
-    height: touchTarget,
-    borderRadius: touchTarget / 2,
-    backgroundColor: colors.tint,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  disabled: { opacity: 0.4 },
-  sign: { fontSize: 22, color: colors.primary, fontWeight: '600' },
-  value: {
-    minWidth: 72,
-    textAlign: 'center',
-    fontSize: 16,
-    color: colors.text,
-    fontWeight: '600',
-  },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, gap: 12 },
+    text: { flex: 1 },
+    label: { fontSize: 16, color: colors.text, fontWeight: '500' },
+    description: { fontSize: 14, color: colors.muted, marginTop: 2 },
+    controls: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+    button: {
+      width: touchTarget,
+      height: touchTarget,
+      borderRadius: touchTarget / 2,
+      backgroundColor: colors.tint,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    disabled: { opacity: 0.4 },
+    sign: { fontSize: 22, color: colors.primary, fontWeight: '600' },
+    value: {
+      minWidth: 72,
+      textAlign: 'center',
+      fontSize: 16,
+      color: colors.text,
+      fontWeight: '600',
+    },
+  });
