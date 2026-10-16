@@ -4,9 +4,9 @@ from types import SimpleNamespace
 
 import httpx
 import pytest
-from google.genai import errors
+from google.genai import errors, types
 
-from app.llm.base import GenerationRequest, ProviderBusy, ProviderFailed
+from app.llm.base import GenerationRequest, ProviderBlocked, ProviderBusy, ProviderFailed
 from app.llm.gemini import GeminiProvider, parse_models
 
 REQUEST = GenerationRequest(text="Water boils at 100 °C.", mode="text", max_cards=5)
@@ -22,6 +22,8 @@ class FakeModels:
         outcome = self.outcomes.pop(0)
         if isinstance(outcome, Exception):
             raise outcome
+        if isinstance(outcome, SimpleNamespace):  # a whole response, e.g. a refusal
+            return outcome
         return SimpleNamespace(text=outcome)
 
     @property
@@ -106,6 +108,38 @@ def test_does_not_retry_other_errors():
     with pytest.raises(ProviderFailed):
         p.generate(REQUEST)
     assert len(fake.calls) == 1
+
+
+PROMPT_BLOCKED = SimpleNamespace(
+    text=None, prompt_feedback=SimpleNamespace(block_reason=types.BlockedReason.SAFETY)
+)
+ANSWER_STOPPED = SimpleNamespace(
+    text=None,
+    prompt_feedback=None,
+    candidates=[SimpleNamespace(finish_reason=types.FinishReason.PROHIBITED_CONTENT)],
+)
+INPUT_BLOCKED = errors.ClientError(
+    400, {"error": {"code": 400, "status": "INVALID_ARGUMENT", "message": "Input blocked: safety"}}
+)
+
+
+@pytest.mark.parametrize("refusal", [PROMPT_BLOCKED, ANSWER_STOPPED, INPUT_BLOCKED])
+def test_a_refusal_is_not_retried_on_another_model(refusal):
+    p, fake, sleeps = provider(refusal, GOOD, GOOD, models=("model-a", "model-b"))
+    with pytest.raises(ProviderBlocked):
+        p.generate(REQUEST)
+    assert fake.models_called == ["model-a"]
+    assert sleeps == []
+    assert p._order() == ["model-a", "model-b"]  # the model isn't put to cool down
+
+
+def test_an_answer_cut_off_by_length_is_not_a_refusal():
+    cut = SimpleNamespace(
+        text=None, candidates=[SimpleNamespace(finish_reason=types.FinishReason.MAX_TOKENS)]
+    )
+    p, fake, _ = provider(cut, GOOD, models=("model-a", "model-b"))
+    assert len(p.generate(REQUEST)) == 1
+    assert fake.models_called == ["model-a", "model-b"]
 
 
 @pytest.mark.parametrize("answer", [None, "", "not json", '{"cards": "nope"}', '{"other": []}'])

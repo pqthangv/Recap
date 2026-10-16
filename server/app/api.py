@@ -16,7 +16,15 @@ from app.abuse import client_ip, limits, rate_limit
 from app.config import Settings, get_settings
 from app.db import DatabaseNotConfigured, get_engine
 from app.errors import ApiError
-from app.llm.base import Card, CardProvider, GenerationRequest, Mode, ProviderBusy, ProviderFailed
+from app.llm.base import (
+    Card,
+    CardProvider,
+    GenerationRequest,
+    Mode,
+    ProviderBlocked,
+    ProviderBusy,
+    ProviderFailed,
+)
 from app.llm.cleaning import clean_cards
 from app.llm.languages import LanguageCode
 from app.pdf import extract_text
@@ -73,11 +81,25 @@ class QuotaResponse(BaseModel):
     limit: int
 
 
+def cards_left(engine: Engine, device_id: str, ip: str, settings: Settings) -> int:
+    """Today's AI cards this phone can still make: its own allowance, or its network's when
+    that's lower (e.g. other phones on the same Wi-Fi used it up), so the app never shows
+    cards it can't make."""
+    day = quota.today_utc()
+    return min(
+        quota.remaining(engine, device_id, day, settings.daily_card_quota),
+        limits.cards_left(ip, day, settings.ip_daily_card_quota),
+    )
+
+
 @router.get("/quota")
 def get_quota(
-    device_id: Annotated[UUID, Query()], settings: SettingsDep, engine: EngineDep
+    device_id: Annotated[UUID, Query()],
+    http_request: Request,
+    settings: SettingsDep,
+    engine: EngineDep,
 ) -> QuotaResponse:
-    left = quota.remaining(engine, str(device_id), quota.today_utc(), settings.daily_card_quota)
+    left = cards_left(engine, str(device_id), client_ip(http_request), settings)
     return QuotaResponse(remaining=left, limit=settings.daily_card_quota)
 
 
@@ -122,6 +144,7 @@ def generate(
             429,
             "ip_quota_exceeded",
             "Lots of AI cards were made from your network today. More tomorrow!",
+            remaining=0,  # even if this phone still has some: none can be made from here today
         )
     reserved = quota.reserve(engine, device_id, day, allowed, daily)
     limits.refund_cards(ip, day, allowed - reserved)
@@ -134,8 +157,16 @@ def generate(
         )
 
     def give_back(cards: int) -> None:
+        """Cards that weren't made, back to the phone and its network."""
         quota.refund(engine, device_id, day, cards)
         limits.refund_cards(ip, day, cards)
+
+    def give_back_to_phone(cards: int) -> None:
+        """A failed request (text the AI refused, an unusable answer, no usable cards) costs the
+        phone nothing but still counts for its network. Otherwise failures could be repeated
+        without end, each one a call on the shared free Gemini quota. A busy AI is different:
+        it never answered, so give_back() returns everything."""
+        quota.refund(engine, device_id, day, cards)
 
     started = time.monotonic()
     request = GenerationRequest(
@@ -151,19 +182,34 @@ def generate(
         give_back(reserved)
         log.warning("ai busy", extra={"reason": str(e)})
         raise ApiError(503, "ai_busy", "AI is busy, try again later.") from e
+    except ProviderBlocked as e:
+        give_back_to_phone(reserved)
+        log.info("ai refused", extra={"reason": str(e)})  # the reason only, never the text
+        raise ApiError(
+            422,
+            "blocked",
+            "Recap can't make cards from that. Try different text.",
+            remaining=cards_left(engine, device_id, ip, settings),
+        ) from e
     except ProviderFailed as e:
-        give_back(reserved)
+        give_back_to_phone(reserved)
         log.error("ai failed", extra={"reason": str(e)})
         raise ApiError(
-            502, "ai_failed", "The AI couldn't make cards this time. Please try again."
+            502,
+            "ai_failed",
+            "The AI couldn't make cards this time. Please try again.",
+            remaining=cards_left(engine, device_id, ip, settings),
         ) from e
     except Exception:
-        give_back(reserved)
+        give_back(reserved)  # a bug on our side: nobody pays for it
         raise
 
     cards = clean_cards(raw, reserved)
-    give_back(reserved - len(cards))
-    left = quota.remaining(engine, device_id, day, daily)
+    if cards:
+        give_back(reserved - len(cards))
+    else:
+        give_back_to_phone(reserved)
+    left = cards_left(engine, device_id, ip, settings)
     log.info(
         "generated",
         extra={

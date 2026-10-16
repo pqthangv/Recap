@@ -494,6 +494,7 @@ export const en = {
   'aiError.tooLarge': "That's too big to send. Try something smaller.",
   'aiError.empty': 'Add some text first.',
   'aiError.noCards': "Couldn't find anything to make cards from. Try adding more text.",
+  'aiError.blocked': "Recap can't make cards from that. Try different text.",
   'aiError.failed': "The AI couldn't make cards this time. Please try again.",
   'aiError.badPdf': "Recap couldn't read this PDF. It may be damaged.",
   'aiError.pdfLocked': 'This PDF is password-protected. Remove the password and try again.',

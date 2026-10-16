@@ -1,4 +1,5 @@
 import { AiError, createAiClient, errorFromResponse, tidyOcrText } from './ai';
+import { setLanguage } from './i18n';
 
 const DEVICE = '6f1c2b9e-3d4a-4e5f-8a7b-1c2d3e4f5a6b';
 
@@ -157,6 +158,27 @@ describe('errorFromResponse', () => {
     expect(
       errorFromResponse(429, { error: 'ip_quota_exceeded', message: 'More tomorrow!' }).kind,
     ).toBe('quota');
+  });
+
+  it("says plainly when the AI refuses the text, in the app's language", () => {
+    const body = {
+      error: 'blocked',
+      message: "Recap can't make cards from that. Try different text.",
+      remaining: 50,
+    };
+    expect(errorFromResponse(422, body)).toMatchObject({
+      kind: 'input',
+      message: "Recap can't make cards from that. Try different text.",
+      remaining: 50,
+    });
+    setLanguage('vi');
+    try {
+      expect(errorFromResponse(422, body).message).toBe(
+        'Recap không thể tạo thẻ từ nội dung này. Hãy thử nội dung khác.',
+      );
+    } finally {
+      setLanguage('en');
+    }
   });
 });
 

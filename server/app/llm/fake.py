@@ -1,18 +1,20 @@
 """A stand-in for Gemini: makes predictable cards from the text, no network, no key.
 
-Used by the tests and for local development (LLM_PROVIDER=fake). Put "[fake:busy]" or
-"[fake:garbage]" in the text to try the app's error handling.
+Used by the tests and for local development (LLM_PROVIDER=fake). Put "[fake:busy]",
+"[fake:blocked]" or "[fake:garbage]" in the text to try the app's error handling.
 """
 
 import re
 
-from app.llm.base import GenerationRequest, ProviderBusy
+from app.llm.base import GenerationRequest, ProviderBlocked, ProviderBusy
 
 
 class FakeProvider:
     def generate(self, request: GenerationRequest) -> list[object]:
         if "[fake:busy]" in request.text:
             raise ProviderBusy("fake provider: busy")
+        if "[fake:blocked]" in request.text:
+            raise ProviderBlocked("fake provider: refused")
         if "[fake:garbage]" in request.text:
             return ["not a card", {"front": ""}, {"back": "no front"}, 42]
         if request.mode == "topic":

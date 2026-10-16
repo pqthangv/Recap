@@ -93,6 +93,17 @@ def test_busy_ai_gives_a_clear_message_and_refunds(client, engine):
     assert quota.used_today(engine, DEVICE, quota.today_utc()) == 0
 
 
+def test_text_the_ai_refuses_gets_its_own_message_and_refunds(client, engine):
+    response = post(client, text="[fake:blocked] anything", max_cards=10)
+    assert response.status_code == 422
+    assert response.json() == {
+        "error": "blocked",
+        "message": "Recap can't make cards from that. Try different text.",
+        "remaining": 50,
+    }
+    assert quota.used_today(engine, DEVICE, quota.today_utc()) == 0
+
+
 def test_clean_cards_keeps_only_usable_cards():
     raw = [
         {"front": "1. What is H2O?", "back": "**Water**"},
@@ -145,6 +156,7 @@ def test_logs_never_contain_the_study_material(client, caplog):
     with caplog.at_level("DEBUG"):
         assert post(client, text=secret, max_cards=3).status_code == 200
         post(client, text=f"[fake:busy] {secret}", max_cards=3)
+        post(client, text=f"[fake:blocked] {secret}", max_cards=3)
     logged = " ".join(f"{r.getMessage()} {vars(r)}" for r in caplog.records)
     assert "generated" in logged
     assert "private diary" not in logged
