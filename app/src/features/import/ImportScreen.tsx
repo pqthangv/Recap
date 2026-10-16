@@ -3,7 +3,7 @@ import { useState, type ReactNode } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { t } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 import { can } from '@/lib/platform';
 
@@ -11,6 +11,8 @@ import { ImportFileError, pickAnkiFile, pickTableFile, useImportDraft } from './
 
 /** "Import cards": paste a list, a CSV file, or an Anki deck. */
 export default function ImportScreen() {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const router = useRouter();
   const [busy, setBusy] = useState(false);
 
@@ -82,6 +84,7 @@ function exampleRows(): string[][] {
 }
 
 function ExampleTable() {
+  const styles = useStyles(makeStyles);
   return (
     <View style={styles.table} importantForAccessibility="no-hide-descendants">
       {exampleRows().map((row, r) => (
@@ -107,6 +110,7 @@ function Option(props: {
   disabled: boolean;
   children?: ReactNode;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -126,35 +130,36 @@ function Option(props: {
   );
 }
 
-const styles = StyleSheet.create({
-  content: { padding: 20, gap: 12 },
-  option: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    minHeight: touchTarget + 24,
-    padding: 16,
-    borderRadius: radius.card,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-  },
-  pressed: { backgroundColor: colors.surface },
-  optionText: { flex: 1 },
-  title: { fontSize: 17, fontWeight: '600', color: colors.text },
-  detail: { fontSize: 14, color: colors.muted, marginTop: 4 },
-  chevron: { fontSize: 26, color: colors.muted },
-  table: {
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    borderRadius: 8,
-    backgroundColor: colors.surface,
-    overflow: 'hidden',
-  },
-  tableRow: { flexDirection: 'row' },
-  tableRowLine: { borderTopWidth: 1, borderTopColor: colors.hairline },
-  cell: { flex: 1, paddingHorizontal: 8, paddingVertical: 6, fontSize: 13, color: colors.text },
-  cellLine: { borderLeftWidth: 1, borderLeftColor: colors.hairline },
-  tagsCell: { flex: 1.8 },
-  spinner: { marginTop: 12 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    content: { padding: 20, gap: 12 },
+    option: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+      minHeight: touchTarget + 24,
+      padding: 16,
+      borderRadius: radius.card,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+    },
+    pressed: { backgroundColor: colors.surface },
+    optionText: { flex: 1 },
+    title: { fontSize: 17, fontWeight: '600', color: colors.text },
+    detail: { fontSize: 14, color: colors.muted, marginTop: 4 },
+    chevron: { fontSize: 26, color: colors.muted },
+    table: {
+      marginTop: 10,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      borderRadius: 8,
+      backgroundColor: colors.surface,
+      overflow: 'hidden',
+    },
+    tableRow: { flexDirection: 'row' },
+    tableRowLine: { borderTopWidth: 1, borderTopColor: colors.hairline },
+    cell: { flex: 1, paddingHorizontal: 8, paddingVertical: 6, fontSize: 13, color: colors.text },
+    cellLine: { borderLeftWidth: 1, borderLeftColor: colors.hairline },
+    tagsCell: { flex: 1.8 },
+    spinner: { marginTop: 12 },
+  });

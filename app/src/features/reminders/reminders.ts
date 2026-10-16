@@ -9,7 +9,7 @@ import { getStats } from '@/db/stats';
 import { getStudyCounts } from '@/db/study';
 import { t } from '@/lib/i18n';
 import { planReminders } from '@/lib/reminders';
-import { colors } from '@/lib/theme';
+import { lightColors } from '@/lib/theme';
 import { can } from '@/lib/platform';
 
 const CHANNEL_ID = 'study-reminder';
@@ -28,7 +28,7 @@ async function ensureChannel() {
   await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
     name: t('reminder.channel'),
     importance: Notifications.AndroidImportance.DEFAULT,
-    lightColor: colors.primary,
+    lightColor: lightColors.primary, // the notification light: one fixed color
   });
 }
 

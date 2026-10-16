@@ -9,7 +9,16 @@ import { createDeck, deleteDeck, getDeck, listDecks, RESTORE_DAYS, updateDeck } 
 import { childDeckName } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
 import { cardSideLanguages, type SideLanguages as Languages } from '@/lib/language';
-import { colors, deckColors, radius, touchTarget } from '@/lib/theme';
+import { useScheme } from '@/lib/appearance';
+import {
+  type Colors,
+  deckColors,
+  radius,
+  shownDeckColor,
+  touchTarget,
+  useColors,
+  useStyles,
+} from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 
 /**
@@ -17,6 +26,9 @@ import { showAlert } from '@/lib/alert';
  * inside that deck or group ("SAT" → "SAT › Week 1") and starts with the parent's color.
  */
 export default function DeckFormScreen() {
+  const styles = useStyles(makeStyles);
+  const scheme = useScheme();
+  const colors = useColors();
   const { id, parent } = useLocalSearchParams<{ id?: string; parent?: string }>();
   const router = useRouter();
   const [existing] = useState(() => (id ? getDeck(id) : undefined));
@@ -102,7 +114,7 @@ export default function DeckFormScreen() {
             onPress={() => setColor(c)}
             style={[styles.swatchHit, c === color && styles.swatchSelected]}
           >
-            <View style={[styles.swatch, { backgroundColor: c }]} />
+            <View style={[styles.swatch, { backgroundColor: shownDeckColor(c, scheme) }]} />
           </Pressable>
         ))}
       </View>
@@ -124,30 +136,31 @@ export default function DeckFormScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  content: { padding: 20, gap: 8 },
-  label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
-  inside: { fontSize: 16, color: colors.text },
-  help: { fontSize: 14, color: colors.muted },
-  input: {
-    minHeight: touchTarget,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 16,
-    fontSize: 17,
-    color: colors.text,
-  },
-  colors: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
-  swatchHit: {
-    width: touchTarget,
-    height: touchTarget,
-    borderRadius: touchTarget / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  swatchSelected: { borderColor: colors.text },
-  swatch: { width: 32, height: 32, borderRadius: 16 },
-  save: { marginTop: 24 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    content: { padding: 20, gap: 8 },
+    label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
+    inside: { fontSize: 16, color: colors.text },
+    help: { fontSize: 14, color: colors.muted },
+    input: {
+      minHeight: touchTarget,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      fontSize: 17,
+      color: colors.text,
+    },
+    colors: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
+    swatchHit: {
+      width: touchTarget,
+      height: touchTarget,
+      borderRadius: touchTarget / 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 2,
+      borderColor: 'transparent',
+    },
+    swatchSelected: { borderColor: colors.text },
+    swatch: { width: 32, height: 32, borderRadius: 16 },
+    save: { marginTop: 24 },
+  });

@@ -3,7 +3,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Deck } from '@/db/schema';
 import { t, tn } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { useScheme } from '@/lib/appearance';
+import { type Colors, radius, shownDeckColor, touchTarget, useStyles } from '@/lib/theme';
 
 type Props = {
   visible: boolean;
@@ -16,6 +17,8 @@ type Props = {
 
 /** Bottom sheet: "Move N cards to…" with a list of decks. */
 export function MoveCardsSheet({ visible, decks, count, onMove, onClose }: Props) {
+  const styles = useStyles(makeStyles);
+  const scheme = useScheme();
   const insets = useSafeAreaInsets();
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -41,7 +44,9 @@ export function MoveCardsSheet({ visible, decks, count, onMove, onClose }: Props
                 onPress={() => onMove(deck)}
                 style={({ pressed }) => [styles.row, pressed && styles.pressed]}
               >
-                <View style={[styles.dot, { backgroundColor: deck.color }]} />
+                <View
+                  style={[styles.dot, { backgroundColor: shownDeckColor(deck.color, scheme) }]}
+                />
                 <Text style={styles.name}>{deck.name}</Text>
               </Pressable>
             ))}
@@ -59,35 +64,36 @@ export function MoveCardsSheet({ visible, decks, count, onMove, onClose }: Props
   );
 }
 
-const styles = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: 'rgba(26, 21, 48, 0.35)' },
-  sheet: {
-    backgroundColor: colors.background,
-    borderTopLeftRadius: radius.card,
-    borderTopRightRadius: radius.card,
-    paddingTop: 16,
-    paddingHorizontal: 12,
-    maxHeight: '75%',
-  },
-  title: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: colors.text,
-    paddingHorizontal: 16,
-    paddingBottom: 8,
-  },
-  list: { flexGrow: 0 },
-  row: {
-    minHeight: touchTarget + 8,
-    paddingHorizontal: 16,
-    borderRadius: radius.button,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-  },
-  pressed: { backgroundColor: colors.surface },
-  dot: { width: 14, height: 14, borderRadius: 7 },
-  name: { flex: 1, fontSize: 17, color: colors.text },
-  cancel: { fontSize: 17, color: colors.muted },
-  empty: { fontSize: 15, color: colors.muted, paddingHorizontal: 16, paddingVertical: 12 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    backdrop: { flex: 1, backgroundColor: colors.backdrop },
+    sheet: {
+      backgroundColor: colors.sheet,
+      borderTopLeftRadius: radius.card,
+      borderTopRightRadius: radius.card,
+      paddingTop: 16,
+      paddingHorizontal: 12,
+      maxHeight: '75%',
+    },
+    title: {
+      fontSize: 17,
+      fontWeight: '700',
+      color: colors.text,
+      paddingHorizontal: 16,
+      paddingBottom: 8,
+    },
+    list: { flexGrow: 0 },
+    row: {
+      minHeight: touchTarget + 8,
+      paddingHorizontal: 16,
+      borderRadius: radius.button,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 14,
+    },
+    pressed: { backgroundColor: colors.surface },
+    dot: { width: 14, height: 14, borderRadius: 7 },
+    name: { flex: 1, fontSize: 17, color: colors.text },
+    cancel: { fontSize: 17, color: colors.muted },
+    empty: { fontSize: 15, color: colors.muted, paddingHorizontal: 16, paddingVertical: 12 },
+  });

@@ -14,11 +14,13 @@ import { useLive } from '@/db/live';
 import type { Deck } from '@/db/schema';
 import { getStudyCounts } from '@/db/study';
 import { t, tn } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
 
 import { MoveCardsSheet } from './MoveCardsSheet';
 
 export default function DeckScreen() {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -223,47 +225,48 @@ export default function DeckScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  headerButtons: { flexDirection: 'row' },
-  list: { paddingHorizontal: 20, paddingBottom: 120 },
-  header: { gap: 12, paddingTop: 8, paddingBottom: 4 },
-  search: {
-    minHeight: touchTarget,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: colors.text,
-  },
-  countRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minHeight: touchTarget,
-  },
-  count: { fontSize: 14, color: colors.muted },
-  card: {
-    paddingVertical: 14,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.hairline,
-    minHeight: touchTarget,
-  },
-  selectRow: { flexDirection: 'row', alignItems: 'center', gap: 14 },
-  cardText: { flex: 1 },
-  cardPressed: { backgroundColor: colors.surface },
-  front: { fontSize: 16, fontWeight: '600', color: colors.text },
-  back: { fontSize: 15, color: colors.muted, marginTop: 2 },
-  empty: { marginTop: 40, color: colors.muted, fontSize: 16, textAlign: 'center' },
-  actionBar: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    backgroundColor: colors.background,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.hairline,
-  },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    headerButtons: { flexDirection: 'row' },
+    list: { paddingHorizontal: 20, paddingBottom: 120 },
+    header: { gap: 12, paddingTop: 8, paddingBottom: 4 },
+    search: {
+      minHeight: touchTarget,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      fontSize: 16,
+      color: colors.text,
+    },
+    countRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      minHeight: touchTarget,
+    },
+    count: { fontSize: 14, color: colors.muted },
+    card: {
+      paddingVertical: 14,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.hairline,
+      minHeight: touchTarget,
+    },
+    selectRow: { flexDirection: 'row', alignItems: 'center', gap: 14 },
+    cardText: { flex: 1 },
+    cardPressed: { backgroundColor: colors.surface },
+    front: { fontSize: 16, fontWeight: '600', color: colors.text },
+    back: { fontSize: 15, color: colors.muted, marginTop: 2 },
+    empty: { marginTop: 40, color: colors.muted, fontSize: 16, textAlign: 'center' },
+    actionBar: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      paddingHorizontal: 20,
+      paddingTop: 12,
+      backgroundColor: colors.background,
+      borderTopWidth: StyleSheet.hairlineWidth,
+      borderTopColor: colors.hairline,
+    },
+  });

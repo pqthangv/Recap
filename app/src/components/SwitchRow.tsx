@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 
+import { useScheme } from '@/lib/appearance';
 import { type Colors, touchTarget, useColors, useStyles } from '@/lib/theme';
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 export function SwitchRow({ label, description, value, onChange }: Props) {
   const styles = useStyles(makeStyles);
   const colors = useColors();
+  const scheme = useScheme();
   return (
     <Pressable
       accessibilityRole="switch"
@@ -31,7 +33,11 @@ export function SwitchRow({ label, description, value, onChange }: Props) {
         onValueChange={onChange}
         importantForAccessibility="no-hide-descendants"
         trackColor={{ true: colors.primary, false: colors.hairline }}
-        thumbColor={colors.background}
+        // White on the light look; on the dark one a dark knob on the light violet track, and a
+        // grey one when off, so the knob never melts into the page.
+        thumbColor={
+          scheme === 'light' ? colors.background : value ? colors.onPrimary : colors.muted
+        }
       />
     </Pressable>
   );

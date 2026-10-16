@@ -16,7 +16,12 @@ function contrast(a: string, b: string): number {
 
 describe.each(['light', 'dark'] as const)('theme contrast, %s look (WCAG AA)', (scheme) => {
   const colors = palettes[scheme];
-  const backgrounds = { background: colors.background, surface: colors.surface, tint: colors.tint };
+  const backgrounds = {
+    background: colors.background,
+    surface: colors.surface,
+    tint: colors.tint,
+    sheet: colors.sheet,
+  };
 
   it.each(Object.entries(backgrounds))(
     'text, muted and accent text are readable on %s',

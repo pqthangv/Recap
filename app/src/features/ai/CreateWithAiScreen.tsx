@@ -23,7 +23,7 @@ import { count, t, tn, type StringKey } from '@/lib/i18n';
 import { isCardLanguage, type CardLanguage, type SideLanguages as Languages } from '@/lib/language';
 import { can } from '@/lib/platform';
 import { AI_BACK_LANGUAGE_KEY, AI_FRONT_LANGUAGE_KEY } from '@/lib/settings';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
 
 import { askAiConsent } from './consent';
 import { ai, useAiDraft } from './api';
@@ -68,6 +68,8 @@ function storedLanguage(side: Side): CardLanguage | null {
 /** "Create with AI": your notes (typed, pasted, or read from photos and PDFs) or a topic →
  *  cards to review. */
 export default function CreateWithAiScreen() {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const router = useRouter();
   const draft = useAiDraft((s) => s.cards);
   const [tab, setTab] = useState<Tab>('notes');
@@ -351,6 +353,8 @@ function Status({
   error: string | null;
   note?: string | null;
 }) {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   if (busy) {
     return (
       <View style={styles.busy} accessibilityLiveRegion="polite">
@@ -374,6 +378,8 @@ function TextArea(props: {
   label: string;
   placeholder?: string;
 }) {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   return (
     <TextInput
       value={props.value}
@@ -388,59 +394,60 @@ function TextArea(props: {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, gap: 16, paddingBottom: 48 },
-  banner: {
-    minHeight: touchTarget,
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    borderRadius: radius.button,
-    backgroundColor: colors.tint,
-  },
-  bannerText: { fontSize: 15, fontWeight: '600', color: colors.primary },
-  tabs: {
-    flexDirection: 'row',
-    backgroundColor: colors.surface,
-    borderRadius: radius.button,
-    padding: 4,
-    gap: 4,
-  },
-  tab: {
-    flex: 1,
-    minHeight: touchTarget,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: radius.button - 4,
-    paddingHorizontal: 4,
-  },
-  tabSelected: { backgroundColor: colors.background },
-  tabText: { fontSize: 15, color: colors.muted, textAlign: 'center' },
-  tabTextSelected: { color: colors.primary, fontWeight: '600' },
-  help: { fontSize: 15, color: colors.muted },
-  row: { flexDirection: 'row', gap: 12 },
-  flex: { flex: 1 },
-  input: {
-    minHeight: 180,
-    maxHeight: 360,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    padding: 16,
-    fontSize: 16,
-    color: colors.text,
-  },
-  topic: {
-    minHeight: touchTarget,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 17,
-    color: colors.text,
-    textAlignVertical: 'center',
-  },
-  counter: { fontSize: 13, color: colors.muted, textAlign: 'right', marginTop: -8 },
-  busy: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  error: { color: colors.danger },
-  quota: { fontSize: 15, color: colors.text, textAlign: 'center' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    content: { padding: 20, gap: 16, paddingBottom: 48 },
+    banner: {
+      minHeight: touchTarget,
+      justifyContent: 'center',
+      paddingHorizontal: 16,
+      borderRadius: radius.button,
+      backgroundColor: colors.tint,
+    },
+    bannerText: { fontSize: 15, fontWeight: '600', color: colors.primary },
+    tabs: {
+      flexDirection: 'row',
+      backgroundColor: colors.surface,
+      borderRadius: radius.button,
+      padding: 4,
+      gap: 4,
+    },
+    tab: {
+      flex: 1,
+      minHeight: touchTarget,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: radius.button - 4,
+      paddingHorizontal: 4,
+    },
+    tabSelected: { backgroundColor: colors.background },
+    tabText: { fontSize: 15, color: colors.muted, textAlign: 'center' },
+    tabTextSelected: { color: colors.primary, fontWeight: '600' },
+    help: { fontSize: 15, color: colors.muted },
+    row: { flexDirection: 'row', gap: 12 },
+    flex: { flex: 1 },
+    input: {
+      minHeight: 180,
+      maxHeight: 360,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      padding: 16,
+      fontSize: 16,
+      color: colors.text,
+    },
+    topic: {
+      minHeight: touchTarget,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      fontSize: 17,
+      color: colors.text,
+      textAlignVertical: 'center',
+    },
+    counter: { fontSize: 13, color: colors.muted, textAlign: 'right', marginTop: -8 },
+    busy: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+    error: { color: colors.danger },
+    quota: { fontSize: 15, color: colors.text, textAlign: 'center' },
+  });

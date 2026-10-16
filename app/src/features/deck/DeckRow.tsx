@@ -2,7 +2,8 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { DeckCounts } from '@/db/study';
 import { t } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { useScheme } from '@/lib/appearance';
+import { type Colors, radius, shownDeckColor, touchTarget, useStyles } from '@/lib/theme';
 
 type Props = {
   name: string;
@@ -27,6 +28,8 @@ export function DeckRow({
   highlighted = false,
   onPress,
 }: Props) {
+  const styles = useStyles(makeStyles);
+  const scheme = useScheme();
   const due = counts ?? { due: 0, new: 0 };
   const countText =
     due.due + due.new === 0
@@ -46,7 +49,7 @@ export function DeckRow({
     >
       <View style={styles.dots}>
         {stacked ? <View style={[styles.dot, styles.backDot, { borderColor: color }]} /> : null}
-        <View style={[styles.dot, { backgroundColor: color }]} />
+        <View style={[styles.dot, { backgroundColor: shownDeckColor(color, scheme) }]} />
       </View>
       <View style={styles.text}>
         <Text style={styles.name}>{name}</Text>
@@ -57,36 +60,37 @@ export function DeckRow({
   );
 }
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    minHeight: touchTarget + 16,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    marginHorizontal: -12,
-    borderRadius: radius.button,
-    gap: 14,
-  },
-  // The 2dp border replaces 2dp of padding, so the text doesn't move.
-  highlighted: {
-    borderWidth: 2,
-    borderColor: colors.primary,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-  },
-  rowPressed: { backgroundColor: colors.surface },
-  dots: { width: 20, height: 20, justifyContent: 'center' },
-  dot: { width: 14, height: 14, borderRadius: 7 },
-  backDot: {
-    position: 'absolute',
-    left: 6,
-    top: 0,
-    borderWidth: 2,
-    backgroundColor: colors.background,
-  },
-  text: { flex: 1 },
-  name: { fontSize: 17, fontWeight: '600', color: colors.text },
-  counts: { fontSize: 14, color: colors.muted, marginTop: 2 },
-  chevron: { fontSize: 26, color: colors.muted },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      minHeight: touchTarget + 16,
+      paddingVertical: 12,
+      paddingHorizontal: 12,
+      marginHorizontal: -12,
+      borderRadius: radius.button,
+      gap: 14,
+    },
+    // The 2dp border replaces 2dp of padding, so the text doesn't move.
+    highlighted: {
+      borderWidth: 2,
+      borderColor: colors.primary,
+      paddingVertical: 10,
+      paddingHorizontal: 10,
+    },
+    rowPressed: { backgroundColor: colors.surface },
+    dots: { width: 20, height: 20, justifyContent: 'center' },
+    dot: { width: 14, height: 14, borderRadius: 7 },
+    backDot: {
+      position: 'absolute',
+      left: 6,
+      top: 0,
+      borderWidth: 2,
+      backgroundColor: colors.background,
+    },
+    text: { flex: 1 },
+    name: { fontSize: 17, fontWeight: '600', color: colors.text },
+    counts: { fontSize: 14, color: colors.muted, marginTop: 2 },
+    chevron: { fontSize: 26, color: colors.muted },
+  });

@@ -3,7 +3,15 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 import type { ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
 import { t } from '@/lib/i18n';
-import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
+import { useScheme } from '@/lib/appearance';
+import {
+  type Colors,
+  radius,
+  shownDeckColor,
+  touchTarget,
+  useColors,
+  useStyles,
+} from '@/lib/theme';
 
 type Props = {
   value: ImportTarget;
@@ -83,6 +91,7 @@ export function Chip({
   color?: string;
 }) {
   const styles = useStyles(makeStyles);
+  const scheme = useScheme();
   return (
     <Pressable
       accessibilityRole="radio"
@@ -90,7 +99,9 @@ export function Chip({
       onPress={onPress}
       style={[styles.chip, selected && styles.chipSelected]}
     >
-      {color ? <View style={[styles.dot, { backgroundColor: color }]} /> : null}
+      {color ? (
+        <View style={[styles.dot, { backgroundColor: shownDeckColor(color, scheme) }]} />
+      ) : null}
       <Text style={[styles.chipText, selected && styles.chipTextSelected]} numberOfLines={1}>
         {label}
       </Text>

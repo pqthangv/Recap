@@ -2,7 +2,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { t } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 export type SheetOption = {
   label: string;
@@ -24,6 +24,7 @@ export function ActionSheet({
   options: readonly SheetOption[];
   onClose: () => void;
 }) {
+  const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -76,36 +77,37 @@ export function ActionSheet({
   );
 }
 
-const styles = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: 'rgba(26, 21, 48, 0.35)' },
-  sheet: {
-    backgroundColor: colors.background,
-    borderTopLeftRadius: radius.card,
-    borderTopRightRadius: radius.card,
-    paddingTop: 12,
-    paddingHorizontal: 12,
-    maxHeight: '85%',
-  },
-  list: { flexGrow: 0, flexShrink: 1 },
-  option: {
-    minHeight: touchTarget + 8,
-    paddingHorizontal: 16,
-    borderRadius: radius.button,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  title: {
-    fontSize: 15,
-    color: colors.muted,
-    fontWeight: '600',
-    paddingHorizontal: 16,
-    paddingTop: 4,
-    paddingBottom: 8,
-  },
-  pressed: { backgroundColor: colors.surface },
-  label: { flexShrink: 1, fontSize: 18, color: colors.text, fontWeight: '500' },
-  selected: { color: colors.primary, fontWeight: '700' },
-  cancel: { color: colors.muted },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    backdrop: { flex: 1, backgroundColor: colors.backdrop },
+    sheet: {
+      backgroundColor: colors.sheet,
+      borderTopLeftRadius: radius.card,
+      borderTopRightRadius: radius.card,
+      paddingTop: 12,
+      paddingHorizontal: 12,
+      maxHeight: '85%',
+    },
+    list: { flexGrow: 0, flexShrink: 1 },
+    option: {
+      minHeight: touchTarget + 8,
+      paddingHorizontal: 16,
+      borderRadius: radius.button,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 12,
+    },
+    title: {
+      fontSize: 15,
+      color: colors.muted,
+      fontWeight: '600',
+      paddingHorizontal: 16,
+      paddingTop: 4,
+      paddingBottom: 8,
+    },
+    pressed: { backgroundColor: colors.surface },
+    label: { flexShrink: 1, fontSize: 18, color: colors.text, fontWeight: '500' },
+    selected: { color: colors.primary, fontWeight: '700' },
+    cancel: { color: colors.muted },
+  });

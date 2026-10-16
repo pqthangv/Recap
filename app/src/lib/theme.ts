@@ -17,6 +17,10 @@ const light = {
   chartNew: '#9A80EC',
   // The streak flame (an icon, not an accent color).
   flame: '#D9530F',
+  // Dims the screen behind a sheet ("+" menu, choices).
+  backdrop: 'rgba(26, 21, 48, 0.35)',
+  // A sheet sliding up over the dimmed screen.
+  sheet: '#FFFFFF',
 } as const;
 
 export type Colors = { readonly [K in keyof typeof light]: string };
@@ -35,18 +39,15 @@ const dark: Colors = {
   danger: '#FFB4AB',
   chartNew: '#7D63DB',
   flame: '#FF8B4D',
+  backdrop: 'rgba(0, 0, 0, 0.6)',
+  // Raised a little above the page, so a sheet stands out from the dimmed screen behind it.
+  sheet: '#221E2C',
 };
 
 export const palettes: Readonly<Record<Scheme, Colors>> = { light, dark };
 
 /** The light look, for what isn't drawn on a screen (e.g. a notification's accent color). */
 export const lightColors: Colors = light;
-
-/**
- * @deprecated While dark mode is being built: the light look for screens not yet converted to
- * useColors() / useStyles(). Removed once every screen is converted.
- */
-export const colors: Colors = light;
 
 /** The colors of the current look. */
 export function useColors(): Colors {

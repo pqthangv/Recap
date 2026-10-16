@@ -7,10 +7,11 @@ import { useLive } from '@/db/live';
 import { groupColor, groupDecks, type DeckListItem } from '@/lib/deckGroups';
 import { daysAgo } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
-import { colors, touchTarget } from '@/lib/theme';
+import { type Colors, touchTarget, useStyles } from '@/lib/theme';
 
 /** Decks deleted in the last 30 days, with Restore. A deleted group shows as one row. */
 export default function DeletedDecksScreen() {
+  const styles = useStyles(makeStyles);
   // "now" is read with the list, so "deleted today" stays right after midnight on refresh.
   const { deleted, now } = useLive(
     () => ({ deleted: listDeletedDecks(), now: Date.now() }),
@@ -74,21 +75,22 @@ export default function DeletedDecksScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  list: { paddingHorizontal: 20, paddingBottom: 48, backgroundColor: colors.background },
-  help: { fontSize: 15, color: colors.muted, paddingVertical: 16 },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-    minHeight: touchTarget + 16,
-    paddingVertical: 8,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.hairline,
-  },
-  dot: { width: 14, height: 14, borderRadius: 7 },
-  text: { flex: 1 },
-  name: { fontSize: 17, fontWeight: '600', color: colors.text },
-  detail: { fontSize: 14, color: colors.muted, marginTop: 2 },
-  empty: { marginTop: 40, color: colors.muted, fontSize: 16, textAlign: 'center' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    list: { paddingHorizontal: 20, paddingBottom: 48, backgroundColor: colors.background },
+    help: { fontSize: 15, color: colors.muted, paddingVertical: 16 },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 14,
+      minHeight: touchTarget + 16,
+      paddingVertical: 8,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.hairline,
+    },
+    dot: { width: 14, height: 14, borderRadius: 7 },
+    text: { flex: 1 },
+    name: { fontSize: 17, fontWeight: '600', color: colors.text },
+    detail: { fontSize: 14, color: colors.muted, marginTop: 2 },
+    empty: { marginTop: 40, color: colors.muted, fontSize: 16, textAlign: 'center' },
+  });
