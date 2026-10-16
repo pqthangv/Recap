@@ -77,6 +77,12 @@ class IpLimits:
             if self._cards_day == day and cards > 0:
                 self._cards[ip] = max(0, self._cards[ip] - cards)
 
+    def cards_left(self, ip: str, day: date, daily: int) -> int:
+        """How many of today's cards this address can still use."""
+        with self._lock:
+            self._today(day)
+            return max(0, daily - self._cards.get(ip, 0))
+
     def take_report(self, ip: str, day: date, daily: int) -> bool:
         """Counts one report from this address today. False once it has sent `daily`."""
         with self._lock:
