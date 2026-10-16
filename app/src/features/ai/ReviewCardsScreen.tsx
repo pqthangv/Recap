@@ -23,6 +23,7 @@ import { targetIsValid, useFinishImport } from '@/features/import/shared';
 import { AiError, type GeneratedCard, type ReportReason } from '@/lib/ai';
 import {
   cardsToSave,
+  fewerCardsNote,
   REPORT_REASONS,
   setAllSelected,
   suggestDeckName,
@@ -38,7 +39,7 @@ import { ai, useAiDraft } from './api';
 /** Check, edit and choose the AI's cards. Nothing is saved until "Save". */
 export default function ReviewCardsScreen() {
   const router = useRouter();
-  const { cards, source } = useAiDraft();
+  const { cards, source, asked, left } = useAiDraft();
   if (!cards || cards.length === 0) {
     return (
       <View style={styles.content}>
@@ -47,10 +48,18 @@ export default function ReviewCardsScreen() {
       </View>
     );
   }
-  return <Review cards={cards} source={source} />;
+  return <Review cards={cards} source={source} fewer={fewerCardsNote(cards.length, asked, left)} />;
 }
 
-function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource }) {
+function Review({
+  cards,
+  source,
+  fewer,
+}: {
+  cards: GeneratedCard[];
+  source: AiSource;
+  fewer: string | null;
+}) {
   const decks = useLive(listDecks, ['decks']);
   const finish = useFinishImport();
   const suggested = suggestDeckName(source);
@@ -113,7 +122,7 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
             onPress={() => setItems((list) => setAllSelected(list, !allSelected))}
           />
         </View>
-        <Text style={styles.help}>{t('review.help')}</Text>
+        {fewer ? <Text style={styles.fewer}>{fewer}</Text> : null}
 
         {items.map((item, index) => (
           <View key={item.key} style={[styles.card, !item.selected && styles.cardOff]}>
@@ -192,6 +201,14 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   title: { fontSize: 20, fontWeight: '700', color: colors.text, flexShrink: 1 },
   help: { fontSize: 15, color: colors.muted },
+  fewer: {
+    fontSize: 15,
+    color: colors.primary,
+    backgroundColor: colors.tint,
+    borderRadius: radius.button,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
   card: {
     borderRadius: radius.card,
     borderWidth: 1,
