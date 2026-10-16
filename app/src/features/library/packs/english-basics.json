@@ -1,0 +1,4104 @@
+{
+  "decks": [
+    {
+      "name": "Greetings & basics",
+      "cards": [
+        {
+          "front": "hello\n\nHello, my name is Lan.",
+          "back": "xin chào\n\nXin chào, tên tôi là Lan."
+        },
+        {
+          "front": "hi\n\nHi! How are you?",
+          "back": "chào\n\nChào! Bạn khỏe không?"
+        },
+        {
+          "front": "goodbye\n\nGoodbye, see you tomorrow.",
+          "back": "tạm biệt\n\nTạm biệt, hẹn gặp lại ngày mai."
+        },
+        {
+          "front": "good morning\n\nGood morning, everyone.",
+          "back": "chào buổi sáng\n\nChào buổi sáng mọi người."
+        },
+        {
+          "front": "good night\n\nGood night, see you tomorrow.",
+          "back": "chúc ngủ ngon\n\nChúc ngủ ngon, mai gặp lại nhé."
+        },
+        {
+          "front": "please\n\nPlease help me.",
+          "back": "làm ơn\n\nLàm ơn giúp tôi."
+        },
+        {
+          "front": "thank you\n\nThank you for your help.",
+          "back": "cảm ơn\n\nCảm ơn bạn đã giúp đỡ."
+        },
+        {
+          "front": "sorry\n\nSorry, I am late.",
+          "back": "xin lỗi\n\nXin lỗi, tôi đến muộn."
+        },
+        {
+          "front": "excuse me\n\nExcuse me, where is the bank?",
+          "back": "xin lỗi\n\nXin lỗi, ngân hàng ở đâu ạ?\n\nDùng khi muốn hỏi hoặc nhờ ai đó."
+        },
+        {
+          "front": "yes\n\nYes, I understand.",
+          "back": "vâng\n\nVâng, tôi hiểu.\n\nCũng nói: dạ, có"
+        },
+        {
+          "front": "no\n\nNo, thank you.",
+          "back": "không\n\nKhông, cảm ơn."
+        },
+        {
+          "front": "okay\n\nOkay, let's go.",
+          "back": "được rồi\n\nĐược rồi, đi thôi."
+        },
+        {
+          "front": "welcome\n\nWelcome to our school.",
+          "back": "chào mừng\n\nChào mừng đến với trường của chúng tôi."
+        },
+        {
+          "front": "name\n\nWhat is your name?",
+          "back": "tên\n\nBạn tên là gì?"
+        },
+        {
+          "front": "friend\n\nShe is my best friend.",
+          "back": "bạn\n\nCô ấy là bạn thân nhất của tôi.\n\nCũng nói: bạn bè"
+        },
+        {
+          "front": "you\n\nYou are very kind.",
+          "back": "bạn\n\nBạn thật tốt bụng.\n\nCũng nói: anh, chị, em… tùy người nghe"
+        },
+        {
+          "front": "I\n\nI am a student.",
+          "back": "tôi\n\nTôi là học sinh."
+        },
+        {
+          "front": "we\n\nWe live in Hanoi.",
+          "back": "chúng tôi\n\nChúng tôi sống ở Hà Nội.\n\nCũng nói: chúng ta (gồm cả người nghe)"
+        },
+        {
+          "front": "they\n\nThey are my parents.",
+          "back": "họ\n\nHọ là bố mẹ tôi."
+        },
+        {
+          "front": "he\n\nHe is my classmate.",
+          "back": "anh ấy\n\nAnh ấy là bạn cùng lớp của tôi."
+        },
+        {
+          "front": "she\n\nShe is a doctor.",
+          "back": "cô ấy\n\nCô ấy là bác sĩ."
+        },
+        {
+          "front": "it\n\nIt is a small cat.",
+          "back": "nó\n\nNó là một con mèo nhỏ."
+        },
+        {
+          "front": "this\n\nThis is my bag.",
+          "back": "đây\n\nĐây là túi của tôi.\n\nCũng nói: cái này, này"
+        },
+        {
+          "front": "that\n\nThat is your phone.",
+          "back": "đó\n\nĐó là điện thoại của bạn.\n\nCũng nói: cái đó, kia"
+        },
+        {
+          "front": "here\n\nPlease wait here.",
+          "back": "ở đây\n\nHãy đợi ở đây."
+        },
+        {
+          "front": "there\n\nPut the box there.",
+          "back": "ở đó\n\nĐặt cái hộp ở đó."
+        },
+        {
+          "front": "what\n\nWhat is this?",
+          "back": "cái gì\n\nĐây là cái gì?"
+        },
+        {
+          "front": "who\n\nWho is that man?",
+          "back": "ai\n\nNgười đàn ông kia là ai?"
+        },
+        {
+          "front": "where\n\nWhere do you live?",
+          "back": "ở đâu\n\nBạn sống ở đâu?"
+        },
+        {
+          "front": "when\n\nWhen is your birthday?",
+          "back": "khi nào\n\nSinh nhật bạn là khi nào?"
+        },
+        {
+          "front": "why\n\nWhy are you sad?",
+          "back": "tại sao\n\nTại sao bạn buồn?"
+        },
+        {
+          "front": "how\n\nHow do you make this cake?",
+          "back": "như thế nào\n\nBạn làm cái bánh này như thế nào?"
+        },
+        {
+          "front": "how much\n\nHow much is this shirt?",
+          "back": "bao nhiêu tiền\n\nCái áo này bao nhiêu tiền?"
+        },
+        {
+          "front": "how many\n\nHow many brothers do you have?",
+          "back": "bao nhiêu\n\nBạn có bao nhiêu anh em trai?"
+        },
+        {
+          "front": "and\n\nI like tea and coffee.",
+          "back": "và\n\nTôi thích trà và cà phê."
+        },
+        {
+          "front": "but\n\nIt is small but nice.",
+          "back": "nhưng\n\nNó nhỏ nhưng đẹp."
+        },
+        {
+          "front": "or\n\nTea or coffee?",
+          "back": "hoặc\n\nTrà hay cà phê?\n\nTrong câu hỏi thường nói: hay"
+        },
+        {
+          "front": "because\n\nI stay home because it is raining.",
+          "back": "bởi vì\n\nTôi ở nhà vì trời đang mưa."
+        },
+        {
+          "front": "very\n\nIt is very hot today.",
+          "back": "rất\n\nHôm nay trời rất nóng."
+        },
+        {
+          "front": "also\n\nI also like music.",
+          "back": "cũng\n\nTôi cũng thích âm nhạc."
+        },
+        {
+          "front": "again\n\nPlease say it again.",
+          "back": "lần nữa\n\nLàm ơn nói lại lần nữa."
+        },
+        {
+          "front": "maybe\n\nMaybe it will rain.",
+          "back": "có lẽ\n\nCó lẽ trời sẽ mưa."
+        },
+        {
+          "front": "of course\n\nOf course you can come.",
+          "back": "tất nhiên\n\nTất nhiên là bạn có thể đến."
+        },
+        {
+          "front": "help\n\nCan you help me?",
+          "back": "giúp\n\nBạn có thể giúp tôi không?"
+        },
+        {
+          "front": "question\n\nI have a question.",
+          "back": "câu hỏi\n\nTôi có một câu hỏi."
+        },
+        {
+          "front": "answer\n\nI know the answer.",
+          "back": "câu trả lời\n\nTôi biết câu trả lời."
+        },
+        {
+          "front": "word\n\nWhat does this word mean?",
+          "back": "từ\n\nTừ này nghĩa là gì?"
+        },
+        {
+          "front": "language\n\nEnglish is a useful language.",
+          "back": "ngôn ngữ\n\nTiếng Anh là một ngôn ngữ hữu ích."
+        },
+        {
+          "front": "understand\n\nI don't understand.",
+          "back": "hiểu\n\nTôi không hiểu."
+        },
+        {
+          "front": "speak\n\nDo you speak English?",
+          "back": "nói\n\nBạn có nói tiếng Anh không?"
+        }
+      ]
+    },
+    {
+      "name": "People & family",
+      "cards": [
+        {
+          "front": "family\n\nMy family is big.",
+          "back": "gia đình\n\nGia đình tôi đông người."
+        },
+        {
+          "front": "father\n\nMy father is a teacher.",
+          "back": "bố\n\nBố tôi là giáo viên.\n\nCũng nói: cha, ba"
+        },
+        {
+          "front": "mother\n\nMy mother cooks very well.",
+          "back": "mẹ\n\nMẹ tôi nấu ăn rất ngon.\n\nCũng nói: má"
+        },
+        {
+          "front": "parents\n\nMy parents live in Da Nang.",
+          "back": "bố mẹ\n\nBố mẹ tôi sống ở Đà Nẵng."
+        },
+        {
+          "front": "son\n\nTheir son is five years old.",
+          "back": "con trai\n\nCon trai họ năm tuổi."
+        },
+        {
+          "front": "daughter\n\nShe has one daughter.",
+          "back": "con gái\n\nCô ấy có một con gái."
+        },
+        {
+          "front": "older brother\n\nMy older brother works in a bank.",
+          "back": "anh trai\n\nAnh trai tôi làm ở ngân hàng."
+        },
+        {
+          "front": "younger brother\n\nMy younger brother is ten.",
+          "back": "em trai\n\nEm trai tôi mười tuổi."
+        },
+        {
+          "front": "older sister\n\nMy older sister is a nurse.",
+          "back": "chị gái\n\nChị gái tôi là y tá."
+        },
+        {
+          "front": "younger sister\n\nMy younger sister loves cats.",
+          "back": "em gái\n\nEm gái tôi rất thích mèo."
+        },
+        {
+          "front": "grandfather\n\nMy grandfather is eighty.",
+          "back": "ông\n\nÔng tôi tám mươi tuổi."
+        },
+        {
+          "front": "grandmother\n\nMy grandmother lives with us.",
+          "back": "bà\n\nBà tôi sống cùng chúng tôi."
+        },
+        {
+          "front": "grandchild\n\nShe has three grandchildren.",
+          "back": "cháu\n\nBà ấy có ba đứa cháu."
+        },
+        {
+          "front": "uncle\n\nMy uncle has a farm.",
+          "back": "chú\n\nChú tôi có một trang trại.\n\nCũng nói: bác, cậu"
+        },
+        {
+          "front": "aunt\n\nMy aunt lives in Hue.",
+          "back": "cô\n\nCô tôi sống ở Huế.\n\nCũng nói: dì, bác"
+        },
+        {
+          "front": "cousin\n\nMy cousin is my best friend.",
+          "back": "anh chị em họ\n\nAnh họ tôi là bạn thân nhất của tôi."
+        },
+        {
+          "front": "husband\n\nHer husband is a doctor.",
+          "back": "chồng\n\nChồng cô ấy là bác sĩ."
+        },
+        {
+          "front": "wife\n\nHis wife is very kind.",
+          "back": "vợ\n\nVợ anh ấy rất tốt bụng."
+        },
+        {
+          "front": "baby\n\nThe baby is sleeping.",
+          "back": "em bé\n\nEm bé đang ngủ."
+        },
+        {
+          "front": "child\n\nThe child is playing outside.",
+          "back": "đứa trẻ\n\nĐứa trẻ đang chơi ở ngoài."
+        },
+        {
+          "front": "children\n\nThe children are at school.",
+          "back": "trẻ em\n\nBọn trẻ đang ở trường."
+        },
+        {
+          "front": "boy\n\nThe boy is reading a book.",
+          "back": "cậu bé\n\nCậu bé đang đọc sách."
+        },
+        {
+          "front": "girl\n\nThe girl has long hair.",
+          "back": "cô bé\n\nCô bé có mái tóc dài."
+        },
+        {
+          "front": "man\n\nThe man is very tall.",
+          "back": "người đàn ông\n\nNgười đàn ông đó rất cao."
+        },
+        {
+          "front": "woman\n\nThe woman is my teacher.",
+          "back": "người phụ nữ\n\nNgười phụ nữ đó là cô giáo của tôi."
+        },
+        {
+          "front": "people\n\nPeople are friendly here.",
+          "back": "mọi người\n\nMọi người ở đây rất thân thiện."
+        },
+        {
+          "front": "person\n\nShe is a good person.",
+          "back": "người\n\nCô ấy là một người tốt."
+        },
+        {
+          "front": "adult\n\nTwo adults and one child, please.",
+          "back": "người lớn\n\nCho hai người lớn và một trẻ em."
+        },
+        {
+          "front": "teenager\n\nHe is a teenager now.",
+          "back": "thiếu niên\n\nBây giờ cậu ấy đã là thiếu niên rồi."
+        },
+        {
+          "front": "neighbor\n\nOur neighbor is very friendly.",
+          "back": "hàng xóm\n\nHàng xóm của chúng tôi rất thân thiện."
+        },
+        {
+          "front": "guest\n\nWe have guests tonight.",
+          "back": "khách\n\nTối nay nhà chúng tôi có khách."
+        },
+        {
+          "front": "boyfriend\n\nHer boyfriend is from Hanoi.",
+          "back": "bạn trai\n\nBạn trai cô ấy đến từ Hà Nội."
+        },
+        {
+          "front": "girlfriend\n\nHis girlfriend is a nurse.",
+          "back": "bạn gái\n\nBạn gái anh ấy là y tá."
+        },
+        {
+          "front": "married\n\nAre you married?",
+          "back": "đã kết hôn\n\nBạn đã kết hôn chưa?"
+        },
+        {
+          "front": "single\n\nMy brother is still single.",
+          "back": "độc thân\n\nAnh trai tôi vẫn còn độc thân."
+        },
+        {
+          "front": "age\n\nAge is just a number.",
+          "back": "tuổi\n\nTuổi tác chỉ là một con số."
+        },
+        {
+          "front": "old\n\nMy grandfather is old.",
+          "back": "già\n\nÔng tôi đã già.\n\nVới đồ vật: cũ"
+        },
+        {
+          "front": "young\n\nShe is young and smart.",
+          "back": "trẻ\n\nCô ấy trẻ và thông minh."
+        },
+        {
+          "front": "birthday\n\nHappy birthday!",
+          "back": "sinh nhật\n\nChúc mừng sinh nhật!"
+        },
+        {
+          "front": "born\n\nI was born in 2005.",
+          "back": "được sinh ra\n\nTôi sinh năm 2005."
+        },
+        {
+          "front": "live\n\nWe live in a small house.",
+          "back": "sống\n\nChúng tôi sống trong một ngôi nhà nhỏ."
+        },
+        {
+          "front": "love\n\nI love my family.",
+          "back": "yêu\n\nTôi yêu gia đình mình."
+        },
+        {
+          "front": "meet\n\nNice to meet you.",
+          "back": "gặp\n\nRất vui được gặp bạn."
+        },
+        {
+          "front": "visit\n\nWe visit our grandparents every Sunday.",
+          "back": "thăm\n\nChúng tôi thăm ông bà vào mỗi Chủ nhật."
+        },
+        {
+          "front": "call\n\nI call my mother every day.",
+          "back": "gọi điện\n\nNgày nào tôi cũng gọi điện cho mẹ."
+        },
+        {
+          "front": "together\n\nWe eat dinner together.",
+          "back": "cùng nhau\n\nChúng tôi ăn tối cùng nhau."
+        },
+        {
+          "front": "relative\n\nAll my relatives came to the wedding.",
+          "back": "họ hàng\n\nTất cả họ hàng của tôi đều đến dự đám cưới."
+        },
+        {
+          "front": "wedding\n\nThe wedding is in May.",
+          "back": "đám cưới\n\nĐám cưới diễn ra vào tháng Năm."
+        },
+        {
+          "front": "twins\n\nThey are twins.",
+          "back": "sinh đôi\n\nHọ là anh em sinh đôi."
+        },
+        {
+          "front": "grow up\n\nI grew up in the countryside.",
+          "back": "lớn lên\n\nTôi lớn lên ở nông thôn."
+        }
+      ]
+    },
+    {
+      "name": "Numbers & time",
+      "cards": [
+        {
+          "front": "zero\n\nZero plus five is five.",
+          "back": "số không\n\nKhông cộng năm bằng năm."
+        },
+        {
+          "front": "one\n\nI have one sister.",
+          "back": "một\n\nTôi có một chị gái."
+        },
+        {
+          "front": "two\n\nWe have two cats.",
+          "back": "hai\n\nChúng tôi có hai con mèo."
+        },
+        {
+          "front": "three\n\nI drink three cups of water.",
+          "back": "ba\n\nTôi uống ba cốc nước."
+        },
+        {
+          "front": "four\n\nA car has four wheels.",
+          "back": "bốn\n\nÔ tô có bốn bánh."
+        },
+        {
+          "front": "five\n\nShe is five years old.",
+          "back": "năm\n\nCô bé năm tuổi."
+        },
+        {
+          "front": "six\n\nThe shop opens at six.",
+          "back": "sáu\n\nCửa hàng mở cửa lúc sáu giờ."
+        },
+        {
+          "front": "seven\n\nA week has seven days.",
+          "back": "bảy\n\nMột tuần có bảy ngày."
+        },
+        {
+          "front": "eight\n\nI sleep eight hours a night.",
+          "back": "tám\n\nMỗi đêm tôi ngủ tám tiếng."
+        },
+        {
+          "front": "nine\n\nSchool starts at nine.",
+          "back": "chín\n\nTrường học bắt đầu lúc chín giờ."
+        },
+        {
+          "front": "ten\n\nI can count to ten.",
+          "back": "mười\n\nTôi có thể đếm đến mười."
+        },
+        {
+          "front": "eleven\n\nA football team has eleven players.",
+          "back": "mười một\n\nMột đội bóng đá có mười một cầu thủ."
+        },
+        {
+          "front": "twelve\n\nA year has twelve months.",
+          "back": "mười hai\n\nMột năm có mười hai tháng."
+        },
+        {
+          "front": "twenty\n\nI am twenty years old.",
+          "back": "hai mươi\n\nTôi hai mươi tuổi."
+        },
+        {
+          "front": "fifty\n\nMy father is fifty.",
+          "back": "năm mươi\n\nBố tôi năm mươi tuổi."
+        },
+        {
+          "front": "hundred\n\nThere are two hundred students here.",
+          "back": "trăm\n\nỞ đây có hai trăm học sinh."
+        },
+        {
+          "front": "thousand\n\nIt costs ten thousand dong.",
+          "back": "nghìn\n\nNó giá mười nghìn đồng.\n\nMiền Nam: ngàn"
+        },
+        {
+          "front": "million\n\nThe city has eight million people.",
+          "back": "triệu\n\nThành phố có tám triệu dân."
+        },
+        {
+          "front": "first\n\nThis is my first trip abroad.",
+          "back": "đầu tiên\n\nĐây là chuyến đi nước ngoài đầu tiên của tôi."
+        },
+        {
+          "front": "last\n\nDecember is the last month of the year.",
+          "back": "cuối cùng\n\nTháng Mười hai là tháng cuối cùng của năm."
+        },
+        {
+          "front": "half\n\nI ate half of the cake.",
+          "back": "một nửa\n\nTôi đã ăn một nửa cái bánh."
+        },
+        {
+          "front": "number\n\nWhat is your phone number?",
+          "back": "số\n\nSố điện thoại của bạn là gì?"
+        },
+        {
+          "front": "time\n\nI don't have time.",
+          "back": "thời gian\n\nTôi không có thời gian."
+        },
+        {
+          "front": "hour\n\nThe movie is two hours long.",
+          "back": "giờ\n\nBộ phim dài hai tiếng.\n\nCũng nói: tiếng"
+        },
+        {
+          "front": "minute\n\nWait a minute, please.",
+          "back": "phút\n\nLàm ơn đợi một phút."
+        },
+        {
+          "front": "second\n\nOne minute has sixty seconds.",
+          "back": "giây\n\nMột phút có sáu mươi giây."
+        },
+        {
+          "front": "day\n\nI study English every day.",
+          "back": "ngày\n\nTôi học tiếng Anh mỗi ngày."
+        },
+        {
+          "front": "week\n\nI go swimming twice a week.",
+          "back": "tuần\n\nTôi đi bơi hai lần một tuần."
+        },
+        {
+          "front": "month\n\nMy birthday is next month.",
+          "back": "tháng\n\nTháng sau là sinh nhật tôi."
+        },
+        {
+          "front": "year\n\nI have lived here for ten years.",
+          "back": "năm\n\nTôi đã sống ở đây mười năm."
+        },
+        {
+          "front": "today\n\nToday is Monday.",
+          "back": "hôm nay\n\nHôm nay là thứ Hai."
+        },
+        {
+          "front": "tomorrow\n\nSee you tomorrow.",
+          "back": "ngày mai\n\nHẹn gặp lại ngày mai."
+        },
+        {
+          "front": "yesterday\n\nI was busy yesterday.",
+          "back": "hôm qua\n\nHôm qua tôi bận."
+        },
+        {
+          "front": "morning\n\nI drink coffee every morning.",
+          "back": "buổi sáng\n\nSáng nào tôi cũng uống cà phê."
+        },
+        {
+          "front": "afternoon\n\nWe have a meeting this afternoon.",
+          "back": "buổi chiều\n\nChiều nay chúng tôi có cuộc họp."
+        },
+        {
+          "front": "evening\n\nI watch TV in the evening.",
+          "back": "buổi tối\n\nTôi xem tivi vào buổi tối."
+        },
+        {
+          "front": "night\n\nThe city is beautiful at night.",
+          "back": "ban đêm\n\nThành phố về đêm rất đẹp."
+        },
+        {
+          "front": "now\n\nI am busy now.",
+          "back": "bây giờ\n\nBây giờ tôi đang bận."
+        },
+        {
+          "front": "later\n\nI will call you later.",
+          "back": "lát nữa\n\nLát nữa tôi sẽ gọi cho bạn."
+        },
+        {
+          "front": "early\n\nI get up early.",
+          "back": "sớm\n\nTôi dậy sớm."
+        },
+        {
+          "front": "late\n\nThe bus is late again.",
+          "back": "muộn\n\nXe buýt lại đến muộn.\n\nMiền Nam: trễ"
+        },
+        {
+          "front": "always\n\nShe always smiles.",
+          "back": "luôn luôn\n\nCô ấy luôn mỉm cười."
+        },
+        {
+          "front": "usually\n\nI usually walk to school.",
+          "back": "thường\n\nTôi thường đi bộ đến trường."
+        },
+        {
+          "front": "sometimes\n\nSometimes I cook dinner.",
+          "back": "thỉnh thoảng\n\nThỉnh thoảng tôi nấu bữa tối."
+        },
+        {
+          "front": "never\n\nI never drink coffee at night.",
+          "back": "không bao giờ\n\nTôi không bao giờ uống cà phê vào buổi tối."
+        },
+        {
+          "front": "clock\n\nThe clock is on the wall.",
+          "back": "đồng hồ\n\nĐồng hồ treo trên tường."
+        },
+        {
+          "front": "calendar\n\nLook at the calendar.",
+          "back": "lịch\n\nHãy nhìn vào tờ lịch."
+        },
+        {
+          "front": "weekend\n\nWhat do you do at the weekend?",
+          "back": "cuối tuần\n\nCuối tuần bạn làm gì?"
+        },
+        {
+          "front": "soon\n\nThe bus will come soon.",
+          "back": "sắp\n\nXe buýt sắp đến rồi.\n\nCũng nói: sớm, chẳng bao lâu nữa"
+        },
+        {
+          "front": "midnight\n\nI went to bed at midnight.",
+          "back": "nửa đêm\n\nTôi đi ngủ lúc nửa đêm."
+        }
+      ]
+    },
+    {
+      "name": "Days & seasons",
+      "cards": [
+        {
+          "front": "Monday\n\nI have English class on Monday.",
+          "back": "thứ Hai\n\nTôi có tiết tiếng Anh vào thứ Hai."
+        },
+        {
+          "front": "Tuesday\n\nThe shop is closed on Tuesday.",
+          "back": "thứ Ba\n\nCửa hàng đóng cửa vào thứ Ba."
+        },
+        {
+          "front": "Wednesday\n\nWe play football on Wednesday.",
+          "back": "thứ Tư\n\nChúng tôi đá bóng vào thứ Tư."
+        },
+        {
+          "front": "Thursday\n\nThursday is my busiest day.",
+          "back": "thứ Năm\n\nThứ Năm là ngày bận nhất của tôi."
+        },
+        {
+          "front": "Friday\n\nSee you on Friday.",
+          "back": "thứ Sáu\n\nHẹn gặp bạn vào thứ Sáu."
+        },
+        {
+          "front": "Saturday\n\nI sleep late on Saturday.",
+          "back": "thứ Bảy\n\nThứ Bảy tôi ngủ dậy muộn."
+        },
+        {
+          "front": "Sunday\n\nWe visit our family on Sunday.",
+          "back": "Chủ nhật\n\nChúng tôi về thăm gia đình vào Chủ nhật."
+        },
+        {
+          "front": "January\n\nJanuary is cold in Hanoi.",
+          "back": "tháng Một\n\nTháng Một ở Hà Nội trời lạnh."
+        },
+        {
+          "front": "February\n\nTet is often in February.",
+          "back": "tháng Hai\n\nTết thường rơi vào tháng Hai."
+        },
+        {
+          "front": "March\n\nMy birthday is in March.",
+          "back": "tháng Ba\n\nSinh nhật tôi vào tháng Ba."
+        },
+        {
+          "front": "April\n\nIt is warm in April.",
+          "back": "tháng Tư\n\nTháng Tư trời ấm."
+        },
+        {
+          "front": "May\n\nSummer starts in May.",
+          "back": "tháng Năm\n\nMùa hè bắt đầu vào tháng Năm."
+        },
+        {
+          "front": "June\n\nSchool ends in June.",
+          "back": "tháng Sáu\n\nNăm học kết thúc vào tháng Sáu."
+        },
+        {
+          "front": "July\n\nJuly is very hot.",
+          "back": "tháng Bảy\n\nTháng Bảy rất nóng."
+        },
+        {
+          "front": "August\n\nWe go to the beach in August.",
+          "back": "tháng Tám\n\nChúng tôi đi biển vào tháng Tám."
+        },
+        {
+          "front": "September\n\nSchool starts in September.",
+          "back": "tháng Chín\n\nNăm học bắt đầu vào tháng Chín."
+        },
+        {
+          "front": "October\n\nThe weather is cool in October.",
+          "back": "tháng Mười\n\nTháng Mười thời tiết mát mẻ."
+        },
+        {
+          "front": "November\n\nNovember 20 is Teachers' Day in Vietnam.",
+          "back": "tháng Mười một\n\nNgày 20 tháng Mười một là Ngày Nhà giáo Việt Nam."
+        },
+        {
+          "front": "December\n\nChristmas is in December.",
+          "back": "tháng Mười hai\n\nGiáng sinh vào tháng Mười hai."
+        },
+        {
+          "front": "season\n\nWhich season do you like?",
+          "back": "mùa\n\nBạn thích mùa nào?"
+        },
+        {
+          "front": "spring\n\nFlowers bloom in spring.",
+          "back": "mùa xuân\n\nHoa nở vào mùa xuân."
+        },
+        {
+          "front": "summer\n\nWe swim a lot in summer.",
+          "back": "mùa hè\n\nMùa hè chúng tôi đi bơi nhiều.\n\nCũng nói: mùa hạ"
+        },
+        {
+          "front": "autumn\n\nAutumn in Hanoi is beautiful.",
+          "back": "mùa thu\n\nMùa thu Hà Nội rất đẹp.\n\nTiếng Anh Mỹ: fall"
+        },
+        {
+          "front": "winter\n\nIt rarely snows here in winter.",
+          "back": "mùa đông\n\nỞ đây mùa đông hiếm khi có tuyết."
+        },
+        {
+          "front": "rainy season\n\nThe rainy season starts in May.",
+          "back": "mùa mưa\n\nMùa mưa bắt đầu vào tháng Năm."
+        },
+        {
+          "front": "dry season\n\nThe dry season is hot and sunny.",
+          "back": "mùa khô\n\nMùa khô nóng và nắng."
+        },
+        {
+          "front": "holiday\n\nWe have a holiday next week.",
+          "back": "kỳ nghỉ\n\nTuần sau chúng tôi có kỳ nghỉ."
+        },
+        {
+          "front": "Lunar New Year\n\nWe go home for Lunar New Year.",
+          "back": "Tết\n\nChúng tôi về quê ăn Tết.\n\nĐầy đủ: Tết Nguyên Đán"
+        },
+        {
+          "front": "Christmas\n\nMerry Christmas!",
+          "back": "Giáng sinh\n\nGiáng sinh vui vẻ!"
+        },
+        {
+          "front": "festival\n\nThe Mid-Autumn Festival is for children.",
+          "back": "lễ hội\n\nTết Trung thu là lễ hội dành cho trẻ em."
+        },
+        {
+          "front": "party\n\nCome to my party on Saturday.",
+          "back": "bữa tiệc\n\nThứ Bảy đến dự tiệc của tôi nhé."
+        },
+        {
+          "front": "anniversary\n\nToday is their wedding anniversary.",
+          "back": "ngày kỷ niệm\n\nHôm nay là ngày kỷ niệm ngày cưới của họ."
+        },
+        {
+          "front": "date\n\nWhat is the date today?",
+          "back": "ngày tháng\n\nHôm nay là ngày bao nhiêu?"
+        },
+        {
+          "front": "next week\n\nI will see you next week.",
+          "back": "tuần sau\n\nTuần sau tôi sẽ gặp bạn."
+        },
+        {
+          "front": "last week\n\nI was sick last week.",
+          "back": "tuần trước\n\nTuần trước tôi bị ốm."
+        },
+        {
+          "front": "this year\n\nThis year I want to learn English.",
+          "back": "năm nay\n\nNăm nay tôi muốn học tiếng Anh."
+        },
+        {
+          "front": "next year\n\nI will finish school next year.",
+          "back": "năm sau\n\nNăm sau tôi sẽ học xong."
+        },
+        {
+          "front": "last year\n\nWe moved here last year.",
+          "back": "năm ngoái\n\nNăm ngoái chúng tôi chuyển đến đây."
+        },
+        {
+          "front": "every day\n\nI walk my dog every day.",
+          "back": "mỗi ngày\n\nTôi dắt chó đi dạo mỗi ngày."
+        },
+        {
+          "front": "once\n\nI have been to Japan once.",
+          "back": "một lần\n\nTôi đã đến Nhật Bản một lần."
+        },
+        {
+          "front": "twice\n\nBrush your teeth twice a day.",
+          "back": "hai lần\n\nHãy đánh răng hai lần một ngày."
+        },
+        {
+          "front": "daily\n\nExercise is part of my daily life.",
+          "back": "hằng ngày\n\nTập thể dục là một phần trong cuộc sống hằng ngày của tôi."
+        },
+        {
+          "front": "weekly\n\nWe have a weekly meeting.",
+          "back": "hằng tuần\n\nChúng tôi có cuộc họp hằng tuần."
+        },
+        {
+          "front": "monthly\n\nI pay the bills monthly.",
+          "back": "hằng tháng\n\nTôi trả các hóa đơn hằng tháng."
+        },
+        {
+          "front": "century\n\nWe live in the 21st century.",
+          "back": "thế kỷ\n\nChúng ta đang sống ở thế kỷ 21."
+        },
+        {
+          "front": "past\n\nForget the past.",
+          "back": "quá khứ\n\nHãy quên quá khứ đi."
+        },
+        {
+          "front": "future\n\nWhat are your plans for the future?",
+          "back": "tương lai\n\nBạn có kế hoạch gì cho tương lai?"
+        },
+        {
+          "front": "present\n\nLive in the present.",
+          "back": "hiện tại\n\nHãy sống cho hiện tại.\n\nCũng có nghĩa: món quà"
+        },
+        {
+          "front": "schedule\n\nWhat is your schedule today?",
+          "back": "lịch trình\n\nHôm nay lịch trình của bạn thế nào?"
+        },
+        {
+          "front": "appointment\n\nI have a doctor's appointment at ten.",
+          "back": "cuộc hẹn\n\nTôi có hẹn với bác sĩ lúc mười giờ."
+        }
+      ]
+    },
+    {
+      "name": "Food",
+      "cards": [
+        {
+          "front": "food\n\nWe need food and water.",
+          "back": "thức ăn\n\nChúng tôi cần thức ăn và nước uống.\n\nCũng nói: đồ ăn"
+        },
+        {
+          "front": "rice\n\nWe eat rice every day.",
+          "back": "cơm\n\nNgày nào chúng tôi cũng ăn cơm.\n\nChưa nấu: gạo"
+        },
+        {
+          "front": "noodles\n\nI eat noodles for breakfast.",
+          "back": "mì\n\nTôi ăn mì vào bữa sáng.\n\nCũng dùng cho: bún, phở"
+        },
+        {
+          "front": "bread\n\nI buy bread in the morning.",
+          "back": "bánh mì\n\nTôi mua bánh mì vào buổi sáng."
+        },
+        {
+          "front": "egg\n\nI eat two eggs for breakfast.",
+          "back": "trứng\n\nBữa sáng tôi ăn hai quả trứng."
+        },
+        {
+          "front": "meat\n\nI don't eat much meat.",
+          "back": "thịt\n\nTôi không ăn nhiều thịt."
+        },
+        {
+          "front": "beef\n\nBeef is more expensive than pork.",
+          "back": "thịt bò\n\nThịt bò đắt hơn thịt lợn."
+        },
+        {
+          "front": "pork\n\nWe have pork for dinner.",
+          "back": "thịt lợn\n\nBữa tối chúng tôi ăn thịt lợn.\n\nMiền Nam: thịt heo"
+        },
+        {
+          "front": "chicken\n\nChicken soup is good when you are sick.",
+          "back": "thịt gà\n\nSúp gà rất tốt khi bạn bị ốm.\n\nCon vật: con gà"
+        },
+        {
+          "front": "fish\n\nFish is good for your health.",
+          "back": "cá\n\nCá tốt cho sức khỏe."
+        },
+        {
+          "front": "shrimp\n\nThese shrimp are very fresh.",
+          "back": "tôm\n\nMấy con tôm này rất tươi."
+        },
+        {
+          "front": "crab\n\nCrab soup is delicious.",
+          "back": "cua\n\nCanh cua rất ngon."
+        },
+        {
+          "front": "vegetable\n\nEat more vegetables.",
+          "back": "rau\n\nHãy ăn nhiều rau hơn.\n\nCũng nói: rau củ"
+        },
+        {
+          "front": "fruit\n\nI eat fruit after dinner.",
+          "back": "trái cây\n\nTôi ăn trái cây sau bữa tối.\n\nMiền Bắc: hoa quả"
+        },
+        {
+          "front": "apple\n\nAn apple a day is good for you.",
+          "back": "táo\n\nMỗi ngày một quả táo rất tốt cho bạn."
+        },
+        {
+          "front": "banana\n\nMonkeys love bananas.",
+          "back": "chuối\n\nKhỉ rất thích chuối."
+        },
+        {
+          "front": "orange\n\nI drink orange juice.",
+          "back": "cam\n\nTôi uống nước cam."
+        },
+        {
+          "front": "mango\n\nMangoes are sweet in summer.",
+          "back": "xoài\n\nXoài mùa hè rất ngọt."
+        },
+        {
+          "front": "grape\n\nThese grapes are sour.",
+          "back": "nho\n\nMấy quả nho này chua."
+        },
+        {
+          "front": "watermelon\n\nWatermelon is great on hot days.",
+          "back": "dưa hấu\n\nNgày nóng ăn dưa hấu rất tuyệt."
+        },
+        {
+          "front": "lemon\n\nAdd some lemon to the tea.",
+          "back": "chanh\n\nCho thêm chút chanh vào trà."
+        },
+        {
+          "front": "coconut\n\nCoconut water is cool and sweet.",
+          "back": "dừa\n\nNước dừa mát và ngọt."
+        },
+        {
+          "front": "pineapple\n\nI like pineapple on pizza.",
+          "back": "dứa\n\nTôi thích dứa trên bánh pizza.\n\nMiền Nam: thơm, khóm"
+        },
+        {
+          "front": "tomato\n\nCut the tomatoes into small pieces.",
+          "back": "cà chua\n\nCắt cà chua thành miếng nhỏ."
+        },
+        {
+          "front": "potato\n\nFrench fries are made from potatoes.",
+          "back": "khoai tây\n\nKhoai tây chiên được làm từ khoai tây."
+        },
+        {
+          "front": "carrot\n\nCarrots are good for your eyes.",
+          "back": "cà rốt\n\nCà rốt tốt cho mắt."
+        },
+        {
+          "front": "onion\n\nOnions make me cry.",
+          "back": "hành tây\n\nHành tây làm tôi chảy nước mắt."
+        },
+        {
+          "front": "garlic\n\nThis dish has a lot of garlic.",
+          "back": "tỏi\n\nMón này có nhiều tỏi."
+        },
+        {
+          "front": "cabbage\n\nWe grow cabbage in the garden.",
+          "back": "bắp cải\n\nChúng tôi trồng bắp cải trong vườn."
+        },
+        {
+          "front": "corn\n\nGrilled corn is a popular snack.",
+          "back": "ngô\n\nNgô nướng là món ăn vặt được nhiều người thích.\n\nMiền Nam: bắp"
+        },
+        {
+          "front": "bean\n\nI like soup with beans.",
+          "back": "đậu\n\nTôi thích canh có đậu."
+        },
+        {
+          "front": "tofu\n\nTofu is made from soybeans.",
+          "back": "đậu phụ\n\nĐậu phụ được làm từ đậu nành.\n\nMiền Nam: đậu hũ"
+        },
+        {
+          "front": "soup\n\nVietnamese meals often have soup.",
+          "back": "canh\n\nBữa cơm Việt thường có canh.\n\nCũng nói: súp"
+        },
+        {
+          "front": "salt\n\nAdd a little salt.",
+          "back": "muối\n\nCho thêm một chút muối."
+        },
+        {
+          "front": "sugar\n\nI don't take sugar in my coffee.",
+          "back": "đường\n\nTôi không cho đường vào cà phê."
+        },
+        {
+          "front": "pepper\n\nAdd salt and pepper.",
+          "back": "hạt tiêu\n\nThêm muối và hạt tiêu.\n\nMiền Nam: tiêu"
+        },
+        {
+          "front": "sauce\n\nThis sauce is a bit spicy.",
+          "back": "nước sốt\n\nNước sốt này hơi cay."
+        },
+        {
+          "front": "fish sauce\n\nFish sauce is in many Vietnamese dishes.",
+          "back": "nước mắm\n\nNước mắm có trong nhiều món ăn Việt."
+        },
+        {
+          "front": "oil\n\nHeat the oil in the pan.",
+          "back": "dầu ăn\n\nĐun nóng dầu ăn trong chảo."
+        },
+        {
+          "front": "butter\n\nPut butter on the bread.",
+          "back": "bơ\n\nPhết bơ lên bánh mì."
+        },
+        {
+          "front": "cheese\n\nThis pizza has a lot of cheese.",
+          "back": "phô mai\n\nBánh pizza này có nhiều phô mai."
+        },
+        {
+          "front": "cake\n\nShe made a birthday cake.",
+          "back": "bánh ngọt\n\nCô ấy làm một chiếc bánh sinh nhật.\n\nBánh sinh nhật: bánh kem"
+        },
+        {
+          "front": "candy\n\nChildren love candy.",
+          "back": "kẹo\n\nTrẻ em thích kẹo."
+        },
+        {
+          "front": "chocolate\n\nI love dark chocolate.",
+          "back": "sô-cô-la\n\nTôi rất thích sô-cô-la đen."
+        },
+        {
+          "front": "ice cream\n\nLet's get some ice cream.",
+          "back": "kem\n\nChúng mình đi ăn kem đi."
+        },
+        {
+          "front": "snack\n\nI have a snack at four o'clock.",
+          "back": "đồ ăn vặt\n\nTôi ăn vặt lúc bốn giờ chiều."
+        },
+        {
+          "front": "breakfast\n\nWhat do you eat for breakfast?",
+          "back": "bữa sáng\n\nBạn ăn gì vào bữa sáng?"
+        },
+        {
+          "front": "lunch\n\nWe have lunch at noon.",
+          "back": "bữa trưa\n\nChúng tôi ăn trưa lúc mười hai giờ."
+        },
+        {
+          "front": "dinner\n\nDinner is ready.",
+          "back": "bữa tối\n\nBữa tối đã sẵn sàng."
+        },
+        {
+          "front": "meal\n\nWe have three meals a day.",
+          "back": "bữa ăn\n\nChúng tôi ăn ba bữa một ngày."
+        }
+      ]
+    },
+    {
+      "name": "Drinks & cooking",
+      "cards": [
+        {
+          "front": "water\n\nDrink more water.",
+          "back": "nước\n\nHãy uống nhiều nước hơn."
+        },
+        {
+          "front": "drink\n\nWhat would you like to drink?",
+          "back": "uống\n\nBạn muốn uống gì?"
+        },
+        {
+          "front": "tea\n\nWould you like some tea?",
+          "back": "trà\n\nBạn có muốn uống chút trà không?\n\nMiền Bắc cũng nói: chè"
+        },
+        {
+          "front": "coffee\n\nVietnamese coffee is strong.",
+          "back": "cà phê\n\nCà phê Việt Nam rất đậm."
+        },
+        {
+          "front": "milk\n\nBabies drink milk.",
+          "back": "sữa\n\nEm bé uống sữa."
+        },
+        {
+          "front": "juice\n\nApple juice, please.",
+          "back": "nước ép\n\nCho tôi nước ép táo."
+        },
+        {
+          "front": "beer\n\nHe drinks beer with his friends.",
+          "back": "bia\n\nAnh ấy uống bia với bạn bè."
+        },
+        {
+          "front": "wine\n\nThey drink red wine with dinner.",
+          "back": "rượu vang\n\nHọ uống rượu vang đỏ trong bữa tối."
+        },
+        {
+          "front": "soft drink\n\nToo many soft drinks are bad for you.",
+          "back": "nước ngọt\n\nUống quá nhiều nước ngọt không tốt cho bạn."
+        },
+        {
+          "front": "ice\n\nCan I have some ice, please?",
+          "back": "đá\n\nCho tôi xin ít đá."
+        },
+        {
+          "front": "bottle\n\nBuy a bottle of water.",
+          "back": "chai\n\nMua một chai nước."
+        },
+        {
+          "front": "cup\n\nA cup of tea, please.",
+          "back": "tách\n\nCho tôi một tách trà.\n\nCũng nói: cốc, ly"
+        },
+        {
+          "front": "glass\n\nPour the juice into a glass.",
+          "back": "cốc\n\nRót nước ép vào cốc.\n\nMiền Nam: ly. Cũng có nghĩa: thủy tinh"
+        },
+        {
+          "front": "bowl\n\nI eat two bowls of rice.",
+          "back": "bát\n\nTôi ăn hai bát cơm.\n\nMiền Nam: chén"
+        },
+        {
+          "front": "plate\n\nPut the food on the plate.",
+          "back": "đĩa\n\nĐể thức ăn lên đĩa."
+        },
+        {
+          "front": "spoon\n\nEat your soup with a spoon.",
+          "back": "thìa\n\nĂn canh bằng thìa.\n\nMiền Nam: muỗng"
+        },
+        {
+          "front": "fork\n\nI eat salad with a fork.",
+          "back": "nĩa\n\nTôi ăn salad bằng nĩa."
+        },
+        {
+          "front": "chopsticks\n\nWe eat with chopsticks.",
+          "back": "đũa\n\nChúng tôi ăn bằng đũa."
+        },
+        {
+          "front": "knife\n\nBe careful with the knife.",
+          "back": "dao\n\nCẩn thận với con dao."
+        },
+        {
+          "front": "pot\n\nCook the rice in a pot.",
+          "back": "nồi\n\nNấu cơm trong nồi."
+        },
+        {
+          "front": "pan\n\nFry the egg in a pan.",
+          "back": "chảo\n\nRán trứng trong chảo."
+        },
+        {
+          "front": "kitchen\n\nMy mother is in the kitchen.",
+          "back": "nhà bếp\n\nMẹ tôi đang ở trong bếp."
+        },
+        {
+          "front": "cook\n\nMy father likes to cook.",
+          "back": "nấu ăn\n\nBố tôi thích nấu ăn."
+        },
+        {
+          "front": "boil\n\nBoil the water first.",
+          "back": "đun sôi\n\nĐun sôi nước trước.\n\nVới trứng, rau: luộc"
+        },
+        {
+          "front": "fry\n\nFry the fish in oil.",
+          "back": "rán\n\nRán cá trong dầu.\n\nMiền Nam: chiên"
+        },
+        {
+          "front": "grill\n\nWe grill meat at the weekend.",
+          "back": "nướng\n\nCuối tuần chúng tôi nướng thịt."
+        },
+        {
+          "front": "cut\n\nCut the bread, please.",
+          "back": "cắt\n\nLàm ơn cắt bánh mì."
+        },
+        {
+          "front": "wash\n\nWash your hands before eating.",
+          "back": "rửa\n\nRửa tay trước khi ăn."
+        },
+        {
+          "front": "mix\n\nMix the eggs and sugar.",
+          "back": "trộn\n\nTrộn trứng với đường."
+        },
+        {
+          "front": "taste\n\nTaste the soup.",
+          "back": "nếm\n\nNếm thử canh xem.\n\nDanh từ: vị"
+        },
+        {
+          "front": "eat\n\nWhat do you want to eat?",
+          "back": "ăn\n\nBạn muốn ăn gì?"
+        },
+        {
+          "front": "delicious\n\nThis pho is delicious.",
+          "back": "ngon\n\nBát phở này ngon quá."
+        },
+        {
+          "front": "hungry\n\nI am hungry.",
+          "back": "đói\n\nTôi đói."
+        },
+        {
+          "front": "thirsty\n\nAre you thirsty?",
+          "back": "khát\n\nBạn có khát không?"
+        },
+        {
+          "front": "full\n\nI am full, thank you.",
+          "back": "no\n\nTôi no rồi, cảm ơn.\n\nCũng có nghĩa: đầy"
+        },
+        {
+          "front": "spicy\n\nThis soup is too spicy.",
+          "back": "cay\n\nMón canh này cay quá."
+        },
+        {
+          "front": "sweet\n\nThis cake is too sweet.",
+          "back": "ngọt\n\nCái bánh này ngọt quá."
+        },
+        {
+          "front": "sour\n\nLemons are sour.",
+          "back": "chua\n\nChanh có vị chua."
+        },
+        {
+          "front": "salty\n\nThe soup is a little salty.",
+          "back": "mặn\n\nCanh hơi mặn."
+        },
+        {
+          "front": "bitter\n\nCoffee without sugar is bitter.",
+          "back": "đắng\n\nCà phê không đường thì đắng."
+        },
+        {
+          "front": "hot\n\nBe careful, the tea is hot.",
+          "back": "nóng\n\nCẩn thận, trà nóng đấy."
+        },
+        {
+          "front": "cold\n\nI want a cold drink.",
+          "back": "lạnh\n\nTôi muốn một đồ uống lạnh."
+        },
+        {
+          "front": "fresh\n\nThe fish is very fresh.",
+          "back": "tươi\n\nCá rất tươi."
+        },
+        {
+          "front": "raw\n\nDon't eat raw meat.",
+          "back": "sống\n\nĐừng ăn thịt sống."
+        },
+        {
+          "front": "menu\n\nCan I see the menu?",
+          "back": "thực đơn\n\nCho tôi xem thực đơn được không?"
+        },
+        {
+          "front": "restaurant\n\nLet's eat at a restaurant.",
+          "back": "nhà hàng\n\nMình đi ăn nhà hàng đi."
+        },
+        {
+          "front": "waiter\n\nThe waiter brings our food.",
+          "back": "người phục vụ\n\nNgười phục vụ mang đồ ăn ra cho chúng tôi."
+        },
+        {
+          "front": "order\n\nAre you ready to order?",
+          "back": "gọi món\n\nBạn đã sẵn sàng gọi món chưa?"
+        },
+        {
+          "front": "bill\n\nCan we have the bill, please?",
+          "back": "hóa đơn\n\nCho chúng tôi xin hóa đơn."
+        },
+        {
+          "front": "recipe\n\nThis is my grandmother's recipe.",
+          "back": "công thức nấu ăn\n\nĐây là công thức nấu ăn của bà tôi."
+        }
+      ]
+    },
+    {
+      "name": "Home",
+      "cards": [
+        {
+          "front": "home\n\nI go home at six.",
+          "back": "nhà\n\nTôi về nhà lúc sáu giờ."
+        },
+        {
+          "front": "house\n\nTheir house has a garden.",
+          "back": "nhà\n\nNhà họ có một khu vườn.\n\nCũng nói: ngôi nhà"
+        },
+        {
+          "front": "room\n\nMy room is small.",
+          "back": "phòng\n\nPhòng của tôi nhỏ."
+        },
+        {
+          "front": "bedroom\n\nThe house has three bedrooms.",
+          "back": "phòng ngủ\n\nNgôi nhà có ba phòng ngủ."
+        },
+        {
+          "front": "bathroom\n\nWhere is the bathroom?",
+          "back": "phòng tắm\n\nPhòng tắm ở đâu?\n\nCũng có nghĩa: nhà vệ sinh"
+        },
+        {
+          "front": "living room\n\nWe watch TV in the living room.",
+          "back": "phòng khách\n\nChúng tôi xem tivi ở phòng khách."
+        },
+        {
+          "front": "door\n\nPlease close the door.",
+          "back": "cửa\n\nLàm ơn đóng cửa lại."
+        },
+        {
+          "front": "window\n\nOpen the window, please.",
+          "back": "cửa sổ\n\nLàm ơn mở cửa sổ."
+        },
+        {
+          "front": "wall\n\nThere is a picture on the wall.",
+          "back": "tường\n\nCó một bức tranh trên tường."
+        },
+        {
+          "front": "floor\n\nThe floor is wet.",
+          "back": "sàn nhà\n\nSàn nhà bị ướt.\n\nCũng có nghĩa: tầng"
+        },
+        {
+          "front": "roof\n\nThe roof is red.",
+          "back": "mái nhà\n\nMái nhà màu đỏ."
+        },
+        {
+          "front": "stairs\n\nGo up the stairs.",
+          "back": "cầu thang\n\nĐi lên cầu thang."
+        },
+        {
+          "front": "garden\n\nMy grandmother grows flowers in the garden.",
+          "back": "vườn\n\nBà tôi trồng hoa trong vườn."
+        },
+        {
+          "front": "gate\n\nClose the gate behind you.",
+          "back": "cổng\n\nNhớ đóng cổng lại sau khi đi qua."
+        },
+        {
+          "front": "key\n\nI lost my key.",
+          "back": "chìa khóa\n\nTôi làm mất chìa khóa rồi."
+        },
+        {
+          "front": "table\n\nThe book is on the table.",
+          "back": "bàn\n\nQuyển sách ở trên bàn."
+        },
+        {
+          "front": "chair\n\nSit on this chair.",
+          "back": "ghế\n\nNgồi lên cái ghế này."
+        },
+        {
+          "front": "bed\n\nMy bed is very soft.",
+          "back": "giường\n\nGiường của tôi rất êm."
+        },
+        {
+          "front": "sofa\n\nThe cat is on the sofa.",
+          "back": "ghế sô-pha\n\nCon mèo đang nằm trên ghế sô-pha."
+        },
+        {
+          "front": "desk\n\nMy computer is on the desk.",
+          "back": "bàn làm việc\n\nMáy tính của tôi ở trên bàn làm việc."
+        },
+        {
+          "front": "shelf\n\nPut the books on the shelf.",
+          "back": "kệ\n\nĐặt sách lên kệ.\n\nCũng nói: giá sách"
+        },
+        {
+          "front": "wardrobe\n\nMy clothes are in the wardrobe.",
+          "back": "tủ quần áo\n\nQuần áo của tôi ở trong tủ."
+        },
+        {
+          "front": "mirror\n\nShe looks in the mirror.",
+          "back": "gương\n\nCô ấy soi gương."
+        },
+        {
+          "front": "lamp\n\nTurn on the lamp.",
+          "back": "đèn\n\nBật đèn lên."
+        },
+        {
+          "front": "fan\n\nIt's hot, turn on the fan.",
+          "back": "quạt\n\nNóng quá, bật quạt lên đi."
+        },
+        {
+          "front": "air conditioner\n\nThe air conditioner is broken.",
+          "back": "máy điều hòa\n\nMáy điều hòa bị hỏng rồi."
+        },
+        {
+          "front": "television\n\nWe bought a new television.",
+          "back": "tivi\n\nChúng tôi mới mua một cái tivi."
+        },
+        {
+          "front": "fridge\n\nThe milk is in the fridge.",
+          "back": "tủ lạnh\n\nSữa ở trong tủ lạnh."
+        },
+        {
+          "front": "washing machine\n\nPut the clothes in the washing machine.",
+          "back": "máy giặt\n\nCho quần áo vào máy giặt."
+        },
+        {
+          "front": "sink\n\nThe dishes are in the sink.",
+          "back": "bồn rửa\n\nBát đĩa ở trong bồn rửa."
+        },
+        {
+          "front": "shower\n\nThe shower is not working.",
+          "back": "vòi sen\n\nVòi sen bị hỏng."
+        },
+        {
+          "front": "toilet\n\nWhere is the toilet?",
+          "back": "nhà vệ sinh\n\nNhà vệ sinh ở đâu?"
+        },
+        {
+          "front": "towel\n\nCan I have a clean towel?",
+          "back": "khăn tắm\n\nCho tôi xin một cái khăn tắm sạch."
+        },
+        {
+          "front": "soap\n\nWash your hands with soap.",
+          "back": "xà phòng\n\nRửa tay bằng xà phòng.\n\nMiền Nam: xà bông"
+        },
+        {
+          "front": "toothbrush\n\nI need a new toothbrush.",
+          "back": "bàn chải đánh răng\n\nTôi cần một cái bàn chải đánh răng mới."
+        },
+        {
+          "front": "toothpaste\n\nWe are out of toothpaste.",
+          "back": "kem đánh răng\n\nNhà mình hết kem đánh răng rồi."
+        },
+        {
+          "front": "blanket\n\nIt's cold, I need a blanket.",
+          "back": "chăn\n\nLạnh quá, tôi cần một cái chăn.\n\nMiền Nam: mền"
+        },
+        {
+          "front": "pillow\n\nThis pillow is too hard.",
+          "back": "gối\n\nCái gối này cứng quá."
+        },
+        {
+          "front": "clean\n\nI clean my room on Sunday.",
+          "back": "dọn dẹp\n\nTôi dọn dẹp phòng vào Chủ nhật.\n\nTính từ: sạch"
+        },
+        {
+          "front": "sweep\n\nPlease sweep the floor.",
+          "back": "quét\n\nLàm ơn quét nhà."
+        },
+        {
+          "front": "rubbish\n\nTake the rubbish out.",
+          "back": "rác\n\nMang rác ra ngoài.\n\nTiếng Anh Mỹ: trash"
+        },
+        {
+          "front": "apartment\n\nWe live in an apartment.",
+          "back": "căn hộ\n\nChúng tôi sống trong một căn hộ."
+        },
+        {
+          "front": "rent\n\nI rent a room near my school.",
+          "back": "thuê\n\nTôi thuê một phòng gần trường.\n\nDanh từ: tiền thuê"
+        },
+        {
+          "front": "address\n\nWhat is your address?",
+          "back": "địa chỉ\n\nĐịa chỉ của bạn là gì?"
+        },
+        {
+          "front": "move\n\nWe will move next month.",
+          "back": "chuyển nhà\n\nTháng sau chúng tôi sẽ chuyển nhà.\n\nCũng có nghĩa: di chuyển"
+        },
+        {
+          "front": "sleep\n\nBabies sleep a lot.",
+          "back": "ngủ\n\nEm bé ngủ rất nhiều."
+        },
+        {
+          "front": "wake up\n\nI wake up at six.",
+          "back": "thức dậy\n\nTôi thức dậy lúc sáu giờ."
+        },
+        {
+          "front": "open\n\nThe shop opens at eight.",
+          "back": "mở\n\nCửa hàng mở cửa lúc tám giờ."
+        },
+        {
+          "front": "close\n\nClose the window, please.",
+          "back": "đóng\n\nLàm ơn đóng cửa sổ lại."
+        },
+        {
+          "front": "furniture\n\nWe need new furniture.",
+          "back": "đồ đạc\n\nChúng tôi cần đồ đạc mới.\n\nCũng nói: đồ nội thất"
+        }
+      ]
+    },
+    {
+      "name": "Clothes & colors",
+      "cards": [
+        {
+          "front": "clothes\n\nI need new clothes.",
+          "back": "quần áo\n\nTôi cần quần áo mới."
+        },
+        {
+          "front": "shirt\n\nHe wears a white shirt to work.",
+          "back": "áo sơ mi\n\nAnh ấy mặc áo sơ mi trắng đi làm."
+        },
+        {
+          "front": "T-shirt\n\nThis T-shirt is too big.",
+          "back": "áo phông\n\nCái áo phông này rộng quá.\n\nMiền Nam: áo thun"
+        },
+        {
+          "front": "dress\n\nShe wears a beautiful dress.",
+          "back": "váy\n\nCô ấy mặc một chiếc váy đẹp.\n\nCũng nói: đầm"
+        },
+        {
+          "front": "skirt\n\nHer skirt is short.",
+          "back": "chân váy\n\nChân váy của cô ấy ngắn."
+        },
+        {
+          "front": "trousers\n\nI wear black trousers.",
+          "back": "quần dài\n\nTôi mặc quần dài màu đen.\n\nTiếng Anh Mỹ: pants"
+        },
+        {
+          "front": "jeans\n\nI like wearing jeans.",
+          "back": "quần bò\n\nTôi thích mặc quần bò.\n\nMiền Nam: quần jean"
+        },
+        {
+          "front": "shorts\n\nKids wear shorts in summer.",
+          "back": "quần đùi\n\nTrẻ con mặc quần đùi vào mùa hè.\n\nCũng nói: quần short"
+        },
+        {
+          "front": "jacket\n\nTake a jacket, it's cold.",
+          "back": "áo khoác\n\nMang áo khoác đi, trời lạnh đấy."
+        },
+        {
+          "front": "coat\n\nShe wears a long coat in winter.",
+          "back": "áo choàng\n\nMùa đông cô ấy mặc áo choàng dài.\n\nCũng nói: áo khoác dài"
+        },
+        {
+          "front": "sweater\n\nMy grandmother knitted this sweater.",
+          "back": "áo len\n\nBà tôi đan chiếc áo len này."
+        },
+        {
+          "front": "uniform\n\nStudents wear a uniform.",
+          "back": "đồng phục\n\nHọc sinh mặc đồng phục."
+        },
+        {
+          "front": "shoes\n\nTake off your shoes, please.",
+          "back": "giày\n\nLàm ơn cởi giày ra."
+        },
+        {
+          "front": "sandals\n\nI wear sandals in summer.",
+          "back": "dép\n\nMùa hè tôi đi dép.\n\nCũng nói: xăng-đan"
+        },
+        {
+          "front": "socks\n\nWhere are my socks?",
+          "back": "tất\n\nTất của tôi đâu rồi?\n\nMiền Nam: vớ"
+        },
+        {
+          "front": "hat\n\nWear a hat in the sun.",
+          "back": "mũ\n\nĐội mũ khi ra nắng.\n\nMiền Nam: nón"
+        },
+        {
+          "front": "bag\n\nMy bag is heavy.",
+          "back": "túi\n\nTúi của tôi nặng.\n\nCũng nói: cặp, giỏ xách"
+        },
+        {
+          "front": "backpack\n\nPut your books in your backpack.",
+          "back": "ba lô\n\nBỏ sách vào ba lô."
+        },
+        {
+          "front": "belt\n\nThis belt is too long.",
+          "back": "thắt lưng\n\nCái thắt lưng này dài quá.\n\nCũng nói: dây nịt"
+        },
+        {
+          "front": "glasses\n\nI can't read without my glasses.",
+          "back": "kính\n\nTôi không đọc được nếu không đeo kính.\n\nCũng nói: mắt kính"
+        },
+        {
+          "front": "watch\n\nMy watch is slow.",
+          "back": "đồng hồ đeo tay\n\nĐồng hồ của tôi chạy chậm."
+        },
+        {
+          "front": "ring\n\nShe has a gold ring.",
+          "back": "nhẫn\n\nCô ấy có một chiếc nhẫn vàng."
+        },
+        {
+          "front": "necklace\n\nThis necklace is a gift from my mother.",
+          "back": "vòng cổ\n\nChiếc vòng cổ này là quà của mẹ tôi.\n\nCũng nói: dây chuyền"
+        },
+        {
+          "front": "umbrella\n\nTake an umbrella, it's raining.",
+          "back": "ô\n\nMang ô theo, trời đang mưa.\n\nMiền Nam: dù"
+        },
+        {
+          "front": "pocket\n\nMy phone is in my pocket.",
+          "back": "túi áo\n\nĐiện thoại ở trong túi áo của tôi."
+        },
+        {
+          "front": "button\n\nA button fell off my shirt.",
+          "back": "cúc áo\n\nÁo sơ mi của tôi bị rơi một cái cúc.\n\nMiền Nam: nút áo"
+        },
+        {
+          "front": "size\n\nWhat size do you wear?",
+          "back": "cỡ\n\nBạn mặc cỡ nào?\n\nCũng nói: kích cỡ, size"
+        },
+        {
+          "front": "wear\n\nWhat will you wear to the party?",
+          "back": "mặc\n\nBạn sẽ mặc gì đi dự tiệc?\n\nVới kính, đồng hồ: đeo. Với mũ: đội"
+        },
+        {
+          "front": "put on\n\nPut on your coat.",
+          "back": "mặc vào\n\nMặc áo khoác vào."
+        },
+        {
+          "front": "take off\n\nTake off your jacket and sit down.",
+          "back": "cởi ra\n\nCởi áo khoác ra và ngồi xuống."
+        },
+        {
+          "front": "try on\n\nCan I try on this dress?",
+          "back": "thử\n\nTôi mặc thử chiếc váy này được không?"
+        },
+        {
+          "front": "fashion\n\nShe works in fashion.",
+          "back": "thời trang\n\nCô ấy làm trong ngành thời trang."
+        },
+        {
+          "front": "color\n\nWhat color is your car?",
+          "back": "màu\n\nXe của bạn màu gì?\n\nCũng nói: màu sắc"
+        },
+        {
+          "front": "red\n\nThe flag is red.",
+          "back": "đỏ\n\nLá cờ màu đỏ."
+        },
+        {
+          "front": "blue\n\nThe sky is blue.",
+          "back": "xanh dương\n\nBầu trời màu xanh.\n\nCũng nói: xanh da trời"
+        },
+        {
+          "front": "green\n\nLeaves are green.",
+          "back": "xanh lá\n\nLá cây màu xanh.\n\nCũng nói: xanh lá cây"
+        },
+        {
+          "front": "yellow\n\nBananas are yellow.",
+          "back": "vàng\n\nChuối màu vàng."
+        },
+        {
+          "front": "black\n\nHe has black hair.",
+          "back": "đen\n\nAnh ấy có mái tóc đen."
+        },
+        {
+          "front": "white\n\nSnow is white.",
+          "back": "trắng\n\nTuyết màu trắng."
+        },
+        {
+          "front": "gray\n\nThe sky is gray today.",
+          "back": "xám\n\nHôm nay bầu trời xám xịt."
+        },
+        {
+          "front": "brown\n\nMy dog is brown.",
+          "back": "nâu\n\nCon chó của tôi màu nâu."
+        },
+        {
+          "front": "pink\n\nShe loves pink.",
+          "back": "hồng\n\nCô ấy rất thích màu hồng."
+        },
+        {
+          "front": "purple\n\nPurple is my favorite color.",
+          "back": "tím\n\nMàu tím là màu yêu thích của tôi."
+        },
+        {
+          "front": "dark\n\nI like dark blue.",
+          "back": "đậm\n\nTôi thích màu xanh đậm.\n\nCũng có nghĩa: tối"
+        },
+        {
+          "front": "light\n\nShe wears a light green dress.",
+          "back": "nhạt\n\nCô ấy mặc váy màu xanh lá nhạt.\n\nCũng có nghĩa: ánh sáng, nhẹ"
+        },
+        {
+          "front": "gold\n\nHer necklace is made of gold.",
+          "back": "vàng\n\nVòng cổ của cô ấy làm bằng vàng."
+        },
+        {
+          "front": "silver\n\nThis spoon is made of silver.",
+          "back": "bạc\n\nCái thìa này làm bằng bạc."
+        },
+        {
+          "front": "cloth\n\nThis cloth is very soft.",
+          "back": "vải\n\nMảnh vải này rất mềm."
+        },
+        {
+          "front": "pajamas\n\nI put on my pajamas.",
+          "back": "đồ ngủ\n\nTôi mặc đồ ngủ vào."
+        },
+        {
+          "front": "scarf\n\nWear a scarf in winter.",
+          "back": "khăn quàng cổ\n\nMùa đông hãy quàng khăn vào."
+        }
+      ]
+    },
+    {
+      "name": "Body & health",
+      "cards": [
+        {
+          "front": "body\n\nExercise is good for your body.",
+          "back": "cơ thể\n\nTập thể dục tốt cho cơ thể."
+        },
+        {
+          "front": "head\n\nMy head hurts.",
+          "back": "đầu\n\nTôi đau đầu."
+        },
+        {
+          "front": "hair\n\nShe has short hair.",
+          "back": "tóc\n\nCô ấy có mái tóc ngắn."
+        },
+        {
+          "front": "face\n\nWash your face.",
+          "back": "mặt\n\nRửa mặt đi."
+        },
+        {
+          "front": "eye\n\nShe has big eyes.",
+          "back": "mắt\n\nCô ấy có đôi mắt to."
+        },
+        {
+          "front": "ear\n\nMy ear hurts.",
+          "back": "tai\n\nTôi bị đau tai."
+        },
+        {
+          "front": "nose\n\nMy nose is red.",
+          "back": "mũi\n\nMũi tôi bị đỏ."
+        },
+        {
+          "front": "mouth\n\nOpen your mouth.",
+          "back": "miệng\n\nHá miệng ra."
+        },
+        {
+          "front": "tooth\n\nI have a bad tooth.",
+          "back": "răng\n\nTôi bị sâu răng."
+        },
+        {
+          "front": "lip\n\nHer lips are dry.",
+          "back": "môi\n\nMôi cô ấy bị khô."
+        },
+        {
+          "front": "neck\n\nGiraffes have long necks.",
+          "back": "cổ\n\nHươu cao cổ có chiếc cổ dài."
+        },
+        {
+          "front": "shoulder\n\nMy shoulder hurts.",
+          "back": "vai\n\nTôi bị đau vai."
+        },
+        {
+          "front": "arm\n\nHe broke his arm.",
+          "back": "cánh tay\n\nAnh ấy bị gãy tay."
+        },
+        {
+          "front": "hand\n\nRaise your hand.",
+          "back": "tay\n\nGiơ tay lên.\n\nCũng nói: bàn tay"
+        },
+        {
+          "front": "finger\n\nI cut my finger.",
+          "back": "ngón tay\n\nTôi bị đứt tay."
+        },
+        {
+          "front": "leg\n\nMy legs are tired.",
+          "back": "chân\n\nChân tôi mỏi.\n\nCũng nói: cẳng chân"
+        },
+        {
+          "front": "foot\n\nMy foot hurts.",
+          "back": "bàn chân\n\nBàn chân tôi bị đau."
+        },
+        {
+          "front": "knee\n\nI hurt my knee playing football.",
+          "back": "đầu gối\n\nTôi bị đau đầu gối khi đá bóng."
+        },
+        {
+          "front": "back\n\nMy back hurts.",
+          "back": "lưng\n\nTôi bị đau lưng."
+        },
+        {
+          "front": "stomach\n\nI have a stomach ache.",
+          "back": "bụng\n\nTôi bị đau bụng."
+        },
+        {
+          "front": "heart\n\nYour heart beats fast when you run.",
+          "back": "tim\n\nTim đập nhanh khi bạn chạy."
+        },
+        {
+          "front": "skin\n\nUse sunscreen to protect your skin.",
+          "back": "da\n\nDùng kem chống nắng để bảo vệ da."
+        },
+        {
+          "front": "blood\n\nHe gives blood every year.",
+          "back": "máu\n\nNăm nào anh ấy cũng hiến máu."
+        },
+        {
+          "front": "bone\n\nMilk is good for your bones.",
+          "back": "xương\n\nSữa tốt cho xương."
+        },
+        {
+          "front": "health\n\nHealth is more important than money.",
+          "back": "sức khỏe\n\nSức khỏe quan trọng hơn tiền bạc."
+        },
+        {
+          "front": "healthy\n\nShe is healthy and happy.",
+          "back": "khỏe mạnh\n\nCô ấy khỏe mạnh và vui vẻ.\n\nVới đồ ăn: tốt cho sức khỏe"
+        },
+        {
+          "front": "sick\n\nI am sick today.",
+          "back": "ốm\n\nHôm nay tôi bị ốm.\n\nMiền Nam: bệnh"
+        },
+        {
+          "front": "pain\n\nI have a pain in my back.",
+          "back": "cơn đau\n\nTôi bị đau ở lưng."
+        },
+        {
+          "front": "headache\n\nI have a headache.",
+          "back": "đau đầu\n\nTôi bị đau đầu."
+        },
+        {
+          "front": "fever\n\nThe child has a fever.",
+          "back": "sốt\n\nĐứa trẻ bị sốt."
+        },
+        {
+          "front": "cough\n\nI have a bad cough.",
+          "back": "ho\n\nTôi bị ho nặng."
+        },
+        {
+          "front": "flu\n\nI got the flu last week.",
+          "back": "cúm\n\nTuần trước tôi bị cúm."
+        },
+        {
+          "front": "medicine\n\nTake this medicine twice a day.",
+          "back": "thuốc\n\nUống thuốc này hai lần một ngày."
+        },
+        {
+          "front": "doctor\n\nYou should see a doctor.",
+          "back": "bác sĩ\n\nBạn nên đi khám bác sĩ."
+        },
+        {
+          "front": "nurse\n\nThe nurse is very kind.",
+          "back": "y tá\n\nCô y tá rất tốt bụng."
+        },
+        {
+          "front": "hospital\n\nHe is in the hospital.",
+          "back": "bệnh viện\n\nAnh ấy đang nằm viện."
+        },
+        {
+          "front": "pharmacy\n\nIs there a pharmacy near here?",
+          "back": "hiệu thuốc\n\nGần đây có hiệu thuốc không?\n\nCũng nói: nhà thuốc"
+        },
+        {
+          "front": "dentist\n\nI go to the dentist twice a year.",
+          "back": "nha sĩ\n\nTôi đi khám nha sĩ hai lần một năm."
+        },
+        {
+          "front": "tired\n\nI am very tired today.",
+          "back": "mệt\n\nHôm nay tôi rất mệt."
+        },
+        {
+          "front": "hurt\n\nMy arm hurts.",
+          "back": "đau\n\nTay tôi bị đau."
+        },
+        {
+          "front": "rest\n\nYou need to rest.",
+          "back": "nghỉ ngơi\n\nBạn cần nghỉ ngơi."
+        },
+        {
+          "front": "exercise\n\nI exercise every morning.",
+          "back": "tập thể dục\n\nSáng nào tôi cũng tập thể dục."
+        },
+        {
+          "front": "weight\n\nI want to lose weight.",
+          "back": "cân nặng\n\nTôi muốn giảm cân."
+        },
+        {
+          "front": "strong\n\nHe is very strong.",
+          "back": "khỏe\n\nAnh ấy rất khỏe.\n\nCũng nói: mạnh"
+        },
+        {
+          "front": "weak\n\nI feel weak after the flu.",
+          "back": "yếu\n\nSau khi bị cúm tôi thấy yếu người."
+        },
+        {
+          "front": "accident\n\nHe had a car accident.",
+          "back": "tai nạn\n\nAnh ấy bị tai nạn ô tô."
+        },
+        {
+          "front": "ambulance\n\nCall an ambulance!",
+          "back": "xe cứu thương\n\nGọi xe cứu thương đi!"
+        },
+        {
+          "front": "emergency\n\nIn an emergency, call 115.",
+          "back": "cấp cứu\n\nKhi cần cấp cứu, hãy gọi 115."
+        },
+        {
+          "front": "breathe\n\nBreathe slowly.",
+          "back": "thở\n\nHãy thở chậm thôi."
+        },
+        {
+          "front": "sleepy\n\nI feel sleepy after lunch.",
+          "back": "buồn ngủ\n\nTôi thấy buồn ngủ sau bữa trưa."
+        }
+      ]
+    },
+    {
+      "name": "School",
+      "cards": [
+        {
+          "front": "school\n\nMy school is near my house.",
+          "back": "trường học\n\nTrường của tôi ở gần nhà.\n\nCũng nói: trường"
+        },
+        {
+          "front": "student\n\nThere are forty students in my class.",
+          "back": "học sinh\n\nLớp tôi có bốn mươi học sinh.\n\nỞ đại học: sinh viên"
+        },
+        {
+          "front": "teacher\n\nOur teacher is very kind.",
+          "back": "giáo viên\n\nGiáo viên của chúng tôi rất tốt bụng.\n\nKhi gọi: thầy, cô"
+        },
+        {
+          "front": "class\n\nMy class has thirty students.",
+          "back": "lớp\n\nLớp tôi có ba mươi học sinh.\n\nCũng có nghĩa: tiết học"
+        },
+        {
+          "front": "classroom\n\nOur classroom is on the second floor.",
+          "back": "phòng học\n\nPhòng học của chúng tôi ở tầng hai."
+        },
+        {
+          "front": "lesson\n\nToday's lesson is about animals.",
+          "back": "bài học\n\nBài học hôm nay nói về động vật."
+        },
+        {
+          "front": "homework\n\nI do my homework after dinner.",
+          "back": "bài tập về nhà\n\nTôi làm bài tập về nhà sau bữa tối."
+        },
+        {
+          "front": "exam\n\nI have an exam tomorrow.",
+          "back": "kỳ thi\n\nNgày mai tôi có bài thi.\n\nCũng nói: bài thi"
+        },
+        {
+          "front": "test\n\nWe have a test on Friday.",
+          "back": "bài kiểm tra\n\nThứ Sáu chúng tôi có bài kiểm tra."
+        },
+        {
+          "front": "grade\n\nI got a good grade in English.",
+          "back": "điểm\n\nTôi được điểm cao môn tiếng Anh."
+        },
+        {
+          "front": "book\n\nI am reading a good book.",
+          "back": "sách\n\nTôi đang đọc một cuốn sách hay."
+        },
+        {
+          "front": "notebook\n\nWrite it in your notebook.",
+          "back": "vở\n\nViết vào vở đi.\n\nCũng nói: sổ tay"
+        },
+        {
+          "front": "pen\n\nCan I borrow your pen?",
+          "back": "bút\n\nCho tôi mượn bút của bạn được không?"
+        },
+        {
+          "front": "pencil\n\nDraw with a pencil.",
+          "back": "bút chì\n\nVẽ bằng bút chì."
+        },
+        {
+          "front": "eraser\n\nCan I use your eraser?",
+          "back": "tẩy\n\nCho tôi dùng tẩy của bạn nhé?\n\nCũng nói: cục tẩy, gôm"
+        },
+        {
+          "front": "ruler\n\nUse a ruler to draw a line.",
+          "back": "thước kẻ\n\nDùng thước kẻ để kẻ một đường thẳng."
+        },
+        {
+          "front": "board\n\nThe teacher writes on the board.",
+          "back": "bảng\n\nCô giáo viết lên bảng."
+        },
+        {
+          "front": "dictionary\n\nLook it up in the dictionary.",
+          "back": "từ điển\n\nHãy tra từ điển."
+        },
+        {
+          "front": "library\n\nI study in the library.",
+          "back": "thư viện\n\nTôi học ở thư viện."
+        },
+        {
+          "front": "university\n\nMy sister goes to university.",
+          "back": "đại học\n\nChị tôi học đại học.\n\nCũng nói: trường đại học"
+        },
+        {
+          "front": "subject\n\nWhat is your favorite subject?",
+          "back": "môn học\n\nMôn học yêu thích của bạn là gì?"
+        },
+        {
+          "front": "math\n\nI am good at math.",
+          "back": "toán\n\nTôi học giỏi toán.\n\nCũng nói: môn toán"
+        },
+        {
+          "front": "English\n\nEnglish is an international language.",
+          "back": "tiếng Anh\n\nTiếng Anh là một ngôn ngữ quốc tế."
+        },
+        {
+          "front": "history\n\nI love history lessons.",
+          "back": "lịch sử\n\nTôi rất thích giờ lịch sử."
+        },
+        {
+          "front": "geography\n\nIn geography we learn about maps.",
+          "back": "địa lý\n\nTrong môn địa lý chúng tôi học về bản đồ."
+        },
+        {
+          "front": "science\n\nScience is interesting.",
+          "back": "khoa học\n\nKhoa học rất thú vị."
+        },
+        {
+          "front": "art\n\nWe draw pictures in art class.",
+          "back": "mỹ thuật\n\nChúng tôi vẽ tranh trong giờ mỹ thuật.\n\nCũng có nghĩa: nghệ thuật"
+        },
+        {
+          "front": "music\n\nI listen to music every day.",
+          "back": "âm nhạc\n\nTôi nghe nhạc mỗi ngày.\n\nCũng nói: nhạc"
+        },
+        {
+          "front": "physics\n\nPhysics is my favorite subject.",
+          "back": "vật lý\n\nVật lý là môn học yêu thích của tôi."
+        },
+        {
+          "front": "chemistry\n\nWe do experiments in chemistry.",
+          "back": "hóa học\n\nChúng tôi làm thí nghiệm trong giờ hóa học."
+        },
+        {
+          "front": "biology\n\nIn biology we study plants and animals.",
+          "back": "sinh học\n\nTrong môn sinh học chúng tôi học về thực vật và động vật."
+        },
+        {
+          "front": "literature\n\nShe loves Vietnamese literature.",
+          "back": "văn học\n\nCô ấy yêu văn học Việt Nam.\n\nMôn ở trường: ngữ văn"
+        },
+        {
+          "front": "learn\n\nI want to learn English.",
+          "back": "học\n\nTôi muốn học tiếng Anh."
+        },
+        {
+          "front": "study\n\nI study for two hours every night.",
+          "back": "học bài\n\nTối nào tôi cũng học bài hai tiếng."
+        },
+        {
+          "front": "teach\n\nShe teaches English.",
+          "back": "dạy\n\nCô ấy dạy tiếng Anh."
+        },
+        {
+          "front": "read\n\nI read the news every morning.",
+          "back": "đọc\n\nSáng nào tôi cũng đọc tin tức."
+        },
+        {
+          "front": "write\n\nWrite your name here.",
+          "back": "viết\n\nViết tên bạn vào đây."
+        },
+        {
+          "front": "listen\n\nListen carefully.",
+          "back": "nghe\n\nHãy nghe kỹ."
+        },
+        {
+          "front": "spell\n\nHow do you spell your name?",
+          "back": "đánh vần\n\nTên bạn đánh vần như thế nào?"
+        },
+        {
+          "front": "count\n\nCount from one to ten.",
+          "back": "đếm\n\nĐếm từ một đến mười."
+        },
+        {
+          "front": "practice\n\nPractice speaking every day.",
+          "back": "luyện tập\n\nHãy luyện nói mỗi ngày."
+        },
+        {
+          "front": "remember\n\nI can't remember his name.",
+          "back": "nhớ\n\nTôi không nhớ tên anh ấy."
+        },
+        {
+          "front": "forget\n\nDon't forget your homework.",
+          "back": "quên\n\nĐừng quên bài tập về nhà nhé."
+        },
+        {
+          "front": "explain\n\nCan you explain this word?",
+          "back": "giải thích\n\nBạn có thể giải thích từ này không?"
+        },
+        {
+          "front": "mistake\n\nEveryone makes mistakes.",
+          "back": "lỗi\n\nAi cũng mắc lỗi.\n\nCũng nói: lỗi sai"
+        },
+        {
+          "front": "correct\n\nYour answer is correct.",
+          "back": "đúng\n\nCâu trả lời của bạn đúng."
+        },
+        {
+          "front": "wrong\n\nThat answer is wrong.",
+          "back": "sai\n\nCâu trả lời đó sai."
+        },
+        {
+          "front": "pass\n\nI passed the exam!",
+          "back": "đỗ\n\nTôi thi đỗ rồi!\n\nMiền Nam: đậu"
+        },
+        {
+          "front": "fail\n\nHe failed the test.",
+          "back": "trượt\n\nAnh ấy trượt bài kiểm tra.\n\nMiền Nam: rớt"
+        },
+        {
+          "front": "semester\n\nThe new semester starts in September.",
+          "back": "học kỳ\n\nHọc kỳ mới bắt đầu vào tháng Chín."
+        }
+      ]
+    },
+    {
+      "name": "Work & jobs",
+      "cards": [
+        {
+          "front": "work\n\nI work in an office.",
+          "back": "làm việc\n\nTôi làm việc ở văn phòng.\n\nDanh từ: công việc"
+        },
+        {
+          "front": "job\n\nShe has a new job.",
+          "back": "công việc\n\nCô ấy có công việc mới."
+        },
+        {
+          "front": "office\n\nThe office opens at eight.",
+          "back": "văn phòng\n\nVăn phòng mở cửa lúc tám giờ."
+        },
+        {
+          "front": "company\n\nHe works for a big company.",
+          "back": "công ty\n\nAnh ấy làm việc cho một công ty lớn."
+        },
+        {
+          "front": "boss\n\nMy boss is very busy.",
+          "back": "sếp\n\nSếp của tôi rất bận."
+        },
+        {
+          "front": "colleague\n\nMy colleagues are friendly.",
+          "back": "đồng nghiệp\n\nĐồng nghiệp của tôi rất thân thiện."
+        },
+        {
+          "front": "worker\n\nThe workers start at seven.",
+          "back": "công nhân\n\nCông nhân bắt đầu làm việc lúc bảy giờ."
+        },
+        {
+          "front": "employee\n\nThe company has a hundred employees.",
+          "back": "nhân viên\n\nCông ty có một trăm nhân viên."
+        },
+        {
+          "front": "manager\n\nCan I talk to the manager?",
+          "back": "quản lý\n\nTôi có thể nói chuyện với quản lý không?"
+        },
+        {
+          "front": "meeting\n\nThe meeting starts at nine.",
+          "back": "cuộc họp\n\nCuộc họp bắt đầu lúc chín giờ."
+        },
+        {
+          "front": "salary\n\nHer salary is good.",
+          "back": "lương\n\nLương của cô ấy khá cao.\n\nCũng nói: tiền lương"
+        },
+        {
+          "front": "business\n\nMy parents have a small business.",
+          "back": "kinh doanh\n\nBố mẹ tôi kinh doanh nhỏ.\n\nCũng có nghĩa: doanh nghiệp"
+        },
+        {
+          "front": "customer\n\nThe customer is always right.",
+          "back": "khách hàng\n\nKhách hàng luôn luôn đúng."
+        },
+        {
+          "front": "interview\n\nI have a job interview tomorrow.",
+          "back": "phỏng vấn\n\nNgày mai tôi có buổi phỏng vấn xin việc."
+        },
+        {
+          "front": "engineer\n\nMy brother is an engineer.",
+          "back": "kỹ sư\n\nAnh trai tôi là kỹ sư."
+        },
+        {
+          "front": "police officer\n\nThe police officer helped us.",
+          "back": "cảnh sát\n\nViên cảnh sát đã giúp chúng tôi.\n\nCũng nói: công an"
+        },
+        {
+          "front": "farmer\n\nFarmers grow rice.",
+          "back": "nông dân\n\nNông dân trồng lúa."
+        },
+        {
+          "front": "driver\n\nThe taxi driver was friendly.",
+          "back": "tài xế\n\nBác tài xế taxi rất thân thiện.\n\nCũng nói: lái xe"
+        },
+        {
+          "front": "chef\n\nThe chef cooks delicious food.",
+          "back": "đầu bếp\n\nĐầu bếp nấu món ăn rất ngon."
+        },
+        {
+          "front": "singer\n\nShe is a famous singer.",
+          "back": "ca sĩ\n\nCô ấy là một ca sĩ nổi tiếng."
+        },
+        {
+          "front": "actor\n\nHe wants to be an actor.",
+          "back": "diễn viên\n\nAnh ấy muốn trở thành diễn viên."
+        },
+        {
+          "front": "lawyer\n\nWe need a lawyer.",
+          "back": "luật sư\n\nChúng tôi cần một luật sư."
+        },
+        {
+          "front": "shop assistant\n\nThe shop assistant was very helpful.",
+          "back": "nhân viên bán hàng\n\nNhân viên bán hàng rất nhiệt tình."
+        },
+        {
+          "front": "journalist\n\nThe journalist writes for a newspaper.",
+          "back": "nhà báo\n\nNhà báo viết bài cho một tờ báo."
+        },
+        {
+          "front": "scientist\n\nScientists study the world around us.",
+          "back": "nhà khoa học\n\nCác nhà khoa học nghiên cứu thế giới quanh ta."
+        },
+        {
+          "front": "painter\n\nHe is a famous painter.",
+          "back": "họa sĩ\n\nÔng ấy là một họa sĩ nổi tiếng.\n\nCũng có nghĩa: thợ sơn"
+        },
+        {
+          "front": "musician\n\nMy uncle is a musician.",
+          "back": "nhạc sĩ\n\nChú tôi là nhạc sĩ.\n\nCũng nói: nhạc công"
+        },
+        {
+          "front": "pilot\n\nThe pilot flies the plane.",
+          "back": "phi công\n\nPhi công lái máy bay."
+        },
+        {
+          "front": "soldier\n\nMy grandfather was a soldier.",
+          "back": "người lính\n\nÔng tôi từng là người lính.\n\nCũng nói: bộ đội"
+        },
+        {
+          "front": "firefighter\n\nFirefighters are very brave.",
+          "back": "lính cứu hỏa\n\nLính cứu hỏa rất dũng cảm."
+        },
+        {
+          "front": "tailor\n\nThe tailor made my suit.",
+          "back": "thợ may\n\nThợ may đã may bộ vest cho tôi."
+        },
+        {
+          "front": "mechanic\n\nThe mechanic fixed my motorbike.",
+          "back": "thợ sửa xe\n\nThợ sửa xe đã sửa xe máy cho tôi."
+        },
+        {
+          "front": "hairdresser\n\nI go to the hairdresser every month.",
+          "back": "thợ cắt tóc\n\nTháng nào tôi cũng đi cắt tóc."
+        },
+        {
+          "front": "builder\n\nThe builders are building a new school.",
+          "back": "thợ xây\n\nThợ xây đang xây một ngôi trường mới."
+        },
+        {
+          "front": "secretary\n\nThe secretary answers the phone.",
+          "back": "thư ký\n\nThư ký nghe điện thoại."
+        },
+        {
+          "front": "accountant\n\nShe works as an accountant.",
+          "back": "kế toán\n\nCô ấy làm kế toán."
+        },
+        {
+          "front": "programmer\n\nHe is a computer programmer.",
+          "back": "lập trình viên\n\nAnh ấy là lập trình viên máy tính."
+        },
+        {
+          "front": "designer\n\nShe is a fashion designer.",
+          "back": "nhà thiết kế\n\nCô ấy là nhà thiết kế thời trang."
+        },
+        {
+          "front": "busy\n\nI am busy at work.",
+          "back": "bận\n\nTôi bận việc ở công ty."
+        },
+        {
+          "front": "free\n\nAre you free tonight?",
+          "back": "rảnh\n\nTối nay bạn có rảnh không?\n\nCũng có nghĩa: miễn phí"
+        },
+        {
+          "front": "plan\n\nWhat is your plan for today?",
+          "back": "kế hoạch\n\nKế hoạch hôm nay của bạn là gì?"
+        },
+        {
+          "front": "project\n\nWe are working on a new project.",
+          "back": "dự án\n\nChúng tôi đang làm một dự án mới."
+        },
+        {
+          "front": "email\n\nPlease send me an email.",
+          "back": "thư điện tử\n\nLàm ơn gửi thư điện tử cho tôi.\n\nCũng nói: email"
+        },
+        {
+          "front": "computer\n\nI use a computer at work.",
+          "back": "máy tính\n\nTôi dùng máy tính ở chỗ làm."
+        },
+        {
+          "front": "phone\n\nMy phone is out of battery.",
+          "back": "điện thoại\n\nĐiện thoại của tôi hết pin."
+        },
+        {
+          "front": "retire\n\nMy father will retire next year.",
+          "back": "nghỉ hưu\n\nNăm sau bố tôi sẽ nghỉ hưu."
+        },
+        {
+          "front": "earn\n\nShe earns a lot of money.",
+          "back": "kiếm\n\nCô ấy kiếm được nhiều tiền.\n\nCũng nói: kiếm tiền"
+        },
+        {
+          "front": "hire\n\nThe company will hire ten people.",
+          "back": "tuyển dụng\n\nCông ty sẽ tuyển mười người."
+        },
+        {
+          "front": "factory\n\nMy mother works in a factory.",
+          "back": "nhà máy\n\nMẹ tôi làm việc ở nhà máy."
+        },
+        {
+          "front": "shift\n\nI work the night shift.",
+          "back": "ca làm việc\n\nTôi làm ca đêm.\n\nCũng nói: ca"
+        }
+      ]
+    },
+    {
+      "name": "Town & places",
+      "cards": [
+        {
+          "front": "city\n\nHanoi is a big city.",
+          "back": "thành phố\n\nHà Nội là một thành phố lớn."
+        },
+        {
+          "front": "town\n\nI live in a small town.",
+          "back": "thị trấn\n\nTôi sống ở một thị trấn nhỏ."
+        },
+        {
+          "front": "village\n\nMy grandparents live in a village.",
+          "back": "làng\n\nÔng bà tôi sống ở một ngôi làng."
+        },
+        {
+          "front": "countryside\n\nThe countryside is quiet.",
+          "back": "nông thôn\n\nNông thôn rất yên tĩnh.\n\nCũng nói: miền quê"
+        },
+        {
+          "front": "street\n\nThis street is very busy.",
+          "back": "đường phố\n\nCon phố này rất đông đúc.\n\nCũng nói: phố"
+        },
+        {
+          "front": "road\n\nThe road is wet after the rain.",
+          "back": "đường\n\nĐường bị ướt sau cơn mưa."
+        },
+        {
+          "front": "corner\n\nThe shop is on the corner.",
+          "back": "góc phố\n\nCửa hàng ở góc phố.\n\nCũng có nghĩa: góc"
+        },
+        {
+          "front": "bridge\n\nWe walk across the bridge.",
+          "back": "cầu\n\nChúng tôi đi bộ qua cầu."
+        },
+        {
+          "front": "park\n\nLet's go to the park.",
+          "back": "công viên\n\nMình đi công viên đi."
+        },
+        {
+          "front": "market\n\nMy mother goes to the market every morning.",
+          "back": "chợ\n\nSáng nào mẹ tôi cũng đi chợ."
+        },
+        {
+          "front": "supermarket\n\nI buy milk at the supermarket.",
+          "back": "siêu thị\n\nTôi mua sữa ở siêu thị."
+        },
+        {
+          "front": "shop\n\nThe shop closes at nine.",
+          "back": "cửa hàng\n\nCửa hàng đóng cửa lúc chín giờ.\n\nCũng nói: tiệm"
+        },
+        {
+          "front": "mall\n\nWe go to the mall on Sunday.",
+          "back": "trung tâm thương mại\n\nChủ nhật chúng tôi đi trung tâm thương mại."
+        },
+        {
+          "front": "bank\n\nThe bank is next to the post office.",
+          "back": "ngân hàng\n\nNgân hàng ở cạnh bưu điện."
+        },
+        {
+          "front": "post office\n\nWhere is the post office?",
+          "back": "bưu điện\n\nBưu điện ở đâu?"
+        },
+        {
+          "front": "police station\n\nThe police station is on this street.",
+          "back": "đồn công an\n\nĐồn công an ở trên con phố này.\n\nCũng nói: đồn cảnh sát"
+        },
+        {
+          "front": "museum\n\nThe museum is open on Sunday.",
+          "back": "bảo tàng\n\nBảo tàng mở cửa vào Chủ nhật."
+        },
+        {
+          "front": "cinema\n\nLet's go to the cinema tonight.",
+          "back": "rạp chiếu phim\n\nTối nay mình đi xem phim đi."
+        },
+        {
+          "front": "theater\n\nWe saw a play at the theater.",
+          "back": "nhà hát\n\nChúng tôi xem kịch ở nhà hát."
+        },
+        {
+          "front": "church\n\nThere is an old church in the city center.",
+          "back": "nhà thờ\n\nỞ trung tâm thành phố có một nhà thờ cổ."
+        },
+        {
+          "front": "pagoda\n\nWe visit the pagoda at Tet.",
+          "back": "chùa\n\nChúng tôi đi chùa vào dịp Tết."
+        },
+        {
+          "front": "temple\n\nThe temple is very old.",
+          "back": "đền\n\nNgôi đền này rất cổ."
+        },
+        {
+          "front": "zoo\n\nChildren love the zoo.",
+          "back": "sở thú\n\nTrẻ em rất thích sở thú.\n\nCũng nói: vườn thú"
+        },
+        {
+          "front": "stadium\n\nThe stadium is full of fans.",
+          "back": "sân vận động\n\nSân vận động chật kín cổ động viên."
+        },
+        {
+          "front": "gym\n\nI go to the gym after work.",
+          "back": "phòng tập\n\nTôi đến phòng tập sau giờ làm.\n\nCũng nói: phòng gym"
+        },
+        {
+          "front": "hotel\n\nOur hotel is near the beach.",
+          "back": "khách sạn\n\nKhách sạn của chúng tôi gần biển."
+        },
+        {
+          "front": "café\n\nLet's meet at the café.",
+          "back": "quán cà phê\n\nMình gặp nhau ở quán cà phê nhé."
+        },
+        {
+          "front": "building\n\nThat building has thirty floors.",
+          "back": "tòa nhà\n\nTòa nhà đó có ba mươi tầng."
+        },
+        {
+          "front": "tower\n\nYou can see the whole city from the tower.",
+          "back": "tháp\n\nTừ trên tháp bạn có thể nhìn thấy cả thành phố."
+        },
+        {
+          "front": "square\n\nThere is a big square in the city center.",
+          "back": "quảng trường\n\nCó một quảng trường lớn ở trung tâm thành phố."
+        },
+        {
+          "front": "parking lot\n\nThe parking lot is full.",
+          "back": "bãi đỗ xe\n\nBãi đỗ xe đã kín chỗ.\n\nMiền Nam: bãi giữ xe"
+        },
+        {
+          "front": "gas station\n\nWe need to stop at a gas station.",
+          "back": "cây xăng\n\nChúng ta cần dừng ở cây xăng.\n\nCũng nói: trạm xăng"
+        },
+        {
+          "front": "bus stop\n\nWait for me at the bus stop.",
+          "back": "trạm xe buýt\n\nĐợi tôi ở trạm xe buýt nhé."
+        },
+        {
+          "front": "traffic light\n\nStop at the red traffic light.",
+          "back": "đèn giao thông\n\nDừng lại khi đèn giao thông chuyển đỏ.\n\nCũng nói: đèn đỏ"
+        },
+        {
+          "front": "crossroads\n\nTurn left at the crossroads.",
+          "back": "ngã tư\n\nRẽ trái ở ngã tư."
+        },
+        {
+          "front": "sidewalk\n\nWalk on the sidewalk.",
+          "back": "vỉa hè\n\nĐi bộ trên vỉa hè.\n\nTiếng Anh Anh: pavement"
+        },
+        {
+          "front": "left\n\nTurn left here.",
+          "back": "bên trái\n\nRẽ trái ở đây."
+        },
+        {
+          "front": "right\n\nThe bank is on the right.",
+          "back": "bên phải\n\nNgân hàng ở bên phải.\n\nCũng có nghĩa: đúng"
+        },
+        {
+          "front": "straight\n\nGo straight ahead.",
+          "back": "thẳng\n\nĐi thẳng về phía trước."
+        },
+        {
+          "front": "near\n\nIs there a bank near here?",
+          "back": "gần\n\nGần đây có ngân hàng không?"
+        },
+        {
+          "front": "far\n\nMy school is not far from here.",
+          "back": "xa\n\nTrường tôi không xa đây lắm."
+        },
+        {
+          "front": "next to\n\nThe café is next to the bank.",
+          "back": "bên cạnh\n\nQuán cà phê ở bên cạnh ngân hàng."
+        },
+        {
+          "front": "opposite\n\nThe park is opposite my house.",
+          "back": "đối diện\n\nCông viên ở đối diện nhà tôi."
+        },
+        {
+          "front": "behind\n\nThe garden is behind the house.",
+          "back": "phía sau\n\nKhu vườn ở phía sau ngôi nhà."
+        },
+        {
+          "front": "in front of\n\nWait in front of the school.",
+          "back": "phía trước\n\nĐợi ở phía trước trường nhé."
+        },
+        {
+          "front": "between\n\nThe bank is between the hotel and the café.",
+          "back": "ở giữa\n\nNgân hàng nằm giữa khách sạn và quán cà phê."
+        },
+        {
+          "front": "map\n\nCan you show me on the map?",
+          "back": "bản đồ\n\nBạn chỉ cho tôi trên bản đồ được không?"
+        },
+        {
+          "front": "neighborhood\n\nOur neighborhood is quiet.",
+          "back": "khu phố\n\nKhu phố của chúng tôi rất yên tĩnh."
+        },
+        {
+          "front": "capital\n\nHanoi is the capital of Vietnam.",
+          "back": "thủ đô\n\nHà Nội là thủ đô của Việt Nam."
+        },
+        {
+          "front": "area\n\nThis area is very safe.",
+          "back": "khu vực\n\nKhu vực này rất an toàn."
+        }
+      ]
+    },
+    {
+      "name": "Travel",
+      "cards": [
+        {
+          "front": "travel\n\nI love to travel.",
+          "back": "đi du lịch\n\nTôi thích đi du lịch."
+        },
+        {
+          "front": "trip\n\nWe had a great trip to Da Lat.",
+          "back": "chuyến đi\n\nChúng tôi đã có một chuyến đi Đà Lạt tuyệt vời."
+        },
+        {
+          "front": "tourist\n\nMany tourists visit Hoi An.",
+          "back": "khách du lịch\n\nNhiều khách du lịch đến thăm Hội An."
+        },
+        {
+          "front": "passport\n\nDon't forget your passport.",
+          "back": "hộ chiếu\n\nĐừng quên hộ chiếu nhé."
+        },
+        {
+          "front": "visa\n\nI need a visa to visit that country.",
+          "back": "thị thực\n\nTôi cần thị thực để đến nước đó.\n\nCũng nói: visa"
+        },
+        {
+          "front": "ticket\n\nI bought two train tickets.",
+          "back": "vé\n\nTôi đã mua hai vé tàu."
+        },
+        {
+          "front": "luggage\n\nHow much luggage do you have?",
+          "back": "hành lý\n\nBạn có bao nhiêu hành lý?"
+        },
+        {
+          "front": "suitcase\n\nMy suitcase is very heavy.",
+          "back": "va li\n\nVa li của tôi rất nặng."
+        },
+        {
+          "front": "airport\n\nWe arrived at the airport early.",
+          "back": "sân bay\n\nChúng tôi đến sân bay sớm."
+        },
+        {
+          "front": "plane\n\nThe plane leaves at ten.",
+          "back": "máy bay\n\nMáy bay cất cánh lúc mười giờ."
+        },
+        {
+          "front": "flight\n\nOur flight is two hours late.",
+          "back": "chuyến bay\n\nChuyến bay của chúng tôi bị trễ hai tiếng."
+        },
+        {
+          "front": "train\n\nThe train is slow but cheap.",
+          "back": "tàu hỏa\n\nTàu hỏa chậm nhưng rẻ.\n\nCũng nói: tàu"
+        },
+        {
+          "front": "station\n\nThe train station is near my house.",
+          "back": "nhà ga\n\nNhà ga ở gần nhà tôi.\n\nCũng nói: ga"
+        },
+        {
+          "front": "bus\n\nI take the bus to school.",
+          "back": "xe buýt\n\nTôi đi xe buýt đến trường."
+        },
+        {
+          "front": "taxi\n\nLet's take a taxi.",
+          "back": "taxi\n\nMình đi taxi đi."
+        },
+        {
+          "front": "car\n\nMy father drives an old car.",
+          "back": "ô tô\n\nBố tôi lái một chiếc ô tô cũ.\n\nMiền Nam: xe hơi"
+        },
+        {
+          "front": "motorbike\n\nMost people in Vietnam ride motorbikes.",
+          "back": "xe máy\n\nHầu hết người Việt Nam đi xe máy."
+        },
+        {
+          "front": "bicycle\n\nI ride my bicycle to school.",
+          "back": "xe đạp\n\nTôi đạp xe đến trường."
+        },
+        {
+          "front": "boat\n\nWe crossed the river by boat.",
+          "back": "thuyền\n\nChúng tôi qua sông bằng thuyền."
+        },
+        {
+          "front": "ship\n\nThe ship is very big.",
+          "back": "tàu thủy\n\nCon tàu rất lớn."
+        },
+        {
+          "front": "helmet\n\nAlways wear a helmet.",
+          "back": "mũ bảo hiểm\n\nLuôn đội mũ bảo hiểm."
+        },
+        {
+          "front": "seat\n\nIs this seat free?",
+          "back": "chỗ ngồi\n\nChỗ này có ai ngồi chưa?"
+        },
+        {
+          "front": "drive\n\nCan you drive a car?",
+          "back": "lái xe\n\nBạn có biết lái ô tô không?"
+        },
+        {
+          "front": "ride\n\nI ride a motorbike to work.",
+          "back": "đi xe\n\nTôi đi xe máy đi làm.\n\nCũng có nghĩa: cưỡi"
+        },
+        {
+          "front": "walk\n\nI walk to school every day.",
+          "back": "đi bộ\n\nNgày nào tôi cũng đi bộ đến trường."
+        },
+        {
+          "front": "go\n\nWhere are you going?",
+          "back": "đi\n\nBạn đang đi đâu đấy?"
+        },
+        {
+          "front": "come\n\nCan you come to my party?",
+          "back": "đến\n\nBạn có thể đến dự tiệc của tôi không?\n\nCũng nói: tới"
+        },
+        {
+          "front": "arrive\n\nWe arrived in Hue at noon.",
+          "back": "đến nơi\n\nChúng tôi đến Huế vào buổi trưa."
+        },
+        {
+          "front": "leave\n\nThe bus leaves at seven.",
+          "back": "rời đi\n\nXe buýt khởi hành lúc bảy giờ.\n\nVới xe, tàu: khởi hành"
+        },
+        {
+          "front": "return\n\nWe return home on Sunday.",
+          "back": "trở về\n\nChủ nhật chúng tôi trở về nhà."
+        },
+        {
+          "front": "wait\n\nPlease wait for me.",
+          "back": "đợi\n\nLàm ơn đợi tôi.\n\nCũng nói: chờ"
+        },
+        {
+          "front": "stop\n\nThe bus stops here.",
+          "back": "dừng lại\n\nXe buýt dừng ở đây."
+        },
+        {
+          "front": "fast\n\nThis train is very fast.",
+          "back": "nhanh\n\nTàu này chạy rất nhanh."
+        },
+        {
+          "front": "slow\n\nThe traffic is slow today.",
+          "back": "chậm\n\nHôm nay xe cộ di chuyển chậm."
+        },
+        {
+          "front": "traffic\n\nThere is a lot of traffic in the city.",
+          "back": "giao thông\n\nTrong thành phố xe cộ rất đông."
+        },
+        {
+          "front": "traffic jam\n\nWe were stuck in a traffic jam.",
+          "back": "tắc đường\n\nChúng tôi bị tắc đường.\n\nMiền Nam: kẹt xe"
+        },
+        {
+          "front": "beach\n\nLet's go to the beach.",
+          "back": "bãi biển\n\nMình đi biển đi."
+        },
+        {
+          "front": "island\n\nPhu Quoc is a beautiful island.",
+          "back": "đảo\n\nPhú Quốc là một hòn đảo đẹp."
+        },
+        {
+          "front": "reserve\n\nI want to reserve a room.",
+          "back": "đặt trước\n\nTôi muốn đặt trước một phòng.\n\nCũng nói: đặt chỗ"
+        },
+        {
+          "front": "guide\n\nOur guide speaks good English.",
+          "back": "hướng dẫn viên\n\nHướng dẫn viên của chúng tôi nói tiếng Anh giỏi."
+        },
+        {
+          "front": "camera\n\nI brought my camera.",
+          "back": "máy ảnh\n\nTôi mang theo máy ảnh."
+        },
+        {
+          "front": "photo\n\nCan you take a photo of us?",
+          "back": "ảnh\n\nBạn chụp giúp chúng tôi một tấm ảnh được không?\n\nCũng nói: hình"
+        },
+        {
+          "front": "souvenir\n\nI bought a souvenir for my friend.",
+          "back": "quà lưu niệm\n\nTôi mua một món quà lưu niệm cho bạn."
+        },
+        {
+          "front": "abroad\n\nShe wants to study abroad.",
+          "back": "nước ngoài\n\nCô ấy muốn đi du học nước ngoài."
+        },
+        {
+          "front": "country\n\nVietnam is a beautiful country.",
+          "back": "đất nước\n\nViệt Nam là một đất nước xinh đẹp."
+        },
+        {
+          "front": "foreigner\n\nMany foreigners live in Ho Chi Minh City.",
+          "back": "người nước ngoài\n\nNhiều người nước ngoài sống ở Thành phố Hồ Chí Minh."
+        },
+        {
+          "front": "tour\n\nWe took a city tour.",
+          "back": "chuyến tham quan\n\nChúng tôi đi tham quan thành phố."
+        },
+        {
+          "front": "journey\n\nThe journey takes three hours.",
+          "back": "hành trình\n\nHành trình mất ba tiếng."
+        },
+        {
+          "front": "petrol\n\nThe motorbike needs petrol.",
+          "back": "xăng\n\nXe máy cần đổ xăng.\n\nTiếng Anh Mỹ: gas"
+        },
+        {
+          "front": "lost\n\nWe are lost.",
+          "back": "bị lạc\n\nChúng tôi bị lạc rồi."
+        }
+      ]
+    },
+    {
+      "name": "Shopping & money",
+      "cards": [
+        {
+          "front": "money\n\nI don't have much money.",
+          "back": "tiền\n\nTôi không có nhiều tiền."
+        },
+        {
+          "front": "cash\n\nCan I pay in cash?",
+          "back": "tiền mặt\n\nTôi trả bằng tiền mặt được không?"
+        },
+        {
+          "front": "credit card\n\nDo you take credit cards?",
+          "back": "thẻ tín dụng\n\nỞ đây có nhận thẻ tín dụng không?"
+        },
+        {
+          "front": "price\n\nThe price is too high.",
+          "back": "giá\n\nGiá cao quá.\n\nCũng nói: giá cả"
+        },
+        {
+          "front": "cheap\n\nThis shirt is very cheap.",
+          "back": "rẻ\n\nCái áo này rất rẻ."
+        },
+        {
+          "front": "expensive\n\nThis phone is too expensive.",
+          "back": "đắt\n\nCái điện thoại này đắt quá.\n\nMiền Nam: mắc"
+        },
+        {
+          "front": "buy\n\nI want to buy a new bag.",
+          "back": "mua\n\nTôi muốn mua một cái túi mới."
+        },
+        {
+          "front": "sell\n\nThey sell fruit at the market.",
+          "back": "bán\n\nHọ bán trái cây ở chợ."
+        },
+        {
+          "front": "pay\n\nCan I pay by card?",
+          "back": "trả tiền\n\nTôi trả bằng thẻ được không?"
+        },
+        {
+          "front": "cost\n\nHow much does it cost?",
+          "back": "có giá\n\nCái này giá bao nhiêu?"
+        },
+        {
+          "front": "change\n\nHere is your change.",
+          "back": "tiền thừa\n\nĐây là tiền thừa của bạn.\n\nCũng có nghĩa: thay đổi"
+        },
+        {
+          "front": "discount\n\nCan I get a discount?",
+          "back": "giảm giá\n\nTôi có được giảm giá không?"
+        },
+        {
+          "front": "sale\n\nEverything is on sale today.",
+          "back": "khuyến mãi\n\nHôm nay mọi thứ đều đang khuyến mãi.\n\nCũng có nghĩa: việc bán hàng"
+        },
+        {
+          "front": "receipt\n\nCan I have a receipt, please?",
+          "back": "biên lai\n\nCho tôi xin biên lai.\n\nCũng nói: hóa đơn"
+        },
+        {
+          "front": "shopping\n\nI go shopping on Saturday.",
+          "back": "mua sắm\n\nThứ Bảy tôi đi mua sắm."
+        },
+        {
+          "front": "seller\n\nThe seller was very friendly.",
+          "back": "người bán\n\nNgười bán hàng rất thân thiện."
+        },
+        {
+          "front": "queue\n\nThere is a long queue.",
+          "back": "hàng\n\nCó một hàng người dài.\n\nĐộng từ: xếp hàng. Tiếng Anh Mỹ: line"
+        },
+        {
+          "front": "basket\n\nPut the fruit in the basket.",
+          "back": "giỏ\n\nBỏ trái cây vào giỏ."
+        },
+        {
+          "front": "brand\n\nWhat is your favorite brand?",
+          "back": "thương hiệu\n\nThương hiệu yêu thích của bạn là gì?"
+        },
+        {
+          "front": "quality\n\nThese shoes are good quality.",
+          "back": "chất lượng\n\nĐôi giày này chất lượng tốt."
+        },
+        {
+          "front": "gift\n\nThis is a gift for you.",
+          "back": "quà\n\nĐây là quà tặng bạn.\n\nCũng nói: món quà"
+        },
+        {
+          "front": "wallet\n\nI left my wallet at home.",
+          "back": "ví\n\nTôi để quên ví ở nhà."
+        },
+        {
+          "front": "coin\n\nI have some coins in my pocket.",
+          "back": "đồng xu\n\nTrong túi tôi có vài đồng xu."
+        },
+        {
+          "front": "banknote\n\nThis is a new banknote.",
+          "back": "tiền giấy\n\nĐây là tờ tiền giấy mới."
+        },
+        {
+          "front": "ATM\n\nIs there an ATM near here?",
+          "back": "cây ATM\n\nGần đây có cây ATM nào không?\n\nCũng nói: máy rút tiền"
+        },
+        {
+          "front": "save\n\nI save money every month.",
+          "back": "tiết kiệm\n\nTháng nào tôi cũng tiết kiệm tiền."
+        },
+        {
+          "front": "spend\n\nI spend too much money on clothes.",
+          "back": "tiêu\n\nTôi tiêu quá nhiều tiền vào quần áo.\n\nCũng nói: tiêu tiền"
+        },
+        {
+          "front": "borrow\n\nCan I borrow your book?",
+          "back": "mượn\n\nTôi mượn quyển sách của bạn được không?\n\nMượn tiền cũng nói: vay"
+        },
+        {
+          "front": "lend\n\nCan you lend me your bike?",
+          "back": "cho mượn\n\nBạn cho tôi mượn xe đạp được không?"
+        },
+        {
+          "front": "owe\n\nI owe you fifty thousand dong.",
+          "back": "nợ\n\nTôi nợ bạn năm mươi nghìn đồng."
+        },
+        {
+          "front": "rich\n\nHe is very rich.",
+          "back": "giàu\n\nÔng ấy rất giàu."
+        },
+        {
+          "front": "poor\n\nThey are poor but happy.",
+          "back": "nghèo\n\nHọ nghèo nhưng hạnh phúc."
+        },
+        {
+          "front": "bargain\n\nYou can bargain at the market.",
+          "back": "mặc cả\n\nBạn có thể mặc cả ở chợ.\n\nDanh từ: món hời"
+        },
+        {
+          "front": "enough\n\nI don't have enough money.",
+          "back": "đủ\n\nTôi không có đủ tiền."
+        },
+        {
+          "front": "too much\n\nThis is too much for me.",
+          "back": "quá nhiều\n\nCái này quá nhiều đối với tôi."
+        },
+        {
+          "front": "total\n\nThe total is two hundred thousand dong.",
+          "back": "tổng cộng\n\nTổng cộng là hai trăm nghìn đồng."
+        },
+        {
+          "front": "online\n\nI buy books online.",
+          "back": "trực tuyến\n\nTôi mua sách trực tuyến.\n\nCũng nói: trên mạng"
+        },
+        {
+          "front": "delivery\n\nIs delivery free?",
+          "back": "giao hàng\n\nGiao hàng có miễn phí không?"
+        },
+        {
+          "front": "counter\n\nPlease pay at the counter.",
+          "back": "quầy\n\nVui lòng thanh toán ở quầy."
+        },
+        {
+          "front": "cart\n\nPut it in the cart.",
+          "back": "xe đẩy\n\nBỏ nó vào xe đẩy.\n\nKhi mua trên mạng: giỏ hàng"
+        },
+        {
+          "front": "pair\n\nI bought a pair of shoes.",
+          "back": "đôi\n\nTôi mua một đôi giày."
+        },
+        {
+          "front": "dollar\n\nIt costs ten dollars.",
+          "back": "đô la\n\nNó giá mười đô la."
+        },
+        {
+          "front": "worth\n\nThis car is worth a lot of money.",
+          "back": "đáng giá\n\nChiếc xe này đáng giá rất nhiều tiền."
+        },
+        {
+          "front": "afford\n\nI can't afford a new car.",
+          "back": "đủ tiền mua\n\nTôi không đủ tiền mua xe mới."
+        },
+        {
+          "front": "choose\n\nChoose one color.",
+          "back": "chọn\n\nHãy chọn một màu."
+        },
+        {
+          "front": "want\n\nI want a new phone.",
+          "back": "muốn\n\nTôi muốn một chiếc điện thoại mới."
+        },
+        {
+          "front": "need\n\nI need some help.",
+          "back": "cần\n\nTôi cần giúp một chút."
+        },
+        {
+          "front": "compare\n\nCompare the prices first.",
+          "back": "so sánh\n\nHãy so sánh giá trước."
+        },
+        {
+          "front": "sold out\n\nThe tickets are sold out.",
+          "back": "bán hết\n\nVé đã bán hết."
+        },
+        {
+          "front": "package\n\nA package arrived for you.",
+          "back": "gói hàng\n\nCó một gói hàng gửi cho bạn."
+        }
+      ]
+    },
+    {
+      "name": "Weather & nature",
+      "cards": [
+        {
+          "front": "weather\n\nThe weather is nice today.",
+          "back": "thời tiết\n\nHôm nay thời tiết đẹp."
+        },
+        {
+          "front": "sun\n\nThe sun rises in the east.",
+          "back": "mặt trời\n\nMặt trời mọc ở phía đông."
+        },
+        {
+          "front": "moon\n\nThe moon is full tonight.",
+          "back": "mặt trăng\n\nĐêm nay trăng tròn.\n\nCũng nói: trăng"
+        },
+        {
+          "front": "star\n\nI can see many stars tonight.",
+          "back": "ngôi sao\n\nĐêm nay tôi thấy rất nhiều ngôi sao.\n\nCũng nói: sao"
+        },
+        {
+          "front": "sky\n\nThe sky is clear.",
+          "back": "bầu trời\n\nBầu trời trong xanh.\n\nCũng nói: trời"
+        },
+        {
+          "front": "cloud\n\nThere are no clouds today.",
+          "back": "mây\n\nHôm nay không có mây."
+        },
+        {
+          "front": "rain\n\nIt will rain tomorrow.",
+          "back": "mưa\n\nNgày mai trời sẽ mưa."
+        },
+        {
+          "front": "snow\n\nIt never snows in Ho Chi Minh City.",
+          "back": "tuyết\n\nThành phố Hồ Chí Minh không bao giờ có tuyết."
+        },
+        {
+          "front": "wind\n\nThe wind is very strong.",
+          "back": "gió\n\nGió rất mạnh."
+        },
+        {
+          "front": "storm\n\nA big storm is coming.",
+          "back": "bão\n\nMột cơn bão lớn đang đến."
+        },
+        {
+          "front": "thunder\n\nI heard thunder last night.",
+          "back": "sấm\n\nTối qua tôi nghe thấy tiếng sấm."
+        },
+        {
+          "front": "lightning\n\nLightning lit up the sky.",
+          "back": "chớp\n\nTia chớp sáng rực bầu trời.\n\nCũng nói: sét"
+        },
+        {
+          "front": "flood\n\nThe flood damaged many houses.",
+          "back": "lũ lụt\n\nTrận lũ lụt làm hỏng nhiều ngôi nhà."
+        },
+        {
+          "front": "sunny\n\nIt is sunny today.",
+          "back": "nắng\n\nHôm nay trời nắng.\n\nCũng nói: có nắng"
+        },
+        {
+          "front": "rainy\n\nTomorrow will be rainy.",
+          "back": "có mưa\n\nNgày mai trời có mưa."
+        },
+        {
+          "front": "cloudy\n\nIt is cloudy this morning.",
+          "back": "nhiều mây\n\nSáng nay trời nhiều mây."
+        },
+        {
+          "front": "windy\n\nIt is windy by the sea.",
+          "back": "nhiều gió\n\nỞ gần biển trời nhiều gió."
+        },
+        {
+          "front": "warm\n\nIt is warm in spring.",
+          "back": "ấm\n\nMùa xuân trời ấm.\n\nCũng nói: ấm áp"
+        },
+        {
+          "front": "cool\n\nThe evening is cool.",
+          "back": "mát\n\nBuổi tối trời mát.\n\nCũng nói: mát mẻ"
+        },
+        {
+          "front": "temperature\n\nThe temperature is 35 degrees.",
+          "back": "nhiệt độ\n\nNhiệt độ là 35 độ."
+        },
+        {
+          "front": "degree\n\nIt is 20 degrees outside.",
+          "back": "độ\n\nNgoài trời 20 độ."
+        },
+        {
+          "front": "wet\n\nMy shoes are wet.",
+          "back": "ướt\n\nGiày của tôi bị ướt."
+        },
+        {
+          "front": "dry\n\nThe clothes are dry now.",
+          "back": "khô\n\nQuần áo khô rồi."
+        },
+        {
+          "front": "nature\n\nI love nature.",
+          "back": "thiên nhiên\n\nTôi yêu thiên nhiên."
+        },
+        {
+          "front": "tree\n\nThere is a big tree in the garden.",
+          "back": "cây\n\nCó một cái cây lớn trong vườn."
+        },
+        {
+          "front": "flower\n\nShe gave me flowers.",
+          "back": "hoa\n\nCô ấy tặng tôi hoa."
+        },
+        {
+          "front": "grass\n\nThe grass is green.",
+          "back": "cỏ\n\nCỏ màu xanh."
+        },
+        {
+          "front": "leaf\n\nLeaves fall in autumn.",
+          "back": "lá\n\nLá rụng vào mùa thu.\n\nCũng nói: lá cây"
+        },
+        {
+          "front": "forest\n\nMany animals live in the forest.",
+          "back": "rừng\n\nNhiều loài động vật sống trong rừng."
+        },
+        {
+          "front": "mountain\n\nFansipan is the highest mountain in Vietnam.",
+          "back": "núi\n\nFansipan là ngọn núi cao nhất Việt Nam."
+        },
+        {
+          "front": "hill\n\nThere is a house on the hill.",
+          "back": "đồi\n\nCó một ngôi nhà trên đồi."
+        },
+        {
+          "front": "river\n\nThe Red River flows through Hanoi.",
+          "back": "sông\n\nSông Hồng chảy qua Hà Nội."
+        },
+        {
+          "front": "lake\n\nWe walk around the lake.",
+          "back": "hồ\n\nChúng tôi đi dạo quanh hồ."
+        },
+        {
+          "front": "sea\n\nThe sea is blue.",
+          "back": "biển\n\nBiển màu xanh."
+        },
+        {
+          "front": "ocean\n\nThe Pacific is the largest ocean.",
+          "back": "đại dương\n\nThái Bình Dương là đại dương lớn nhất."
+        },
+        {
+          "front": "sand\n\nChildren play in the sand.",
+          "back": "cát\n\nTrẻ em chơi trên cát."
+        },
+        {
+          "front": "stone\n\nThe house is made of stone.",
+          "back": "đá\n\nNgôi nhà được xây bằng đá."
+        },
+        {
+          "front": "earth\n\nThe earth goes around the sun.",
+          "back": "trái đất\n\nTrái đất quay quanh mặt trời."
+        },
+        {
+          "front": "land\n\nThis land is good for farming.",
+          "back": "đất\n\nĐất này tốt để trồng trọt."
+        },
+        {
+          "front": "field\n\nCows eat grass in the field.",
+          "back": "cánh đồng\n\nBò ăn cỏ trên cánh đồng.\n\nRuộng lúa: rice field"
+        },
+        {
+          "front": "air\n\nFresh air is good for you.",
+          "back": "không khí\n\nKhông khí trong lành tốt cho bạn."
+        },
+        {
+          "front": "fire\n\nDon't play with fire.",
+          "back": "lửa\n\nĐừng nghịch lửa."
+        },
+        {
+          "front": "environment\n\nWe must protect the environment.",
+          "back": "môi trường\n\nChúng ta phải bảo vệ môi trường."
+        },
+        {
+          "front": "pollution\n\nAir pollution is a big problem.",
+          "back": "ô nhiễm\n\nÔ nhiễm không khí là một vấn đề lớn."
+        },
+        {
+          "front": "plant\n\nI plant trees with my father.",
+          "back": "trồng\n\nTôi trồng cây cùng bố.\n\nDanh từ: cây, thực vật"
+        },
+        {
+          "front": "recycle\n\nWe recycle bottles and paper.",
+          "back": "tái chế\n\nChúng tôi tái chế chai lọ và giấy."
+        },
+        {
+          "front": "waterfall\n\nThe waterfall is beautiful.",
+          "back": "thác nước\n\nThác nước rất đẹp."
+        },
+        {
+          "front": "cave\n\nPhong Nha has many caves.",
+          "back": "hang động\n\nPhong Nha có nhiều hang động."
+        },
+        {
+          "front": "desert\n\nIt rarely rains in the desert.",
+          "back": "sa mạc\n\nỞ sa mạc hiếm khi có mưa."
+        },
+        {
+          "front": "rainbow\n\nLook, a rainbow!",
+          "back": "cầu vồng\n\nNhìn kìa, cầu vồng!"
+        }
+      ]
+    },
+    {
+      "name": "Animals",
+      "cards": [
+        {
+          "front": "animal\n\nWhat is your favorite animal?",
+          "back": "động vật\n\nCon vật yêu thích của bạn là gì?\n\nCũng nói: con vật"
+        },
+        {
+          "front": "dog\n\nThe dog is barking.",
+          "back": "chó\n\nCon chó đang sủa."
+        },
+        {
+          "front": "cat\n\nMy cat sleeps all day.",
+          "back": "mèo\n\nCon mèo của tôi ngủ cả ngày."
+        },
+        {
+          "front": "bird\n\nBirds can fly.",
+          "back": "chim\n\nChim biết bay."
+        },
+        {
+          "front": "hen\n\nThe hen lays an egg every day.",
+          "back": "gà mái\n\nCon gà mái đẻ một quả trứng mỗi ngày."
+        },
+        {
+          "front": "rooster\n\nThe rooster wakes us up.",
+          "back": "gà trống\n\nCon gà trống đánh thức chúng tôi dậy."
+        },
+        {
+          "front": "duck\n\nDucks swim in the pond.",
+          "back": "vịt\n\nVịt bơi trong ao."
+        },
+        {
+          "front": "pig\n\nThe pig is very fat.",
+          "back": "lợn\n\nCon lợn rất béo.\n\nMiền Nam: heo"
+        },
+        {
+          "front": "cow\n\nCows give milk.",
+          "back": "bò\n\nBò cho sữa."
+        },
+        {
+          "front": "buffalo\n\nFarmers use buffaloes in the rice fields.",
+          "back": "trâu\n\nNông dân dùng trâu trên đồng lúa."
+        },
+        {
+          "front": "horse\n\nHe rides a horse.",
+          "back": "ngựa\n\nAnh ấy cưỡi ngựa."
+        },
+        {
+          "front": "goat\n\nGoats live in the mountains.",
+          "back": "dê\n\nDê sống ở vùng núi."
+        },
+        {
+          "front": "sheep\n\nSheep give us wool.",
+          "back": "cừu\n\nCừu cho chúng ta lông."
+        },
+        {
+          "front": "rabbit\n\nThe rabbit eats carrots.",
+          "back": "thỏ\n\nCon thỏ ăn cà rốt."
+        },
+        {
+          "front": "mouse\n\nThere is a mouse in the kitchen.",
+          "back": "chuột\n\nCó một con chuột trong bếp.\n\nCũng có nghĩa: chuột máy tính"
+        },
+        {
+          "front": "elephant\n\nElephants are very big.",
+          "back": "voi\n\nVoi rất to."
+        },
+        {
+          "front": "tiger\n\nTigers are dangerous.",
+          "back": "hổ\n\nHổ rất nguy hiểm.\n\nMiền Nam: cọp"
+        },
+        {
+          "front": "lion\n\nThe lion is the king of animals.",
+          "back": "sư tử\n\nSư tử là chúa tể muôn loài."
+        },
+        {
+          "front": "monkey\n\nMonkeys climb trees.",
+          "back": "khỉ\n\nKhỉ leo cây."
+        },
+        {
+          "front": "bear\n\nBears love honey.",
+          "back": "gấu\n\nGấu rất thích mật ong."
+        },
+        {
+          "front": "snake\n\nI am afraid of snakes.",
+          "back": "rắn\n\nTôi sợ rắn."
+        },
+        {
+          "front": "frog\n\nFrogs live near water.",
+          "back": "ếch\n\nẾch sống gần nước."
+        },
+        {
+          "front": "turtle\n\nTurtles move slowly.",
+          "back": "rùa\n\nRùa di chuyển chậm."
+        },
+        {
+          "front": "crocodile\n\nCrocodiles live in rivers.",
+          "back": "cá sấu\n\nCá sấu sống ở sông."
+        },
+        {
+          "front": "giraffe\n\nThe giraffe eats leaves from tall trees.",
+          "back": "hươu cao cổ\n\nHươu cao cổ ăn lá trên những cây cao."
+        },
+        {
+          "front": "zebra\n\nZebras have black and white stripes.",
+          "back": "ngựa vằn\n\nNgựa vằn có sọc đen trắng."
+        },
+        {
+          "front": "deer\n\nWe saw a deer in the forest.",
+          "back": "hươu\n\nChúng tôi thấy một con hươu trong rừng.\n\nCũng nói: nai"
+        },
+        {
+          "front": "fox\n\nThe fox is very clever.",
+          "back": "cáo\n\nCon cáo rất tinh ranh."
+        },
+        {
+          "front": "wolf\n\nWolves live in groups.",
+          "back": "chó sói\n\nChó sói sống theo bầy.\n\nCũng nói: sói"
+        },
+        {
+          "front": "dolphin\n\nDolphins are very smart.",
+          "back": "cá heo\n\nCá heo rất thông minh."
+        },
+        {
+          "front": "whale\n\nThe blue whale is the biggest animal.",
+          "back": "cá voi\n\nCá voi xanh là loài vật lớn nhất."
+        },
+        {
+          "front": "shark\n\nSharks have sharp teeth.",
+          "back": "cá mập\n\nCá mập có hàm răng sắc nhọn."
+        },
+        {
+          "front": "octopus\n\nAn octopus has eight arms.",
+          "back": "bạch tuộc\n\nBạch tuộc có tám xúc tu."
+        },
+        {
+          "front": "butterfly\n\nA butterfly is on the flower.",
+          "back": "bướm\n\nCó một con bướm đậu trên bông hoa."
+        },
+        {
+          "front": "bee\n\nBees make honey.",
+          "back": "ong\n\nOng làm ra mật."
+        },
+        {
+          "front": "ant\n\nAnts are very small.",
+          "back": "kiến\n\nKiến rất nhỏ."
+        },
+        {
+          "front": "mosquito\n\nMosquitoes bite at night.",
+          "back": "muỗi\n\nMuỗi đốt vào ban đêm."
+        },
+        {
+          "front": "spider\n\nThere is a spider on the wall.",
+          "back": "nhện\n\nCó một con nhện trên tường."
+        },
+        {
+          "front": "insect\n\nMany insects live in the grass.",
+          "back": "côn trùng\n\nNhiều loài côn trùng sống trong cỏ."
+        },
+        {
+          "front": "pet\n\nDo you have a pet?",
+          "back": "thú cưng\n\nBạn có nuôi thú cưng không?"
+        },
+        {
+          "front": "tail\n\nThe dog wags its tail.",
+          "back": "đuôi\n\nCon chó vẫy đuôi."
+        },
+        {
+          "front": "wing\n\nBirds have two wings.",
+          "back": "cánh\n\nChim có hai cánh."
+        },
+        {
+          "front": "feather\n\nThis bird has blue feathers.",
+          "back": "lông vũ\n\nCon chim này có bộ lông màu xanh."
+        },
+        {
+          "front": "farm\n\nThey keep chickens on the farm.",
+          "back": "trang trại\n\nHọ nuôi gà ở trang trại."
+        },
+        {
+          "front": "wild\n\nTigers are wild animals.",
+          "back": "hoang dã\n\nHổ là động vật hoang dã."
+        },
+        {
+          "front": "feed\n\nDon't feed the animals.",
+          "back": "cho ăn\n\nĐừng cho động vật ăn."
+        },
+        {
+          "front": "bark\n\nThe dog barks at strangers.",
+          "back": "sủa\n\nCon chó sủa người lạ."
+        },
+        {
+          "front": "nest\n\nThe bird is building a nest.",
+          "back": "tổ\n\nCon chim đang làm tổ."
+        },
+        {
+          "front": "kitten\n\nThe kitten is playing with a ball.",
+          "back": "mèo con\n\nMèo con đang chơi với quả bóng."
+        },
+        {
+          "front": "puppy\n\nWe got a new puppy.",
+          "back": "chó con\n\nChúng tôi mới nuôi một chú chó con."
+        }
+      ]
+    },
+    {
+      "name": "Feelings & personality",
+      "cards": [
+        {
+          "front": "happy\n\nI am happy today.",
+          "back": "vui\n\nHôm nay tôi vui.\n\nCũng nói: hạnh phúc"
+        },
+        {
+          "front": "sad\n\nThe movie made me sad.",
+          "back": "buồn\n\nBộ phim làm tôi buồn."
+        },
+        {
+          "front": "angry\n\nMy father is angry with me.",
+          "back": "tức giận\n\nBố đang giận tôi.\n\nCũng nói: giận"
+        },
+        {
+          "front": "afraid\n\nI am afraid of the dark.",
+          "back": "sợ\n\nTôi sợ bóng tối."
+        },
+        {
+          "front": "worried\n\nMy mother is worried about me.",
+          "back": "lo lắng\n\nMẹ lo lắng cho tôi."
+        },
+        {
+          "front": "excited\n\nI am excited about the trip.",
+          "back": "hào hứng\n\nTôi rất hào hứng với chuyến đi."
+        },
+        {
+          "front": "bored\n\nI am bored at home.",
+          "back": "chán\n\nỞ nhà tôi thấy chán."
+        },
+        {
+          "front": "surprised\n\nI was surprised by the news.",
+          "back": "ngạc nhiên\n\nTôi ngạc nhiên trước tin đó."
+        },
+        {
+          "front": "nervous\n\nI am nervous before exams.",
+          "back": "hồi hộp\n\nTôi hồi hộp trước các kỳ thi.\n\nCũng nói: lo lắng"
+        },
+        {
+          "front": "calm\n\nStay calm.",
+          "back": "bình tĩnh\n\nHãy bình tĩnh."
+        },
+        {
+          "front": "proud\n\nMy parents are proud of me.",
+          "back": "tự hào\n\nBố mẹ tự hào về tôi."
+        },
+        {
+          "front": "shy\n\nShe is shy with new people.",
+          "back": "nhút nhát\n\nCô ấy nhút nhát khi gặp người lạ.\n\nCũng nói: ngại ngùng"
+        },
+        {
+          "front": "lonely\n\nHe feels lonely in the big city.",
+          "back": "cô đơn\n\nAnh ấy thấy cô đơn ở thành phố lớn."
+        },
+        {
+          "front": "jealous\n\nShe is jealous of her sister.",
+          "back": "ghen tị\n\nCô ấy ghen tị với em gái."
+        },
+        {
+          "front": "embarrassed\n\nI was embarrassed by my mistake.",
+          "back": "xấu hổ\n\nTôi thấy xấu hổ vì lỗi của mình."
+        },
+        {
+          "front": "confused\n\nI am confused, please explain again.",
+          "back": "bối rối\n\nTôi bối rối quá, làm ơn giải thích lại."
+        },
+        {
+          "front": "relaxed\n\nI feel relaxed on holiday.",
+          "back": "thư thái\n\nĐi nghỉ tôi thấy thư thái.\n\nCũng nói: thoải mái"
+        },
+        {
+          "front": "hate\n\nI hate cold weather.",
+          "back": "ghét\n\nTôi ghét thời tiết lạnh."
+        },
+        {
+          "front": "like\n\nI like cats.",
+          "back": "thích\n\nTôi thích mèo."
+        },
+        {
+          "front": "feel\n\nHow do you feel today?",
+          "back": "cảm thấy\n\nHôm nay bạn cảm thấy thế nào?"
+        },
+        {
+          "front": "feeling\n\nI understand your feelings.",
+          "back": "cảm xúc\n\nTôi hiểu cảm xúc của bạn."
+        },
+        {
+          "front": "smile\n\nShe smiles a lot.",
+          "back": "mỉm cười\n\nCô ấy hay mỉm cười."
+        },
+        {
+          "front": "laugh\n\nThe children laugh at the clown.",
+          "back": "cười\n\nBọn trẻ cười chú hề."
+        },
+        {
+          "front": "cry\n\nThe baby is crying.",
+          "back": "khóc\n\nEm bé đang khóc."
+        },
+        {
+          "front": "kind\n\nShe is kind to everyone.",
+          "back": "tốt bụng\n\nCô ấy tốt bụng với mọi người."
+        },
+        {
+          "front": "friendly\n\nOur new neighbors are friendly.",
+          "back": "thân thiện\n\nHàng xóm mới của chúng tôi rất thân thiện."
+        },
+        {
+          "front": "funny\n\nHe tells funny stories.",
+          "back": "hài hước\n\nAnh ấy kể những câu chuyện hài hước.\n\nCũng nói: buồn cười"
+        },
+        {
+          "front": "honest\n\nPlease be honest with me.",
+          "back": "trung thực\n\nHãy thành thật với tôi.\n\nCũng nói: thật thà"
+        },
+        {
+          "front": "polite\n\nBe polite to older people.",
+          "back": "lịch sự\n\nHãy lễ phép với người lớn tuổi.\n\nVới người lớn: lễ phép"
+        },
+        {
+          "front": "rude\n\nIt is rude to interrupt.",
+          "back": "thô lỗ\n\nNgắt lời người khác là bất lịch sự.\n\nCũng nói: bất lịch sự"
+        },
+        {
+          "front": "lazy\n\nDon't be lazy.",
+          "back": "lười\n\nĐừng lười biếng.\n\nCũng nói: lười biếng"
+        },
+        {
+          "front": "hard-working\n\nMy mother is very hard-working.",
+          "back": "chăm chỉ\n\nMẹ tôi rất chăm chỉ."
+        },
+        {
+          "front": "clever\n\nShe is a clever student.",
+          "back": "thông minh\n\nCô ấy là một học sinh thông minh."
+        },
+        {
+          "front": "brave\n\nThe firefighter was very brave.",
+          "back": "dũng cảm\n\nNgười lính cứu hỏa rất dũng cảm."
+        },
+        {
+          "front": "patient\n\nA good teacher is patient.",
+          "back": "kiên nhẫn\n\nMột giáo viên giỏi rất kiên nhẫn."
+        },
+        {
+          "front": "careful\n\nBe careful on the road.",
+          "back": "cẩn thận\n\nĐi đường cẩn thận nhé."
+        },
+        {
+          "front": "quiet\n\nHe is a quiet boy.",
+          "back": "trầm tính\n\nCậu ấy là một cậu bé trầm tính.\n\nCũng có nghĩa: yên tĩnh"
+        },
+        {
+          "front": "talkative\n\nMy sister is very talkative.",
+          "back": "nói nhiều\n\nEm gái tôi nói rất nhiều."
+        },
+        {
+          "front": "generous\n\nHe is generous with his friends.",
+          "back": "hào phóng\n\nAnh ấy hào phóng với bạn bè."
+        },
+        {
+          "front": "selfish\n\nDon't be selfish, share with others.",
+          "back": "ích kỷ\n\nĐừng ích kỷ, hãy chia sẻ với mọi người."
+        },
+        {
+          "front": "confident\n\nShe is confident when she speaks English.",
+          "back": "tự tin\n\nCô ấy tự tin khi nói tiếng Anh."
+        },
+        {
+          "front": "creative\n\nChildren are very creative.",
+          "back": "sáng tạo\n\nTrẻ em rất sáng tạo."
+        },
+        {
+          "front": "serious\n\nWhy are you so serious?",
+          "back": "nghiêm túc\n\nSao bạn nghiêm túc thế?"
+        },
+        {
+          "front": "cheerful\n\nHe is always cheerful.",
+          "back": "vui vẻ\n\nAnh ấy lúc nào cũng vui vẻ."
+        },
+        {
+          "front": "gentle\n\nMy grandmother is very gentle.",
+          "back": "hiền lành\n\nBà tôi rất hiền lành.\n\nCũng nói: dịu dàng"
+        },
+        {
+          "front": "hope\n\nI hope you feel better soon.",
+          "back": "hy vọng\n\nTôi hy vọng bạn sớm khỏe lại."
+        },
+        {
+          "front": "dream\n\nMy dream is to be a doctor.",
+          "back": "ước mơ\n\nƯớc mơ của tôi là trở thành bác sĩ.\n\nKhi ngủ: giấc mơ"
+        },
+        {
+          "front": "miss\n\nI miss my family.",
+          "back": "nhớ\n\nTôi nhớ gia đình.\n\nCũng có nghĩa: lỡ (lỡ chuyến xe)"
+        },
+        {
+          "front": "upset\n\nShe is upset about her exam.",
+          "back": "buồn bực\n\nCô ấy buồn bực vì bài thi."
+        },
+        {
+          "front": "mood\n\nI am in a good mood today.",
+          "back": "tâm trạng\n\nHôm nay tâm trạng tôi rất tốt."
+        }
+      ]
+    },
+    {
+      "name": "Everyday verbs 1",
+      "cards": [
+        {
+          "front": "do\n\nWhat do you do at the weekend?",
+          "back": "làm\n\nCuối tuần bạn làm gì?"
+        },
+        {
+          "front": "make\n\nMy mother makes cakes.",
+          "back": "làm\n\nMẹ tôi làm bánh.\n\nCũng nói: tạo ra"
+        },
+        {
+          "front": "have\n\nI have two brothers.",
+          "back": "có\n\nTôi có hai anh trai."
+        },
+        {
+          "front": "get\n\nI got a letter today.",
+          "back": "nhận được\n\nHôm nay tôi nhận được một lá thư.\n\nCũng có nghĩa: lấy, có được"
+        },
+        {
+          "front": "give\n\nGive me the book, please.",
+          "back": "đưa\n\nLàm ơn đưa tôi quyển sách.\n\nCũng nói: cho, tặng"
+        },
+        {
+          "front": "take\n\nTake an umbrella with you.",
+          "back": "mang theo\n\nMang theo ô nhé.\n\nCũng có nghĩa: lấy, cầm"
+        },
+        {
+          "front": "bring\n\nBring me some water, please.",
+          "back": "mang đến\n\nLàm ơn mang cho tôi ít nước."
+        },
+        {
+          "front": "put\n\nPut your bag here.",
+          "back": "đặt\n\nĐặt túi của bạn ở đây.\n\nCũng nói: để"
+        },
+        {
+          "front": "see\n\nI can see the sea from my window.",
+          "back": "nhìn thấy\n\nTừ cửa sổ tôi có thể nhìn thấy biển.\n\nCũng nói: thấy"
+        },
+        {
+          "front": "look\n\nLook! It's snowing.",
+          "back": "nhìn\n\nNhìn kìa! Tuyết đang rơi.\n\nCũng có nghĩa: trông có vẻ"
+        },
+        {
+          "front": "hear\n\nI can't hear you.",
+          "back": "nghe thấy\n\nTôi không nghe thấy bạn nói."
+        },
+        {
+          "front": "say\n\nWhat did you say?",
+          "back": "nói\n\nBạn vừa nói gì?"
+        },
+        {
+          "front": "tell\n\nTell me a story.",
+          "back": "kể\n\nKể cho tôi nghe một câu chuyện.\n\nCũng có nghĩa: bảo"
+        },
+        {
+          "front": "ask\n\nCan I ask you a question?",
+          "back": "hỏi\n\nTôi hỏi bạn một câu được không?"
+        },
+        {
+          "front": "know\n\nI know her name.",
+          "back": "biết\n\nTôi biết tên cô ấy."
+        },
+        {
+          "front": "think\n\nI think it will rain.",
+          "back": "nghĩ\n\nTôi nghĩ trời sẽ mưa."
+        },
+        {
+          "front": "use\n\nCan I use your phone?",
+          "back": "dùng\n\nTôi dùng điện thoại của bạn được không?\n\nCũng nói: sử dụng"
+        },
+        {
+          "front": "find\n\nI can't find my keys.",
+          "back": "tìm thấy\n\nTôi không tìm thấy chìa khóa."
+        },
+        {
+          "front": "look for\n\nI am looking for my glasses.",
+          "back": "tìm\n\nTôi đang tìm kính."
+        },
+        {
+          "front": "keep\n\nKeep the change.",
+          "back": "giữ\n\nCứ giữ lại tiền thừa nhé."
+        },
+        {
+          "front": "start\n\nThe movie starts at eight.",
+          "back": "bắt đầu\n\nPhim bắt đầu lúc tám giờ."
+        },
+        {
+          "front": "finish\n\nDid you finish your homework?",
+          "back": "làm xong\n\nBạn làm xong bài tập chưa?\n\nCũng nói: hoàn thành, kết thúc"
+        },
+        {
+          "front": "try\n\nTry this cake.",
+          "back": "thử\n\nĂn thử cái bánh này đi.\n\nCũng có nghĩa: cố gắng"
+        },
+        {
+          "front": "play\n\nThe children play in the park.",
+          "back": "chơi\n\nBọn trẻ chơi trong công viên."
+        },
+        {
+          "front": "run\n\nI run every morning.",
+          "back": "chạy\n\nSáng nào tôi cũng chạy bộ."
+        },
+        {
+          "front": "jump\n\nThe cat jumped onto the table.",
+          "back": "nhảy\n\nCon mèo nhảy lên bàn."
+        },
+        {
+          "front": "sit\n\nPlease sit here.",
+          "back": "ngồi\n\nMời bạn ngồi đây."
+        },
+        {
+          "front": "stand\n\nStand in line, please.",
+          "back": "đứng\n\nLàm ơn đứng xếp hàng."
+        },
+        {
+          "front": "sing\n\nShe sings very well.",
+          "back": "hát\n\nCô ấy hát rất hay."
+        },
+        {
+          "front": "dance\n\nLet's dance!",
+          "back": "nhảy múa\n\nMình nhảy đi!\n\nCũng nói: khiêu vũ"
+        },
+        {
+          "front": "swim\n\nI can swim.",
+          "back": "bơi\n\nTôi biết bơi."
+        },
+        {
+          "front": "climb\n\nWe climbed the mountain.",
+          "back": "leo\n\nChúng tôi đã leo núi."
+        },
+        {
+          "front": "throw\n\nThrow me the ball.",
+          "back": "ném\n\nNém bóng cho tôi."
+        },
+        {
+          "front": "catch\n\nCatch the ball!",
+          "back": "bắt\n\nBắt lấy quả bóng!"
+        },
+        {
+          "front": "carry\n\nCan you carry this bag?",
+          "back": "mang\n\nBạn mang giúp cái túi này được không?\n\nCũng nói: xách, bê"
+        },
+        {
+          "front": "pull\n\nPull the door.",
+          "back": "kéo\n\nKéo cửa ra."
+        },
+        {
+          "front": "push\n\nPush the door.",
+          "back": "đẩy\n\nĐẩy cửa vào.\n\nVới nút: ấn, bấm"
+        },
+        {
+          "front": "hold\n\nHold my hand.",
+          "back": "nắm\n\nNắm lấy tay tôi.\n\nCũng nói: cầm, giữ"
+        },
+        {
+          "front": "touch\n\nDon't touch the paint.",
+          "back": "chạm\n\nĐừng chạm vào sơn.\n\nCũng nói: sờ"
+        },
+        {
+          "front": "send\n\nI sent you a message.",
+          "back": "gửi\n\nTôi đã gửi tin nhắn cho bạn."
+        },
+        {
+          "front": "receive\n\nDid you receive my email?",
+          "back": "nhận\n\nBạn đã nhận được email của tôi chưa?"
+        },
+        {
+          "front": "show\n\nShow me your photos.",
+          "back": "cho xem\n\nCho tôi xem ảnh của bạn."
+        },
+        {
+          "front": "turn on\n\nTurn on the light, please.",
+          "back": "bật\n\nLàm ơn bật đèn lên."
+        },
+        {
+          "front": "turn off\n\nTurn off the TV.",
+          "back": "tắt\n\nTắt tivi đi."
+        },
+        {
+          "front": "break\n\nDon't break the glass.",
+          "back": "làm vỡ\n\nĐừng làm vỡ cái cốc.\n\nCũng có nghĩa: làm hỏng"
+        },
+        {
+          "front": "fix\n\nCan you fix my bike?",
+          "back": "sửa\n\nBạn sửa xe đạp giúp tôi được không?"
+        },
+        {
+          "front": "build\n\nThey are building a new bridge.",
+          "back": "xây\n\nHọ đang xây một cây cầu mới.\n\nCũng nói: xây dựng"
+        },
+        {
+          "front": "draw\n\nShe likes to draw animals.",
+          "back": "vẽ\n\nCô ấy thích vẽ động vật."
+        },
+        {
+          "front": "become\n\nI want to become a teacher.",
+          "back": "trở thành\n\nTôi muốn trở thành giáo viên."
+        },
+        {
+          "front": "happen\n\nWhat happened?",
+          "back": "xảy ra\n\nChuyện gì đã xảy ra vậy?"
+        }
+      ]
+    },
+    {
+      "name": "Everyday verbs 2",
+      "cards": [
+        {
+          "front": "get up\n\nI get up at six every day.",
+          "back": "dậy\n\nNgày nào tôi cũng dậy lúc sáu giờ."
+        },
+        {
+          "front": "brush teeth\n\nBrush your teeth before bed.",
+          "back": "đánh răng\n\nĐánh răng trước khi đi ngủ."
+        },
+        {
+          "front": "take a shower\n\nI take a shower every morning.",
+          "back": "tắm\n\nSáng nào tôi cũng tắm."
+        },
+        {
+          "front": "get dressed\n\nGet dressed, we are late.",
+          "back": "mặc quần áo\n\nMặc quần áo vào, chúng ta muộn rồi."
+        },
+        {
+          "front": "have breakfast\n\nI have breakfast at seven.",
+          "back": "ăn sáng\n\nTôi ăn sáng lúc bảy giờ."
+        },
+        {
+          "front": "go to school\n\nI go to school by bike.",
+          "back": "đi học\n\nTôi đi học bằng xe đạp."
+        },
+        {
+          "front": "go to work\n\nMy father goes to work early.",
+          "back": "đi làm\n\nBố tôi đi làm sớm."
+        },
+        {
+          "front": "come back\n\nCome back soon!",
+          "back": "quay lại\n\nSớm quay lại nhé!\n\nCũng nói: trở lại"
+        },
+        {
+          "front": "go home\n\nLet's go home.",
+          "back": "về nhà\n\nMình về nhà thôi."
+        },
+        {
+          "front": "stay\n\nWe stayed at a small hotel.",
+          "back": "ở lại\n\nChúng tôi ở một khách sạn nhỏ.\n\nCũng nói: lưu lại"
+        },
+        {
+          "front": "go out\n\nLet's go out tonight.",
+          "back": "ra ngoài\n\nTối nay mình ra ngoài chơi đi.\n\nCũng có nghĩa: đi chơi"
+        },
+        {
+          "front": "come in\n\nCome in, please.",
+          "back": "vào\n\nMời vào."
+        },
+        {
+          "front": "sit down\n\nPlease sit down.",
+          "back": "ngồi xuống\n\nMời ngồi xuống."
+        },
+        {
+          "front": "stand up\n\nStand up, please.",
+          "back": "đứng dậy\n\nĐứng dậy nào."
+        },
+        {
+          "front": "look at\n\nLook at this picture.",
+          "back": "nhìn vào\n\nNhìn vào bức tranh này."
+        },
+        {
+          "front": "listen to\n\nI listen to the radio.",
+          "back": "lắng nghe\n\nTôi nghe đài.\n\nCũng nói: nghe"
+        },
+        {
+          "front": "talk\n\nCan we talk?",
+          "back": "nói chuyện\n\nChúng ta nói chuyện được không?"
+        },
+        {
+          "front": "chat\n\nWe chat every evening.",
+          "back": "trò chuyện\n\nTối nào chúng tôi cũng trò chuyện.\n\nCũng nói: tán gẫu"
+        },
+        {
+          "front": "text\n\nText me when you arrive.",
+          "back": "nhắn tin\n\nĐến nơi thì nhắn tin cho tôi nhé."
+        },
+        {
+          "front": "agree\n\nI agree with you.",
+          "back": "đồng ý\n\nTôi đồng ý với bạn."
+        },
+        {
+          "front": "decide\n\nI can't decide.",
+          "back": "quyết định\n\nTôi không quyết định được."
+        },
+        {
+          "front": "believe\n\nI believe you.",
+          "back": "tin\n\nTôi tin bạn.\n\nCũng nói: tin tưởng"
+        },
+        {
+          "front": "check\n\nCheck your answers.",
+          "back": "kiểm tra\n\nKiểm tra lại câu trả lời."
+        },
+        {
+          "front": "prepare\n\nI prepare dinner every day.",
+          "back": "chuẩn bị\n\nNgày nào tôi cũng chuẩn bị bữa tối."
+        },
+        {
+          "front": "invite\n\nI want to invite you to my party.",
+          "back": "mời\n\nTôi muốn mời bạn đến dự tiệc."
+        },
+        {
+          "front": "join\n\nCan I join you?",
+          "back": "tham gia\n\nTôi tham gia cùng được không?"
+        },
+        {
+          "front": "win\n\nOur team won the game.",
+          "back": "thắng\n\nĐội chúng tôi đã thắng trận đấu."
+        },
+        {
+          "front": "lose\n\nWe lost the game.",
+          "back": "thua\n\nChúng tôi thua trận.\n\nCũng có nghĩa: làm mất"
+        },
+        {
+          "front": "pick up\n\nPick up your toys.",
+          "back": "nhặt lên\n\nNhặt đồ chơi lên.\n\nCũng có nghĩa: đón (đón ai đó)"
+        },
+        {
+          "front": "turn\n\nTurn left at the bank.",
+          "back": "rẽ\n\nRẽ trái ở ngân hàng.\n\nMiền Nam: quẹo"
+        },
+        {
+          "front": "cross\n\nCross the road carefully.",
+          "back": "băng qua\n\nSang đường cẩn thận.\n\nCũng nói: qua"
+        },
+        {
+          "front": "follow\n\nFollow me.",
+          "back": "đi theo\n\nĐi theo tôi."
+        },
+        {
+          "front": "lead\n\nShe leads the team.",
+          "back": "dẫn dắt\n\nCô ấy dẫn dắt cả đội.\n\nCũng nói: dẫn đường"
+        },
+        {
+          "front": "grow\n\nPlants grow fast in the rainy season.",
+          "back": "phát triển\n\nCây cối mọc nhanh vào mùa mưa.\n\nVới cây: mọc, lớn"
+        },
+        {
+          "front": "die\n\nThe flowers died because of the cold.",
+          "back": "chết\n\nNhững bông hoa chết vì lạnh."
+        },
+        {
+          "front": "protect\n\nWear a helmet to protect your head.",
+          "back": "bảo vệ\n\nĐội mũ bảo hiểm để bảo vệ đầu."
+        },
+        {
+          "front": "enjoy\n\nI enjoy reading.",
+          "back": "thích\n\nTôi thích đọc sách.\n\nCũng nói: tận hưởng"
+        },
+        {
+          "front": "relax\n\nRelax and have a cup of tea.",
+          "back": "thư giãn\n\nThư giãn và uống tách trà đi."
+        },
+        {
+          "front": "worry\n\nDon't worry.",
+          "back": "lo lắng\n\nĐừng lo lắng."
+        },
+        {
+          "front": "share\n\nLet's share the cake.",
+          "back": "chia sẻ\n\nMình chia nhau cái bánh nhé.\n\nCũng có nghĩa: chia"
+        },
+        {
+          "front": "wish\n\nI wish you a happy New Year.",
+          "back": "chúc\n\nChúc bạn năm mới vui vẻ.\n\nCũng có nghĩa: ước"
+        },
+        {
+          "front": "improve\n\nI want to improve my English.",
+          "back": "cải thiện\n\nTôi muốn cải thiện tiếng Anh."
+        },
+        {
+          "front": "do homework\n\nI do homework every evening.",
+          "back": "làm bài tập\n\nTối nào tôi cũng làm bài tập."
+        },
+        {
+          "front": "go shopping\n\nLet's go shopping.",
+          "back": "đi mua sắm\n\nMình đi mua sắm đi."
+        },
+        {
+          "front": "take a photo\n\nLet me take a photo.",
+          "back": "chụp ảnh\n\nĐể tôi chụp ảnh."
+        },
+        {
+          "front": "go to bed\n\nI go to bed at eleven.",
+          "back": "đi ngủ\n\nTôi đi ngủ lúc mười một giờ."
+        },
+        {
+          "front": "look after\n\nI look after my little brother.",
+          "back": "chăm sóc\n\nTôi chăm sóc em trai.\n\nCũng nói: trông"
+        },
+        {
+          "front": "give up\n\nDon't give up!",
+          "back": "từ bỏ\n\nĐừng bỏ cuộc!\n\nCũng nói: bỏ cuộc"
+        },
+        {
+          "front": "find out\n\nI want to find out the truth.",
+          "back": "tìm ra\n\nTôi muốn tìm ra sự thật.\n\nCũng nói: phát hiện"
+        },
+        {
+          "front": "hurry\n\nHurry up, we are late!",
+          "back": "nhanh lên\n\nNhanh lên, chúng ta muộn rồi!\n\nCũng nói: vội vàng"
+        }
+      ]
+    },
+    {
+      "name": "Describing things",
+      "cards": [
+        {
+          "front": "big\n\nThey live in a big house.",
+          "back": "to\n\nHọ sống trong một ngôi nhà to.\n\nCũng nói: lớn"
+        },
+        {
+          "front": "small\n\nI have a small car.",
+          "back": "nhỏ\n\nTôi có một chiếc ô tô nhỏ.\n\nCũng nói: bé"
+        },
+        {
+          "front": "long\n\nShe has long hair.",
+          "back": "dài\n\nCô ấy có mái tóc dài."
+        },
+        {
+          "front": "short\n\nThis story is short.",
+          "back": "ngắn\n\nCâu chuyện này ngắn.\n\nVới người: thấp"
+        },
+        {
+          "front": "tall\n\nMy brother is very tall.",
+          "back": "cao\n\nAnh trai tôi rất cao."
+        },
+        {
+          "front": "low\n\nThe table is too low.",
+          "back": "thấp\n\nCái bàn thấp quá."
+        },
+        {
+          "front": "wide\n\nThe road is wide.",
+          "back": "rộng\n\nCon đường rộng."
+        },
+        {
+          "front": "narrow\n\nThis street is very narrow.",
+          "back": "hẹp\n\nCon phố này rất hẹp."
+        },
+        {
+          "front": "heavy\n\nThis box is heavy.",
+          "back": "nặng\n\nCái hộp này nặng."
+        },
+        {
+          "front": "new\n\nI have a new phone.",
+          "back": "mới\n\nTôi có điện thoại mới."
+        },
+        {
+          "front": "good\n\nHe is a good student.",
+          "back": "tốt\n\nCậu ấy là một học sinh tốt.\n\nVới sách, phim: hay. Với đồ ăn: ngon"
+        },
+        {
+          "front": "bad\n\nThe weather is bad today.",
+          "back": "xấu\n\nHôm nay thời tiết xấu.\n\nCũng nói: tệ"
+        },
+        {
+          "front": "beautiful\n\nWhat a beautiful view!",
+          "back": "đẹp\n\nCảnh đẹp quá!"
+        },
+        {
+          "front": "ugly\n\nThat building is ugly.",
+          "back": "xấu xí\n\nTòa nhà đó xấu xí."
+        },
+        {
+          "front": "easy\n\nThis exercise is easy.",
+          "back": "dễ\n\nBài tập này dễ."
+        },
+        {
+          "front": "difficult\n\nEnglish grammar is difficult.",
+          "back": "khó\n\nNgữ pháp tiếng Anh khó."
+        },
+        {
+          "front": "empty\n\nThe room is empty.",
+          "back": "trống\n\nCăn phòng trống không.\n\nVới chai, cốc: rỗng, cạn"
+        },
+        {
+          "front": "dirty\n\nMy shoes are dirty.",
+          "back": "bẩn\n\nGiày của tôi bẩn.\n\nMiền Nam: dơ"
+        },
+        {
+          "front": "tidy\n\nHer room is always tidy.",
+          "back": "gọn gàng\n\nPhòng cô ấy lúc nào cũng gọn gàng."
+        },
+        {
+          "front": "messy\n\nMy desk is messy.",
+          "back": "bừa bộn\n\nBàn của tôi bừa bộn."
+        },
+        {
+          "front": "safe\n\nIs it safe to swim here?",
+          "back": "an toàn\n\nBơi ở đây có an toàn không?"
+        },
+        {
+          "front": "dangerous\n\nSwimming here is dangerous.",
+          "back": "nguy hiểm\n\nBơi ở đây rất nguy hiểm."
+        },
+        {
+          "front": "important\n\nThis is very important.",
+          "back": "quan trọng\n\nViệc này rất quan trọng."
+        },
+        {
+          "front": "interesting\n\nThis book is very interesting.",
+          "back": "thú vị\n\nCuốn sách này rất thú vị."
+        },
+        {
+          "front": "boring\n\nThe movie was boring.",
+          "back": "nhàm chán\n\nBộ phim chán lắm.\n\nCũng nói: chán"
+        },
+        {
+          "front": "famous\n\nHa Long Bay is famous.",
+          "back": "nổi tiếng\n\nVịnh Hạ Long rất nổi tiếng."
+        },
+        {
+          "front": "strange\n\nThat is a strange sound.",
+          "back": "lạ\n\nÂm thanh đó lạ quá."
+        },
+        {
+          "front": "same\n\nWe are in the same class.",
+          "back": "cùng\n\nChúng tôi học cùng lớp.\n\nCũng nói: giống nhau"
+        },
+        {
+          "front": "different\n\nMy sister and I are very different.",
+          "back": "khác nhau\n\nTôi và em gái rất khác nhau.\n\nCũng nói: khác"
+        },
+        {
+          "front": "real\n\nIs this a real flower?",
+          "back": "thật\n\nĐây có phải hoa thật không?"
+        },
+        {
+          "front": "true\n\nIs it true?",
+          "back": "đúng\n\nCó đúng không?\n\nCũng nói: thật, có thật"
+        },
+        {
+          "front": "loud\n\nThe music is too loud.",
+          "back": "to\n\nNhạc to quá.\n\nCũng nói: ồn"
+        },
+        {
+          "front": "soft\n\nThis pillow is soft.",
+          "back": "mềm\n\nCái gối này mềm."
+        },
+        {
+          "front": "hard\n\nThis bread is hard.",
+          "back": "cứng\n\nBánh mì này cứng.\n\nCũng có nghĩa: khó, vất vả"
+        },
+        {
+          "front": "thick\n\nThis book is very thick.",
+          "back": "dày\n\nQuyển sách này rất dày."
+        },
+        {
+          "front": "thin\n\nThe paper is very thin.",
+          "back": "mỏng\n\nTờ giấy rất mỏng.\n\nVới người: gầy"
+        },
+        {
+          "front": "fat\n\nMy cat is too fat.",
+          "back": "béo\n\nCon mèo của tôi béo quá.\n\nMiền Nam: mập"
+        },
+        {
+          "front": "cute\n\nWhat a cute baby!",
+          "back": "dễ thương\n\nEm bé dễ thương quá!"
+        },
+        {
+          "front": "nice\n\nIt is a nice place to live.",
+          "back": "dễ chịu\n\nĐây là một nơi sống rất dễ chịu.\n\nCũng có nghĩa: tốt, đẹp"
+        },
+        {
+          "front": "great\n\nThat's a great idea!",
+          "back": "tuyệt vời\n\nĐó là một ý tưởng tuyệt vời!"
+        },
+        {
+          "front": "terrible\n\nThe food was terrible.",
+          "back": "kinh khủng\n\nĐồ ăn dở kinh khủng.\n\nCũng nói: tồi tệ"
+        },
+        {
+          "front": "perfect\n\nYour English is perfect.",
+          "back": "hoàn hảo\n\nTiếng Anh của bạn thật hoàn hảo."
+        },
+        {
+          "front": "popular\n\nThis song is very popular.",
+          "back": "phổ biến\n\nBài hát này rất phổ biến.\n\nCũng nói: được ưa chuộng"
+        },
+        {
+          "front": "modern\n\nHanoi has many modern buildings.",
+          "back": "hiện đại\n\nHà Nội có nhiều tòa nhà hiện đại."
+        },
+        {
+          "front": "traditional\n\nAo dai is a traditional dress.",
+          "back": "truyền thống\n\nÁo dài là trang phục truyền thống."
+        },
+        {
+          "front": "convenient\n\nThe bus is very convenient.",
+          "back": "tiện lợi\n\nXe buýt rất tiện lợi."
+        },
+        {
+          "front": "comfortable\n\nThis chair is comfortable.",
+          "back": "thoải mái\n\nCái ghế này ngồi rất thoải mái.\n\nCũng nói: dễ chịu"
+        },
+        {
+          "front": "useful\n\nThis app is very useful.",
+          "back": "hữu ích\n\nỨng dụng này rất hữu ích."
+        },
+        {
+          "front": "special\n\nToday is a special day.",
+          "back": "đặc biệt\n\nHôm nay là một ngày đặc biệt."
+        },
+        {
+          "front": "simple\n\nThe question is simple.",
+          "back": "đơn giản\n\nCâu hỏi rất đơn giản."
+        }
+      ]
+    }
+  ]
+}
