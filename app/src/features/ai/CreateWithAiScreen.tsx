@@ -281,6 +281,10 @@ export default function CreateWithAiScreen() {
             placeholderTextColor={colors.muted}
             accessibilityLabel={t('ai.topicA11y')}
             maxLength={MAX_TOPIC_CHARS}
+            // Wraps instead of cutting off a long topic or the example (Vietnamese, large text);
+            // Done still closes the keyboard rather than starting a new line.
+            multiline
+            submitBehavior="blurAndSubmit"
             returnKeyType="done"
             style={styles.topic}
           />
@@ -398,8 +402,10 @@ const styles = StyleSheet.create({
     borderRadius: radius.button,
     backgroundColor: colors.surface,
     paddingHorizontal: 16,
+    paddingVertical: 12,
     fontSize: 17,
     color: colors.text,
+    textAlignVertical: 'center',
   },
   counter: { fontSize: 13, color: colors.muted, textAlign: 'right', marginTop: -8 },
   busy: { flexDirection: 'row', alignItems: 'center', gap: 12 },
