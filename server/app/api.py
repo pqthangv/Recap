@@ -16,7 +16,15 @@ from app.abuse import client_ip, limits, rate_limit
 from app.config import Settings, get_settings
 from app.db import DatabaseNotConfigured, get_engine
 from app.errors import ApiError
-from app.llm.base import Card, CardProvider, GenerationRequest, Mode, ProviderBusy, ProviderFailed
+from app.llm.base import (
+    Card,
+    CardProvider,
+    GenerationRequest,
+    Mode,
+    ProviderBlocked,
+    ProviderBusy,
+    ProviderFailed,
+)
 from app.llm.cleaning import clean_cards
 from app.llm.languages import LanguageCode
 from app.pdf import extract_text
@@ -151,6 +159,15 @@ def generate(
         give_back(reserved)
         log.warning("ai busy", extra={"reason": str(e)})
         raise ApiError(503, "ai_busy", "AI is busy, try again later.") from e
+    except ProviderBlocked as e:
+        give_back(reserved)
+        log.info("ai refused", extra={"reason": str(e)})  # the reason only, never the text
+        raise ApiError(
+            422,
+            "blocked",
+            "Recap can't make cards from that. Try different text.",
+            remaining=quota.remaining(engine, device_id, day, daily),
+        ) from e
     except ProviderFailed as e:
         give_back(reserved)
         log.error("ai failed", extra={"reason": str(e)})

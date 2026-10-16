@@ -494,6 +494,7 @@ export const vi: Strings = {
   'aiError.tooLarge': 'Nội dung quá lớn để gửi. Hãy thử nội dung nhỏ hơn.',
   'aiError.empty': 'Hãy thêm nội dung trước.',
   'aiError.noCards': 'Không tìm thấy gì để tạo thẻ. Hãy thêm văn bản.',
+  'aiError.blocked': 'Recap không thể tạo thẻ từ nội dung này. Hãy thử nội dung khác.',
   'aiError.failed': 'Lần này AI không tạo được thẻ. Vui lòng thử lại.',
   'aiError.badPdf': 'Recap không đọc được tệp PDF này. Tệp có thể bị hỏng.',
   'aiError.pdfLocked': 'Tệp PDF này có mật khẩu. Hãy gỡ mật khẩu rồi thử lại.',

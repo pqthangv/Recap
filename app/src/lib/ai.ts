@@ -56,6 +56,7 @@ const KIND_BY_CODE: Record<string, AiErrorKind> = {
   too_large: 'input',
   empty: 'input',
   no_cards: 'input',
+  blocked: 'input', // the AI refused this text; trying again won't help
   bad_pdf: 'input',
   pdf_locked: 'input',
   pdf_no_text: 'input',
@@ -75,6 +76,7 @@ const MESSAGE_BY_CODE: Record<string, StringKey> = {
   too_large: 'aiError.tooLarge',
   empty: 'aiError.empty',
   no_cards: 'aiError.noCards',
+  blocked: 'aiError.blocked',
   bad_pdf: 'aiError.badPdf',
   pdf_locked: 'aiError.pdfLocked',
   pdf_no_text: 'aiError.pdfNoText',
