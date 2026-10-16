@@ -88,8 +88,8 @@ function PackBadge({ pack }: { pack: Pack }) {
       importantForAccessibility="no-hide-descendants"
       accessibilityElementsHidden
     >
-      <MaterialIcons name={pack.logo.icon} size={28} color={lightColors.onPrimary} />{' '}
-      {/* on the pack's color */}
+      {/* White on the pack's own color, in both looks. */}
+      <MaterialIcons name={pack.logo.icon} size={28} color={lightColors.onPrimary} />
     </View>
   );
 }

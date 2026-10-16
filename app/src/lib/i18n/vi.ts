@@ -515,6 +515,8 @@ export const vi: Strings = {
   'library.addA11y': 'Thêm {name} vào bộ thẻ của tôi',
   'library.openA11y': 'Mở {name}',
   'library.added': 'Đã thêm {name} · {cards}',
+  'pack.englishBasics':
+    'Tiếng Anh thông dụng có nghĩa tiếng Việt: 1.000 từ theo 20 chủ đề, từ chào hỏi đến ăn uống và du lịch.',
   'pack.ielts':
     'Từ vựng học thuật IELTS theo 10 chủ đề, từ mô tả biểu đồ đến môi trường (giải nghĩa bằng tiếng Anh).',
   'pack.sat': 'Từ vựng trong các bài đọc SAT, mỗi bộ 100 từ (giải nghĩa bằng tiếng Anh).',

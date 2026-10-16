@@ -1,15 +1,19 @@
 // The ready-made decks in the Library. Recap's own writing (word picks, definitions and examples),
 // not copied from any book or list, and bundled with the app so they work offline. Capitals are
 // plain facts (the 193 UN members), with a short note where a country has more than one. Exam
-// names (IELTS, SAT, TOEIC) only describe what the words are for; no exam logos.
+// names (IELTS, SAT, TOEIC) only describe what the words are for; no exam logos. English basics
+// is for Vietnamese speakers: the word and an English example on the front, the Vietnamese meaning
+// (short enough to type) and the example in Vietnamese on the back, read in English and Vietnamese.
 import type { ImageSourcePropType } from 'react-native';
 
 import flagUk from '@/assets/images/library/flag-uk.png';
 import flagUs from '@/assets/images/library/flag-us.png';
 import type { StringKey } from '@/lib/i18n';
+import type { SideLanguages } from '@/lib/language';
 import { deckColors } from '@/lib/theme';
 
 import capitals from './packs/capitals.json';
+import englishBasics from './packs/english-basics.json';
 import ielts from './packs/ielts.json';
 import sat from './packs/sat.json';
 import toeic from './packs/toeic.json';
@@ -17,7 +21,8 @@ import toeic from './packs/toeic.json';
 export type PackCard = { front: string; back: string };
 
 /** The round badge on the Library card: a flag (assets/images/library) or a Material icon. */
-export type PackLogo = { image: ImageSourcePropType } | { icon: 'public' | 'business-center' };
+export type PackLogo =
+  { image: ImageSourcePropType } | { icon: 'public' | 'business-center' | 'translate' };
 
 export type Pack = {
   id: string;
@@ -29,10 +34,22 @@ export type Pack = {
   logo: PackLogo;
   /** A few words shown on the Library card; the first deck's first fronts if not set. */
   examples?: readonly string[];
+  /** What each side is read aloud in, given to the decks when they're added (else Auto). */
+  languages?: SideLanguages;
   decks: readonly { name: string; cards: readonly PackCard[] }[];
 };
 
 export const PACKS: readonly Pack[] = [
+  {
+    id: 'english-basics',
+    name: 'English basics',
+    description: 'pack.englishBasics',
+    color: deckColors[5],
+    logo: { icon: 'translate' },
+    examples: ['hello', 'family', 'apple'],
+    languages: { front: 'en', back: 'vi' },
+    decks: englishBasics.decks,
+  },
   {
     id: 'ielts',
     name: 'IELTS vocabulary',

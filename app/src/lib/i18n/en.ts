@@ -514,6 +514,8 @@ export const en = {
   'library.addA11y': 'Add {name} to my decks',
   'library.openA11y': 'Open {name}',
   'library.added': 'Added {name} · {cards}',
+  'pack.englishBasics':
+    'Everyday English with Vietnamese meanings: 1,000 words in 20 topics, from greetings to food and travel.',
   'pack.ielts': 'Academic words for IELTS in 10 topics, from describing charts to the environment.',
   'pack.sat': 'Words from SAT reading passages, in sets of 100.',
   'pack.toeic': 'Workplace English for TOEIC in 10 topics, from meetings to shipping and housing.',
