@@ -31,6 +31,31 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v7
+      # Screenshots only: a fresh iPhone simulator takes about 10 minutes to start on these
+      # machines, so it boots now, during the build, and the screenshot step waits for it.
+      # iPhone 17 Pro Max if there is one (1320 x 2868), otherwise the newest Pro Max. The App
+      # Store's required size, 1206 x 2622, is made from these by the store graphics script
+      # (Recap-private/Recap-play-listing/tools/make_store_slides.py); both have the same shape.
+      - name: 'Screenshots: start the iPhone simulator'
+        if: env.SCREENSHOTS == 'true'
+        run: |
+          set -euo pipefail
+          UDID=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          best = None
+          for runtime, devices in json.load(sys.stdin)["devices"].items():
+              if ".iOS-" not in runtime:
+                  continue
+              version = tuple(int(x) for x in runtime.split(".iOS-")[1].split("-"))
+              for d in devices:
+                  if "Pro Max" in d["name"]:
+                      key = (d["name"] == "iPhone 17 Pro Max", version)
+                      if best is None or key > best[0]:
+                          best = (key, d["udid"], d["name"] + " / iOS " + ".".join(map(str, version)))
+          print(best[1]); print("Simulator:", best[2], file=sys.stderr)')
+          echo "SIM_UDID=$UDID" >> "$GITHUB_ENV"
+          xcrun simctl boot "$UDID"
+          echo "$(date +%T) booting"
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -104,24 +129,11 @@ jobs:
         run: |
           set -euo pipefail
           APP=ios/build/Build/Products/Release-iphonesimulator/Recap.app
-          # iPhone 17 Pro Max if there is one (1320 x 2868), otherwise the newest Pro Max. The App
-          # Store's required size, 1206 x 2622, is made from these by the store graphics script
-          # (DesktopRecap-appstore-listing	ools); both have the same shape.
-          UDID=$(xcrun simctl list devices available -j | python3 -c '
-          import json, sys
-          best = None
-          for runtime, devices in json.load(sys.stdin)["devices"].items():
-              if ".iOS-" not in runtime:
-                  continue
-              version = tuple(int(x) for x in runtime.split(".iOS-")[1].split("-"))
-              for d in devices:
-                  if "Pro Max" in d["name"]:
-                      key = (d["name"] == "iPhone 17 Pro Max", version)
-                      if best is None or key > best[0]:
-                          best = (key, d["udid"], d["name"] + " / iOS " + ".".join(map(str, version)))
-          print(best[1]); print("Simulator:", best[2], file=sys.stderr)')
-          xcrun simctl boot "$UDID"
+          # The simulator started booting at the beginning of the job; wait until it's ready.
+          UDID=$SIM_UDID
+          echo "$(date +%T) waiting for the simulator"
           xcrun simctl bootstatus "$UDID" -b > /dev/null
+          echo "$(date +%T) simulator ready"
           # The tidy status bar of App Store screenshots: 9:41, full battery and NOT charging
           # ("charged" still shows the charging bolt).
           xcrun simctl status_bar "$UDID" override --time 9:41 --batteryState discharging \
@@ -139,6 +151,7 @@ jobs:
           rm -f "$DATA/Documents/SQLite/recap.db" "$DATA/Documents/SQLite/recap.db-wal" \
             "$DATA/Documents/SQLite/recap.db-shm"
           cp "$RUNNER_TEMP/recap.db" "$DATA/Documents/SQLite/recap.db"
+          echo "$(date +%T) app installed with the demo database"
 
           # Maestro only saves screenshots inside its own output folder: collect them after each
           # try, also when a later screen failed. The slow simulator sometimes misses a step, so a
