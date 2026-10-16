@@ -14,7 +14,7 @@ import {
 } from '@/lib/language';
 
 let voices: Promise<Speech.Voice[]> | undefined;
-let audioMode: { inSilentMode: boolean; ready: Promise<void> } | undefined;
+let audioReady: Promise<void> | undefined;
 const warned = new Set<CardLanguage>();
 
 function hasVoice(lang: CardLanguage): Promise<boolean> {
@@ -26,37 +26,32 @@ function hasVoice(lang: CardLanguage): Promise<boolean> {
 }
 
 /**
- * iPhone mutes an app's sound in Silent mode unless it says it plays audio on purpose. Tapping the
- * speaker is asking for sound (like a podcast), so that plays in Silent mode too. Cards read by
- * themselves (Read cards aloud, on by default) follow the Silent switch, so a phone set to silent
- * stays silent. Either way it mixes with any music instead of stopping it. Only the kind of audio
- * is set here: nothing plays until a card is read. Android has no Silent switch for media.
+ * iPhone mutes an app's sound in Silent mode unless it says it plays audio on purpose. Reading a
+ * card aloud is something you ask for (like a podcast), so Recap plays it in Silent mode too, also
+ * when cards are read by themselves (user decision 2026-10-16; turn reading off in Settings
+ * instead), and mixes with any music instead of stopping it. Set once and never switched back and
+ * forth. Only the kind of audio is set here: nothing plays until a card is read. Android has no
+ * Silent switch for media, so nothing changes there.
  */
-function prepareAudio(inSilentMode: boolean): Promise<void> {
+function prepareAudio(): Promise<void> {
   if (Platform.OS !== 'ios') return Promise.resolve();
-  if (audioMode?.inSilentMode !== inSilentMode) {
-    audioMode = {
-      inSilentMode,
-      ready: setAudioModeAsync({
-        playsInSilentMode: inSilentMode,
-        interruptionMode: 'mixWithOthers',
-      }).catch(
-        () => {}, // speaking still works, just not in Silent mode
-      ),
-    };
-  }
-  return audioMode.ready;
+  audioReady ??= setAudioModeAsync({
+    playsInSilentMode: true,
+    interruptionMode: 'mixWithOthers',
+  }).catch(
+    () => {}, // speaking still works, just not in Silent mode
+  );
+  return audioReady;
 }
 
 /**
  * Read `text` aloud, replacing anything playing, in `language` (the deck's setting for that side)
- * or, when that's null, the language guessed from the text. `auto`: read by itself rather than
- * from a tap (follows iPhone's Silent switch). `onDone` runs when the reading ends or can't start
- * (not when it's cut off by the next card).
+ * or, when that's null, the language guessed from the text. `onDone` runs when the reading ends or
+ * can't start (not when it's cut off by the next card).
  */
 export function speak(
   text: string,
-  options: { language?: CardLanguage | null; auto?: boolean; onDone?: () => void } = {},
+  options: { language?: CardLanguage | null; onDone?: () => void } = {},
 ): void {
   const trimmed = text.trim();
   if (!trimmed) {
@@ -65,7 +60,7 @@ export function speak(
   }
   const lang = options.language ?? detectLanguage(trimmed);
   Speech.stop();
-  void prepareAudio(!options.auto).then(() =>
+  void prepareAudio().then(() =>
     Speech.speak(trimmed, {
       language: SPEECH_LOCALES[lang],
       rate: 0.95,
