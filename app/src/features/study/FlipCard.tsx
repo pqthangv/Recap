@@ -83,11 +83,11 @@ export function FlipCard({
   const questionRead = useEffectEvent(() => onQuestionRead?.());
   useEffect(() => {
     if (autoRead) {
-      speak(front, { language: frontLanguage, auto: true, onDone: () => questionRead() });
+      speak(front, { language: frontLanguage, onDone: () => questionRead() });
     }
   }, [autoRead, front, frontLanguage]);
   useEffect(() => {
-    if (autoRead && flipped) speak(back, { language: backLanguage, auto: true });
+    if (autoRead && flipped) speak(back, { language: backLanguage });
   }, [autoRead, flipped, back, backLanguage]);
   // Stop talking when this card goes away (next card, or leaving the study screen).
   useEffect(() => stopSpeaking, []);
