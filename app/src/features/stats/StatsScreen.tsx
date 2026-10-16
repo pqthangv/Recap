@@ -6,7 +6,7 @@ import { useLive } from '@/db/live';
 import { getStats } from '@/db/stats';
 import { count, formatStudyTime, formatStudyTimeLong, weekdayShort } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
-import { colors, radius } from '@/lib/theme';
+import { type Colors, radius, useStyles } from '@/lib/theme';
 
 const BAR_MAX_HEIGHT = 140;
 
@@ -17,6 +17,7 @@ function dayLabel(offset: number, day: number, short = false): string {
 }
 
 export default function StatsScreen() {
+  const styles = useStyles(makeStyles);
   // Cards, decks and settings change today's new-card goal.
   const stats = useLive(() => getStats(), ['review_logs', 'cards', 'decks', 'settings']);
   const { done, goal } = stats.goal;
@@ -118,6 +119,7 @@ function Tile({
   spoken?: string;
   icon?: ReactNode;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <View
       style={styles.tile}
@@ -134,42 +136,43 @@ function Tile({
   );
 }
 
-const styles = StyleSheet.create({
-  content: { padding: 20, gap: 16 },
-  tiles: { flexDirection: 'row', gap: 12 },
-  tile: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.tint,
-    borderRadius: radius.card,
-    padding: 16,
-  },
-  tileTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
-  tileValue: {
-    flexShrink: 1,
-    fontSize: 28,
-    fontWeight: '700',
-    color: colors.text,
-    textAlign: 'center',
-  },
-  tileLabel: { fontSize: 14, color: colors.muted, marginTop: 4, textAlign: 'center' },
-  tileDetail: { fontSize: 13, color: colors.muted, marginTop: 2, textAlign: 'center' },
-  heading: { fontSize: 17, fontWeight: '600', color: colors.text, marginTop: 8 },
-  chart: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
-  barColumn: { flex: 1, alignItems: 'center', gap: 6 },
-  barValue: { fontSize: 13, color: colors.muted },
-  bar: {
-    alignSelf: 'stretch',
-    backgroundColor: colors.primary,
-    borderRadius: 6,
-    overflow: 'hidden',
-  },
-  barNew: { backgroundColor: colors.chartNew },
-  barEmpty: { backgroundColor: colors.hairline },
-  barLabel: { fontSize: 13, color: colors.muted },
-  legend: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
-  swatch: { width: 12, height: 12, borderRadius: 3, marginLeft: 10 },
-  swatchReview: { backgroundColor: colors.primary },
-  legendText: { fontSize: 13, color: colors.muted },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    content: { padding: 20, gap: 16 },
+    tiles: { flexDirection: 'row', gap: 12 },
+    tile: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.tint,
+      borderRadius: radius.card,
+      padding: 16,
+    },
+    tileTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
+    tileValue: {
+      flexShrink: 1,
+      fontSize: 28,
+      fontWeight: '700',
+      color: colors.text,
+      textAlign: 'center',
+    },
+    tileLabel: { fontSize: 14, color: colors.muted, marginTop: 4, textAlign: 'center' },
+    tileDetail: { fontSize: 13, color: colors.muted, marginTop: 2, textAlign: 'center' },
+    heading: { fontSize: 17, fontWeight: '600', color: colors.text, marginTop: 8 },
+    chart: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
+    barColumn: { flex: 1, alignItems: 'center', gap: 6 },
+    barValue: { fontSize: 13, color: colors.muted },
+    bar: {
+      alignSelf: 'stretch',
+      backgroundColor: colors.primary,
+      borderRadius: 6,
+      overflow: 'hidden',
+    },
+    barNew: { backgroundColor: colors.chartNew },
+    barEmpty: { backgroundColor: colors.hairline },
+    barLabel: { fontSize: 13, color: colors.muted },
+    legend: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 },
+    swatch: { width: 12, height: 12, borderRadius: 3, marginLeft: 10 },
+    swatchReview: { backgroundColor: colors.primary },
+    legendText: { fontSize: 13, color: colors.muted },
+  });

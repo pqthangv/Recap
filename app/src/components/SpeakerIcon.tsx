@@ -1,12 +1,14 @@
 import { StyleSheet, View } from 'react-native';
 
-import { colors } from '@/lib/theme';
+import { useColors } from '@/lib/theme';
 
 /**
  * Classic speaker-with-sound-waves icon, drawn with plain views (no icon font or image), so it
  * stays sharp at any size and follows the theme colors. Drawn on a 24-unit grid.
  */
-export function SpeakerIcon({ size = 24, color = colors.text }: { size?: number; color?: string }) {
+export function SpeakerIcon({ size = 24, color }: { size?: number; color?: string }) {
+  const colors = useColors();
+  const ink = color ?? colors.text;
   const u = size / 24;
   const wave = (radius: number) => ({
     position: 'absolute' as const,
@@ -17,7 +19,7 @@ export function SpeakerIcon({ size = 24, color = colors.text }: { size?: number;
     borderRadius: radius,
     borderWidth: 2.2 * u,
     borderColor: 'transparent',
-    borderRightColor: color,
+    borderRightColor: ink,
   });
   return (
     <View style={{ width: size, height: size }} importantForAccessibility="no-hide-descendants">
@@ -31,7 +33,7 @@ export function SpeakerIcon({ size = 24, color = colors.text }: { size?: number;
             width: 4.5 * u,
             height: 8 * u,
             borderRadius: u,
-            backgroundColor: color,
+            backgroundColor: ink,
           },
         ]}
       />
@@ -48,7 +50,7 @@ export function SpeakerIcon({ size = 24, color = colors.text }: { size?: number;
             borderRightWidth: 6 * u,
             borderTopWidth: 5 * u,
             borderBottomWidth: 5 * u,
-            borderRightColor: color,
+            borderRightColor: ink,
             borderTopColor: 'transparent',
             borderBottomColor: 'transparent',
           },

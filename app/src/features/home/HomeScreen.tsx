@@ -18,11 +18,12 @@ import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGr
 import { studyButtonLabel } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
 import { isWeb } from '@/lib/platform';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 import { AddMenu } from './AddMenu';
 
 export default function HomeScreen() {
+  const styles = useStyles(makeStyles);
   const router = useRouter();
   const counts = useLive(() => getStudyCounts(), ['cards', 'decks', 'review_logs', 'settings']);
   const decks = useLive(listDecks, ['decks']);
@@ -167,6 +168,7 @@ export default function HomeScreen() {
 
 /** The website's footer: the phone app, help and the privacy policy. */
 function WebLinks() {
+  const styles = useStyles(makeStyles);
   const links = [
     { label: t('home.getAndroid'), url: PLAY_STORE_URL },
     { label: t('settings.help'), url: SUPPORT_URL },
@@ -188,68 +190,69 @@ function WebLinks() {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  // With large system text the links move to a second line instead of covering the title.
-  header: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    paddingLeft: 20,
-    paddingRight: 14, // + the links' 6 = the screen's 20
-    paddingTop: 8,
-  },
-  brand: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  links: { flexDirection: 'row', marginLeft: 'auto' },
-  // Close together, so the three read as one group, apart from the title (still ≥ 48dp each).
-  link: { paddingHorizontal: 6 },
-  // The mark without padding (logo-mark.png), about as tall as the word.
-  logo: { width: 32, height: 32 },
-  // No extra font padding, so the word and the mark center on the same line.
-  title: { fontSize: 28, fontWeight: '700', color: colors.text, includeFontPadding: false },
-  list: { paddingHorizontal: 20, paddingBottom: 120 },
-  hero: { paddingTop: 24, gap: 12 },
-  caught: { color: colors.muted, fontSize: 15, textAlign: 'center' },
-  sectionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 12,
-  },
-  section: { fontSize: 15, fontWeight: '600', color: colors.muted },
-  sort: {
-    minHeight: touchTarget,
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-    marginRight: -12,
-    borderRadius: radius.button,
-  },
-  sortPressed: { backgroundColor: colors.surface },
-  sortText: { fontSize: 15, fontWeight: '600', color: colors.primary },
-  deletedLink: {
-    minHeight: touchTarget,
-    justifyContent: 'center',
-    alignSelf: 'center',
-    paddingHorizontal: 16,
-    marginTop: 16,
-    borderRadius: radius.button,
-  },
-  deletedText: { fontSize: 15, color: colors.muted },
-  webLinks: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: 32,
-    paddingTop: 8,
-    borderTopWidth: 1,
-    borderTopColor: colors.hairline,
-  },
-  webLink: {
-    minHeight: touchTarget,
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-    borderRadius: radius.button,
-  },
-  webLinkText: { fontSize: 14, color: colors.primary },
-  empty: { marginTop: 48, color: colors.muted, fontSize: 16, textAlign: 'center' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    // With large system text the links move to a second line instead of covering the title.
+    header: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      paddingLeft: 20,
+      paddingRight: 14, // + the links' 6 = the screen's 20
+      paddingTop: 8,
+    },
+    brand: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+    links: { flexDirection: 'row', marginLeft: 'auto' },
+    // Close together, so the three read as one group, apart from the title (still ≥ 48dp each).
+    link: { paddingHorizontal: 6 },
+    // The mark without padding (logo-mark.png), about as tall as the word.
+    logo: { width: 32, height: 32 },
+    // No extra font padding, so the word and the mark center on the same line.
+    title: { fontSize: 28, fontWeight: '700', color: colors.text, includeFontPadding: false },
+    list: { paddingHorizontal: 20, paddingBottom: 120 },
+    hero: { paddingTop: 24, gap: 12 },
+    caught: { color: colors.muted, fontSize: 15, textAlign: 'center' },
+    sectionRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: 12,
+    },
+    section: { fontSize: 15, fontWeight: '600', color: colors.muted },
+    sort: {
+      minHeight: touchTarget,
+      justifyContent: 'center',
+      paddingHorizontal: 12,
+      marginRight: -12,
+      borderRadius: radius.button,
+    },
+    sortPressed: { backgroundColor: colors.surface },
+    sortText: { fontSize: 15, fontWeight: '600', color: colors.primary },
+    deletedLink: {
+      minHeight: touchTarget,
+      justifyContent: 'center',
+      alignSelf: 'center',
+      paddingHorizontal: 16,
+      marginTop: 16,
+      borderRadius: radius.button,
+    },
+    deletedText: { fontSize: 15, color: colors.muted },
+    webLinks: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      marginTop: 32,
+      paddingTop: 8,
+      borderTopWidth: 1,
+      borderTopColor: colors.hairline,
+    },
+    webLink: {
+      minHeight: touchTarget,
+      justifyContent: 'center',
+      paddingHorizontal: 12,
+      borderRadius: radius.button,
+    },
+    webLinkText: { fontSize: 14, color: colors.primary },
+    empty: { marginTop: 48, color: colors.muted, fontSize: 16, textAlign: 'center' },
+  });

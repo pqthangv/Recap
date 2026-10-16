@@ -33,11 +33,22 @@ import { pickPicture } from '@/features/pictures/pick';
 import { formatTags, parseTags } from '@/lib/format';
 import { can } from '@/lib/platform';
 import { t } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { useScheme } from '@/lib/appearance';
+import {
+  type Colors,
+  radius,
+  shownDeckColor,
+  touchTarget,
+  useColors,
+  useStyles,
+} from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 
 /** Add a card (optionally into `?deckId=`), or edit one with `?id=`. */
 export default function CardEditorScreen() {
+  const styles = useStyles(makeStyles);
+  const scheme = useScheme();
+  const colors = useColors();
   const params = useLocalSearchParams<{ id?: string; deckId?: string }>();
   const router = useRouter();
   const [editing] = useState(() => (params.id ? getCardForEdit(params.id) : undefined));
@@ -145,7 +156,7 @@ export default function CardEditorScreen() {
               onPress={() => setDeckId(d.id)}
               style={[styles.chip, d.id === deckId && styles.chipSelected]}
             >
-              <View style={[styles.dot, { backgroundColor: d.color }]} />
+              <View style={[styles.dot, { backgroundColor: shownDeckColor(d.color, scheme) }]} />
               <Text style={[styles.chipText, d.id === deckId && styles.chipTextSelected]}>
                 {d.name}
               </Text>
@@ -253,6 +264,7 @@ function PictureField({
   onSide: (side: PictureSide) => void;
   onRemove: () => void;
 }) {
+  const styles = useStyles(makeStyles);
   const uri = pictureUri(picture.ref);
   return (
     <View style={styles.pictureField}>
@@ -288,46 +300,47 @@ function PictureField({
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, gap: 8, paddingBottom: 40 },
-  label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
-  chips: { gap: 8, paddingVertical: 2 },
-  chip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    minHeight: touchTarget,
-    paddingHorizontal: 16,
-    borderRadius: radius.chip,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-  },
-  chipSelected: { backgroundColor: colors.tint, borderColor: colors.primary },
-  chipText: { fontSize: 15, color: colors.text },
-  chipTextSelected: { color: colors.primary, fontWeight: '600' },
-  dot: { width: 10, height: 10, borderRadius: 5 },
-  input: {
-    minHeight: touchTarget,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 17,
-    color: colors.text,
-  },
-  multiline: { minHeight: 88, textAlignVertical: 'top' },
-  row: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
-  adding: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: touchTarget },
-  addingText: { fontSize: 15, color: colors.muted },
-  pictureField: { gap: 8 },
-  picture: {
-    width: '100%',
-    height: 180,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-  },
-  showOn: { fontSize: 15, color: colors.text },
-  actions: { flexDirection: 'row', gap: 12, marginTop: 20 },
-  flex: { flex: 1 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    content: { padding: 20, gap: 8, paddingBottom: 40 },
+    label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
+    chips: { gap: 8, paddingVertical: 2 },
+    chip: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      minHeight: touchTarget,
+      paddingHorizontal: 16,
+      borderRadius: radius.chip,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+    },
+    chipSelected: { backgroundColor: colors.tint, borderColor: colors.primary },
+    chipText: { fontSize: 15, color: colors.text },
+    chipTextSelected: { color: colors.primary, fontWeight: '600' },
+    dot: { width: 10, height: 10, borderRadius: 5 },
+    input: {
+      minHeight: touchTarget,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      fontSize: 17,
+      color: colors.text,
+    },
+    multiline: { minHeight: 88, textAlignVertical: 'top' },
+    row: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
+    adding: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: touchTarget },
+    addingText: { fontSize: 15, color: colors.muted },
+    pictureField: { gap: 8 },
+    picture: {
+      width: '100%',
+      height: 180,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+    },
+    showOn: { fontSize: 15, color: colors.text },
+    actions: { flexDirection: 'row', gap: 12, marginTop: 20 },
+    flex: { flex: 1 },
+  });

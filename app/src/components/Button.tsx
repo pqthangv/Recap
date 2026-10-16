@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, type StyleProp, type ViewStyle } from 'react-native';
 
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 type Variant = 'primary' | 'secondary' | 'text' | 'danger';
 
@@ -30,6 +30,8 @@ export function Button({
   accessibilityHint,
   style,
 }: Props) {
+  const labelColor = useStyles(makeLabelColor);
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -55,30 +57,32 @@ export function Button({
   );
 }
 
-const labelColor = StyleSheet.create({
-  primary: { color: colors.onPrimary },
-  secondary: { color: colors.primary },
-  text: { color: colors.primary },
-  danger: { color: colors.danger },
-});
+const makeLabelColor = (colors: Colors) =>
+  StyleSheet.create({
+    primary: { color: colors.onPrimary },
+    secondary: { color: colors.primary },
+    text: { color: colors.primary },
+    danger: { color: colors.danger },
+  });
 
-const styles = StyleSheet.create({
-  base: {
-    minHeight: touchTarget,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: radius.button,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  primary: { backgroundColor: colors.primary },
-  secondary: { backgroundColor: colors.tint },
-  text: { backgroundColor: 'transparent', paddingHorizontal: 12 },
-  danger: { backgroundColor: 'transparent', borderWidth: 1, borderColor: colors.hairline },
-  lg: { minHeight: 64, borderRadius: radius.card },
-  disabled: { opacity: 0.45 },
-  pressed: { opacity: 0.8 },
-  label: { fontSize: 16, fontWeight: '600', textAlign: 'center' },
-  lgLabel: { fontSize: 20 },
-  sublabel: { fontSize: 13, marginTop: 2, opacity: 0.85 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    base: {
+      minHeight: touchTarget,
+      paddingHorizontal: 16,
+      paddingVertical: 10,
+      borderRadius: radius.button,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    primary: { backgroundColor: colors.primary },
+    secondary: { backgroundColor: colors.tint },
+    text: { backgroundColor: 'transparent', paddingHorizontal: 12 },
+    danger: { backgroundColor: 'transparent', borderWidth: 1, borderColor: colors.hairline },
+    lg: { minHeight: 64, borderRadius: radius.card },
+    disabled: { opacity: 0.45 },
+    pressed: { opacity: 0.8 },
+    label: { fontSize: 16, fontWeight: '600', textAlign: 'center' },
+    lgLabel: { fontSize: 20 },
+    sublabel: { fontSize: 13, marginTop: 2, opacity: 0.85 },
+  });

@@ -1,6 +1,7 @@
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
+import * as SystemUI from 'expo-system-ui';
 import { Fragment, useEffect, useState } from 'react';
 import { AppState, Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 
@@ -11,9 +12,10 @@ import { setupDatabase } from '@/db/setup';
 import { seedIfNeeded } from '@/features/onboarding/seed';
 import { sweepPictures } from '@/features/pictures/files';
 import { syncReminders } from '@/features/reminders/reminders';
+import { setAppearanceChoice, useScheme } from '@/lib/appearance';
 import { refreshLanguage, setLanguageChoice, t, useLanguage } from '@/lib/i18n';
 import { isWeb } from '@/lib/platform';
-import { colors, sideSpace } from '@/lib/theme';
+import { sideSpace, useColors, useStyles, type Colors } from '@/lib/theme';
 
 // Last resort if the layout itself crashes (each screen has its own, see ErrorScreen.tsx).
 export { RootErrorBoundary as ErrorBoundary } from '@/components/ErrorScreen';
@@ -28,12 +30,18 @@ const openInOtherTab = (e: unknown) =>
 
 export default function RootLayout() {
   const [status, setStatus] = useState<Status>('loading');
+  const styles = useStyles(makeStyles);
+  const background = useColors().background;
+  const scheme = useScheme();
 
   useEffect(() => {
     setupDatabase()
       .then(() => {
-        // Settings › Language, before anything is shown (the welcome deck is written in it too).
-        setLanguageChoice(getSettings().language);
+        // Settings › Language and Appearance, before anything is shown (the welcome deck is
+        // written in the language too).
+        const settings = getSettings();
+        setLanguageChoice(settings.language);
+        setAppearanceChoice(settings.appearance);
         seedIfNeeded();
         sweepPictures(); // before any screen, so it never meets a picture being added
         setStatus('ready');
@@ -56,6 +64,11 @@ export default function RootLayout() {
     return () => sub.remove();
   }, [status]);
 
+  // The window behind the screens (seen while the keyboard opens or a screen slides in) matches.
+  useEffect(() => {
+    SystemUI.setBackgroundColorAsync(background).catch(() => {});
+  }, [background]);
+
   if (status === 'loading') return null;
   if (status === 'error' || status === 'otherTab') {
     return (
@@ -77,7 +90,7 @@ export default function RootLayout() {
     <>
       <Screens />
       <SnackbarHost />
-      <StatusBar style="dark" />
+      <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
     </>
   );
 }
@@ -86,6 +99,7 @@ function Screens() {
   // Not memoized by the React Compiler: the titles below are re-read in the new language.
   'use no memo';
   const language = useLanguage();
+  const colors = useColors();
   const { width } = useWindowDimensions();
   // iPhone modals have no back arrow (only a swipe down), so they get a visible Cancel.
   const modal = {
@@ -130,13 +144,14 @@ function Screens() {
   );
 }
 
-const styles = StyleSheet.create({
-  error: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 32,
-    backgroundColor: colors.background,
-  },
-  errorText: { fontSize: 17, color: colors.text, textAlign: 'center' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    error: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 32,
+      backgroundColor: colors.background,
+    },
+    errorText: { fontSize: 17, color: colors.text, textAlign: 'center' },
+  });

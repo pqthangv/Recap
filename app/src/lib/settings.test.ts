@@ -1,4 +1,4 @@
-import { DEFAULT_SETTINGS, parseSettings, SETTING_KEYS } from './settings';
+import { DEFAULT_SETTINGS, DEVICE_SETTING_KEYS, parseSettings, SETTING_KEYS } from './settings';
 
 const row = (key: string, value: unknown) => ({ key, value: JSON.stringify(value) });
 
@@ -36,6 +36,14 @@ describe('parseSettings', () => {
     expect(parseSettings([]).language).toBe('auto');
     expect(parseSettings([row(SETTING_KEYS.language, 'vi')]).language).toBe('vi');
     expect(parseSettings([row(SETTING_KEYS.language, 'fr')]).language).toBe('auto');
+  });
+
+  it('reads the appearance choice (light, dark, or the phone’s)', () => {
+    expect(parseSettings([]).appearance).toBe('auto');
+    expect(parseSettings([row(SETTING_KEYS.appearance, 'dark')]).appearance).toBe('dark');
+    expect(parseSettings([row(SETTING_KEYS.appearance, 'light')]).appearance).toBe('light');
+    expect(parseSettings([row(SETTING_KEYS.appearance, 'blue')]).appearance).toBe('auto');
+    expect(DEVICE_SETTING_KEYS).toContain(SETTING_KEYS.appearance); // per phone, not in backups
   });
 
   it('clamps or ignores bad values', () => {

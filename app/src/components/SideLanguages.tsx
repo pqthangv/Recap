@@ -8,7 +8,7 @@ import {
   type CardLanguage,
   type SideLanguages as Languages,
 } from '@/lib/language';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 import { ActionSheet } from './ActionSheet';
 
@@ -36,6 +36,7 @@ type Props = {
  * deck's Read aloud). Tapping a side opens the list, Auto first.
  */
 export function SideLanguages({ value, onChange, titles, autoOption, disabled }: Props) {
+  const styles = useStyles(makeStyles);
   const [side, setSide] = useState<Side>('front');
   const [open, setOpen] = useState(false);
   return (
@@ -72,21 +73,22 @@ export function SideLanguages({ value, onChange, titles, autoOption, disabled }:
   );
 }
 
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', gap: 12 },
-  button: {
-    flex: 1,
-    minHeight: touchTarget,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-  },
-  text: { flexShrink: 1, fontSize: 15, color: colors.text },
-  chevron: { fontSize: 15, color: colors.muted },
-  pressed: { opacity: 0.7 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    row: { flexDirection: 'row', gap: 12 },
+    button: {
+      flex: 1,
+      minHeight: touchTarget,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 8,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+    },
+    text: { flexShrink: 1, fontSize: 15, color: colors.text },
+    chevron: { fontSize: 15, color: colors.muted },
+    pressed: { opacity: 0.7 },
+  });

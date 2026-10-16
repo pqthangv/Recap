@@ -6,7 +6,7 @@ import { showSnackbar } from '@/components/Snackbar';
 import { getSettings } from '@/db/settings';
 import { formatTimeOfDay } from '@/lib/format';
 import { t } from '@/lib/i18n';
-import { colors, radius } from '@/lib/theme';
+import { type Colors, radius, useStyles } from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 
 import { markReminderOffered, shouldOfferReminder } from './offer';
@@ -14,6 +14,7 @@ import { turnOnReminders } from './reminders';
 
 /** "Remind you to study? Remind me / Not now" on the done screen; shown once, ever (see offer.ts). */
 export function ReminderOffer() {
+  const styles = useStyles(makeStyles);
   const [offered] = useState(shouldOfferReminder);
   const [answered, setAnswered] = useState(false);
   const time = formatTimeOfDay(getSettings().reminderMinutes);
@@ -45,16 +46,17 @@ export function ReminderOffer() {
   );
 }
 
-const styles = StyleSheet.create({
-  box: {
-    alignSelf: 'stretch',
-    backgroundColor: colors.tint,
-    borderRadius: radius.card,
-    padding: 16,
-    gap: 4,
-    marginTop: 24,
-  },
-  title: { fontSize: 17, fontWeight: '700', color: colors.text },
-  body: { fontSize: 15, color: colors.text },
-  buttons: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 8 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    box: {
+      alignSelf: 'stretch',
+      backgroundColor: colors.tint,
+      borderRadius: radius.card,
+      padding: 16,
+      gap: 4,
+      marginTop: 24,
+    },
+    title: { fontSize: 17, fontWeight: '700', color: colors.text },
+    body: { fontSize: 15, color: colors.text },
+    buttons: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 8 },
+  });

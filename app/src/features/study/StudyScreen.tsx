@@ -9,7 +9,7 @@ import { ReminderOffer } from '@/features/reminders/ReminderOffer';
 import { syncReminders } from '@/features/reminders/reminders';
 import { decksInGroup } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
-import { colors } from '@/lib/theme';
+import { type Colors, useStyles } from '@/lib/theme';
 
 import { AnswerBox } from './AnswerBox';
 import { FlipCard } from './FlipCard';
@@ -17,6 +17,7 @@ import { GradeButtons, highlightedGrade } from './GradeButtons';
 import { useStudySession } from './useStudySession';
 
 export default function StudyScreen() {
+  const styles = useStyles(makeStyles);
   const { deckId, group } = useLocalSearchParams<{ deckId?: string; group?: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -148,12 +149,13 @@ export default function StudyScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  frame: { flex: 1, backgroundColor: colors.background },
-  screen: { flex: 1, backgroundColor: colors.background, paddingHorizontal: 20, paddingTop: 8 },
-  actions: { paddingTop: 20 },
-  done: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 },
-  doneTitle: { fontSize: 26, fontWeight: '700', color: colors.text, textAlign: 'center' },
-  doneText: { fontSize: 17, color: colors.muted },
-  doneButton: { marginTop: 24, alignSelf: 'stretch' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    frame: { flex: 1, backgroundColor: colors.background },
+    screen: { flex: 1, backgroundColor: colors.background, paddingHorizontal: 20, paddingTop: 8 },
+    actions: { paddingTop: 20 },
+    done: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 },
+    doneTitle: { fontSize: 26, fontWeight: '700', color: colors.text, textAlign: 'center' },
+    doneText: { fontSize: 17, color: colors.muted },
+    doneButton: { marginTop: 24, alignSelf: 'stretch' },
+  });

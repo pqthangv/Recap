@@ -10,13 +10,14 @@ import { getSettings } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
 import { decksInGroup, groupCounts, nameInGroup, sortDecks } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
-import { colors } from '@/lib/theme';
+import { type Colors, useStyles } from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 
 import { DeckRow } from './DeckRow';
 
 /** A deck group ("SAT › Priority 1", "SAT › Priority 2", …): study them all, open one, or delete all. */
 export default function DeckGroupScreen() {
+  const styles = useStyles(makeStyles);
   const { name } = useLocalSearchParams<{ name: string }>();
   const router = useRouter();
   const sort = useLive(() => getSettings().deckSort, ['settings']);
@@ -102,11 +103,18 @@ export default function DeckGroupScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  list: { paddingHorizontal: 20, paddingBottom: 120 },
-  header: { gap: 12, paddingTop: 8 },
-  section: { marginTop: 12, marginBottom: 4, fontSize: 15, fontWeight: '600', color: colors.muted },
-  delete: { marginTop: 32 },
-  empty: { marginTop: 40, color: colors.muted, fontSize: 16, textAlign: 'center' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    list: { paddingHorizontal: 20, paddingBottom: 120 },
+    header: { gap: 12, paddingTop: 8 },
+    section: {
+      marginTop: 12,
+      marginBottom: 4,
+      fontSize: 15,
+      fontWeight: '600',
+      color: colors.muted,
+    },
+    delete: { marginTop: 32 },
+    empty: { marginTop: 40, color: colors.muted, fontSize: 16, textAlign: 'center' },
+  });

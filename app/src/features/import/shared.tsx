@@ -5,7 +5,7 @@ import { showSnackbar } from '@/components/Snackbar';
 import type { ImportSummary, ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
 import { t, tn } from '@/lib/i18n';
-import { colors } from '@/lib/theme';
+import { type Colors, useStyles } from '@/lib/theme';
 
 /** Default "Add to": decks from the file if offered, else a new deck named after the file. */
 export function defaultTarget(name: string, fromFile?: string): ImportTarget {
@@ -49,6 +49,7 @@ export function CardPreview({
   cards: readonly { front: string; back: string }[];
   total: number;
 }) {
+  const styles = useStyles(makeStyles);
   if (total === 0) return null;
   return (
     <View style={styles.preview}>
@@ -71,14 +72,15 @@ export function CardPreview({
   );
 }
 
-const styles = StyleSheet.create({
-  preview: { gap: 2 },
-  label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginBottom: 4 },
-  row: {
-    paddingVertical: 10,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.hairline,
-  },
-  front: { fontSize: 16, fontWeight: '600', color: colors.text },
-  back: { fontSize: 15, color: colors.muted, marginTop: 2 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    preview: { gap: 2 },
+    label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginBottom: 4 },
+    row: {
+      paddingVertical: 10,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: colors.hairline,
+    },
+    front: { fontSize: 16, fontWeight: '600', color: colors.text },
+    back: { fontSize: 15, color: colors.muted, marginTop: 2 },
+  });

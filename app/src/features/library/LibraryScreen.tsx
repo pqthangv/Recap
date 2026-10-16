@@ -7,13 +7,14 @@ import { showSnackbar } from '@/components/Snackbar';
 import { listDecks } from '@/db/decks';
 import { useLive } from '@/db/live';
 import { t, tn } from '@/lib/i18n';
-import { colors, radius } from '@/lib/theme';
+import { type Colors, lightColors, radius, useStyles } from '@/lib/theme';
 
 import { addPack, isPackAdded, packCardCount } from './library';
 import { PACKS, type Pack } from './packs';
 
 /** Ready-made decks to add with one tap. */
 export default function LibraryScreen() {
+  const styles = useStyles(makeStyles);
   const router = useRouter();
   const decks = useLive(listDecks, ['decks']);
 
@@ -69,6 +70,7 @@ export default function LibraryScreen() {
 
 /** The pack's flag or icon, in a circle. Decorative: the name next to it says what it is. */
 function PackBadge({ pack }: { pack: Pack }) {
+  const styles = useStyles(makeStyles);
   if ('image' in pack.logo) {
     return (
       <Image
@@ -86,27 +88,29 @@ function PackBadge({ pack }: { pack: Pack }) {
       importantForAccessibility="no-hide-descendants"
       accessibilityElementsHidden
     >
-      <MaterialIcons name={pack.logo.icon} size={28} color={colors.onPrimary} />
+      <MaterialIcons name={pack.logo.icon} size={28} color={lightColors.onPrimary} />{' '}
+      {/* on the pack's color */}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  content: { padding: 20, gap: 16, paddingBottom: 48 },
-  help: { fontSize: 15, color: colors.muted },
-  pack: {
-    borderRadius: radius.card,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: 16,
-    gap: 8,
-  },
-  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  badge: { width: 40, height: 40, borderRadius: 20 },
-  // A thin edge so white stripes don't melt into the white card.
-  flag: { borderWidth: StyleSheet.hairlineWidth, borderColor: colors.hairline },
-  iconBadge: { alignItems: 'center', justifyContent: 'center' },
-  name: { fontSize: 19, fontWeight: '700', color: colors.text, flexShrink: 1 },
-  description: { fontSize: 16, color: colors.text },
-  meta: { fontSize: 14, color: colors.muted, marginBottom: 4 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    content: { padding: 20, gap: 16, paddingBottom: 48 },
+    help: { fontSize: 15, color: colors.muted },
+    pack: {
+      borderRadius: radius.card,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: 16,
+      gap: 8,
+    },
+    titleRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+    badge: { width: 40, height: 40, borderRadius: 20 },
+    // A thin edge so white stripes don't melt into the white card.
+    flag: { borderWidth: StyleSheet.hairlineWidth, borderColor: colors.hairline },
+    iconBadge: { alignItems: 'center', justifyContent: 'center' },
+    name: { fontSize: 19, fontWeight: '700', color: colors.text, flexShrink: 1 },
+    description: { fontSize: 16, color: colors.text },
+    meta: { fontSize: 14, color: colors.muted, marginBottom: 4 },
+  });

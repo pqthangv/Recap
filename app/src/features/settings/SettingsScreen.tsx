@@ -14,19 +14,33 @@ import { hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { Chip } from '@/features/import/DeckTarget';
 import { syncReminders, turnOnReminders } from '@/features/reminders/reminders';
+import { setAppearanceChoice, useScheme, type AppearanceChoice } from '@/lib/appearance';
 import { BackupError } from '@/lib/backup';
 import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { formatTimeOfDay } from '@/lib/format';
-import { LANGUAGE_NAMES, setLanguageChoice, t, tn, type LanguageChoice } from '@/lib/i18n';
+import {
+  LANGUAGE_NAMES,
+  setLanguageChoice,
+  t,
+  tn,
+  type LanguageChoice,
+  type StringKey,
+} from '@/lib/i18n';
 import { MAX_RETENTION, MIN_RETENTION } from '@/lib/scheduler';
 import { can, isWeb } from '@/lib/platform';
 import { NEW_PER_DAY_MAX } from '@/lib/settings';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { radius, shownDeckColor, touchTarget, useStyles, type Colors } from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 
 const LANGUAGE_CHOICES: readonly LanguageChoice[] = ['auto', 'en', 'vi'];
+const APPEARANCE_CHOICES: readonly AppearanceChoice[] = ['auto', 'light', 'dark'];
+const APPEARANCE_NAMES: Record<Exclude<AppearanceChoice, 'auto'>, StringKey> = {
+  light: 'settings.appearanceLight',
+  dark: 'settings.appearanceDark',
+};
 
 export default function SettingsScreen() {
+  const styles = useStyles(makeStyles);
   const settings = useLive(getSettings, ['settings']);
   const [advanced, setAdvanced] = useState(false);
 
@@ -45,6 +59,11 @@ export default function SettingsScreen() {
     setSetting('language', choice);
     setLanguageChoice(choice); // every screen shows the new language right away
     syncReminders(); // reminders already scheduled are in the old language
+  };
+
+  const chooseAppearance = (choice: AppearanceChoice) => {
+    setSetting('appearance', choice);
+    setAppearanceChoice(choice); // every screen redraws in the new look right away
   };
 
   return (
@@ -135,6 +154,27 @@ export default function SettingsScreen() {
         </View>
       </Section>
 
+      <Section title={t('settings.appearance')}>
+        <View
+          style={styles.chips}
+          accessibilityRole="radiogroup"
+          accessibilityLabel={t('settings.appearance')}
+        >
+          {APPEARANCE_CHOICES.map((choice) => (
+            <Chip
+              key={choice}
+              label={
+                choice === 'auto'
+                  ? t(isWeb ? 'settings.appearanceAutoWeb' : 'settings.appearanceAuto')
+                  : t(APPEARANCE_NAMES[choice])
+              }
+              selected={settings.appearance === choice}
+              onPress={() => chooseAppearance(choice)}
+            />
+          ))}
+        </View>
+      </Section>
+
       <Pressable
         accessibilityRole="button"
         accessibilityState={{ expanded: advanced }}
@@ -188,6 +228,8 @@ export default function SettingsScreen() {
 }
 
 function AdvancedSettings() {
+  const styles = useStyles(makeStyles);
+  const scheme = useScheme();
   const decks = useLive(listDecks, ['decks']);
   const aiConsent = useLive(hasAiConsent, ['settings']);
 
@@ -261,7 +303,7 @@ function AdvancedSettings() {
           onPress={() => confirmReset(d.id, d.name)}
           style={({ pressed }) => [styles.deckRow, pressed && styles.pressed]}
         >
-          <View style={[styles.dot, { backgroundColor: d.color }]} />
+          <View style={[styles.dot, { backgroundColor: shownDeckColor(d.color, scheme) }]} />
           <Text style={styles.deckName}>{d.name}</Text>
           <Text style={styles.resetText}>{t('settings.reset')}</Text>
         </Pressable>
@@ -271,6 +313,7 @@ function AdvancedSettings() {
 }
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
+  const styles = useStyles(makeStyles);
   return (
     <View style={styles.section}>
       <Text accessibilityRole="header" style={styles.sectionTitle}>
@@ -281,37 +324,38 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-const styles = StyleSheet.create({
-  content: { padding: 20, paddingBottom: 48 },
-  section: { marginBottom: 24, gap: 8 },
-  sectionTitle: { fontSize: 15, fontWeight: '600', color: colors.primary },
-  label: { fontSize: 16, color: colors.text, fontWeight: '500' },
-  description: { fontSize: 14, color: colors.muted, marginTop: 2 },
-  spaced: { marginTop: 16 },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  flex: { flex: 1 },
-  advancedToggle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    minHeight: touchTarget,
-    marginBottom: 8,
-  },
-  chevron: { fontSize: 20, color: colors.primary },
-  deckRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    minHeight: touchTarget,
-    paddingHorizontal: 12,
-    marginHorizontal: -12,
-    borderRadius: radius.button,
-  },
-  pressed: { backgroundColor: colors.surface },
-  dot: { width: 12, height: 12, borderRadius: 6 },
-  deckName: { flex: 1, fontSize: 16, color: colors.text },
-  resetText: { fontSize: 15, color: colors.danger, fontWeight: '600' },
-  footer: { marginTop: 16, fontSize: 13, color: colors.muted, textAlign: 'center' },
-  contact: { minHeight: touchTarget, justifyContent: 'center' },
-  contactText: { fontSize: 13, color: colors.primary, textAlign: 'center' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    content: { padding: 20, paddingBottom: 48 },
+    section: { marginBottom: 24, gap: 8 },
+    sectionTitle: { fontSize: 15, fontWeight: '600', color: colors.primary },
+    label: { fontSize: 16, color: colors.text, fontWeight: '500' },
+    description: { fontSize: 14, color: colors.muted, marginTop: 2 },
+    spaced: { marginTop: 16 },
+    chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+    flex: { flex: 1 },
+    advancedToggle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      minHeight: touchTarget,
+      marginBottom: 8,
+    },
+    chevron: { fontSize: 20, color: colors.primary },
+    deckRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+      minHeight: touchTarget,
+      paddingHorizontal: 12,
+      marginHorizontal: -12,
+      borderRadius: radius.button,
+    },
+    pressed: { backgroundColor: colors.surface },
+    dot: { width: 12, height: 12, borderRadius: 6 },
+    deckName: { flex: 1, fontSize: 16, color: colors.text },
+    resetText: { fontSize: 15, color: colors.danger, fontWeight: '600' },
+    footer: { marginTop: 16, fontSize: 13, color: colors.muted, textAlign: 'center' },
+    contact: { minHeight: touchTarget, justifyContent: 'center' },
+    contactText: { fontSize: 13, color: colors.primary, textAlign: 'center' },
+  });

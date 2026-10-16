@@ -13,7 +13,7 @@ import { speak, stopSpeaking } from '@/features/speech/speech';
 import { markTyped, type AnswerResult } from '@/lib/answerCheck';
 import type { SideLanguages } from '@/lib/language';
 import { t, type StringKey } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 /** What was typed and how close it was ("Type the answer"), shown on the answer side. */
 export type TypedCheck = { typed: string; result: AnswerResult };
@@ -58,6 +58,7 @@ export function FlipCard({
   imageRef,
   imageSide,
 }: Props) {
+  const styles = useStyles(makeStyles);
   const imageUri = pictureUri(imageRef);
   const picture = (small = false) =>
     imageUri ? (
@@ -185,57 +186,58 @@ export function FlipCard({
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  picture: { width: '100%', height: 200, marginBottom: 16, borderRadius: radius.button },
-  pictureSmall: { height: 120 },
-  speaker: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-    width: touchTarget,
-    height: touchTarget,
-    borderRadius: touchTarget / 2,
-    backgroundColor: colors.tint,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  speakerPressed: { opacity: 0.7 },
-  face: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: colors.background,
-    borderRadius: radius.card,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    backfaceVisibility: 'hidden',
-    elevation: 2,
-    shadowColor: colors.text,
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 4 },
-  },
-  // Vertical padding keeps text clear of the speaker button.
-  faceContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 28,
-    paddingVertical: 68,
-  },
-  frontText: { fontSize: 26, lineHeight: 34, color: colors.text, textAlign: 'center' },
-  tapHint: { marginTop: 24, fontSize: 14, color: colors.muted, textAlign: 'center' },
-  frontSmall: { fontSize: 17, lineHeight: 24, color: colors.muted, textAlign: 'center' },
-  divider: {
-    height: 1,
-    backgroundColor: colors.hairline,
-    marginVertical: 20,
-    marginHorizontal: 24,
-  },
-  backText: { fontSize: 24, lineHeight: 32, color: colors.text, textAlign: 'center' },
-  check: { alignItems: 'center', gap: 6, marginBottom: 20 },
-  verdict: { fontSize: 18, fontWeight: '700', color: colors.text, textAlign: 'center' },
-  verdictCorrect: { color: colors.primary },
-  verdictWrong: { color: colors.danger },
-  typed: { fontSize: 17, lineHeight: 24, color: colors.muted, textAlign: 'center' },
-  typedOk: { color: colors.text },
-  typedWrong: { color: colors.danger, textDecorationLine: 'underline', fontWeight: '700' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    container: { flex: 1 },
+    picture: { width: '100%', height: 200, marginBottom: 16, borderRadius: radius.button },
+    pictureSmall: { height: 120 },
+    speaker: {
+      position: 'absolute',
+      top: 12,
+      right: 12,
+      width: touchTarget,
+      height: touchTarget,
+      borderRadius: touchTarget / 2,
+      backgroundColor: colors.tint,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    speakerPressed: { opacity: 0.7 },
+    face: {
+      ...StyleSheet.absoluteFill,
+      backgroundColor: colors.background,
+      borderRadius: radius.card,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      backfaceVisibility: 'hidden',
+      elevation: 2,
+      shadowColor: colors.text,
+      shadowOpacity: 0.08,
+      shadowRadius: 12,
+      shadowOffset: { width: 0, height: 4 },
+    },
+    // Vertical padding keeps text clear of the speaker button.
+    faceContent: {
+      flexGrow: 1,
+      justifyContent: 'center',
+      paddingHorizontal: 28,
+      paddingVertical: 68,
+    },
+    frontText: { fontSize: 26, lineHeight: 34, color: colors.text, textAlign: 'center' },
+    tapHint: { marginTop: 24, fontSize: 14, color: colors.muted, textAlign: 'center' },
+    frontSmall: { fontSize: 17, lineHeight: 24, color: colors.muted, textAlign: 'center' },
+    divider: {
+      height: 1,
+      backgroundColor: colors.hairline,
+      marginVertical: 20,
+      marginHorizontal: 24,
+    },
+    backText: { fontSize: 24, lineHeight: 32, color: colors.text, textAlign: 'center' },
+    check: { alignItems: 'center', gap: 6, marginBottom: 20 },
+    verdict: { fontSize: 18, fontWeight: '700', color: colors.text, textAlign: 'center' },
+    verdictCorrect: { color: colors.primary },
+    verdictWrong: { color: colors.danger },
+    typed: { fontSize: 17, lineHeight: 24, color: colors.muted, textAlign: 'center' },
+    typedOk: { color: colors.text },
+    typedWrong: { color: colors.danger, textDecorationLine: 'underline', fontWeight: '700' },
+  });
