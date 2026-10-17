@@ -115,6 +115,16 @@ describe('the bundled packs', () => {
       expect(pack.languages).toEqual({ front: 'en', back: 'vi' });
     });
 
+    it('numbers its topics, so they list in learning order', () => {
+      const names = pack.decks.map((d) => d.name);
+      names.forEach((name, i) =>
+        expect(name).toMatch(new RegExp(`^${String(i + 1).padStart(2, '0')} \\S`)),
+      );
+      expect([...names].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))).toEqual(
+        names,
+      );
+    });
+
     it('shows the word and an English example on the front', () => {
       for (const card of cards) expect(card.front).toMatch(/^[^\n]+\n\n[^\n]+[.!?]$/);
     });

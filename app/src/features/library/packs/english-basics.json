@@ -1,7 +1,7 @@
 {
   "decks": [
     {
-      "name": "Greetings & basics",
+      "name": "01 Greetings & basics",
       "cards": [
         {
           "front": "hello\n\nHello, my name is Lan.",
@@ -206,7 +206,7 @@
       ]
     },
     {
-      "name": "People & family",
+      "name": "02 People & family",
       "cards": [
         {
           "front": "family\n\nMy family is big.",
@@ -411,7 +411,7 @@
       ]
     },
     {
-      "name": "Numbers & time",
+      "name": "03 Numbers & time",
       "cards": [
         {
           "front": "zero\n\nZero plus five is five.",
@@ -616,7 +616,7 @@
       ]
     },
     {
-      "name": "Days & seasons",
+      "name": "04 Days & seasons",
       "cards": [
         {
           "front": "Monday\n\nI have English class on Monday.",
@@ -821,7 +821,7 @@
       ]
     },
     {
-      "name": "Food",
+      "name": "05 Food",
       "cards": [
         {
           "front": "food\n\nWe need food and water.",
@@ -1026,7 +1026,7 @@
       ]
     },
     {
-      "name": "Drinks & cooking",
+      "name": "06 Drinks & cooking",
       "cards": [
         {
           "front": "water\n\nDrink more water.",
@@ -1231,7 +1231,7 @@
       ]
     },
     {
-      "name": "Home",
+      "name": "07 Home",
       "cards": [
         {
           "front": "home\n\nI go home at six.",
@@ -1436,7 +1436,7 @@
       ]
     },
     {
-      "name": "Clothes & colors",
+      "name": "08 Clothes & colors",
       "cards": [
         {
           "front": "clothes\n\nI need new clothes.",
@@ -1641,7 +1641,7 @@
       ]
     },
     {
-      "name": "Body & health",
+      "name": "09 Body & health",
       "cards": [
         {
           "front": "body\n\nExercise is good for your body.",
@@ -1846,7 +1846,7 @@
       ]
     },
     {
-      "name": "School",
+      "name": "10 School",
       "cards": [
         {
           "front": "school\n\nMy school is near my house.",
@@ -2051,7 +2051,7 @@
       ]
     },
     {
-      "name": "Work & jobs",
+      "name": "11 Work & jobs",
       "cards": [
         {
           "front": "work\n\nI work in an office.",
@@ -2256,7 +2256,7 @@
       ]
     },
     {
-      "name": "Town & places",
+      "name": "12 Town & places",
       "cards": [
         {
           "front": "city\n\nHanoi is a big city.",
@@ -2461,7 +2461,7 @@
       ]
     },
     {
-      "name": "Travel",
+      "name": "13 Travel",
       "cards": [
         {
           "front": "travel\n\nI love to travel.",
@@ -2666,7 +2666,7 @@
       ]
     },
     {
-      "name": "Shopping & money",
+      "name": "14 Shopping & money",
       "cards": [
         {
           "front": "money\n\nI don't have much money.",
@@ -2871,7 +2871,7 @@
       ]
     },
     {
-      "name": "Weather & nature",
+      "name": "15 Weather & nature",
       "cards": [
         {
           "front": "weather\n\nThe weather is nice today.",
@@ -3076,7 +3076,7 @@
       ]
     },
     {
-      "name": "Animals",
+      "name": "16 Animals",
       "cards": [
         {
           "front": "animal\n\nWhat is your favorite animal?",
@@ -3281,7 +3281,7 @@
       ]
     },
     {
-      "name": "Feelings & personality",
+      "name": "17 Feelings & personality",
       "cards": [
         {
           "front": "happy\n\nI am happy today.",
@@ -3486,7 +3486,7 @@
       ]
     },
     {
-      "name": "Everyday verbs 1",
+      "name": "18 Everyday verbs 1",
       "cards": [
         {
           "front": "do\n\nWhat do you do at the weekend?",
@@ -3691,7 +3691,7 @@
       ]
     },
     {
-      "name": "Everyday verbs 2",
+      "name": "19 Everyday verbs 2",
       "cards": [
         {
           "front": "get up\n\nI get up at six every day.",
@@ -3896,7 +3896,7 @@
       ]
     },
     {
-      "name": "Describing things",
+      "name": "20 Describing things",
       "cards": [
         {
           "front": "big\n\nThey live in a big house.",
