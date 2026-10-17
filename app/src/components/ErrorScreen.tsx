@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { t } from '@/lib/i18n';
-import { colors } from '@/lib/theme';
+import { type Colors, useStyles } from '@/lib/theme';
 
 /**
  * Shown instead of a screen that crashed. Every route exports it as `ErrorBoundary`, so only
@@ -11,6 +11,7 @@ import { colors } from '@/lib/theme';
  * Cards are in the database, so nothing is lost. React logs the error itself.
  */
 export function ErrorBoundary({ retry }: ErrorBoundaryProps) {
+  const styles = useStyles(makeStyles);
   const router = useRouter();
 
   return (
@@ -33,6 +34,7 @@ export function ErrorBoundary({ retry }: ErrorBoundaryProps) {
 
 /** For the root layout: nothing above it can navigate, so it can only try again. */
 export function RootErrorBoundary({ retry }: ErrorBoundaryProps) {
+  const styles = useStyles(makeStyles);
   return (
     <View style={styles.screen}>
       <Text style={styles.title} accessibilityRole="header">
@@ -46,15 +48,16 @@ export function RootErrorBoundary({ retry }: ErrorBoundaryProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 32,
-    gap: 12,
-    backgroundColor: colors.background,
-  },
-  title: { fontSize: 22, fontWeight: '700', color: colors.text, textAlign: 'center' },
-  body: { fontSize: 16, color: colors.muted, textAlign: 'center' },
-  actions: { marginTop: 16, gap: 12 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      justifyContent: 'center',
+      padding: 32,
+      gap: 12,
+      backgroundColor: colors.background,
+    },
+    title: { fontSize: 22, fontWeight: '700', color: colors.text, textAlign: 'center' },
+    body: { fontSize: 16, color: colors.muted, textAlign: 'center' },
+    actions: { marginTop: 16, gap: 12 },
+  });

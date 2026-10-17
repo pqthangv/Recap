@@ -10,6 +10,9 @@ own allowance. So the server keeps a list of models (GEMINI_MODEL, best first):
 - A model that was rate limited or down is skipped by later requests for a while (cooldown), so
   when one model's daily quota runs out, requests go straight to the next one instead of
   wasting a try on it each time.
+- A refusal (Gemini won't answer this text) isn't retried: ProviderBlocked. Recap keeps Google's
+  default safety settings (user decision 2026-10-16: stricter filters give false alarms on real
+  study topics), so this is only Google's built-in protections.
 
 The SDK's own retries are off by default, so they don't multiply with these.
 """
@@ -25,7 +28,13 @@ import httpx
 from google import genai
 from google.genai import errors, types
 
-from app.llm.base import CardList, GenerationRequest, ProviderBusy, ProviderFailed
+from app.llm.base import (
+    CardList,
+    GenerationRequest,
+    ProviderBlocked,
+    ProviderBusy,
+    ProviderFailed,
+)
 from app.llm.prompt import SYSTEM_INSTRUCTION, build_prompt
 
 log = logging.getLogger(__name__)
@@ -41,6 +50,11 @@ BUSY_STATUS = {429, 500, 502, 503, 504}
 COOLDOWN_SECONDS = 60.0
 # A used-up daily quota (or a retired model) is checked again after an hour.
 LONG_COOLDOWN_SECONDS = 3_600.0
+# Why an answer was stopped, when it means Gemini refused the text (not a cut-off or a glitch).
+# Any block reason on the prompt itself is a refusal too.
+REFUSED_FINISH = {"SAFETY", "BLOCKLIST", "PROHIBITED_CONTENT", "SPII"}
+# Newer API versions refuse with a 400 instead: "Input blocked: …", or one of these as status.
+REFUSED_STATUS = {"SAFETY", "BLOCKLIST", "PROHIBITED_CONTENT", "JAILBREAK"}
 
 
 def parse_models(setting: str) -> list[str]:
@@ -116,11 +130,16 @@ class GeminiProvider:
                 response = self._client.models.generate_content(
                     model=model, contents=prompt, config=config
                 )
+                refusal = _refusal(response)
+                if refusal:  # not caught below: another model or try won't change the answer
+                    raise ProviderBlocked(f"{model}: {refusal}")
                 cards = _cards_from(response.text)
                 self._cooling.pop(model, None)
                 log.info("gemini answered", extra={"model": model, "try": attempt + 1})
                 return cards
             except (errors.ClientError, errors.ServerError) as e:
+                if _refused_error(e):
+                    raise ProviderBlocked(f"{model} {e.code} {e.status}") from e
                 if e.code in BUSY_STATUS:
                     self._cool(model, cooldown_after(e) if e.code == 429 else COOLDOWN_SECONDS)
                     failure = ProviderBusy(f"{model} {e.code}")
@@ -141,10 +160,36 @@ class GeminiProvider:
         raise failure
 
 
+def _name(value: object) -> str:
+    """An SDK enum (or a plain string) as its upper-case name; "" for None."""
+    return str(getattr(value, "value", value) or "").upper()
+
+
+def _refusal(response: object) -> str | None:
+    """Why Gemini refused to answer, or None: a block reason on the prompt, or the answer
+    stopped for safety. Never includes the user's text."""
+    blocked = _name(getattr(getattr(response, "prompt_feedback", None), "block_reason", None))
+    if blocked and blocked != "BLOCKED_REASON_UNSPECIFIED":
+        return f"prompt {blocked}"
+    for candidate in getattr(response, "candidates", None) or []:
+        finish = _name(getattr(candidate, "finish_reason", None))
+        if finish in REFUSED_FINISH:
+            return f"answer {finish}"
+    return None
+
+
+def _refused_error(error: errors.APIError) -> bool:
+    """A 400 that means "Input blocked" rather than a malformed request."""
+    if error.code != 400:
+        return False
+    message = str(error.message or "").lower()
+    return message.startswith("input blocked") or _name(error.status) in REFUSED_STATUS
+
+
 def _cards_from(text: str | None) -> list[object]:
     """The "cards" array of the model's JSON answer. Items are checked later by clean_cards()."""
     if not text:
-        # Blocked by safety filters, or cut off before any output.
+        # Cut off before any output (refusals are caught earlier, by _refusal).
         raise ProviderFailed("returned no text")
     try:
         data = json.loads(text)

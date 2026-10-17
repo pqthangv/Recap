@@ -23,6 +23,7 @@ import { targetIsValid, useFinishImport } from '@/features/import/shared';
 import { AiError, type GeneratedCard, type ReportReason } from '@/lib/ai';
 import {
   cardsToSave,
+  fewerCardsNote,
   REPORT_REASONS,
   setAllSelected,
   suggestDeckName,
@@ -31,14 +32,15 @@ import {
   type ReviewItem,
 } from '@/lib/aiReview';
 import { t, tn } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 import { ai, useAiDraft } from './api';
 
 /** Check, edit and choose the AI's cards. Nothing is saved until "Save". */
 export default function ReviewCardsScreen() {
+  const styles = useStyles(makeStyles);
   const router = useRouter();
-  const { cards, source } = useAiDraft();
+  const { cards, source, asked, left } = useAiDraft();
   if (!cards || cards.length === 0) {
     return (
       <View style={styles.content}>
@@ -47,10 +49,19 @@ export default function ReviewCardsScreen() {
       </View>
     );
   }
-  return <Review cards={cards} source={source} />;
+  return <Review cards={cards} source={source} fewer={fewerCardsNote(cards.length, asked, left)} />;
 }
 
-function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource }) {
+function Review({
+  cards,
+  source,
+  fewer,
+}: {
+  cards: GeneratedCard[];
+  source: AiSource;
+  fewer: string | null;
+}) {
+  const styles = useStyles(makeStyles);
   const decks = useLive(listDecks, ['decks']);
   const finish = useFinishImport();
   const suggested = suggestDeckName(source);
@@ -113,7 +124,7 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
             onPress={() => setItems((list) => setAllSelected(list, !allSelected))}
           />
         </View>
-        <Text style={styles.help}>{t('review.help')}</Text>
+        {fewer ? <Text style={styles.fewer}>{fewer}</Text> : null}
 
         {items.map((item, index) => (
           <View key={item.key} style={[styles.card, !item.selected && styles.cardOff]}>
@@ -186,37 +197,46 @@ function Review({ cards, source }: { cards: GeneratedCard[]; source: AiSource })
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, gap: 16, paddingBottom: 48 },
-  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  title: { fontSize: 20, fontWeight: '700', color: colors.text, flexShrink: 1 },
-  help: { fontSize: 15, color: colors.muted },
-  card: {
-    borderRadius: radius.card,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-    padding: 12,
-    gap: 8,
-  },
-  cardOff: { opacity: 0.55 },
-  cardTop: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  cardActions: { flexDirection: 'row', marginLeft: 'auto' },
-  checkHit: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: touchTarget },
-  cardNumber: { fontSize: 15, color: colors.muted, fontWeight: '600' },
-  input: {
-    minHeight: touchTarget,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 16,
-    color: colors.text,
-  },
-  front: { fontWeight: '600' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    content: { padding: 20, gap: 16, paddingBottom: 48 },
+    header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+    title: { fontSize: 20, fontWeight: '700', color: colors.text, flexShrink: 1 },
+    help: { fontSize: 15, color: colors.muted },
+    fewer: {
+      fontSize: 15,
+      color: colors.primary,
+      backgroundColor: colors.tint,
+      borderRadius: radius.button,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+    },
+    card: {
+      borderRadius: radius.card,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+      padding: 12,
+      gap: 8,
+    },
+    cardOff: { opacity: 0.55 },
+    cardTop: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    cardActions: { flexDirection: 'row', marginLeft: 'auto' },
+    checkHit: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: touchTarget },
+    cardNumber: { fontSize: 15, color: colors.muted, fontWeight: '600' },
+    input: {
+      minHeight: touchTarget,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 14,
+      paddingVertical: 10,
+      fontSize: 16,
+      color: colors.text,
+    },
+    front: { fontWeight: '600' },
+  });

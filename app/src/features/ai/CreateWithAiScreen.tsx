@@ -17,34 +17,30 @@ import { SideLanguages } from '@/components/SideLanguages';
 import { Stepper } from '@/components/Stepper';
 import { getRawSetting, setRawSetting } from '@/db/settings';
 import { discardPicked, pickedUpload } from '@/features/files/picked';
-import {
-  AiError,
-  MAX_CARDS_PER_REQUEST,
-  MAX_INPUT_CHARS,
-  MAX_TOPIC_CHARS,
-  type PdfText,
-} from '@/lib/ai';
-import type { AiSource } from '@/lib/aiReview';
+import { AiError, MAX_CARDS_PER_REQUEST, MAX_INPUT_CHARS, MAX_TOPIC_CHARS } from '@/lib/ai';
+import { addToNotes, notesSourceAfter, type AiSource } from '@/lib/aiReview';
 import { count, t, tn, type StringKey } from '@/lib/i18n';
 import { isCardLanguage, type CardLanguage, type SideLanguages as Languages } from '@/lib/language';
 import { can } from '@/lib/platform';
 import { AI_BACK_LANGUAGE_KEY, AI_FRONT_LANGUAGE_KEY } from '@/lib/settings';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
 
 import { askAiConsent } from './consent';
 import { ai, useAiDraft } from './api';
 import { readTextFromPhoto } from './photo';
 
-type Tab = 'text' | 'photo' | 'pdf' | 'topic';
+// Two ways to start, so they can't be mixed up: your own notes (typed, pasted, or read from a
+// photo or PDF into the same box) or just a topic.
+type Tab = 'notes' | 'topic';
+/** Where a step's progress and errors show: under the photo / PDF buttons, or under Make cards. */
+type Where = 'notes' | 'make';
 
-const ALL_TABS: { key: Tab; label: StringKey }[] = [
-  { key: 'text', label: 'ai.tabText' },
-  { key: 'photo', label: 'ai.tabPhoto' },
-  { key: 'pdf', label: 'ai.tabPdf' },
+const TABS: { key: Tab; label: StringKey }[] = [
+  { key: 'notes', label: 'ai.tabNotes' },
   { key: 'topic', label: 'ai.tabTopic' },
 ];
-// Reading text in photos runs on the phone (ML Kit), which the web version doesn't have.
-const TABS = ALL_TABS.filter((tab) => tab.key !== 'photo' || can.photoText);
+// One line under the tabs that says how they differ.
+const TAB_HELP: Record<Tab, StringKey> = { notes: 'ai.notesHelp', topic: 'ai.topicHelp' };
 
 type QuotaState =
   | { status: 'loading' }
@@ -69,14 +65,19 @@ function storedLanguage(side: Side): CardLanguage | null {
   return isCardLanguage(value) ? value : null;
 }
 
-/** "Create with AI": paste text, a photo of notes, a PDF or a topic → cards to review. */
+/** "Create with AI": your notes (typed, pasted, or read from photos and PDFs) or a topic →
+ *  cards to review. */
 export default function CreateWithAiScreen() {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const router = useRouter();
   const draft = useAiDraft((s) => s.cards);
-  const [tab, setTab] = useState<Tab>('text');
-  const [pasted, setPasted] = useState('');
-  const [photoText, setPhotoText] = useState('');
-  const [pdf, setPdf] = useState<(PdfText & { fileName: string }) | null>(null);
+  const [tab, setTab] = useState<Tab>('notes');
+  const [notes, setNotes] = useState('');
+  // What the notes came from, for the suggested deck name (a PDF's file name, a photo or text).
+  const [notesSource, setNotesSource] = useState<AiSource>({ kind: 'text' });
+  // What was just added from a photo or PDF (and whether a long PDF was cut).
+  const [added, setAdded] = useState<string | null>(null);
   const [topic, setTopic] = useState('');
   const [maxCards, setMaxCards] = useState(10);
   const [languages, setLanguages] = useState<Languages>(() => ({
@@ -84,8 +85,10 @@ export default function CreateWithAiScreen() {
     back: storedLanguage('back'),
   }));
   const [quota, setQuota] = useState<QuotaState>({ status: 'loading' });
-  const [busy, setBusy] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  // "Reading the photo…" and its errors show under the photo / PDF buttons, "Making cards…" and
+  // its errors under Make cards: each next to what was tapped, not below the fold.
+  const [busy, setBusy] = useState<{ label: string; where: Where } | null>(null);
+  const [error, setError] = useState<{ message: string; where: Where } | null>(null);
 
   // Wake the server (free hosting sleeps when idle), then ask how many cards are left today.
   useEffect(() => {
@@ -101,14 +104,7 @@ export default function CreateWithAiScreen() {
     };
   }, []);
 
-  const input =
-    tab === 'text'
-      ? pasted
-      : tab === 'photo'
-        ? photoText
-        : tab === 'pdf'
-          ? (pdf?.text ?? '')
-          : topic;
+  const input = tab === 'topic' ? topic : notes;
   const limit = tab === 'topic' ? MAX_TOPIC_CHARS : MAX_INPUT_CHARS;
   const tooLong = input.trim().length > limit;
   const remaining = quota.status === 'ready' ? quota.remaining : MAX_CARDS_PER_REQUEST;
@@ -116,14 +112,15 @@ export default function CreateWithAiScreen() {
   const canGenerate =
     !busy && input.trim().length > 0 && !tooLong && !(quota.status === 'ready' && remaining === 0);
 
-  const run = async (label: string, task: () => Promise<void>) => {
-    setBusy(label);
+  const run = async (label: string, where: Where, task: () => Promise<void>) => {
+    setBusy({ label, where });
     setError(null);
+    if (where === 'notes') setAdded(null); // a new photo or PDF: the last "Added …" is old news
     try {
       await task();
     } catch (e) {
       console.warn(e);
-      setError(messageOf(e));
+      setError({ message: messageOf(e), where });
       if (e instanceof AiError && e.remaining !== undefined) {
         setQuota({ status: 'ready', remaining: e.remaining });
       }
@@ -134,24 +131,24 @@ export default function CreateWithAiScreen() {
 
   const generate = async () => {
     if (!(await askAiConsent())) return; // asks once before the first use (see consent.ts)
-    await run(t('ai.making'), async () => {
-      const source: AiSource =
-        tab === 'topic'
-          ? { kind: 'topic', topic }
-          : tab === 'pdf' && pdf
-            ? { kind: 'pdf', fileName: pdf.fileName }
-            : tab === 'photo'
-              ? { kind: 'photo' }
-              : { kind: 'text' };
+    await run(t('ai.making'), 'make', async () => {
+      const source: AiSource = tab === 'topic' ? { kind: 'topic', topic } : notesSource;
+      const asked = Math.min(maxCards, cardLimit);
       const result = await ai.generate({
         text: input.trim(),
         mode: tab === 'topic' ? 'topic' : 'text',
-        maxCards: Math.min(maxCards, cardLimit),
+        maxCards: asked,
         frontLanguage: languages.front,
         backLanguage: languages.back,
       });
       setQuota({ status: 'ready', remaining: result.remaining });
-      useAiDraft.setState({ cards: result.cards, source, languages });
+      useAiDraft.setState({
+        cards: result.cards,
+        source,
+        languages,
+        asked,
+        left: result.remaining,
+      });
       router.push('/ai/review');
     });
   };
@@ -159,7 +156,7 @@ export default function CreateWithAiScreen() {
   const choosePdf = async () => {
     // The PDF itself goes to Recap's server to be read, so ask before it's even picked.
     if (!(await askAiConsent())) return;
-    await run(t('ai.readingPdf'), async () => {
+    await run(t('ai.readingPdf'), 'notes', async () => {
       const picked = await DocumentPicker.getDocumentAsync({
         type: 'application/pdf',
         copyToCacheDirectory: true,
@@ -171,7 +168,16 @@ export default function CreateWithAiScreen() {
           throw new AiError('input', t('ai.pdfTooBig'));
         }
         const result = await ai.extractPdf(pickedUpload(asset), asset.name);
-        setPdf({ ...result, fileName: asset.name });
+        setNotes((current) => addToNotes(current, result.text));
+        setNotesSource((current) =>
+          notesSourceAfter(current, { kind: 'pdf', fileName: asset.name }),
+        );
+        const cut = result.truncated
+          ? ` ${t('ai.pdfTruncated', { n: count(MAX_INPUT_CHARS) })}`
+          : '';
+        setAdded(
+          t('ai.pdfAdded', { file: asset.name, pages: tn('count.page', result.pages) }) + cut,
+        );
       } finally {
         discardPicked(asset); // the picker's copy in the cache
       }
@@ -179,10 +185,22 @@ export default function CreateWithAiScreen() {
   };
 
   const choosePhoto = (from: 'camera' | 'library') =>
-    run(t('ai.readingPhoto'), async () => {
+    run(t('ai.readingPhoto'), 'notes', async () => {
       const text = await readTextFromPhoto(from);
-      if (text !== null) setPhotoText(text);
+      if (text === null) return; // cancelled
+      setNotes((current) => addToNotes(current, text));
+      setNotesSource((current) => notesSourceAfter(current, { kind: 'photo' }));
+      setAdded(t('ai.photoAdded'));
     });
+
+  const editNotes = (text: string) => {
+    setNotes(text);
+    if (!text.trim()) {
+      // Emptied: nothing from a photo or PDF is left to name the deck after.
+      setNotesSource({ kind: 'text' });
+      setAdded(null);
+    }
+  };
 
   const chooseLanguage = (side: Side, code: CardLanguage | null) => {
     setLanguages((current) => ({ ...current, [side]: code }));
@@ -223,87 +241,68 @@ export default function CreateWithAiScreen() {
           ))}
         </View>
 
-        {tab === 'text' ? (
-          <TextArea
-            value={pasted}
-            onChange={setPasted}
-            placeholder={t('ai.textPlaceholder')}
-            label={t('ai.textA11y')}
-          />
-        ) : null}
+        <Text style={styles.help}>{t(TAB_HELP[tab])}</Text>
 
-        {tab === 'photo' ? (
+        {tab === 'notes' ? (
           <>
-            <Text style={styles.help}>{t('ai.photoHelp')}</Text>
-            <View style={styles.row}>
-              <Button
-                variant="secondary"
-                label={t('ai.takePhoto')}
-                onPress={() => choosePhoto('camera')}
-                disabled={!!busy}
-                style={styles.flex}
-              />
-              <Button
-                variant="secondary"
-                label={t('ai.choosePhoto')}
-                onPress={() => choosePhoto('library')}
-                disabled={!!busy}
-                style={styles.flex}
-              />
-            </View>
-            {photoText ? (
-              <>
-                <Text style={styles.help}>{t('ai.photoTextHelp')}</Text>
-                <TextArea value={photoText} onChange={setPhotoText} label={t('ai.photoTextA11y')} />
-              </>
+            <TextArea
+              value={notes}
+              onChange={editNotes}
+              placeholder={t('ai.textPlaceholder')}
+              label={t('ai.textA11y')}
+            />
+            {notes ? (
+              <Text style={[styles.counter, tooLong && styles.error]}>
+                {t('ai.counter', { n: count(notes.trim().length), max: count(MAX_INPUT_CHARS) })}
+              </Text>
             ) : null}
-          </>
-        ) : null}
-
-        {tab === 'pdf' ? (
-          <>
+            {/* Reading text in photos runs on the phone (ML Kit), which the web doesn't have. */}
+            {can.photoText ? (
+              <View style={styles.row}>
+                <Button
+                  variant="secondary"
+                  label={t('ai.takePhoto')}
+                  onPress={() => choosePhoto('camera')}
+                  disabled={!!busy}
+                  style={styles.flex}
+                />
+                <Button
+                  variant="secondary"
+                  label={t('ai.choosePhoto')}
+                  onPress={() => choosePhoto('library')}
+                  disabled={!!busy}
+                  style={styles.flex}
+                />
+              </View>
+            ) : null}
             <Button
               variant="secondary"
-              label={t(pdf ? 'ai.chooseAnotherPdf' : 'ai.choosePdf')}
+              label={t('ai.choosePdf')}
               onPress={choosePdf}
               disabled={!!busy}
             />
-            {pdf ? (
-              <>
-                <Text style={styles.help}>
-                  {pdf.fileName} · {tn('count.page', pdf.pages)}
-                  {pdf.truncated ? ` · ${t('ai.pdfTruncated', { n: MAX_INPUT_CHARS })}` : ''}
-                </Text>
-                <TextArea
-                  value={pdf.text}
-                  onChange={(text) => setPdf({ ...pdf, text })}
-                  label={t('ai.pdfTextA11y')}
-                />
-              </>
-            ) : (
-              <Text style={styles.help}>{t('ai.pdfHelp')}</Text>
-            )}
+            <Status
+              busy={busy?.where === 'notes' ? busy.label : null}
+              error={error?.where === 'notes' ? error.message : null}
+              note={added}
+            />
           </>
-        ) : null}
-
-        {tab === 'topic' ? (
+        ) : (
           <TextInput
             value={topic}
             onChangeText={setTopic}
             placeholder={t('ai.topicPlaceholder')}
             placeholderTextColor={colors.muted}
-            accessibilityLabel={t('ai.tabTopic')}
+            accessibilityLabel={t('ai.topicA11y')}
             maxLength={MAX_TOPIC_CHARS}
+            // Wraps instead of cutting off a long topic or the example (Vietnamese, large text);
+            // Done still closes the keyboard rather than starting a new line.
+            multiline
+            submitBehavior="blurAndSubmit"
             returnKeyType="done"
             style={styles.topic}
           />
-        ) : null}
-
-        {tab !== 'topic' && input ? (
-          <Text style={[styles.counter, tooLong && styles.error]}>
-            {t('ai.counter', { n: count(input.trim().length), max: count(MAX_INPUT_CHARS) })}
-          </Text>
-        ) : null}
+        )}
 
         <SideLanguages
           value={languages}
@@ -325,17 +324,10 @@ export default function CreateWithAiScreen() {
 
         <Button size="lg" label={t('ai.make')} onPress={generate} disabled={!canGenerate} />
 
-        {busy ? (
-          <View style={styles.busy} accessibilityLiveRegion="polite">
-            <ActivityIndicator color={colors.primary} />
-            <Text style={styles.help}>{busy}</Text>
-          </View>
-        ) : null}
-        {error ? (
-          <Text style={[styles.help, styles.error]} accessibilityLiveRegion="polite">
-            {error}
-          </Text>
-        ) : null}
+        <Status
+          busy={busy?.where === 'make' ? busy.label : null}
+          error={error?.where === 'make' ? error.message : null}
+        />
 
         <Text style={styles.quota}>
           {quota.status === 'loading'
@@ -351,12 +343,43 @@ export default function CreateWithAiScreen() {
   );
 }
 
+/** A spinner with what's happening, else an error, else a plain note (e.g. "Added notes.pdf"). */
+function Status({
+  busy,
+  error,
+  note = null,
+}: {
+  busy: string | null;
+  error: string | null;
+  note?: string | null;
+}) {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
+  if (busy) {
+    return (
+      <View style={styles.busy} accessibilityLiveRegion="polite">
+        <ActivityIndicator color={colors.primary} />
+        <Text style={styles.help}>{busy}</Text>
+      </View>
+    );
+  }
+  const text = error ?? note;
+  if (!text) return null;
+  return (
+    <Text style={[styles.help, error && styles.error]} accessibilityLiveRegion="polite">
+      {text}
+    </Text>
+  );
+}
+
 function TextArea(props: {
   value: string;
   onChange: (text: string) => void;
   label: string;
   placeholder?: string;
 }) {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   return (
     <TextInput
       value={props.value}
@@ -371,57 +394,60 @@ function TextArea(props: {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, gap: 16, paddingBottom: 48 },
-  banner: {
-    minHeight: touchTarget,
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    borderRadius: radius.button,
-    backgroundColor: colors.tint,
-  },
-  bannerText: { fontSize: 15, fontWeight: '600', color: colors.primary },
-  tabs: {
-    flexDirection: 'row',
-    backgroundColor: colors.surface,
-    borderRadius: radius.button,
-    padding: 4,
-    gap: 4,
-  },
-  tab: {
-    flex: 1,
-    minHeight: touchTarget,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: radius.button - 4,
-    paddingHorizontal: 4,
-  },
-  tabSelected: { backgroundColor: colors.background },
-  tabText: { fontSize: 15, color: colors.muted, textAlign: 'center' },
-  tabTextSelected: { color: colors.primary, fontWeight: '600' },
-  help: { fontSize: 15, color: colors.muted },
-  row: { flexDirection: 'row', gap: 12 },
-  flex: { flex: 1 },
-  input: {
-    minHeight: 180,
-    maxHeight: 360,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    padding: 16,
-    fontSize: 16,
-    color: colors.text,
-  },
-  topic: {
-    minHeight: touchTarget,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 16,
-    fontSize: 17,
-    color: colors.text,
-  },
-  counter: { fontSize: 13, color: colors.muted, textAlign: 'right', marginTop: -8 },
-  busy: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  error: { color: colors.danger },
-  quota: { fontSize: 15, color: colors.text, textAlign: 'center' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    content: { padding: 20, gap: 16, paddingBottom: 48 },
+    banner: {
+      minHeight: touchTarget,
+      justifyContent: 'center',
+      paddingHorizontal: 16,
+      borderRadius: radius.button,
+      backgroundColor: colors.tint,
+    },
+    bannerText: { fontSize: 15, fontWeight: '600', color: colors.primary },
+    tabs: {
+      flexDirection: 'row',
+      backgroundColor: colors.surface,
+      borderRadius: radius.button,
+      padding: 4,
+      gap: 4,
+    },
+    tab: {
+      flex: 1,
+      minHeight: touchTarget,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: radius.button - 4,
+      paddingHorizontal: 4,
+    },
+    tabSelected: { backgroundColor: colors.background },
+    tabText: { fontSize: 15, color: colors.muted, textAlign: 'center' },
+    tabTextSelected: { color: colors.primary, fontWeight: '600' },
+    help: { fontSize: 15, color: colors.muted },
+    row: { flexDirection: 'row', gap: 12 },
+    flex: { flex: 1 },
+    input: {
+      minHeight: 180,
+      maxHeight: 360,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      padding: 16,
+      fontSize: 16,
+      color: colors.text,
+    },
+    topic: {
+      minHeight: touchTarget,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      fontSize: 17,
+      color: colors.text,
+      textAlignVertical: 'center',
+    },
+    counter: { fontSize: 13, color: colors.muted, textAlign: 'right', marginTop: -8 },
+    busy: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+    error: { color: colors.danger },
+    quota: { fontSize: 15, color: colors.text, textAlign: 'center' },
+  });

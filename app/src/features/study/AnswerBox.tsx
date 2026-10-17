@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 
 import { Button } from '@/components/Button';
 import { t } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
 
 type Props = {
   /** The first letter was typed (times "right and quick" for Easy). */
@@ -17,6 +17,8 @@ type Props = {
  * it starts empty. Enter checks; the button says "Show answer" until something is typed.
  */
 export function AnswerBox({ onStartTyping, onCheck }: Props) {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const [typed, setTyped] = useState('');
   const input = useRef<TextInput>(null);
   const hasText = typed.trim().length > 0;
@@ -60,14 +62,15 @@ export function AnswerBox({ onStartTyping, onCheck }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  box: { gap: 12 },
-  input: {
-    minHeight: touchTarget + 8,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 16,
-    fontSize: 20,
-    color: colors.text,
-  },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    box: { gap: 12 },
+    input: {
+      minHeight: touchTarget + 8,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      fontSize: 20,
+      color: colors.text,
+    },
+  });

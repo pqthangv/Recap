@@ -25,7 +25,8 @@ export function isPackAdded(pack: Pack, decks: readonly { name: string }[]): boo
 }
 
 /**
- * Adds the pack's decks (in the pack's color) and its cards as new cards, in the pack's order.
+ * Adds the pack's decks (in the pack's color, read aloud in its languages) and its cards as new
+ * cards, in the pack's order.
  * Adding it again only brings back what's missing: cards already in a deck are skipped.
  */
 export function addPack(pack: Pack, now = Date.now()): ImportSummary {
@@ -33,7 +34,9 @@ export function addPack(pack: Pack, now = Date.now()): ImportSummary {
   return transaction(() => {
     const existing = new Set(listDecks().map((d) => lower(d.name)));
     names.forEach((name, i) => {
-      if (!existing.has(lower(name))) createDeck({ name, color: pack.color }, now + i);
+      if (!existing.has(lower(name))) {
+        createDeck({ name, color: pack.color, languages: pack.languages }, now + i);
+      }
     });
     const items = pack.decks.flatMap((deck, i) =>
       deck.cards.map((card) => ({ ...card, tags: [], deckName: names[i] })),

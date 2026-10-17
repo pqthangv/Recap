@@ -3,12 +3,13 @@ import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { t } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 type Props = { visible: boolean; hasDecks: boolean; onClose: () => void };
 
 /** Bottom sheet behind the home screen's "+" button. */
 export function AddMenu({ visible, hasDecks, onClose }: Props) {
+  const styles = useStyles(makeStyles);
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const go = (href: Href) => {
@@ -53,6 +54,7 @@ function Option({
   muted?: boolean;
   onPress: () => void;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -70,34 +72,35 @@ function Option({
   );
 }
 
-const styles = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: 'rgba(26, 21, 48, 0.35)' },
-  sheet: {
-    backgroundColor: colors.background,
-    borderTopLeftRadius: radius.card,
-    borderTopRightRadius: radius.card,
-    paddingTop: 12,
-    paddingHorizontal: 12,
-  },
-  option: {
-    minHeight: touchTarget + 8,
-    paddingHorizontal: 16,
-    borderRadius: radius.button,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  pressed: { backgroundColor: colors.surface },
-  label: { fontSize: 18, color: colors.text, fontWeight: '500' },
-  disabled: { color: colors.muted },
-  muted: { color: colors.muted },
-  hint: {
-    fontSize: 13,
-    color: colors.primary,
-    backgroundColor: colors.tint,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: radius.chip,
-    overflow: 'hidden',
-  },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    backdrop: { flex: 1, backgroundColor: colors.backdrop },
+    sheet: {
+      backgroundColor: colors.sheet,
+      borderTopLeftRadius: radius.card,
+      borderTopRightRadius: radius.card,
+      paddingTop: 12,
+      paddingHorizontal: 12,
+    },
+    option: {
+      minHeight: touchTarget + 8,
+      paddingHorizontal: 16,
+      borderRadius: radius.button,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    pressed: { backgroundColor: colors.surface },
+    label: { fontSize: 18, color: colors.text, fontWeight: '500' },
+    disabled: { color: colors.muted },
+    muted: { color: colors.muted },
+    hint: {
+      fontSize: 13,
+      color: colors.primary,
+      backgroundColor: colors.tint,
+      paddingHorizontal: 10,
+      paddingVertical: 4,
+      borderRadius: radius.chip,
+      overflow: 'hidden',
+    },
+  });

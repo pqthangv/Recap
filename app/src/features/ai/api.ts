@@ -23,13 +23,18 @@ export const ai = createAiClient({ baseUrl: API_URL, deviceId: () => getDeviceId
 
 /** Cards waiting for review. Kept until they're saved or replaced, so nothing is lost by
  *  leaving the review screen (making them used up AI quota). `languages`: what each side was
- *  written in, for the deck they're saved to. */
+ *  written in, for the deck they're saved to. `asked` and `left` (AI cards left after this
+ *  request) let Review cards say why there are fewer cards than asked. */
 export const useAiDraft = create<{
   cards: GeneratedCard[] | null;
   source: AiSource;
   languages: SideLanguages;
+  asked: number;
+  left: number | null;
 }>(() => ({
   cards: null,
   source: { kind: 'text' },
   languages: { front: null, back: null },
+  asked: 0,
+  left: null,
 }));

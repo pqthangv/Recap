@@ -8,7 +8,7 @@ import { importCards, type ImportTarget } from '@/db/import';
 import { useLive } from '@/db/live';
 import { t, tn } from '@/lib/i18n';
 import { AnkiImportError } from '@/lib/import/anki';
-import { colors } from '@/lib/theme';
+import { type Colors, useColors, useStyles } from '@/lib/theme';
 
 import { DeckTarget } from './DeckTarget';
 import {
@@ -38,6 +38,7 @@ function friendly(e: unknown): string {
 }
 
 export default function AnkiImportScreen() {
+  const styles = useStyles(makeStyles);
   const router = useRouter();
   const draft = useImportDraft((s) => s.anki);
   if (!draft) {
@@ -52,6 +53,8 @@ export default function AnkiImportScreen() {
 }
 
 function AnkiImport({ draft }: { draft: AnkiDraft }) {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const router = useRouter();
   const decks = useLive(listDecks, ['decks']);
   const finish = useFinishImport();
@@ -185,10 +188,11 @@ function AnkiImport({ draft }: { draft: AnkiDraft }) {
   );
 }
 
-const styles = StyleSheet.create({
-  content: { padding: 20, gap: 16, paddingBottom: 48 },
-  center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 32 },
-  title: { fontSize: 22, fontWeight: '700', color: colors.text },
-  help: { fontSize: 15, color: colors.muted, textAlign: 'left' },
-  deckLine: { fontSize: 16, color: colors.text, paddingVertical: 2 },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    content: { padding: 20, gap: 16, paddingBottom: 48 },
+    center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 32 },
+    title: { fontSize: 22, fontWeight: '700', color: colors.text },
+    help: { fontSize: 15, color: colors.muted, textAlign: 'left' },
+    deckLine: { fontSize: 16, color: colors.text, paddingVertical: 2 },
+  });

@@ -3,7 +3,15 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 import type { ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
 import { t } from '@/lib/i18n';
-import { colors, radius, touchTarget } from '@/lib/theme';
+import { useScheme } from '@/lib/appearance';
+import {
+  type Colors,
+  radius,
+  shownDeckColor,
+  touchTarget,
+  useColors,
+  useStyles,
+} from '@/lib/theme';
 
 type Props = {
   value: ImportTarget;
@@ -16,6 +24,8 @@ type Props = {
 
 /** "Add to": decks from the file, a new deck (with a name), or an existing deck. */
 export function DeckTarget({ value, onChange, decks, fromFile, suggestedName }: Props) {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const newName = value.kind === 'new' ? value.name : suggestedName;
   return (
     <View style={styles.wrap}>
@@ -80,6 +90,8 @@ export function Chip({
   onPress: () => void;
   color?: string;
 }) {
+  const styles = useStyles(makeStyles);
+  const scheme = useScheme();
   return (
     <Pressable
       accessibilityRole="radio"
@@ -87,7 +99,9 @@ export function Chip({
       onPress={onPress}
       style={[styles.chip, selected && styles.chipSelected]}
     >
-      {color ? <View style={[styles.dot, { backgroundColor: color }]} /> : null}
+      {color ? (
+        <View style={[styles.dot, { backgroundColor: shownDeckColor(color, scheme) }]} />
+      ) : null}
       <Text style={[styles.chipText, selected && styles.chipTextSelected]} numberOfLines={1}>
         {label}
       </Text>
@@ -95,32 +109,33 @@ export function Chip({
   );
 }
 
-const styles = StyleSheet.create({
-  wrap: { gap: 8 },
-  label: { fontSize: 15, fontWeight: '600', color: colors.muted },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  deckRow: { gap: 8, paddingRight: 20 },
-  chip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    minHeight: touchTarget,
-    maxWidth: '100%',
-    paddingHorizontal: 16,
-    borderRadius: radius.chip,
-    borderWidth: 1,
-    borderColor: colors.hairline,
-  },
-  chipSelected: { backgroundColor: colors.tint, borderColor: colors.primary },
-  chipText: { fontSize: 15, color: colors.text, flexShrink: 1 },
-  chipTextSelected: { color: colors.primary, fontWeight: '600' },
-  dot: { width: 10, height: 10, borderRadius: 5 },
-  input: {
-    minHeight: touchTarget,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 16,
-    fontSize: 17,
-    color: colors.text,
-  },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    wrap: { gap: 8 },
+    label: { fontSize: 15, fontWeight: '600', color: colors.muted },
+    chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+    deckRow: { gap: 8, paddingRight: 20 },
+    chip: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      minHeight: touchTarget,
+      maxWidth: '100%',
+      paddingHorizontal: 16,
+      borderRadius: radius.chip,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+    },
+    chipSelected: { backgroundColor: colors.tint, borderColor: colors.primary },
+    chipText: { fontSize: 15, color: colors.text, flexShrink: 1 },
+    chipTextSelected: { color: colors.primary, fontWeight: '600' },
+    dot: { width: 10, height: 10, borderRadius: 5 },
+    input: {
+      minHeight: touchTarget,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      fontSize: 17,
+      color: colors.text,
+    },
+  });

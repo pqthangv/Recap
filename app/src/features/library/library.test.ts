@@ -2,6 +2,7 @@ import { clearTestDb, migrateTestDb, rawQuery } from '../../../test/db';
 
 import { deleteDeck, listDecks } from '@/db/decks';
 import { getDueQueue } from '@/db/study';
+import { isTypeable } from '@/lib/answerCheck';
 
 import { addPack, isPackAdded, packCardCount, packDeckNames } from './library';
 import { PACKS, type Pack } from './packs';
@@ -59,6 +60,14 @@ describe('adding a Library pack', () => {
     expect(rawQuery('select count(*) as n from cards where deleted_at is null')[0].n).toBe(3);
   });
 
+  it("gives the new decks the pack's languages, to be read aloud in", () => {
+    addPack({ ...PACK, languages: { front: 'en', back: 'vi' } }, NOW);
+    expect(listDecks().map((d) => [d.front_lang, d.back_lang])).toEqual([
+      ['en', 'vi'],
+      ['en', 'vi'],
+    ]);
+  });
+
   it('names and counts', () => {
     expect(packDeckNames(PACK)).toEqual(['Test words › Set 1', 'Test words › Set 2']);
     expect(packCardCount(PACK)).toBe(3);
@@ -74,6 +83,8 @@ describe('the bundled packs', () => {
     sat: VOCAB,
     toeic: VOCAB,
     capitals: /^[^\n]+(\n\n[^\n]+\.)?$/,
+    // The Vietnamese meaning (no brackets: it's typed), the example in Vietnamese, maybe a note.
+    'english-basics': /^[^\n()]+\n\n[^\n]+(\n\n[^\n]+)?$/,
   };
 
   it('every pack has a format check', () => {
@@ -93,6 +104,39 @@ describe('the bundled packs', () => {
       );
     const academic = new Set([...words('ielts'), ...words('sat')]);
     expect(words('toeic').filter((word) => academic.has(word))).toEqual([]);
+  });
+
+  describe('English basics', () => {
+    const pack = PACKS.find((p) => p.id === 'english-basics')!;
+    const cards = pack.decks.flatMap((d) => d.cards);
+
+    it('has 20 topics of 50 words, read in English and Vietnamese', () => {
+      expect(pack.decks.map((d) => d.cards.length)).toEqual(new Array(20).fill(50));
+      expect(pack.languages).toEqual({ front: 'en', back: 'vi' });
+    });
+
+    it('numbers its topics, so they list in learning order', () => {
+      const names = pack.decks.map((d) => d.name);
+      names.forEach((name, i) =>
+        expect(name).toMatch(new RegExp(`^${String(i + 1).padStart(2, '0')} \\S`)),
+      );
+      expect([...names].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))).toEqual(
+        names,
+      );
+    });
+
+    it('shows the word and an English example on the front', () => {
+      for (const card of cards) expect(card.front).toMatch(/^[^\n]+\n\n[^\n]+[.!?]$/);
+    });
+
+    it('has each word once', () => {
+      const words = cards.map((c) => c.front.split('\n')[0].toLowerCase());
+      expect(new Set(words).size).toBe(words.length);
+    });
+
+    it('has meanings short enough to type, so every card gets the typed check', () => {
+      expect(cards.filter((c) => !isTypeable(c.back, 'vi')).map((c) => c.back)).toEqual([]);
+    });
   });
 
   it('World capitals has all 193 UN members', () => {

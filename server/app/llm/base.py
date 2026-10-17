@@ -36,8 +36,13 @@ class ProviderBusy(Exception):
     """Rate limited or overloaded, even after retrying. Tell the user to try again later."""
 
 
+class ProviderBlocked(Exception):
+    """The AI refused this text (Google's built-in protections). Trying again won't help, so it
+    isn't retried on another model: tell the user to try different text."""
+
+
 class ProviderFailed(Exception):
-    """Any other failure (bad key, blocked content, unreadable answer)."""
+    """Any other failure (bad key, unreadable answer)."""
 
 
 class CardProvider(Protocol):

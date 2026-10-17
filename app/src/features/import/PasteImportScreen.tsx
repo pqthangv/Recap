@@ -7,12 +7,14 @@ import { importCards, type ImportTarget } from '@/db/import';
 import { useLive } from '@/db/live';
 import { t, tn } from '@/lib/i18n';
 import { parsePaste, separatorLabel } from '@/lib/import/paste';
-import { colors, radius } from '@/lib/theme';
+import { type Colors, radius, useColors, useStyles } from '@/lib/theme';
 
 import { DeckTarget } from './DeckTarget';
 import { CardPreview, targetIsValid, useFinishImport } from './shared';
 
 export default function PasteImportScreen() {
+  const styles = useStyles(makeStyles);
+  const colors = useColors();
   const decks = useLive(listDecks, ['decks']);
   const finish = useFinishImport();
   const [text, setText] = useState('');
@@ -84,19 +86,20 @@ export default function PasteImportScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, gap: 16, paddingBottom: 48 },
-  help: { fontSize: 15, color: colors.muted },
-  input: {
-    minHeight: 160,
-    maxHeight: 320,
-    borderRadius: radius.button,
-    backgroundColor: colors.surface,
-    padding: 16,
-    fontSize: 17,
-    color: colors.text,
-    textAlignVertical: 'top',
-  },
-  status: { fontSize: 15, color: colors.text },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.background },
+    content: { padding: 20, gap: 16, paddingBottom: 48 },
+    help: { fontSize: 15, color: colors.muted },
+    input: {
+      minHeight: 160,
+      maxHeight: 320,
+      borderRadius: radius.button,
+      backgroundColor: colors.surface,
+      padding: 16,
+      fontSize: 17,
+      color: colors.text,
+      textAlignVertical: 'top',
+    },
+    status: { fontSize: 15, color: colors.text },
+  });

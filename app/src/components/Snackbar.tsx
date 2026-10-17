@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { create } from 'zustand';
 
 import { t } from '@/lib/i18n';
-import { colors, sideSpace, touchTarget } from '@/lib/theme';
+import { type Colors, sideSpace, touchTarget, useStyles } from '@/lib/theme';
 
 type Snack = { id: number; message: string; actionLabel?: string; onAction?: () => void };
 
@@ -39,6 +39,7 @@ const SNACKBAR_OFFSET = 104;
 
 /** Rendered once, in the root layout. */
 export function SnackbarHost() {
+  const styles = useStyles(makeStyles);
   const snack = useSnackbar((s) => s.snack);
   const insets = useSafeAreaInsets();
   const side = 16 + sideSpace(useWindowDimensions().width);
@@ -77,24 +78,25 @@ export function SnackbarHost() {
   );
 }
 
-const styles = StyleSheet.create({
-  wrap: { position: 'absolute' },
-  bar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.text,
-    borderRadius: 12,
-    paddingLeft: 16,
-    paddingRight: 4,
-    minHeight: touchTarget + 8,
-  },
-  message: { flex: 1, color: colors.background, fontSize: 15, paddingVertical: 12 },
-  action: {
-    minHeight: touchTarget,
-    minWidth: touchTarget,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  actionText: { color: colors.tint, fontSize: 15, fontWeight: '700' },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    wrap: { position: 'absolute' },
+    bar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.text,
+      borderRadius: 12,
+      paddingLeft: 16,
+      paddingRight: 4,
+      minHeight: touchTarget + 8,
+    },
+    message: { flex: 1, color: colors.background, fontSize: 15, paddingVertical: 12 },
+    action: {
+      minHeight: touchTarget,
+      minWidth: touchTarget,
+      paddingHorizontal: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    actionText: { color: colors.tint, fontSize: 15, fontWeight: '700' },
+  });

@@ -8,13 +8,14 @@ import { importCards, type ImportTarget } from '@/db/import';
 import { useLive } from '@/db/live';
 import { t, tn } from '@/lib/i18n';
 import { guessColumns, tableToCards, type ColumnChoice } from '@/lib/import/csv';
-import { colors } from '@/lib/theme';
+import { type Colors, useStyles } from '@/lib/theme';
 
 import { Chip, DeckTarget } from './DeckTarget';
 import { baseName, useImportDraft, type TableDraft } from './files';
 import { CardPreview, defaultTarget, targetIsValid, useFinishImport } from './shared';
 
 export default function CsvImportScreen() {
+  const styles = useStyles(makeStyles);
   const router = useRouter();
   const draft = useImportDraft((s) => s.table);
   if (!draft) {
@@ -29,6 +30,7 @@ export default function CsvImportScreen() {
 }
 
 function CsvImport({ fileName, table }: TableDraft) {
+  const styles = useStyles(makeStyles);
   const decks = useLive(listDecks, ['decks']);
   const finish = useFinishImport();
   const name = baseName(fileName);
@@ -114,6 +116,7 @@ function ColumnPicker(props: {
   onChange: (index: number) => void;
   allowNone?: boolean;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <View style={styles.picker}>
       <Text style={styles.label}>{props.label}</Text>
@@ -138,11 +141,12 @@ function ColumnPicker(props: {
   );
 }
 
-const styles = StyleSheet.create({
-  content: { padding: 20, gap: 16, paddingBottom: 48 },
-  help: { fontSize: 15, color: colors.muted },
-  picker: { gap: 8 },
-  label: { fontSize: 15, fontWeight: '600', color: colors.muted },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  warning: { fontSize: 15, color: colors.danger },
-});
+const makeStyles = (colors: Colors) =>
+  StyleSheet.create({
+    content: { padding: 20, gap: 16, paddingBottom: 48 },
+    help: { fontSize: 15, color: colors.muted },
+    picker: { gap: 8 },
+    label: { fontSize: 15, fontWeight: '600', color: colors.muted },
+    chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+    warning: { fontSize: 15, color: colors.danger },
+  });
