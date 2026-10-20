@@ -1,6 +1,7 @@
 // "Paste a list": one card per line, `term - definition`, `term<TAB>definition` or
 // `term;definition`. The separator is detected from the text.
 import { t } from '../i18n';
+import { findFormulas } from '../math/parse';
 
 export type Separator = 'tab' | 'dash' | 'semicolon';
 
@@ -28,11 +29,21 @@ export function separatorLabel(separator: Separator): string {
   return t(`paste.${separator}`);
 }
 
+/** The line with its formulas blanked out (same length), so the " - " in "$a - b$" or a ";"
+ * inside a formula isn't taken for the separator. */
+function outsideMath(line: string): string {
+  let out = line;
+  for (const f of findFormulas(line)) {
+    out = out.slice(0, f.start) + '_'.repeat(f.end - f.start) + out.slice(f.end);
+  }
+  return out;
+}
+
 export function detectSeparator(lines: readonly string[]): Separator | null {
   let best: Separator | null = null;
   let bestCount = 0;
   for (const sep of PRIORITY) {
-    const count = lines.filter((l) => PATTERNS[sep].test(l)).length;
+    const count = lines.filter((l) => PATTERNS[sep].test(outsideMath(l))).length;
     if (count > bestCount) {
       best = sep;
       bestCount = count;
@@ -51,7 +62,7 @@ export function parsePaste(text: string): PasteResult {
   const skipped: string[] = [];
   for (const line of lines) {
     // Split on the first separator only, so a definition may contain it too.
-    const m = separator ? PATTERNS[separator].exec(line) : null;
+    const m = separator ? PATTERNS[separator].exec(outsideMath(line)) : null;
     const front = m ? line.slice(0, m.index).trim() : '';
     const back = m ? line.slice(m.index + m[0].length).trim() : '';
     if (front && back) cards.push({ front, back });

@@ -4,6 +4,7 @@
 import { DECK_PATH_SEPARATOR } from '../deckGroups';
 import { t } from '../i18n';
 
+import { fromAnkiMath } from './ankiMath';
 import { extractImages, htmlToText } from './html';
 
 export class AnkiImportError extends Error {}
@@ -403,14 +404,14 @@ function renderAnkiCard(
   });
   const marker = /<hr\b[^>]*\bid\s*=\s*["']?answer\b["']?[^>]*>/i.exec(answerHtml);
   const backHtml = marker ? answerHtml.slice(marker.index + marker[0].length) : answerHtml;
-  const front = htmlToText(frontHtml);
-  let back = htmlToText(backHtml);
+  const front = cardText(frontHtml);
+  let back = cardText(backHtml);
   const frontImage = firstImage(frontHtml);
   const backImage = firstImage(backHtml);
   if (!front && !frontImage) return null;
   if (!back && !backImage) {
     // Unusual template: fall back to the note's other fields.
-    back = [...fields.values()].slice(1).map(htmlToText).filter(Boolean).join('\n');
+    back = [...fields.values()].slice(1).map(cardText).filter(Boolean).join('\n');
     if (!back) return null;
   }
   const image = frontImage
@@ -421,10 +422,13 @@ function renderAnkiCard(
   return { front: front || '(picture)', back: back || '(picture)', image };
 }
 
+/** A field's HTML as card text, with Anki's math marks turned into Recap's. */
+const cardText = (html: string) => fromAnkiMath(htmlToText(html));
+
 /** No usable note type: first field is the front, the rest is the back. */
 function fallbackCard(values: string[]): RenderedCard | null {
-  const front = htmlToText(values[0] ?? '');
-  const back = values.slice(1).map(htmlToText).filter(Boolean).join('\n');
+  const front = cardText(values[0] ?? '');
+  const back = values.slice(1).map(cardText).filter(Boolean).join('\n');
   if (!front || !back) return null;
   const frontImage = firstImage(values[0] ?? '');
   const backImage = values.slice(1).map(firstImage).find(Boolean);

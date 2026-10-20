@@ -1,4 +1,5 @@
 // Writes small Anki packages to test/fixtures for the importer tests:
+//   math.apkg       – schema 11, every way Anki decks write math (MathJax, [$], [$$], [latex])
 //   basic.apkg      – classic collection (schema 11): Basic, reversed, cloze and a custom note type
 //   schema18.apkg   – newer collection layout (separate tables, protobuf template configs)
 //   latest.apkg     – Anki 2.1.50+ default export: zstd-compressed collection.anki21b (WAL mode,
@@ -335,27 +336,113 @@ function placeholderCollection() {
   return finish(t);
 }
 
-(async () => {
-  fs.mkdirSync(OUT, { recursive: true });
-  await writeApkg('basic.apkg', {
-    'collection.anki2': schema11(),
-    media: JSON.stringify({ 0: 'flag of japan.png', 1: 'wave.jpg', 2: 'hello.mp3' }),
-    0: PNG,
-    1: JPG,
-    2: MP3,
+// --- math.apkg (schema 11): the ways Anki decks write math ------------------------------------
+function mathCollection() {
+  const t = tempDb('math.anki2');
+  t.db.exec(`CREATE TABLE col (id integer primary key, crt integer not null, mod integer not null,
+    scm integer not null, ver integer not null, dty integer not null, usn integer not null,
+    ls integer not null, conf text not null, models text not null, decks text not null,
+    dconf text not null, tags text not null);${NOTES_AND_CARDS}`);
+  const field = (name, ord) => ({ name, ord });
+  const models = {
+    2001: {
+      id: 2001,
+      name: 'Basic',
+      type: 0,
+      flds: [field('Front', 0), field('Back', 1)],
+      tmpls: [
+        { name: 'Card 1', ord: 0, qfmt: '{{Front}}', afmt: '{{FrontSide}}<hr id=answer>{{Back}}' },
+      ],
+    },
+    2002: {
+      id: 2002,
+      name: 'Cloze',
+      type: 1,
+      flds: [field('Text', 0), field('Back Extra', 1)],
+      tmpls: [
+        { name: 'Cloze', ord: 0, qfmt: '{{cloze:Text}}', afmt: '{{cloze:Text}}<br>{{Back Extra}}' },
+      ],
+    },
+  };
+  const ALGEBRA = 1700000000101;
+  const decks = { 1: { id: 1, name: 'Default' }, [ALGEBRA]: { id: ALGEBRA, name: 'Algebra' } };
+  t.db
+    .prepare('INSERT INTO col VALUES (1, 0, 0, 0, 11, 0, 0, 0, ?, ?, ?, ?, ?)')
+    .run('{}', JSON.stringify(models), JSON.stringify(decks), '{}', '{}');
+  const notes = [
+    ['What is \\(\\frac{1}{2}\\) of 10?', '5'], // MathJax, Anki 2.1's default
+    ['Mass–energy equivalence', '\\[E = mc^2\\]'],
+    ['Square of x', '[$]x^2[/$]'], // Anki's older LaTeX tags
+    ['Area under y = x from 0 to 1', '[$$]\\int_0^1 x\\,dx = \\tfrac{1}{2}[/$$]'],
+    ['Pythagoras', '[latex]$a^2 + b^2 = c^2$[/latex]'], // LaTeX text with its own $
+    ['Root two', '[latex]\\sqrt{2}[/latex]'],
+    ['Is \\(a &lt; b\\) when \\(b - a &gt; 0\\)?', 'Yes'], // HTML entities inside a formula
+    ['A notebook costs', '$5 and a pen $2'], // prices, not math
+  ];
+  notes.forEach(([front, back], i) =>
+    addNote(t.db, {
+      id: 100 + i,
+      mid: 2001,
+      tags: '',
+      fields: [front, back],
+      cards: [[ALGEBRA, 0]],
+    }),
+  );
+  addNote(t.db, {
+    id: 120,
+    mid: 2002,
+    tags: '',
+    fields: ['{{c1::\\(x = 3\\)}} solves \\(x^2 = 9\\) for positive x.', ''],
+    cards: [[ALGEBRA, 0]],
   });
-  await writeApkg('schema18.apkg', { 'collection.anki21': schema18(), media: '{}' });
+  return finish(t);
+}
+
+// `node scripts/make-anki-fixtures.js math.apkg` writes only that file (zip dates make every
+// regenerated file differ, so the others are left alone).
+const ONLY = process.argv.slice(2);
+const wanted = (name) => ONLY.length === 0 || ONLY.includes(name);
+
+// Built in this order (card ids come from one counter, so math.apkg goes last and the older
+// files keep their ids).
+const PACKAGES = [
+  [
+    'basic.apkg',
+    () => ({
+      'collection.anki2': schema11(),
+      media: JSON.stringify({ 0: 'flag of japan.png', 1: 'wave.jpg', 2: 'hello.mp3' }),
+      0: PNG,
+      1: JPG,
+      2: MP3,
+    }),
+  ],
+  ['schema18.apkg', () => ({ 'collection.anki21': schema18(), media: '{}' })],
   // MediaEntries { repeated MediaEntry entries = 1 }, MediaEntry { name = 1, size = 2 };
   // entry i is stored in the zip as "i".
-  await writeApkg('latest.apkg', {
-    'collection.anki2': placeholderCollection(),
-    'collection.anki21b': zlib.zstdCompressSync(schema18({ latest: true })),
-    media: zlib.zstdCompressSync(proto([1, proto([1, 'atom.png'], [2, PNG.length])])),
-    0: zlib.zstdCompressSync(PNG),
-  });
-  await writeApkg('new-format.apkg', {
-    'collection.anki2': placeholderCollection(),
-    'collection.anki21b': Buffer.from([0x28, 0xb5, 0x2f, 0xfd, 1, 2, 3]),
-    media: Buffer.from([0x28, 0xb5, 0x2f, 0xfd]),
-  });
+  [
+    'latest.apkg',
+    () => ({
+      'collection.anki2': placeholderCollection(),
+      'collection.anki21b': zlib.zstdCompressSync(schema18({ latest: true })),
+      media: zlib.zstdCompressSync(proto([1, proto([1, 'atom.png'], [2, PNG.length])])),
+      0: zlib.zstdCompressSync(PNG),
+    }),
+  ],
+  [
+    'new-format.apkg',
+    () => ({
+      'collection.anki2': placeholderCollection(),
+      'collection.anki21b': Buffer.from([0x28, 0xb5, 0x2f, 0xfd, 1, 2, 3]),
+      media: Buffer.from([0x28, 0xb5, 0x2f, 0xfd]),
+    }),
+  ],
+  ['math.apkg', () => ({ 'collection.anki2': mathCollection(), media: '{}' })],
+];
+
+(async () => {
+  fs.mkdirSync(OUT, { recursive: true });
+  for (const [name, build] of PACKAGES) {
+    const entries = build(); // built even when skipped, so card ids stay the same
+    if (wanted(name)) await writeApkg(name, entries);
+  }
 })();
