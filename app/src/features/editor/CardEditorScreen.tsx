@@ -28,9 +28,14 @@ import {
 } from '@/db/cards';
 import { listDecks } from '@/db/decks';
 import { Chip } from '@/features/import/DeckTarget';
+import { MathSheet } from '@/features/math/MathSheet';
+import { MathText } from '@/features/math/MathText';
 import { PictureError, pictureUri } from '@/features/pictures/files';
 import { pickPicture } from '@/features/pictures/pick';
 import { formatTags, parseTags } from '@/lib/format';
+import { cardSideLanguages, type CardLanguage } from '@/lib/language';
+import { findFormulas, hasMath, type FormulaAt } from '@/lib/math/parse';
+import { insertFormula, replaceFormula, type Selection } from '@/lib/math/templates';
 import { can } from '@/lib/platform';
 import { t } from '@/lib/i18n';
 import { useScheme } from '@/lib/appearance';
@@ -71,6 +76,32 @@ export default function CardEditorScreen() {
   const [addingPicture, setAddingPicture] = useState(false);
   const frontInput = useRef<TextInput>(null);
   const backInput = useRef<TextInput>(null);
+  // "+ Math": which side the sheet writes to, and the formula it edits (null: a new one, put in
+  // where that side's cursor last was, or at the end).
+  const [math, setMath] = useState<{ side: Side; formula: FormulaAt | null } | null>(null);
+  const cursors = useRef<Record<Side, Selection | null>>({ front: null, back: null });
+  const languages = cardSideLanguages(
+    decks.find((d) => d.id === deckId),
+    false,
+  );
+
+  const sideText = (side: Side) => (side === 'front' ? front : back);
+  const setSideText = (side: Side, text: string) => (side === 'front' ? setFront : setBack)(text);
+  const openMath = (side: Side, index?: number) =>
+    setMath({ side, formula: index === undefined ? null : findFormulas(sideText(side))[index] });
+  const mathDone = (tex: string) => {
+    if (!math) return;
+    const text = sideText(math.side);
+    if (math.formula) {
+      setSideText(math.side, replaceFormula(text, math.formula, tex));
+    } else if (tex) {
+      const at = cursors.current[math.side] ?? { start: text.length, end: text.length };
+      const edit = insertFormula(text, at, tex);
+      setSideText(math.side, edit.text);
+      cursors.current[math.side] = edit.selection;
+    }
+    setMath(null);
+  };
 
   const canSave = front.trim() !== '' && back.trim() !== '' && deckId !== '' && !addingPicture;
   const input = (): CardInput => ({
@@ -164,11 +195,12 @@ export default function CardEditorScreen() {
           ))}
         </ScrollView>
 
-        <Text style={styles.label}>{t('card.front')}</Text>
+        <SideLabel side="front" onMath={() => openMath('front')} />
         <TextInput
           ref={frontInput}
           value={front}
           onChangeText={setFront}
+          onSelectionChange={(e) => (cursors.current.front = e.nativeEvent.selection)}
           placeholder={t('card.frontPlaceholder')}
           placeholderTextColor={colors.muted}
           accessibilityLabel={t('card.front')}
@@ -179,17 +211,28 @@ export default function CardEditorScreen() {
           onSubmitEditing={() => backInput.current?.focus()}
           returnKeyType="next"
         />
+        <MathPreview
+          text={front}
+          language={languages.front}
+          onPressFormula={(i) => openMath('front', i)}
+        />
 
-        <Text style={styles.label}>{t('card.back')}</Text>
+        <SideLabel side="back" onMath={() => openMath('back')} />
         <TextInput
           ref={backInput}
           value={back}
           onChangeText={setBack}
+          onSelectionChange={(e) => (cursors.current.back = e.nativeEvent.selection)}
           placeholder={t('card.backPlaceholder')}
           placeholderTextColor={colors.muted}
           accessibilityLabel={t('card.back')}
           multiline
           style={[styles.input, styles.multiline]}
+        />
+        <MathPreview
+          text={back}
+          language={languages.back}
+          onPressFormula={(i) => openMath('back', i)}
         />
 
         {can.pictures ? <Text style={styles.label}>{t('card.picture')}</Text> : null}
@@ -248,7 +291,59 @@ export default function CardEditorScreen() {
         </View>
         {editing ? <Button variant="danger" label={t('card.delete')} onPress={remove} /> : null}
       </ScrollView>
+      {math ? (
+        <MathSheet
+          initial={math.formula?.tex ?? ''}
+          onDone={mathDone}
+          onCancel={() => setMath(null)}
+        />
+      ) : null}
     </KeyboardAvoidingView>
+  );
+}
+
+type Side = 'front' | 'back';
+
+/** "Front" / "Back", with "+ Math" on the right. */
+function SideLabel({ side, onMath }: { side: Side; onMath: () => void }) {
+  const styles = useStyles(makeStyles);
+  return (
+    <View style={styles.sideLabel}>
+      <Text style={[styles.label, styles.sideLabelText]}>
+        {t(side === 'front' ? 'card.front' : 'card.back')}
+      </Text>
+      <Button
+        variant="text"
+        label={t('math.add')}
+        accessibilityLabel={t(side === 'front' ? 'math.addFrontA11y' : 'math.addBackA11y')}
+        onPress={onMath}
+      />
+    </View>
+  );
+}
+
+/** How a side with math will look on the card; tap a formula to change it. */
+function MathPreview({
+  text,
+  language,
+  onPressFormula,
+}: {
+  text: string;
+  language: CardLanguage | null;
+  onPressFormula: (index: number) => void;
+}) {
+  const styles = useStyles(makeStyles);
+  if (!hasMath(text)) return null;
+  return (
+    <View style={styles.mathPreview}>
+      <Text style={styles.mathPreviewLabel}>{t('math.preview')}</Text>
+      <MathText
+        text={text}
+        style={styles.mathPreviewText}
+        language={language}
+        onPressFormula={onPressFormula}
+      />
+    </View>
   );
 }
 
@@ -305,6 +400,17 @@ const makeStyles = (colors: Colors) =>
     screen: { flex: 1, backgroundColor: colors.background },
     content: { padding: 20, gap: 8, paddingBottom: 40 },
     label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
+    sideLabel: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+    sideLabelText: { flex: 1 },
+    mathPreview: {
+      gap: 4,
+      padding: 12,
+      borderRadius: radius.button,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+    },
+    mathPreviewLabel: { fontSize: 13, color: colors.muted },
+    mathPreviewText: { fontSize: 20, lineHeight: 28, color: colors.text, textAlign: 'center' },
     chips: { gap: 8, paddingVertical: 2 },
     chip: {
       flexDirection: 'row',

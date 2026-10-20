@@ -56,6 +56,14 @@ export function texToSvg(formula: string, display: boolean): MathResult {
       depth: -ex(/vertical-align:\s*(-?[\d.]+)ex/, tag),
     };
   } catch (e) {
-    return { error: e instanceof Error ? e.message : String(e) };
+    // MathJax's TeX errors aren't Error objects, but they have a message.
+    const message = (e as { message?: unknown } | null)?.message;
+    return { error: typeof message === 'string' ? message : String(e) };
   }
+}
+
+/** True when MathJax knows `\name`, so the Math sheet can say which command it doesn't know.
+ * (Its own error text can't say: MathJax 3.2.2 sometimes fails while making it.) */
+export function knowsCommand(name: string): boolean {
+  return tex.parseOptions.handlers.get('macro').contains(name);
 }

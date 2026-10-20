@@ -55,3 +55,8 @@ export function drawMath(formula: string, display: boolean): MathResult | null {
   if (drawn.size > KEEP) drawn.delete(drawn.keys().next().value as string);
   return out;
 }
+
+/** Whether MathJax knows `\name` (true until it's loaded, so nothing is flagged too early). */
+export function knowsCommand(name: string): boolean {
+  return tex ? tex.knowsCommand(name) : true;
+}

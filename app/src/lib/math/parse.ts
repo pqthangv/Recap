@@ -45,17 +45,23 @@ function blockEnd(s: string, start: number, close: string): number {
   return -1;
 }
 
-/** Splits a card side into text and formulas, in order. */
-export function splitMath(text: string): Part[] {
+/** Where a formula is in the text: `start`…`end` with its delimiters, `inner` without them. */
+export type FormulaAt = { tex: string; start: number; end: number; inner: [number, number] };
+
+function scan(text: string): { parts: Part[]; formulas: FormulaAt[] } {
   const parts: Part[] = [];
+  const formulas: FormulaAt[] = [];
   let buffer = '';
   const flush = () => {
     if (buffer) parts.push({ text: buffer });
     buffer = '';
   };
-  const formula = (tex: string, display: boolean) => {
+  /** The formula between `from` and `to`, with `open` / `close` delimiter characters around it. */
+  const formula = (from: number, to: number, open: number, close: number, display: boolean) => {
     flush();
-    parts.push({ tex: tex.trim(), display });
+    const tex = text.slice(from, to).trim();
+    parts.push({ tex, display });
+    formulas.push({ tex, start: from - open, end: to + close, inner: [from, to] });
   };
 
   for (let i = 0; i < text.length;) {
@@ -71,7 +77,7 @@ export function splitMath(text: string): Part[] {
         buffer += c + next;
         i += 2;
       } else {
-        formula(text.slice(i + 2, end), next === '[');
+        formula(i + 2, end, 2, 2, next === '[');
         i = end + 2;
       }
     } else if (c === '$' && next === '$') {
@@ -80,7 +86,7 @@ export function splitMath(text: string): Part[] {
         buffer += '$$';
         i += 2;
       } else {
-        formula(text.slice(i + 2, end), true);
+        formula(i + 2, end, 2, 2, true);
         i = end + 2;
       }
     } else if (c === '$') {
@@ -89,7 +95,7 @@ export function splitMath(text: string): Part[] {
         buffer += '$';
         i += 1;
       } else {
-        formula(text.slice(i + 1, end), false);
+        formula(i + 1, end, 1, 1, false);
         i = end + 1;
       }
     } else {
@@ -98,7 +104,17 @@ export function splitMath(text: string): Part[] {
     }
   }
   flush();
-  return aloneOnLine(parts);
+  return { parts: aloneOnLine(parts), formulas };
+}
+
+/** Splits a card side into text and formulas, in order. */
+export function splitMath(text: string): Part[] {
+  return scan(text).parts;
+}
+
+/** The formulas in the text, in the same order as splitMath's, with where each one is. */
+export function findFormulas(text: string): FormulaAt[] {
+  return scan(text).formulas;
 }
 
 /** A formula with nothing else on its line is drawn on its own (centered, larger). */

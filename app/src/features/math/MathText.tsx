@@ -1,8 +1,9 @@
 // A card side with its formulas drawn: text with formulas in the line, and a formula alone on its
 // line centered on its own (what counts as math: lib/math/parse.ts). A side without math is the
 // same plain <Text> as before. TalkBack reads it as one piece, with the formulas in words.
-import { useState } from 'react';
+import { Fragment, useState, type ReactElement } from 'react';
 import {
+  Pressable,
   StyleSheet,
   Text,
   useWindowDimensions,
@@ -11,10 +12,11 @@ import {
   type TextStyle,
 } from 'react-native';
 
+import { t } from '@/lib/i18n';
 import { detectLanguage, type CardLanguage } from '@/lib/language';
 import { hasMath, isMath, splitMath, type MathPart, type Part } from '@/lib/math/parse';
 import { sideToText } from '@/lib/math/plainText';
-import { speakSide } from '@/lib/math/speak';
+import { speakMath, speakSide } from '@/lib/math/speak';
 
 import { dpToSp, FontScaleProbe, scalesInlineViews, spToDp, useScaleCurve } from './fontScaling';
 import { MathSvg } from './MathSvg';
@@ -25,6 +27,8 @@ type Props = {
   style: StyleProp<TextStyle>;
   /** The side's language, for what TalkBack says (null: guessed from the text). */
   language?: CardLanguage | null;
+  /** Makes each formula a button (the card editor's preview: tap one to edit it). */
+  onPressFormula?: (index: number) => void;
 };
 
 type Block = { formula: MathPart } | { parts: Part[] };
@@ -63,7 +67,7 @@ function blocks(parts: Part[]): Block[] {
 
 const ALIGN = { center: 'center', right: 'flex-end' } as const;
 
-export function MathText({ text, style, language }: Props) {
+export function MathText({ text, style, language, onPressFormula }: Props) {
   const [width, setWidth] = useState<number>();
   const { fontScale } = useWindowDimensions();
   const curve = useScaleCurve(fontScale);
@@ -81,13 +85,32 @@ export function MathText({ text, style, language }: Props) {
     scalesInlineViews && curve && fontScale !== 1 ? (dp: number) => dpToSp(curve, dp) : undefined;
   // A fixed line height would let a tall formula run into the next line; the line grows instead.
   const { lineHeight: _fixed, ...growing } = flat;
-  const spoken = speakSide(text, language ?? detectLanguage(sideToText(text)));
+  const lang = language ?? detectLanguage(sideToText(text));
   const align = ALIGN[flat.textAlign as keyof typeof ALIGN] ?? 'stretch';
+
+  // Formulas are numbered in order (as findFormulas lists them), for onPressFormula.
+  let count = 0;
+  const formula = (tex: string, picture: ReactElement, key: number) => {
+    const index = count++;
+    if (!onPressFormula) return <Fragment key={key}>{picture}</Fragment>;
+    return (
+      <Pressable
+        key={key}
+        accessibilityRole="button"
+        accessibilityLabel={t('math.editA11y', { formula: speakMath(tex, lang) })}
+        hitSlop={8}
+        onPress={() => onPressFormula(index)}
+      >
+        {picture}
+      </Pressable>
+    );
+  };
 
   return (
     <View
-      accessible
-      accessibilityLabel={spoken}
+      // Read as one piece, unless its formulas can be tapped (then each is a button).
+      accessible={!onPressFormula}
+      accessibilityLabel={onPressFormula ? undefined : speakSide(text, lang)}
       onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
       style={{ alignSelf: 'stretch', alignItems: align }}
     >
@@ -95,31 +118,36 @@ export function MathText({ text, style, language }: Props) {
       {blocks(splitMath(text)).map((block, i) =>
         'formula' in block ? (
           <View key={i} style={styles.display}>
-            <MathSvg
-              tex={block.formula.tex}
-              display
-              size={size}
-              color={color}
-              fallbackStyle={flat}
-              maxWidth={width}
-            />
+            {formula(
+              block.formula.tex,
+              <MathSvg
+                tex={block.formula.tex}
+                display
+                size={size}
+                color={color}
+                fallbackStyle={flat}
+                maxWidth={width}
+              />,
+              0,
+            )}
           </View>
         ) : (
           <Text key={i} style={block.parts.some(isMath) ? growing : flat}>
             {block.parts.map((part, j) =>
-              isMath(part) ? (
-                <MathSvg
-                  key={j}
-                  tex={part.tex}
-                  display={false}
-                  size={size}
-                  color={color}
-                  maxWidth={width}
-                  layoutSize={inlineLayout}
-                />
-              ) : (
-                part.text
-              ),
+              isMath(part)
+                ? formula(
+                    part.tex,
+                    <MathSvg
+                      tex={part.tex}
+                      display={false}
+                      size={size}
+                      color={color}
+                      maxWidth={width}
+                      layoutSize={inlineLayout}
+                    />,
+                    j,
+                  )
+                : part.text,
             )}
           </Text>
         ),
