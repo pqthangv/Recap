@@ -2,7 +2,9 @@ import { clearTestDb, migrateTestDb, rawQuery } from '../../../test/db';
 
 import { deleteDeck, listDecks } from '@/db/decks';
 import { getDueQueue } from '@/db/study';
+import { WELCOME_DECKS } from '@/features/onboarding/seed';
 import { isTypeable } from '@/lib/answerCheck';
+import { hasMath } from '@/lib/math/parse';
 
 import { addPack, isPackAdded, packCardCount, packDeckNames } from './library';
 import { PACKS, type Pack } from './packs';
@@ -160,5 +162,17 @@ describe('the bundled packs', () => {
         expect(card.back).toMatch(FORMAT[pack.id]);
       }
     }
+  });
+});
+
+describe('math on ready-made cards', () => {
+  // Prices like "$500" in the TOEIC pack must stay text (the dollar rule in lib/math/parse.ts).
+  it('finds none in the Library or the welcome decks', () => {
+    const sides = [
+      ...PACKS.flatMap((p) => p.decks.flatMap((d) => d.cards.flatMap((c) => [c.front, c.back]))),
+      ...Object.values(WELCOME_DECKS).flatMap((decks) => decks.flatMap((d) => d.cards.flat())),
+    ];
+    expect(sides.filter((side) => side.includes('$')).length).toBeGreaterThan(0);
+    expect(sides.filter(hasMath)).toEqual([]);
   });
 });
