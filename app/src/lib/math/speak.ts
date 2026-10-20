@@ -3,11 +3,11 @@
 // words (math.* in en.ts / vi.ts); other languages read the plain-text version (x², √x), which
 // their voices mostly know.
 import { tIn, type Language, type StringKey } from '@/lib/i18n';
-import type { CardLanguage } from '@/lib/language';
+import { detectLanguage, type CardLanguage } from '@/lib/language';
 
 import { isSpace, readTex, type Node } from './nodes';
-import { isMath, splitMath } from './parse';
-import { mathToText, SYMBOLS } from './plainText';
+import { hasMath, isMath, splitMath } from './parse';
+import { mathToText, sideToText, SYMBOLS } from './plainText';
 
 const GREEK = [
   'alpha',
@@ -128,6 +128,18 @@ const BIG = {
 
 const MATRICES = /matrix/;
 
+/** The letters usually used as function names: f(x), g(t), h(x), P(A). */
+const FUNCTION_LETTERS = /^[fghFGHP]$/;
+
+/** True when the "(" at `i` follows a function name: f, f', f'', f^{\prime}, f^2. */
+function isFunctionName(nodes: Node[], i: number): boolean {
+  let j = i - 1;
+  while (j >= 0 && nodes[j].kind === 'char' && (nodes[j] as { value: string }).value === "'") j--;
+  const before = nodes[j];
+  const name = before?.kind === 'scripts' && !before.sub ? before.base : before;
+  return name?.kind === 'char' && FUNCTION_LETTERS.test(name.value);
+}
+
 class Speaker {
   constructor(private readonly lang: Language) {}
 
@@ -166,6 +178,12 @@ class Speaker {
         }
       }
       endNumber();
+      // A function of something: "f(x)" is "f of x", also "f'(x)" ("f prime of x").
+      if (node.kind === 'char' && node.value === '(' && isFunctionName(nodes, i)) {
+        const of = this.t('math.of');
+        if (of) words.push(of);
+        return;
+      }
       const spoken = this.node(node);
       if (spoken) words.push(spoken);
     });
@@ -211,9 +229,10 @@ class Speaker {
         return this.t('math.choose', { n: this.say(node.n), k: this.say(node.k) });
       case 'sqrt': {
         const x = this.paused(this.say(node.body));
-        return node.index
-          ? this.t('math.root', { n: this.say(node.index), x })
-          : this.t('math.sqrt', { x });
+        const n = node.index ? this.say(node.index) : '2';
+        if (n === '2') return this.t('math.sqrt', { x });
+        if (n === '3') return this.t('math.cubeRoot', { x });
+        return this.t('math.root', { n, x });
       }
       case 'scripts':
         return this.scripts(node);
@@ -299,10 +318,15 @@ export function speakMath(tex: string, lang: CardLanguage): string {
   return tidy(new Speaker(words).say(readTex(tex))) || tIn(words, 'math.formula');
 }
 
-/** A card side as it's read aloud: the text, with each formula in words. */
-export function speakSide(text: string, lang: CardLanguage): string {
+/**
+ * A card side as it's read aloud: the text, with each formula in words. `lang`: the side's
+ * language (the deck's setting), or null to guess it from the text without its formulas.
+ */
+export function speakSide(text: string, lang: CardLanguage | null): string {
+  if (!hasMath(text)) return text;
+  const language = lang ?? detectLanguage(sideToText(text));
   return splitMath(text)
-    .map((part) => (isMath(part) ? ` ${speakMath(part.tex, lang)} ` : part.text))
+    .map((part) => (isMath(part) ? ` ${speakMath(part.tex, language)} ` : part.text))
     .join('')
     .replace(/[ \t]+/g, ' ')
     .replace(/ ([,.?!:;])/g, '$1')

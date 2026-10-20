@@ -39,6 +39,12 @@ describe('isTypeable', () => {
       expect([back, isTypeable(back)]).toEqual([back, false]);
     }
   });
+
+  it('keeps tap for answers with math, but not for prices', () => {
+    expect(isTypeable('$x = 3$')).toBe(false);
+    expect(isTypeable('\\(\\frac{1}{2}\\)')).toBe(false);
+    expect(isTypeable('$50')).toBe(true);
+  });
 });
 
 describe('isTypeable with the deck language', () => {
