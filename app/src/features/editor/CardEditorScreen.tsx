@@ -29,12 +29,12 @@ import {
 import { listDecks } from '@/db/decks';
 import { Chip } from '@/features/import/DeckTarget';
 import { MathSheet } from '@/features/math/MathSheet';
-import { MathText } from '@/features/math/MathText';
+import { MathPreview } from '@/features/math/MathPreview';
 import { PictureError, pictureUri } from '@/features/pictures/files';
 import { pickPicture } from '@/features/pictures/pick';
 import { formatTags, parseTags } from '@/lib/format';
-import { cardSideLanguages, type CardLanguage } from '@/lib/language';
-import { findFormulas, hasMath, type FormulaAt } from '@/lib/math/parse';
+import { cardSideLanguages } from '@/lib/language';
+import { findFormulas, type FormulaAt } from '@/lib/math/parse';
 import { insertFormula, replaceFormula, type Selection } from '@/lib/math/templates';
 import { can } from '@/lib/platform';
 import { t } from '@/lib/i18n';
@@ -322,31 +322,6 @@ function SideLabel({ side, onMath }: { side: Side; onMath: () => void }) {
   );
 }
 
-/** How a side with math will look on the card; tap a formula to change it. */
-function MathPreview({
-  text,
-  language,
-  onPressFormula,
-}: {
-  text: string;
-  language: CardLanguage | null;
-  onPressFormula: (index: number) => void;
-}) {
-  const styles = useStyles(makeStyles);
-  if (!hasMath(text)) return null;
-  return (
-    <View style={styles.mathPreview}>
-      <Text style={styles.mathPreviewLabel}>{t('math.preview')}</Text>
-      <MathText
-        text={text}
-        style={styles.mathPreviewText}
-        language={language}
-        onPressFormula={onPressFormula}
-      />
-    </View>
-  );
-}
-
 const SIDES: readonly PictureSide[] = ['front', 'back'];
 
 /** The card's picture: which side it shows on, and a way to remove it. */
@@ -402,15 +377,6 @@ const makeStyles = (colors: Colors) =>
     label: { fontSize: 15, fontWeight: '600', color: colors.muted, marginTop: 8 },
     sideLabel: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
     sideLabelText: { flex: 1 },
-    mathPreview: {
-      gap: 4,
-      padding: 12,
-      borderRadius: radius.button,
-      borderWidth: 1,
-      borderColor: colors.hairline,
-    },
-    mathPreviewLabel: { fontSize: 13, color: colors.muted },
-    mathPreviewText: { fontSize: 20, lineHeight: 28, color: colors.text, textAlign: 'center' },
     chips: { gap: 8, paddingVertical: 2 },
     chip: {
       flexDirection: 'row',

@@ -80,5 +80,6 @@ describe('speakSide', () => {
     );
     expect(speakSide('Giải $x^2 = 9$.', 'vi')).toBe('Giải x bình phương bằng 9.');
     expect(speakSide('Orders over $50 ship free.', 'en')).toBe('Orders over $50 ship free.');
+    expect(speakSide('A pen costs \\$2.', 'en')).toBe('A pen costs $2.');
   });
 });

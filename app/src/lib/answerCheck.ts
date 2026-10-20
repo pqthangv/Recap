@@ -2,6 +2,7 @@
 // grade Recap suggests for it. You still pick the grade; the suggestion is highlighted.
 import { detectLanguage, type CardLanguage } from './language';
 import { hasMath } from './math/parse';
+import { sideToText } from './math/plainText';
 import { Rating, type Grade } from './scheduler';
 
 /**
@@ -33,7 +34,11 @@ export const QUICK_START_MS = 3000;
  * "sự giáng thủy (mưa, tuyết)".
  */
 export function expectedAnswer(back: string): string {
-  const first = back.trim().split(/\n[ \t]*\n/)[0] ?? '';
+  // As shown on the card: "\$5" is "$5".
+  const first =
+    sideToText(back)
+      .trim()
+      .split(/\n[ \t]*\n/)[0] ?? '';
   return first
     .replace(/\([^)]*\)|\[[^\]]*\]/g, ' ')
     .replace(/[ \t]+/g, ' ')

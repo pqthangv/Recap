@@ -323,7 +323,7 @@ export function speakMath(tex: string, lang: CardLanguage): string {
  * language (the deck's setting), or null to guess it from the text without its formulas.
  */
 export function speakSide(text: string, lang: CardLanguage | null): string {
-  if (!hasMath(text)) return text;
+  if (!hasMath(text)) return sideToText(text); // "\$5" is read as "$5"
   const language = lang ?? detectLanguage(sideToText(text));
   return splitMath(text)
     .map((part) => (isMath(part) ? ` ${speakMath(part.tex, language)} ` : part.text))

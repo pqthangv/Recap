@@ -71,7 +71,8 @@ export function MathText({ text, style, language, onPressFormula }: Props) {
   const [width, setWidth] = useState<number>();
   const { fontScale } = useWindowDimensions();
   const curve = useScaleCurve(fontScale);
-  if (!hasMath(text)) return <Text style={style}>{text}</Text>;
+  // No formulas: plain text as before ("\$5", a dollar sign typed safely, shows as "$5").
+  if (!hasMath(text)) return <Text style={style}>{sideToText(text)}</Text>;
 
   const flat = StyleSheet.flatten(style);
   const fontSize = flat.fontSize ?? 16;

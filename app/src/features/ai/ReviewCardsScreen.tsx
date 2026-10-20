@@ -19,6 +19,7 @@ import { importCards, type ImportTarget } from '@/db/import';
 import { transaction } from '@/db/transaction';
 import { useLive } from '@/db/live';
 import { DeckTarget } from '@/features/import/DeckTarget';
+import { MathPreview } from '@/features/math/MathPreview';
 import { targetIsValid, useFinishImport } from '@/features/import/shared';
 import { AiError, type GeneratedCard, type ReportReason } from '@/lib/ai';
 import {
@@ -162,6 +163,7 @@ function Review({
               multiline
               style={[styles.input, styles.front]}
             />
+            <MathPreview text={item.front} language={null} />
             <TextInput
               value={item.back}
               onChangeText={(back) => change(item.key, { back })}
@@ -169,6 +171,7 @@ function Review({
               multiline
               style={styles.input}
             />
+            <MathPreview text={item.back} language={null} />
           </View>
         ))}
 
