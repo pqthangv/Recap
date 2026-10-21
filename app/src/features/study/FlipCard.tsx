@@ -8,11 +8,13 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { SpeakerIcon } from '@/components/SpeakerIcon';
+import { MathText } from '@/features/math/MathText';
 import { pictureUri } from '@/features/pictures/files';
 import { speak, stopSpeaking } from '@/features/speech/speech';
 import { markTyped, type AnswerResult } from '@/lib/answerCheck';
 import type { SideLanguages } from '@/lib/language';
 import { t, type StringKey } from '@/lib/i18n';
+import { speakSide } from '@/lib/math/speak';
 import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 /** What was typed and how close it was ("Type the answer"), shown on the answer side. */
@@ -80,6 +82,9 @@ export function FlipCard({
 
   const frontLanguage = languages.front;
   const backLanguage = languages.back;
+  // What TalkBack says: formulas in words, not TeX.
+  const frontSpoken = speakSide(front, frontLanguage);
+  const backSpoken = speakSide(back, backLanguage);
   // An effect event, so a new callback on every render doesn't read the card again.
   const questionRead = useEffectEvent(() => onQuestionRead?.());
   useEffect(() => {
@@ -116,11 +121,11 @@ export function FlipCard({
                 check && check.result !== 'skipped' && check.result !== 'correct'
                   ? `${t('study.youTyped')} ${check.typed}.`
                   : '',
-                t('study.answerA11y', { front, back }),
+                t('study.answerA11y', { front: frontSpoken, back: backSpoken }),
               ]
                 .filter(Boolean)
                 .join(' ')
-            : front
+            : frontSpoken
         }
         accessibilityHint={flipped ? undefined : t('study.flipHint')}
       >
@@ -131,7 +136,7 @@ export function FlipCard({
         >
           <ScrollView contentContainerStyle={styles.faceContent}>
             {onFront ? picture() : null}
-            <Text style={styles.frontText}>{front}</Text>
+            <MathText text={front} style={styles.frontText} language={frontLanguage} />
             <Text style={styles.tapHint}>{t('study.tapToShow')}</Text>
           </ScrollView>
         </Animated.View>
@@ -165,9 +170,9 @@ export function FlipCard({
               </View>
             ) : null}
             {onFront ? picture(true) : null}
-            <Text style={styles.frontSmall}>{front}</Text>
+            <MathText text={front} style={styles.frontSmall} language={frontLanguage} />
             <View style={styles.divider} />
-            <Text style={styles.backText}>{back}</Text>
+            <MathText text={back} style={styles.backText} language={backLanguage} />
             {onFront ? null : picture()}
           </ScrollView>
         </Animated.View>

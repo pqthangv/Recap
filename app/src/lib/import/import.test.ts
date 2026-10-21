@@ -10,6 +10,8 @@ import {
   type AnkiCard,
 } from './anki';
 import { t } from '../i18n';
+import { hasMath } from '../math/parse';
+import { fromAnkiMath } from './ankiMath';
 import { isImageName, openApkg } from './apkg';
 import { guessColumns, parseTable, tableToCards } from './csv';
 import { decodeEntities, extractImages, htmlToText } from './html';
@@ -37,6 +39,17 @@ describe('htmlToText', () => {
   });
 });
 
+describe('fromAnkiMath', () => {
+  it("turns Anki's math tags into $ and $$, and leaves the rest", () => {
+    expect(fromAnkiMath('[$]x^2[/$] and [$$] y [/$$]')).toBe('$x^2$ and $$y$$');
+    expect(fromAnkiMath('[LATEX]\\sqrt{2}[/LATEX]')).toBe('$$\\sqrt{2}$$');
+    expect(fromAnkiMath('[latex]\\begin{align}a&=b\\end{align}[/latex]')).toBe(
+      '\\begin{align}a&=b\\end{align}',
+    );
+    expect(fromAnkiMath('a [b] c, \\(x\\)')).toBe('a [b] c, \\(x\\)');
+  });
+});
+
 describe('paste import', () => {
   it('detects the separator', () => {
     expect(detectSeparator(['chat - cat', 'chien - dog'])).toBe('dash');
@@ -53,6 +66,20 @@ describe('paste import', () => {
       { front: 'well-known', back: 'famous - very' },
     ]);
     expect(result.skipped).toEqual(['no separator', '–']);
+  });
+
+  it("doesn't split inside a formula", () => {
+    expect(parsePaste('$a - b$ - difference\n$x; y$; a pair').cards).toEqual([
+      { front: '$a - b$', back: 'difference' },
+    ]);
+    expect(parsePaste('$f(x) = x - 1$ - shift\n$a - b$ - difference').cards).toEqual([
+      { front: '$f(x) = x - 1$', back: 'shift' },
+      { front: '$a - b$', back: 'difference' },
+    ]);
+    expect(parsePaste('$x; y$;a pair\n$p; q$;another').cards).toEqual([
+      { front: '$x; y$', back: 'a pair' },
+      { front: '$p; q$', back: 'another' },
+    ]);
   });
 
   it('handles Vietnamese and en dashes', () => {
@@ -233,6 +260,26 @@ describe('Anki packages', () => {
       close();
     }
   }
+
+  it('reads every way Anki decks write math, as math Recap draws', async () => {
+    const { cards } = await read('math.apkg');
+    expect(cards.map((c) => [c.front, c.back])).toEqual([
+      ['What is \\(\\frac{1}{2}\\) of 10?', '5'],
+      ['Mass–energy equivalence', '\\[E = mc^2\\]'],
+      ['Square of x', '$x^2$'],
+      ['Area under y = x from 0 to 1', '$$\\int_0^1 x\\,dx = \\tfrac{1}{2}$$'],
+      ['Pythagoras', '$a^2 + b^2 = c^2$'],
+      ['Root two', '$$\\sqrt{2}$$'],
+      ['Is \\(a < b\\) when \\(b - a > 0\\)?', 'Yes'],
+      ['A notebook costs', '$5 and a pen $2'],
+      [
+        '[...] solves \\(x^2 = 9\\) for positive x.',
+        '\\(x = 3\\) solves \\(x^2 = 9\\) for positive x.',
+      ],
+    ]);
+    const math = cards.map((c) => hasMath(c.front) || hasMath(c.back));
+    expect(math).toEqual([true, true, true, true, true, true, true, false, true]);
+  });
 
   it('reads a classic deck: basic, reversed, cloze, custom templates and pictures', async () => {
     const { cards, skipped } = await read('basic.apkg');

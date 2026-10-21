@@ -160,3 +160,37 @@ def test_logs_never_contain_the_study_material(client, caplog):
     logged = " ".join(f"{r.getMessage()} {vars(r)}" for r in caplog.records)
     assert "generated" in logged
     assert "private diary" not in logged
+
+
+def test_math_comes_back_between_dollar_signs(client, provider):
+    response = post(client, text="Fractions [fake:math]", max_cards=10, math=True)
+    assert response.status_code == 200
+    assert response.json()["cards"] == [
+        {"front": r"What is $\frac{1}{2}$ of 10?", "back": "$$5$$"},
+        {"front": "Solve $x^2 = 9$", "back": r"$x = \pm 3$"},
+        {"front": r"Half of $\frac{a}{b}$?", "back": r"$\frac{a}{2b}$"},
+        {"front": "Price of a pen", "back": r"\$2"},
+    ]
+    assert provider.requests[-1].math is True
+
+
+def test_older_apps_get_cards_as_before(client, provider):
+    """Apps before 1.0.6 don't send `math`: nothing is rewritten for them."""
+    response = post(client, text="Fractions [fake:math]", max_cards=1)
+    assert response.json()["cards"] == [
+        {"front": r"What is \(\frac{1}{2}\) of 10?", "back": r"\[5\]"}
+    ]
+    assert provider.requests[-1].math is False
+
+
+def test_latex_lost_to_json_escapes_is_put_back():
+    # "\t", "\x08" and "\n" here are what JSON makes of an unescaped \times, \beta and \neq.
+    raw = [
+        {"front": "Is $2 \times 3$ six?", "back": "$\x08eta + 1$"},
+        {"front": "Area $\\pi r^2$\nof a circle", "back": "$a \neq b$ and\nnext line"},
+    ]
+    cards = [c.model_dump() for c in clean_cards(raw, max_cards=5, math=True)]
+    assert cards == [
+        {"front": r"Is $2 \times 3$ six?", "back": r"$\beta + 1$"},
+        {"front": "Area $\\pi r^2$\nof a circle", "back": "$a \\neq b$ and\nnext line"},
+    ]

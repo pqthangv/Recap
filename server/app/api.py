@@ -112,6 +112,8 @@ class GenerateRequest(BaseModel):
     # the daily quota is touched); None = the source's language.
     front_language: LanguageCode | None = None
     back_language: LanguageCode | None = None
+    # Sent by apps that draw math (1.0.6+); older apps leave it out.
+    math: bool = False
 
 
 class GenerateResponse(BaseModel):
@@ -175,6 +177,7 @@ def generate(
         max_cards=reserved,
         front_language=body.front_language,
         back_language=body.back_language,
+        math=body.math,
     )
     try:
         raw = provider.generate(request)
@@ -204,7 +207,7 @@ def generate(
         give_back(reserved)  # a bug on our side: nobody pays for it
         raise
 
-    cards = clean_cards(raw, reserved)
+    cards = clean_cards(raw, reserved, math=body.math)
     if cards:
         give_back(reserved - len(cards))
     else:

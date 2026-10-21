@@ -186,13 +186,27 @@ def _refused_error(error: errors.APIError) -> bool:
     return message.startswith("input blocked") or _name(error.status) in REFUSED_STATUS
 
 
+# JSON escapes, or a lone backslash. LaTeX written without escaping its backslashes ("\sqrt")
+# isn't valid JSON; doubling only the lone ones leaves "\\", "\n", "é"... as they are.
+_ESCAPE_OR_BACKSLASH = re.compile(r'\\(["\\/bfnrt]|u[0-9a-fA-F]{4})|\\')
+
+
+def _loads(text: str) -> object:
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return json.loads(
+            _ESCAPE_OR_BACKSLASH.sub(lambda m: m.group(0) if m.group(1) else "\\\\", text)
+        )
+
+
 def _cards_from(text: str | None) -> list[object]:
     """The "cards" array of the model's JSON answer. Items are checked later by clean_cards()."""
     if not text:
         # Cut off before any output (refusals are caught earlier, by _refusal).
         raise ProviderFailed("returned no text")
     try:
-        data = json.loads(text)
+        data = _loads(text)
     except json.JSONDecodeError as e:
         raise ProviderFailed("returned invalid JSON") from e
     cards = data.get("cards") if isinstance(data, dict) else data

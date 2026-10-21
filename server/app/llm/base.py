@@ -19,6 +19,9 @@ class GenerationRequest:
     # The language of each side of the cards; None = the source's language.
     front_language: LanguageCode | None = None
     back_language: LanguageCode | None = None
+    # The app can draw LaTeX between $…$ (1.0.6+). Older apps show it as typed, so for them the
+    # AI is asked for plain characters instead.
+    math: bool = False
 
 
 class Card(BaseModel):

@@ -182,6 +182,8 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
             max_cards: input.maxCards,
             front_language: input.frontLanguage ?? undefined,
             back_language: input.backLanguage ?? undefined,
+            // This app draws LaTeX between $…$, so the AI may write math that way.
+            math: true,
           }),
         },
         TIMEOUTS.generate,

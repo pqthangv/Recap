@@ -14,6 +14,8 @@ import { useLive } from '@/db/live';
 import type { Deck } from '@/db/schema';
 import { getStudyCounts } from '@/db/study';
 import { t, tn } from '@/lib/i18n';
+import { sideToText } from '@/lib/math/plainText';
+import { speakSide } from '@/lib/math/speak';
 import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
 
 import { MoveCardsSheet } from './MoveCardsSheet';
@@ -143,7 +145,7 @@ export default function DeckScreen() {
             <Pressable
               accessibilityRole="checkbox"
               accessibilityState={{ checked: selected.has(item.id) }}
-              accessibilityLabel={`${item.front}. ${item.back}`}
+              accessibilityLabel={`${speakSide(item.front, null)}. ${speakSide(item.back, null)}`}
               onPress={() => toggle(item.id)}
               style={({ pressed }) => [
                 styles.card,
@@ -154,26 +156,26 @@ export default function DeckScreen() {
               <Checkbox checked={selected.has(item.id)} />
               <View style={styles.cardText}>
                 <Text style={styles.front} numberOfLines={2}>
-                  {item.front}
+                  {sideToText(item.front)}
                 </Text>
                 <Text style={styles.back} numberOfLines={1}>
-                  {item.back}
+                  {sideToText(item.back)}
                 </Text>
               </View>
             </Pressable>
           ) : (
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel={`${item.front}. ${item.back}`}
+              accessibilityLabel={`${speakSide(item.front, null)}. ${speakSide(item.back, null)}`}
               accessibilityHint={t('deck.cardHint')}
               onPress={() => edit(item.id)}
               style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
             >
               <Text style={styles.front} numberOfLines={2}>
-                {item.front}
+                {sideToText(item.front)}
               </Text>
               <Text style={styles.back} numberOfLines={1}>
-                {item.back}
+                {sideToText(item.back)}
               </Text>
             </Pressable>
           )

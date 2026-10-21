@@ -7,7 +7,7 @@ import pytest
 from google.genai import errors, types
 
 from app.llm.base import GenerationRequest, ProviderBlocked, ProviderBusy, ProviderFailed
-from app.llm.gemini import GeminiProvider, parse_models
+from app.llm.gemini import GeminiProvider, _cards_from, parse_models
 
 REQUEST = GenerationRequest(text="Water boils at 100 °C.", mode="text", max_cards=5)
 
@@ -261,3 +261,12 @@ def test_gemma_gets_more_time_than_gemini():
     assert gemini_call["config"].http_options is None  # the client's 25 s timeout
     assert gemma_call["config"].http_options.timeout == 60_000
     assert gemma_call["config"].response_schema is gemini_call["config"].response_schema
+
+
+def test_latex_without_escaped_backslashes_still_parses():
+    # The model wrote \sqrt and \pi as is: not valid JSON escapes, so a strict parse fails.
+    unescaped = r'{"cards": [{"front": "What is \sqrt{2} + \pi?", "back": "about 4.56"}]}'
+    assert _cards_from(unescaped) == [{"front": r"What is \sqrt{2} + \pi?", "back": "about 4.56"}]
+    # Properly escaped JSON is read exactly as before.
+    escaped = r'{"cards": [{"front": "\\sqrt{2} é", "back": "line\nbreak"}]}'
+    assert _cards_from(escaped) == [{"front": r"\sqrt{2} é", "back": "line\nbreak"}]
