@@ -5,6 +5,7 @@ import { showSnackbar } from '@/components/Snackbar';
 import type { ImportSummary, ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
 import { t, tn } from '@/lib/i18n';
+import { sideToText } from '@/lib/math/plainText';
 import { type Colors, useStyles } from '@/lib/theme';
 
 /** Default "Add to": decks from the file if offered, else a new deck named after the file. */
@@ -61,10 +62,10 @@ export function CardPreview({
       {cards.map((c, i) => (
         <View key={i} style={styles.row}>
           <Text style={styles.front} numberOfLines={2}>
-            {c.front}
+            {sideToText(c.front)}
           </Text>
           <Text style={styles.back} numberOfLines={2}>
-            {c.back}
+            {sideToText(c.back)}
           </Text>
         </View>
       ))}

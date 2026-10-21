@@ -47,6 +47,7 @@
     "expo-system-ui": "~57.0.4",
     "fzstd": "^0.1.1",
     "jszip": "^3.10.2",
+    "mathjax-full": "3.2.2",
     "papaparse": "^5.7.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -54,6 +55,7 @@
     "react-native-reanimated": "4.5.1",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
     "react-native-web": "^0.21.2",
     "react-native-worklets": "0.10.1",
     "ts-fsrs": "^5.4.2",
@@ -72,5 +74,10 @@
     "jest-expo": "~57.0.6",
     "prettier": "3.9.10",
     "typescript": "~6.0.3"
+  },
+  "overrides": {
+    "speech-rule-engine": {
+      "@xmldom/xmldom": "0.9.12"
+    }
   }
 }

@@ -103,3 +103,13 @@ def test_users_cannot_close_the_tags_early():
 def test_ordinary_angle_brackets_are_kept():
     text = "x < y and y > z; <b>bold</b>; <topics> and <study_materials>"
     assert inside(prompt(text), "study_material") == text
+
+
+def test_math_in_latex_only_for_apps_that_draw_it():
+    with_math = build_prompt(
+        GenerationRequest(text="Algebra", mode="topic", max_cards=5, math=True)
+    )
+    assert "Write math in LaTeX between $ signs" in with_math
+    assert r"write an amount of money as \$5" in with_math
+    assert "not LaTeX" in prompt()  # older apps: plain characters
+    assert "LaTeX between" not in prompt()

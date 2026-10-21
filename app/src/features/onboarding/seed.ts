@@ -36,6 +36,10 @@ export const WELCOME_DECKS: Record<Language, SeedDeck[]> = {
           'Tap + on the home screen, then "Add card". You can also make a new deck there.',
         ],
         [
+          'Can a card show math?',
+          'Yes: when you add a card, tap "+ Math" next to Front or Back. A formula shows like this: $\\frac{a}{b} + x^2$',
+        ],
+        [
           'How much should I study each day?',
           'Just the cards that are due. Recap picks them for you — a few minutes a day is enough.',
         ],
@@ -71,6 +75,10 @@ export const WELCOME_DECKS: Record<Language, SeedDeck[]> = {
         [
           'Làm sao để thêm thẻ của riêng tôi?',
           'Chạm + ở màn hình chính, rồi chọn “Thêm thẻ”. Bạn cũng có thể tạo bộ thẻ mới ở đó.',
+        ],
+        [
+          'Thẻ có hiện được công thức toán không?',
+          'Có: khi thêm thẻ, chạm “+ Công thức” cạnh Mặt trước hoặc Mặt sau. Công thức sẽ hiện như thế này: $\\frac{a}{b} + x^2$',
         ],
         [
           'Mỗi ngày nên học bao nhiêu?',

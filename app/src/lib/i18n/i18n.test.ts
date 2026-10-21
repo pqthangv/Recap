@@ -52,7 +52,7 @@ describe('the Vietnamese text', () => {
 
   it('is not left in English by mistake', () => {
     // Words that are the same in both languages.
-    const same = new Set(['paste.tab', 'ai.tabPdf']);
+    const same = new Set(['paste.tab', 'ai.tabPdf', 'math.phi']);
     const untranslated = (Object.keys(en) as (keyof typeof en)[]).filter(
       (key) => !same.has(key) && /[a-z]{3}/i.test(en[key]) && vi[key] === en[key],
     );

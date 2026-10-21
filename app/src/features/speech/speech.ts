@@ -5,6 +5,8 @@ import { Platform } from 'react-native';
 
 import { showSnackbar } from '@/components/Snackbar';
 import { t } from '@/lib/i18n';
+import { sideToText } from '@/lib/math/plainText';
+import { speakSide } from '@/lib/math/speak';
 import { isWeb } from '@/lib/platform';
 import {
   cardLanguageName,
@@ -58,10 +60,13 @@ export function speak(
     options.onDone?.();
     return;
   }
-  const lang = options.language ?? detectLanguage(trimmed);
+  // The language is guessed without the formulas' TeX ("\frac" isn't English), and formulas
+  // are read in words ("x squared", "x bình phương").
+  const lang = options.language ?? detectLanguage(sideToText(trimmed));
+  const words = speakSide(trimmed, lang);
   Speech.stop();
   void prepareAudio().then(() =>
-    Speech.speak(trimmed, {
+    Speech.speak(words, {
       language: SPEECH_LOCALES[lang],
       rate: 0.95,
       onDone: options.onDone,

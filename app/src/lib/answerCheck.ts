@@ -1,6 +1,8 @@
 // "Type the answer": which cards are short enough to type, how close a typed answer is, and the
 // grade Recap suggests for it. You still pick the grade; the suggestion is highlighted.
 import { detectLanguage, type CardLanguage } from './language';
+import { hasMath } from './math/parse';
+import { sideToText } from './math/plainText';
 import { Rating, type Grade } from './scheduler';
 
 /**
@@ -32,7 +34,11 @@ export const QUICK_START_MS = 3000;
  * "sự giáng thủy (mưa, tuyết)".
  */
 export function expectedAnswer(back: string): string {
-  const first = back.trim().split(/\n[ \t]*\n/)[0] ?? '';
+  // As shown on the card: "\$5" is "$5".
+  const first =
+    sideToText(back)
+      .trim()
+      .split(/\n[ \t]*\n/)[0] ?? '';
   return first
     .replace(/\([^)]*\)|\[[^\]]*\]/g, ' ')
     .replace(/[ \t]+/g, ' ')
@@ -44,6 +50,8 @@ export function expectedAnswer(back: string): string {
  * the back's language when the deck sets one (otherwise guessed).
  */
 export function isTypeable(back: string, language?: CardLanguage | null): boolean {
+  // Typing a formula on a phone keyboard isn't recalling it: math answers are tapped.
+  if (hasMath(back)) return false;
   const answer = expectedAnswer(back);
   if (!normalize(answer) || answer.includes('\n') || answer.length > MAX_CHARS) return false;
   if (CJK.test(answer) && !answer.includes(' ')) return [...answer].length <= MAX_CJK_CHARS;

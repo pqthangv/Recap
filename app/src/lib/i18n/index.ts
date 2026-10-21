@@ -87,7 +87,13 @@ type Params = Record<string, string | number>;
 
 /** The text for `key` in the current language, with {placeholders} filled in (numbers via count). */
 export function t(key: StringKey, params?: Params): string {
-  const text = STRINGS[current][key];
+  return tIn(current, key, params);
+}
+
+/** Like t(), in `lang` instead of the app's language: math is read aloud in the card side's own
+ * language (an English deck in the Vietnamese app still says "x squared"). */
+export function tIn(lang: Language, key: StringKey, params?: Params): string {
+  const text = STRINGS[lang][key];
   if (!params) return text;
   return text.replace(/\{(\w+)\}/g, (match, name: string) => {
     const value = params[name];

@@ -46,16 +46,28 @@ def _language_rule(request: GenerationRequest) -> str:
     return rule
 
 
+def _math_rule(request: GenerationRequest) -> str:
+    if not request.math:
+        # Older apps show LaTeX as typed: ask for characters any phone can show.
+        return "Write any math with plain characters (x², √x, ½, ≤), not LaTeX."
+    return (
+        "Write math in LaTeX between $ signs, e.g. $x^2 + 1$ or $\\frac{1}{2}$, and a formula "
+        "on its own line between $$ signs; that's the only exception to plain text. Formulas "
+        "typed as plain text in the material are written that way too (v^2 → $v^2$). Use $ "
+        "only for math: write an amount of money as \\$5."
+    )
+
+
 def build_prompt(request: GenerationRequest) -> str:
     text = _TAGS.sub("", request.text)
-    language = _language_rule(request)
+    rules = f"{_language_rule(request)} {_math_rule(request)}"
     if request.mode == "topic":
         return (
             f"Make up to {request.max_cards} flashcards that teach the most important facts "
-            f"about the topic below. {language}\n\n<topic>\n{text}\n</topic>"
+            f"about the topic below. {rules}\n\n<topic>\n{text}\n</topic>"
         )
     return (
         f"Make up to {request.max_cards} flashcards from the study material below. Use only "
-        f"facts stated in it; don't add outside knowledge. {language}\n\n"
+        f"facts stated in it; don't add outside knowledge. {rules}\n\n"
         f"<study_material>\n{text}\n</study_material>"
     )

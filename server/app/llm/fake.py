@@ -17,6 +17,15 @@ class FakeProvider:
             raise ProviderBlocked("fake provider: refused")
         if "[fake:garbage]" in request.text:
             return ["not a card", {"front": ""}, {"back": "no front"}, 42]
+        if "[fake:math]" in request.text:
+            # Math as models write it: \(…\), \[…\], $…$, and one "\frac" whose backslash was
+            # lost to JSON (a form feed).
+            return [
+                {"front": "What is \\(\\frac{1}{2}\\) of 10?", "back": "\\[5\\]"},
+                {"front": "Solve $x^2 = 9$", "back": "$x = \\pm 3$"},
+                {"front": "Half of $\x0crac{a}{b}$?", "back": "$\\frac{a}{2b}$"},
+                {"front": "Price of a pen", "back": "\\$2"},
+            ][: request.max_cards]
         if request.mode == "topic":
             return [
                 {"front": f"{request.text}: question {i}?", "back": f"Answer {i}"}

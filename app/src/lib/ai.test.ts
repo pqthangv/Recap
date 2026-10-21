@@ -29,6 +29,7 @@ describe('AI client', () => {
       text: 'notes',
       mode: 'text',
       max_cards: 5,
+      math: true, // this app draws LaTeX
     });
   });
 
