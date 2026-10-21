@@ -167,12 +167,18 @@ describe('the bundled packs', () => {
 
 describe('math on ready-made cards', () => {
   // Prices like "$500" in the TOEIC pack must stay text (the dollar rule in lib/math/parse.ts).
-  it('finds none in the Library or the welcome decks', () => {
-    const sides = [
-      ...PACKS.flatMap((p) => p.decks.flatMap((d) => d.cards.flatMap((c) => [c.front, c.back]))),
-      ...Object.values(WELCOME_DECKS).flatMap((decks) => decks.flatMap((d) => d.cards.flat())),
-    ];
+  it('finds none in the Library', () => {
+    const sides = PACKS.flatMap((p) =>
+      p.decks.flatMap((d) => d.cards.flatMap((c) => [c.front, c.back])),
+    );
     expect(sides.filter((side) => side.includes('$')).length).toBeGreaterThan(0);
     expect(sides.filter(hasMath)).toEqual([]);
+  });
+
+  it('has one welcome card showing a formula, in each language', () => {
+    for (const decks of Object.values(WELCOME_DECKS)) {
+      const sides = decks.flatMap((d) => d.cards.flat());
+      expect(sides.filter(hasMath)).toEqual([expect.stringContaining('$\\frac{a}{b} + x^2$')]);
+    }
   });
 });
