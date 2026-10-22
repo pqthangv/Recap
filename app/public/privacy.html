@@ -71,7 +71,7 @@
   <body>
     <main>
       <h1>Recap privacy policy</h1>
-      <p class="date">Last updated: 14 October 2026</p>
+      <p class="date">Last updated: 21 October 2026</p>
 
       <div class="summary">
         <p>
@@ -146,6 +146,19 @@
         one), and you can ask us to delete anything we hold by email.
       </p>
       <p>
+        <strong>On Android</strong> (from version 1.0.7), when you tap "Make cards" Recap also asks
+        Google Play for a one-time check that the request comes from the real Recap app, installed
+        from Google Play, on a genuine phone (Google's Play Integrity). With it (and when it asks
+        how many AI cards are left), Recap sends a code made from your phone's Android ID by a
+        one-way scramble: the Android ID itself never leaves your phone and can't practically be
+        worked out from the code. The code stays the same for
+        Recap on that phone until a factory reset, so the daily AI limit counts per phone, even
+        after reinstalling. Our database stores it with the number of AI cards made each day, and
+        nothing else. Google receives the code with the check and tells our server only whether the
+        check passed. If the check can't be done (for example, without Google Play), Recap works as
+        before with the random ID.
+      </p>
+      <p>
         Our server also sees your IP address, like any website. Recap uses it only in memory to stop
         abuse (too many requests from one network); our server never stores or logs it. Our hosting
         provider, Render, may keep standard network logs that include IP addresses for a short time,
@@ -169,6 +182,10 @@
         <li>
           <strong>Neon</strong> hosts the database with the device IDs, daily AI counts and reported
           cards (Singapore).
+        </li>
+        <li>
+          <strong>Google (Play Integrity)</strong> checks, on Android, that AI requests come from
+          the real Recap app, as described above.
         </li>
         <li>
           <strong>Google (Gemini API)</strong> makes the cards from the material you send, as

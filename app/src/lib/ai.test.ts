@@ -61,6 +61,54 @@ describe('AI client', () => {
     expect(fetch.mock.calls[0][0]).toBe(`http://server/v1/quota?device_id=${DEVICE}`);
   });
 
+  describe('with Play Integrity tickets', () => {
+    const PHONE = 'ab'.repeat(32);
+    const tickets = {
+      warmUp: jest.fn(),
+      phoneId: jest.fn(() => Promise.resolve(PHONE)),
+      ticket: jest.fn(() => Promise.resolve({ phoneId: PHONE, token: 'ticket-1' })),
+    };
+    const withTickets = (fetch: jest.Mock) =>
+      createAiClient({ baseUrl: 'http://server', deviceId: () => DEVICE, tickets, fetch });
+
+    it('sends a fresh ticket with each request for cards', async () => {
+      const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { cards: [], remaining: 40 }));
+      await withTickets(fetch).generate({ text: 'notes', mode: 'text', maxCards: 5 });
+      await withTickets(fetch).generate({ text: 'notes', mode: 'text', maxCards: 5 });
+      expect(tickets.ticket).toHaveBeenCalledTimes(2);
+      expect(JSON.parse(fetch.mock.calls[0][1].body)).toMatchObject({
+        device_id: DEVICE,
+        phone_id: PHONE,
+        integrity_token: 'ticket-1',
+      });
+    });
+
+    it('sends neither when there is no ticket', async () => {
+      tickets.ticket.mockResolvedValueOnce(null as never);
+      const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { cards: [], remaining: 40 }));
+      await withTickets(fetch).generate({ text: 'notes', mode: 'text', maxCards: 5 });
+      const body = JSON.parse(fetch.mock.calls[0][1].body);
+      expect(body).not.toHaveProperty('phone_id');
+      expect(body).not.toHaveProperty('integrity_token');
+    });
+
+    it("asks for the phone's count, which needs no ticket", async () => {
+      const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { remaining: 20, limit: 50 }));
+      const ticketsBefore = tickets.ticket.mock.calls.length;
+      await withTickets(fetch).quota();
+      expect(fetch.mock.calls[0][0]).toBe(
+        `http://server/v1/quota?device_id=${DEVICE}&phone_id=${PHONE}`,
+      );
+      expect(tickets.ticket.mock.calls.length).toBe(ticketsBefore); // Google isn't asked
+    });
+
+    it('gets Google Play ready while waking the server', async () => {
+      const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { ok: true }));
+      await withTickets(fetch).warmUp();
+      expect(tickets.warmUp).toHaveBeenCalled();
+    });
+  });
+
   it('explains being offline', async () => {
     const fetch = jest.fn().mockRejectedValue(new TypeError('Network request failed'));
     await expect(client(fetch).quota()).rejects.toMatchObject({ kind: 'offline' });
@@ -75,8 +123,9 @@ describe('AI client', () => {
         ),
     );
     const pending = client(fetch as jest.Mock).generate({ text: 'x', mode: 'text', maxCards: 1 });
-    jest.advanceTimersByTime(120_000);
-    await expect(pending).rejects.toMatchObject({ kind: 'timeout' });
+    const failed = expect(pending).rejects.toMatchObject({ kind: 'timeout' });
+    await jest.advanceTimersByTimeAsync(120_000); // async: the request starts after the ticket
+    await failed;
     jest.useRealTimers();
   });
 
