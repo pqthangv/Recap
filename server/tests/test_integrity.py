@@ -269,6 +269,14 @@ def test_a_malformed_phone_id_is_refused(client):
     )
 
 
+def test_a_huge_ticket_is_no_ticket_not_an_error(client, check_on):
+    response = generate(client, ticket="x" * (integrity.MAX_TOKEN_CHARS + 1))
+    assert response.status_code == 200
+    assert response.json()["remaining"] == 40  # counted by the install
+    assert check_on.calls == 0  # not sent to Google
+    assert generate(client, ticket="x" * 20_000).status_code == 200  # long, but plausible
+
+
 def test_logs_never_contain_the_ticket_or_ids(client, check_on, caplog):
     with caplog.at_level(logging.INFO):
         generate(client)

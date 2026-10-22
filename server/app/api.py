@@ -134,7 +134,7 @@ class GenerateRequest(BaseModel):
     # Android 1.0.7+: the phone's id and a Play Integrity ticket made for it. Older apps, iPhones
     # and the website leave them out and count by `device_id`.
     phone_id: str | None = Field(default=None, pattern=PHONE_ID)
-    integrity_token: str | None = Field(default=None, max_length=16_000)
+    integrity_token: str | None = None  # an odd one is "no ticket", never an error
 
 
 class GenerateResponse(BaseModel):

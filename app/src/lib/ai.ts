@@ -1,6 +1,7 @@
 // Talking to Recap's server for AI cards. No API keys here: the server holds them.
 // Errors come back as AiError with a friendly message to show as-is.
 import { language, t, type StringKey } from './i18n';
+import { NO_TICKETS, type TicketSource } from './integrity';
 import type { CardLanguage } from './language';
 
 export type GeneratedCard = { front: string; back: string };
@@ -113,6 +114,8 @@ type Fetch = (url: string, init?: RequestInit) => Promise<Response>;
 export type AiClientOptions = {
   baseUrl: string;
   deviceId: () => string;
+  /** Play Integrity tickets (lib/integrity.ts): the server then counts AI cards by the phone. */
+  tickets?: TicketSource;
   fetch?: Fetch;
 };
 
@@ -121,7 +124,12 @@ export type UploadFile = Blob | { name: string; type: string; bytes(): Promise<U
 
 const TIMEOUTS = { health: 70_000, quota: 70_000, generate: 120_000, pdf: 90_000, report: 70_000 };
 
-export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: AiClientOptions) {
+export function createAiClient({
+  baseUrl,
+  deviceId,
+  tickets = NO_TICKETS,
+  fetch: doFetch = fetch,
+}: AiClientOptions) {
   const base = baseUrl.replace(/\/+$/, '');
 
   async function request<T>(path: string, init: RequestInit, timeoutMs: number): Promise<T> {
@@ -149,20 +157,25 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
   }
 
   return {
-    /** Wakes the server (the free host sleeps when idle). Errors are ignored. */
+    /** Wakes the server (the free host sleeps when idle) and gets Google Play ready for a
+     *  ticket. Errors are ignored. */
     warmUp(): Promise<void> {
+      tickets.warmUp();
       return request('/health', { method: 'GET' }, TIMEOUTS.health).then(
         () => undefined,
         () => undefined,
       );
     },
 
-    quota(): Promise<Quota> {
+    /** Cards left today: the phone's own count once the server knows it, else this install's. */
+    async quota(): Promise<Quota> {
       const id = encodeURIComponent(deviceId());
-      return request(`/v1/quota?device_id=${id}`, { method: 'GET' }, TIMEOUTS.quota);
+      const phone = await tickets.phoneId();
+      const path = `/v1/quota?device_id=${id}${phone ? `&phone_id=${phone}` : ''}`;
+      return request(path, { method: 'GET' }, TIMEOUTS.quota);
     },
 
-    generate(input: {
+    async generate(input: {
       text: string;
       mode: AiMode;
       maxCards: number;
@@ -170,6 +183,8 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
       frontLanguage?: CardLanguage | null;
       backLanguage?: CardLanguage | null;
     }): Promise<{ cards: GeneratedCard[]; remaining: number }> {
+      // A fresh one every time (each works once), so trying again after an error still has one.
+      const ticket = await tickets.ticket();
       return request(
         '/v1/generate',
         {
@@ -184,6 +199,8 @@ export function createAiClient({ baseUrl, deviceId, fetch: doFetch = fetch }: Ai
             back_language: input.backLanguage ?? undefined,
             // This app draws LaTeX between $…$, so the AI may write math that way.
             math: true,
+            phone_id: ticket?.phoneId,
+            integrity_token: ticket?.token,
           }),
         },
         TIMEOUTS.generate,

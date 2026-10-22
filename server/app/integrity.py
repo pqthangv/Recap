@@ -31,6 +31,9 @@ DEVICE_VERDICTS = {"MEETS_DEVICE_INTEGRITY", "MEETS_STRONG_INTEGRITY"}
 MAX_AGE_MS = 15 * 60 * 1000
 CLOCK_SKEW_MS = 60 * 1000
 TIMEOUT_S = 10
+# Real tickets are a few KB; anything far longer isn't sent to Google (the request body itself
+# is capped at 256 KB by main.py).
+MAX_TOKEN_CHARS = 64_000
 
 
 class GoogleBusy(Exception):
@@ -105,6 +108,9 @@ def check(
         return None
     if not phone_id or not token:
         log.info("integrity", extra={"result": "missing"})
+        return None
+    if len(token) > MAX_TOKEN_CHARS:
+        log.info("integrity", extra={"result": "failed:ticket"})
         return None
     now = now_ms if now_ms is not None else int(time.time() * 1000)
     try:
