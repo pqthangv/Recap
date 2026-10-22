@@ -11,7 +11,7 @@ from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel, Field
 from sqlalchemy import Engine
 
-from app import quota, reports
+from app import integrity, quota, reports
 from app.abuse import client_ip, limits, rate_limit
 from app.config import Settings, get_settings
 from app.db import DatabaseNotConfigured, get_engine
@@ -67,29 +67,44 @@ def provider_dep(settings: SettingsDep) -> CardProvider:
 ProviderDep = Annotated[CardProvider, Depends(provider_dep)]
 
 
-def verify_app(request: Request) -> None:
-    """Hook for Play Integrity / App Attest (roadmap 3.5): later this checks a token sent by the
-    phone, so only the real app can spend the shared AI quota. For now every request passes."""
-    del request
-
-
-AppCheck = [Depends(verify_app)]
-
-
 class QuotaResponse(BaseModel):
     remaining: int
     limit: int
 
 
-def cards_left(engine: Engine, device_id: str, ip: str, settings: Settings) -> int:
+# SHA-256 (hex) of the phone's Android ID, sent by Android apps from 1.0.7 (app/integrity.py).
+PHONE_ID = r"^[0-9a-f]{64}$"
+
+
+def cards_left(engine: Engine, device_id: str, daily: int, ip: str, settings: Settings) -> int:
     """Today's AI cards this phone can still make: its own allowance, or its network's when
     that's lower (e.g. other phones on the same Wi-Fi used it up), so the app never shows
     cards it can't make."""
     day = quota.today_utc()
     return min(
-        quota.remaining(engine, device_id, day, settings.daily_card_quota),
+        quota.remaining(engine, device_id, day, daily),
         limits.cards_left(ip, day, settings.ip_daily_card_quota),
     )
+
+
+def install_quota(settings: Settings) -> int:
+    """The daily allowance of an install without a ticket that passes. While the check is off,
+    every install gets the full one, as before."""
+    if integrity.enabled(settings):
+        return settings.unverified_daily_card_quota
+    return settings.daily_card_quota
+
+
+def shown_counter(
+    engine: Engine, device_id: str, phone_id: str | None, settings: Settings
+) -> tuple[str, int]:
+    """The counter /v1/quota shows, so it matches the one /v1/generate will use: the phone's own
+    once a ticket from it has passed (just looking needs no ticket), else the install id's."""
+    if phone_id and integrity.enabled(settings):
+        trusted = integrity.trusted_id(phone_id)
+        if quota.known(engine, trusted):
+            return trusted, settings.daily_card_quota
+    return device_id, install_quota(settings)
 
 
 @router.get("/quota")
@@ -98,9 +113,11 @@ def get_quota(
     http_request: Request,
     settings: SettingsDep,
     engine: EngineDep,
+    phone_id: Annotated[str | None, Query(pattern=PHONE_ID)] = None,
 ) -> QuotaResponse:
-    left = cards_left(engine, str(device_id), client_ip(http_request), settings)
-    return QuotaResponse(remaining=left, limit=settings.daily_card_quota)
+    counter, daily = shown_counter(engine, str(device_id), phone_id, settings)
+    left = cards_left(engine, counter, daily, client_ip(http_request), settings)
+    return QuotaResponse(remaining=left, limit=daily)
 
 
 class GenerateRequest(BaseModel):
@@ -114,6 +131,10 @@ class GenerateRequest(BaseModel):
     back_language: LanguageCode | None = None
     # Sent by apps that draw math (1.0.6+); older apps leave it out.
     math: bool = False
+    # Android 1.0.7+: the phone's id and a Play Integrity ticket made for it. Older apps, iPhones
+    # and the website leave them out and count by `device_id`.
+    phone_id: str | None = Field(default=None, pattern=PHONE_ID)
+    integrity_token: str | None = Field(default=None, max_length=16_000)
 
 
 class GenerateResponse(BaseModel):
@@ -121,7 +142,7 @@ class GenerateResponse(BaseModel):
     remaining: int
 
 
-@router.post("/generate", dependencies=AppCheck)
+@router.post("/generate")
 def generate(
     body: GenerateRequest,
     http_request: Request,
@@ -136,8 +157,7 @@ def generate(
     if len(text) > limit:
         raise ApiError(413, "too_long", f"That's too long. Keep it under {limit:,} characters.")
 
-    device_id, day, daily = str(body.device_id), quota.today_utc(), settings.daily_card_quota
-    ip = client_ip(http_request)
+    day, ip = quota.today_utc(), client_ip(http_request)
     wanted = min(body.max_cards, settings.max_cards_per_request)
     # Two daily limits: per network address (stops invented device ids), then per device.
     allowed = limits.reserve_cards(ip, day, wanted, settings.ip_daily_card_quota)
@@ -148,6 +168,13 @@ def generate(
             "Lots of AI cards were made from your network today. More tomorrow!",
             remaining=0,  # even if this phone still has some: none can be made from here today
         )
+    # The device: the phone itself when Google Play vouches for it, else this install. Checked
+    # after the network's limit, so a used-up address can't spend Google's daily allowance.
+    trusted = integrity.check(body.phone_id, body.integrity_token, settings)
+    if trusted:
+        device_id, daily = trusted, settings.daily_card_quota
+    else:
+        device_id, daily = str(body.device_id), install_quota(settings)
     reserved = quota.reserve(engine, device_id, day, allowed, daily)
     limits.refund_cards(ip, day, allowed - reserved)
     if reserved == 0:
@@ -192,7 +219,7 @@ def generate(
             422,
             "blocked",
             "Recap can't make cards from that. Try different text.",
-            remaining=cards_left(engine, device_id, ip, settings),
+            remaining=cards_left(engine, device_id, daily, ip, settings),
         ) from e
     except ProviderFailed as e:
         give_back_to_phone(reserved)
@@ -201,7 +228,7 @@ def generate(
             502,
             "ai_failed",
             "The AI couldn't make cards this time. Please try again.",
-            remaining=cards_left(engine, device_id, ip, settings),
+            remaining=cards_left(engine, device_id, daily, ip, settings),
         ) from e
     except Exception:
         give_back(reserved)  # a bug on our side: nobody pays for it
@@ -212,7 +239,7 @@ def generate(
         give_back(reserved - len(cards))
     else:
         give_back_to_phone(reserved)
-    left = cards_left(engine, device_id, ip, settings)
+    left = cards_left(engine, device_id, daily, ip, settings)
     log.info(
         "generated",
         extra={
@@ -246,7 +273,7 @@ class ReportResponse(BaseModel):
     ok: bool = True
 
 
-@router.post("/report", status_code=201, dependencies=AppCheck)
+@router.post("/report", status_code=201)
 def report_card(
     body: ReportRequest, http_request: Request, settings: SettingsDep, engine: EngineDep
 ) -> ReportResponse:
@@ -273,7 +300,7 @@ class PdfResponse(BaseModel):
     truncated: bool
 
 
-@router.post("/extract-pdf", dependencies=AppCheck)
+@router.post("/extract-pdf")
 async def extract_pdf(
     device_id: Annotated[UUID, Form()], file: Annotated[UploadFile, File()], settings: SettingsDep
 ) -> PdfResponse:

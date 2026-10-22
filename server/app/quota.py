@@ -27,6 +27,12 @@ def ensure_device(conn: Connection, device_id: str) -> None:
     conn.execute(_insert(conn.engine)(Device).values(id=device_id).on_conflict_do_nothing())
 
 
+def known(engine: Engine, device_id: str) -> bool:
+    """Whether this id has been seen before (has made AI cards)."""
+    with engine.connect() as conn:
+        return conn.execute(select(Device.id).where(Device.id == device_id)).first() is not None
+
+
 def used_today(engine: Engine, device_id: str, day: date) -> int:
     with engine.connect() as conn:
         used = conn.execute(
