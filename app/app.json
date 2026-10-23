@@ -2,7 +2,7 @@
   "expo": {
     "name": "Recap",
     "slug": "recap",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "recapcards",
@@ -51,7 +51,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "bundler": "metro",

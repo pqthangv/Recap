@@ -7,7 +7,7 @@ const PHONE = createHash('sha256').update(`recap-phone:${ANDROID_ID}`).digest('h
 
 function setup(changes: Partial<TicketOptions> = {}) {
   const options = {
-    projectNumber: '110760305467',
+    projectNumber: '333284966532',
     androidId: jest.fn(() => ANDROID_ID),
     sha256: jest.fn(async (text: string) => createHash('sha256').update(text).digest('hex')),
     prepare: jest.fn(() => Promise.resolve()),
@@ -31,7 +31,7 @@ describe('Play Integrity tickets', () => {
     });
     expect(PHONE).toMatch(/^[0-9a-f]{64}$/);
     expect(PHONE).not.toContain(ANDROID_ID);
-    expect(options.prepare).toHaveBeenCalledWith('110760305467');
+    expect(options.prepare).toHaveBeenCalledWith('333284966532');
     expect(options.request).toHaveBeenCalledWith(PHONE); // the ticket is made for this phone
     expect(await tickets.phoneId()).toBe(PHONE);
   });

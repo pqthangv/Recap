@@ -7,9 +7,10 @@ import { Platform } from 'react-native';
 
 import { createTickets, NO_TICKETS } from '@/lib/integrity';
 
-/** Recap's Google Cloud project, linked in Play Console › Protected with Play › Play Integrity
- *  API. Not a secret: it only says whose project the tickets belong to. */
-const CLOUD_PROJECT_NUMBER = '110760305467';
+/** Recap's Google Cloud project (the Play developer account's, not the Gemini key's), linked in
+ *  Play Console › Protected with Play › Play Integrity API. Not a secret: it only says whose
+ *  project the tickets belong to. */
+const CLOUD_PROJECT_NUMBER = '333284966532';
 
 export const tickets =
   Platform.OS === 'android'
