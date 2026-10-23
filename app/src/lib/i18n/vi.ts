@@ -121,6 +121,10 @@ export const vi: Strings = {
   'home.getAndroid': 'Tải ứng dụng Android',
   'home.fab': 'Thêm bộ thẻ hoặc thẻ',
   'home.makeDeckFirst': 'Hãy tạo bộ thẻ trước',
+  'update.available': 'Đã có Recap {version}',
+  'update.action': 'Cập nhật',
+  'update.a11y': 'Đã có Recap {version}. Cập nhật trên Google Play',
+  'update.hide': 'Ẩn đến phiên bản sau',
 
   // First-launch tip
   'tip.title': 'Mới dùng Recap?',

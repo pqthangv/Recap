@@ -119,6 +119,10 @@ export const en = {
   'home.getAndroid': 'Get the Android app',
   'home.fab': 'Add a deck or card',
   'home.makeDeckFirst': 'Make a deck first',
+  'update.available': 'Recap {version} is out',
+  'update.action': 'Update',
+  'update.a11y': 'Recap {version} is out. Update it in Google Play',
+  'update.hide': 'Hide until the next version',
 
   // First-launch tip
   'tip.title': 'New to Recap?',
