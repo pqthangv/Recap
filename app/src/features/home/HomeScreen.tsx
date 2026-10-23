@@ -17,10 +17,11 @@ import { PLAY_STORE_URL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
-import { isWeb } from '@/lib/platform';
+import { can, isWeb } from '@/lib/platform';
 import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 import { AddMenu } from './AddMenu';
+import { UpdateNotice } from './UpdateNotice';
 
 export default function HomeScreen() {
   const styles = useStyles(makeStyles);
@@ -81,6 +82,7 @@ export default function HomeScreen() {
             {counts.total === 0 && decks.length > 0 ? (
               <Text style={styles.caught}>{t('home.caughtUp')}</Text>
             ) : null}
+            {can.updateNotice ? <UpdateNotice /> : null}
             {decks.length > 0 ? (
               <View style={styles.sectionRow}>
                 <Text accessibilityRole="header" style={styles.section}>

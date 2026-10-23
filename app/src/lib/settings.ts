@@ -88,6 +88,12 @@ export const REMINDER_OFFERED_KEY = 'reminder_offered';
 export const AI_FRONT_LANGUAGE_KEY = 'ai_front_language';
 export const AI_BACK_LANGUAGE_KEY = 'ai_back_language';
 
+/** "A new version is out" (lib/updates.ts): when this phone last read version.json (ms), the
+ *  newest version it said, and the version whose notice was hidden with its ✕. Per phone. */
+export const UPDATE_CHECKED_KEY = 'update_checked_at';
+export const UPDATE_LATEST_KEY = 'update_latest';
+export const UPDATE_HIDDEN_KEY = 'update_hidden';
+
 /** Settings that belong to this device and are left out of backups (and, later, sync). */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
   SEEDED_KEY,
@@ -98,6 +104,9 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   REMINDER_OFFERED_KEY,
   AI_FRONT_LANGUAGE_KEY,
   AI_BACK_LANGUAGE_KEY,
+  UPDATE_CHECKED_KEY,
+  UPDATE_LATEST_KEY,
+  UPDATE_HIDDEN_KEY,
   SETTING_KEYS.reminderEnabled,
   SETTING_KEYS.reminderMinutes,
   // Like the phone's own language and look, choices for this phone.

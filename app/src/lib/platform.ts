@@ -14,6 +14,8 @@ export const can = {
   reminders: !onWeb,
   /** Importing .apkg decks. */
   apkgImport: !onWeb,
+  /** "A new version is out" on Home: the website is always the newest version. */
+  updateNotice: !onWeb,
 };
 
 /** Running as the website rather than the phone app. */
