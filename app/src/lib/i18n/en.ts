@@ -121,7 +121,8 @@ export const en = {
   'home.makeDeckFirst': 'Make a deck first',
   'update.available': 'Recap {version} is out',
   'update.action': 'Update',
-  'update.a11y': 'Recap {version} is out. Update it in Google Play',
+  'update.a11yPlay': 'Recap {version} is out. Update it in Google Play',
+  'update.a11yAppStore': 'Recap {version} is out. Update it in the App Store',
   'update.hide': 'Hide until the next version',
 
   // First-launch tip

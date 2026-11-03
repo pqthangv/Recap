@@ -123,7 +123,8 @@ export const vi: Strings = {
   'home.makeDeckFirst': 'Hãy tạo bộ thẻ trước',
   'update.available': 'Đã có Recap {version}',
   'update.action': 'Cập nhật',
-  'update.a11y': 'Đã có Recap {version}. Cập nhật trên Google Play',
+  'update.a11yPlay': 'Đã có Recap {version}. Cập nhật trên Google Play',
+  'update.a11yAppStore': 'Đã có Recap {version}. Cập nhật trên App Store',
   'update.hide': 'Ẩn đến phiên bản sau',
 
   // First-launch tip
