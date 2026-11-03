@@ -2,12 +2,17 @@
 // node_modules/expo-sqlite/web/WorkerChannel.ts)
 //
 // RECAP PATCH. metro.config.js loads this copy instead of expo-sqlite's own file, for the web
-// version only. Two fixes in synchronous calls, marked "RECAP PATCH" below:
+// version only. Fixes in synchronous calls, marked "RECAP PATCH" below:
 // 1. The worker wrote the result's length with `Uint8Array.set(new Uint32Array([length]))`,
 //    which keeps only the lowest byte, so any result over 255 bytes came back cut off ("Expected
 //    ',' or ']' after array element in JSON").
 // 2. Results had to fit in a fixed 1 MB buffer (a big backup export doesn't). The buffer can now
 //    grow, up to 512 MB.
+// 3. (2026-11-03) One result buffer for all synchronous calls instead of a new one each time. A
+//    growable buffer reserves its whole maximum up front, and the app makes hundreds of calls while
+//    it starts: phones ran out of room and the cards never opened ("Recap couldn't open your cards
+//    in this browser" on iPhones and Android phones; desktops have room to spare). Calls never
+//    overlap: the page waits for each answer, and the worker answers in order.
 // Imports resolve to expo-sqlite's web folder (see metro.config.js). Remove this file, and the
 // redirect, once expo-sqlite fixes both.
 /* eslint-disable */
@@ -28,6 +33,24 @@ const PENDING = 1;
 const RESOLVED = 2;
 
 let hasWarnedSync = false;
+
+// RECAP PATCH (3): made by the first synchronous call, then reused.
+let syncResultBuffer: SharedArrayBuffer | null = null;
+
+function resultBufferForSyncCalls(): SharedArrayBuffer {
+  if (syncResultBuffer) return syncResultBuffer;
+  const size = 1024 * 1024;
+  // As much room to grow as the browser will reserve (a phone may refuse 512 MB), else the old
+  // fixed 1 MB. A browser without growable buffers ignores maxByteLength.
+  for (const maxMB of [512, 64]) {
+    try {
+      syncResultBuffer = new SharedArrayBuffer(size, { maxByteLength: maxMB * 1024 * 1024 });
+      return syncResultBuffer;
+    } catch {}
+  }
+  syncResultBuffer = new SharedArrayBuffer(size);
+  return syncResultBuffer;
+}
 
 /**
  * For worker to send result to the main thread.
@@ -125,8 +148,8 @@ export function invokeWorkerSync<T extends SQLiteWorkerMessageType & keyof Resul
   const id = messageId++;
   const lockBuffer = new SharedArrayBuffer(4);
   const lock = new Int32Array(lockBuffer);
-  // RECAP PATCH (2): growable, so the worker can make room for a big result.
-  const resultBuffer = new SharedArrayBuffer(1024 * 1024, { maxByteLength: 512 * 1024 * 1024 });
+  // RECAP PATCH (2, 3): growable, so the worker can make room for a big result; shared by all calls.
+  const resultBuffer = resultBufferForSyncCalls();
   const resultArray = new Uint8Array(resultBuffer);
 
   Atomics.store(lock, 0, PENDING);

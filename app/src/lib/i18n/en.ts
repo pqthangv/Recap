@@ -97,6 +97,7 @@ export const en = {
     'Recap is already open in another tab or window. Close it, then reload this page.',
   'app.openFailedWeb':
     "Recap couldn't open your cards in this browser. Reload the page, or use an up-to-date Chrome, Edge, Firefox or Safari (private windows may not keep cards).",
+  'app.errorDetails': 'Details: {details}',
   'error.title': 'Something went wrong',
   'error.body': 'Your cards are safe. Try again, or go back to your decks.',
   'error.rootBody': 'Your cards are safe. Please try again.',
@@ -116,6 +117,7 @@ export const en = {
   'home.sortColorLower': 'color',
   'home.empty': 'No decks yet. Tap + to make your first one, or get one from Library.',
   'home.recentlyDeleted': 'Recently deleted · {n}',
+  'home.getIphone': 'Get the iPhone app',
   'home.getAndroid': 'Get the Android app',
   'home.fab': 'Add a deck or card',
   'home.makeDeckFirst': 'Make a deck first',
