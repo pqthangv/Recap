@@ -7,6 +7,7 @@ import { importCards, type ImportTarget } from '@/db/import';
 import { useLive } from '@/db/live';
 import { t, tn } from '@/lib/i18n';
 import { parsePaste, separatorLabel } from '@/lib/import/paste';
+import { useKeyboardOffset } from '@/lib/keyboard';
 import { type Colors, radius, useColors, useStyles } from '@/lib/theme';
 
 import { DeckTarget } from './DeckTarget';
@@ -15,6 +16,7 @@ import { CardPreview, targetIsValid, useFinishImport } from './shared';
 export default function PasteImportScreen() {
   const styles = useStyles(makeStyles);
   const colors = useColors();
+  const keyboardOffset = useKeyboardOffset();
   const decks = useLive(listDecks, ['decks']);
   const finish = useFinishImport();
   const [text, setText] = useState('');
@@ -37,7 +39,11 @@ export default function PasteImportScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.screen} behavior="padding">
+    <KeyboardAvoidingView
+      style={styles.screen}
+      behavior="padding"
+      keyboardVerticalOffset={keyboardOffset}
+    >
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <Text style={styles.help}>{t('paste.help')}</Text>
         <TextInput

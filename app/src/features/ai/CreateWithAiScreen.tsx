@@ -20,6 +20,7 @@ import { discardPicked, pickedUpload } from '@/features/files/picked';
 import { AiError, MAX_CARDS_PER_REQUEST, MAX_INPUT_CHARS, MAX_TOPIC_CHARS } from '@/lib/ai';
 import { addToNotes, notesSourceAfter, type AiSource } from '@/lib/aiReview';
 import { count, t, tn, type StringKey } from '@/lib/i18n';
+import { useKeyboardOffset } from '@/lib/keyboard';
 import { isCardLanguage, type CardLanguage, type SideLanguages as Languages } from '@/lib/language';
 import { can } from '@/lib/platform';
 import { AI_BACK_LANGUAGE_KEY, AI_FRONT_LANGUAGE_KEY } from '@/lib/settings';
@@ -69,6 +70,7 @@ function storedLanguage(side: Side): CardLanguage | null {
  *  cards to review. */
 export default function CreateWithAiScreen() {
   const styles = useStyles(makeStyles);
+  const keyboardOffset = useKeyboardOffset();
   const colors = useColors();
   const router = useRouter();
   const draft = useAiDraft((s) => s.cards);
@@ -208,7 +210,11 @@ export default function CreateWithAiScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.screen} behavior="padding">
+    <KeyboardAvoidingView
+      style={styles.screen}
+      behavior="padding"
+      keyboardVerticalOffset={keyboardOffset}
+    >
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         {draft ? (
           <Pressable
