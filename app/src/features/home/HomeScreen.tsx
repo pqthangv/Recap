@@ -13,7 +13,7 @@ import { getStudyCounts } from '@/db/study';
 import { DeckRow } from '@/features/deck/DeckRow';
 import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
 import { TutorialTip } from '@/features/onboarding/TutorialTip';
-import { PLAY_STORE_URL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
+import { APP_STORE_URL, PLAY_STORE_URL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
@@ -168,10 +168,11 @@ export default function HomeScreen() {
   );
 }
 
-/** The website's footer: the phone app, help and the privacy policy. */
+/** The website's footer: the phone apps, help and the privacy policy. */
 function WebLinks() {
   const styles = useStyles(makeStyles);
   const links = [
+    { label: t('home.getIphone'), url: APP_STORE_URL },
     { label: t('home.getAndroid'), url: PLAY_STORE_URL },
     { label: t('settings.help'), url: SUPPORT_URL },
     { label: t('settings.privacy'), url: PRIVACY_POLICY_URL },

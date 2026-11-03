@@ -28,8 +28,17 @@ type Status = 'loading' | 'ready' | 'error' | 'otherTab';
 const openInOtherTab = (e: unknown) =>
   isWeb && /NoModificationAllowedError|Access Handle/i.test(String(e));
 
+/** The browser's own reason, under any wrappers (Drizzle wraps it with the SQL it was running). */
+function innermostError(e: unknown): string {
+  let error = e;
+  while (error instanceof Error && error.cause) error = error.cause;
+  return String(error).slice(0, 300);
+}
+
 export default function RootLayout() {
   const [status, setStatus] = useState<Status>('loading');
+  // Web: the browser's own error, shown small under the message, so a screenshot says what failed.
+  const [failure, setFailure] = useState('');
   const styles = useStyles(makeStyles);
   const background = useColors().background;
   const scheme = useScheme();
@@ -48,6 +57,7 @@ export default function RootLayout() {
       })
       .catch((e: unknown) => {
         console.error('Database setup failed', e);
+        setFailure(innermostError(e));
         setStatus(openInOtherTab(e) ? 'otherTab' : 'error');
       })
       .finally(() => SplashScreen.hideAsync());
@@ -82,6 +92,11 @@ export default function RootLayout() {
                 : 'app.openFailed',
           )}
         </Text>
+        {status === 'error' && isWeb && failure ? (
+          <Text selectable style={styles.errorDetails}>
+            {t('app.errorDetails', { details: failure })}
+          </Text>
+        ) : null}
       </View>
     );
   }
@@ -154,4 +169,5 @@ const makeStyles = (colors: Colors) =>
       backgroundColor: colors.background,
     },
     errorText: { fontSize: 17, color: colors.text, textAlign: 'center' },
+    errorDetails: { fontSize: 13, color: colors.muted, textAlign: 'center', marginTop: 16 },
   });
