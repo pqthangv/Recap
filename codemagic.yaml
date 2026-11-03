@@ -18,9 +18,10 @@ workflows:
         XCODE_SCHEME: Recap
         APP_STORE_APPLE_ID: 6822104894 # Recap's Apple ID (App Store Connect › App Information)
       node: 24
-      # Not latest: Expo SDK 57 built with Xcode 27 doesn't launch right on iOS 27 without the scene
-      # life cycle. Xcode 27.1 comes with the iPhone Duo work (1.0.8, docs/ROADMAP.md).
-      xcode: 26.6
+      # Xcode 27.1 (iOS 27.1 SDK) makes the app fill the iPhone Duo's open screen. It needs the scene
+      # life cycle (ios.enableSceneSupport in app.json). Pinned, not latest: a new Xcode is tried
+      # in .github/workflows/ios.yml first.
+      xcode: 27.1
     scripts:
       - name: Install npm packages
         script: npm ci
