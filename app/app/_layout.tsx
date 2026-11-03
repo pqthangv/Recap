@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { Fragment, useEffect, useState } from 'react';
 import { AppState, Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { SnackbarHost } from '@/components/Snackbar';
@@ -116,6 +117,7 @@ function Screens() {
   const language = useLanguage();
   const colors = useColors();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   // iPhone modals have no back arrow (only a swipe down), so they get a visible Cancel.
   const modal = {
     presentation: 'modal',
@@ -135,8 +137,14 @@ function Screens() {
         headerTintColor: colors.primary,
         headerTitleStyle: { color: colors.text },
         headerShadowVisible: false,
-        // Every screen's content in one centered column on wide windows (theme.maxContentWidth).
-        contentStyle: { backgroundColor: colors.background, paddingHorizontal: sideSpace(width) },
+        // Every screen's content in one centered column on wide windows (theme.maxContentWidth),
+        // and clear of what's on the sides: the iPhone Duo's status bar down the right edge, a
+        // phone's camera or buttons in landscape.
+        contentStyle: {
+          backgroundColor: colors.background,
+          paddingLeft: Math.max(sideSpace(width), insets.left),
+          paddingRight: Math.max(sideSpace(width), insets.right),
+        },
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false, title: t('screen.home') }} />

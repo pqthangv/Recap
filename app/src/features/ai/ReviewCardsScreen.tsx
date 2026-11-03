@@ -33,6 +33,7 @@ import {
   type ReviewItem,
 } from '@/lib/aiReview';
 import { t, tn } from '@/lib/i18n';
+import { useKeyboardOffset } from '@/lib/keyboard';
 import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
 import { ai, useAiDraft } from './api';
@@ -63,6 +64,7 @@ function Review({
   fewer: string | null;
 }) {
   const styles = useStyles(makeStyles);
+  const keyboardOffset = useKeyboardOffset();
   const decks = useLive(listDecks, ['decks']);
   const finish = useFinishImport();
   const suggested = suggestDeckName(source);
@@ -110,7 +112,11 @@ function Review({
   };
 
   return (
-    <KeyboardAvoidingView style={styles.screen} behavior="padding">
+    <KeyboardAvoidingView
+      style={styles.screen}
+      behavior="padding"
+      keyboardVerticalOffset={keyboardOffset}
+    >
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <View style={styles.header}>
           <Text style={styles.title}>

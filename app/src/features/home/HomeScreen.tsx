@@ -37,7 +37,8 @@ export default function HomeScreen() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <SafeAreaView style={styles.screen} edges={['top', 'left', 'right']}>
+    // Only the top: the sides are already kept clear for every screen (app/_layout.tsx).
+    <SafeAreaView style={styles.screen} edges={['top']}>
       <View style={styles.header}>
         <View style={styles.brand}>
           <Image source={logo} style={styles.logo} accessibilityIgnoresInvertColors />

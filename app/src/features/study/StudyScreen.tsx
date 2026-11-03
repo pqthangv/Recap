@@ -1,5 +1,6 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useHeaderHeight } from 'expo-router/react-navigation';
+import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -29,10 +30,10 @@ export default function StudyScreen() {
   const { card, previews, suggested, fourButtons, answer, turn } = session;
   const finished = card === null;
   // The keyboard's position is measured from the top of the screen and this view's from below the
-  // header, so the keyboard-avoiding view needs to know where it starts, or the keyboard covers
-  // the answer box by about the header's height.
-  const frame = useRef<View>(null);
-  const [frameTop, setFrameTop] = useState(0);
+  // header, so the keyboard-avoiding view needs the header's height, or the keyboard covers the
+  // answer box by about that much. The navigator's own number: measuring this view when it is
+  // first laid out gave 0 on iOS 27 (scene life cycle), before the screen was in its window.
+  const headerHeight = useHeaderHeight();
 
   // Web: after checking a typed answer, Enter takes the suggested grade (type, Enter, Enter).
   useEffect(() => {
@@ -63,14 +64,10 @@ export default function StudyScreen() {
   return (
     // The bottom padding is on the outer view: the keyboard-avoiding view sets its own (0 with no
     // keyboard). The extra 12 keeps the answer box a little above the keyboard.
-    <View
-      ref={frame}
-      style={[styles.frame, { paddingBottom: insets.bottom + 16 }]}
-      onLayout={() => frame.current?.measureInWindow((_x, y) => setFrameTop(y))}
-    >
+    <View style={[styles.frame, { paddingBottom: insets.bottom + 16 }]}>
       <KeyboardAvoidingView
         behavior="padding"
-        keyboardVerticalOffset={frameTop + 12}
+        keyboardVerticalOffset={headerHeight + 12}
         style={styles.screen}
       >
         <Stack.Screen

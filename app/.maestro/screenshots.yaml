@@ -102,13 +102,14 @@ appId: com.recapcards.app
 - tapOn: Topic
 - tapOn: 'Topic to make cards about.*'
 - inputText: German words for food
-# Close the keyboard the way a person would: tap something that isn't a button (hideKeyboard
-# is unreliable on iOS).
-- tapOn: Cards
+# Close the keyboard with its Done key (hideKeyboard is unreliable on iOS; on a small screen like
+# the folded iPhone Duo the keyboard covers the rest of the form, so a tap could land on a key).
+- pressKey: Enter
+# A ticked language reads "Deutsch, ✓" (a second try finds it ticked by the first).
 - tapOn: 'Language of the card fronts.*'
-- tapOn: Deutsch
+- tapOn: 'Deutsch(, ✓)?'
 - tapOn: 'Language of the card backs.*'
-- tapOn: English
+- tapOn: 'English(, ✓)?'
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: ai

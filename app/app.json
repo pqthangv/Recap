@@ -110,6 +110,14 @@
           "supportedLocales": ["en", "vi"],
           "allowDynamicLocaleChangesAndroid": true
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "enableSceneSupport": true
+          }
+        }
       ]
     ],
     "locales": {
