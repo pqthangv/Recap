@@ -67,9 +67,14 @@ async function idTokenFor(fetcher: typeof fetch, endpoint: string, form: Record<
     headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
     body: new URLSearchParams(form).toString(),
   });
-  const body = (await response.json().catch(() => null)) as { id_token?: unknown } | null;
+  const body = (await response.json().catch(() => null)) as {
+    id_token?: unknown;
+    error?: unknown;
+  } | null;
   if (!response.ok || typeof body?.id_token !== 'string') {
-    throw new Error(`${endpoint} answered ${response.status}`);
+    // OAuth's error name (invalid_client: the secret; invalid_grant: the code), for the logs.
+    const reason = typeof body?.error === 'string' ? ` ${body.error.slice(0, 60)}` : '';
+    throw new Error(`${endpoint} answered ${response.status}${reason}`);
   }
   return body.id_token;
 }
@@ -85,7 +90,8 @@ export async function googlePerson(
   const idToken = await idTokenFor(fetcher, GOOGLE_TOKEN, {
     code,
     client_id: env.GOOGLE_CLIENT_ID,
-    client_secret: env.GOOGLE_CLIENT_SECRET,
+    // A space or line break pasted along with the secret would make Google refuse it.
+    client_secret: env.GOOGLE_CLIENT_SECRET.trim(),
     redirect_uri: redirectUri,
     grant_type: 'authorization_code',
     code_verifier: verifier,
@@ -102,20 +108,35 @@ export async function googlePerson(
   return { subject: payload.sub!, email };
 }
 
+/** Client secrets already made, by key and client id. */
+const madeSecrets = new Map<string, { secret: string; until: number }>();
+const SECRET_REUSE_MS = 30 * 60_000;
+
 /**
- * Apple's client secret: a short-lived JWT signed with the Sign in with Apple key (.p8), for the
- * Services ID (browser) or the bundle id (iPhone; deleting an account, part 4).
+ * Apple's client secret: a JWT signed with the Sign in with Apple key (.p8), for the Services ID
+ * (browser) or the bundle id (iPhone; deleting an account, part 4). Reading the key and signing
+ * took a cold Worker past Workers Free's 10 ms of CPU, so each one is reused for half an hour
+ * (Apple takes them for up to 6 months; this one says 40 minutes).
  */
-export async function appleClientSecret(env: Env, clientId: string): Promise<string> {
+export async function appleClientSecret(
+  env: Env,
+  clientId: string,
+  now = Date.now(),
+): Promise<string> {
+  const id = `${env.APPLE_TEAM_ID}:${env.APPLE_KEY_ID}:${clientId}`;
+  const made = madeSecrets.get(id);
+  if (made && made.until > now) return made.secret;
   const key = await importPKCS8(env.APPLE_PRIVATE_KEY.replace(/\\n/g, '\n').trim(), 'ES256');
-  return new SignJWT({})
+  const secret = await new SignJWT({})
     .setProtectedHeader({ alg: 'ES256', kid: env.APPLE_KEY_ID })
     .setIssuer(env.APPLE_TEAM_ID)
     .setSubject(clientId)
     .setAudience(APPLE_ISSUER)
-    .setIssuedAt()
-    .setExpirationTime('5m')
+    .setIssuedAt(Math.floor(now / 1000))
+    .setExpirationTime(Math.floor((now + SECRET_REUSE_MS + 10 * 60_000) / 1000))
     .sign(key);
+  madeSecrets.set(id, { secret, until: now + SECRET_REUSE_MS });
+  return secret;
 }
 
 export async function applePerson(

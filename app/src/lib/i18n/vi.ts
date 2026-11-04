@@ -667,9 +667,9 @@ export const vi: Strings = {
   'settings.sync': 'Đồng bộ',
   'settings.syncOff': 'Giữ thẻ của bạn giống nhau trên các điện thoại và trang web.',
   'account.intro':
-    'Đăng nhập để bộ thẻ, thẻ và tiến độ học giống nhau trên mọi điện thoại của bạn và trên recapflashcards.com. Thẻ vẫn được lưu trên điện thoại này, và Recap vẫn dùng như bình thường khi không có tài khoản.',
+    'Đăng nhập để bộ thẻ, thẻ và tiến độ học giống nhau trên mọi điện thoại của bạn và trên recapflashcards.com.',
   'account.introWeb':
-    'Đăng nhập để bộ thẻ, thẻ và tiến độ học giống nhau trên trình duyệt này và trên điện thoại của bạn. Thẻ vẫn được lưu trên trình duyệt này, và Recap vẫn dùng như bình thường khi không có tài khoản.',
+    'Đăng nhập để bộ thẻ, thẻ và tiến độ học giống nhau trên trình duyệt này và trên điện thoại của bạn.',
   'account.google': 'Tiếp tục bằng Google',
   'account.apple': 'Tiếp tục với Apple',
   'account.email': 'Tiếp tục bằng email',

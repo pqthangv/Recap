@@ -321,6 +321,11 @@ describe('signing in with Apple', () => {
     const signedIn = await browserSignIn(w, 'apple', { sub: 'a-1' });
     expect(signedIn).toMatchObject({ provider: 'apple', created: true });
     expect(signedIn.email).toBeUndefined();
+    // The client secret is made once and reused (signing it costs CPU time).
+    expect(w.appleSecrets).toHaveLength(2);
+    expect(w.appleSecrets[1]).toBe(w.appleSecrets[0]);
+    const { iat, exp } = decodeJwt(w.appleSecrets[0]!);
+    expect(exp! - iat!).toBeLessThanOrEqual(6 * 30 * 24 * 60 * 60);
   });
 
   it('on an iPhone: needs the nonce the app gave Apple, and finds the same account', async () => {

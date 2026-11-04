@@ -663,9 +663,9 @@ export const en = {
   'settings.sync': 'Sync',
   'settings.syncOff': 'Keep your cards the same on your phones and the website.',
   'account.intro':
-    'Sign in to keep your decks, cards and progress the same on all your phones and on recapflashcards.com. Your cards stay on this phone too, and Recap works just the same without an account.',
+    'Sign in to keep your decks, cards and progress the same on all your phones and on recapflashcards.com.',
   'account.introWeb':
-    'Sign in to keep your decks, cards and progress the same in this browser and on your phones. Your cards stay in this browser too, and Recap works just the same without an account.',
+    'Sign in to keep your decks, cards and progress the same in this browser and on your phones.',
   'account.google': 'Continue with Google',
   'account.apple': 'Continue with Apple',
   'account.email': 'Continue with email',
