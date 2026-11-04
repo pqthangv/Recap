@@ -13,7 +13,10 @@ export const ACCOUNT_LIMITS: Limits = { writes: 150, bytes: 100 * MB };
 /** About 775,000 writes a month and 9 GB, under R2's free 1 million and 10 GB. */
 export const ALL_LIMITS: Limits = { writes: 25_000, bytes: 9 * 1024 * MB };
 
-export type Usage = { day: string; writes: number; bytes: number };
+/** Picture uploads a day per account (src/pictures.ts), on top of the writes; counted in "all". */
+export const PICTURES_PER_DAY = 500;
+
+export type Usage = { day: string; writes: number; bytes: number; pictures?: number };
 /** 'closed': the account was deleted, so its old tokens get nothing. */
 export type Charge = 'ok' | 'writes' | 'bytes' | 'closed';
 
@@ -46,11 +49,32 @@ export class Counter extends DurableObject<Env> {
     const usage = await this.usage(day);
     if (usage.writes + 1 > limits.writes) return 'writes';
     if (bytes > 0 && usage.bytes + bytes > limits.bytes) return 'bytes';
+    // Spread, so today's picture count (chargePicture) is kept.
     await this.ctx.storage.put('usage', {
-      day,
+      ...usage,
       writes: usage.writes + 1,
       bytes: usage.bytes + bytes,
-    });
+    } satisfies Usage);
+    return 'ok';
+  }
+
+  /** Counts one picture upload adding `bytes`, within today's pictures and the account's space. */
+  async chargePicture(
+    day: string,
+    bytes: number,
+    perDay: number,
+    maxBytes: number,
+  ): Promise<Charge> {
+    if (await this.isClosed()) return 'closed';
+    const usage = await this.usage(day);
+    const pictures = usage.pictures ?? 0;
+    if (pictures + 1 > perDay) return 'writes';
+    if (usage.bytes + bytes > maxBytes) return 'bytes';
+    await this.ctx.storage.put('usage', {
+      ...usage,
+      pictures: pictures + 1,
+      bytes: usage.bytes + bytes,
+    } satisfies Usage);
     return 'ok';
   }
 
@@ -71,6 +95,21 @@ export async function chargeWrite(env: Env, account: string, bytes = 0): Promise
   const day = today();
   const mine = env.COUNTERS.getByName(account);
   const charged = await mine.charge(day, bytes, ACCOUNT_LIMITS);
+  if (charged !== 'ok') return charged;
+  const all = await env.COUNTERS.getByName('all').charge(day, bytes, ALL_LIMITS);
+  if (all !== 'ok') await mine.release(day, bytes);
+  return all;
+}
+
+/** Counts one picture upload: the account's pictures today and space, then everyone's writes. */
+export async function chargePictureUpload(
+  env: Env,
+  account: string,
+  bytes: number,
+): Promise<Charge> {
+  const day = today();
+  const mine = env.COUNTERS.getByName(account);
+  const charged = await mine.chargePicture(day, bytes, PICTURES_PER_DAY, ACCOUNT_LIMITS.bytes);
   if (charged !== 'ok') return charged;
   const all = await env.COUNTERS.getByName('all').charge(day, bytes, ALL_LIMITS);
   if (all !== 'ok') await mine.release(day, bytes);

@@ -113,3 +113,65 @@ export function createHttpStore({
     },
   };
 }
+
+/** What became of a picture sent to the server. */
+export type PictureUpload = 'stored' | 'exists' | 'refused';
+
+/** The account's pictures through the sync Worker (sync/src/pictures.ts). */
+export function createPictureStore({ baseUrl, token, fetch: doFetch = fetch }: HttpStoreOptions) {
+  const base = baseUrl.replace(/\/+$/, '');
+
+  async function call(path: string, init: RequestInit = {}): Promise<Response> {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    try {
+      return await doFetch(`${base}/v1/pictures${path}`, {
+        ...init,
+        headers: { Authorization: `Bearer ${token()}`, ...init.headers },
+        signal: controller.signal,
+      });
+    } catch (e) {
+      throw new SyncHttpError('offline', e);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  return {
+    /** Sends a picture: stored, already there, or refused (too big, or not a picture). */
+    async upload(name: string, bytes: Uint8Array): Promise<PictureUpload> {
+      const response = await call(`/${name}`, { method: 'PUT', body: bytes as BodyInit });
+      if (response.status === 201) return 'stored';
+      if (response.status === 409) return 'exists';
+      if ([400, 413, 415].includes(response.status)) return 'refused';
+      throw await errorFromAnswer(response);
+    },
+
+    /** A picture's bytes, or null if the account doesn't have it. */
+    async download(name: string): Promise<Uint8Array | null> {
+      const response = await call(`/${name}`);
+      if (response.status === 404) return null;
+      if (!response.ok) throw await errorFromAnswer(response);
+      return new Uint8Array(await response.arrayBuffer());
+    },
+
+    async list(): Promise<{ name: string; bytes: number; uploaded: number }[]> {
+      const response = await call('');
+      if (!response.ok) throw await errorFromAnswer(response);
+      return (
+        (await response.json()) as { pictures: { name: string; bytes: number; uploaded: number }[] }
+      ).pictures;
+    },
+
+    async remove(names: readonly string[]): Promise<void> {
+      const response = await call('/remove', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ names }),
+      });
+      if (!response.ok) throw await errorFromAnswer(response);
+    },
+  };
+}
+
+export type PictureStore = ReturnType<typeof createPictureStore>;

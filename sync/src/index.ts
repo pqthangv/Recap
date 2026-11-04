@@ -6,6 +6,7 @@
 //   POST /v1/files/remove        {"names": [...]}: deletes those files
 //   POST /v1/token               a new token for the same account (the app renews weekly)
 //   POST /v1/account/delete      deletes the account and its files (src/deletion.ts)
+//   /v1/pictures…                pictures on cards (src/pictures.ts)
 //   GET  /health                 "ok", touching nothing (for uptime checks)
 // Every other /v1 request needs "Authorization: Bearer <token>"; the token's account is the
 // folder. Signing in is /v1/auth/… (src/signin.ts), rate limited per network instead.
@@ -30,6 +31,7 @@ import {
 } from './files';
 import { chargeWrite, releaseBytes, type Charge } from './limits';
 import { ORIGINS } from './origins';
+import { pictures } from './pictures';
 import { REMOTE_KEYS } from './providers';
 import { signIn, type Deps } from './signin';
 
@@ -91,6 +93,10 @@ export async function handle(request: Request, env: Env, deps: Deps): Promise<Re
 
   if (path === 'account/delete' && method === 'POST') {
     return deleteAccount(request, env, deps, account);
+  }
+
+  if (path === 'pictures' || path.startsWith('pictures/')) {
+    return (await pictures(request, env, account, path)) ?? fail('not_found', 404);
   }
 
   if (path === 'files' && method === 'GET') {

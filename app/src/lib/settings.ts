@@ -97,11 +97,14 @@ export const UPDATE_HIDDEN_KEY = 'update_hidden';
 /** Sync's progress on this device (lib/sync/round.ts SyncState) and when it last finished (ms). */
 export const SYNC_STATE_KEY = 'sync_state';
 export const SYNC_LAST_KEY = 'sync_last_at';
+/** Which pictures this device sent to (or got from) the account (lib/sync/pictures.ts). */
+export const SYNC_PICTURES_KEY = 'sync_pictures';
 
 /** Settings that belong to this device and are left out of backups and sync. */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
   SYNC_STATE_KEY,
   SYNC_LAST_KEY,
+  SYNC_PICTURES_KEY,
   SEEDED_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,

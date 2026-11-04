@@ -9,11 +9,17 @@ import { getRawSetting, setRawSetting } from '@/db/settings';
 import { databaseDevice, dropUnusedTutorial, forgetSyncState, hasUnsentChanges } from '@/db/sync';
 import { SYNC_LAST_KEY } from '@/lib/settings';
 import { AccountError, needsRenewal } from '@/lib/sync/account';
-import { createHttpStore, SyncHttpError, type SyncHttpErrorKind } from '@/lib/sync/http';
+import {
+  createHttpStore,
+  createPictureStore,
+  SyncHttpError,
+  type SyncHttpErrorKind,
+} from '@/lib/sync/http';
 import { sync, SyncError } from '@/lib/sync/round';
 import type { SyncStatus } from '@/lib/sync/status';
 
 import { accountClient, SYNC_URL } from './api';
+import { syncPictures } from './pictures';
 import { getAccount, setAccount } from './session';
 
 /** Automatic syncs on start and coming back are at most this often. */
@@ -60,15 +66,22 @@ async function run(): Promise<void> {
   const started = epoch;
   update({ syncing: true });
   const first = databaseDevice.loadState() === null;
-  const store = createHttpStore({
-    baseUrl: SYNC_URL,
-    token: () => getAccount()?.token ?? account.token,
-  });
+  const options = { baseUrl: SYNC_URL, token: () => getAccount()?.token ?? account.token };
+  const store = createHttpStore(options);
   try {
     const result = await sync(store, databaseDevice);
     if (epoch !== started) return forgetSyncState();
     // Signed in to an account that already had cards: this device's own tutorial isn't needed.
     if (first && result.read > 0) dropUnusedTutorial();
+    // The cards are in; pictures follow. Their problems (offline, today's 500 used up) aren't the
+    // cards' and are tried again next time, except a deleted account, which signs out below.
+    try {
+      await syncPictures(createPictureStore(options));
+    } catch (e) {
+      if (e instanceof SyncHttpError && e.kind === 'signedOut') throw e;
+      console.warn('Pictures stopped', e);
+    }
+    if (epoch !== started) return forgetSyncState();
     const now = Date.now();
     setRawSetting(SYNC_LAST_KEY, now);
     update({ syncing: false, lastSyncedAt: now, problem: null });
