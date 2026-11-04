@@ -1,0 +1,19 @@
+// The sync Worker (roadmap Phase 6): keeps each account's sync files in R2. Secrets are set with
+// `npx wrangler secret put TOKEN_SECRET` (and locally in .dev.vars, which is never committed).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "recap-sync",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  // Deploying creates this address's DNS record (the domain is on this Cloudflare account).
+  "routes": [{ "pattern": "sync.recapflashcards.com", "custom_domain": true }],
+  "r2_buckets": [{ "binding": "FILES", "bucket_name": "recap-sync" }],
+  // Signs the sign-in tokens (part 3 makes them): at least 32 random characters.
+  "secrets": { "required": ["TOKEN_SECRET"] },
+  // Per account, per Cloudflare location, approximate. A new device's first sync reads a few
+  // dozen files, so this leaves room for that.
+  "ratelimits": [
+    { "name": "LIMITER", "namespace_id": "1001", "simple": { "limit": 300, "period": 60 } },
+  ],
+  "observability": { "enabled": true },
+}
