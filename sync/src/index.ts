@@ -6,6 +6,8 @@
 //   POST /v1/files/remove        {"names": [...]}: deletes those files
 //   GET  /health                 "ok", touching nothing (for uptime checks)
 // Every /v1 request needs "Authorization: Bearer <token>"; the token's account is the folder.
+// Listing, creating and the head count toward the daily limits (src/limits.ts): 429 daily_limit
+// when today's writes are used up, 507 storage_full when there's no room for a file.
 import { accountOf } from './auth';
 import {
   createFile,
@@ -18,8 +20,12 @@ import {
   readFile,
   readHead,
   removeFiles,
+  storedBytes,
   swapHead,
 } from './files';
+import { chargeWrite, releaseBytes, type Charge } from './limits';
+
+export { Counter } from './limits';
 
 /** The website, and the app's web version running locally (Metro, npm run web:preview). */
 const ORIGINS = new Set([
@@ -43,6 +49,8 @@ function corsHeaders(request: Request): Record<string, string> {
 
 const json = (body: unknown, status = 200) => Response.json(body, { status });
 const fail = (error: string, status: number) => json({ error }, status);
+const refused = (charge: Exclude<Charge, 'ok'>) =>
+  charge === 'writes' ? fail('daily_limit', 429) : fail('storage_full', 507);
 
 /** The body's declared size, or null without one (chunked uploads aren't accepted). */
 function bodySize(request: Request): number | null {
@@ -63,6 +71,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
   const { method } = request;
 
   if (path === 'files' && method === 'GET') {
+    const charge = await chargeWrite(env, account);
+    if (charge !== 'ok') return refused(charge);
     const [names, head] = await Promise.all([
       listNames(env.FILES, account),
       readHead(env.FILES, account),
@@ -79,7 +89,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
       names.length <= MAX_REMOVE &&
       names.every((name) => typeof name === 'string' && isFileName(name));
     if (!ok) return fail('bad_names', 400);
+    const freed = await storedBytes(env.FILES, account, names);
     await removeFiles(env.FILES, account, names);
+    await releaseBytes(env, account, freed);
     return json({ ok: true });
   }
 
@@ -92,6 +104,8 @@ async function handle(request: Request, env: Env): Promise<Response> {
     if (size > MAX_HEAD_BYTES) return fail('too_large', 413);
     const head: unknown = await request.json().catch(() => null);
     if (!isHead(head)) return fail('bad_head', 400);
+    const charge = await chargeWrite(env, account);
+    if (charge !== 'ok') return refused(charge);
     const swapped = await swapHead(env.FILES, account, expected, head);
     return swapped ? json({ ok: true }) : fail('changed', 409);
   }
@@ -108,7 +122,14 @@ async function handle(request: Request, env: Env): Promise<Response> {
       const size = bodySize(request);
       if (size === null) return fail('length_required', 411);
       if (size > MAX_FILE_BYTES) return fail('too_large', 413);
-      const created = await createFile(env.FILES, account, name, request.body!);
+      const charge = await chargeWrite(env, account, size);
+      if (charge !== 'ok') return refused(charge);
+      let created = false;
+      try {
+        created = await createFile(env.FILES, account, name, request.body!);
+      } finally {
+        if (!created) await releaseBytes(env, account, size);
+      }
       return created ? json({ ok: true }, 201) : fail('taken', 409);
     }
   }

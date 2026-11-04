@@ -82,6 +82,16 @@ export async function swapHead(
   return stored !== null;
 }
 
+/** How many bytes these files take up (a file that's gone counts 0). */
+export async function storedBytes(
+  bucket: R2Bucket,
+  account: string,
+  names: readonly string[],
+): Promise<number> {
+  const objects = await Promise.all(names.map((name) => bucket.head(keyOf(account, name))));
+  return objects.reduce((sum, object) => sum + (object?.size ?? 0), 0);
+}
+
 export async function removeFiles(bucket: R2Bucket, account: string, names: readonly string[]) {
   if (names.length > 0) await bucket.delete(names.map((name) => keyOf(account, name)));
 }
