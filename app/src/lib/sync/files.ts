@@ -31,8 +31,9 @@ export type Snapshot = {
 /** The current snapshot, and the one before it (its files are kept). */
 export type Head = Snapshot & { prev: Snapshot | null };
 
-/** About how many rows go in one change file. */
+/** About how many rows go in one change file, and at most about how big it gets (JSON). */
 export const PAGE_ROWS = 5000;
+export const PAGE_BYTES = 2_000_000;
 
 const pad = (n: number) => String(n).padStart(10, '0');
 
@@ -133,7 +134,7 @@ export function rowCount(rows: SyncRows): number {
  * Rows to send, split into change files of about `size` rows. A card and its logs always share a
  * file, so a device that only gets some of the files never sees an answer without its schedule.
  */
-export function pages(rows: SyncRows, size = PAGE_ROWS): SyncRows[] {
+export function pages(rows: SyncRows, size = PAGE_ROWS, maxBytes = PAGE_BYTES): SyncRows[] {
   if (rowCount(rows) === 0) return [];
   const logsOf = new Map<string, ReviewLogRow[]>();
   for (const log of rows.review_logs) {
@@ -142,14 +143,20 @@ export function pages(rows: SyncRows, size = PAGE_ROWS): SyncRows[] {
     else logsOf.set(log.card_id, [log]);
   }
   const out: SyncRows[] = [{ ...noRows(), decks: rows.decks, settings: rows.settings }];
+  const sizeOf = (row: object) => JSON.stringify(row).length + 1;
+  let bytes = [...rows.decks, ...rows.settings].reduce((sum, row) => sum + sizeOf(row), 0);
   const add = (card: CardRow | undefined, logs: ReviewLogRow[]) => {
     let page = out[out.length - 1];
-    if (rowCount(page) > 0 && rowCount(page) + logs.length + 1 > size) {
+    const adding = (card ? sizeOf(card) : 0) + logs.reduce((sum, log) => sum + sizeOf(log), 0);
+    const full = rowCount(page) + logs.length + 1 > size || bytes + adding > maxBytes;
+    if (rowCount(page) > 0 && full) {
       page = noRows();
       out.push(page);
+      bytes = 0;
     }
     if (card) page.cards.push(card);
     page.review_logs.push(...logs);
+    bytes += adding;
   };
   for (const card of rows.cards) {
     add(card, logsOf.get(card.id) ?? []);

@@ -706,4 +706,20 @@ export const en = {
   'accountError.notSetUp': "This way of signing in isn't ready yet. Please try another one.",
   'accountError.failed': "Signing in didn't work. Please try again.",
   'accountError.server': "Something went wrong on Recap's server. Please try again later.",
+
+  // Syncing (Sync my cards, once signed in)
+  'account.syncing': 'Syncing…',
+  'account.notSynced': 'Not synced yet',
+  'account.syncedJustNow': 'Last synced just now',
+  'account.syncedToday': 'Last synced today at {time}',
+  'account.syncedOn': 'Last synced {date}',
+  'account.syncNow': 'Sync now',
+  'syncProblem.offline': "You're offline. Recap will sync when you're back online.",
+  'syncProblem.paused':
+    "Syncing is paused until tomorrow: today's limit is used up. Your cards keep working.",
+  'syncProblem.full':
+    'Your synced space is full, so new changes stay here for now. Your cards keep working.',
+  'syncProblem.busy': 'Syncing is busy right now. Recap will try again soon.',
+  'syncProblem.signedOut': 'Please sign in again to keep syncing.',
+  'syncProblem.server': "Couldn't sync this time. Recap will try again later.",
 } as const;

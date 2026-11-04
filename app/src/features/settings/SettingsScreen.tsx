@@ -15,6 +15,7 @@ import { hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { Chip } from '@/features/import/DeckTarget';
 import { syncReminders, turnOnReminders } from '@/features/reminders/reminders';
+import { syncSoon } from '@/features/sync/engine';
 import { signedInWith, useAccount } from '@/features/sync/session';
 import { setAppearanceChoice, useScheme, type AppearanceChoice } from '@/lib/appearance';
 import { BackupError } from '@/lib/backup';
@@ -252,6 +253,7 @@ function AdvancedSettings() {
     run(async () => {
       const result = await pickAndImportBackup();
       if (!result) return;
+      syncSoon();
       const changed = result.decks + result.cards + result.reviews;
       showAlert(
         t('settings.backupImported'),

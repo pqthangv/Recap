@@ -2,6 +2,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRouter } from 'expo-router';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { syncSoon } from '@/features/sync/engine';
 import { Button } from '@/components/Button';
 import { showSnackbar } from '@/components/Snackbar';
 import { listDecks } from '@/db/decks';
@@ -22,6 +23,7 @@ export default function LibraryScreen() {
     router.push({ pathname: '/group/[name]', params: { name: pack.name } });
   const add = (pack: Pack) => {
     const { added } = addPack(pack);
+    syncSoon();
     showSnackbar(t('library.added', { name: pack.name, cards: tn('count.card', added) }), {
       label: t('common.open'),
       onPress: () => open(pack),

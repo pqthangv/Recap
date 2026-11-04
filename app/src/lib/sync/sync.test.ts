@@ -579,6 +579,20 @@ describe('sync files', () => {
     expect(pages({ decks: [], cards: [], review_logs: [], settings: [] })).toEqual([]);
   });
 
+  it('also starts a new change file before one gets too big', () => {
+    const long = (id: string) => ({ ...card(id), front: 'x'.repeat(600) }) as CardRow;
+    const rows: SyncRows = {
+      decks: [],
+      settings: [],
+      cards: ['a', 'b', 'c', 'd', 'e'].map(long),
+      review_logs: [log('1', 'a', T0), log('2', 'c', T0)],
+    };
+    const split = pages(rows, 5000, 1500);
+    expect(split.length).toBeGreaterThan(2);
+    for (const page of split) expect(JSON.stringify(page).length).toBeLessThan(1500 + 700);
+    expect(combine(split)).toEqual(rows);
+  });
+
   it('combines files into the newest copy of each row, keeping undos', () => {
     const merged = combine([
       { decks: [], settings: [], cards: [card('x', 2)], review_logs: [log('1', 'x', T0, 5)] },

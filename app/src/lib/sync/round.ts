@@ -273,7 +273,8 @@ async function fold(
     if (!(await store.swapHead(head?.base ?? null, snapshot.head))) return false;
     await store.remove(unneeded(names, snapshot.head));
     return true;
-  } catch {
+  } catch (e) {
+    console.warn('Sync: folding into a snapshot failed; a later sync tries again', e);
     return false;
   }
 }

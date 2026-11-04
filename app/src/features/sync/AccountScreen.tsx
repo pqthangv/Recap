@@ -10,11 +10,13 @@ import { showAlert } from '@/lib/alert';
 import { language, t } from '@/lib/i18n';
 import { isWeb } from '@/lib/platform';
 import { AccountError, type Account } from '@/lib/sync/account';
+import { syncStatusText } from '@/lib/sync/status';
 import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/theme';
 
 import { accountClient } from './api';
 import { signInWithApple } from './apple';
 import { finishBrowserSignIn, signInInBrowser } from './browser';
+import { signOut, syncNow, useSyncStatus } from './engine';
 import { AppleLogo, GoogleLogo } from './Logos';
 import { setAccount, signedInWith, useAccount } from './session';
 
@@ -66,7 +68,7 @@ export default function AccountScreen() {
       t(isWeb ? 'account.signOutBodyWeb' : 'account.signOutBody'),
       [
         { text: t('common.cancel'), style: 'cancel' },
-        { text: t('account.signOut'), style: 'destructive', onPress: () => setAccount(null) },
+        { text: t('account.signOut'), style: 'destructive', onPress: signOut },
       ],
     );
 
@@ -89,6 +91,7 @@ export default function AccountScreen() {
           {signedInWith(account)}
         </Text>
         {account.email ? <Text style={styles.body}>{account.email}</Text> : null}
+        <SyncState />
         <Text style={styles.description}>{t('account.signedInBody')}</Text>
         <Button variant="secondary" label={t('account.signOut')} onPress={confirmSignOut} />
       </ScrollView>
@@ -138,6 +141,29 @@ function done(signedIn: Account | null) {
   if (!signedIn) return;
   setAccount(signedIn);
   showSnackbar(t('account.signedInSnack'));
+  // The first sync merges this device's cards into the account (nothing here is replaced).
+  void syncNow();
+}
+
+/** "Last synced today at 9:41 AM" (or why it stopped), and Sync now. */
+function SyncState() {
+  const styles = useStyles(makeStyles);
+  const status = useSyncStatus();
+  return (
+    <View style={styles.sync}>
+      <Text
+        style={[styles.body, status.problem && !status.syncing ? styles.problem : null]}
+        accessibilityLiveRegion="polite"
+      >
+        {syncStatusText(status)}
+      </Text>
+      <Button
+        label={t('account.syncNow')}
+        disabled={status.syncing}
+        onPress={() => void syncNow()}
+      />
+    </View>
+  );
 }
 
 function ProviderButton({
@@ -329,6 +355,7 @@ const makeStyles = (colors: Colors) =>
     disabled: { opacity: 0.5 },
     pressed: { opacity: 0.8 },
     email: { gap: 8 },
+    sync: { gap: 8, marginVertical: 8 },
     input: {
       minHeight: touchTarget,
       borderRadius: radius.button,

@@ -711,4 +711,20 @@ export const vi: Strings = {
   'accountError.notSetUp': 'Cách đăng nhập này chưa sẵn sàng. Hãy thử cách khác.',
   'accountError.failed': 'Chưa đăng nhập được. Hãy thử lại.',
   'accountError.server': 'Máy chủ Recap gặp sự cố. Hãy thử lại sau.',
+
+  // Đồng bộ (Đồng bộ thẻ, khi đã đăng nhập)
+  'account.syncing': 'Đang đồng bộ…',
+  'account.notSynced': 'Chưa đồng bộ',
+  'account.syncedJustNow': 'Vừa đồng bộ xong',
+  'account.syncedToday': 'Đồng bộ lần cuối hôm nay lúc {time}',
+  'account.syncedOn': 'Đồng bộ lần cuối ngày {date}',
+  'account.syncNow': 'Đồng bộ ngay',
+  'syncProblem.offline': 'Bạn đang ngoại tuyến. Recap sẽ đồng bộ khi có mạng trở lại.',
+  'syncProblem.paused':
+    'Đồng bộ tạm dừng đến ngày mai vì đã hết lượt hôm nay. Thẻ của bạn vẫn dùng bình thường.',
+  'syncProblem.full':
+    'Dung lượng đồng bộ đã đầy, nên thay đổi mới tạm giữ ở đây. Thẻ của bạn vẫn dùng bình thường.',
+  'syncProblem.busy': 'Đồng bộ đang bận. Recap sẽ thử lại sau ít phút.',
+  'syncProblem.signedOut': 'Hãy đăng nhập lại để tiếp tục đồng bộ.',
+  'syncProblem.server': 'Lần này chưa đồng bộ được. Recap sẽ thử lại sau.',
 };

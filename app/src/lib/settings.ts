@@ -94,8 +94,14 @@ export const UPDATE_CHECKED_KEY = 'update_checked_at';
 export const UPDATE_LATEST_KEY = 'update_latest';
 export const UPDATE_HIDDEN_KEY = 'update_hidden';
 
-/** Settings that belong to this device and are left out of backups (and, later, sync). */
+/** Sync's progress on this device (lib/sync/round.ts SyncState) and when it last finished (ms). */
+export const SYNC_STATE_KEY = 'sync_state';
+export const SYNC_LAST_KEY = 'sync_last_at';
+
+/** Settings that belong to this device and are left out of backups and sync. */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
+  SYNC_STATE_KEY,
+  SYNC_LAST_KEY,
   SEEDED_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,

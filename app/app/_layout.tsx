@@ -13,7 +13,7 @@ import { setupDatabase } from '@/db/setup';
 import { seedIfNeeded } from '@/features/onboarding/seed';
 import { sweepPictures } from '@/features/pictures/files';
 import { syncReminders } from '@/features/reminders/reminders';
-import { renewIfOld } from '@/features/sync/session';
+import { renewIfOld, syncOnLeave, syncOnOpen } from '@/features/sync/engine';
 import { setAppearanceChoice, useScheme } from '@/lib/appearance';
 import { refreshLanguage, setLanguageChoice, t, useLanguage } from '@/lib/i18n';
 import { isWeb } from '@/lib/platform';
@@ -68,13 +68,16 @@ export default function RootLayout() {
   useEffect(() => {
     if (status !== 'ready') return;
     syncReminders();
-    renewIfOld();
+    void renewIfOld().finally(() => syncOnOpen());
     const sub = AppState.addEventListener('change', (state) => {
-      if (state === 'background') syncReminders();
+      if (state === 'background') {
+        syncReminders();
+        syncOnLeave(); // what was just studied or edited reaches the other devices
+      }
       // The language can be changed for Recap alone in the phone's settings.
       if (state === 'active') {
         refreshLanguage();
-        renewIfOld();
+        void renewIfOld().finally(() => syncOnOpen());
       }
     });
     return () => sub.remove();

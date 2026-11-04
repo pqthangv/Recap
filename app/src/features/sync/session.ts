@@ -3,9 +3,8 @@
 import { useSyncExternalStore } from 'react';
 
 import { t, type StringKey } from '@/lib/i18n';
-import { AccountError, needsRenewal, type Account, type Provider } from '@/lib/sync/account';
+import type { Account, Provider } from '@/lib/sync/account';
 
-import { accountClient } from './api';
 import { accountStorage } from './storage';
 
 let current: Account | null | undefined; // undefined: not read yet
@@ -61,21 +60,3 @@ const SIGNED_IN_WITH: Record<Provider, StringKey> = {
 
 /** "Signed in with Google". */
 export const signedInWith = (account: Account) => t(SIGNED_IN_WITH[account.provider]);
-
-/**
- * Gets a new token once this one is a week old (on app start and when Recap comes back), so anyone
- * who opens Recap within 90 days stays signed in. Offline, it waits for next time. A token the
- * Worker no longer takes signs this device out.
- */
-export async function renewIfOld(now = Date.now()): Promise<void> {
-  const account = getAccount();
-  if (!account || !needsRenewal(account.token, now)) return;
-  try {
-    const token = await accountClient.renew(account.token);
-    if (getAccount() === account) setAccount({ ...account, token });
-  } catch (e) {
-    if (e instanceof AccountError && e.kind === 'signedOut' && getAccount() === account) {
-      setAccount(null);
-    }
-  }
-}
