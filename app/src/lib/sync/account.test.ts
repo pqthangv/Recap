@@ -159,6 +159,47 @@ describe('the account client', () => {
   });
 });
 
+describe('deleting an account', () => {
+  it('sends the token, and for an Apple account what Apple gave again', async () => {
+    const { fetch, calls } = fakeFetch(200, { ok: true });
+    const client = createAccountClient({
+      baseUrl: 'https://sync.test',
+      deviceId: () => DEVICE,
+      fetch,
+    });
+    await client.deleteAccount('tok');
+    await client.deleteAccount('tok', { code: 'c', verifier: 'v' });
+    expect(calls.map((c) => c.url)).toEqual([
+      'https://sync.test/v1/account/delete',
+      'https://sync.test/v1/account/delete',
+    ]);
+    expect((calls[0]!.init.headers as Record<string, string>).Authorization).toBe('Bearer tok');
+    expect(JSON.parse(String(calls[0]!.init.body))).toEqual({});
+    expect(JSON.parse(String(calls[1]!.init.body))).toEqual({ code: 'c', verifier: 'v' });
+  });
+
+  it('says when it was another Apple ID', async () => {
+    const { fetch } = fakeFetch(403, { error: 'other_apple_account' });
+    const client = createAccountClient({
+      baseUrl: 'https://sync.test',
+      deviceId: () => DEVICE,
+      fetch,
+    });
+    await expect(client.deleteAccount('tok', { code: 'c', verifier: 'v' })).rejects.toMatchObject({
+      kind: 'otherApple',
+      message: "That's a different Apple ID. Use the one you signed in to Recap with.",
+    });
+  });
+
+  it('starts the Apple tab for deleting', () => {
+    const client = createAccountClient({ baseUrl: 'https://sync.test', deviceId: () => DEVICE });
+    const url = new URL(
+      client.startUrl('apple', 'recapcards://signed-in', 'c'.repeat(43), 'en', true),
+    );
+    expect(url.searchParams.get('purpose')).toBe('delete');
+  });
+});
+
 describe('renewing', () => {
   it('reads when the token was made', () => {
     expect(tokenIssuedAt(tokenAt(1_700_000_000))).toBe(1_700_000_000_000);

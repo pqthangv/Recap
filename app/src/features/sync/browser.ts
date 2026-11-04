@@ -9,6 +9,7 @@ import {
   AccountError,
   readTabResult,
   type Account,
+  type AppleProof,
   type BrowserProvider,
 } from '@/lib/sync/account';
 
@@ -18,10 +19,16 @@ import { browserSecret } from './secret';
 export const APP_RETURN = 'recapcards://signed-in';
 const LATE_LINK_MS = 700;
 
-/** Signs in through the tab; null if the person closed it or backed out. */
-export async function signInInBrowser(provider: BrowserProvider): Promise<Account | null> {
+/** What the website's page came back with (browser.web.ts); on a phone there's never one. */
+export type TabReturn = { signedIn: Account } | { deleteProof: AppleProof };
+
+/** Opens the tab; its code and the secret that goes with it, or null if the person backed out. */
+async function openTab(
+  provider: BrowserProvider,
+  deleting = false,
+): Promise<{ code: string; verifier: string } | null> {
   const { verifier, challenge } = await browserSecret();
-  const url = accountClient.startUrl(provider, APP_RETURN, challenge, language());
+  const url = accountClient.startUrl(provider, APP_RETURN, challenge, language(), deleting);
   // On Android, expo-web-browser also ends the session when Recap comes back to the front, and that
   // can beat the link by a moment; so the link is watched here too, a little longer.
   let link: string | null = null;
@@ -47,13 +54,24 @@ export async function signInInBrowser(provider: BrowserProvider): Promise<Accoun
     if (tab.error === 'cancelled') return null;
     throw new AccountError('failed', t('accountError.failed'));
   }
-  return accountClient.finish(tab.code, verifier);
+  return { code: tab.code, verifier };
 }
 
-/** The website finishes a sign-in when its page loads again; on a phone there's never one. */
-export async function finishBrowserSignIn(_params: {
+/** Signs in through the tab; null if the person closed it or backed out. */
+export async function signInInBrowser(provider: BrowserProvider): Promise<Account | null> {
+  const tab = await openTab(provider);
+  return tab ? accountClient.finish(tab.code, tab.verifier) : null;
+}
+
+/** Apple once more in the tab, to delete the account; null if the person backed out. */
+export async function appleTabForDeleting(): Promise<AppleProof | null> {
+  return openTab('apple', true);
+}
+
+/** The website finishes in the page it comes back to; on a phone there's never anything. */
+export async function finishBrowserReturn(_params: {
   code?: string;
   error?: string;
-}): Promise<Account | null> {
+}): Promise<TabReturn | null> {
   return null;
 }

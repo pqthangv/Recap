@@ -19,6 +19,7 @@ export const GOOGLE_TOKEN = 'https://oauth2.googleapis.com/token';
 const GOOGLE_ISSUERS = ['https://accounts.google.com', 'accounts.google.com'];
 export const APPLE_AUTHORIZE = 'https://appleid.apple.com/auth/authorize';
 export const APPLE_TOKEN = 'https://appleid.apple.com/auth/token';
+export const APPLE_REVOKE = 'https://appleid.apple.com/auth/revoke';
 export const APPLE_ISSUER = 'https://appleid.apple.com';
 
 /** Who Google or Apple says signed in. Google's answer also has the address, to show in Settings. */
@@ -60,8 +61,12 @@ export function appleAuthorizeUrl(env: Env, redirectUri: string, state: string) 
   return url.toString();
 }
 
-/** Swaps a sign-in code for the ID token at a token endpoint. */
-async function idTokenFor(fetcher: typeof fetch, endpoint: string, form: Record<string, string>) {
+/** Swaps a sign-in code for the ID token (and Apple's refresh token) at a token endpoint. */
+async function tokensFor(
+  fetcher: typeof fetch,
+  endpoint: string,
+  form: Record<string, string>,
+): Promise<{ idToken: string; refreshToken?: string }> {
   const response = await fetcher(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
@@ -69,6 +74,7 @@ async function idTokenFor(fetcher: typeof fetch, endpoint: string, form: Record<
   });
   const body = (await response.json().catch(() => null)) as {
     id_token?: unknown;
+    refresh_token?: unknown;
     error?: unknown;
   } | null;
   if (!response.ok || typeof body?.id_token !== 'string') {
@@ -76,7 +82,8 @@ async function idTokenFor(fetcher: typeof fetch, endpoint: string, form: Record<
     const reason = typeof body?.error === 'string' ? ` ${body.error.slice(0, 60)}` : '';
     throw new Error(`${endpoint} answered ${response.status}${reason}`);
   }
-  return body.id_token;
+  const refreshToken = typeof body.refresh_token === 'string' ? body.refresh_token : undefined;
+  return { idToken: body.id_token, refreshToken };
 }
 
 export async function googlePerson(
@@ -87,7 +94,7 @@ export async function googlePerson(
   redirectUri: string,
   verifier: string,
 ): Promise<Person> {
-  const idToken = await idTokenFor(fetcher, GOOGLE_TOKEN, {
+  const { idToken } = await tokensFor(fetcher, GOOGLE_TOKEN, {
     code,
     client_id: env.GOOGLE_CLIENT_ID,
     // A space or line break pasted along with the secret would make Google refuse it.
@@ -139,14 +146,15 @@ export async function appleClientSecret(
   return secret;
 }
 
+/** Who signed in with Apple in the tab; with Apple's refresh token, which deleting needs. */
 export async function applePerson(
   env: Env,
   fetcher: typeof fetch,
   keys: Keys,
   code: string,
   redirectUri: string,
-): Promise<Person> {
-  const idToken = await idTokenFor(fetcher, APPLE_TOKEN, {
+): Promise<Person & { refreshToken?: string }> {
+  const { idToken, refreshToken } = await tokensFor(fetcher, APPLE_TOKEN, {
     code,
     client_id: env.APPLE_SERVICES_ID,
     client_secret: await appleClientSecret(env, env.APPLE_SERVICES_ID),
@@ -158,7 +166,7 @@ export async function applePerson(
     audience: env.APPLE_SERVICES_ID,
     requiredClaims: ['sub'],
   });
-  return { subject: payload.sub! };
+  return { subject: payload.sub!, refreshToken };
 }
 
 /**
@@ -178,4 +186,46 @@ export async function appleNativePerson(
   });
   if (payload.nonce !== hex(await sha256(nonce))) throw new Error('nonce does not match');
   return { subject: payload.sub! };
+}
+
+/**
+ * Apple's refresh token for a code from its sheet on an iPhone (deleting an account: the app signs
+ * in with Apple once more and sends the code along).
+ */
+export async function appleSheetRefreshToken(
+  env: Env,
+  fetcher: typeof fetch,
+  code: string,
+): Promise<string> {
+  const { refreshToken } = await tokensFor(fetcher, APPLE_TOKEN, {
+    code,
+    client_id: env.APPLE_BUNDLE_ID,
+    client_secret: await appleClientSecret(env, env.APPLE_BUNDLE_ID),
+    grant_type: 'authorization_code',
+  });
+  if (!refreshToken) throw new Error('Apple gave no refresh token');
+  return refreshToken;
+}
+
+/**
+ * Ends Recap's Sign in with Apple for that person (Apple requires it when an account is deleted):
+ * Recap leaves their Apple ID's list. `clientId` is the one the token was made for.
+ */
+export async function revokeApple(
+  env: Env,
+  fetcher: typeof fetch,
+  clientId: string,
+  refreshToken: string,
+): Promise<void> {
+  const response = await fetcher(APPLE_REVOKE, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: await appleClientSecret(env, clientId),
+      token: refreshToken,
+      token_type_hint: 'refresh_token',
+    }).toString(),
+  });
+  if (!response.ok) throw new Error(`${APPLE_REVOKE} answered ${response.status}`);
 }

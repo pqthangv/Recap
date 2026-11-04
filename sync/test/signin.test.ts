@@ -14,13 +14,13 @@ import {
 } from 'jose';
 import { beforeAll, describe, expect, it } from 'vitest';
 
-import type { Accounts } from '../src/accounts';
+import type { Accounts, Identity } from '../src/accounts';
 import { accountOf, TOKEN_DAYS } from '../src/auth';
 import { EMAIL_LIMITS } from '../src/email';
 import { base64url, hex, sha256 } from '../src/hash';
 import { handle } from '../src/index';
 import { today, type Usage } from '../src/limits';
-import { APPLE_ISSUER, APPLE_TOKEN, GOOGLE_TOKEN } from '../src/providers';
+import { APPLE_ISSUER, APPLE_REVOKE, APPLE_TOKEN, GOOGLE_TOKEN } from '../src/providers';
 import type { Deps } from '../src/signin';
 
 const WORKER = 'https://sync.test';
@@ -90,11 +90,21 @@ function worker(overrides: Partial<Env> = {}) {
       ids.set(key, id);
       return { id, created: !known };
     },
+    async find(id) {
+      const key = [...ids].find(([, value]) => value === id)?.[0];
+      if (!key) return null;
+      const [provider, ...rest] = key.split(':');
+      return { provider: provider as Identity['provider'], subject: rest.join(':') };
+    },
+    async remove(id) {
+      for (const [key, value] of ids) if (value === id) ids.delete(key);
+    },
   };
   // What Google's or Apple's page knows about each code it handed out.
   const codes = new Map<string, Person & { challenge?: string }>();
   const emails: Email[] = [];
   const appleSecrets: string[] = [];
+  const revoked: { clientId: string; token: string }[] = [];
 
   const fetcher: typeof fetch = async (input, init) => {
     const url = String(input);
@@ -111,22 +121,32 @@ function worker(overrides: Partial<Env> = {}) {
       }
       return Response.json({ id_token: await googleToken(person) });
     }
-    if (url === APPLE_TOKEN) {
+    if (url === APPLE_TOKEN || url === APPLE_REVOKE) {
       const form = new URLSearchParams(body);
-      const person = codes.get(form.get('code') ?? '');
+      // The Services ID (browser) or the bundle id (iPhone); the secret must be made for it.
+      const clientId = form.get('client_id') ?? '';
       const secret = form.get('client_secret') ?? '';
       appleSecrets.push(secret);
       try {
         await jwtVerify(secret, appleP8Public, {
           issuer: TEAM,
-          subject: env.APPLE_SERVICES_ID,
+          subject: clientId,
           audience: APPLE_ISSUER,
         });
       } catch {
         return Response.json({ error: 'invalid_client' }, { status: 400 });
       }
+      if (url === APPLE_REVOKE) {
+        revoked.push({ clientId, token: form.get('token') ?? '' });
+        return new Response(null, { status: 200 });
+      }
+      const code = form.get('code') ?? '';
+      const person = codes.get(code);
       if (!person) return Response.json({ error: 'invalid_grant' }, { status: 400 });
-      return Response.json({ id_token: await appleToken(person.sub, env.APPLE_SERVICES_ID) });
+      return Response.json({
+        id_token: await appleToken(person.sub, clientId),
+        refresh_token: `refresh-${code}`,
+      });
     }
     if (url === 'https://api.resend.com/emails') {
       emails.push(JSON.parse(body) as Email);
@@ -154,7 +174,7 @@ function worker(overrides: Partial<Env> = {}) {
       headers: { 'Content-Length': String(new TextEncoder().encode(text).length), ...headers },
     });
   };
-  return { call, post, codes, emails, appleSecrets, ids };
+  return { call, post, codes, emails, appleSecrets, revoked, ids };
 }
 
 type Worker = ReturnType<typeof worker>;
@@ -166,13 +186,20 @@ async function secret() {
   return { verifier, challenge: base64url(await sha256(verifier)) };
 }
 
-const startPath = (provider: string, challenge: string, back = APP, lang = 'en') =>
-  `/v1/auth/${provider}/start?return=${encodeURIComponent(back)}&challenge=${challenge}&lang=${lang}`;
+const startPath = (provider: string, challenge: string, back = APP, lang = 'en', purpose = '') =>
+  `/v1/auth/${provider}/start?return=${encodeURIComponent(back)}&challenge=${challenge}&lang=${lang}` +
+  (purpose ? `&purpose=${purpose}` : '');
 
 /** The tab: start, Google's or Apple's page (the person signs in), the callback. */
-async function tab(w: Worker, provider: 'google' | 'apple', person: Person, back = APP) {
+async function tab(
+  w: Worker,
+  provider: 'google' | 'apple',
+  person: Person,
+  back = APP,
+  purpose = '',
+) {
   const { verifier, challenge } = await secret();
-  const started = await w.call(startPath(provider, challenge, back));
+  const started = await w.call(startPath(provider, challenge, back, 'en', purpose));
   expect(started.status).toBe(302);
   const authorize = new URL(started.headers.get('Location')!);
   const code = `code-${crypto.randomUUID()}`;
@@ -479,5 +506,125 @@ describe('tokens', () => {
       statuses.push(response.status);
     }
     expect(statuses).toContain(429);
+  });
+});
+
+describe('deleting an account', () => {
+  const auth = (token: string) => ({ Authorization: `Bearer ${token}` });
+  const put = (w: Worker, token: string, name: string, text: string) =>
+    w.call(`/v1/files/${name}`, {
+      method: 'PUT',
+      body: text,
+      headers: { ...auth(token), 'Content-Length': String(text.length) },
+    });
+  const remove = (w: Worker, token: string, body: unknown = {}) =>
+    w.post('/v1/account/delete', body, auth(token));
+  const filesOf = async (account: string) =>
+    (await env.FILES.list({ prefix: `${account}/` })).objects.length;
+
+  it('deletes a Google account, its files and its tokens on every device; the cards were synced', async () => {
+    const w = worker();
+    const { token } = await browserSignIn(w, 'google', { sub: 'g-del' });
+    const other = await browserSignIn(w, 'google', { sub: 'g-del' }); // a second phone
+    const account = (await accountIn(token))!;
+    expect((await put(w, token, 'changes/0000000001.json', '{"x":1}')).status).toBe(201);
+    expect(await filesOf(account)).toBe(1);
+
+    const deleted = await remove(w, token);
+    expect(await deleted.json()).toEqual({ ok: true });
+    expect(await filesOf(account)).toBe(0);
+    expect(w.ids.has('google:g-del')).toBe(false);
+
+    // Both phones' tokens stop working: listing, writing and renewing.
+    for (const t of [token, other.token]) {
+      const listing = await w.call('/v1/files', { headers: auth(t) });
+      expect(listing.status).toBe(401);
+      expect(await listing.json()).toEqual({ error: 'account_deleted' });
+      expect((await put(w, t, 'changes/0000000002.json', '{}')).status).toBe(401);
+      expect((await w.call('/v1/token', { method: 'POST', headers: auth(t) })).status).toBe(401);
+    }
+    // Deleting again is harmless, and the same Google account can start over.
+    expect((await remove(w, token)).status).toBe(200);
+    const again = await browserSignIn(w, 'google', { sub: 'g-del' });
+    expect(again.created).toBe(true);
+    expect(await accountIn(again.token)).not.toBe(account);
+  });
+
+  it('an email account needs only its token', async () => {
+    const w = worker();
+    const email = `${crypto.randomUUID()}@example.com`;
+    await w.post('/v1/auth/email/start', { email });
+    const code = /\b(\d{6})\b/.exec(w.emails[0]!.text)![1]!;
+    const signedIn = (await (
+      await w.post('/v1/auth/email/finish', { email, code, device: crypto.randomUUID() })
+    ).json()) as SignedIn;
+    expect(await (await remove(w, signedIn.token)).json()).toEqual({ ok: true });
+    expect(w.ids.size).toBe(0);
+    expect(w.revoked).toEqual([]);
+  });
+
+  it('an Apple account needs Apple again, with the same Apple ID, and is revoked', async () => {
+    const w = worker();
+    const { token } = await browserSignIn(w, 'apple', { sub: 'a-del' });
+    const needed = await remove(w, token);
+    expect(needed.status).toBe(400);
+    expect(await needed.json()).toEqual({ error: 'apple_sign_in_needed' });
+
+    // A sign-in code doesn't work for deleting, and a deleting code doesn't sign in.
+    const signIn = await tab(w, 'apple', { sub: 'a-del' });
+    const signInCode = (await buttonLink(signIn.back)).searchParams.get('code');
+    expect((await remove(w, token, { code: signInCode, verifier: signIn.verifier })).status).toBe(
+      400,
+    );
+    const forDeleting = await tab(w, 'apple', { sub: 'a-del' }, APP, 'delete');
+    const deleteCode = (await buttonLink(forDeleting.back)).searchParams.get('code')!;
+    const finished = await w.post('/v1/auth/finish', {
+      code: deleteCode,
+      verifier: forDeleting.verifier,
+      device: crypto.randomUUID(),
+    });
+    expect(finished.status).toBe(400);
+
+    // Another Apple ID: nothing is deleted.
+    const wrong = await tab(w, 'apple', { sub: 'someone-else' }, APP, 'delete');
+    const wrongCode = (await buttonLink(wrong.back)).searchParams.get('code');
+    const refused = await remove(w, token, { code: wrongCode, verifier: wrong.verifier });
+    expect(refused.status).toBe(403);
+    expect(await refused.json()).toEqual({ error: 'other_apple_account' });
+    expect(w.revoked).toEqual([]);
+    expect((await w.call('/v1/files', { headers: auth(token) })).status).toBe(200);
+
+    const ok = await remove(w, token, { code: deleteCode, verifier: forDeleting.verifier });
+    expect(await ok.json()).toEqual({ ok: true });
+    expect(w.revoked).toHaveLength(1);
+    expect(w.revoked[0]!.clientId).toBe(env.APPLE_SERVICES_ID);
+    expect(w.revoked[0]!.token).toMatch(/^refresh-code-/);
+    expect(w.ids.has('apple:a-del')).toBe(false);
+  });
+
+  it("Apple's sheet on an iPhone: the code is swapped with the app's id and revoked", async () => {
+    const w = worker();
+    const nonce = crypto.randomUUID();
+    const idToken = await appleToken('a-sheet', env.APPLE_BUNDLE_ID, hex(await sha256(nonce)));
+    const sheet = (await (
+      await w.post('/v1/auth/apple', { idToken, nonce, device: crypto.randomUUID() })
+    ).json()) as SignedIn;
+
+    const again = crypto.randomUUID();
+    const freshToken = await appleToken('a-sheet', env.APPLE_BUNDLE_ID, hex(await sha256(again)));
+    w.codes.set('sheet-code', { sub: 'a-sheet' });
+    const ok = await remove(w, sheet.token, {
+      idToken: freshToken,
+      nonce: again,
+      authorizationCode: 'sheet-code',
+    });
+    expect(await ok.json()).toEqual({ ok: true });
+    expect(w.revoked).toEqual([{ clientId: env.APPLE_BUNDLE_ID, token: 'refresh-sheet-code' }]);
+  });
+
+  it('only Apple signs in again for deleting', async () => {
+    const w = worker();
+    const { challenge } = await secret();
+    expect((await w.call(startPath('google', challenge, APP, 'en', 'delete'))).status).toBe(400);
   });
 });

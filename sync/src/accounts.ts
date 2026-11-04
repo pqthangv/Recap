@@ -11,6 +11,10 @@ export type Identity = { provider: Provider; subject: string };
 export interface Accounts {
   /** The identity's account (made on its first sign-in), with this device recorded. */
   signIn(identity: Identity, device: string): Promise<{ id: string; created: boolean }>;
+  /** Who an account belongs to; null if there's no such account (any more). */
+  find(id: string): Promise<Identity | null>;
+  /** Deletes the account and its devices. */
+  remove(id: string): Promise<void>;
 }
 
 export function neonAccounts(databaseUrl: string): Accounts {
@@ -32,6 +36,19 @@ export function neonAccounts(databaseUrl: string): Accounts {
         returning account_id`;
       const account = String(rows[0]!.account_id);
       return { id: account, created: account === id };
+    },
+
+    async find(id) {
+      const sql = neon(databaseUrl);
+      const rows = await sql`select provider, subject from accounts where id = ${id}`;
+      const row = rows[0];
+      return row ? { provider: row.provider as Provider, subject: String(row.subject) } : null;
+    },
+
+    async remove(id) {
+      const sql = neon(databaseUrl);
+      // account_devices go with it (on delete cascade).
+      await sql`delete from accounts where id = ${id}`;
     },
   };
 }

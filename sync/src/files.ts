@@ -92,6 +92,20 @@ export async function storedBytes(
   return objects.reduce((sum, object) => sum + (object?.size ?? 0), 0);
 }
 
+/** Deletes every object in the account's folder (deleting the account); the bytes freed. */
+export async function removeAccountFiles(bucket: R2Bucket, account: string): Promise<number> {
+  const prefix = `${account}/`;
+  let freed = 0;
+  let cursor: string | undefined;
+  do {
+    const page = await bucket.list({ prefix, cursor });
+    if (page.objects.length > 0) await bucket.delete(page.objects.map((object) => object.key));
+    freed += page.objects.reduce((sum, object) => sum + object.size, 0);
+    cursor = page.truncated ? page.cursor : undefined;
+  } while (cursor);
+  return freed;
+}
+
 export async function removeFiles(bucket: R2Bucket, account: string, names: readonly string[]) {
   if (names.length > 0) await bucket.delete(names.map((name) => keyOf(account, name)));
 }

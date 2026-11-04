@@ -9,16 +9,16 @@ import { showSnackbar } from '@/components/Snackbar';
 import { showAlert } from '@/lib/alert';
 import { language, t } from '@/lib/i18n';
 import { isWeb } from '@/lib/platform';
-import { AccountError, type Account } from '@/lib/sync/account';
+import { AccountError, type Account, type AppleProof } from '@/lib/sync/account';
 import { syncStatusText } from '@/lib/sync/status';
 import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/theme';
 
 import { accountClient } from './api';
-import { signInWithApple } from './apple';
-import { finishBrowserSignIn, signInInBrowser } from './browser';
+import { appleAgainForDeleting, signInWithApple } from './apple';
+import { finishBrowserReturn, signInInBrowser } from './browser';
 import { signOut, syncNow, useSyncStatus } from './engine';
 import { AppleLogo, GoogleLogo } from './Logos';
-import { setAccount, signedInWith, useAccount } from './session';
+import { getAccount, setAccount, signedInWith, useAccount } from './session';
 
 type Way = 'google' | 'apple' | 'email';
 type EmailStep = 'closed' | 'address' | 'code';
@@ -32,6 +32,7 @@ export default function AccountScreen() {
   const params = useLocalSearchParams<{ code?: string; error?: string }>();
   const [working, setWorking] = useState<Way | null>(null);
   const [problem, setProblem] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const run = async (way: Way, task: () => Promise<Account | null>) => {
     setProblem(null);
@@ -52,8 +53,11 @@ export default function AccountScreen() {
   const returning = Boolean(code || error);
   useEffect(() => {
     if (!code && !error) return;
-    finishBrowserSignIn({ code, error })
-      .then(done)
+    finishBrowserReturn({ code, error })
+      .then((back) => {
+        if (back && 'signedIn' in back) done(back.signedIn);
+        if (back && 'deleteProof' in back) return removeAccount(back.deleteProof, setProblem);
+      })
       .catch((e: unknown) => {
         console.warn('Sign-in failed', e);
         setProblem(messageOf(e));
@@ -69,6 +73,37 @@ export default function AccountScreen() {
       [
         { text: t('common.cancel'), style: 'cancel' },
         { text: t('account.signOut'), style: 'destructive', onPress: signOut },
+      ],
+    );
+
+  const startDeleting = async () => {
+    setProblem(null);
+    setDeleting(true);
+    try {
+      // An Apple account signs in with Apple once more (Apple requires ending Recap's access).
+      let apple: AppleProof | undefined;
+      if (account?.provider === 'apple') {
+        const proof = await appleAgainForDeleting();
+        if (!proof) return;
+        apple = proof;
+      }
+      await removeAccount(apple, setProblem);
+    } catch (e) {
+      console.warn('Deleting failed', e);
+      setProblem(messageOf(e));
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const confirmDelete = () =>
+    showAlert(
+      t('account.deleteTitle'),
+      t(isWeb ? 'account.deleteBodyWeb' : 'account.deleteBody') +
+        (account?.provider === 'apple' ? ` ${t('account.deleteApple')}` : ''),
+      [
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('common.delete'), style: 'destructive', onPress: () => void startDeleting() },
       ],
     );
 
@@ -94,6 +129,17 @@ export default function AccountScreen() {
         <SyncState />
         <Text style={styles.description}>{t('account.signedInBody')}</Text>
         <Button variant="secondary" label={t('account.signOut')} onPress={confirmSignOut} />
+        <Button
+          variant="danger"
+          label={deleting || returning ? t('account.deleting') : t('account.delete')}
+          disabled={deleting || returning}
+          onPress={confirmDelete}
+        />
+        {problem ? (
+          <Text style={styles.problem} accessibilityLiveRegion="polite">
+            {problem}
+          </Text>
+        ) : null}
       </ScrollView>
     );
   }
@@ -135,6 +181,24 @@ export default function AccountScreen() {
       ) : null}
     </ScrollView>
   );
+}
+
+/**
+ * Deletes the account on the server (its synced cards with it) and signs this device out; the
+ * cards here stay.
+ */
+async function removeAccount(apple: AppleProof | undefined, onProblem: (text: string) => void) {
+  const account = getAccount();
+  if (!account) return;
+  try {
+    await accountClient.deleteAccount(account.token, apple);
+  } catch (e) {
+    console.warn('Deleting failed', e);
+    onProblem(messageOf(e));
+    return;
+  }
+  signOut();
+  showSnackbar(t(isWeb ? 'account.deletedWeb' : 'account.deleted'));
 }
 
 function done(signedIn: Account | null) {

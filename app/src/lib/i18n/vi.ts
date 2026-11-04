@@ -694,6 +694,16 @@ export const vi: Strings = {
     'Thẻ của bạn vẫn ở trên điện thoại này. Bạn có thể đăng nhập lại bất cứ lúc nào.',
   'account.signOutBodyWeb':
     'Thẻ của bạn vẫn ở trên trình duyệt này. Bạn có thể đăng nhập lại bất cứ lúc nào.',
+  'account.delete': 'Xóa tài khoản của tôi',
+  'account.deleting': 'Đang xóa…',
+  'account.deleteTitle': 'Xóa tài khoản?',
+  'account.deleteBody':
+    'Thao tác này xóa tài khoản Recap và các thẻ đã đồng bộ lên đó. Thẻ trên điện thoại này và trên các thiết bị khác vẫn còn. Không thể hoàn tác.',
+  'account.deleteBodyWeb':
+    'Thao tác này xóa tài khoản Recap và các thẻ đã đồng bộ lên đó. Thẻ trên trình duyệt này và trên các thiết bị khác vẫn còn. Không thể hoàn tác.',
+  'account.deleteApple': 'Bạn sẽ đăng nhập bằng Apple thêm một lần để xác nhận.',
+  'account.deleted': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên điện thoại này.',
+  'account.deletedWeb': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên trình duyệt này.',
 
   // Lỗi đăng nhập
   'accountError.offline': 'Không kết nối được máy chủ Recap. Hãy kiểm tra mạng rồi thử lại.',
@@ -709,6 +719,8 @@ export const vi: Strings = {
   'accountError.wrongCodeOnly': 'Mã chưa đúng.',
   'accountError.expired': 'Mã đã hết hạn. Hãy xin mã mới.',
   'accountError.notSetUp': 'Cách đăng nhập này chưa sẵn sàng. Hãy thử cách khác.',
+  'accountError.otherApple':
+    'Đây là một Apple ID khác. Hãy dùng Apple ID bạn đã dùng để đăng nhập Recap.',
   'accountError.failed': 'Chưa đăng nhập được. Hãy thử lại.',
   'accountError.server': 'Máy chủ Recap gặp sự cố. Hãy thử lại sau.',
 

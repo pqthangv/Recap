@@ -688,6 +688,16 @@ export const en = {
   'account.signOutTitle': 'Sign out?',
   'account.signOutBody': 'Your cards stay on this phone. You can sign in again any time.',
   'account.signOutBodyWeb': 'Your cards stay in this browser. You can sign in again any time.',
+  'account.delete': 'Delete my account',
+  'account.deleting': 'Deleting…',
+  'account.deleteTitle': 'Delete your account?',
+  'account.deleteBody':
+    "This deletes your Recap account and the cards synced to it. The cards on this phone and on your other devices stay. This can't be undone.",
+  'account.deleteBodyWeb':
+    "This deletes your Recap account and the cards synced to it. The cards in this browser and on your other devices stay. This can't be undone.",
+  'account.deleteApple': "You'll sign in with Apple once more to confirm.",
+  'account.deleted': 'Account deleted. Your cards stay on this phone.',
+  'account.deletedWeb': 'Account deleted. Your cards stay in this browser.',
 
   // Sign-in errors
   'accountError.offline':
@@ -704,6 +714,8 @@ export const en = {
   'accountError.wrongCodeOnly': "That code isn't right.",
   'accountError.expired': 'That code has expired. Ask for a new one.',
   'accountError.notSetUp': "This way of signing in isn't ready yet. Please try another one.",
+  'accountError.otherApple':
+    "That's a different Apple ID. Use the one you signed in to Recap with.",
   'accountError.failed': "Signing in didn't work. Please try again.",
   'accountError.server': "Something went wrong on Recap's server. Please try again later.",
 

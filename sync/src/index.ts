@@ -5,6 +5,7 @@
 //   PUT  /v1/head?base=<n|none>  a new head, if the current one's base is still n; 409 if not
 //   POST /v1/files/remove        {"names": [...]}: deletes those files
 //   POST /v1/token               a new token for the same account (the app renews weekly)
+//   POST /v1/account/delete      deletes the account and its files (src/deletion.ts)
 //   GET  /health                 "ok", touching nothing (for uptime checks)
 // Every other /v1 request needs "Authorization: Bearer <token>"; the token's account is the
 // folder. Signing in is /v1/auth/… (src/signin.ts), rate limited per network instead.
@@ -12,6 +13,7 @@
 // when today's writes are used up, 507 storage_full when there's no room for a file.
 import { neonAccounts } from './accounts';
 import { accountOf, makeToken } from './auth';
+import { deleteAccount } from './deletion';
 import {
   createFile,
   isFileName,
@@ -49,7 +51,11 @@ function corsHeaders(request: Request): Record<string, string> {
 const json = (body: unknown, status = 200) => Response.json(body, { status });
 const fail = (error: string, status: number) => json({ error }, status);
 const refused = (charge: Exclude<Charge, 'ok'>) =>
-  charge === 'writes' ? fail('daily_limit', 429) : fail('storage_full', 507);
+  charge === 'closed'
+    ? fail('account_deleted', 401)
+    : charge === 'writes'
+      ? fail('daily_limit', 429)
+      : fail('storage_full', 507);
 
 /** The body's declared size, or null without one (chunked uploads aren't accepted). */
 function bodySize(request: Request): number | null {
@@ -79,7 +85,12 @@ export async function handle(request: Request, env: Env, deps: Deps): Promise<Re
   const { method } = request;
 
   if (path === 'token' && method === 'POST') {
+    if (await env.COUNTERS.getByName(account).isClosed()) return fail('account_deleted', 401);
     return json({ token: await makeToken(account, env.TOKEN_SECRET) });
+  }
+
+  if (path === 'account/delete' && method === 'POST') {
+    return deleteAccount(request, env, deps, account);
   }
 
   if (path === 'files' && method === 'GET') {

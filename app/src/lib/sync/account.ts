@@ -26,6 +26,7 @@ export type AccountErrorKind =
   | 'expired'
   | 'notSetUp'
   | 'signedOut' // the token isn't valid any more
+  | 'otherApple' // deleting: signed in with another Apple ID than the account's
   | 'failed'
   | 'server';
 
@@ -64,9 +65,12 @@ export function errorFromResponse(status: number, body: unknown): AccountError {
       return error('expired', t('accountError.expired'));
     case 'not_set_up':
       return error('notSetUp', t('accountError.notSetUp'));
+    case 'other_apple_account':
+      return error('otherApple', t('accountError.otherApple'));
     case 'bad_code':
     case 'bad_token':
     case 'bad_request':
+    case 'apple_sign_in_needed':
       return error('failed', t('accountError.failed'));
   }
   if (status === 401) return error('signedOut', t('accountError.failed'));
@@ -97,6 +101,14 @@ export function tokenIssuedAt(token: string): number {
 
 export const needsRenewal = (token: string, now = Date.now()) =>
   now - tokenIssuedAt(token) > RENEW_AFTER_MS;
+
+/**
+ * Deleting an Apple account needs Apple once more: the tab's code and the app's secret (Android,
+ * the website), or what Apple's sheet gave (iPhone).
+ */
+export type AppleProof =
+  | { code: string; verifier: string }
+  | { idToken: string; nonce: string; authorizationCode: string };
 
 /** What the tab came back with: a code to finish with, or why there's none. */
 export type TabResult = { code: string } | { error: 'cancelled' | 'failed' };
@@ -167,9 +179,19 @@ export function createAccountClient({
   });
 
   return {
-    /** Where the browser tab starts. `returnTo` is where it ends: the app, or the website. */
-    startUrl(provider: BrowserProvider, returnTo: string, challenge: string, lang: Language) {
+    /**
+     * Where the browser tab starts. `returnTo` is where it ends: the app, or the website.
+     * `deleting`: Apple again, to delete the account.
+     */
+    startUrl(
+      provider: BrowserProvider,
+      returnTo: string,
+      challenge: string,
+      lang: Language,
+      deleting = false,
+    ) {
       const params = new URLSearchParams({ return: returnTo, challenge, lang });
+      if (deleting) params.set('purpose', 'delete');
       return `${base}/v1/auth/${provider}/start?${params.toString()}`;
     },
 
@@ -190,6 +212,11 @@ export function createAccountClient({
 
     async emailSignIn(email: string, code: string): Promise<Account> {
       return account(await post('/v1/auth/email/finish', { email, code, device: deviceId() }));
+    },
+
+    /** Deletes the account and its synced files (an Apple account also needs `apple`). */
+    async deleteAccount(token: string, apple?: AppleProof): Promise<void> {
+      await post('/v1/account/delete', apple ?? {}, token);
     },
 
     /** A new token for the same account. */

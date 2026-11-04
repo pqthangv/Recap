@@ -14,12 +14,26 @@ export const ACCOUNT_LIMITS: Limits = { writes: 150, bytes: 100 * MB };
 export const ALL_LIMITS: Limits = { writes: 25_000, bytes: 9 * 1024 * MB };
 
 export type Usage = { day: string; writes: number; bytes: number };
-export type Charge = 'ok' | 'writes' | 'bytes';
+/** 'closed': the account was deleted, so its old tokens get nothing. */
+export type Charge = 'ok' | 'writes' | 'bytes' | 'closed';
 
 export const today = () => new Date().toISOString().slice(0, 10);
 
-/** One counter: today's writes (R2 writes and lists) and the bytes stored. */
+/**
+ * One counter: today's writes (R2 writes and lists) and the bytes stored. An account's counter also
+ * remembers that the account was deleted: tokens are checked without Neon, so this is what stops
+ * the ones still on other devices (listing, writing and renewing all ask here).
+ */
 export class Counter extends DurableObject<Env> {
+  async close(): Promise<void> {
+    await this.ctx.storage.put('closed', true);
+    await this.ctx.storage.delete('usage');
+  }
+
+  async isClosed(): Promise<boolean> {
+    return (await this.ctx.storage.get<boolean>('closed')) === true;
+  }
+
   private async usage(day: string): Promise<Usage> {
     const saved = await this.ctx.storage.get<Usage>('usage');
     if (!saved) return { day, writes: 0, bytes: 0 };
@@ -28,6 +42,7 @@ export class Counter extends DurableObject<Env> {
 
   /** Counts one write adding `bytes`, if both stay within `limits`; otherwise counts nothing. */
   async charge(day: string, bytes: number, limits: Limits): Promise<Charge> {
+    if (await this.isClosed()) return 'closed';
     const usage = await this.usage(day);
     if (usage.writes + 1 > limits.writes) return 'writes';
     if (bytes > 0 && usage.bytes + bytes > limits.bytes) return 'bytes';

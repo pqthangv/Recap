@@ -39,16 +39,20 @@ import {
   googlePerson,
   googleReady,
   type Keys,
+  type Person,
 } from './providers';
 
 /** What signing in needs from outside: swapped for fakes in the tests. */
 export type Deps = { accounts: Accounts; fetch: typeof fetch; keys: Keys };
 
 type Browser = 'google' | 'apple';
-/** What the tab carries to Google or Apple and back, signed. */
-type State = { p: Browser; r: string; c: string; l: Lang; n: string };
-/** The code the tab hands the app, sealed. */
-type Handoff = { p: Provider; s: string; e?: string; c: string };
+/** What the tab carries to Google or Apple and back, signed. `k`: signing in again to delete. */
+type State = { p: Browser; r: string; c: string; l: Lang; n: string; k?: 'delete' };
+/**
+ * The code the tab hands the app, sealed. One made for deleting an account (`k`) carries Apple's
+ * refresh token (`r`) for the revoke, and only works for deleting.
+ */
+export type Handoff = { p: Provider; s: string; e?: string; c: string; k?: 'delete'; r?: string };
 
 const STATE_AUDIENCE = 'recap-state';
 const HANDOFF_AUDIENCE = 'recap-handoff';
@@ -75,7 +79,7 @@ export function returnAddress(value: string | null): string | null {
 }
 
 /** The JSON body of a small request, or null. */
-async function smallBody(request: Request): Promise<Record<string, unknown> | null> {
+export async function smallBody(request: Request): Promise<Record<string, unknown> | null> {
   const size = Number(request.headers.get('Content-Length') ?? NaN);
   if (!Number.isSafeInteger(size) || size <= 0 || size > MAX_BODY_BYTES) return null;
   const body: unknown = await request.json().catch(() => null);
@@ -109,8 +113,13 @@ async function start(provider: Browser, url: URL, env: Env): Promise<Response> {
   const challenge = url.searchParams.get('challenge') ?? '';
   if (!target || !CHALLENGE.test(challenge)) return fail('bad_request', 400);
   const lang: Lang = url.searchParams.get('lang') === 'vi' ? 'vi' : 'en';
+  // Signing in again to delete the account: only Apple needs it (its token has to be revoked).
+  const deleting = url.searchParams.get('purpose') === 'delete';
+  if (deleting && provider !== 'apple') return fail('bad_request', 400);
   const nonce = base64url(crypto.getRandomValues(new Uint8Array(16)));
-  const state = await new SignJWT({ p: provider, r: target, c: challenge, l: lang, n: nonce })
+  const fields: State = { p: provider, r: target, c: challenge, l: lang, n: nonce };
+  if (deleting) fields.k = 'delete';
+  const state = await new SignJWT(fields)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuer(TOKEN_ISSUER)
     .setAudience(STATE_AUDIENCE)
@@ -153,7 +162,7 @@ async function callback(provider: Browser, url: URL, env: Env, deps: Deps): Prom
     const cancelled = error === 'access_denied' || error === 'user_cancelled_authorize';
     return backTo(state.r, { error: cancelled ? 'cancelled' : 'failed' }, state.l);
   }
-  let person;
+  let person: Person & { refreshToken?: string };
   try {
     const redirect = callbackUrl(url, provider);
     person =
@@ -172,6 +181,11 @@ async function callback(provider: Browser, url: URL, env: Env, deps: Deps): Prom
     return backTo(state.r, { error: 'failed' }, state.l);
   }
   const handoff: Handoff = { p: provider, s: person.subject, e: person.email, c: state.c };
+  if (state.k === 'delete') {
+    if (!person.refreshToken) return backTo(state.r, { error: 'failed' }, state.l);
+    handoff.k = 'delete';
+    handoff.r = person.refreshToken;
+  }
   const sealed = await new EncryptJWT(handoff)
     .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
     .setIssuer(TOKEN_ISSUER)
@@ -188,6 +202,17 @@ async function finish(request: Request, env: Env, deps: Deps): Promise<Response>
   if (typeof code !== 'string' || typeof verifier !== 'string' || !device) {
     return fail('bad_request', 400);
   }
+  const handoff = await openHandoff(env, code, verifier);
+  if (!handoff || handoff.k === 'delete') return fail('bad_code', 400);
+  return signedIn(env, deps, { provider: handoff.p, subject: handoff.s }, device, handoff.e);
+}
+
+/** The tab's code, if it's genuine, still fresh, and goes with the app's secret; else null. */
+export async function openHandoff(
+  env: Env,
+  code: string,
+  verifier: string,
+): Promise<Handoff | null> {
   let handoff: Handoff;
   try {
     const { payload } = await jwtDecrypt(code, await handoffKey(env), {
@@ -196,10 +221,9 @@ async function finish(request: Request, env: Env, deps: Deps): Promise<Response>
     });
     handoff = payload as unknown as Handoff;
   } catch {
-    return fail('bad_code', 400);
+    return null;
   }
-  if (!sameText(base64url(await sha256(verifier)), handoff.c)) return fail('bad_code', 400);
-  return signedIn(env, deps, { provider: handoff.p, subject: handoff.s }, device, handoff.e);
+  return sameText(base64url(await sha256(verifier)), handoff.c) ? handoff : null;
 }
 
 async function appleSheet(request: Request, env: Env, deps: Deps): Promise<Response> {
