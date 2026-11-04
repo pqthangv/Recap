@@ -1,5 +1,6 @@
-// The sync Worker (roadmap Phase 6): keeps each account's sync files in R2. Secrets are set with
-// `npx wrangler secret put TOKEN_SECRET` (and locally in .dev.vars, which is never committed).
+// The sync Worker (roadmap Phase 6): keeps each account's sync files in R2, and signs people in.
+// Secrets are set with `npx wrangler secret put <NAME>` (and locally in .dev.vars, which is never
+// committed).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "recap-sync",
@@ -8,15 +9,57 @@
   // Deploying creates this address's DNS record (the domain is on this Cloudflare account).
   "routes": [{ "pattern": "sync.recapflashcards.com", "custom_domain": true }],
   "r2_buckets": [{ "binding": "FILES", "bucket_name": "recap-sync" }],
-  // Signs the sign-in tokens (part 3 makes them): at least 32 random characters.
-  "secrets": { "required": ["TOKEN_SECRET"] },
-  // Per account, per Cloudflare location, approximate. A new device's first sync reads a few
-  // dozen files, so this leaves room for that. The daily limits are in src/limits.ts.
+  // Signing in (src/signin.ts). None of these are secret. A sign-in way whose settings are empty
+  // answers 503 not_set_up.
+  "vars": {
+    // Google Cloud project "Recap": the OAuth client of type "Web application".
+    "GOOGLE_CLIENT_ID": "",
+    // Apple: the app (Apple's sheet on iPhones), and the Services ID for the browser tab.
+    "APPLE_BUNDLE_ID": "com.recapcards.app",
+    "APPLE_SERVICES_ID": "com.recapcards.signin",
+    "APPLE_TEAM_ID": "",
+    // The Sign in with Apple key's id (its .p8 file is the APPLE_PRIVATE_KEY secret).
+    "APPLE_KEY_ID": "",
+    // Sign-in codes come from this address (Resend, with recapflashcards.com verified there).
+    "EMAIL_FROM": "Recap <signin@recapflashcards.com>",
+    // Store review's demo account: never emailed, its code is the REVIEW_CODE secret.
+    "REVIEW_EMAIL": "review@recapflashcards.com",
+  },
+  "secrets": {
+    "required": [
+      // Signs the sign-in tokens: at least 32 random characters.
+      "TOKEN_SECRET",
+      // Neon (sync's own project): the pooled connection string.
+      "DATABASE_URL",
+      "GOOGLE_CLIENT_SECRET",
+      // The Sign in with Apple key: the whole .p8 file.
+      "APPLE_PRIVATE_KEY",
+      "RESEND_API_KEY",
+      // Hashes email addresses (at least 32 random characters). Never change it: email accounts
+      // are found by it.
+      "EMAIL_KEY",
+      // The review account's 6-digit code.
+      "REVIEW_CODE",
+    ],
+  },
+  // LIMITER: per account, per Cloudflare location, approximate. A new device's first sync reads a
+  // few dozen files, so this leaves room for that. The daily limits are in src/limits.ts.
+  // AUTH_LIMITER: signing in, per network (there's no account yet).
   "ratelimits": [
     { "name": "LIMITER", "namespace_id": "1001", "simple": { "limit": 120, "period": 60 } },
+    { "name": "AUTH_LIMITER", "namespace_id": "1002", "simple": { "limit": 30, "period": 60 } },
   ],
-  // The daily limit counters (src/limits.ts): SQLite-backed, the kind the Free plan has.
-  "durable_objects": { "bindings": [{ "name": "COUNTERS", "class_name": "Counter" }] },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Counter"] }],
+  // COUNTERS: the daily limit counters (src/limits.ts). CODES: one per email address, its
+  // sign-in code (src/email.ts). Both SQLite-backed, the kind the Free plan has.
+  "durable_objects": {
+    "bindings": [
+      { "name": "COUNTERS", "class_name": "Counter" },
+      { "name": "CODES", "class_name": "SignInCode" },
+    ],
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["Counter"] },
+    { "tag": "v2", "new_sqlite_classes": ["SignInCode"] },
+  ],
   "observability": { "enabled": true },
 }

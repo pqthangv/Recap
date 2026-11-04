@@ -4,15 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "wrangler types",
+    "postinstall": "wrangler types --strict-vars=false",
     "dev": "wrangler dev",
     "test": "vitest run",
-    "typecheck": "wrangler types && tsc --noEmit",
+    "typecheck": "wrangler types --strict-vars=false && tsc --noEmit",
     "lint": "prettier --check .",
     "format": "prettier --write .",
     "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
     "jose": "^6.2.15"
   },
   "devDependencies": {

@@ -4,11 +4,14 @@
 //   PUT  /v1/files/<name>        a new file; 409 if the name is taken
 //   PUT  /v1/head?base=<n|none>  a new head, if the current one's base is still n; 409 if not
 //   POST /v1/files/remove        {"names": [...]}: deletes those files
+//   POST /v1/token               a new token for the same account (the app renews weekly)
 //   GET  /health                 "ok", touching nothing (for uptime checks)
-// Every /v1 request needs "Authorization: Bearer <token>"; the token's account is the folder.
+// Every other /v1 request needs "Authorization: Bearer <token>"; the token's account is the
+// folder. Signing in is /v1/auth/… (src/signin.ts), rate limited per network instead.
 // Listing, creating and the head count toward the daily limits (src/limits.ts): 429 daily_limit
 // when today's writes are used up, 507 storage_full when there's no room for a file.
-import { accountOf } from './auth';
+import { neonAccounts } from './accounts';
+import { accountOf, makeToken } from './auth';
 import {
   createFile,
   isFileName,
@@ -24,16 +27,12 @@ import {
   swapHead,
 } from './files';
 import { chargeWrite, releaseBytes, type Charge } from './limits';
+import { ORIGINS } from './origins';
+import { REMOTE_KEYS } from './providers';
+import { signIn, type Deps } from './signin';
 
 export { Counter } from './limits';
-
-/** The website, and the app's web version running locally (Metro, npm run web:preview). */
-const ORIGINS = new Set([
-  'https://recapflashcards.com',
-  'https://www.recapflashcards.com',
-  'http://localhost:8081',
-  'http://localhost:8090',
-]);
+export { SignInCode } from './email';
 
 function corsHeaders(request: Request): Record<string, string> {
   const origin = request.headers.get('Origin');
@@ -58,10 +57,19 @@ function bodySize(request: Request): number | null {
   return request.body && Number.isSafeInteger(size) && size > 0 ? size : null;
 }
 
-async function handle(request: Request, env: Env): Promise<Response> {
+export async function handle(request: Request, env: Env, deps: Deps): Promise<Response> {
   const url = new URL(request.url);
   if (url.pathname === '/health') return new Response('ok');
   if (!url.pathname.startsWith('/v1/')) return fail('not_found', 404);
+
+  if (url.pathname.startsWith('/v1/auth/')) {
+    // No account yet to count by, so per network. The address is only the limiter's key.
+    const network = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+    if (!(await env.AUTH_LIMITER.limit({ key: network })).success) {
+      return fail('too_many_requests', 429);
+    }
+    return (await signIn(request, env, deps, url)) ?? fail('not_found', 404);
+  }
 
   const account = await accountOf(request, env.TOKEN_SECRET);
   if (!account) return fail('unauthorized', 401);
@@ -69,6 +77,10 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
   const path = url.pathname.slice('/v1/'.length);
   const { method } = request;
+
+  if (path === 'token' && method === 'POST') {
+    return json({ token: await makeToken(account, env.TOKEN_SECRET) });
+  }
 
   if (path === 'files' && method === 'GET') {
     const charge = await chargeWrite(env, account);
@@ -140,7 +152,12 @@ export default {
   async fetch(request, env): Promise<Response> {
     const cors = corsHeaders(request);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
-    const response = await handle(request, env);
+    const deps: Deps = {
+      accounts: neonAccounts(env.DATABASE_URL),
+      fetch: (input, init) => fetch(input, init),
+      keys: REMOTE_KEYS,
+    };
+    const response = await handle(request, env, deps);
     for (const [key, value] of Object.entries(cors)) response.headers.set(key, value);
     return response;
   },
