@@ -21,6 +21,13 @@ const light = {
   backdrop: 'rgba(26, 21, 48, 0.35)',
   // A sheet sliding up over the dimmed screen.
   sheet: '#FFFFFF',
+  // "Continue with Google" / "Continue with Apple": their own button colors (Google's and Apple's
+  // sign-in button guidelines), not Recap's.
+  googleButton: '#FFFFFF',
+  googleButtonBorder: '#747775',
+  googleButtonText: '#1F1F1F',
+  appleButton: '#000000',
+  appleButtonText: '#FFFFFF',
 } as const;
 
 export type Colors = { readonly [K in keyof typeof light]: string };
@@ -42,6 +49,11 @@ const dark: Colors = {
   backdrop: 'rgba(0, 0, 0, 0.6)',
   // Raised a little above the page, so a sheet stands out from the dimmed screen behind it.
   sheet: '#221E2C',
+  googleButton: '#131314',
+  googleButtonBorder: '#8E918F',
+  googleButtonText: '#E3E3E3',
+  appleButton: '#FFFFFF',
+  appleButtonText: '#000000',
 };
 
 export const palettes: Readonly<Record<Scheme, Colors>> = { light, dark };

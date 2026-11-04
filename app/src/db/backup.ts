@@ -1,6 +1,12 @@
 import { and, asc, eq, inArray, isNull, sql, type SQL } from 'drizzle-orm';
 
-import { buildBackup, planMerge, type Backup } from '@/lib/backup';
+import {
+  buildBackup,
+  planMerge,
+  type Backup,
+  type ExistingVersions,
+  type MergePlan,
+} from '@/lib/backup';
 import { cardsToCsv } from '@/lib/csv';
 
 import { db } from './client';
@@ -37,32 +43,39 @@ function excludedSet(rows: object[]): Record<string, SQL> {
   return Object.fromEntries(columns.map((c) => [c, sql.raw(`excluded.${c}`)]));
 }
 
-/** Merge a backup into the device by id (see src/lib/backup.ts for the rules). */
-export function importBackup(backup: Backup): ImportResult {
+/** What's on the device, by id, to merge against (planMerge). */
+export function existingVersions(): ExistingVersions {
   const versions = <T extends { id: string; updated_at: number }>(rows: T[]) =>
     new Map(rows.map((r) => [r.id, r.updated_at]));
-  const plan = planMerge(
-    {
-      decks: versions(db.select({ id: decks.id, updated_at: decks.updated_at }).from(decks).all()),
-      cards: versions(db.select({ id: cards.id, updated_at: cards.updated_at }).from(cards).all()),
-      settings: new Map(
-        db
-          .select({ key: settings.key, updated_at: settings.updated_at })
-          .from(settings)
-          .all()
-          .map((s) => [s.key, s.updated_at]),
-      ),
-      review_logs: new Map(
-        db
-          .select({ id: reviewLogs.id, deleted_at: reviewLogs.deleted_at })
-          .from(reviewLogs)
-          .all()
-          .map((l) => [l.id, l.deleted_at]),
-      ),
-    },
-    backup,
-  );
+  return {
+    decks: versions(db.select({ id: decks.id, updated_at: decks.updated_at }).from(decks).all()),
+    cards: versions(db.select({ id: cards.id, updated_at: cards.updated_at }).from(cards).all()),
+    settings: new Map(
+      db
+        .select({ key: settings.key, updated_at: settings.updated_at })
+        .from(settings)
+        .all()
+        .map((s) => [s.key, s.updated_at]),
+    ),
+    review_logs: new Map(
+      db
+        .select({ id: reviewLogs.id, deleted_at: reviewLogs.deleted_at })
+        .from(reviewLogs)
+        .all()
+        .map((l) => [l.id, l.deleted_at]),
+    ),
+  };
+}
 
+/** Merge a backup into the device by id (see src/lib/backup.ts for the rules). */
+export function importBackup(backup: Backup): ImportResult {
+  const plan = planMerge(existingVersions(), backup);
+  writeMergePlan(plan);
+  return { decks: plan.decks.length, cards: plan.cards.length, reviews: plan.newLogs.length };
+}
+
+/** Writes what planMerge decided, in one transaction (backup import and sync). */
+export function writeMergePlan(plan: MergePlan): void {
   transaction(() => {
     for (const rows of chunks(plan.decks)) {
       db.insert(decks)
@@ -92,7 +105,6 @@ export function importBackup(backup: Backup): ImportResult {
         .run();
     }
   });
-  return { decks: plan.decks.length, cards: plan.cards.length, reviews: plan.newLogs.length };
 }
 
 /** All cards (not deleted) as CSV, grouped by deck. */

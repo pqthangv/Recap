@@ -118,6 +118,13 @@
             "enableSceneSupport": true
           }
         }
+      ],
+      "expo-apple-authentication",
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": false
+        }
       ]
     ],
     "locales": {

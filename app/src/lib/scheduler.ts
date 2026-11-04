@@ -178,6 +178,59 @@ export function resetCard(card: SchedulableCard, now: number): ReviewResult {
   return fromRecord(scheduler(DEFAULT_RETENTION).forget(toFsrs(card), new Date(now), true));
 }
 
+/** The parts of a review log that replaying a card needs. */
+export type Answer = Pick<LogFields, 'rating' | 'reviewed_at'> & { id: string };
+
+const byTime = (a: Answer, b: Answer) => a.reviewed_at - b.reviewed_at || a.id.localeCompare(b.id);
+
+/**
+ * A card's schedule rebuilt from its answers (the review logs that weren't undone), as if they had
+ * all been given on one device: for a card studied on two devices between syncs. Every schedule
+ * in Recap comes from answers and resets (cards are always created new), so this is what
+ * answering live gives, except that every answer uses today's target retention. ts-fsrs's own
+ * `reschedule()` starts from a card without an id, which would change the fuzz.
+ */
+export function replayCard(
+  id: string,
+  createdAt: number,
+  answers: readonly Answer[],
+  retention: number,
+): FsrsFields {
+  const f = scheduler(retention);
+  let card: FsrsCard & { id: string } = { ...createEmptyCard(new Date(createdAt)), id };
+  for (const answer of [...answers].sort(byTime)) {
+    const at = new Date(answer.reviewed_at);
+    const item =
+      answer.rating === Rating.Manual
+        ? f.forget(card, at, true)
+        : f.next(card, at, answer.rating as Grade);
+    card = { ...item.card, id };
+  }
+  return fromFsrs(card);
+}
+
+/**
+ * Does a card's schedule already include exactly these answers? Each answer adds one to `reps`
+ * and sets `last_review`; a reset puts `reps` back to 0 and keeps `last_review`. Unlike comparing
+ * with a replay, this doesn't depend on the target retention the answers were given with.
+ */
+export function scheduleIncludes(
+  card: Pick<FsrsFields, 'reps' | 'last_review'>,
+  answers: readonly Answer[],
+): boolean {
+  let reps = 0;
+  let last: number | null = null;
+  for (const answer of [...answers].sort(byTime)) {
+    if (answer.rating === Rating.Manual) {
+      reps = 0;
+    } else {
+      reps++;
+      last = answer.reviewed_at;
+    }
+  }
+  return card.reps === reps && card.last_review === last;
+}
+
 /**
  * Is this (non-new) card ready to study? FSRS intervals are whole days, so a Review card is due for
  * the whole study day it falls on. Learning/relearning steps are minutes, so they use the exact

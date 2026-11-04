@@ -90,6 +90,7 @@ export const en = {
   'screen.editDeck': 'Edit deck',
   'screen.addCard': 'Add card',
   'screen.editCard': 'Edit card',
+  'screen.account': 'Sync my cards',
 
   // App and error screens
   'app.openFailed': "Recap couldn't open your cards. Please close the app and open it again.",
@@ -657,4 +658,80 @@ export const en = {
   'stats.split': '{reviews} · {n} new',
   'stats.reviews': 'Reviews',
   'stats.newCards': 'New cards',
+
+  // Settings › Sync my cards: signing in to sync (optional)
+  'settings.sync': 'Sync',
+  'settings.syncOff': 'Keep your cards the same on your phones and the website.',
+  'account.intro':
+    'Sign in to keep your decks, cards and progress the same on all your phones and on recapflashcards.com.',
+  'account.introWeb':
+    'Sign in to keep your decks, cards and progress the same in this browser and on your phones.',
+  'account.google': 'Continue with Google',
+  'account.apple': 'Continue with Apple',
+  'account.email': 'Continue with email',
+  'account.emailLabel': 'Your email',
+  'account.emailPlaceholder': 'you@example.com',
+  'account.sendCode': 'Send code',
+  'account.codeSent': 'We sent a 6-digit code to {email}. It works for 10 minutes.',
+  'account.codeLabel': '6-digit code',
+  'account.signIn': 'Sign in',
+  'account.newCode': 'Send a new code',
+  'account.otherEmail': 'Use another email',
+  'account.signingIn': 'Signing in…',
+  'account.signedInSnack': 'Signed in',
+  'account.signedInGoogle': 'Signed in with Google',
+  'account.signedInApple': 'Signed in with Apple',
+  'account.signedInEmail': 'Signed in with email',
+  'account.signedInBody':
+    'Sign in the same way on your other phones and on recapflashcards.com to use this account there.',
+  'account.signOut': 'Sign out',
+  'account.signOutTitle': 'Sign out?',
+  'account.signOutBody': 'Your cards stay on this phone. You can sign in again any time.',
+  'account.signOutBodyWeb': 'Your cards stay in this browser. You can sign in again any time.',
+  'account.delete': 'Delete my account',
+  'account.deleting': 'Deleting…',
+  'account.deleteTitle': 'Delete your account?',
+  'account.deleteBody':
+    "This deletes your Recap account and the cards synced to it. The cards on this phone and on your other devices stay. This can't be undone.",
+  'account.deleteBodyWeb':
+    "This deletes your Recap account and the cards synced to it. The cards in this browser and on your other devices stay. This can't be undone.",
+  'account.deleteApple': "You'll sign in with Apple once more to confirm.",
+  'account.deleted': 'Account deleted. Your cards stay on this phone.',
+  'account.deletedWeb': 'Account deleted. Your cards stay in this browser.',
+
+  // Sign-in errors
+  'accountError.offline':
+    "Can't reach Recap's server. Check your internet connection and try again.",
+  'accountError.busy': 'Too many tries. Please wait a minute and try again.',
+  'accountError.wait': 'A code was just sent. Please wait a minute before asking for a new one.',
+  'accountError.addressLimit':
+    'This email has had all its codes for today. Try again tomorrow, or continue with Google or Apple.',
+  'accountError.emailLimit':
+    "Recap can't send more codes today. Try again tomorrow, or continue with Google or Apple.",
+  'accountError.badEmail': "That doesn't look like an email address.",
+  'accountError.wrongCode_one': "That code isn't right. 1 try left.",
+  'accountError.wrongCode_other': "That code isn't right. {n} tries left.",
+  'accountError.wrongCodeOnly': "That code isn't right.",
+  'accountError.expired': 'That code has expired. Ask for a new one.',
+  'accountError.notSetUp': "This way of signing in isn't ready yet. Please try another one.",
+  'accountError.otherApple':
+    "That's a different Apple ID. Use the one you signed in to Recap with.",
+  'accountError.failed': "Signing in didn't work. Please try again.",
+  'accountError.server': "Something went wrong on Recap's server. Please try again later.",
+
+  // Syncing (Sync my cards, once signed in)
+  'account.syncing': 'Syncing…',
+  'account.notSynced': 'Not synced yet',
+  'account.syncedJustNow': 'Last synced just now',
+  'account.syncedToday': 'Last synced today at {time}',
+  'account.syncedOn': 'Last synced {date}',
+  'account.syncNow': 'Sync now',
+  'syncProblem.offline': "You're offline. Recap will sync when you're back online.",
+  'syncProblem.paused':
+    "Syncing is paused until tomorrow: today's limit is used up. Your cards keep working.",
+  'syncProblem.full':
+    'Your synced space is full, so new changes stay here for now. Your cards keep working.',
+  'syncProblem.busy': 'Syncing is busy right now. Recap will try again soon.',
+  'syncProblem.signedOut': 'Please sign in again to keep syncing.',
+  'syncProblem.server': "Couldn't sync this time. Recap will try again later.",
 } as const;

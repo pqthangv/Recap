@@ -92,6 +92,7 @@ export const vi: Strings = {
   'screen.editDeck': 'Sửa bộ thẻ',
   'screen.addCard': 'Thêm thẻ',
   'screen.editCard': 'Sửa thẻ',
+  'screen.account': 'Đồng bộ thẻ',
 
   // App and error screens
   'app.openFailed': 'Recap không mở được thẻ của bạn. Vui lòng đóng ứng dụng rồi mở lại.',
@@ -661,4 +662,81 @@ export const vi: Strings = {
   'stats.split': '{reviews} · {n} mới',
   'stats.reviews': 'Ôn tập',
   'stats.newCards': 'Thẻ mới',
+
+  // Cài đặt › Đồng bộ thẻ: đăng nhập để đồng bộ (không bắt buộc)
+  'settings.sync': 'Đồng bộ',
+  'settings.syncOff': 'Giữ thẻ của bạn giống nhau trên các điện thoại và trang web.',
+  'account.intro':
+    'Đăng nhập để bộ thẻ, thẻ và tiến độ học giống nhau trên mọi điện thoại của bạn và trên recapflashcards.com.',
+  'account.introWeb':
+    'Đăng nhập để bộ thẻ, thẻ và tiến độ học giống nhau trên trình duyệt này và trên điện thoại của bạn.',
+  'account.google': 'Tiếp tục bằng Google',
+  'account.apple': 'Tiếp tục với Apple',
+  'account.email': 'Tiếp tục bằng email',
+  'account.emailLabel': 'Email của bạn',
+  'account.emailPlaceholder': 'ban@vidu.com',
+  'account.sendCode': 'Gửi mã',
+  'account.codeSent': 'Chúng tôi đã gửi mã 6 số đến {email}. Mã dùng được trong 10 phút.',
+  'account.codeLabel': 'Mã 6 số',
+  'account.signIn': 'Đăng nhập',
+  'account.newCode': 'Gửi mã mới',
+  'account.otherEmail': 'Dùng email khác',
+  'account.signingIn': 'Đang đăng nhập…',
+  'account.signedInSnack': 'Đã đăng nhập',
+  'account.signedInGoogle': 'Đã đăng nhập bằng Google',
+  'account.signedInApple': 'Đã đăng nhập bằng Apple',
+  'account.signedInEmail': 'Đã đăng nhập bằng email',
+  'account.signedInBody':
+    'Đăng nhập theo cách này trên các điện thoại khác và trên recapflashcards.com để dùng tài khoản này ở đó.',
+  'account.signOut': 'Đăng xuất',
+  'account.signOutTitle': 'Đăng xuất?',
+  'account.signOutBody':
+    'Thẻ của bạn vẫn ở trên điện thoại này. Bạn có thể đăng nhập lại bất cứ lúc nào.',
+  'account.signOutBodyWeb':
+    'Thẻ của bạn vẫn ở trên trình duyệt này. Bạn có thể đăng nhập lại bất cứ lúc nào.',
+  'account.delete': 'Xóa tài khoản của tôi',
+  'account.deleting': 'Đang xóa…',
+  'account.deleteTitle': 'Xóa tài khoản?',
+  'account.deleteBody':
+    'Thao tác này xóa tài khoản Recap và các thẻ đã đồng bộ lên đó. Thẻ trên điện thoại này và trên các thiết bị khác vẫn còn. Không thể hoàn tác.',
+  'account.deleteBodyWeb':
+    'Thao tác này xóa tài khoản Recap và các thẻ đã đồng bộ lên đó. Thẻ trên trình duyệt này và trên các thiết bị khác vẫn còn. Không thể hoàn tác.',
+  'account.deleteApple': 'Bạn sẽ đăng nhập bằng Apple thêm một lần để xác nhận.',
+  'account.deleted': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên điện thoại này.',
+  'account.deletedWeb': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên trình duyệt này.',
+
+  // Lỗi đăng nhập
+  'accountError.offline': 'Không kết nối được máy chủ Recap. Hãy kiểm tra mạng rồi thử lại.',
+  'accountError.busy': 'Bạn đã thử quá nhiều lần. Hãy chờ một phút rồi thử lại.',
+  'accountError.wait': 'Mã vừa được gửi. Hãy chờ một phút trước khi xin mã mới.',
+  'accountError.addressLimit':
+    'Email này đã nhận đủ mã cho hôm nay. Hãy thử lại vào ngày mai, hoặc tiếp tục bằng Google hay Apple.',
+  'accountError.emailLimit':
+    'Hôm nay Recap không gửi thêm mã được nữa. Hãy thử lại vào ngày mai, hoặc tiếp tục bằng Google hay Apple.',
+  'accountError.badEmail': 'Đây có vẻ không phải là địa chỉ email.',
+  'accountError.wrongCode_one': 'Mã chưa đúng. Còn 1 lần thử.',
+  'accountError.wrongCode_other': 'Mã chưa đúng. Còn {n} lần thử.',
+  'accountError.wrongCodeOnly': 'Mã chưa đúng.',
+  'accountError.expired': 'Mã đã hết hạn. Hãy xin mã mới.',
+  'accountError.notSetUp': 'Cách đăng nhập này chưa sẵn sàng. Hãy thử cách khác.',
+  'accountError.otherApple':
+    'Đây là một Apple ID khác. Hãy dùng Apple ID bạn đã dùng để đăng nhập Recap.',
+  'accountError.failed': 'Chưa đăng nhập được. Hãy thử lại.',
+  'accountError.server': 'Máy chủ Recap gặp sự cố. Hãy thử lại sau.',
+
+  // Đồng bộ (Đồng bộ thẻ, khi đã đăng nhập)
+  'account.syncing': 'Đang đồng bộ…',
+  'account.notSynced': 'Chưa đồng bộ',
+  'account.syncedJustNow': 'Vừa đồng bộ xong',
+  'account.syncedToday': 'Đồng bộ lần cuối hôm nay lúc {time}',
+  'account.syncedOn': 'Đồng bộ lần cuối ngày {date}',
+  'account.syncNow': 'Đồng bộ ngay',
+  'syncProblem.offline': 'Bạn đang ngoại tuyến. Recap sẽ đồng bộ khi có mạng trở lại.',
+  'syncProblem.paused':
+    'Đồng bộ tạm dừng đến ngày mai vì đã hết lượt hôm nay. Thẻ của bạn vẫn dùng bình thường.',
+  'syncProblem.full':
+    'Dung lượng đồng bộ đã đầy, nên thay đổi mới tạm giữ ở đây. Thẻ của bạn vẫn dùng bình thường.',
+  'syncProblem.busy': 'Đồng bộ đang bận. Recap sẽ thử lại sau ít phút.',
+  'syncProblem.signedOut': 'Hãy đăng nhập lại để tiếp tục đồng bộ.',
+  'syncProblem.server': 'Lần này chưa đồng bộ được. Recap sẽ thử lại sau.',
 };

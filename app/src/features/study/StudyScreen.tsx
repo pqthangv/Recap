@@ -8,6 +8,7 @@ import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
 import { ReminderOffer } from '@/features/reminders/ReminderOffer';
 import { syncReminders } from '@/features/reminders/reminders';
+import { syncSoon } from '@/features/sync/engine';
 import { decksInGroup } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
 import { type Colors, useStyles } from '@/lib/theme';
@@ -52,11 +53,14 @@ export default function StudyScreen() {
   // Studying can keep the streak, so re-plan the reminders when a session ends or is left (e.g.
   // tonight's "streak ends tonight" goes), not only when the app goes to the background.
   useEffect(() => {
-    if (finished) void syncReminders();
+    if (!finished) return;
+    void syncReminders();
+    syncSoon(); // the answers reach the other devices
   }, [finished]);
   useEffect(
     () => () => {
       void syncReminders();
+      syncSoon();
     },
     [],
   );

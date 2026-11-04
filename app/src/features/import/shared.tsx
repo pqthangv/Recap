@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { syncSoon } from '@/features/sync/engine';
 import { showSnackbar } from '@/components/Snackbar';
 import type { ImportSummary, ImportTarget } from '@/db/import';
 import type { Deck } from '@/db/schema';
@@ -34,6 +35,7 @@ export function summaryText(s: ImportSummary): string {
 export function useFinishImport() {
   const router = useRouter();
   return (summary: ImportSummary, note?: string) => {
+    syncSoon();
     showSnackbar(note ? `${summaryText(summary)} · ${note}` : summaryText(summary));
     router.dismissTo('/');
     if (summary.decks.length === 1) {
