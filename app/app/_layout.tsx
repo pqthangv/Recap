@@ -13,6 +13,7 @@ import { setupDatabase } from '@/db/setup';
 import { seedIfNeeded } from '@/features/onboarding/seed';
 import { sweepPictures } from '@/features/pictures/files';
 import { syncReminders } from '@/features/reminders/reminders';
+import { renewIfOld } from '@/features/sync/session';
 import { setAppearanceChoice, useScheme } from '@/lib/appearance';
 import { refreshLanguage, setLanguageChoice, t, useLanguage } from '@/lib/i18n';
 import { isWeb } from '@/lib/platform';
@@ -67,10 +68,14 @@ export default function RootLayout() {
   useEffect(() => {
     if (status !== 'ready') return;
     syncReminders();
+    renewIfOld();
     const sub = AppState.addEventListener('change', (state) => {
       if (state === 'background') syncReminders();
       // The language can be changed for Recap alone in the phone's settings.
-      if (state === 'active') refreshLanguage();
+      if (state === 'active') {
+        refreshLanguage();
+        renewIfOld();
+      }
     });
     return () => sub.remove();
   }, [status]);
@@ -157,6 +162,7 @@ function Screens() {
       <Stack.Screen name="stats" options={{ title: t('screen.stats') }} />
       <Stack.Screen name="library" options={{ title: t('screen.library') }} />
       <Stack.Screen name="deleted" options={{ title: t('screen.deleted') }} />
+      <Stack.Screen name="account" options={{ title: t('screen.account') }} />
       <Stack.Screen name="import/index" options={{ title: t('screen.import') }} />
       <Stack.Screen name="import/paste" options={{ title: t('screen.importPaste') }} />
       <Stack.Screen name="import/csv" options={{ title: t('screen.importCsv') }} />

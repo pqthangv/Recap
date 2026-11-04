@@ -36,6 +36,11 @@ describe.each(['light', 'dark'] as const)('theme contrast, %s look (WCAG AA)', (
     expect(contrast(colors.onPrimary, colors.primary)).toBeGreaterThanOrEqual(4.5);
   });
 
+  it('the Google and Apple sign-in buttons are readable', () => {
+    expect(contrast(colors.googleButtonText, colors.googleButton)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(colors.appleButtonText, colors.appleButton)).toBeGreaterThanOrEqual(4.5);
+  });
+
   it('the streak flame stands out on its tile', () => {
     expect(contrast(colors.flame, colors.tint)).toBeGreaterThanOrEqual(3);
   });
