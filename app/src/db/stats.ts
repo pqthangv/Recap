@@ -75,6 +75,11 @@ export function getStats(now = Date.now()): Stats {
   };
 }
 
+/** Statistics' streak on its own (days in a row with the new-card goal met). */
+export function getStreak(now = Date.now()): number {
+  return streak(goalMetTimes(), now);
+}
+
 /** What the leaderboard gets (lib/leaderboard/score.ts): the streak above and this week's cards. */
 export function getBoardScore(now = Date.now()): BoardScore {
   const times = goalMetTimes();

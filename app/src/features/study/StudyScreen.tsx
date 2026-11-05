@@ -6,6 +6,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { listDecks } from '@/db/decks';
+import { askForRatingIfDue } from '@/features/rating/rating';
+import { shouldOfferReminder } from '@/features/reminders/offer';
 import { ReminderOffer } from '@/features/reminders/ReminderOffer';
 import { syncReminders } from '@/features/reminders/reminders';
 import { syncSoon } from '@/features/sync/engine';
@@ -64,6 +66,16 @@ export default function StudyScreen() {
     },
     [],
   );
+
+  // After a week-long streak, the store's rating sheet once (features/rating). One request at a
+  // time: when the done screen offers reminders, the rating waits for a later session. Checked as
+  // the session starts (nothing changes it while studying), since ReminderOffer marks the offer
+  // as made before this screen's effects run.
+  const [reminderFirst] = useState(shouldOfferReminder);
+  const answered = session.reviewed;
+  useEffect(() => {
+    if (finished && !reminderFirst) void askForRatingIfDue(answered);
+  }, [finished, reminderFirst, answered]);
 
   return (
     // The bottom padding is on the outer view: the keyboard-avoiding view sets its own (0 with no

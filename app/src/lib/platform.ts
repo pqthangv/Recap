@@ -16,6 +16,8 @@ export const can = {
   apkgImport: !onWeb,
   /** "A new version is out" on Home: the website is always the newest version. */
   updateNotice: !onWeb,
+  /** The store's rating sheet after a week-long streak (features/rating): no store on the web. */
+  rateApp: !onWeb,
 };
 
 /** Running as the website rather than the phone app. */

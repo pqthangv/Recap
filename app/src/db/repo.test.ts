@@ -24,7 +24,7 @@ import {
   updateDeck,
 } from './decks';
 import { setSetting } from './settings';
-import { getBoardScore, getStats } from './stats';
+import { getBoardScore, getStats, getStreak } from './stats';
 import {
   answerCard,
   getDailyGoal,
@@ -378,6 +378,10 @@ describe('stats', () => {
       week: '2026-10-12',
       weekCards: 0,
     });
+    // The same streak as Statistics shows (and the rating request reads).
+    expect(getStreak(NOW)).toBe(3);
+    expect(getStreak(NOW)).toBe(getStats(NOW).streak);
+    expect(getStreak(NOW + 3 * DAY)).toBe(0);
   });
 
   it("counts a streak day only once that day's new-card goal is met", () => {
