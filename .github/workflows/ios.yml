@@ -14,13 +14,13 @@ on:
   workflow_dispatch:
     inputs:
       screenshots:
-        description: Also take App Store screenshots in the iPhone simulator
+        description: Also take App Store screenshots in the simulator
         type: boolean
         default: true
       device:
-        description: Which iPhone the screenshots are taken on
+        description: Which iPhone or iPad the screenshots are taken on
         type: choice
-        options: [pro-max, duo]
+        options: [pro-max, duo, ipad]
         default: pro-max
 
 jobs:
@@ -45,21 +45,27 @@ jobs:
       # App Store's required size, 1206 x 2622, is made from these by the store graphics script
       # (Recap-private/Recap-play-listing/tools/make_store_slides.py); both have the same shape.
       # duo: the iPhone Duo (iOS 27.1 runtime), for its own App Store screenshots.
-      - name: 'Screenshots: start the iPhone simulator'
+      # ipad: iPad Pro 13-inch (M5) if there is one (2064 x 2752, the App Store's 13-inch iPad
+      # size), otherwise the newest iPad Pro 13-inch.
+      - name: 'Screenshots: start the simulator'
         if: env.SCREENSHOTS == 'true'
         run: |
           set -euo pipefail
           UDID=$(xcrun simctl list devices available -j | python3 -c '
-          import json, os, sys
-          duo = os.environ["DEVICE"] == "duo"
+          import itertools, json, os, sys
+          device = os.environ["DEVICE"]
+          wanted = {"duo": "iPhone Duo", "ipad": "iPad Pro 13-inch"}.get(device, "Pro Max")
+          first = {"duo": "iPhone Duo", "ipad": "iPad Pro 13-inch (M5)"}.get(device, "iPhone 17 Pro Max")
           best = None
           for runtime, devices in json.load(sys.stdin)["devices"].items():
               if ".iOS-" not in runtime:
                   continue
-              version = tuple(int(x) for x in runtime.split(".iOS-")[1].split("-"))
+              # "iOS-27-1", and on some machines also e.g. "iOS-27-1-iPhone19-1": the numbers only.
+              parts = runtime.split(".iOS-")[1].split("-")
+              version = tuple(int(x) for x in itertools.takewhile(str.isdigit, parts))
               for d in devices:
-                  if (d["name"] == "iPhone Duo") if duo else ("Pro Max" in d["name"]):
-                      key = (d["name"] == "iPhone 17 Pro Max", version)
+                  if wanted in d["name"]:
+                      key = (d["name"] == first, version)
                       if best is None or key > best[0]:
                           best = (key, d["udid"], d["name"] + " / iOS " + ".".join(map(str, version)))
           print(best[1]); print("Simulator:", best[2], file=sys.stderr)')
@@ -139,7 +145,7 @@ jobs:
             sleep 10
           done
           echo "The server didn't answer; the AI screenshots may be missing."
-      - name: Screenshots in the iPhone simulator
+      - name: Screenshots in the simulator
         if: env.SCREENSHOTS == 'true'
         env:
           # Maestro's helper inside the simulator can take minutes to start on a busy machine.

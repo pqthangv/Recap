@@ -90,6 +90,42 @@ appId: com.recapcards.app
     timeout: 10000
 - takeScreenshot: stats
 
+# Checks, not for the stores (the slides script only takes the names above): the two sheets
+# with the keyboard open, scrolled down, so the screenshots show whether Save can still be
+# reached. On an iPad these open as sheets with space around them. Nothing is typed or saved.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
+- tapOn: Add a deck or card
+- tapOn: Add card
+- extendedWaitUntil:
+    visible: Front
+    timeout: 30000
+- scroll
+- scroll
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-card-editor
+# Start again rather than tap Cancel: on the folded iPhone Duo the deck form's top bar (title and
+# Cancel) was gone after scrolling with the keyboard open (2026-11-05), and the run stopped there.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
+- tapOn: Add a deck or card
+- tapOn: New deck
+- extendedWaitUntil:
+    visible: Deck name
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-deck-form-top
+- scroll
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-deck-form
+
 # Create with AI in two languages. It uses the real server (the workflow wakes it up first) and
 # the free Gemini quota, so it comes last.
 - launchApp

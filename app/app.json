@@ -11,7 +11,7 @@
     "ios": {
       "bundleIdentifier": "com.recapcards.app",
       "buildNumber": "1",
-      "supportsTablet": false,
+      "supportsTablet": true,
       "entitlements": {
         "com.apple.developer.devicecheck.appattest-environment": "production"
       },

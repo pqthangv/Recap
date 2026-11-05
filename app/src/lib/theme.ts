@@ -149,5 +149,15 @@ export function sideSpace(windowWidth: number): number {
   return Math.max(0, Math.round((windowWidth - maxContentWidth) / 2));
 }
 
+/** A bottom sheet in a Modal: at the bottom, the whole width on a phone, the screens' centered
+ *  column on a tablet. Its backdrop fills the screen behind it (absoluteFill), so the dimming also
+ *  covers both sides of a narrower sheet. */
+export const sheetFrame = {
+  marginTop: 'auto',
+  width: '100%',
+  maxWidth: maxContentWidth,
+  alignSelf: 'center',
+} as const;
+
 // Minimum touch target (dp), per the UX rules.
 export const touchTarget = 48;
