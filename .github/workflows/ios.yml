@@ -46,6 +46,10 @@ jobs:
     timeout-minutes: 90
     env:
       SCREENSHOTS: ${{ github.event_name == 'workflow_dispatch' && inputs.screenshots }}
+      # Screenshot builds only: the made-up leaderboard (app/src/features/leaderboard/api.ts), built
+      # into the JavaScript bundle by the Release build below. Store builds (Codemagic, Google Play)
+      # never set it, so there it's always off.
+      EXPO_PUBLIC_DEMO_BOARD: ${{ github.event_name == 'workflow_dispatch' && inputs.screenshots && '1' || '' }}
       DEVICE: ${{ matrix.device }}
       LANGUAGE: ${{ matrix.language }}
     defaults:
@@ -115,6 +119,7 @@ jobs:
         working-directory: app/ios
         run: |
           set -o pipefail
+          echo "Made-up leaderboard: ${EXPO_PUBLIC_DEMO_BOARD:-off}"
           xcodebuild -workspace Recap.xcworkspace -scheme Recap -configuration Release \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO build 2>&1 \
@@ -138,7 +143,7 @@ jobs:
       # The demo decks come from a ready-made database (scripts/demo-db.test.ts: the app's own
       # migrations + backup import), copied into the app before Maestro taps through the screens
       # (.maestro/screenshots.yaml, or screenshots-vi.yaml with the app in Vietnamese). "Create with
-      # AI" uses the live server and Gemini.
+      # AI" uses the live server and Gemini; the leaderboard is made up (EXPO_PUBLIC_DEMO_BOARD).
       - name: 'Screenshots: make the demo database'
         if: env.SCREENSHOTS == 'true'
         run: MAKE_DEMO_DB="$RUNNER_TEMP/recap.db" DEMO_LANGUAGE="$LANGUAGE" npx jest scripts/demo-db --ci
@@ -173,6 +178,17 @@ jobs:
           echo "$(date +%T) waiting for the simulator"
           xcrun simctl bootstatus "$UDID" -b > /dev/null
           echo "$(date +%T) simulator ready"
+          # Spelling and autocorrect off: the English spell checker drew a red line under a word of
+          # the Vietnamese AI topic (2026-11-05). iOS 15 and later keep these in
+          # com.apple.keyboard.preferences, older ones in com.apple.Preferences; both are written
+          # before the app first starts, which is when it reads them.
+          for domain in com.apple.keyboard.preferences com.apple.Preferences; do
+            for key in KeyboardCheckSpelling KeyboardAutocorrection; do
+              xcrun simctl spawn "$UDID" defaults write "$domain" "$key" -bool NO || true
+            done
+          done
+          xcrun simctl spawn "$UDID" defaults read com.apple.keyboard.preferences 2>&1 \
+            | grep -i -E 'spelling|autocorrection' || echo "(keyboard settings not readable)"
           # The tidy status bar of App Store screenshots: 9:41, full battery and NOT charging
           # ("charged" still shows the charging bolt).
           xcrun simctl status_bar "$UDID" override --time 9:41 --batteryState discharging \

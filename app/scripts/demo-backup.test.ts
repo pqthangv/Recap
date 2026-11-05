@@ -1,7 +1,10 @@
 // Demo data for store screenshots: a Recap backup with nicely named decks and two weeks of real
 // study history (made with the app's own scheduler), so Home, Study and Stats look lived-in.
 //
-//   MAKE_DEMO_BACKUP=path/to/recap-demo-backup.json npx jest scripts/demo-backup
+//   MAKE_DEMO_BACKUP=path/to/recap-demo-backup.json [DEMO_LANGUAGE=vi] npx jest scripts/demo-backup
+//
+// DEMO_LANGUAGE: the Vietnamese store pictures name one deck differently (demo-data.ts). The
+// app's language is set on the phone (Settings › Language); backups don't carry it.
 //
 // Also a 10,000-card deck for checking the app stays fast (roadmap 5.3):
 //
@@ -16,9 +19,12 @@ const fs = require('fs');
 
 const OUT = process.env.MAKE_DEMO_BACKUP;
 const BIG_OUT = process.env.MAKE_BIG_BACKUP;
+const LANGUAGE = process.env.DEMO_LANGUAGE ?? 'en';
+if (LANGUAGE !== 'en' && LANGUAGE !== 'vi')
+  throw new Error(`DEMO_LANGUAGE: en or vi, not ${LANGUAGE}`);
 
 (OUT ? it : it.skip)('writes the demo backup', () => {
-  const backup = makeDemo(Date.now());
+  const backup = makeDemo(Date.now(), LANGUAGE);
   fs.writeFileSync(OUT, JSON.stringify(backup));
   console.log(
     `${backup.decks.length} decks, ${backup.cards.length} cards, ${backup.review_logs.length} reviews → ${OUT}`,

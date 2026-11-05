@@ -1,7 +1,8 @@
 # The Vietnamese App Store screenshots: the same steps as screenshots.yaml (keep the two in step),
 # with the app in Vietnamese (the workflow's language "vi" makes the demo database with Settings ›
 # Language = Tiếng Việt) and every label it taps or waits for taken from src/lib/i18n/vi.ts. The
-# demo decks stay as they are. Create with AI makes German words with Vietnamese meanings.
+# demo decks stay as they are, but the study deck is called "English words" (the same cards as the
+# English flow's "Vietnamese words"). Create with AI makes English words with Vietnamese meanings.
 # Generated from screenshots.yaml with every label swapped; the comments below are the English
 # flow's.
 appId: com.recapcards.app
@@ -14,15 +15,20 @@ appId: com.recapcards.app
     timeout: 10000
 - takeScreenshot: home
 
-# Typed recall. "German words" has one card due, "der Apfel" (scripts/demo-data.ts): type a near
-# miss and check it. Recap marks the swapped letters, says "Almost: check the spelling" and
-# highlights Hard. Nothing is graded, so the data stays the same.
-# The demo decks are in groups (scripts/demo-data.ts): German words is in Languages.
+# Typed recall. "Vietnamese words" has one card due, "apple" (scripts/demo-data.ts): type its
+# meaning without the accents and check it. Recap marks the letters missing theirs, says "Almost:
+# check the accents" and highlights Hard. Nothing is graded, so the data stays the same.
+# The demo decks are in groups (scripts/demo-data.ts): Vietnamese words is in Languages.
+# Home has 15 rows: on the folded iPhone Duo, Languages is below the fold.
+- scrollUntilVisible:
+    element:
+      text: 'Languages.*'
+    direction: DOWN
 - tapOn: 'Languages.*'
 - extendedWaitUntil:
-    visible: 'German words.*'
+    visible: 'English words.*'
     timeout: 30000
-- tapOn: 'German words.*'
+- tapOn: 'English words.*'
 - extendedWaitUntil:
     visible: 'Học bộ thẻ này.*'
     timeout: 30000
@@ -31,7 +37,7 @@ appId: com.recapcards.app
     visible: 'Câu trả lời của bạn.*'
     timeout: 30000
 - tapOn: 'Câu trả lời của bạn.*'
-- inputText: 'the appel'
+- inputText: 'qua tao'
 - tapOn: Kiểm tra
 - extendedWaitUntil:
     visible: 'Gần đúng.*'
@@ -46,6 +52,11 @@ appId: com.recapcards.app
 - extendedWaitUntil:
     visible: 'Học · .* thẻ cần ôn'
     timeout: 60000
+# Home has 15 rows: on the folded iPhone Duo, Languages is below the fold.
+- scrollUntilVisible:
+    element:
+      text: 'Languages.*'
+    direction: DOWN
 - tapOn: 'Languages.*'
 - extendedWaitUntil:
     visible: 'Spanish basics.*'
@@ -95,6 +106,20 @@ appId: com.recapcards.app
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: stats
+# The leaderboard (1.0.8): the screenshot build's made-up board (EXPO_PUBLIC_DEMO_BOARD in the
+# workflow, src/lib/leaderboard/demo.ts), with the demo's own 15-day streak among the others.
+# On the folded iPhone Duo the button is at the bottom edge.
+- scrollUntilVisible:
+    element:
+      text: Bảng xếp hạng
+    direction: DOWN
+- tapOn: Bảng xếp hạng
+- extendedWaitUntil:
+    visible: '.*Minh Anh.*'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: leaderboard
 
 # Sync (1.0.8): Settings › Sync my cards, signed out: what sync does and the three ways to sign in.
 # Nothing is tapped there.
@@ -158,13 +183,13 @@ appId: com.recapcards.app
 # The tab is "Topic"; its text box has its own label (Android adds the placeholder to it).
 - tapOn: Chủ đề
 - tapOn: 'Chủ đề để tạo thẻ.*'
-- inputText: Từ tiếng Đức về đồ ăn
+- inputText: Từ tiếng Anh về đồ ăn
 # Close the keyboard with its Done key (hideKeyboard is unreliable on iOS; on a small screen like
 # the folded iPhone Duo the keyboard covers the rest of the form, so a tap could land on a key).
 - pressKey: Enter
-# A ticked language reads "Deutsch, ✓" (a second try finds it ticked by the first).
+# A ticked language reads "Tiếng Việt, ✓" (a second try finds it ticked by the first).
 - tapOn: 'Ngôn ngữ mặt trước của thẻ.*'
-- tapOn: 'Deutsch(, ✓)?'
+- tapOn: 'English(, ✓)?'
 - tapOn: 'Ngôn ngữ mặt sau của thẻ.*'
 - tapOn: 'Tiếng Việt(, ✓)?'
 - waitForAnimationToEnd:

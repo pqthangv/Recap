@@ -5,7 +5,8 @@
 //
 // It's made by the app's own migrations and backup import, and marked as already seeded so the
 // welcome decks don't appear. DEMO_LANGUAGE picks the app's language (Settings › Language) for the
-// English or Vietnamese store pictures; the decks stay the same. Skipped in normal `npm test` runs.
+// English or Vietnamese store pictures; the decks stay the same but for one name (demo-data.ts).
+// Skipped in normal `npm test` runs.
 import { closeTestDb, migrateTestDb } from '../test/db';
 
 import type * as BackupDb from '@/db/backup';
@@ -40,7 +41,7 @@ jest.mock('@/db/client', () => {
   const { importBackup } = require('@/db/backup') as typeof BackupDb;
   const { setRawSetting, setSetting } = require('@/db/settings') as typeof SettingsDb;
   /* eslint-enable @typescript-eslint/no-require-imports */
-  const result = importBackup(makeDemo(Date.now()));
+  const result = importBackup(makeDemo(Date.now(), LANGUAGE));
   setRawSetting(SEEDED_KEY, true);
   setSetting('language', LANGUAGE);
   closeTestDb();
