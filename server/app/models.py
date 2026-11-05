@@ -7,7 +7,7 @@ device id stays stable forever.
 from datetime import UTC, date, datetime
 from uuid import uuid4
 
-from sqlalchemy import Date, DateTime, ForeignKey, Index, Integer, String, Text
+from sqlalchemy import Date, DateTime, ForeignKey, Index, Integer, LargeBinary, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -56,3 +56,20 @@ class AiReport(Base):
         DateTime(timezone=True), nullable=False, default=_now
     )
     resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class AppAttestKey(Base):
+    """An iPhone's App Attest key that Apple vouched for (app/appattest.py): its public half and
+    its counter, which must go up with every request. Nothing else about the phone."""
+
+    __tablename__ = "app_attest_keys"
+
+    # Apple's key id (base64 of the SHA-256 of the public key).
+    key_id: Mapped[str] = mapped_column(String(44), primary_key=True)
+    # The public key as an uncompressed P-256 point (65 bytes).
+    public_key: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
+    counter: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, default=_now
+    )
+    used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
