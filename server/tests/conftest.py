@@ -1,7 +1,17 @@
 import os
 
 # Before the app reads its settings: no real database or AI in tests, and ignore server/.env.
-os.environ.update({"DATABASE_URL": "", "LLM_PROVIDER": "fake", "GEMINI_API_KEY": ""})
+# The tests' numbers are written for 50 cards a day per phone, whatever render.yaml (the live
+# limits) or a local .env says.
+os.environ.update(
+    {
+        "DATABASE_URL": "",
+        "LLM_PROVIDER": "fake",
+        "GEMINI_API_KEY": "",
+        "DAILY_CARD_QUOTA": "50",
+        "UNVERIFIED_DAILY_CARD_QUOTA": "50",
+    }
+)
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402

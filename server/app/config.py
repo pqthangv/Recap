@@ -24,11 +24,11 @@ class Settings(BaseSettings):
     llm_provider: Literal["gemini", "fake"] = "gemini"
 
     # Per phone that Google Play vouches for (app/integrity.py); per install while that's off.
-    daily_card_quota: int = 50
+    daily_card_quota: int = 30
     # Per install id, for requests without a ticket that passes: apps older than 1.0.7, the
     # website, iPhones for now, emulators and sideloaded builds. Lower it (render.yaml) once most
     # phones have the new app; no app update needed. Only used while the check below is on.
-    unverified_daily_card_quota: int = 50
+    unverified_daily_card_quota: int = 30
     # Google Play Integrity: the service account key (the whole JSON file) allowed to ask Google
     # to read the app's tickets. Empty = off: tickets are ignored and every request counts by its
     # install id, as before.
