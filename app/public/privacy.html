@@ -228,6 +228,17 @@
         done (for example, without Google Play), Recap works as before with the random ID.
       </p>
       <p>
+        <strong>On iPhone</strong> (from version 1.0.8), Recap uses Apple's App Attest for the same
+        check. The first time you use "Create with AI", your iPhone makes a key in its security
+        chip, and Apple confirms to our server that it belongs to the real Recap app on a genuine
+        iPhone. Each time you tap "Make cards", Recap signs the request with that key. Our database
+        stores Apple's ID for the key, the key's public half (which can only check a signature, not
+        make one) and a counter, with the number of AI cards made each day, and nothing else. The
+        key never leaves your iPhone and is deleted with the app, so a new install makes a new one.
+        If the check can't be done (for example, on an older iPhone), Recap works as before with the
+        random ID.
+      </p>
+      <p>
         Our server also sees your IP address, like any website. Recap uses it only in memory to stop
         abuse (too many requests from one network); our server never stores or logs it. Our hosting
         provider, Render, may keep standard network logs that include IP addresses for a short time,
@@ -249,12 +260,16 @@
       <ul>
         <li><strong>Render</strong> hosts our server (Singapore).</li>
         <li>
-          <strong>Neon</strong> hosts the database with the device IDs, daily AI counts and reported
-          cards (Singapore).
+          <strong>Neon</strong> hosts the database with the device IDs, iPhone App Attest keys,
+          daily AI counts and reported cards (Singapore).
         </li>
         <li>
           <strong>Google (Play Integrity)</strong> checks, on Android, that AI requests come from
           the real Recap app, as described above.
+        </li>
+        <li>
+          <strong>Apple (App Attest)</strong> confirms, on iPhone, that AI requests come from the
+          real Recap app, as described above.
         </li>
         <li>
           <strong>Google (Gemini API)</strong> makes the cards from the material you send, as
