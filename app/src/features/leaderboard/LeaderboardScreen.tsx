@@ -380,15 +380,40 @@ function BoardRow({
           </Text>
         ) : null}
       </View>
-      {by === 'streak' ? (
-        <View style={styles.score}>
-          <FlameIcon size={20} lit={row.streak > 0} />
-          <Text style={styles.scoreText}>{streak}</Text>
-        </View>
-      ) : (
-        <Text style={[styles.score, styles.scoreText]}>{cards}</Text>
-      )}
+      {/* Both scores: the one it's sorted by on top, the other under it, like the @username. */}
+      <View style={styles.scores}>
+        {by === 'streak' ? (
+          <>
+            <StreakScore streak={row.streak} text={streak} />
+            <Text style={[styles.otherScore, styles.otherLine]}>{cards}</Text>
+          </>
+        ) : (
+          <>
+            <Text style={styles.scoreText}>{cards}</Text>
+            <StreakScore streak={row.streak} text={streak} small />
+          </>
+        )}
+      </View>
     </Pressable>
+  );
+}
+
+/** "🔥 12 days", bold, or `small` and grey under the cards. */
+function StreakScore({
+  streak,
+  text,
+  small = false,
+}: {
+  streak: number;
+  text: string;
+  small?: boolean;
+}) {
+  const styles = useStyles(makeStyles);
+  return (
+    <View style={[styles.streak, small && styles.otherLine]}>
+      <FlameIcon size={small ? 14 : 20} lit={streak > 0} />
+      <Text style={small ? styles.otherScore : styles.scoreText}>{text}</Text>
+    </View>
   );
 }
 
@@ -598,8 +623,11 @@ const makeStyles = (colors: Colors) =>
     name: { fontSize: 16, fontWeight: '500', color: colors.text },
     anonymous: { color: colors.muted, fontStyle: 'italic' },
     username: { fontSize: 13, color: colors.muted, marginTop: 2 },
-    score: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+    scores: { alignItems: 'flex-end' },
+    streak: { flexDirection: 'row', alignItems: 'center', gap: 4 },
     scoreText: { fontSize: 16, fontWeight: '600', color: colors.text },
+    otherScore: { fontSize: 13, color: colors.muted },
+    otherLine: { marginTop: 2 },
     follow: { gap: 8 },
     followRow: { flexDirection: 'row', gap: 8, alignItems: 'center' },
     input: {
