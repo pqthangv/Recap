@@ -16,7 +16,7 @@ import {
 import { accountClient } from './api';
 import { browserSecret } from './secret';
 
-export const APP_RETURN = 'recapcards://signed-in';
+const APP_RETURN = 'recapcards://signed-in';
 const LATE_LINK_MS = 700;
 
 /** What the website's page came back with (browser.web.ts); on a phone there's never one. */
