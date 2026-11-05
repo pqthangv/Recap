@@ -711,7 +711,7 @@ export const vi: Strings = {
   'board.report': 'Báo cáo tên',
   'board.reportTitle': 'Báo cáo tên này?',
   'board.reportBody':
-    'Hãy báo cáo tên thô lỗ hoặc mạo danh người khác. Recap xem từng báo cáo, và tên bị 3 người báo cáo sẽ bị ẩn cho đến khi được đổi.',
+    'Hãy báo cáo tên thô lỗ hoặc mạo danh người khác. Recap xem từng báo cáo, và tên bị 100 người báo cáo sẽ bị ẩn cho đến khi được đổi.',
   'board.reported': 'Cảm ơn bạn. Recap sẽ xem xét.',
   'board.changeName': 'Đổi tên của tôi',
 

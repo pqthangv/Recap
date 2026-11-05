@@ -710,7 +710,7 @@ export const en = {
   'board.report': 'Report name',
   'board.reportTitle': 'Report this name?',
   'board.reportBody':
-    'Report a name that is rude or pretends to be someone else. Recap looks at every report, and a name reported by 3 people is hidden until it is changed.',
+    'Report a name that is rude or pretends to be someone else. Recap looks at every report, and a name reported by 100 people is hidden until it is changed.',
   'board.reported': 'Thanks. Recap will look at it.',
   'board.changeName': 'Change my name',
 
