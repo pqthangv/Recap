@@ -34,6 +34,11 @@ class Settings(BaseSettings):
     # install id, as before.
     play_integrity_credentials: str = ""
     android_package: str = "com.recapcards.app"
+    # Apple App Attest (app/appattest.py): Recap's App ID (Team ID + bundle ID), which every key
+    # must be for. Keys from Apple's development service (debug builds) only count when
+    # APP_ATTEST_DEVELOPMENT is true; App Store and TestFlight builds use the production one.
+    apple_app_id: str = "4AN4UNX4PW.com.recapcards.app"
+    app_attest_development: bool = False
     # Per network address (see app/abuse.py): stops one machine inventing device ids.
     ip_daily_card_quota: int = 200
     ip_requests_per_minute: int = 30
