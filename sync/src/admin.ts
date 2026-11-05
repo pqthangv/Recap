@@ -4,7 +4,7 @@
 // secret, or with one shorter than 32 characters, the page doesn't exist.
 //   GET  /admin        reported names, newest report first, and the names hidden for good
 //   POST /admin/hide   id or username (a form): hides the names for good, "Anonymous" to everyone
-//                      (also after a rename)
+//                      (also after a rename, or leaving and joining again)
 //   POST /admin/show   id: shows them again and forgets their reports
 // Posts must come from this page (the Origin header): the browser sends the saved login with a
 // form on any site. Not under /v1: no sign-in token, nothing counts toward the daily limits.
@@ -139,8 +139,8 @@ function listPage(names: AdminName[], members: number, notice: string): string {
 <main>
 <h1>Leaderboard names</h1>
 <p class="meta">${summary}. "Hide for good" shows the person as Anonymous to everyone, also after
-  they change their name. A name reported by ${REPORTS_TO_HIDE} people is hidden on its own until
-  it's changed.</p>
+  they change their name or leave and join again (until they delete their account). A name
+  reported by ${REPORTS_TO_HIDE} people is hidden on its own until it's changed.</p>
 ${notice ? `<p class="notice">${escape(notice)}</p>` : ''}
 <form class="find" method="post" action="/admin/hide">
   <label for="username">Hide any name for good</label>

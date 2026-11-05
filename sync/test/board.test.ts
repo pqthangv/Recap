@@ -38,6 +38,16 @@ describe('names', () => {
       'the.therapist',
       "O'Brien",
       'lan_2003',
+      // Close to the staff words, but names.
+      'Badminton Fan',
+      'Kim Stafford',
+      'Modern Lan',
+      'Hồ Trọng',
+      'Mẹ Lan',
+      'Nam',
+      'Nam Khánh',
+      'Kỳ Duyên',
+      'Backyard Lan',
     ]) {
       expect(isAllowed(name)).toBe(true);
     }
@@ -57,13 +67,41 @@ describe('names', () => {
       'dit me',
       'thằng chó',
       'motherfucker99',
+      'mmb',
+      'Mẹ Mày Béo',
+      'memaybeo123',
+      'clgt',
+      'Óc Chó',
+      'oc cho',
+      'Bắc Kỳ',
+      'nam kỳ',
+      'bac.ky',
+      'namky',
     ]) {
       expect(isAllowed(name)).toBe(false);
     }
   });
 
   it('keeps names that pass for Recap or an anonymous row', () => {
-    for (const name of ['Anonymous', 'Ẩn danh', 'an.danh', 'recap', 'Support']) {
+    for (const name of [
+      'Anonymous',
+      'Ẩn danh',
+      'an.danh',
+      'recap',
+      'Support',
+      'Recap Admin',
+      'the_admin',
+      'adm1n',
+      'admin.lan',
+      'Recap Team',
+      'Official Lan',
+      'Support Team',
+      'Mod',
+      'Staff',
+      'Quản Trị Viên',
+      'Hỗ Trợ Recap',
+      'Ban Điều Hành',
+    ]) {
       expect(isAllowed(name)).toBe(false);
     }
   });

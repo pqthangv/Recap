@@ -83,6 +83,18 @@ const WORDS = new Set([
   'vcl',
   'vkl',
   'clm',
+  'clgt',
+  'cmnr',
+  'dcmm',
+  'dmcs',
+  'mmb',
+  // Regional slurs written as one word (as two, they're in PAIRS).
+  'backy',
+  'namky',
+  // Passing for Recap's own people (also STAFF below), as whole words ("Stafford" is a name).
+  'mod',
+  'mods',
+  'staff',
 ]);
 
 /**
@@ -129,6 +141,7 @@ const PARTS = [
   'whore',
   'ditme',
   'dume',
+  'memaybeo',
 ];
 
 /** Two words in a row, without accents. */
@@ -137,6 +150,10 @@ const PAIRS = [
   ['dit', 'ma'],
   ['du', 'me'],
   ['du', 'ma'],
+  ['oc', 'cho'],
+  // Regional slurs (user, 2026-11-05): "bắc kỳ", "nam kỳ", with or without accents.
+  ['bac', 'ky'],
+  ['nam', 'ky'],
 ];
 
 /** Two words in a row, with their accents ("Thắng" is a name, "thằng chó" an insult). */
@@ -144,7 +161,19 @@ const VI_PAIRS = [
   ['thằng', 'chó'],
   ['đồ', 'chó'],
   ['óc', 'chó'],
+  // Passing for Recap's own people: admin, support, moderator, official.
+  ['quản', 'trị'],
+  ['hỗ', 'trợ'],
+  ['điều', 'hành'],
+  ['chính', 'thức'],
 ];
+
+/**
+ * Words that pass for Recap's own people, at the start or end of any word, without accents or
+ * spaces: "Recap Admin", "theadmin", "adm1n", "Support Team", but not "badminton".
+ */
+const STAFF = ['admin', 'moderator', 'official', 'recap', 'support'];
+const isStaff = (word: string) => STAFF.some((s) => word.startsWith(s) || word.endsWith(s));
 
 const hasPair = (words: readonly string[], pairs: readonly string[][]) =>
   words.some((word, i) => pairs.some(([a, b]) => word === a && words[i + 1] === b));
@@ -177,6 +206,7 @@ export function isAllowed(name: string): boolean {
   }
   if (PARTS.some((part) => joined.includes(part))) return false;
   if (hasPair(plain, PAIRS) || hasPair(words, VI_PAIRS)) return false;
+  if (isStaff(joined) || plain.some(isStaff)) return false;
   return !RESERVED.has(joined);
 }
 

@@ -131,6 +131,28 @@ describe('/admin', () => {
     expect((await w.page()).text).toContain('Nothing to look at');
   });
 
+  it('keeps a name hidden for good after leaving and joining again, until Show again', async () => {
+    const w = worker();
+    const rude = await w.person('Rude Name', 'rude.name');
+    const viewer = await w.person('Binh', 'binh');
+    await w.post('hide', { id: rude.profile.id });
+    expect((await rude.call('board/leave', 'POST')).status).toBe(200);
+
+    const back = await rude.join('Kind Name', 'kind.name');
+    expect(back).toMatchObject({ hidden: true, hiddenForGood: true });
+    expect(back.id).not.toBe(rude.profile.id);
+    expect(await shownName(viewer, back.id)).toBeNull();
+    expect((await w.page()).text).toContain('@kind.name');
+
+    await w.post('show', { id: back.id });
+    expect(await shownName(viewer, back.id)).toBe('Kind Name');
+    // Shown again for good: leaving and joining no longer brings the mark back.
+    expect((await rude.call('board/leave', 'POST')).status).toBe(200);
+    const fresh = await rude.join();
+    expect(fresh.hidden).toBe(false);
+    expect(fresh.hiddenForGood).toBeUndefined();
+  });
+
   it('hides any username typed in, with or without the @', async () => {
     const w = worker();
     const lan = await w.person('Lan Anh', 'lan.anh');

@@ -5,7 +5,8 @@
 //   GET  /v1/board?tab=<everyone|friends>&by=<streak|week>&min=<n>   the board
 //   GET  /v1/board/me      my names, or 404 not_joined
 //   PUT  /v1/board/me      {"displayName", "username", "anonymous"}: joins, or changes them
-//   POST /v1/board/leave   deletes my row, follows, blocks and reports
+//   POST /v1/board/leave   deletes my row, follows, blocks and reports (a name Recap hid for good
+//                          stays hidden if I join again: hidden_accounts)
 //   POST /v1/board/score   {"streak", "streakUntil", "week", "weekCards"}, sent after a sync
 //   POST /v1/board/follow  {"username"}
 //   POST /v1/board/<unfollow|block|unblock|report>   {"id"}
@@ -74,8 +75,11 @@ const WEEK = /^\d{4}-\d{2}-\d{2}$/;
 export type Tab = 'everyone' | 'friends';
 export type Ranking = 'streak' | 'week';
 export type Names = { displayName: string; username: string; anonymous: boolean };
-/** Mine, as I see it; `hidden`: other people see "Anonymous" because of reports or a word. */
-export type Profile = Names & { id: string; hidden: boolean };
+/**
+ * Mine, as I see it; `hidden`: other people see "Anonymous" because of reports or a word;
+ * `hiddenForGood`: because Recap hid it on /admin (a new name doesn't help).
+ */
+export type Profile = Names & { id: string; hidden: boolean; hiddenForGood?: true };
 export type Score = { streak: number; streakUntil: number; week: string; weekCards: number };
 /** Names are null for an anonymous or hidden member. */
 export type Row = {
@@ -254,6 +258,11 @@ export class Board extends DurableObject<Env> {
     ) without rowid`);
     sql.exec('create index if not exists reports_reported on reports (reported)');
     sql.exec('create table if not exists written (day text primary key, rows integer not null)');
+    // Accounts whose names Recap hid for good: kept after leaving, so joining again starts hidden;
+    // gone with "Show again" on /admin or when the account is deleted. The account id only.
+    sql.exec(`create table if not exists hidden_accounts (
+      account text primary key, at integer not null
+    ) without rowid`);
   }
 
   /** Runs a statement and counts the rows it wrote. */
@@ -316,6 +325,7 @@ export class Board extends DurableObject<Env> {
       username: m.username,
       anonymous: m.anonymous === 1,
       hidden: m.hidden > 0 || !namesAllowed({ displayName: m.display_name, username: m.username }),
+      ...(m.hidden === 2 ? { hiddenForGood: true as const } : {}),
     };
   }
 
@@ -339,13 +349,17 @@ export class Board extends DurableObject<Env> {
     const anonymous = names.anonymous ? 1 : 0;
     const m = this.member(account);
     if (!m) {
+      // Someone Recap hid for good who left comes back hidden.
+      const hiddenBefore =
+        this.exec('select 1 from hidden_accounts where account = ?', account).rows.length > 0;
       this.exec(
-        'insert into members (id, account, username, display_name, anonymous, joined_at) values (?, ?, ?, ?, ?, ?)',
+        'insert into members (id, account, username, display_name, anonymous, hidden, joined_at) values (?, ?, ?, ?, ?, ?, ?)',
         crypto.randomUUID(),
         account,
         names.username,
         names.displayName,
         anonymous,
+        hiddenBefore ? 2 : 0,
         now,
       );
     } else {
@@ -365,8 +379,12 @@ export class Board extends DurableObject<Env> {
     return this.profileOf(this.member(account)!);
   }
 
-  /** Leaving (or deleting the account): my row and everything about me. */
-  async leave(account: string): Promise<void> {
+  /**
+   * Leaving: my row and everything about me, except that Recap hid my name for good.
+   * `deletingAccount`: that goes too.
+   */
+  async leave(account: string, deletingAccount = false): Promise<void> {
+    if (deletingAccount) this.exec('delete from hidden_accounts where account = ?', account);
     const m = this.member(account);
     if (!m) return;
     this.exec('delete from follows where follower = ? or followee = ?', m.id, m.id);
@@ -645,8 +663,9 @@ export class Board extends DurableObject<Env> {
   }
 
   /**
-   * For /admin: hides a member's names for good (others see "Anonymous", also after a rename), or
-   * shows them again and forgets their reports. `who`: the member id, or a username.
+   * For /admin: hides a member's names for good (others see "Anonymous", also after a rename or
+   * leaving and joining again), or shows them again and forgets their reports. `who`: the member
+   * id, or a username.
    */
   async adminSetHidden(
     who: { id: string } | { username: string },
@@ -659,7 +678,16 @@ export class Board extends DurableObject<Env> {
           null);
     if (!m) return null;
     this.exec('update members set hidden = ? where id = ?', hide ? 2 : 0, m.id);
-    if (!hide) this.exec('delete from reports where reported = ?', m.id);
+    if (hide) {
+      this.exec(
+        'insert into hidden_accounts (account, at) values (?, ?) on conflict (account) do nothing',
+        m.account,
+        Date.now(),
+      );
+    } else {
+      this.exec('delete from reports where reported = ?', m.id);
+      this.exec('delete from hidden_accounts where account = ?', m.account);
+    }
     this.everyone = null;
     return m.username;
   }
