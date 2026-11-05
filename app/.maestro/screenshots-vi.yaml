@@ -1,0 +1,159 @@
+# The Vietnamese App Store screenshots: the same steps as screenshots.yaml (keep the two in step),
+# with the app in Vietnamese (the workflow's language "vi" makes the demo database with Settings ›
+# Language = Tiếng Việt) and every label it taps or waits for taken from src/lib/i18n/vi.ts. The
+# demo decks stay as they are. Create with AI makes German words with Vietnamese meanings.
+# Generated from screenshots.yaml with every label swapped; the comments below are the English
+# flow's.
+appId: com.recapcards.app
+---
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 120000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: home
+
+# Typed recall. "German words" has one card due, "der Apfel" (scripts/demo-data.ts): type a near
+# miss and check it. Recap marks the swapped letters, says "Almost: check the spelling" and
+# highlights Hard. Nothing is graded, so the data stays the same.
+- tapOn: 'German words.*'
+- extendedWaitUntil:
+    visible: 'Học bộ thẻ này.*'
+    timeout: 30000
+- tapOn: 'Học bộ thẻ này.*'
+- extendedWaitUntil:
+    visible: 'Câu trả lời của bạn.*'
+    timeout: 30000
+- tapOn: 'Câu trả lời của bạn.*'
+- inputText: 'the appel'
+- tapOn: Kiểm tra
+- extendedWaitUntil:
+    visible: 'Gần đúng.*'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: study
+
+# Each deck's own voices: Spanish basics is read in Spanish and English. The shot shows the list
+# of 12 languages open, with Español ticked (nothing is changed).
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 60000
+- tapOn: 'Spanish basics.*'
+- extendedWaitUntil:
+    visible: 'Học bộ thẻ này.*'
+    timeout: 30000
+- tapOn: Sửa bộ thẻ
+- extendedWaitUntil:
+    visible: Đọc thành tiếng bằng
+    timeout: 30000
+- tapOn: 'Ngôn ngữ mặt trước của thẻ.*'
+- extendedWaitUntil:
+    visible: Đọc mặt trước của thẻ bằng
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: voices
+
+# The Library of ready-made decks, scrolled to TOEIC (nothing is added).
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 60000
+- tapOn: Thư viện
+- extendedWaitUntil:
+    visible: 'Các bộ thẻ có sẵn.*'
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: TOEIC vocabulary
+    direction: DOWN
+    centerElement: true
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: library
+
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 60000
+- tapOn: Thống kê
+- extendedWaitUntil:
+    visible: 'Thẻ đã học trong 7 ngày qua'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: stats
+
+# Checks, not for the stores (the slides script only takes the names above): the two sheets
+# with the keyboard open, scrolled down, so the screenshots show whether Save can still be
+# reached. On an iPad these open as sheets with space around them. Nothing is typed or saved.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 60000
+- tapOn: Thêm bộ thẻ hoặc thẻ
+- tapOn: Thêm thẻ
+- extendedWaitUntil:
+    visible: Mặt trước
+    timeout: 30000
+- scroll
+- scroll
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-card-editor
+# Start again rather than tap Cancel: on the folded iPhone Duo the deck form's top bar (title and
+# Cancel) was gone after scrolling with the keyboard open (2026-11-05), and the run stopped there.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 60000
+- tapOn: Thêm bộ thẻ hoặc thẻ
+- tapOn: Bộ thẻ mới
+- extendedWaitUntil:
+    visible: Tên bộ thẻ
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-deck-form-top
+- scroll
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-deck-form
+
+# Create with AI in two languages. It uses the real server (the workflow wakes it up first) and
+# the free Gemini quota, so it comes last.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 60000
+- tapOn: Thêm bộ thẻ hoặc thẻ
+- tapOn: Tạo bằng AI
+# The tab is "Topic"; its text box has its own label (Android adds the placeholder to it).
+- tapOn: Chủ đề
+- tapOn: 'Chủ đề để tạo thẻ.*'
+- inputText: Từ tiếng Đức về đồ ăn
+# Close the keyboard with its Done key (hideKeyboard is unreliable on iOS; on a small screen like
+# the folded iPhone Duo the keyboard covers the rest of the form, so a tap could land on a key).
+- pressKey: Enter
+# A ticked language reads "Deutsch, ✓" (a second try finds it ticked by the first).
+- tapOn: 'Ngôn ngữ mặt trước của thẻ.*'
+- tapOn: 'Deutsch(, ✓)?'
+- tapOn: 'Ngôn ngữ mặt sau của thẻ.*'
+- tapOn: 'Tiếng Việt(, ✓)?'
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: ai
+- tapOn: Tạo thẻ
+# iPhone asks once before sending text to Google Gemini (src/features/ai/consent.ts).
+- tapOn:
+    text: Cho phép
+    optional: true
+- extendedWaitUntil:
+    visible: Xem lại thẻ
+    timeout: 150000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: ai-review

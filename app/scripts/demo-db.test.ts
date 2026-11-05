@@ -1,10 +1,11 @@
 // A ready-made Recap database with the demo decks, for App Store screenshots in the iPhone
 // simulator (.github/workflows/ios.yml copies it into the app before Maestro takes the pictures):
 //
-//   MAKE_DEMO_DB=path/to/recap.db npx jest scripts/demo-db
+//   MAKE_DEMO_DB=path/to/recap.db [DEMO_LANGUAGE=vi] npx jest scripts/demo-db
 //
 // It's made by the app's own migrations and backup import, and marked as already seeded so the
-// welcome decks don't appear. Skipped in normal `npm test` runs.
+// welcome decks don't appear. DEMO_LANGUAGE picks the app's language (Settings › Language) for the
+// English or Vietnamese store pictures; the decks stay the same. Skipped in normal `npm test` runs.
 import { closeTestDb, migrateTestDb } from '../test/db';
 
 import type * as BackupDb from '@/db/backup';
@@ -18,6 +19,9 @@ const fs = require('fs');
 /* eslint-enable @typescript-eslint/no-require-imports */
 
 const OUT: string | undefined = process.env.MAKE_DEMO_DB;
+const LANGUAGE = process.env.DEMO_LANGUAGE ?? 'en';
+if (LANGUAGE !== 'en' && LANGUAGE !== 'vi')
+  throw new Error(`DEMO_LANGUAGE: en or vi, not ${LANGUAGE}`);
 // jest.mock factories may only use variables whose names start with "mock", and they run when the
 // client is first imported. So the db modules are required inside the test (after mockFile is set),
 // and an old file is removed here, before the database opens: deleting an open file would lose
@@ -34,10 +38,11 @@ jest.mock('@/db/client', () => {
   await migrateTestDb(); // opens the file (the mock above) and runs the app's migrations
   /* eslint-disable @typescript-eslint/no-require-imports */
   const { importBackup } = require('@/db/backup') as typeof BackupDb;
-  const { setRawSetting } = require('@/db/settings') as typeof SettingsDb;
+  const { setRawSetting, setSetting } = require('@/db/settings') as typeof SettingsDb;
   /* eslint-enable @typescript-eslint/no-require-imports */
   const result = importBackup(makeDemo(Date.now()));
   setRawSetting(SEEDED_KEY, true);
+  setSetting('language', LANGUAGE);
   closeTestDb();
   console.log(`${result.decks} decks, ${result.cards} cards, ${result.reviews} reviews → ${OUT}`);
   expect(fs.statSync(OUT as string).size).toBeGreaterThan(0);

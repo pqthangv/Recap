@@ -22,6 +22,11 @@ on:
         type: choice
         options: [pro-max, duo, ipad]
         default: pro-max
+      language:
+        description: The app's language in the screenshots (the demo decks stay the same)
+        type: choice
+        options: [en, vi]
+        default: en
 
 jobs:
   ios:
@@ -34,6 +39,7 @@ jobs:
     env:
       SCREENSHOTS: ${{ github.event_name == 'workflow_dispatch' && inputs.screenshots }}
       DEVICE: ${{ inputs.device || 'pro-max' }}
+      LANGUAGE: ${{ inputs.language || 'en' }}
     defaults:
       run:
         working-directory: app
@@ -123,10 +129,11 @@ jobs:
       # ---- Screenshots (only when asked) ------------------------------------------------------
       # The demo decks come from a ready-made database (scripts/demo-db.test.ts: the app's own
       # migrations + backup import), copied into the app before Maestro taps through the screens
-      # (.maestro/screenshots.yaml). "Create with AI" uses the live server and Gemini.
+      # (.maestro/screenshots.yaml, or screenshots-vi.yaml with the app in Vietnamese). "Create with
+      # AI" uses the live server and Gemini.
       - name: 'Screenshots: make the demo database'
         if: env.SCREENSHOTS == 'true'
-        run: MAKE_DEMO_DB="$RUNNER_TEMP/recap.db" npx jest scripts/demo-db --ci
+        run: MAKE_DEMO_DB="$RUNNER_TEMP/recap.db" DEMO_LANGUAGE="$LANGUAGE" npx jest scripts/demo-db --ci
       - uses: actions/setup-java@v6
         if: env.SCREENSHOTS == 'true'
         with:
@@ -181,11 +188,13 @@ jobs:
           # try, also when a later screen failed. The slow simulator sometimes misses a step, so a
           # stopped run is tried once more; the screens from both tries are kept.
           mkdir -p screenshots/maestro-logs
+          FLOW=.maestro/screenshots.yaml
+          if [ "$LANGUAGE" = vi ]; then FLOW=.maestro/screenshots-vi.yaml; fi
           status=0
           for attempt in 1 2; do
             out="$RUNNER_TEMP/maestro-$attempt"
             status=0
-            maestro test --test-output-dir "$out" .maestro/screenshots.yaml || status=$?
+            maestro test --test-output-dir "$out" "$FLOW" || status=$?
             find "$out" -path "*takeScreenshot*" -name "*.png" -exec cp {} screenshots/ \;
             cp -R "$out" "screenshots/maestro-logs/attempt-$attempt" 2>/dev/null || true
             [ $status -eq 0 ] && break
@@ -196,6 +205,6 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always() && env.SCREENSHOTS == 'true'
         with:
-          name: ios-screenshots-${{ env.DEVICE }}
+          name: ios-screenshots-${{ env.DEVICE }}-${{ env.LANGUAGE }}
           path: app/screenshots/
           if-no-files-found: ignore
