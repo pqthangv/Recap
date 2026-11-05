@@ -12,6 +12,9 @@
       "bundleIdentifier": "com.recapcards.app",
       "buildNumber": "1",
       "supportsTablet": false,
+      "entitlements": {
+        "com.apple.developer.devicecheck.appattest-environment": "production"
+      },
       "config": {
         "usesNonExemptEncryption": false
       },

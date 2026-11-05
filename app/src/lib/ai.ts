@@ -1,7 +1,8 @@
 // Talking to Recap's server for AI cards. No API keys here: the server holds them.
 // Errors come back as AiError with a friendly message to show as-is.
+import { generateClientData } from './appAttest';
 import { language, t, type StringKey } from './i18n';
-import { NO_TICKETS, type TicketSource } from './integrity';
+import { NO_TICKETS, type PhoneRef, type Ticket, type TicketSource } from './integrity';
 import type { CardLanguage } from './language';
 
 export type GeneratedCard = { front: string; back: string };
@@ -124,6 +125,22 @@ export type UploadFile = Blob | { name: string; type: string; bytes(): Promise<U
 
 const TIMEOUTS = { health: 70_000, quota: 70_000, generate: 120_000, pdf: 90_000, report: 70_000 };
 
+/** /v1/quota's say on whose count to show: the phone's own once the server knows it. */
+function phoneQuery(phone: PhoneRef | null): string {
+  if (!phone) return '';
+  return 'phoneId' in phone
+    ? `&phone_id=${phone.phoneId}`
+    : `&attest_key_id=${encodeURIComponent(phone.attestKeyId)}`;
+}
+
+/** A ticket as /v1/generate takes it: Play Integrity's (Android) or App Attest's (iPhone). */
+function ticketFields(ticket: Ticket | null) {
+  if (!ticket) return {};
+  return 'phoneId' in ticket
+    ? { phone_id: ticket.phoneId, integrity_token: ticket.token }
+    : { attest_key_id: ticket.attestKeyId, attest_assertion: ticket.assertion };
+}
+
 export function createAiClient({
   baseUrl,
   deviceId,
@@ -157,8 +174,8 @@ export function createAiClient({
   }
 
   return {
-    /** Wakes the server (the free host sleeps when idle) and gets Google Play ready for a
-     *  ticket. Errors are ignored. */
+    /** Wakes the server (the free host sleeps when idle) and gets a ticket ready (Google Play;
+     *  an iPhone registers its App Attest key). Errors are ignored. */
     warmUp(): Promise<void> {
       tickets.warmUp();
       return request('/health', { method: 'GET' }, TIMEOUTS.health).then(
@@ -170,8 +187,7 @@ export function createAiClient({
     /** Cards left today: the phone's own count once the server knows it, else this install's. */
     async quota(): Promise<Quota> {
       const id = encodeURIComponent(deviceId());
-      const phone = await tickets.phoneId();
-      const path = `/v1/quota?device_id=${id}${phone ? `&phone_id=${phone}` : ''}`;
+      const path = `/v1/quota?device_id=${id}${phoneQuery(await tickets.phone())}`;
       return request(path, { method: 'GET' }, TIMEOUTS.quota);
     },
 
@@ -184,7 +200,8 @@ export function createAiClient({
       backLanguage?: CardLanguage | null;
     }): Promise<{ cards: GeneratedCard[]; remaining: number }> {
       // A fresh one every time (each works once), so trying again after an error still has one.
-      const ticket = await tickets.ticket();
+      // An iPhone signs this very request.
+      const ticket = await tickets.ticket(generateClientData(input.mode, input.text));
       return request(
         '/v1/generate',
         {
@@ -199,8 +216,7 @@ export function createAiClient({
             back_language: input.backLanguage ?? undefined,
             // This app draws LaTeX between $…$, so the AI may write math that way.
             math: true,
-            phone_id: ticket?.phoneId,
-            integrity_token: ticket?.token,
+            ...ticketFields(ticket),
           }),
         },
         TIMEOUTS.generate,

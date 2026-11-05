@@ -1,26 +1,32 @@
-// Play Integrity tickets for AI requests (roadmap 6.0, Android only for now): proof for Recap's
-// server that a request comes from the real app, installed from Google Play, on a real phone.
-// The server then counts the day's AI cards by the phone itself, which a reinstall doesn't
-// change. The phone is sent as a SHA-256 of its Android ID, never the ID itself. Anything that
-// goes wrong (no Google Play, an emulator, a slow phone) just means no ticket, and the server
-// counts by this install, as before.
+// Play Integrity tickets for AI requests (roadmap 6.0, Android): proof for Recap's server that a
+// request comes from the real app, installed from Google Play, on a real phone. The server then
+// counts the day's AI cards by the phone itself, which a reinstall doesn't change. The phone is
+// sent as a SHA-256 of its Android ID, never the ID itself. Anything that goes wrong (no Google
+// Play, an emulator, a slow phone) just means no ticket, and the server counts by this install,
+// as before. iPhones prove themselves with App Attest instead (appAttest.ts).
 
-/** What the server needs to vouch for a phone. Each ticket works once. */
-export type Ticket = { phoneId: string; token: string };
+/** What the server needs to vouch for a phone for one request: an Android phone's Play Integrity
+ *  ticket, or an iPhone's App Attest assertion. Each works once. */
+export type Ticket =
+  { phoneId: string; token: string } | { attestKeyId: string; assertion: string };
+
+/** Who the phone is for /v1/quota, which needs no ticket. */
+export type PhoneRef = { phoneId: string } | { attestKeyId: string };
 
 export type TicketSource = {
-  /** Gets Google Play ready ahead of time (it can take a few seconds). Never throws. */
+  /** Gets ready ahead of time (Google Play can take a few seconds). Never throws. */
   warmUp(): void;
-  /** This phone's id (hashed), or null where there's none. Never throws. */
-  phoneId(): Promise<string | null>;
-  /** A fresh ticket for one request, or null. Never throws. */
-  ticket(): Promise<Ticket | null>;
+  /** This phone, or null where there's none (yet). Never throws. */
+  phone(): Promise<PhoneRef | null>;
+  /** A fresh ticket for one request, or null. `request`: what an iPhone signs (appAttest.ts
+   *  generateClientData). Never throws. */
+  ticket(request: string): Promise<Ticket | null>;
 };
 
-/** iPhones and the website (for now), and any build without a project number. */
+/** The website, and any build without a project number. */
 export const NO_TICKETS: TicketSource = {
   warmUp: () => undefined,
-  phoneId: () => Promise.resolve(null),
+  phone: () => Promise.resolve(null),
   ticket: () => Promise.resolve(null),
 };
 
@@ -42,7 +48,7 @@ const PHONE_ID = /^[0-9a-f]{64}$/;
 // Google Play's ticket maker expired: make a new one and try again (@expo/app-integrity's code).
 const PROVIDER_INVALID = 'ERR_APP_INTEGRITY_PROVIDER_INVALID';
 
-function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+export function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error(`no answer in ${ms} ms`)), ms);
     promise.then(
@@ -58,7 +64,8 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-function codeOf(error: unknown): unknown {
+/** The `code` a native module's error carries, e.g. "ERR_APP_INTEGRITY_INVALID_KEY". */
+export function codeOf(error: unknown): unknown {
   return error && typeof error === 'object' ? (error as { code?: unknown }).code : undefined;
 }
 
@@ -117,7 +124,10 @@ export function createTickets({
       void phoneId();
       void prepared();
     },
-    phoneId,
+    async phone() {
+      const id = await phoneId();
+      return id ? { phoneId: id } : null;
+    },
     async ticket() {
       try {
         const id = await phoneId();

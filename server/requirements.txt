@@ -10,6 +10,9 @@ google-genai==2.29.0
 # Play Integrity (app/integrity.py): the service account login. Both already come with google-genai.
 google-auth==2.62.0
 requests==2.34.2
+# App Attest (app/appattest.py): Apple's certificates and signatures. Already comes with
+# google-auth; pinned because it's used directly.
+cryptography==50.0.2
 pypdf==6.20.0
 psycopg[binary]==3.3.6
 python-multipart==0.0.32

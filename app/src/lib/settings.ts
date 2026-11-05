@@ -103,6 +103,10 @@ export const SYNC_PICTURES_KEY = 'sync_pictures';
  *  sent. Forgotten on signing out. */
 export const BOARD_SENT_KEY = 'board_sent';
 
+/** This iPhone's App Attest key and whether Recap's server took it (lib/appAttest.ts). Per phone:
+ *  the key only works on the iPhone that made it. */
+export const APP_ATTEST_KEY = 'app_attest_key';
+
 /** Settings that belong to this device and are left out of backups and sync. */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
   SYNC_STATE_KEY,
@@ -114,6 +118,7 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   TUTORIAL_TIP_DONE_KEY,
   DEVICE_ID_KEY,
   AI_CONSENT_KEY,
+  APP_ATTEST_KEY,
   REMINDER_OFFERED_KEY,
   AI_FRONT_LANGUAGE_KEY,
   AI_BACK_LANGUAGE_KEY,

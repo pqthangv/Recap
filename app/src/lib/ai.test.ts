@@ -1,4 +1,6 @@
 import { AiError, createAiClient, errorFromResponse, tidyOcrText } from './ai';
+import { generateClientData } from './appAttest';
+import type { Ticket } from './integrity';
 import { setLanguage } from './i18n';
 
 const DEVICE = '6f1c2b9e-3d4a-4e5f-8a7b-1c2d3e4f5a6b';
@@ -65,8 +67,10 @@ describe('AI client', () => {
     const PHONE = 'ab'.repeat(32);
     const tickets = {
       warmUp: jest.fn(),
-      phoneId: jest.fn(() => Promise.resolve(PHONE)),
-      ticket: jest.fn(() => Promise.resolve({ phoneId: PHONE, token: 'ticket-1' })),
+      phone: jest.fn(() => Promise.resolve({ phoneId: PHONE })),
+      ticket: jest.fn((_request: string) =>
+        Promise.resolve<Ticket | null>({ phoneId: PHONE, token: 'ticket-1' }),
+      ),
     };
     const withTickets = (fetch: jest.Mock) =>
       createAiClient({ baseUrl: 'http://server', deviceId: () => DEVICE, tickets, fetch });
@@ -84,7 +88,7 @@ describe('AI client', () => {
     });
 
     it('sends neither when there is no ticket', async () => {
-      tickets.ticket.mockResolvedValueOnce(null as never);
+      tickets.ticket.mockResolvedValueOnce(null);
       const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { cards: [], remaining: 40 }));
       await withTickets(fetch).generate({ text: 'notes', mode: 'text', maxCards: 5 });
       const body = JSON.parse(fetch.mock.calls[0][1].body);
@@ -106,6 +110,36 @@ describe('AI client', () => {
       const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { ok: true }));
       await withTickets(fetch).warmUp();
       expect(tickets.warmUp).toHaveBeenCalled();
+    });
+  });
+
+  describe('with App Attest on an iPhone', () => {
+    const KEY = 'k+/Ey'.repeat(8) + 'abc=';
+    const tickets = {
+      warmUp: jest.fn(),
+      phone: jest.fn(() => Promise.resolve({ attestKeyId: KEY })),
+      ticket: jest.fn((_request: string) =>
+        Promise.resolve<Ticket | null>({ attestKeyId: KEY, assertion: 'signed' }),
+      ),
+    };
+    const withKey = (fetch: jest.Mock) =>
+      createAiClient({ baseUrl: 'http://server', deviceId: () => DEVICE, tickets, fetch });
+
+    it('signs each request for cards, over the request itself', async () => {
+      const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { cards: [], remaining: 40 }));
+      await withKey(fetch).generate({ text: 'my notes', mode: 'text', maxCards: 5 });
+      expect(tickets.ticket).toHaveBeenCalledWith(generateClientData('text', 'my notes'));
+      const body = JSON.parse(fetch.mock.calls[0][1].body);
+      expect(body).toMatchObject({ attest_key_id: KEY, attest_assertion: 'signed' });
+      expect(body).not.toHaveProperty('phone_id');
+    });
+
+    it("asks for the phone's count by its key", async () => {
+      const fetch = jest.fn().mockResolvedValue(jsonResponse(200, { remaining: 50, limit: 50 }));
+      await withKey(fetch).quota();
+      expect(fetch.mock.calls[0][0]).toBe(
+        `http://server/v1/quota?device_id=${DEVICE}&attest_key_id=${encodeURIComponent(KEY)}`,
+      );
     });
   });
 
