@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Image,
   KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -39,6 +40,7 @@ import { insertFormula, replaceFormula, type Selection } from '@/lib/math/templa
 import { can } from '@/lib/platform';
 import { t } from '@/lib/i18n';
 import { useScheme } from '@/lib/appearance';
+import { useKeyboardOffset } from '@/lib/keyboard';
 import {
   type Colors,
   radius,
@@ -54,6 +56,7 @@ export default function CardEditorScreen() {
   const styles = useStyles(makeStyles);
   const scheme = useScheme();
   const colors = useColors();
+  const keyboardOffset = useKeyboardOffset();
   const params = useLocalSearchParams<{ id?: string; deckId?: string }>();
   const router = useRouter();
   const [editing] = useState(() => (params.id ? getCardForEdit(params.id) : undefined));
@@ -170,9 +173,21 @@ export default function CardEditorScreen() {
   }
 
   return (
-    <KeyboardAvoidingView style={styles.screen} behavior="padding">
+    // iPhone and iPad open the editor as a sheet, which starts lower on the screen than React
+    // Native can tell, so there the scroll view itself keeps the fields above the keyboard (it
+    // measures natively, like the deck form). Android: a full screen below the header.
+    <KeyboardAvoidingView
+      style={styles.screen}
+      behavior="padding"
+      keyboardVerticalOffset={keyboardOffset}
+      enabled={Platform.OS !== 'ios'}
+    >
       <Stack.Screen options={{ title: t(editing ? 'screen.editCard' : 'screen.addCard') }} />
-      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+      <ScrollView
+        contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets
+      >
         <Text style={styles.label}>{t('card.deck')}</Text>
         <ScrollView
           horizontal
