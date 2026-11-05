@@ -1,6 +1,7 @@
 import { and, eq, gt, gte, isNull, sql } from 'drizzle-orm';
 
 import { dayKey, dayStartOffset } from '@/lib/day';
+import { streakUntil, weekOf, weekStart, type BoardScore } from '@/lib/leaderboard/score';
 import { State } from '@/lib/scheduler';
 import { lastDays, streak, type DayTotals } from '@/lib/stats';
 
@@ -30,14 +31,19 @@ const answered = and(gt(reviewLogs.rating, 0), isNull(reviewLogs.deleted_at));
 // straddles the 4 AM rollover, and the study day of each slot is worked out in JS.
 const slot = sql`${reviewLogs.reviewed_at} / 900000`;
 
-export function getStats(now = Date.now()): Stats {
-  const days = db
+/** When the new-card goal was met: one time per 15 minutes is enough to tell the days apart. */
+function goalMetTimes(): number[] {
+  return db
     .select({ t: sql<number>`max(${reviewLogs.reviewed_at})` })
     .from(reviewLogs)
     .where(and(answered, eq(reviewLogs.goal_met, 1)))
     .groupBy(slot)
     .all()
     .map((r) => r.t);
+}
+
+export function getStats(now = Date.now()): Stats {
+  const days = goalMetTimes();
   const recent = db
     .select({
       t: sql<number>`max(${reviewLogs.reviewed_at})`,
@@ -66,5 +72,26 @@ export function getStats(now = Date.now()): Stats {
     timeToday: today.ms,
     timeTotal: total?.ms ?? 0,
     lastWeek,
+  };
+}
+
+/** What the leaderboard gets (lib/leaderboard/score.ts): the streak above and this week's cards. */
+export function getBoardScore(now = Date.now()): BoardScore {
+  const times = goalMetTimes();
+  const inARow = streak(times, now);
+  const week = db
+    .select({ cards: sql<number>`count(*)` })
+    .from(reviewLogs)
+    .where(and(answered, gte(reviewLogs.reviewed_at, weekStart(now))))
+    .get();
+  return {
+    streak: inARow,
+    streakUntil: streakUntil(
+      inARow,
+      times.some((t) => dayKey(t) === dayKey(now)),
+      now,
+    ),
+    week: weekOf(now),
+    weekCards: week?.cards ?? 0,
   };
 }

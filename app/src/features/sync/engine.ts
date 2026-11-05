@@ -2,12 +2,13 @@
 // minutes), when it goes to the background with changes to send, a moment after a study session
 // or an import, and from Sync now. One sync at a time, never in the way of studying; offline it
 // waits for next time. Each sync lists the account's files, which counts toward its 150 a day
-// (sync/src/limits.ts), hence the gaps.
+// (sync/src/limits.ts), hence the gaps. After a sync the leaderboard gets the score, if it changed.
 import { useSyncExternalStore } from 'react';
 
 import { getRawSetting, setRawSetting } from '@/db/settings';
 import { databaseDevice, dropUnusedTutorial, forgetSyncState, hasUnsentChanges } from '@/db/sync';
-import { SYNC_LAST_KEY } from '@/lib/settings';
+import { sendScore } from '@/features/leaderboard/score';
+import { BOARD_SENT_KEY, SYNC_LAST_KEY } from '@/lib/settings';
 import { AccountError, needsRenewal } from '@/lib/sync/account';
 import {
   createHttpStore,
@@ -85,6 +86,8 @@ async function run(): Promise<void> {
     const now = Date.now();
     setRawSetting(SYNC_LAST_KEY, now);
     update({ syncing: false, lastSyncedAt: now, problem: null });
+    // With the other devices' cards in, the streak is the account's.
+    void sendScore();
   } catch (e) {
     if (epoch !== started) return forgetSyncState();
     console.warn('Sync stopped', e);
@@ -158,5 +161,6 @@ export function signOut(): void {
   setAccount(null);
   forgetSyncState();
   setRawSetting(SYNC_LAST_KEY, null);
+  setRawSetting(BOARD_SENT_KEY, null);
   update({ syncing: false, lastSyncedAt: null, problem: null });
 }
