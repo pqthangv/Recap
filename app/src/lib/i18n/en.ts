@@ -679,7 +679,12 @@ export const en = {
   'board.everyone': 'Everyone',
   'board.friends': 'Friends',
   'board.byStreak': 'Streak',
-  'board.byWeek': 'This week',
+  'board.byWeek': 'Cards this week',
+  // The chip under the tabs, and the choices it opens.
+  'board.sortLabel': 'Sort: {by} ▾',
+  'board.sortA11y': 'Sorted by {by}. Change',
+  'board.rankBy': 'Sort by',
+  'board.onlyActiveShort': '{n}+ cards',
   'board.onlyActive': 'Only people with {n}+ cards this week',
   'board.anonymous': 'Anonymous',
   'board.you': 'You',
@@ -692,7 +697,7 @@ export const en = {
   'board.rowA11y': 'Number {rank}: {name}, {streak} streak, {cards} this week',
   'board.rowHint': 'Opens choices',
   'board.noFriends':
-    'Follow friends by their username to see them here. They find it under Leaderboard › Edit.',
+    "Ask friends for their username (it's under Leaderboard › Edit), then follow them here.",
   'board.notInList': "You're not in this list: it shows people with {n}+ cards this week.",
   'board.followByUsername': 'Follow by username',
   'board.usernamePlaceholder': 'username',
