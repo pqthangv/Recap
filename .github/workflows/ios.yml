@@ -52,7 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           UDID=$(xcrun simctl list devices available -j | python3 -c '
-          import json, os, sys
+          import itertools, json, os, sys
           device = os.environ["DEVICE"]
           wanted = {"duo": "iPhone Duo", "ipad": "iPad Pro 13-inch"}.get(device, "Pro Max")
           first = {"duo": "iPhone Duo", "ipad": "iPad Pro 13-inch (M5)"}.get(device, "iPhone 17 Pro Max")
@@ -60,7 +60,9 @@ jobs:
           for runtime, devices in json.load(sys.stdin)["devices"].items():
               if ".iOS-" not in runtime:
                   continue
-              version = tuple(int(x) for x in runtime.split(".iOS-")[1].split("-"))
+              # "iOS-27-1", and on some machines also e.g. "iOS-27-1-iPhone19-1": the numbers only.
+              parts = runtime.split(".iOS-")[1].split("-")
+              version = tuple(int(x) for x in itertools.takewhile(str.isdigit, parts))
               for d in devices:
                   if wanted in d["name"]:
                       key = (d["name"] == first, version)
