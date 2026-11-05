@@ -8,6 +8,7 @@ import { useLive } from '@/db/live';
 import { getStats } from '@/db/stats';
 import { count, formatStudyTime, formatStudyTimeLong, weekdayShort } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
+import { isWeb } from '@/lib/platform';
 import { type Colors, radius, useStyles } from '@/lib/theme';
 
 const BAR_MAX_HEIGHT = 140;
@@ -112,6 +113,15 @@ function split(cards: number, newCards: number): string {
   return t('stats.split', { reviews: tn('count.review', cards - newCards), n: newCards });
 }
 
+/**
+ * A tile's value stays on one line, smaller if it must ("2 giờ 13 phút" on an iPhone, "15 days"
+ * on the folded iPhone Duo). The website can't shrink text to fit (it would cut it off), so it
+ * wraps there, in its wider column.
+ */
+const ONE_LINE = isWeb
+  ? {}
+  : { numberOfLines: 1, adjustsFontSizeToFit: true, minimumFontScale: 0.6 };
+
 function Tile({
   label,
   value,
@@ -136,7 +146,9 @@ function Tile({
     >
       <View style={styles.tileTop}>
         {icon}
-        <Text style={styles.tileValue}>{value}</Text>
+        <Text style={styles.tileValue} {...ONE_LINE}>
+          {value}
+        </Text>
       </View>
       <Text style={styles.tileLabel}>{label}</Text>
       {detail ? <Text style={styles.tileDetail}>{detail}</Text> : null}

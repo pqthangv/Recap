@@ -26,7 +26,7 @@ import type { Profile, Ranking, Row, Tab, View as Board } from '@/lib/leaderboar
 import { cleanUsername } from '@/lib/leaderboard/names';
 import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/theme';
 
-import { boardClient } from './api';
+import { boardClient, DEMO_BOARD } from './api';
 import { hiddenNote, problemText } from './problem';
 import { noteJoined, sendScore } from './score';
 
@@ -36,7 +36,8 @@ const RANKINGS: Record<Ranking, StringKey> = { streak: 'board.byStreak', week: '
 
 export default function LeaderboardScreen() {
   const styles = useStyles(makeStyles);
-  const account = useAccount();
+  // The store screenshots' made-up board needs no account (api.ts).
+  const signedIn = useAccount() !== null || DEMO_BOARD;
   // undefined: not known yet; null: not on the board.
   const [profile, setProfile] = useState<Profile | null | undefined>(undefined);
   const [board, setBoard] = useState<Board | null>(null);
@@ -55,7 +56,7 @@ export default function LeaderboardScreen() {
 
   // Who I am on the board, and my newest score there.
   useEffect(() => {
-    if (!account || visit === 0) return;
+    if (!signedIn || visit === 0) return;
     let live = true;
     boardClient
       .me()
@@ -73,7 +74,7 @@ export default function LeaderboardScreen() {
     return () => {
       live = false;
     };
-  }, [account, visit]);
+  }, [signedIn, visit]);
 
   const joined = Boolean(profile);
   const min = tab === 'everyone' && onlyActive ? MIN_CARDS : 0;
@@ -103,7 +104,7 @@ export default function LeaderboardScreen() {
 
   const refresh = () => void sendScore(true).then(() => setReload((n) => n + 1));
 
-  if (!account) {
+  if (!signedIn) {
     return (
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.body}>{t('board.intro')}</Text>
