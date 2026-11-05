@@ -27,12 +27,19 @@
 // every Durable Object fails, the sync counters too (src/limits.ts: up to about 50,000 a day). So
 // the board counts its own rows written and takes no scores past 20,000 a day, nothing past
 // 25,000; scores have no indexes, and a score that didn't change isn't written. The everyone
-// board is worked out from every row at most every 10 minutes (rows read: 5 million a day).
+// board is worked out from every row at most every 30 minutes (rows read, 5 million a day: about
+// 100,000 members); someone joining, renaming, leaving or being hidden changes only their own
+// place in it (`refresh`), so new scores show within 30 minutes, names right away.
+//
+// Words the developer blocks on /admin (`blocked_words`) stop new names and hide names already
+// on the board, like the built-in lists in src/names.ts; the app doesn't know them, so the Worker
+// refuses such a name when it's saved.
 import { DurableObject } from 'cloudflare:workers';
 
 import { EMAIL_LIMITS, sendEmail } from './email';
 import { today } from './limits';
 import {
+  blockedWordIn,
   cleanDisplayName,
   cleanUsername,
   displayNameProblem,
@@ -55,13 +62,17 @@ export const MAX_WEEK_CARDS = 10_000;
 export const REPORTS_TO_HIDE = 100;
 /** The most names /admin lists. */
 export const ADMIN_LIST = 200;
+/** /admin's "Hidden by the filter" and a word's preview check this many members at most. */
+export const ADMIN_SCAN = 5_000;
+export const MAX_BLOCKED_WORDS = 500;
 export const REPORTS_PER_PERSON = 10;
 export const REPORT_EMAILS_PER_DAY = 10;
 export const SCORE_ROWS_PER_DAY = 20_000;
 export const ROWS_PER_DAY = 25_000;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-const CACHE_MS = 10 * 60_000;
+/** How long the everyone board is kept before it's worked out again (user, 2026-11-05: 30). */
+export const CACHE_MS = 30 * 60_000;
 /** Recap's first build: no streak is longer than the days since. */
 const FIRST_DAY = Date.UTC(2026, 9, 11);
 /** The end of tomorrow's study day is at most 2 days away; plus a clock change and some slack. */
@@ -110,6 +121,20 @@ export type AdminName = {
   reports: number;
   /** The newest report (0: none). */
   lastReport: number;
+  /** A word list hides it too: the developer's word, "built-in", or null. */
+  filteredBy: string | null;
+};
+/** A name on /admin hidden by a word: `word` is the developer's, or "built-in". */
+export type FilteredName = NamesOf & { id: string; word: string };
+/** Everything /admin shows. `check`: what blocking a word would hide now. */
+export type AdminPage = {
+  names: AdminName[];
+  members: number;
+  words: { word: string; at: number }[];
+  filtered: FilteredName[];
+  /** More members than ADMIN_SCAN: the filtered list and a check looked at the first ones only. */
+  scanCapped: boolean;
+  check?: { word: string; listed: boolean; builtIn: boolean; hides: FilteredName[] };
 };
 
 type Member = {
@@ -160,8 +185,27 @@ function entryOf(m: Member, now: number): Entry {
   };
 }
 
-const namesAllowed = (e: { displayName: string; username: string }) =>
-  isAllowed(e.displayName) && isAllowed(e.username);
+type NamesOf = { displayName: string; username: string };
+
+/** Why a member's names are hidden by a word: the developer's word, "built-in", or null. */
+function filteredBy(e: NamesOf, blocked: readonly string[]): string | null {
+  if (!isAllowed(e.displayName) || !isAllowed(e.username)) return 'built-in';
+  return blockedWordIn(e.displayName, blocked) ?? blockedWordIn(e.username, blocked);
+}
+
+const namesAllowed = (e: NamesOf, blocked: readonly string[]) => filteredBy(e, blocked) === null;
+
+/** The first place in `list` (sorted by `order`) where `entry` goes. */
+function placeOf(list: readonly Entry[], entry: Entry, order: (a: Entry, b: Entry) => number) {
+  let low = 0;
+  let high = list.length;
+  while (low < high) {
+    const mid = (low + high) >> 1;
+    if (order(list[mid]!, entry) <= 0) low = mid + 1;
+    else high = mid;
+  }
+  return low;
+}
 
 const primary = (by: Ranking, e: Entry) => (by === 'streak' ? e.streak : e.weekCards);
 const secondary = (by: Ranking, e: Entry) => (by === 'streak' ? e.weekCards : e.streak);
@@ -226,6 +270,8 @@ export function streakCap(m: Pick<Member, 'streak' | 'score_at'>, now: number): 
 export class Board extends DurableObject<Env> {
   private written = { day: '', rows: 0, saved: 0 };
   private everyone: { at: number; week: string; byStreak: Entry[]; byWeek: Entry[] } | null = null;
+  /** The developer's blocked words, read once (null: not yet, or changed). */
+  private wordList: string[] | null = null;
 
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
@@ -263,6 +309,40 @@ export class Board extends DurableObject<Env> {
     sql.exec(`create table if not exists hidden_accounts (
       account text primary key, at integer not null
     ) without rowid`);
+    // Words the developer blocked on /admin (cleanBlockedWord), with when.
+    sql.exec(`create table if not exists blocked_words (
+      word text primary key, at integer not null
+    ) without rowid`);
+  }
+
+  private blockedWords(): string[] {
+    this.wordList ??= this.exec<{ word: string }>('select word from blocked_words').rows.map(
+      (r) => r.word,
+    );
+    return this.wordList;
+  }
+
+  private allowed(e: NamesOf): boolean {
+    return namesAllowed(e, this.blockedWords());
+  }
+
+  /**
+   * One member joined, changed names, was hidden or left: the cached everyone board takes that in
+   * at their place, instead of being worked out again from every row.
+   */
+  private refresh(id: string) {
+    const cached = this.everyone;
+    if (!cached) return;
+    const m = this.memberById(id);
+    const entry = m ? entryOf(m, Date.now()) : null;
+    for (const [list, by] of [
+      [cached.byStreak, 'streak'],
+      [cached.byWeek, 'week'],
+    ] as const) {
+      const at = list.findIndex((e) => e.id === id);
+      if (at >= 0) list.splice(at, 1);
+      if (entry) list.splice(placeOf(list, entry, compare(by)), 0, entry);
+    }
   }
 
   /** Runs a statement and counts the rows it wrote. */
@@ -324,7 +404,7 @@ export class Board extends DurableObject<Env> {
       displayName: m.display_name,
       username: m.username,
       anonymous: m.anonymous === 1,
-      hidden: m.hidden > 0 || !namesAllowed({ displayName: m.display_name, username: m.username }),
+      hidden: m.hidden > 0 || !this.allowed({ displayName: m.display_name, username: m.username }),
       ...(m.hidden === 2 ? { hiddenForGood: true as const } : {}),
     };
   }
@@ -334,12 +414,20 @@ export class Board extends DurableObject<Env> {
     return m ? this.profileOf(m) : null;
   }
 
-  /** Joins, or changes my names; the names were checked already. */
+  /**
+   * Joins, or changes my names; the built-in lists checked them already, the developer's words
+   * are checked here.
+   */
   async save(
     account: string,
     names: Names,
     now: number,
-  ): Promise<Profile | 'username_taken' | 'busy'> {
+  ): Promise<
+    Profile | 'username_taken' | 'busy' | 'display_name_not_allowed' | 'username_not_allowed'
+  > {
+    const words = this.blockedWords();
+    if (blockedWordIn(names.displayName, words)) return 'display_name_not_allowed';
+    if (blockedWordIn(names.username, words)) return 'username_not_allowed';
     if (this.writtenToday() >= ROWS_PER_DAY) return 'busy';
     const holder = this.exec<{ account: string }>(
       'select account from members where username = ?',
@@ -375,8 +463,9 @@ export class Board extends DurableObject<Env> {
       );
       if (renamed) this.exec('delete from reports where reported = ?', m.id);
     }
-    this.everyone = null;
-    return this.profileOf(this.member(account)!);
+    const saved = this.member(account)!;
+    this.refresh(saved.id);
+    return this.profileOf(saved);
   }
 
   /**
@@ -391,7 +480,7 @@ export class Board extends DurableObject<Env> {
     this.exec('delete from blocks where blocker = ? or blocked = ?', m.id, m.id);
     this.exec('delete from reports where reporter = ? or reported = ?', m.id, m.id);
     this.exec('delete from members where id = ?', m.id);
-    this.everyone = null;
+    this.refresh(m.id);
   }
 
   async score(
@@ -470,7 +559,7 @@ export class Board extends DurableObject<Env> {
         m.id,
       )
         .rows.map((f) => entryOf(f, now))
-        .filter(namesAllowed)
+        .filter((e) => this.allowed(e))
         .sort(compare(by));
       result = ranked(friends, by, mine, () => true, MAX_FOLLOWING + 1);
     } else {
@@ -486,7 +575,7 @@ export class Board extends DurableObject<Env> {
     }
     const rows = result.top.map(({ entry, rank }): Row => {
       const me = entry.id === m.id;
-      const named = me || (entry.shown && namesAllowed(entry));
+      const named = me || (entry.shown && this.allowed(entry));
       return {
         id: entry.id,
         rank,
@@ -517,7 +606,7 @@ export class Board extends DurableObject<Env> {
       !them ||
       them.anonymous ||
       them.hidden ||
-      !namesAllowed({ displayName: them.display_name, username: them.username }) ||
+      !this.allowed({ displayName: them.display_name, username: them.username }) ||
       this.blockedEither(m.id).has(them.id)
     ) {
       return 'not_found';
@@ -582,7 +671,7 @@ export class Board extends DurableObject<Env> {
       const named =
         !b.anonymous &&
         !b.hidden &&
-        namesAllowed({ displayName: b.display_name, username: b.username });
+        this.allowed({ displayName: b.display_name, username: b.username });
       return {
         id: b.id,
         displayName: named ? b.display_name : null,
@@ -617,7 +706,7 @@ export class Board extends DurableObject<Env> {
         ?.n ?? 0;
     if (reports >= REPORTS_TO_HIDE && them.hidden === 0) {
       this.exec('update members set hidden = 1 where id = ?', id);
-      this.everyone = null;
+      this.refresh(id);
     }
     const todays =
       this.exec<{ n: number }>('select count(*) as n from reports where at >= ?', dayStart).rows[0]
@@ -657,6 +746,10 @@ export class Board extends DurableObject<Env> {
       hidden: n.hidden,
       reports: n.reports,
       lastReport: n.last_report,
+      filteredBy: filteredBy(
+        { displayName: n.display_name, username: n.username },
+        this.blockedWords(),
+      ),
     }));
     const members = this.exec<{ n: number }>('select count(*) as n from members').rows[0]?.n ?? 0;
     return { names, members };
@@ -688,8 +781,64 @@ export class Board extends DurableObject<Env> {
       this.exec('delete from reports where reported = ?', m.id);
       this.exec('delete from hidden_accounts where account = ?', m.account);
     }
-    this.everyone = null;
+    this.refresh(m.id);
     return m.username;
+  }
+
+  /** Members to check for /admin, at most ADMIN_SCAN (and whether there are more). */
+  private scanMembers(): { rows: (NamesOf & { id: string })[]; capped: boolean } {
+    const rows = this.exec<{ id: string; display_name: string; username: string }>(
+      'select id, display_name, username from members order by joined_at limit ?',
+      ADMIN_SCAN + 1,
+    ).rows.map((r) => ({ id: r.id, displayName: r.display_name, username: r.username }));
+    return { rows: rows.slice(0, ADMIN_SCAN), capped: rows.length > ADMIN_SCAN };
+  }
+
+  /** Everything /admin shows; `check`: a cleaned word to preview (what blocking it would hide). */
+  async adminPage(check: string | null): Promise<AdminPage> {
+    const { names, members } = await this.adminNames();
+    const words = this.exec<{ word: string; at: number }>(
+      'select word, at from blocked_words order by word',
+    ).rows;
+    const blocked = this.blockedWords();
+    const { rows, capped } = this.scanMembers();
+    const filtered: FilteredName[] = [];
+    for (const row of rows) {
+      const word = filteredBy(row, blocked);
+      if (word && filtered.length < ADMIN_LIST) filtered.push({ ...row, word });
+    }
+    const page: AdminPage = { names, members, words, filtered, scanCapped: capped };
+    if (check) {
+      const hides = rows
+        .filter(
+          (row) => blockedWordIn(row.displayName, [check]) ?? blockedWordIn(row.username, [check]),
+        )
+        .map((row) => ({ ...row, word: check }));
+      page.check = {
+        word: check,
+        listed: blocked.includes(check),
+        builtIn: !isAllowed(check),
+        hides,
+      };
+    }
+    return page;
+  }
+
+  /** Blocks (or unblocks) a cleaned word; false when the list is full. */
+  async adminSetWord(word: string, block: boolean): Promise<boolean> {
+    if (block) {
+      const { rows } = this.exec<{ n: number }>('select count(*) as n from blocked_words');
+      if ((rows[0]?.n ?? 0) >= MAX_BLOCKED_WORDS) return false;
+      this.exec(
+        'insert into blocked_words (word, at) values (?, ?) on conflict (word) do nothing',
+        word,
+        Date.now(),
+      );
+    } else {
+      this.exec('delete from blocked_words where word = ?', word);
+    }
+    this.wordList = null;
+    return true;
   }
 }
 
@@ -778,6 +927,10 @@ export async function board(
     if (await env.COUNTERS.getByName(account).isClosed()) return fail('account_deleted', 401);
     const saved = await stub.save(account, names, now);
     if (saved === 'username_taken') return fail(saved, 409);
+    // A word the developer blocked: the app shows it under the field, like its own checks.
+    if (saved === 'display_name_not_allowed' || saved === 'username_not_allowed') {
+      return fail(saved, 400);
+    }
     if (saved === 'busy') return fail('daily_limit', 429);
     return json(saved);
   }

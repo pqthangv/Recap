@@ -2,15 +2,25 @@
 // for reported AI cards: plain HTML forms, no JavaScript, behind the browser's login box (user
 // "admin", password = the ADMIN_TOKEN secret: `npx wrangler secret put ADMIN_TOKEN`). Without that
 // secret, or with one shorter than 32 characters, the page doesn't exist.
-//   GET  /admin        reported names, newest report first, and the names hidden for good
+//   GET  /admin        reported names, newest report first, and the names hidden for good; the
+//                      words the developer blocked; the names the word lists hide now
+//   GET  /admin?check=<word>   the same, with what blocking that word would hide (a preview)
 //   POST /admin/hide   id or username (a form): hides the names for good, "Anonymous" to everyone
 //                      (also after a rename, or leaving and joining again)
 //   POST /admin/show   id: shows them again and forgets their reports
+//   POST /admin/words/block, /admin/words/unblock   word (see cleanBlockedWord in src/names.ts)
 // Posts must come from this page (the Origin header): the browser sends the saved login with a
 // form on any site. Not under /v1: no sign-in token, nothing counts toward the daily limits.
-import { REPORTS_TO_HIDE, type AdminName } from './board';
+import {
+  ADMIN_SCAN,
+  MAX_BLOCKED_WORDS,
+  REPORTS_TO_HIDE,
+  type AdminName,
+  type AdminPage,
+  type FilteredName,
+} from './board';
 import { sameText } from './hash';
-import { cleanUsername } from './names';
+import { cleanBlockedWord, cleanUsername } from './names';
 import type { Deps } from './signin';
 
 /** ADMIN_TOKEN is optional (not in wrangler.jsonc's required secrets), so Env doesn't list it. */
@@ -70,6 +80,16 @@ function html(body: string, status = 200, extra: Record<string, string> = {}): R
 
 const STATUS = ['Shown', 'Hidden after reports', 'Hidden for good'];
 
+/** "Shown", "Hidden for good", or what word list hides a name that's otherwise shown. */
+function status(n: AdminName): string {
+  if (n.hidden === 0 && n.filteredBy) {
+    return n.filteredBy === 'built-in'
+      ? 'Hidden by the built-in list'
+      : `Hidden by "${escape(n.filteredBy)}"`;
+  }
+  return STATUS[n.hidden] ?? 'Hidden';
+}
+
 function item(n: AdminName): string {
   const id = escape(n.id);
   const reports =
@@ -85,26 +105,83 @@ function item(n: AdminName): string {
   ].join('');
   return `
 <article class="name${n.hidden === 2 ? ' done' : ''}">
-  <p class="meta"><span class="tag">${STATUS[n.hidden] ?? 'Hidden'}</span> ${reports}</p>
+  <p class="meta"><span class="tag">${status(n)}</span> ${reports}</p>
   <p class="display">${escape(n.displayName)}</p>
   <p class="meta">@${escape(n.username)}${n.anonymous ? ' · Anonymous on the board' : ''} · id ${id}</p>
   <div class="actions">${buttons}</div>
 </article>`;
 }
 
-const NOTICES: Record<string, (username: string) => string> = {
+const NOTICES: Record<string, (value: string) => string> = {
   hidden: (u) => `@${u} is hidden for good: everyone sees "Anonymous".`,
   shown: (u) => `@${u} is shown again, and its reports are gone.`,
   missing: (u) => `Nobody on the board is called @${u}.`,
+  blocked: (w) => `"${w}" is blocked: names with it are hidden now, and new ones can't use it.`,
+  unblocked: (w) => `"${w}" is allowed again.`,
+  badword: () => 'A word is 2 to 30 letters; a few words in a row are fine ("bắc kỳ").',
+  full: () => `That's ${MAX_BLOCKED_WORDS} words, the most the list takes.`,
 };
 
-function listPage(names: AdminName[], members: number, notice: string): string {
+const nameLine = (n: FilteredName) =>
+  `${escape(n.displayName)} <span class="meta">@${escape(n.username)}</span>`;
+
+/** What blocking a word would do, with its Block button. */
+function preview(check: NonNullable<AdminPage['check']>, capped: boolean): string {
+  const word = escape(check.word);
+  const shown = check.hides.slice(0, 20);
+  const more = check.hides.length - shown.length;
+  const count = check.hides.length;
+  const hides = count
+    ? `<p>Blocking <strong>"${word}"</strong> would hide ${count} name${count === 1 ? '' : 's'} on the board now${
+        capped ? ` (of the first ${ADMIN_SCAN.toLocaleString('en')} checked)` : ''
+      }:</p><ul>${shown.map((n) => `<li>${nameLine(n)}</li>`).join('')}${
+        more > 0 ? `<li class="meta">and ${more} more</li>` : ''
+      }</ul>`
+    : `<p>Blocking <strong>"${word}"</strong> wouldn't hide any name on the board now.</p>`;
+  const note = check.listed
+    ? '<p class="meta">It\'s already on your list.</p>'
+    : check.builtIn
+      ? '<p class="meta">The built-in lists already stop it.</p>'
+      : '';
+  const block = check.listed
+    ? ''
+    : `<form method="post" action="/admin/words/block"><input type="hidden" name="word" value="${word}">` +
+      `<button type="submit">Block "${word}"</button></form>`;
+  return `<section class="notice">${hides}${note}<div class="actions">${block}<a class="cancel" href="/admin">Cancel</a></div></section>`;
+}
+
+function listPage(page: AdminPage, notice: string): string {
+  const { names, members, words, filtered, scanCapped } = page;
   const open = names.filter((n) => n.reports > 0 && n.hidden !== 2).length;
   const title = open ? `(${open}) Recap names` : 'Recap names';
   const summary = `${open ? `${open} to look at` : 'Nothing new'} · ${members} on the board`;
   const items = names.length
     ? names.map(item).join('')
     : '<p class="empty">Nothing to look at. Names people report in the app show up here.</p>';
+  const wordList = words.length
+    ? words
+        .map(
+          (w) =>
+            `<div class="word"><span><strong>${escape(w.word)}</strong> <span class="meta">since ${when(w.at)}</span></span>` +
+            `<form method="post" action="/admin/words/unblock"><input type="hidden" name="word" value="${escape(w.word)}">` +
+            `<button type="submit">Unblock</button></form></div>`,
+        )
+        .join('')
+    : '<p class="empty">No words of your own yet. The built-in lists are in sync/src/names.ts.</p>';
+  const filteredList = filtered.length
+    ? filtered
+        .map(
+          (n) =>
+            `<article class="name"><p class="meta"><span class="tag">${
+              n.word === 'built-in' ? 'Built-in list' : `"${escape(n.word)}"`
+            }</span></p><p class="display">${escape(n.displayName)}</p>` +
+            `<p class="meta">@${escape(n.username)} · id ${escape(n.id)}</p></article>`,
+        )
+        .join('')
+    : '<p class="empty">None: no name on the board has a blocked word.</p>';
+  const capNote = scanCapped
+    ? ` Only the first ${ADMIN_SCAN.toLocaleString('en')} people on the board are checked here.`
+    : '';
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -133,6 +210,11 @@ function listPage(names: AdminName[], members: number, notice: string): string {
   input { min-height: 44px; flex: 1; min-width: 200px; padding: 0 14px; border-radius: 10px;
     border: 1px solid var(--line); font: inherit; }
   .notice, .empty { background: var(--tint); border-radius: 14px; padding: 16px 20px; margin: 16px 0; }
+  h2 { font-size: 22px; margin: 40px 0 4px; }
+  ul { margin: 8px 0; padding-left: 22px; }
+  .word { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .cancel { align-self: center; color: var(--accent); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -148,7 +230,24 @@ ${notice ? `<p class="notice">${escape(notice)}</p>` : ''}
     autocomplete="off" autocapitalize="none" spellcheck="false">
   <button type="submit">Hide</button>
 </form>
+<h2>Reported names</h2>
 ${items}
+<h2>Blocked words</h2>
+<p class="meta">Your own words, on top of the built-in lists. Whole words: "ass" stops "Big Ass",
+  not "Lassie". Typed with accents, only that spelling counts ("lồn", not "lon"). Names with one
+  are hidden at once, and new names with one can't be saved; unblocking shows them again.</p>
+<form class="find" method="get" action="/admin">
+  <label for="check">Block a word</label>
+  <input id="check" name="check" placeholder="a word, or a few" required maxlength="40"
+    autocomplete="off" autocapitalize="none" spellcheck="false">
+  <button type="submit">Check</button>
+</form>
+${page.check ? preview(page.check, scanCapped) : ''}
+${wordList}
+<h2>Hidden by the filter</h2>
+<p class="meta">Names a word list hides right now.${capNote} To show one again, unblock its word
+  (a built-in one needs a change in sync/src/names.ts).</p>
+${filteredList}
 </main>
 </body>
 </html>
@@ -172,12 +271,14 @@ export async function admin(request: Request, env: Env, deps: Deps): Promise<Res
 
   if (url.pathname === '/admin' && request.method === 'GET') {
     const done = Object.keys(NOTICES).find((key) => url.searchParams.has(key));
-    const notice = done ? NOTICES[done]!(url.searchParams.get(done) ?? '') : '';
-    const { names, members } = await board.adminNames();
-    return html(listPage(names, members, notice));
+    let notice = done ? NOTICES[done]!(url.searchParams.get(done) ?? '') : '';
+    const typed = url.searchParams.get('check');
+    const check = typed === null ? null : cleanBlockedWord(typed);
+    if (typed !== null && !check) notice = NOTICES.badword!('');
+    return html(listPage(await board.adminPage(check), notice));
   }
 
-  const action = /^\/admin\/(hide|show)$/.exec(url.pathname)?.[1];
+  const action = /^\/admin\/(hide|show|words\/block|words\/unblock)$/.exec(url.pathname)?.[1];
   if (!action || request.method !== 'POST') return notFound();
   // A form on another site would carry the saved login too.
   if (request.headers.get('Origin') !== url.origin) {
@@ -188,6 +289,24 @@ export async function admin(request: Request, env: Env, deps: Deps): Promise<Res
     return Response.json({ error: 'bad_request' }, { status: 400 });
   }
   const form = await request.formData().catch(() => null);
+  const back = (key: string, value: string) =>
+    new Response(null, {
+      status: 303,
+      headers: {
+        ...HEADERS,
+        Location: `/admin?${new URLSearchParams({ [key]: value }).toString()}`,
+      },
+    });
+
+  if (action === 'words/block' || action === 'words/unblock') {
+    const typedWord = form?.get('word');
+    const word = typeof typedWord === 'string' ? cleanBlockedWord(typedWord) : null;
+    if (!word) return back('badword', '');
+    const block = action === 'words/block';
+    if (!(await board.adminSetWord(word, block))) return back('full', '');
+    return back(block ? 'blocked' : 'unblocked', word);
+  }
+
   const id = form?.get('id');
   const typed = form?.get('username');
   const username = typeof typed === 'string' ? cleanUsername(typed.replace(/^\s*@/, '')) : '';
@@ -197,9 +316,6 @@ export async function admin(request: Request, env: Env, deps: Deps): Promise<Res
   if (!who) return Response.json({ error: 'bad_request' }, { status: 400 });
 
   const changed = await board.adminSetHidden(who, action === 'hide');
-  const [key, name] = changed
-    ? [action === 'hide' ? 'hidden' : 'shown', changed]
-    : ['missing', 'username' in who ? who.username : who.id];
-  const back = `/admin?${new URLSearchParams({ [key]: name }).toString()}`;
-  return new Response(null, { status: 303, headers: { ...HEADERS, Location: back } });
+  if (!changed) return back('missing', 'username' in who ? who.username : who.id);
+  return back(action === 'hide' ? 'hidden' : 'shown', changed);
 }

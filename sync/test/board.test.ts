@@ -18,7 +18,13 @@ import {
 } from '../src/board';
 import { handle } from '../src/index';
 import { today } from '../src/limits';
-import { displayNameProblem, isAllowed, usernameProblem } from '../src/names';
+import {
+  blockedWordIn,
+  cleanBlockedWord,
+  displayNameProblem,
+  isAllowed,
+  usernameProblem,
+} from '../src/names';
 import type { Deps } from '../src/signin';
 import { makeToken } from './helpers';
 
@@ -104,6 +110,28 @@ describe('names', () => {
     ]) {
       expect(isAllowed(name)).toBe(false);
     }
+  });
+
+  it("cleans the developer's blocked words", () => {
+    expect(cleanBlockedWord('  Bắc   Kỳ ')).toBe('bắc kỳ');
+    expect(cleanBlockedWord('Spam')).toBe('spam');
+    for (const bad of ['a', 'ab1', 'x'.repeat(31), 'a-b', '', '   ']) {
+      expect([bad, cleanBlockedWord(bad)]).toEqual([bad, null]);
+    }
+  });
+
+  it('finds blocked words as whole words, with accents only when typed with them', () => {
+    expect(blockedWordIn('Big Ass', ['ass'])).toBe('ass');
+    expect(blockedWordIn('big.ass', ['ass'])).toBe('ass');
+    expect(blockedWordIn('a55', ['ass'])).toBe('ass'); // digits read as letters
+    expect(blockedWordIn('Lassie', ['ass'])).toBeNull();
+    expect(blockedWordIn('Lồn', ['lồn'])).toBe('lồn');
+    expect(blockedWordIn('lon', ['lồn'])).toBeNull();
+    expect(blockedWordIn('Lồn', ['lon'])).toBe('lon');
+    expect(blockedWordIn('Bắc Kỳ', ['bac ky'])).toBe('bac ky');
+    expect(blockedWordIn('bac.ky.99', ['bắc kỳ'])).toBeNull(); // accents typed: that spelling
+    expect(blockedWordIn('Kỳ Bắc', ['bac ky'])).toBeNull(); // in that order
+    expect(blockedWordIn('Lan', [])).toBeNull();
   });
 
   it('checks a username and a display name', () => {
@@ -430,6 +458,49 @@ describe('the board API', () => {
       displayName: 'Fuck Off',
       hidden: true,
     });
+  });
+
+  it('keeps the kept board right when people join, change names, are hidden or leave', async () => {
+    const w = worker();
+    const viewer = await w.person();
+    await viewer.join('Viewer', 'viewer');
+    const people: Profile[] = [];
+    for (let i = 0; i < 6; i++) {
+      const p = await w.person();
+      people.push(await p.join(`Person ${i}`, `person${i}`));
+      await p.call('board/score', 'POST', score(i + 1, { weekCards: 40 - i }));
+      if (i === 0) people.push(await p.join(`Person ${i}`, `person${i}`)); // a save with no change
+    }
+    /** The board as kept, then worked out again from every row: the two are the same. */
+    const same = async () => {
+      for (const query of ['', '?by=week']) {
+        const kept = await viewer.view(query);
+        await runInDurableObject(w.board, (instance) => {
+          (instance as unknown as { everyone: unknown }).everyone = null;
+        });
+        expect(await viewer.view(query)).toEqual(kept);
+      }
+    };
+    await same();
+    const newcomer = await w.person();
+    const fresh = await newcomer.join('New Star', 'new.star');
+    await same();
+    expect((await viewer.view()).rows.some((r) => r.id === fresh.id)).toBe(true);
+
+    const renamer = await w.person();
+    const before = await renamer.join('Old', 'old.one');
+    await same();
+    await renamer.join('Renamed', 'renamed');
+    await same();
+    expect((await viewer.view()).rows.find((r) => r.id === before.id)?.username).toBe('renamed');
+
+    await w.board.adminSetHidden({ id: people[1]!.id }, true);
+    await same();
+    expect((await viewer.view()).rows.find((r) => r.id === people[1]!.id)?.displayName).toBeNull();
+
+    expect((await renamer.call('board/leave', 'POST')).status).toBe(200);
+    await same();
+    expect((await viewer.view()).rows.some((r) => r.id === before.id)).toBe(false);
   });
 
   it('leaving deletes my row; a deleted account can’t come back', async () => {

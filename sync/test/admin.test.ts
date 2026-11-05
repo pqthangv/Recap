@@ -1,6 +1,6 @@
 // The developer's page for leaderboard names (src/admin.ts): the login, the list of reported
 // names, and hiding or showing them, each test on a board of its own.
-import { env } from 'cloudflare:test';
+import { env, runInDurableObject } from 'cloudflare:test';
 import { describe, expect, it } from 'vitest';
 
 import type { Profile, View } from '../src/board';
@@ -50,7 +50,11 @@ function worker(token: string | null = TOKEN) {
     return { status: response.status, text: await response.text() };
   };
   /** A form on the page, sent as a browser does. */
-  const post = (action: 'hide' | 'show', fields: Record<string, string>, origin = ORIGIN) => {
+  const post = (
+    action: 'hide' | 'show' | 'words/block' | 'words/unblock',
+    fields: Record<string, string>,
+    origin = ORIGIN,
+  ) => {
     const body = new URLSearchParams(fields).toString();
     return send(`/admin/${action}`, {
       method: 'POST',
@@ -63,7 +67,7 @@ function worker(token: string | null = TOKEN) {
       },
     });
   };
-  return { send, person, login, page, post };
+  return { send, person, login, page, post, board: deps.board };
 }
 
 /** The name as the other person sees it on the board. */
@@ -151,6 +155,104 @@ describe('/admin', () => {
     const fresh = await rude.join();
     expect(fresh.hidden).toBe(false);
     expect(fresh.hiddenForGood).toBeUndefined();
+  });
+
+  it('blocks a word after a preview: names with it are hidden and refused, until unblocked', async () => {
+    const w = worker();
+    const spam = await w.person('Lan Spam', 'lan.spam');
+    const spammy = await w.person('Spammy', 'spammy');
+    const viewer = await w.person('Binh', 'binh');
+    await viewer.report(spam.profile.id);
+
+    let page = await w.page('?check=Spam');
+    expect(page.text).toContain('would hide 1 name on the board now');
+    expect(page.text).toContain('@lan.spam');
+    expect(page.text).not.toContain('@spammy');
+    expect(page.text).toContain('Block "spam"');
+    expect((await w.page('?check=x1')).text).toContain('A word is 2 to 30 letters');
+    // Nothing changes until Block, and a form from another site can't.
+    expect(await shownName(viewer, spam.profile.id)).toBe('Lan Spam');
+    expect((await w.post('words/block', { word: 'spam' }, 'https://evil.test')).status).toBe(403);
+
+    const blocked = await w.post('words/block', { word: ' Spam ' });
+    expect(blocked.headers.get('Location')).toBe('/admin?blocked=spam');
+    expect(await shownName(viewer, spam.profile.id)).toBeNull();
+    expect(await shownName(viewer, spammy.profile.id)).toBe('Spammy');
+    expect((await viewer.call('board/follow', 'POST', { username: 'lan.spam' })).status).toBe(404);
+    expect((await spam.call('board/me').then((r) => r.json())) as Profile).toMatchObject({
+      hidden: true,
+    });
+    page = await w.page('?blocked=spam');
+    expect(page.text).toContain('&quot;spam&quot; is blocked'); // the notice, escaped
+    expect(page.text).toContain('<strong>spam</strong>');
+    // Reported, and hidden by the word: its tag says so.
+    expect(page.text).toContain('<span class="tag">Hidden by "spam"</span> 1 report');
+    expect(page.text).toContain('<span class="tag">"spam"</span>'); // Hidden by the filter
+    expect(page.text).toContain('@lan.spam · id');
+
+    // New names with it can't be saved; the app shows that under the field.
+    const newcomer = await w.person('Okay', 'okay');
+    const badName = await newcomer.call('board/me', 'PUT', {
+      displayName: 'Spam King',
+      username: 'okay',
+    });
+    expect(badName.status).toBe(400);
+    expect(await badName.json()).toEqual({ error: 'display_name_not_allowed' });
+    const badUser = await newcomer.call('board/me', 'PUT', {
+      displayName: 'Okay',
+      username: 'spam.king',
+    });
+    expect(await badUser.json()).toEqual({ error: 'username_not_allowed' });
+    // Spelled other ways: capitals, digits for letters, accents added, joined with "_" or ".".
+    for (const [displayName, username] of [
+      ['SPAM', 'okay'],
+      ['Sp4m Lord', 'okay'],
+      ['Spám', 'okay'],
+      ['Okay', 'the_spam'],
+      ['Okay', 'spam.99'],
+    ]) {
+      const tried = await newcomer.call('board/me', 'PUT', { displayName, username });
+      expect([displayName, username, tried.status]).toEqual([displayName, username, 400]);
+    }
+    // Not the word itself: fine.
+    const fine = await newcomer.call('board/me', 'PUT', {
+      displayName: 'Spammy Two',
+      username: 'okay',
+    });
+    expect(fine.status).toBe(200);
+    // Renaming into it is refused too, and the old name stays.
+    const rename = await spammy.call('board/me', 'PUT', {
+      displayName: 'Spam Fan',
+      username: 'spammy',
+    });
+    expect(rename.status).toBe(400);
+    expect(await shownName(viewer, spammy.profile.id)).toBe('Spammy');
+
+    // Already on the list: the preview says so, with no Block button.
+    page = await w.page('?check=spam');
+    expect(page.text).toContain('already on your list');
+    expect(page.text).not.toContain('Block "spam"');
+
+    const unblocked = await w.post('words/unblock', { word: 'spam' });
+    expect(unblocked.headers.get('Location')).toBe('/admin?unblocked=spam');
+    expect(await shownName(viewer, spam.profile.id)).toBe('Lan Spam');
+    expect((await w.page()).text).toContain('No words of your own yet');
+  });
+
+  it('lists names the built-in lists hide, and says when a word is built in already', async () => {
+    const w = worker();
+    const fan = await w.person('Liverpool Fan', 'liverpool.fan');
+    // As if it had been saved before "support" was one of the staff words.
+    await runInDurableObject(w.board, (_, state) => {
+      state.storage.sql.exec(
+        "update members set display_name = 'Liverpool Supporter' where id = ?",
+        fan.profile.id,
+      );
+    });
+    const page = await w.page();
+    expect(page.text).toContain('<span class="tag">Built-in list</span>');
+    expect(page.text).toContain('Liverpool Supporter');
+    expect((await w.page('?check=fuck')).text).toContain('built-in lists already stop it');
   });
 
   it('hides any username typed in, with or without the @', async () => {
