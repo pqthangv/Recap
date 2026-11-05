@@ -7,8 +7,11 @@ import type { BoardScore } from './score';
 export type Tab = 'everyone' | 'friends';
 export type Ranking = 'streak' | 'week';
 export type Names = { displayName: string; username: string; anonymous: boolean };
-/** My names; `hidden`: others see "Anonymous" because of reports or a word Recap doesn't allow. */
-export type Profile = Names & { id: string; hidden: boolean };
+/**
+ * My names; `hidden`: others see "Anonymous" because of reports or a word Recap doesn't allow;
+ * `hiddenForGood`: because Recap hid it (a new name doesn't help, nor does leaving and joining).
+ */
+export type Profile = Names & { id: string; hidden: boolean; hiddenForGood?: boolean };
 /** Someone on the board. Names are null for anyone anonymous or hidden. */
 export type Person = { id: string; displayName: string | null; username: string | null };
 export type Row = Person & {

@@ -5,7 +5,8 @@
 //   GET  /v1/board?tab=<everyone|friends>&by=<streak|week>&min=<n>   the board
 //   GET  /v1/board/me      my names, or 404 not_joined
 //   PUT  /v1/board/me      {"displayName", "username", "anonymous"}: joins, or changes them
-//   POST /v1/board/leave   deletes my row, follows, blocks and reports
+//   POST /v1/board/leave   deletes my row, follows, blocks and reports (a name Recap hid for good
+//                          stays hidden if I join again: hidden_accounts)
 //   POST /v1/board/score   {"streak", "streakUntil", "week", "weekCards"}, sent after a sync
 //   POST /v1/board/follow  {"username"}
 //   POST /v1/board/<unfollow|block|unblock|report>   {"id"}
@@ -16,21 +17,29 @@
 // 00:00 UTC for everyone; a streak counts until its `streakUntil` (the end of the day after the
 // last one studied, worked out on the phone), so nothing has to run when a day ends.
 //
-// Reports: each one is emailed to REPORTS_TO (10 a day), and a name reported by 3 people is hidden
-// (members.hidden = 1) until its owner changes it. To look at reports, hide a name for good
-// (hidden = 2) or remove someone: Cloudflare dashboard › Durable Objects › Board › Data Studio,
-// object "board" (it shows SQL tables only, hence no key-value storage here).
+// Reports: each one is emailed to REPORTS_TO (10 a day), and a name reported by 100 people is
+// hidden (members.hidden = 1) until its owner changes it. The developer looks at reports on
+// /admin (src/admin.ts): hide a name for good (hidden = 2), or show it again. As a backup, the
+// same tables are in Cloudflare dashboard › Durable Objects › Board › Data Studio, object "board"
+// (it shows SQL tables only, hence no key-value storage here).
 //
 // Durable Objects Free: 100,000 rows written a day for the whole Cloudflare account, and past it
 // every Durable Object fails, the sync counters too (src/limits.ts: up to about 50,000 a day). So
 // the board counts its own rows written and takes no scores past 20,000 a day, nothing past
 // 25,000; scores have no indexes, and a score that didn't change isn't written. The everyone
-// board is worked out from every row at most every 10 minutes (rows read: 5 million a day).
+// board is worked out from every row at most every 30 minutes (rows read, 5 million a day: about
+// 100,000 members); someone joining, renaming, leaving or being hidden changes only their own
+// place in it (`refresh`), so new scores show within 30 minutes, names right away.
+//
+// Words the developer blocks on /admin (`blocked_words`) stop new names and hide names already
+// on the board, like the built-in lists in src/names.ts; the app doesn't know them, so the Worker
+// refuses such a name when it's saved.
 import { DurableObject } from 'cloudflare:workers';
 
 import { EMAIL_LIMITS, sendEmail } from './email';
 import { today } from './limits';
 import {
+  blockedWordIn,
   cleanDisplayName,
   cleanUsername,
   displayNameProblem,
@@ -46,15 +55,24 @@ export const TOP = 100;
 export const MAX_FOLLOWING = 200;
 export const MAX_BLOCKED = 500;
 export const MAX_WEEK_CARDS = 10_000;
-/** A name reported by this many people is hidden until its owner changes it. */
-export const REPORTS_TO_HIDE = 3;
+/**
+ * A name reported by this many people is hidden until its owner changes it (user, 2026-11-05:
+ * high, so names are hidden by the developer on /admin, not by a few people together).
+ */
+export const REPORTS_TO_HIDE = 100;
+/** The most names /admin lists. */
+export const ADMIN_LIST = 200;
+/** /admin's "Hidden by the filter" and a word's preview check this many members at most. */
+export const ADMIN_SCAN = 5_000;
+export const MAX_BLOCKED_WORDS = 500;
 export const REPORTS_PER_PERSON = 10;
 export const REPORT_EMAILS_PER_DAY = 10;
 export const SCORE_ROWS_PER_DAY = 20_000;
 export const ROWS_PER_DAY = 25_000;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-const CACHE_MS = 10 * 60_000;
+/** How long the everyone board is kept before it's worked out again (user, 2026-11-05: 30). */
+export const CACHE_MS = 30 * 60_000;
 /** Recap's first build: no streak is longer than the days since. */
 const FIRST_DAY = Date.UTC(2026, 9, 11);
 /** The end of tomorrow's study day is at most 2 days away; plus a clock change and some slack. */
@@ -68,8 +86,11 @@ const WEEK = /^\d{4}-\d{2}-\d{2}$/;
 export type Tab = 'everyone' | 'friends';
 export type Ranking = 'streak' | 'week';
 export type Names = { displayName: string; username: string; anonymous: boolean };
-/** Mine, as I see it; `hidden`: other people see "Anonymous" because of reports or a word. */
-export type Profile = Names & { id: string; hidden: boolean };
+/**
+ * Mine, as I see it; `hidden`: other people see "Anonymous" because of reports or a word;
+ * `hiddenForGood`: because Recap hid it on /admin (a new name doesn't help).
+ */
+export type Profile = Names & { id: string; hidden: boolean; hiddenForGood?: true };
 export type Score = { streak: number; streakUntil: number; week: string; weekCards: number };
 /** Names are null for an anonymous or hidden member. */
 export type Row = {
@@ -88,6 +109,32 @@ export type Report = {
   result: 'ok' | 'already' | 'too_many' | 'not_found' | 'self' | 'not_joined' | 'busy';
   /** What to email about it, when it's one of today's first ten. */
   email?: { id: string; displayName: string; username: string; reports: number };
+};
+/** A name on /admin: reported, or hidden by the developer. */
+export type AdminName = {
+  id: string;
+  displayName: string;
+  username: string;
+  anonymous: boolean;
+  /** 0 shown; 1 hidden after reports; 2 hidden for good. */
+  hidden: number;
+  reports: number;
+  /** The newest report (0: none). */
+  lastReport: number;
+  /** A word list hides it too: the developer's word, "built-in", or null. */
+  filteredBy: string | null;
+};
+/** A name on /admin hidden by a word: `word` is the developer's, or "built-in". */
+export type FilteredName = NamesOf & { id: string; word: string };
+/** Everything /admin shows. `check`: what blocking a word would hide now. */
+export type AdminPage = {
+  names: AdminName[];
+  members: number;
+  words: { word: string; at: number }[];
+  filtered: FilteredName[];
+  /** More members than ADMIN_SCAN: the filtered list and a check looked at the first ones only. */
+  scanCapped: boolean;
+  check?: { word: string; listed: boolean; builtIn: boolean; hides: FilteredName[] };
 };
 
 type Member = {
@@ -138,8 +185,27 @@ function entryOf(m: Member, now: number): Entry {
   };
 }
 
-const namesAllowed = (e: { displayName: string; username: string }) =>
-  isAllowed(e.displayName) && isAllowed(e.username);
+type NamesOf = { displayName: string; username: string };
+
+/** Why a member's names are hidden by a word: the developer's word, "built-in", or null. */
+function filteredBy(e: NamesOf, blocked: readonly string[]): string | null {
+  if (!isAllowed(e.displayName) || !isAllowed(e.username)) return 'built-in';
+  return blockedWordIn(e.displayName, blocked) ?? blockedWordIn(e.username, blocked);
+}
+
+const namesAllowed = (e: NamesOf, blocked: readonly string[]) => filteredBy(e, blocked) === null;
+
+/** The first place in `list` (sorted by `order`) where `entry` goes. */
+function placeOf(list: readonly Entry[], entry: Entry, order: (a: Entry, b: Entry) => number) {
+  let low = 0;
+  let high = list.length;
+  while (low < high) {
+    const mid = (low + high) >> 1;
+    if (order(list[mid]!, entry) <= 0) low = mid + 1;
+    else high = mid;
+  }
+  return low;
+}
 
 const primary = (by: Ranking, e: Entry) => (by === 'streak' ? e.streak : e.weekCards);
 const secondary = (by: Ranking, e: Entry) => (by === 'streak' ? e.weekCards : e.streak);
@@ -204,6 +270,8 @@ export function streakCap(m: Pick<Member, 'streak' | 'score_at'>, now: number): 
 export class Board extends DurableObject<Env> {
   private written = { day: '', rows: 0, saved: 0 };
   private everyone: { at: number; week: string; byStreak: Entry[]; byWeek: Entry[] } | null = null;
+  /** The developer's blocked words, read once (null: not yet, or changed). */
+  private wordList: string[] | null = null;
 
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
@@ -236,6 +304,45 @@ export class Board extends DurableObject<Env> {
     ) without rowid`);
     sql.exec('create index if not exists reports_reported on reports (reported)');
     sql.exec('create table if not exists written (day text primary key, rows integer not null)');
+    // Accounts whose names Recap hid for good: kept after leaving, so joining again starts hidden;
+    // gone with "Show again" on /admin or when the account is deleted. The account id only.
+    sql.exec(`create table if not exists hidden_accounts (
+      account text primary key, at integer not null
+    ) without rowid`);
+    // Words the developer blocked on /admin (cleanBlockedWord), with when.
+    sql.exec(`create table if not exists blocked_words (
+      word text primary key, at integer not null
+    ) without rowid`);
+  }
+
+  private blockedWords(): string[] {
+    this.wordList ??= this.exec<{ word: string }>('select word from blocked_words').rows.map(
+      (r) => r.word,
+    );
+    return this.wordList;
+  }
+
+  private allowed(e: NamesOf): boolean {
+    return namesAllowed(e, this.blockedWords());
+  }
+
+  /**
+   * One member joined, changed names, was hidden or left: the cached everyone board takes that in
+   * at their place, instead of being worked out again from every row.
+   */
+  private refresh(id: string) {
+    const cached = this.everyone;
+    if (!cached) return;
+    const m = this.memberById(id);
+    const entry = m ? entryOf(m, Date.now()) : null;
+    for (const [list, by] of [
+      [cached.byStreak, 'streak'],
+      [cached.byWeek, 'week'],
+    ] as const) {
+      const at = list.findIndex((e) => e.id === id);
+      if (at >= 0) list.splice(at, 1);
+      if (entry) list.splice(placeOf(list, entry, compare(by)), 0, entry);
+    }
   }
 
   /** Runs a statement and counts the rows it wrote. */
@@ -297,7 +404,8 @@ export class Board extends DurableObject<Env> {
       displayName: m.display_name,
       username: m.username,
       anonymous: m.anonymous === 1,
-      hidden: m.hidden > 0 || !namesAllowed({ displayName: m.display_name, username: m.username }),
+      hidden: m.hidden > 0 || !this.allowed({ displayName: m.display_name, username: m.username }),
+      ...(m.hidden === 2 ? { hiddenForGood: true as const } : {}),
     };
   }
 
@@ -306,12 +414,20 @@ export class Board extends DurableObject<Env> {
     return m ? this.profileOf(m) : null;
   }
 
-  /** Joins, or changes my names; the names were checked already. */
+  /**
+   * Joins, or changes my names; the built-in lists checked them already, the developer's words
+   * are checked here.
+   */
   async save(
     account: string,
     names: Names,
     now: number,
-  ): Promise<Profile | 'username_taken' | 'busy'> {
+  ): Promise<
+    Profile | 'username_taken' | 'busy' | 'display_name_not_allowed' | 'username_not_allowed'
+  > {
+    const words = this.blockedWords();
+    if (blockedWordIn(names.displayName, words)) return 'display_name_not_allowed';
+    if (blockedWordIn(names.username, words)) return 'username_not_allowed';
     if (this.writtenToday() >= ROWS_PER_DAY) return 'busy';
     const holder = this.exec<{ account: string }>(
       'select account from members where username = ?',
@@ -321,13 +437,17 @@ export class Board extends DurableObject<Env> {
     const anonymous = names.anonymous ? 1 : 0;
     const m = this.member(account);
     if (!m) {
+      // Someone Recap hid for good who left comes back hidden.
+      const hiddenBefore =
+        this.exec('select 1 from hidden_accounts where account = ?', account).rows.length > 0;
       this.exec(
-        'insert into members (id, account, username, display_name, anonymous, joined_at) values (?, ?, ?, ?, ?, ?)',
+        'insert into members (id, account, username, display_name, anonymous, hidden, joined_at) values (?, ?, ?, ?, ?, ?, ?)',
         crypto.randomUUID(),
         account,
         names.username,
         names.displayName,
         anonymous,
+        hiddenBefore ? 2 : 0,
         now,
       );
     } else {
@@ -343,19 +463,24 @@ export class Board extends DurableObject<Env> {
       );
       if (renamed) this.exec('delete from reports where reported = ?', m.id);
     }
-    this.everyone = null;
-    return this.profileOf(this.member(account)!);
+    const saved = this.member(account)!;
+    this.refresh(saved.id);
+    return this.profileOf(saved);
   }
 
-  /** Leaving (or deleting the account): my row and everything about me. */
-  async leave(account: string): Promise<void> {
+  /**
+   * Leaving: my row and everything about me, except that Recap hid my name for good.
+   * `deletingAccount`: that goes too.
+   */
+  async leave(account: string, deletingAccount = false): Promise<void> {
+    if (deletingAccount) this.exec('delete from hidden_accounts where account = ?', account);
     const m = this.member(account);
     if (!m) return;
     this.exec('delete from follows where follower = ? or followee = ?', m.id, m.id);
     this.exec('delete from blocks where blocker = ? or blocked = ?', m.id, m.id);
     this.exec('delete from reports where reporter = ? or reported = ?', m.id, m.id);
     this.exec('delete from members where id = ?', m.id);
-    this.everyone = null;
+    this.refresh(m.id);
   }
 
   async score(
@@ -434,7 +559,7 @@ export class Board extends DurableObject<Env> {
         m.id,
       )
         .rows.map((f) => entryOf(f, now))
-        .filter(namesAllowed)
+        .filter((e) => this.allowed(e))
         .sort(compare(by));
       result = ranked(friends, by, mine, () => true, MAX_FOLLOWING + 1);
     } else {
@@ -450,7 +575,7 @@ export class Board extends DurableObject<Env> {
     }
     const rows = result.top.map(({ entry, rank }): Row => {
       const me = entry.id === m.id;
-      const named = me || (entry.shown && namesAllowed(entry));
+      const named = me || (entry.shown && this.allowed(entry));
       return {
         id: entry.id,
         rank,
@@ -481,7 +606,7 @@ export class Board extends DurableObject<Env> {
       !them ||
       them.anonymous ||
       them.hidden ||
-      !namesAllowed({ displayName: them.display_name, username: them.username }) ||
+      !this.allowed({ displayName: them.display_name, username: them.username }) ||
       this.blockedEither(m.id).has(them.id)
     ) {
       return 'not_found';
@@ -546,7 +671,7 @@ export class Board extends DurableObject<Env> {
       const named =
         !b.anonymous &&
         !b.hidden &&
-        namesAllowed({ displayName: b.display_name, username: b.username });
+        this.allowed({ displayName: b.display_name, username: b.username });
       return {
         id: b.id,
         displayName: named ? b.display_name : null,
@@ -581,7 +706,7 @@ export class Board extends DurableObject<Env> {
         ?.n ?? 0;
     if (reports >= REPORTS_TO_HIDE && them.hidden === 0) {
       this.exec('update members set hidden = 1 where id = ?', id);
-      this.everyone = null;
+      this.refresh(id);
     }
     const todays =
       this.exec<{ n: number }>('select count(*) as n from reports where at >= ?', dayStart).rows[0]
@@ -592,6 +717,128 @@ export class Board extends DurableObject<Env> {
         ? { email: { id, displayName: them.display_name, username: them.username, reports } }
         : {}),
     };
+  }
+
+  /** For /admin: reported names, newest report first, and the ones hidden for good. */
+  async adminNames(): Promise<{ names: AdminName[]; members: number }> {
+    const names = this.exec<{
+      id: string;
+      display_name: string;
+      username: string;
+      anonymous: number;
+      hidden: number;
+      reports: number;
+      last_report: number;
+    }>(
+      `select m.id, m.display_name, m.username, m.anonymous, m.hidden,
+         (select count(*) from reports r where r.reported = m.id) as reports,
+         (select coalesce(max(r.at), 0) from reports r where r.reported = m.id) as last_report
+       from members m
+       where m.hidden > 0 or m.id in (select reported from reports)
+       order by last_report desc, m.username
+       limit ?`,
+      ADMIN_LIST,
+    ).rows.map((n): AdminName => ({
+      id: n.id,
+      displayName: n.display_name,
+      username: n.username,
+      anonymous: n.anonymous === 1,
+      hidden: n.hidden,
+      reports: n.reports,
+      lastReport: n.last_report,
+      filteredBy: filteredBy(
+        { displayName: n.display_name, username: n.username },
+        this.blockedWords(),
+      ),
+    }));
+    const members = this.exec<{ n: number }>('select count(*) as n from members').rows[0]?.n ?? 0;
+    return { names, members };
+  }
+
+  /**
+   * For /admin: hides a member's names for good (others see "Anonymous", also after a rename or
+   * leaving and joining again), or shows them again and forgets their reports. `who`: the member
+   * id, or a username.
+   */
+  async adminSetHidden(
+    who: { id: string } | { username: string },
+    hide: boolean,
+  ): Promise<string | null> {
+    const m =
+      'id' in who
+        ? this.memberById(who.id)
+        : (this.exec<Member>('select * from members where username = ?', who.username).rows[0] ??
+          null);
+    if (!m) return null;
+    this.exec('update members set hidden = ? where id = ?', hide ? 2 : 0, m.id);
+    if (hide) {
+      this.exec(
+        'insert into hidden_accounts (account, at) values (?, ?) on conflict (account) do nothing',
+        m.account,
+        Date.now(),
+      );
+    } else {
+      this.exec('delete from reports where reported = ?', m.id);
+      this.exec('delete from hidden_accounts where account = ?', m.account);
+    }
+    this.refresh(m.id);
+    return m.username;
+  }
+
+  /** Members to check for /admin, at most ADMIN_SCAN (and whether there are more). */
+  private scanMembers(): { rows: (NamesOf & { id: string })[]; capped: boolean } {
+    const rows = this.exec<{ id: string; display_name: string; username: string }>(
+      'select id, display_name, username from members order by joined_at limit ?',
+      ADMIN_SCAN + 1,
+    ).rows.map((r) => ({ id: r.id, displayName: r.display_name, username: r.username }));
+    return { rows: rows.slice(0, ADMIN_SCAN), capped: rows.length > ADMIN_SCAN };
+  }
+
+  /** Everything /admin shows; `check`: a cleaned word to preview (what blocking it would hide). */
+  async adminPage(check: string | null): Promise<AdminPage> {
+    const { names, members } = await this.adminNames();
+    const words = this.exec<{ word: string; at: number }>(
+      'select word, at from blocked_words order by word',
+    ).rows;
+    const blocked = this.blockedWords();
+    const { rows, capped } = this.scanMembers();
+    const filtered: FilteredName[] = [];
+    for (const row of rows) {
+      const word = filteredBy(row, blocked);
+      if (word && filtered.length < ADMIN_LIST) filtered.push({ ...row, word });
+    }
+    const page: AdminPage = { names, members, words, filtered, scanCapped: capped };
+    if (check) {
+      const hides = rows
+        .filter(
+          (row) => blockedWordIn(row.displayName, [check]) ?? blockedWordIn(row.username, [check]),
+        )
+        .map((row) => ({ ...row, word: check }));
+      page.check = {
+        word: check,
+        listed: blocked.includes(check),
+        builtIn: !isAllowed(check),
+        hides,
+      };
+    }
+    return page;
+  }
+
+  /** Blocks (or unblocks) a cleaned word; false when the list is full. */
+  async adminSetWord(word: string, block: boolean): Promise<boolean> {
+    if (block) {
+      const { rows } = this.exec<{ n: number }>('select count(*) as n from blocked_words');
+      if ((rows[0]?.n ?? 0) >= MAX_BLOCKED_WORDS) return false;
+      this.exec(
+        'insert into blocked_words (word, at) values (?, ?) on conflict (word) do nothing',
+        word,
+        Date.now(),
+      );
+    } else {
+      this.exec('delete from blocked_words where word = ?', word);
+    }
+    this.wordList = null;
+    return true;
   }
 }
 
@@ -617,7 +864,12 @@ function namesIn(body: Record<string, unknown> | null): Names | string {
   return { displayName, username, anonymous: body.anonymous === true };
 }
 
-async function emailReport(env: Env, deps: Deps, email: NonNullable<Report['email']>) {
+async function emailReport(
+  env: Env,
+  deps: Deps,
+  email: NonNullable<Report['email']>,
+  adminUrl: string,
+) {
   if (!env.REPORTS_TO || !env.RESEND_API_KEY) return;
   // Counted with the sign-in codes, under Resend's free 100 a day.
   const everyone = await env.COUNTERS.getByName('emails').charge(today(), 0, EMAIL_LIMITS);
@@ -626,9 +878,9 @@ async function emailReport(env: Env, deps: Deps, email: NonNullable<Report['emai
     `A name on the Recap leaderboard was reported (${email.reports} so far; ` +
     `${REPORTS_TO_HIDE} hide it until it's changed).\n\n` +
     `Display name: ${email.displayName}\nUsername: ${email.username}\nMember id: ${email.id}\n\n` +
-    `To hide it for good, or remove the person: Cloudflare dashboard > Durable Objects > Board > ` +
-    `Data Studio, object "${BOARD_NAME}", table members: set hidden to 2, or delete the row ` +
-    `(and theirs in follows, blocks and reports).\n`;
+    `To hide it for good, or show it again: ${adminUrl} (user "admin", password ADMIN_TOKEN).\n` +
+    `Backup: Cloudflare dashboard > Durable Objects > Board > Data Studio, object ` +
+    `"${BOARD_NAME}", table members: set hidden to 2.\n`;
   try {
     const sent = await sendEmail(
       env,
@@ -675,6 +927,10 @@ export async function board(
     if (await env.COUNTERS.getByName(account).isClosed()) return fail('account_deleted', 401);
     const saved = await stub.save(account, names, now);
     if (saved === 'username_taken') return fail(saved, 409);
+    // A word the developer blocked: the app shows it under the field, like its own checks.
+    if (saved === 'display_name_not_allowed' || saved === 'username_not_allowed') {
+      return fail(saved, 400);
+    }
     if (saved === 'busy') return fail('daily_limit', 429);
     return json(saved);
   }
@@ -720,7 +976,7 @@ export async function board(
     const { result, email } = await stub.report(account, id, now);
     if (result === 'busy') return fail('daily_limit', 429);
     if (result !== 'ok' && result !== 'already') return fail(result, PROBLEM_STATUS[result]);
-    if (email) await emailReport(env, deps, email);
+    if (email) await emailReport(env, deps, email, `${new URL(request.url).origin}/admin`);
     return json({ ok: true });
   }
   const result =

@@ -9,11 +9,13 @@
 //   /v1/pictures…                pictures on cards (src/pictures.ts)
 //   /v1/board…                   the leaderboard (src/board.ts)
 //   GET  /health                 "ok", touching nothing (for uptime checks)
+//   /admin…                      the developer's page for leaderboard names (src/admin.ts)
 // Every other /v1 request needs "Authorization: Bearer <token>"; the token's account is the
 // folder. Signing in is /v1/auth/… (src/signin.ts), rate limited per network instead.
 // Listing, creating and the head count toward the daily limits (src/limits.ts): 429 daily_limit
 // when today's writes are used up, 507 storage_full when there's no room for a file.
 import { neonAccounts } from './accounts';
+import { admin } from './admin';
 import { accountOf, makeToken } from './auth';
 import { board, BOARD_NAME } from './board';
 import { deleteAccount } from './deletion';
@@ -71,6 +73,9 @@ function bodySize(request: Request): number | null {
 export async function handle(request: Request, env: Env, deps: Deps): Promise<Response> {
   const url = new URL(request.url);
   if (url.pathname === '/health') return new Response('ok');
+  if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) {
+    return admin(request, env, deps);
+  }
   if (!url.pathname.startsWith('/v1/')) return fail('not_found', 404);
 
   if (url.pathname.startsWith('/v1/auth/')) {

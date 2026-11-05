@@ -532,12 +532,17 @@ describe('deleting an account', () => {
     expect(await filesOf(account)).toBe(1);
     const names = { displayName: 'Deleted Owl', username: 'deleted.owl', anonymous: false };
     expect(await w.board.save(account, names, Date.now())).toMatchObject(names);
+    // Hidden for good on /admin: deleting the account forgets that too.
+    const member = (await w.board.profile(account))!;
+    expect(await w.board.adminSetHidden({ id: member.id }, true)).toBe('deleted.owl');
 
     const deleted = await remove(w, token);
     expect(await deleted.json()).toEqual({ ok: true });
     expect(await filesOf(account)).toBe(0);
     expect(w.ids.has('google:g-del')).toBe(false);
     expect(await w.board.profile(account)).toBeNull();
+    expect(await w.board.save(account, names, Date.now())).toMatchObject({ hidden: false });
+    await w.board.leave(account, true);
 
     // Both phones' tokens stop working: listing, writing and renewing.
     for (const t of [token, other.token]) {

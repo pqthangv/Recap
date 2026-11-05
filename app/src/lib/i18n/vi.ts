@@ -695,6 +695,8 @@ export const vi: Strings = {
   'board.youAnonymous': 'Người khác thấy bạn là Ẩn danh.',
   'board.youHidden':
     'Người khác thấy bạn là Ẩn danh vì tên của bạn bị báo cáo hoặc không được phép. Hãy đổi tên để hiện lại.',
+  'board.youHiddenForGood':
+    'Người khác thấy bạn là Ẩn danh: Recap đã ẩn tên của bạn vì vi phạm quy định bảng xếp hạng. Nếu muốn khiếu nại, hãy gửi email đến {email}.',
   'board.rowA11y': 'Hạng {rank}: {name}, chuỗi {streak}, {cards} tuần này',
   'board.rowHint': 'Mở các lựa chọn',
   'board.noFriends':
@@ -711,7 +713,7 @@ export const vi: Strings = {
   'board.report': 'Báo cáo tên',
   'board.reportTitle': 'Báo cáo tên này?',
   'board.reportBody':
-    'Hãy báo cáo tên thô lỗ hoặc mạo danh người khác. Recap xem từng báo cáo, và tên bị 3 người báo cáo sẽ bị ẩn cho đến khi được đổi.',
+    'Hãy báo cáo tên thô lỗ hoặc mạo danh người khác. Recap xem từng báo cáo, và tên bị báo cáo nhiều lần sẽ tự động bị ẩn cho đến khi được đổi.',
   'board.reported': 'Cảm ơn bạn. Recap sẽ xem xét.',
   'board.changeName': 'Đổi tên của tôi',
 
@@ -726,6 +728,10 @@ export const vi: Strings = {
     'Người khác thấy chuỗi ngày của bạn nhưng không thấy tên, và bạn bè không thấy hoặc theo dõi được bạn.',
   'board.rules': 'Hãy đặt tên lịch sự: không dùng từ thô tục, không lấy tên người khác.',
   'board.rulesLink': 'Quy định bảng xếp hạng',
+  'board.rule1': 'Đặt tên lịch sự: không dùng từ thô tục, thù ghét hay nhạy cảm.',
+  'board.rule2': 'Không dùng tên người khác, không giả làm Recap.',
+  'board.rule3': 'Recap đọc mọi báo cáo và có thể ẩn vĩnh viễn tên vi phạm các quy định này.',
+  'board.agreeAndJoin': 'Đồng ý và tham gia',
   'board.blockedPeople': 'Người đã chặn',
   'board.unblock': 'Bỏ chặn',
   'board.unblockA11y': 'Bỏ chặn {name}',

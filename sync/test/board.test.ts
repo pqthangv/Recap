@@ -18,7 +18,13 @@ import {
 } from '../src/board';
 import { handle } from '../src/index';
 import { today } from '../src/limits';
-import { displayNameProblem, isAllowed, usernameProblem } from '../src/names';
+import {
+  blockedWordIn,
+  cleanBlockedWord,
+  displayNameProblem,
+  isAllowed,
+  usernameProblem,
+} from '../src/names';
 import type { Deps } from '../src/signin';
 import { makeToken } from './helpers';
 
@@ -38,6 +44,16 @@ describe('names', () => {
       'the.therapist',
       "O'Brien",
       'lan_2003',
+      // Close to the staff words, but names.
+      'Badminton Fan',
+      'Kim Stafford',
+      'Modern Lan',
+      'Hồ Trọng',
+      'Mẹ Lan',
+      'Nam',
+      'Nam Khánh',
+      'Kỳ Duyên',
+      'Backyard Lan',
     ]) {
       expect(isAllowed(name)).toBe(true);
     }
@@ -57,15 +73,65 @@ describe('names', () => {
       'dit me',
       'thằng chó',
       'motherfucker99',
+      'mmb',
+      'Mẹ Mày Béo',
+      'memaybeo123',
+      'clgt',
+      'Óc Chó',
+      'oc cho',
+      'Bắc Kỳ',
+      'nam kỳ',
+      'bac.ky',
+      'namky',
     ]) {
       expect(isAllowed(name)).toBe(false);
     }
   });
 
   it('keeps names that pass for Recap or an anonymous row', () => {
-    for (const name of ['Anonymous', 'Ẩn danh', 'an.danh', 'recap', 'Support']) {
+    for (const name of [
+      'Anonymous',
+      'Ẩn danh',
+      'an.danh',
+      'recap',
+      'Support',
+      'Recap Admin',
+      'the_admin',
+      'adm1n',
+      'admin.lan',
+      'Recap Team',
+      'Official Lan',
+      'Support Team',
+      'Mod',
+      'Staff',
+      'Quản Trị Viên',
+      'Hỗ Trợ Recap',
+      'Ban Điều Hành',
+    ]) {
       expect(isAllowed(name)).toBe(false);
     }
+  });
+
+  it("cleans the developer's blocked words", () => {
+    expect(cleanBlockedWord('  Bắc   Kỳ ')).toBe('bắc kỳ');
+    expect(cleanBlockedWord('Spam')).toBe('spam');
+    for (const bad of ['a', 'ab1', 'x'.repeat(31), 'a-b', '', '   ']) {
+      expect([bad, cleanBlockedWord(bad)]).toEqual([bad, null]);
+    }
+  });
+
+  it('finds blocked words as whole words, with accents only when typed with them', () => {
+    expect(blockedWordIn('Big Ass', ['ass'])).toBe('ass');
+    expect(blockedWordIn('big.ass', ['ass'])).toBe('ass');
+    expect(blockedWordIn('a55', ['ass'])).toBe('ass'); // digits read as letters
+    expect(blockedWordIn('Lassie', ['ass'])).toBeNull();
+    expect(blockedWordIn('Lồn', ['lồn'])).toBe('lồn');
+    expect(blockedWordIn('lon', ['lồn'])).toBeNull();
+    expect(blockedWordIn('Lồn', ['lon'])).toBe('lon');
+    expect(blockedWordIn('Bắc Kỳ', ['bac ky'])).toBe('bac ky');
+    expect(blockedWordIn('bac.ky.99', ['bắc kỳ'])).toBeNull(); // accents typed: that spelling
+    expect(blockedWordIn('Kỳ Bắc', ['bac ky'])).toBeNull(); // in that order
+    expect(blockedWordIn('Lan', [])).toBeNull();
   });
 
   it('checks a username and a display name', () => {
@@ -309,7 +375,7 @@ describe('the board API', () => {
     expect((await a.view()).rows).toHaveLength(2);
   });
 
-  it('emails each report, hides a name after 3 people report it, until it’s changed', async () => {
+  it(`emails reports, hides a name after ${REPORTS_TO_HIDE} people report it, until it’s changed`, async () => {
     const w = worker();
     const target = await w.person();
     const profile = await target.join('Rude Name', 'rude.name');
@@ -320,17 +386,24 @@ describe('the board API', () => {
         return p;
       }),
     );
+    const shownTo = async (p: (typeof reporters)[number]) =>
+      (await p.view()).rows.find((r) => r.id === profile.id)!.displayName;
     for (const [i, p] of reporters.entries()) {
       expect((await p.call('board/report', 'POST', { id: profile.id })).status).toBe(200);
-      // Reporting again changes nothing.
-      expect((await p.call('board/report', 'POST', { id: profile.id })).status).toBe(200);
-      const hidden = i + 1 >= REPORTS_TO_HIDE;
-      const row = (await p.view()).rows.find((r) => r.id === profile.id)!;
-      expect(row.displayName).toBe(hidden ? null : 'Rude Name');
+      if (i === 0) {
+        // Reporting again changes nothing.
+        expect((await p.call('board/report', 'POST', { id: profile.id })).status).toBe(200);
+      }
+      // Still shown one report short, hidden at the last (the board isn't looked at in between:
+      // a hundred people make the test slow enough).
+      if (i + 2 === REPORTS_TO_HIDE) expect(await shownTo(p)).toBe('Rude Name');
     }
-    expect(w.emails).toHaveLength(REPORTS_TO_HIDE);
+    expect(await shownTo(reporters[0]!)).toBeNull();
+    // Today's first ten are emailed, each with the way to /admin.
+    expect(w.emails).toHaveLength(Math.min(REPORTS_TO_HIDE, REPORT_EMAILS_PER_DAY));
     expect(w.emails[0]).toMatchObject({ to: ['support@recapflashcards.com'] });
     expect(w.emails[0]!.text).toContain('rude.name');
+    expect(w.emails[0]!.text).toContain('https://sync.test/admin');
     expect((await (await target.call('board/me')).json()) as Profile).toMatchObject({
       hidden: true,
     });
@@ -385,6 +458,49 @@ describe('the board API', () => {
       displayName: 'Fuck Off',
       hidden: true,
     });
+  });
+
+  it('keeps the kept board right when people join, change names, are hidden or leave', async () => {
+    const w = worker();
+    const viewer = await w.person();
+    await viewer.join('Viewer', 'viewer');
+    const people: Profile[] = [];
+    for (let i = 0; i < 6; i++) {
+      const p = await w.person();
+      people.push(await p.join(`Person ${i}`, `person${i}`));
+      await p.call('board/score', 'POST', score(i + 1, { weekCards: 40 - i }));
+      if (i === 0) people.push(await p.join(`Person ${i}`, `person${i}`)); // a save with no change
+    }
+    /** The board as kept, then worked out again from every row: the two are the same. */
+    const same = async () => {
+      for (const query of ['', '?by=week']) {
+        const kept = await viewer.view(query);
+        await runInDurableObject(w.board, (instance) => {
+          (instance as unknown as { everyone: unknown }).everyone = null;
+        });
+        expect(await viewer.view(query)).toEqual(kept);
+      }
+    };
+    await same();
+    const newcomer = await w.person();
+    const fresh = await newcomer.join('New Star', 'new.star');
+    await same();
+    expect((await viewer.view()).rows.some((r) => r.id === fresh.id)).toBe(true);
+
+    const renamer = await w.person();
+    const before = await renamer.join('Old', 'old.one');
+    await same();
+    await renamer.join('Renamed', 'renamed');
+    await same();
+    expect((await viewer.view()).rows.find((r) => r.id === before.id)?.username).toBe('renamed');
+
+    await w.board.adminSetHidden({ id: people[1]!.id }, true);
+    await same();
+    expect((await viewer.view()).rows.find((r) => r.id === people[1]!.id)?.displayName).toBeNull();
+
+    expect((await renamer.call('board/leave', 'POST')).status).toBe(200);
+    await same();
+    expect((await viewer.view()).rows.some((r) => r.id === before.id)).toBe(false);
   });
 
   it('leaving deletes my row; a deleted account can’t come back', async () => {

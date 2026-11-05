@@ -78,7 +78,8 @@ export async function deleteAccount(
   await env.COUNTERS.getByName(account).close();
   const freed = await removeAccountFiles(env.FILES, account);
   await env.COUNTERS.getByName('all').release(today(), freed);
-  await deps.board.leave(account);
+  // Also forgets that Recap hid the name for good (nothing about the account is left).
+  await deps.board.leave(account, true);
   if (who) await deps.accounts.remove(account);
   return json({ ok: true });
 }

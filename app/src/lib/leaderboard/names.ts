@@ -82,6 +82,18 @@ const WORDS = new Set([
   'vcl',
   'vkl',
   'clm',
+  'clgt',
+  'cmnr',
+  'dcmm',
+  'dmcs',
+  'mmb',
+  // Regional slurs written as one word (as two, they're in PAIRS).
+  'backy',
+  'namky',
+  // Passing for Recap's own people (also STAFF below), as whole words ("Stafford" is a name).
+  'mod',
+  'mods',
+  'staff',
 ]);
 
 /**
@@ -128,6 +140,7 @@ const PARTS = [
   'whore',
   'ditme',
   'dume',
+  'memaybeo',
 ];
 
 /** Two words in a row, without accents. */
@@ -136,6 +149,10 @@ const PAIRS = [
   ['dit', 'ma'],
   ['du', 'me'],
   ['du', 'ma'],
+  ['oc', 'cho'],
+  // Regional slurs (user, 2026-11-05): "bắc kỳ", "nam kỳ", with or without accents.
+  ['bac', 'ky'],
+  ['nam', 'ky'],
 ];
 
 /** Two words in a row, with their accents ("Thắng" is a name, "thằng chó" an insult). */
@@ -143,7 +160,19 @@ const VI_PAIRS = [
   ['thằng', 'chó'],
   ['đồ', 'chó'],
   ['óc', 'chó'],
+  // Passing for Recap's own people: admin, support, moderator, official.
+  ['quản', 'trị'],
+  ['hỗ', 'trợ'],
+  ['điều', 'hành'],
+  ['chính', 'thức'],
 ];
+
+/**
+ * Words that pass for Recap's own people, at the start or end of any word, without accents or
+ * spaces: "Recap Admin", "theadmin", "adm1n", "Support Team", but not "badminton".
+ */
+const STAFF = ['admin', 'moderator', 'official', 'recap', 'support'];
+const isStaff = (word: string) => STAFF.some((s) => word.startsWith(s) || word.endsWith(s));
 
 const hasPair = (words: readonly string[], pairs: readonly string[][]) =>
   words.some((word, i) => pairs.some(([a, b]) => word === a && words[i + 1] === b));
@@ -162,20 +191,56 @@ const RESERVED = new Set([
 const withoutAccents = (word: string) =>
   word.normalize('NFD').replace(/\p{M}/gu, '').replace(/đ/g, 'd');
 
-/** False if the name has a word from the lists, or is one Recap keeps for itself. */
-export function isAllowed(name: string): boolean {
+/** A name's words as the filter reads them: lowercase, digits as letters; and without accents. */
+function wordsOf(name: string): { words: string[]; plain: string[] } {
   const lower = name
     .normalize('NFC')
     .toLowerCase()
     .replace(/[0-9]/g, (digit) => DIGITS[digit] ?? ' ');
   const words = lower.split(/[^\p{L}\p{M}]+/u).filter(Boolean);
-  const plain = words.map(withoutAccents);
+  return { words, plain: words.map(withoutAccents) };
+}
+
+/**
+ * A word for the developer's own list (/admin, kept by the board): lowercase, one form for
+ * accents, single spaces; null unless it's 2 to 30 letters (a few words are fine: "bắc kỳ").
+ */
+export function cleanBlockedWord(input: string): string | null {
+  const word = input.normalize('NFC').toLowerCase().trim().replace(/\s+/g, ' ');
+  const length = [...word].length;
+  if (length < 2 || length > 30 || !/^[\p{L}\p{M}]+( [\p{L}\p{M}]+)*$/u.test(word)) return null;
+  return word;
+}
+
+/**
+ * The first word of `blocked` (cleaned by cleanBlockedWord) that the name holds, or null. Whole
+ * words, in a row for a few: "ass" stops "Big Ass" and "big.ass", not "Lassie". Typed with
+ * accents, only that spelling counts ("lồn", not "lon"); without, any accents do.
+ */
+export function blockedWordIn(name: string, blocked: readonly string[]): string | null {
+  if (blocked.length === 0) return null;
+  const { words, plain } = wordsOf(name);
+  for (const entry of blocked) {
+    const parts = entry.split(' ');
+    const accented = parts.some((part) => withoutAccents(part) !== part);
+    const target = accented ? words : plain;
+    for (let i = 0; i + parts.length <= target.length; i++) {
+      if (parts.every((part, j) => target[i + j] === part)) return entry;
+    }
+  }
+  return null;
+}
+
+/** False if the name has a word from the lists, or is one Recap keeps for itself. */
+export function isAllowed(name: string): boolean {
+  const { words, plain } = wordsOf(name);
   const joined = plain.join('');
   if (words.some((word) => VI_WORDS.has(word)) || plain.some((word) => WORDS.has(word))) {
     return false;
   }
   if (PARTS.some((part) => joined.includes(part))) return false;
   if (hasPair(plain, PAIRS) || hasPair(words, VI_PAIRS)) return false;
+  if (isStaff(joined) || plain.some(isStaff)) return false;
   return !RESERVED.has(joined);
 }
 

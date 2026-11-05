@@ -1,8 +1,15 @@
 // What to tell someone when a leaderboard call didn't work. A sign-in the Worker no longer takes
 // signs this device out, as syncing does (features/sync/engine.ts).
 import { signOut } from '@/features/sync/engine';
+import { CONTACT_EMAIL } from '@/lib/contact';
 import { t, type StringKey } from '@/lib/i18n';
-import { BoardError, type BoardErrorKind } from '@/lib/leaderboard/client';
+import { BoardError, type BoardErrorKind, type Profile } from '@/lib/leaderboard/client';
+
+/** Why others see me as Anonymous though I didn't choose it (and how to appeal), or null. */
+export function hiddenNote(profile: Profile): string | null {
+  if (profile.hiddenForGood) return t('board.youHiddenForGood', { email: CONTACT_EMAIL });
+  return profile.hidden ? t('board.youHidden') : null;
+}
 
 const TEXT: Record<BoardErrorKind, StringKey> = {
   offline: 'boardError.offline',
