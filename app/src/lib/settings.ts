@@ -84,6 +84,9 @@ export const AI_CONSENT_KEY = 'ai_consent';
 /** Set once "Remind you to study?" has been offered after a finished session (asked only once). */
 export const REMINDER_OFFERED_KEY = 'reminder_offered';
 
+/** Set once the store's rating sheet has been asked for (features/rating): once per phone. */
+export const RATING_ASKED_KEY = 'rating_asked';
+
 /** "Create with AI"'s last Front / Back language (a `CARD_LANGUAGES` code; null = Auto). Per phone. */
 export const AI_FRONT_LANGUAGE_KEY = 'ai_front_language';
 export const AI_BACK_LANGUAGE_KEY = 'ai_back_language';
@@ -120,6 +123,7 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   AI_CONSENT_KEY,
   APP_ATTEST_KEY,
   REMINDER_OFFERED_KEY,
+  RATING_ASKED_KEY,
   AI_FRONT_LANGUAGE_KEY,
   AI_BACK_LANGUAGE_KEY,
   UPDATE_CHECKED_KEY,
