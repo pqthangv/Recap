@@ -11,7 +11,7 @@ from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel, Field
 from sqlalchemy import Engine
 
-from app import integrity, quota, reports
+from app import appattest, integrity, quota, reports
 from app.abuse import client_ip, limits, rate_limit
 from app.config import Settings, get_settings
 from app.db import DatabaseNotConfigured, get_engine
@@ -74,6 +74,9 @@ class QuotaResponse(BaseModel):
 
 # SHA-256 (hex) of the phone's Android ID, sent by Android apps from 1.0.7 (app/integrity.py).
 PHONE_ID = r"^[0-9a-f]{64}$"
+# Apple's App Attest key id (base64 of a SHA-256), sent by iPhone apps from 1.0.8
+# (app/appattest.py).
+ATTEST_KEY_ID = r"^[A-Za-z0-9+/]{43}=$"
 
 
 def cards_left(engine: Engine, device_id: str, daily: int, ip: str, settings: Settings) -> int:
@@ -96,14 +99,21 @@ def install_quota(settings: Settings) -> int:
 
 
 def shown_counter(
-    engine: Engine, device_id: str, phone_id: str | None, settings: Settings
+    engine: Engine,
+    device_id: str,
+    phone_id: str | None,
+    attest_key_id: str | None,
+    settings: Settings,
 ) -> tuple[str, int]:
-    """The counter /v1/quota shows, so it matches the one /v1/generate will use: the phone's own
-    once a ticket from it has passed (just looking needs no ticket), else the install id's."""
+    """The counter /v1/quota shows, so it matches the one /v1/generate will use (just looking
+    needs no ticket or assertion): an Android phone's own once a ticket from it has passed, an
+    iPhone's once Apple vouched for its key, else the install id's."""
     if phone_id and integrity.enabled(settings):
         trusted = integrity.trusted_id(phone_id)
         if quota.known(engine, trusted):
             return trusted, settings.daily_card_quota
+    elif attest_key_id and appattest.known(engine, attest_key_id):
+        return appattest.trusted_id(attest_key_id), settings.daily_card_quota
     return device_id, install_quota(settings)
 
 
@@ -114,8 +124,9 @@ def get_quota(
     settings: SettingsDep,
     engine: EngineDep,
     phone_id: Annotated[str | None, Query(pattern=PHONE_ID)] = None,
+    attest_key_id: Annotated[str | None, Query(pattern=ATTEST_KEY_ID)] = None,
 ) -> QuotaResponse:
-    counter, daily = shown_counter(engine, str(device_id), phone_id, settings)
+    counter, daily = shown_counter(engine, str(device_id), phone_id, attest_key_id, settings)
     left = cards_left(engine, counter, daily, client_ip(http_request), settings)
     return QuotaResponse(remaining=left, limit=daily)
 
@@ -135,6 +146,11 @@ class GenerateRequest(BaseModel):
     # and the website leave them out and count by `device_id`.
     phone_id: str | None = Field(default=None, pattern=PHONE_ID)
     integrity_token: str | None = None  # an odd one is "no ticket", never an error
+    # iPhone 1.0.8+: its App Attest key (refused if it isn't shaped like one, as phone_id), and
+    # an assertion signing this request (appattest.generate_client_data); one that fails counts
+    # as none.
+    attest_key_id: str | None = Field(default=None, pattern=ATTEST_KEY_ID)
+    attest_assertion: str | None = None
 
 
 class GenerateResponse(BaseModel):
@@ -168,9 +184,16 @@ def generate(
             "Lots of AI cards were made from your network today. More tomorrow!",
             remaining=0,  # even if this phone still has some: none can be made from here today
         )
-    # The device: the phone itself when Google Play vouches for it, else this install. Checked
-    # after the network's limit, so a used-up address can't spend Google's daily allowance.
-    trusted = integrity.check(body.phone_id, body.integrity_token, settings)
+    # The device: the phone itself when Google Play (Android) or Apple (iPhone) vouches for it,
+    # else this install. Checked after the network's limit, so a used-up address can't spend
+    # Google's daily allowance.
+    trusted = integrity.check(body.phone_id, body.integrity_token, settings) or appattest.check(
+        engine,
+        body.attest_key_id,
+        body.attest_assertion,
+        appattest.generate_client_data(body.mode, body.text),
+        settings,
+    )
     if trusted:
         device_id, daily = trusted, settings.daily_card_quota
     else:
@@ -260,6 +283,35 @@ def generate(
             remaining=left,
         )
     return GenerateResponse(cards=cards, remaining=left)
+
+
+class ChallengeResponse(BaseModel):
+    challenge: str
+
+
+@router.post("/attest/challenge")
+def attest_challenge() -> ChallengeResponse:
+    """A one-time challenge (5 minutes) for an iPhone to have its new App Attest key attested."""
+    return ChallengeResponse(challenge=appattest.challenges.issue())
+
+
+class AttestKeyRequest(BaseModel):
+    key_id: str = Field(pattern=ATTEST_KEY_ID)
+    attestation: str = Field(max_length=appattest.MAX_ATTESTATION_CHARS)
+    challenge: str = Field(max_length=100)
+
+
+class OkResponse(BaseModel):
+    ok: bool = True
+
+
+@router.post("/attest/key")
+def attest_key(body: AttestKeyRequest, settings: SettingsDep, engine: EngineDep) -> OkResponse:
+    """Keeps an iPhone's App Attest key once Apple's attestation checks out. A refusal changes
+    nothing for the phone: it keeps the install's allowance."""
+    if not appattest.register(engine, body.key_id, body.attestation, body.challenge, settings):
+        raise ApiError(400, "attestation_failed", "This iPhone couldn't be checked.")
+    return OkResponse()
 
 
 class ReportRequest(BaseModel):

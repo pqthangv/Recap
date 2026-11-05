@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 from sqlalchemy import text  # noqa: E402
 
 from app.abuse import limits  # noqa: E402
+from app.appattest import challenges  # noqa: E402
 from app.config import get_settings  # noqa: E402
 from app.db import make_engine, set_engine  # noqa: E402
 from app.main import app  # noqa: E402
@@ -18,8 +19,10 @@ get_settings.cache_clear()
 
 @pytest.fixture(autouse=True)
 def fresh_limits():
-    """The per-address limits live in memory; every test starts with none used."""
+    """The per-address limits and App Attest challenges live in memory; every test starts with
+    none used."""
     limits.reset()
+    challenges.reset()
 
 
 # Set TEST_DATABASE_URL (CI does, with a PostgreSQL service) to run every test against real
@@ -48,6 +51,7 @@ def postgres_engine():
 def engine(postgres_engine):
     if postgres_engine is not None:
         with postgres_engine.begin() as connection:
+            connection.execute(text("DELETE FROM app_attest_keys"))
             connection.execute(text("DELETE FROM ai_reports"))
             connection.execute(text("DELETE FROM ai_usage"))
             connection.execute(text("DELETE FROM devices"))
