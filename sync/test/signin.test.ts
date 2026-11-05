@@ -154,7 +154,8 @@ function worker(overrides: Partial<Env> = {}) {
     }
     return new Response('not found', { status: 404 });
   };
-  const deps: Deps = { accounts, fetch: fetcher, keys };
+  const board = env.BOARD.getByName(crypto.randomUUID());
+  const deps: Deps = { accounts, fetch: fetcher, keys, board };
   const workerEnv = { ...testEnv, ...overrides };
   // A new address for each call, so the per-network limit only trips where a test wants it.
   const call = (path: string, init: RequestInit = {}, network = crypto.randomUUID()) =>
@@ -174,7 +175,7 @@ function worker(overrides: Partial<Env> = {}) {
       headers: { 'Content-Length': String(new TextEncoder().encode(text).length), ...headers },
     });
   };
-  return { call, post, codes, emails, appleSecrets, revoked, ids };
+  return { call, post, codes, emails, appleSecrets, revoked, ids, board };
 }
 
 type Worker = ReturnType<typeof worker>;
@@ -529,11 +530,14 @@ describe('deleting an account', () => {
     const account = (await accountIn(token))!;
     expect((await put(w, token, 'changes/0000000001.json', '{"x":1}')).status).toBe(201);
     expect(await filesOf(account)).toBe(1);
+    const names = { displayName: 'Deleted Owl', username: 'deleted.owl', anonymous: false };
+    expect(await w.board.save(account, names, Date.now())).toMatchObject(names);
 
     const deleted = await remove(w, token);
     expect(await deleted.json()).toEqual({ ok: true });
     expect(await filesOf(account)).toBe(0);
     expect(w.ids.has('google:g-del')).toBe(false);
+    expect(await w.board.profile(account)).toBeNull();
 
     // Both phones' tokens stop working: listing, writing and renewing.
     for (const t of [token, other.token]) {

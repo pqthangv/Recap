@@ -123,8 +123,24 @@ const MESSAGES: Record<Lang, (code: string) => { subject: string; text: string }
   }),
 };
 
-/** Emails the code through Resend's API. False if Resend didn't take it. */
-export async function sendCode(
+/** Sends one plain email through Resend's API. False if Resend didn't take it. */
+export async function sendEmail(
+  env: Env,
+  fetcher: typeof fetch,
+  to: string,
+  subject: string,
+  text: string,
+): Promise<boolean> {
+  const response = await fetcher('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: env.EMAIL_FROM, to: [to], subject, text }),
+  });
+  return response.ok;
+}
+
+/** Emails the code. False if Resend didn't take it. */
+export function sendCode(
   env: Env,
   fetcher: typeof fetch,
   email: string,
@@ -132,10 +148,5 @@ export async function sendCode(
   lang: Lang,
 ): Promise<boolean> {
   const { subject, text } = MESSAGES[lang](code);
-  const response = await fetcher('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: env.EMAIL_FROM, to: [email], subject, text }),
-  });
-  return response.ok;
+  return sendEmail(env, fetcher, email, subject, text);
 }

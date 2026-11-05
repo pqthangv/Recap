@@ -24,6 +24,8 @@
     "EMAIL_FROM": "Recap <signin@recapflashcards.com>",
     // Store review's demo account: never emailed, its code is the REVIEW_CODE secret.
     "REVIEW_EMAIL": "review@recapflashcards.com",
+    // Leaderboard reports are emailed here (src/board.ts).
+    "REPORTS_TO": "support@recapflashcards.com",
   },
   "secrets": {
     "required": [
@@ -50,16 +52,19 @@
     { "name": "AUTH_LIMITER", "namespace_id": "1002", "simple": { "limit": 30, "period": 60 } },
   ],
   // COUNTERS: the daily limit counters (src/limits.ts). CODES: one per email address, its
-  // sign-in code (src/email.ts). Both SQLite-backed, the kind the Free plan has.
+  // sign-in code (src/email.ts). BOARD: the leaderboard, one object named "board" (src/board.ts).
+  // All SQLite-backed, the kind the Free plan has.
   "durable_objects": {
     "bindings": [
       { "name": "COUNTERS", "class_name": "Counter" },
       { "name": "CODES", "class_name": "SignInCode" },
+      { "name": "BOARD", "class_name": "Board" },
     ],
   },
   "migrations": [
     { "tag": "v1", "new_sqlite_classes": ["Counter"] },
     { "tag": "v2", "new_sqlite_classes": ["SignInCode"] },
+    { "tag": "v3", "new_sqlite_classes": ["Board"] },
   ],
   "observability": { "enabled": true },
 }

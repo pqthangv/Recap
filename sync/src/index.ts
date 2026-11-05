@@ -7,6 +7,7 @@
 //   POST /v1/token               a new token for the same account (the app renews weekly)
 //   POST /v1/account/delete      deletes the account and its files (src/deletion.ts)
 //   /v1/pictures…                pictures on cards (src/pictures.ts)
+//   /v1/board…                   the leaderboard (src/board.ts)
 //   GET  /health                 "ok", touching nothing (for uptime checks)
 // Every other /v1 request needs "Authorization: Bearer <token>"; the token's account is the
 // folder. Signing in is /v1/auth/… (src/signin.ts), rate limited per network instead.
@@ -14,6 +15,7 @@
 // when today's writes are used up, 507 storage_full when there's no room for a file.
 import { neonAccounts } from './accounts';
 import { accountOf, makeToken } from './auth';
+import { board, BOARD_NAME } from './board';
 import { deleteAccount } from './deletion';
 import {
   createFile,
@@ -35,6 +37,7 @@ import { pictures } from './pictures';
 import { REMOTE_KEYS } from './providers';
 import { signIn, type Deps } from './signin';
 
+export { Board } from './board';
 export { Counter } from './limits';
 export { SignInCode } from './email';
 
@@ -97,6 +100,10 @@ export async function handle(request: Request, env: Env, deps: Deps): Promise<Re
 
   if (path === 'pictures' || path.startsWith('pictures/')) {
     return (await pictures(request, env, account, path)) ?? fail('not_found', 404);
+  }
+
+  if (path === 'board' || path.startsWith('board/')) {
+    return (await board(request, env, deps, account, path)) ?? fail('not_found', 404);
   }
 
   if (path === 'files' && method === 'GET') {
@@ -173,6 +180,7 @@ export default {
       accounts: neonAccounts(env.DATABASE_URL),
       fetch: (input, init) => fetch(input, init),
       keys: REMOTE_KEYS,
+      board: env.BOARD.getByName(BOARD_NAME),
     };
     const response = await handle(request, env, deps);
     for (const [key, value] of Object.entries(cors)) response.headers.set(key, value);
