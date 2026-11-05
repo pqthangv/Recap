@@ -107,17 +107,24 @@ appId: com.recapcards.app
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: check-card-editor
-- tapOn: Cancel
+# Start again rather than tap Cancel: on the folded iPhone Duo the deck form's top bar (title and
+# Cancel) was gone after scrolling with the keyboard open (2026-11-05), and the run stopped there.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
 - tapOn: Add a deck or card
 - tapOn: New deck
 - extendedWaitUntil:
     visible: Deck name
     timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-deck-form-top
 - scroll
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: check-deck-form
-- tapOn: Cancel
 
 # Create with AI in two languages. It uses the real server (the workflow wakes it up first) and
 # the free Gemini quota, so it comes last.
