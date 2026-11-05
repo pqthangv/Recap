@@ -45,6 +45,19 @@ describe.each(['light', 'dark'] as const)('theme contrast, %s look (WCAG AA)', (
     expect(contrast(colors.flame, colors.tint)).toBeGreaterThanOrEqual(3);
   });
 
+  it("the leaderboard's top three badges stand out, with a readable number on them", () => {
+    const badges = [
+      [colors.rankGold, colors.rankGoldFill],
+      [colors.rankSilver, colors.rankSilverFill],
+      [colors.rankBronze, colors.rankBronzeFill],
+    ];
+    for (const [outline, fill] of badges) {
+      expect(contrast(outline, colors.background)).toBeGreaterThanOrEqual(3);
+      expect(contrast(outline, colors.tint)).toBeGreaterThanOrEqual(3);
+      expect(contrast(colors.onRank, fill)).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
   it('the chart colors stand out on the page', () => {
     expect(contrast(colors.chartNew, colors.background)).toBeGreaterThanOrEqual(3);
     expect(contrast(colors.primary, colors.background)).toBeGreaterThanOrEqual(3);

@@ -17,11 +17,11 @@ import {
 import { ActionSheet, type SheetOption } from '@/components/ActionSheet';
 import { Button } from '@/components/Button';
 import { FlameIcon } from '@/components/FlameIcon';
+import { RankBadge } from '@/components/RankBadge';
 import { showSnackbar } from '@/components/Snackbar';
-import { SwitchRow } from '@/components/SwitchRow';
 import { useAccount } from '@/features/sync/session';
 import { showAlert } from '@/lib/alert';
-import { count, t, tn, type StringKey } from '@/lib/i18n';
+import { t, tn, type StringKey } from '@/lib/i18n';
 import type { Profile, Ranking, Row, Tab, View as Board } from '@/lib/leaderboard/client';
 import { cleanUsername } from '@/lib/leaderboard/names';
 import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/theme';
@@ -32,6 +32,7 @@ import { noteJoined, sendScore } from './score';
 
 /** "Only people with 50+ cards this week" on Everyone. */
 const MIN_CARDS = 50;
+const RANKINGS: Record<Ranking, StringKey> = { streak: 'board.byStreak', week: 'board.byWeek' };
 
 export default function LeaderboardScreen() {
   const styles = useStyles(makeStyles);
@@ -48,6 +49,7 @@ export default function LeaderboardScreen() {
   // Bumped each time the screen shows (also back from changing the name), and by Try again.
   const [visit, setVisit] = useState(0);
   const [opened, setOpened] = useState<Row | null>(null);
+  const [choosingRank, setChoosingRank] = useState(false);
 
   useFocusEffect(useCallback(() => setVisit((n) => n + 1), []));
 
@@ -183,23 +185,24 @@ export default function LeaderboardScreen() {
                 { key: 'friends', label: 'board.friends' },
               ]}
             />
-            <Tabs<Ranking>
-              value={by}
-              onChange={setBy}
-              items={[
-                { key: 'streak', label: 'board.byStreak' },
-                { key: 'week', label: 'board.byWeek' },
-              ]}
-            />
-            {tab === 'everyone' ? (
-              <SwitchRow
-                label={t('board.onlyActive', { n: MIN_CARDS })}
-                value={onlyActive}
-                onChange={setOnlyActive}
+            <View style={styles.pills}>
+              <Pill
+                label={t('board.sortLabel', { by: t(RANKINGS[by]) })}
+                accessibilityLabel={t('board.sortA11y', { by: t(RANKINGS[by]) })}
+                onPress={() => setChoosingRank(true)}
               />
-            ) : (
+              {tab === 'everyone' ? (
+                <Pill
+                  label={t('board.onlyActiveShort', { n: MIN_CARDS })}
+                  accessibilityLabel={t('board.onlyActive', { n: MIN_CARDS })}
+                  on={onlyActive}
+                  onPress={() => setOnlyActive((on) => !on)}
+                />
+              ) : null}
+            </View>
+            {tab === 'friends' ? (
               <FollowByUsername onFollowed={() => setReload((n) => n + 1)} />
-            )}
+            ) : null}
             {profile.hidden || profile.anonymous ? (
               <Text style={styles.description}>
                 {t(profile.hidden ? 'board.youHidden' : 'board.youAnonymous')}
@@ -244,6 +247,16 @@ export default function LeaderboardScreen() {
         onClose={() => setOpened(null)}
         onChanged={() => setReload((n) => n + 1)}
       />
+      <ActionSheet
+        visible={choosingRank}
+        title={t('board.rankBy')}
+        options={(['streak', 'week'] as const).map((key) => ({
+          label: t(RANKINGS[key]),
+          selected: by === key,
+          onPress: () => setBy(key),
+        }))}
+        onClose={() => setChoosingRank(false)}
+      />
     </>
   );
 }
@@ -278,6 +291,42 @@ function Tabs<K extends string>({
   );
 }
 
+/** A small rounded button under the tabs: "Sort: Streak", or a filter that's violet when `on`. */
+function Pill({
+  label,
+  accessibilityLabel,
+  on,
+  onPress,
+}: {
+  label: string;
+  accessibilityLabel: string;
+  /** Set for a filter (an on/off switch to screen readers). */
+  on?: boolean;
+  onPress: () => void;
+}) {
+  const styles = useStyles(makeStyles);
+  return (
+    <Pressable
+      accessibilityRole={on === undefined ? 'button' : 'switch'}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState={on === undefined ? undefined : { checked: on }}
+      onPress={onPress}
+      style={({ pressed }) => [styles.pill, on && styles.pillOn, pressed && styles.pressed]}
+    >
+      <Text
+        style={[
+          styles.pillText,
+          on === undefined && styles.pillTextButton,
+          on && styles.pillTextOn,
+        ]}
+        numberOfLines={1}
+      >
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
 /** "3  Lan · @lan   🔥 12 days" */
 function BoardRow({
   row,
@@ -292,6 +341,8 @@ function BoardRow({
 }) {
   const styles = useStyles(makeStyles);
   const name = row.displayName ?? t('board.anonymous');
+  // Equal scores share a rank, so two people can share a medal; nobody gets one for nothing.
+  const medal = (by === 'streak' ? row.streak : row.weekCards) > 0;
   const streak = tn('count.day', row.streak);
   const cards = tn('count.card', row.weekCards);
   const spoken = [
@@ -310,7 +361,9 @@ function BoardRow({
       onPress={onPress}
       style={({ pressed }) => [styles.row, row.me && styles.rowMine, pressed && styles.pressed]}
     >
-      <Text style={styles.rank}>{count(row.rank)}</Text>
+      <View style={styles.rankCell}>
+        <RankBadge rank={row.rank} medal={medal} />
+      </View>
       <View style={styles.who}>
         <Text style={[styles.name, !row.displayName && styles.anonymous]} numberOfLines={1}>
           {name}
@@ -327,15 +380,40 @@ function BoardRow({
           </Text>
         ) : null}
       </View>
-      {by === 'streak' ? (
-        <View style={styles.score}>
-          <FlameIcon size={20} lit={row.streak > 0} />
-          <Text style={styles.scoreText}>{streak}</Text>
-        </View>
-      ) : (
-        <Text style={[styles.score, styles.scoreText]}>{cards}</Text>
-      )}
+      {/* Both scores: the one it's sorted by on top, the other under it, like the @username. */}
+      <View style={styles.scores}>
+        {by === 'streak' ? (
+          <>
+            <StreakScore streak={row.streak} text={streak} />
+            <Text style={[styles.otherScore, styles.otherLine]}>{cards}</Text>
+          </>
+        ) : (
+          <>
+            <Text style={styles.scoreText}>{cards}</Text>
+            <StreakScore streak={row.streak} text={streak} small />
+          </>
+        )}
+      </View>
     </Pressable>
+  );
+}
+
+/** "🔥 12 days", bold, or `small` and grey under the cards. */
+function StreakScore({
+  streak,
+  text,
+  small = false,
+}: {
+  streak: number;
+  text: string;
+  small?: boolean;
+}) {
+  const styles = useStyles(makeStyles);
+  return (
+    <View style={[styles.streak, small && styles.otherLine]}>
+      <FlameIcon size={small ? 14 : 20} lit={streak > 0} />
+      <Text style={small ? styles.otherScore : styles.scoreText}>{text}</Text>
+    </View>
   );
 }
 
@@ -488,8 +566,8 @@ function RowSheet({
 const makeStyles = (colors: Colors) =>
   StyleSheet.create({
     content: { padding: 20, gap: 12 },
-    list: { padding: 20, paddingBottom: 48 },
-    header: { gap: 12, marginBottom: 8 },
+    list: { padding: 20, paddingTop: 12, paddingBottom: 48 },
+    header: { gap: 12, marginBottom: 16 },
     footer: { gap: 12, marginTop: 8 },
     body: { fontSize: 16, color: colors.text, lineHeight: 22 },
     description: { fontSize: 14, color: colors.muted },
@@ -509,7 +587,22 @@ const makeStyles = (colors: Colors) =>
       borderRadius: radius.button - 4,
       paddingHorizontal: 4,
     },
-    tabSelected: { backgroundColor: colors.background },
+    // The chosen tab in the same light violet as an "on" chip and your own row.
+    tabSelected: { backgroundColor: colors.tint },
+    pills: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+    pill: {
+      minHeight: touchTarget,
+      maxWidth: '100%',
+      justifyContent: 'center',
+      paddingHorizontal: 16,
+      borderRadius: radius.chip,
+      borderWidth: 1,
+      borderColor: colors.hairline,
+    },
+    pillOn: { backgroundColor: colors.tint, borderColor: colors.primary },
+    pillText: { fontSize: 15, color: colors.text },
+    pillTextButton: { fontWeight: '600' },
+    pillTextOn: { fontWeight: '600', color: colors.primary },
     tabText: { fontSize: 15, color: colors.muted, textAlign: 'center' },
     tabTextSelected: { color: colors.primary, fontWeight: '600' },
     row: {
@@ -524,13 +617,17 @@ const makeStyles = (colors: Colors) =>
     },
     rowMine: { backgroundColor: colors.tint },
     pressed: { backgroundColor: colors.surface },
-    rank: { minWidth: 32, fontSize: 16, fontWeight: '700', color: colors.muted },
+    // Every rank's badge in one centered column.
+    rankCell: { minWidth: 40, alignItems: 'center' },
     who: { flex: 1 },
     name: { fontSize: 16, fontWeight: '500', color: colors.text },
     anonymous: { color: colors.muted, fontStyle: 'italic' },
     username: { fontSize: 13, color: colors.muted, marginTop: 2 },
-    score: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+    scores: { alignItems: 'flex-end' },
+    streak: { flexDirection: 'row', alignItems: 'center', gap: 4 },
     scoreText: { fontSize: 16, fontWeight: '600', color: colors.text },
+    otherScore: { fontSize: 13, color: colors.muted },
+    otherLine: { marginTop: 2 },
     follow: { gap: 8 },
     followRow: { flexDirection: 'row', gap: 8, alignItems: 'center' },
     input: {
