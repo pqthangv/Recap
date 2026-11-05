@@ -265,7 +265,7 @@ function ProviderButton({
   );
 }
 
-/** "Continue with email": the address, then the 6-digit code it was sent. */
+/** "Continue with Email": the address, then the 6-digit code it was sent. */
 function EmailSignIn({
   busy,
   onError,
