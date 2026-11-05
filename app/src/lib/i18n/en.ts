@@ -693,6 +693,8 @@ export const en = {
   'board.youAnonymous': 'Others see you as Anonymous.',
   'board.youHidden':
     "Others see you as Anonymous: your name was reported, or isn't allowed. Change it to show it again.",
+  'board.youHiddenForGood':
+    'Others see you as Anonymous: Recap hid your name for breaking the leaderboard rules. To appeal, email {email}.',
   // A row, for screen readers: "Number 3: Lan, 12 days streak, 340 cards this week".
   'board.rowA11y': 'Number {rank}: {name}, {streak} streak, {cards} this week',
   'board.rowHint': 'Opens choices',
@@ -710,7 +712,7 @@ export const en = {
   'board.report': 'Report name',
   'board.reportTitle': 'Report this name?',
   'board.reportBody':
-    'Report a name that is rude or pretends to be someone else. Recap looks at every report, and a name reported by 100 people is hidden until it is changed.',
+    'Report a name that is rude or pretends to be someone else. Recap looks at every report, and a name reported many times is hidden on its own until it is changed.',
   'board.reported': 'Thanks. Recap will look at it.',
   'board.changeName': 'Change my name',
 
@@ -724,6 +726,11 @@ export const en = {
     "Others see your streak without your name, and friends can't see or follow you.",
   'board.rules': "Keep names kind: no rude words, and no one else's name.",
   'board.rulesLink': 'Leaderboard rules',
+  // Shown before joining; "Agree and join" is the agreement.
+  'board.rule1': 'Keep names kind: no rude, hateful or sexual words.',
+  'board.rule2': "Don't use someone else's name, or pretend to be Recap.",
+  'board.rule3': 'Recap reads every report and can hide a name for good if it breaks these rules.',
+  'board.agreeAndJoin': 'Agree and join',
   'board.blockedPeople': 'Blocked people',
   'board.unblock': 'Unblock',
   'board.unblockA11y': 'Unblock {name}',

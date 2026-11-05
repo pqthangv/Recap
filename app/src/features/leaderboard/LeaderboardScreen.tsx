@@ -27,7 +27,7 @@ import { cleanUsername } from '@/lib/leaderboard/names';
 import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/theme';
 
 import { boardClient } from './api';
-import { problemText } from './problem';
+import { hiddenNote, problemText } from './problem';
 import { noteJoined, sendScore } from './score';
 
 /** "Only people with 50+ cards this week" on Everyone. */
@@ -205,7 +205,7 @@ export default function LeaderboardScreen() {
             ) : null}
             {profile.hidden || profile.anonymous ? (
               <Text style={styles.description}>
-                {t(profile.hidden ? 'board.youHidden' : 'board.youAnonymous')}
+                {hiddenNote(profile) ?? t('board.youAnonymous')}
               </Text>
             ) : null}
             {problem ? (

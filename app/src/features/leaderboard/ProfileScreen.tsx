@@ -25,10 +25,12 @@ import {
 import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/theme';
 
 import { boardClient } from './api';
-import { problemText } from './problem';
+import { hiddenNote, problemText } from './problem';
 import { sendScore, startOver } from './score';
 
 const RULES_URL = `${SUPPORT_URL}#leaderboard`;
+/** Shown before joining (Apple 1.2: people agree to the rules for names others see). */
+const RULES: StringKey[] = ['board.rule1', 'board.rule2', 'board.rule3'];
 
 const NAME_TEXT: Record<NameProblem, StringKey> = {
   too_short: 'boardName.too_short',
@@ -164,10 +166,11 @@ export default function ProfileScreen() {
     );
   }
 
+  const note = profile ? hiddenNote(profile) : null;
   return (
     <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
       {title}
-      {profile?.hidden ? <Text style={styles.problem}>{t('board.youHidden')}</Text> : null}
+      {note ? <Text style={styles.problem}>{note}</Text> : null}
 
       <View style={styles.field}>
         <Text style={styles.label}>{t('board.displayName')}</Text>
@@ -227,20 +230,37 @@ export default function ProfileScreen() {
       />
 
       <Text style={styles.description}>{t('board.whatOthersSee')}</Text>
-      <Pressable
-        accessibilityRole="link"
-        onPress={() =>
-          Linking.openURL(RULES_URL).catch(() => showAlert(t('board.rulesLink'), RULES_URL))
-        }
-        style={styles.link}
-      >
-        <Text style={styles.description}>
-          {t('board.rules')} <Text style={styles.linkText}>{t('board.rulesLink')}</Text>
-        </Text>
-      </Pressable>
+      {profile ? (
+        <Pressable
+          accessibilityRole="link"
+          onPress={() =>
+            Linking.openURL(RULES_URL).catch(() => showAlert(t('board.rulesLink'), RULES_URL))
+          }
+          style={styles.link}
+        >
+          <Text style={styles.description}>
+            {t('board.rules')} <Text style={styles.linkText}>{t('board.rulesLink')}</Text>
+          </Text>
+        </Pressable>
+      ) : (
+        // Joining: the rules first, and "Agree and join" is agreeing to them.
+        <View style={styles.rules}>
+          <Text accessibilityRole="header" style={styles.rulesTitle}>
+            {t('board.rulesLink')}
+          </Text>
+          {RULES.map((rule) => (
+            <View key={rule} style={styles.rule}>
+              <Text style={styles.bullet} importantForAccessibility="no">
+                •
+              </Text>
+              <Text style={styles.ruleText}>{t(rule)}</Text>
+            </View>
+          ))}
+        </View>
+      )}
 
       <Button
-        label={t(profile ? 'common.save' : 'board.join')}
+        label={t(profile ? 'common.save' : 'board.agreeAndJoin')}
         disabled={busy}
         onPress={() => void save()}
       />
@@ -334,6 +354,11 @@ const makeStyles = (colors: Colors) =>
       color: colors.text,
     },
     link: { minHeight: touchTarget, justifyContent: 'center' },
+    rules: { backgroundColor: colors.surface, borderRadius: radius.card, padding: 16, gap: 8 },
+    rulesTitle: { fontSize: 16, fontWeight: '600', color: colors.text },
+    rule: { flexDirection: 'row', gap: 8 },
+    bullet: { fontSize: 15, color: colors.muted, lineHeight: 21 },
+    ruleText: { flex: 1, fontSize: 15, color: colors.text, lineHeight: 21 },
     linkText: { color: colors.primary, textDecorationLine: 'underline' },
     heading: { fontSize: 17, fontWeight: '600', color: colors.text, marginTop: 8 },
     blocked: { gap: 8 },
