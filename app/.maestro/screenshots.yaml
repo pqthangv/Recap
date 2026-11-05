@@ -3,7 +3,7 @@
 # (scripts/demo-db.test.ts) into the app, so the screens show the demo decks:
 #   maestro test --test-output-dir DIR .maestro/screenshots.yaml
 # Screenshots land in DIR/<run>/<flow>/takeScreenshot/; the names match the store graphics script
-# (home, study, voices, library, stats, ai, ai-review). Buttons are found by their accessibility
+# (home, study, voices, library, stats, sync, ai, ai-review). Buttons are found by their accessibility
 # labels. Never clearState here: it would wipe the demo database.
 # 1.0.4: the shots lead with what's Recap's own: a typed answer checked with a suggested grade,
 # each deck read aloud in its own languages, and Create with AI in two languages.
@@ -20,6 +20,11 @@ appId: com.recapcards.app
 # Typed recall. "German words" has one card due, "der Apfel" (scripts/demo-data.ts): type a near
 # miss and check it. Recap marks the swapped letters, says "Almost: check the spelling" and
 # highlights Hard. Nothing is graded, so the data stays the same.
+# The demo decks are in groups (scripts/demo-data.ts): German words is in Languages.
+- tapOn: 'Languages.*'
+- extendedWaitUntil:
+    visible: 'German words.*'
+    timeout: 30000
 - tapOn: 'German words.*'
 - extendedWaitUntil:
     visible: 'Study this deck.*'
@@ -44,6 +49,10 @@ appId: com.recapcards.app
 - extendedWaitUntil:
     visible: 'Study · .* due'
     timeout: 60000
+- tapOn: 'Languages.*'
+- extendedWaitUntil:
+    visible: 'Spanish basics.*'
+    timeout: 30000
 - tapOn: 'Spanish basics.*'
 - extendedWaitUntil:
     visible: 'Study this deck.*'
@@ -89,6 +98,21 @@ appId: com.recapcards.app
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: stats
+
+# Sync (1.0.8): Settings › Sync my cards, signed out: what sync does and the three ways to sign in.
+# Nothing is tapped there.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Study · .* due'
+    timeout: 60000
+- tapOn: Settings
+- tapOn: 'Sync my cards.*'
+- extendedWaitUntil:
+    visible: Continue with Google
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: sync
 
 # Checks, not for the stores (the slides script only takes the names above): the two sheets
 # with the keyboard open, scrolled down, so the screenshots show whether Save can still be

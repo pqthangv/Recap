@@ -19,7 +19,7 @@ const DECKS: {
   cards: [string, string][];
 }[] = [
   {
-    name: 'Spanish basics',
+    name: 'Languages › Spanish basics',
     color: '#1A73E8',
     languages: { front: 'es', back: 'en' },
     cards: [
@@ -100,8 +100,8 @@ const DECKS: {
     ],
   },
   {
-    name: 'IELTS vocabulary',
-    color: '#AD1457',
+    name: 'Exam prep › IELTS vocabulary',
+    color: '#5A31D6',
     cards: [
       ['alleviate', 'to make a problem or pain less severe'],
       ['substantial', 'large in amount or importance'],
@@ -120,7 +120,7 @@ const DECKS: {
     ],
   },
   {
-    name: 'SAT words',
+    name: 'Exam prep › SAT words',
     color: '#5A31D6',
     cards: [
       ['ubiquitous', 'found everywhere'],
@@ -142,8 +142,8 @@ const DECKS: {
   // Last, so the decks above keep the same random history. The typed-answer screenshot studies
   // it: "der Apfel" is the one card due, and "the appel" gets "Almost" with Hard suggested.
   {
-    name: 'German words',
-    color: '#C5221F',
+    name: 'Languages › German words',
+    color: '#1A73E8',
     languages: { front: 'de', back: 'en' },
     firstCardDueOnly: true,
     cards: [

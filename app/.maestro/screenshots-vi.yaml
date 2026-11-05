@@ -17,6 +17,11 @@ appId: com.recapcards.app
 # Typed recall. "German words" has one card due, "der Apfel" (scripts/demo-data.ts): type a near
 # miss and check it. Recap marks the swapped letters, says "Almost: check the spelling" and
 # highlights Hard. Nothing is graded, so the data stays the same.
+# The demo decks are in groups (scripts/demo-data.ts): German words is in Languages.
+- tapOn: 'Languages.*'
+- extendedWaitUntil:
+    visible: 'German words.*'
+    timeout: 30000
 - tapOn: 'German words.*'
 - extendedWaitUntil:
     visible: 'Học bộ thẻ này.*'
@@ -41,6 +46,10 @@ appId: com.recapcards.app
 - extendedWaitUntil:
     visible: 'Học · .* thẻ cần ôn'
     timeout: 60000
+- tapOn: 'Languages.*'
+- extendedWaitUntil:
+    visible: 'Spanish basics.*'
+    timeout: 30000
 - tapOn: 'Spanish basics.*'
 - extendedWaitUntil:
     visible: 'Học bộ thẻ này.*'
@@ -86,6 +95,21 @@ appId: com.recapcards.app
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: stats
+
+# Sync (1.0.8): Settings › Sync my cards, signed out: what sync does and the three ways to sign in.
+# Nothing is tapped there.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Học · .* thẻ cần ôn'
+    timeout: 60000
+- tapOn: Cài đặt
+- tapOn: 'Đồng bộ thẻ.*'
+- extendedWaitUntil:
+    visible: Tiếp tục bằng Google
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: sync
 
 # Checks, not for the stores (the slides script only takes the names above): the two sheets
 # with the keyboard open, scrolled down, so the screenshots show whether Save can still be
