@@ -43,6 +43,8 @@
       // The review account's 6-digit code.
       "REVIEW_CODE",
     ],
+    // Not required: ADMIN_TOKEN, the password of /admin (src/admin.ts), at least 32 random
+    // characters. Without it the page doesn't exist.
   },
   // LIMITER: per account, per Cloudflare location, approximate. A new device's first sync reads a
   // few dozen files, so this leaves room for that. The daily limits are in src/limits.ts.

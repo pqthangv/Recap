@@ -309,7 +309,7 @@ describe('the board API', () => {
     expect((await a.view()).rows).toHaveLength(2);
   });
 
-  it('emails each report, hides a name after 3 people report it, until it’s changed', async () => {
+  it(`emails reports, hides a name after ${REPORTS_TO_HIDE} people report it, until it’s changed`, async () => {
     const w = worker();
     const target = await w.person();
     const profile = await target.join('Rude Name', 'rude.name');
@@ -320,17 +320,24 @@ describe('the board API', () => {
         return p;
       }),
     );
+    const shownTo = async (p: (typeof reporters)[number]) =>
+      (await p.view()).rows.find((r) => r.id === profile.id)!.displayName;
     for (const [i, p] of reporters.entries()) {
       expect((await p.call('board/report', 'POST', { id: profile.id })).status).toBe(200);
-      // Reporting again changes nothing.
-      expect((await p.call('board/report', 'POST', { id: profile.id })).status).toBe(200);
-      const hidden = i + 1 >= REPORTS_TO_HIDE;
-      const row = (await p.view()).rows.find((r) => r.id === profile.id)!;
-      expect(row.displayName).toBe(hidden ? null : 'Rude Name');
+      if (i === 0) {
+        // Reporting again changes nothing.
+        expect((await p.call('board/report', 'POST', { id: profile.id })).status).toBe(200);
+      }
+      // Still shown one report short, hidden at the last (the board isn't looked at in between:
+      // a hundred people make the test slow enough).
+      if (i + 2 === REPORTS_TO_HIDE) expect(await shownTo(p)).toBe('Rude Name');
     }
-    expect(w.emails).toHaveLength(REPORTS_TO_HIDE);
+    expect(await shownTo(reporters[0]!)).toBeNull();
+    // Today's first ten are emailed, each with the way to /admin.
+    expect(w.emails).toHaveLength(Math.min(REPORTS_TO_HIDE, REPORT_EMAILS_PER_DAY));
     expect(w.emails[0]).toMatchObject({ to: ['support@recapflashcards.com'] });
     expect(w.emails[0]!.text).toContain('rude.name');
+    expect(w.emails[0]!.text).toContain('https://sync.test/admin');
     expect((await (await target.call('board/me')).json()) as Profile).toMatchObject({
       hidden: true,
     });

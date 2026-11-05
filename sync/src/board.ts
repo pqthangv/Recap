@@ -16,10 +16,11 @@
 // 00:00 UTC for everyone; a streak counts until its `streakUntil` (the end of the day after the
 // last one studied, worked out on the phone), so nothing has to run when a day ends.
 //
-// Reports: each one is emailed to REPORTS_TO (10 a day), and a name reported by 3 people is hidden
-// (members.hidden = 1) until its owner changes it. To look at reports, hide a name for good
-// (hidden = 2) or remove someone: Cloudflare dashboard › Durable Objects › Board › Data Studio,
-// object "board" (it shows SQL tables only, hence no key-value storage here).
+// Reports: each one is emailed to REPORTS_TO (10 a day), and a name reported by 100 people is
+// hidden (members.hidden = 1) until its owner changes it. The developer looks at reports on
+// /admin (src/admin.ts): hide a name for good (hidden = 2), or show it again. As a backup, the
+// same tables are in Cloudflare dashboard › Durable Objects › Board › Data Studio, object "board"
+// (it shows SQL tables only, hence no key-value storage here).
 //
 // Durable Objects Free: 100,000 rows written a day for the whole Cloudflare account, and past it
 // every Durable Object fails, the sync counters too (src/limits.ts: up to about 50,000 a day). So
@@ -46,8 +47,13 @@ export const TOP = 100;
 export const MAX_FOLLOWING = 200;
 export const MAX_BLOCKED = 500;
 export const MAX_WEEK_CARDS = 10_000;
-/** A name reported by this many people is hidden until its owner changes it. */
-export const REPORTS_TO_HIDE = 3;
+/**
+ * A name reported by this many people is hidden until its owner changes it (user, 2026-11-05:
+ * high, so names are hidden by the developer on /admin, not by a few people together).
+ */
+export const REPORTS_TO_HIDE = 100;
+/** The most names /admin lists. */
+export const ADMIN_LIST = 200;
 export const REPORTS_PER_PERSON = 10;
 export const REPORT_EMAILS_PER_DAY = 10;
 export const SCORE_ROWS_PER_DAY = 20_000;
@@ -88,6 +94,18 @@ export type Report = {
   result: 'ok' | 'already' | 'too_many' | 'not_found' | 'self' | 'not_joined' | 'busy';
   /** What to email about it, when it's one of today's first ten. */
   email?: { id: string; displayName: string; username: string; reports: number };
+};
+/** A name on /admin: reported, or hidden by the developer. */
+export type AdminName = {
+  id: string;
+  displayName: string;
+  username: string;
+  anonymous: boolean;
+  /** 0 shown; 1 hidden after reports; 2 hidden for good. */
+  hidden: number;
+  reports: number;
+  /** The newest report (0: none). */
+  lastReport: number;
 };
 
 type Member = {
@@ -593,6 +611,58 @@ export class Board extends DurableObject<Env> {
         : {}),
     };
   }
+
+  /** For /admin: reported names, newest report first, and the ones hidden for good. */
+  async adminNames(): Promise<{ names: AdminName[]; members: number }> {
+    const names = this.exec<{
+      id: string;
+      display_name: string;
+      username: string;
+      anonymous: number;
+      hidden: number;
+      reports: number;
+      last_report: number;
+    }>(
+      `select m.id, m.display_name, m.username, m.anonymous, m.hidden,
+         (select count(*) from reports r where r.reported = m.id) as reports,
+         (select coalesce(max(r.at), 0) from reports r where r.reported = m.id) as last_report
+       from members m
+       where m.hidden > 0 or m.id in (select reported from reports)
+       order by last_report desc, m.username
+       limit ?`,
+      ADMIN_LIST,
+    ).rows.map((n): AdminName => ({
+      id: n.id,
+      displayName: n.display_name,
+      username: n.username,
+      anonymous: n.anonymous === 1,
+      hidden: n.hidden,
+      reports: n.reports,
+      lastReport: n.last_report,
+    }));
+    const members = this.exec<{ n: number }>('select count(*) as n from members').rows[0]?.n ?? 0;
+    return { names, members };
+  }
+
+  /**
+   * For /admin: hides a member's names for good (others see "Anonymous", also after a rename), or
+   * shows them again and forgets their reports. `who`: the member id, or a username.
+   */
+  async adminSetHidden(
+    who: { id: string } | { username: string },
+    hide: boolean,
+  ): Promise<string | null> {
+    const m =
+      'id' in who
+        ? this.memberById(who.id)
+        : (this.exec<Member>('select * from members where username = ?', who.username).rows[0] ??
+          null);
+    if (!m) return null;
+    this.exec('update members set hidden = ? where id = ?', hide ? 2 : 0, m.id);
+    if (!hide) this.exec('delete from reports where reported = ?', m.id);
+    this.everyone = null;
+    return m.username;
+  }
 }
 
 const json = (body: unknown, status = 200) => Response.json(body, { status });
@@ -617,7 +687,12 @@ function namesIn(body: Record<string, unknown> | null): Names | string {
   return { displayName, username, anonymous: body.anonymous === true };
 }
 
-async function emailReport(env: Env, deps: Deps, email: NonNullable<Report['email']>) {
+async function emailReport(
+  env: Env,
+  deps: Deps,
+  email: NonNullable<Report['email']>,
+  adminUrl: string,
+) {
   if (!env.REPORTS_TO || !env.RESEND_API_KEY) return;
   // Counted with the sign-in codes, under Resend's free 100 a day.
   const everyone = await env.COUNTERS.getByName('emails').charge(today(), 0, EMAIL_LIMITS);
@@ -626,9 +701,9 @@ async function emailReport(env: Env, deps: Deps, email: NonNullable<Report['emai
     `A name on the Recap leaderboard was reported (${email.reports} so far; ` +
     `${REPORTS_TO_HIDE} hide it until it's changed).\n\n` +
     `Display name: ${email.displayName}\nUsername: ${email.username}\nMember id: ${email.id}\n\n` +
-    `To hide it for good, or remove the person: Cloudflare dashboard > Durable Objects > Board > ` +
-    `Data Studio, object "${BOARD_NAME}", table members: set hidden to 2, or delete the row ` +
-    `(and theirs in follows, blocks and reports).\n`;
+    `To hide it for good, or show it again: ${adminUrl} (user "admin", password ADMIN_TOKEN).\n` +
+    `Backup: Cloudflare dashboard > Durable Objects > Board > Data Studio, object ` +
+    `"${BOARD_NAME}", table members: set hidden to 2.\n`;
   try {
     const sent = await sendEmail(
       env,
@@ -720,7 +795,7 @@ export async function board(
     const { result, email } = await stub.report(account, id, now);
     if (result === 'busy') return fail('daily_limit', 429);
     if (result !== 'ok' && result !== 'already') return fail(result, PROBLEM_STATUS[result]);
-    if (email) await emailReport(env, deps, email);
+    if (email) await emailReport(env, deps, email, `${new URL(request.url).origin}/admin`);
     return json({ ok: true });
   }
   const result =

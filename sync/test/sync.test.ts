@@ -59,7 +59,9 @@ describe('sync API', () => {
     expect(Math.abs(listing.now - Date.now())).toBeLessThan(60_000);
   });
 
-  it('lists more than one page of files', async () => {
+  // 1,005 files take about 4 seconds alone, more with the other test files running alongside: past
+  // the usual 5-second limit (2026-11-05).
+  it('lists more than one page of files', { timeout: 20_000 }, async () => {
     const a = await device();
     await Promise.all(
       Array.from({ length: 1005 }, (_, i) => env.FILES.put(`${a.account}/${change(i + 1)}`, '{}')),
