@@ -40,6 +40,13 @@ def verdict(answer, phone=PHONE, now=NOW):
     return integrity.verdict(answer, phone, "com.recapcards.app", now)
 
 
+@pytest.fixture(autouse=True)
+def allowances(monkeypatch):
+    """The numbers below are written for 50 cards a day; the live ones are in render.yaml."""
+    monkeypatch.setattr(get_settings(), "daily_card_quota", 50)
+    monkeypatch.setattr(get_settings(), "unverified_daily_card_quota", 50)
+
+
 @pytest.fixture
 def check_on(monkeypatch):
     """Turns the check on, with Google's answers coming from `google.answer` (a fresh good

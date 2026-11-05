@@ -26,9 +26,9 @@ services:
       - key: GEMINI_MODEL
         value: gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.8-flash,gemini-3.6-flash,gemini-3.1-flash-lite-preview,gemma-4-26b-a4b-it,gemma-4-31b-it # best first; rate-limited models are skipped for a while
       - key: DAILY_CARD_QUOTA # per phone Google Play vouches for
-        value: "50"
+        value: "30"
       - key: UNVERIFIED_DAILY_CARD_QUOTA # per install, without a ticket that passes
-        value: "50"
+        value: "30"
       - key: PLAY_INTEGRITY_CREDENTIALS # the service account's JSON key; empty = check off
         sync: false
       - key: MAX_INPUT_CHARS
