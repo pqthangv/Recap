@@ -25,7 +25,7 @@ function coded(code: string): Error {
 describe('Play Integrity tickets', () => {
   it('sends a hash of the Android ID, never the ID, and asks Google Play for that phone', async () => {
     const { options, tickets } = setup();
-    expect(await tickets.ticket()).toEqual({
+    expect(await tickets.ticket('')).toEqual({
       phoneId: PHONE,
       token: `ticket-for-${PHONE.slice(0, 6)}`,
     });
@@ -33,14 +33,14 @@ describe('Play Integrity tickets', () => {
     expect(PHONE).not.toContain(ANDROID_ID);
     expect(options.prepare).toHaveBeenCalledWith('333284966532');
     expect(options.request).toHaveBeenCalledWith(PHONE); // the ticket is made for this phone
-    expect(await tickets.phoneId()).toBe(PHONE);
+    expect(await tickets.phone()).toEqual({ phoneId: PHONE });
   });
 
   it('gets ready once, and every request gets a fresh ticket', async () => {
     const { options, tickets } = setup();
     tickets.warmUp();
-    await tickets.ticket();
-    await tickets.ticket();
+    await tickets.ticket('');
+    await tickets.ticket('');
     expect(options.prepare).toHaveBeenCalledTimes(1);
     expect(options.request).toHaveBeenCalledTimes(2);
     expect(options.androidId).toHaveBeenCalledTimes(1);
@@ -52,7 +52,7 @@ describe('Play Integrity tickets', () => {
       .mockRejectedValueOnce(coded('ERR_APP_INTEGRITY_PROVIDER_INVALID'))
       .mockResolvedValue('fresh');
     const { options, tickets } = setup({ request });
-    expect(await tickets.ticket()).toEqual({ phoneId: PHONE, token: 'fresh' });
+    expect(await tickets.ticket('')).toEqual({ phoneId: PHONE, token: 'fresh' });
     expect(options.prepare).toHaveBeenCalledTimes(2);
   });
 
@@ -62,15 +62,15 @@ describe('Play Integrity tickets', () => {
       .mockRejectedValueOnce(coded('ERR_APP_INTEGRITY_PLAY_STORE_NOT_FOUND'))
       .mockResolvedValue(undefined);
     const { options, tickets } = setup({ prepare });
-    expect(await tickets.ticket()).toBeNull();
+    expect(await tickets.ticket('')).toBeNull();
     expect(options.onError).toHaveBeenCalledTimes(1);
-    expect(await tickets.ticket()).not.toBeNull();
+    expect(await tickets.ticket('')).not.toBeNull();
   });
 
   it('goes on without a ticket when one is refused', async () => {
     const request = jest.fn().mockRejectedValue(coded('ERR_APP_INTEGRITY_TOO_MANY_REQUESTS'));
     const { options, tickets } = setup({ request });
-    expect(await tickets.ticket()).toBeNull();
+    expect(await tickets.ticket('')).toBeNull();
     expect(request).toHaveBeenCalledTimes(1); // only an expired ticket maker is worth a retry
     expect(options.prepare).toHaveBeenCalledTimes(1);
   });
@@ -79,7 +79,7 @@ describe('Play Integrity tickets', () => {
     jest.useFakeTimers();
     try {
       const { tickets } = setup({ request: () => new Promise<string>(() => undefined) });
-      const ticket = tickets.ticket();
+      const ticket = tickets.ticket('');
       await jest.advanceTimersByTimeAsync(10_000);
       expect(await ticket).toBeNull();
     } finally {
@@ -88,10 +88,10 @@ describe('Play Integrity tickets', () => {
   });
 
   it('has no phone id without an Android ID or a usable hash', async () => {
-    expect(await setup({ androidId: () => '' }).tickets.ticket()).toBeNull();
+    expect(await setup({ androidId: () => '' }).tickets.ticket('')).toBeNull();
     const broken = setup({ sha256: async () => 'not hex' });
-    expect(await broken.tickets.phoneId()).toBeNull();
-    expect(await broken.tickets.ticket()).toBeNull();
+    expect(await broken.tickets.phone()).toBeNull();
+    expect(await broken.tickets.ticket('')).toBeNull();
     expect(broken.options.request).not.toHaveBeenCalled();
   });
 
@@ -99,8 +99,8 @@ describe('Play Integrity tickets', () => {
     const { options, tickets } = setup({ projectNumber: '' });
     expect(tickets).toBe(NO_TICKETS);
     tickets.warmUp();
-    expect(await tickets.ticket()).toBeNull();
-    expect(await tickets.phoneId()).toBeNull();
+    expect(await tickets.ticket('')).toBeNull();
+    expect(await tickets.phone()).toBeNull();
     expect(options.prepare).not.toHaveBeenCalled();
   });
 });
