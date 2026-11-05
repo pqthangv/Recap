@@ -163,6 +163,8 @@ function Screens() {
       <Stack.Screen name="study" options={{ title: t('screen.study') }} />
       <Stack.Screen name="settings" options={{ title: t('screen.settings') }} />
       <Stack.Screen name="stats" options={{ title: t('screen.stats') }} />
+      <Stack.Screen name="leaderboard/index" options={{ title: t('screen.leaderboard') }} />
+      <Stack.Screen name="leaderboard/profile" options={{ title: t('screen.boardProfile') }} />
       <Stack.Screen name="library" options={{ title: t('screen.library') }} />
       <Stack.Screen name="deleted" options={{ title: t('screen.deleted') }} />
       <Stack.Screen name="account" options={{ title: t('screen.account') }} />

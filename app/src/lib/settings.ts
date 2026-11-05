@@ -99,12 +99,16 @@ export const SYNC_STATE_KEY = 'sync_state';
 export const SYNC_LAST_KEY = 'sync_last_at';
 /** Which pictures this device sent to (or got from) the account (lib/sync/pictures.ts). */
 export const SYNC_PICTURES_KEY = 'sync_pictures';
+/** The leaderboard (lib/leaderboard/score.ts Sent): on it or not, and the score this device last
+ *  sent. Forgotten on signing out. */
+export const BOARD_SENT_KEY = 'board_sent';
 
 /** Settings that belong to this device and are left out of backups and sync. */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
   SYNC_STATE_KEY,
   SYNC_LAST_KEY,
   SYNC_PICTURES_KEY,
+  BOARD_SENT_KEY,
   SEEDED_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,

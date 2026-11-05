@@ -17,6 +17,7 @@ import { EncryptJWT, jwtDecrypt, jwtVerify, SignJWT } from 'jose';
 
 import type { Accounts, Identity, Provider } from './accounts';
 import { makeToken, secretKey, TOKEN_ISSUER } from './auth';
+import type { Board } from './board';
 import {
   addressHash,
   checkCode,
@@ -42,8 +43,16 @@ import {
   type Person,
 } from './providers';
 
-/** What signing in needs from outside: swapped for fakes in the tests. */
-export type Deps = { accounts: Accounts; fetch: typeof fetch; keys: Keys };
+/**
+ * What the Worker needs from outside: swapped for fakes in the tests, which also give each test a
+ * board of its own.
+ */
+export type Deps = {
+  accounts: Accounts;
+  fetch: typeof fetch;
+  keys: Keys;
+  board: DurableObjectStub<Board>;
+};
 
 type Browser = 'google' | 'apple';
 /** What the tab carries to Google or Apple and back, signed. `k`: signing in again to delete. */

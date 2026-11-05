@@ -5,7 +5,8 @@
 //   {"code", "verifier"}                     from a browser tab started with purpose=delete, or
 //   {"idToken", "nonce", "authorizationCode"} from Apple's sheet on an iPhone.
 // Then the account is closed (its tokens stop working on every device), its files in R2 are
-// deleted, and so is its row in Neon. The cards on the devices stay. Deleting again is harmless.
+// deleted, so is its leaderboard row (src/board.ts), and its row in Neon. The cards on the devices
+// stay. Deleting again is harmless.
 import { removeAccountFiles } from './files';
 import { today } from './limits';
 import { appleNativePerson, appleSheetRefreshToken, revokeApple } from './providers';
@@ -77,6 +78,7 @@ export async function deleteAccount(
   await env.COUNTERS.getByName(account).close();
   const freed = await removeAccountFiles(env.FILES, account);
   await env.COUNTERS.getByName('all').release(today(), freed);
+  await deps.board.leave(account);
   if (who) await deps.accounts.remove(account);
   return json({ ok: true });
 }

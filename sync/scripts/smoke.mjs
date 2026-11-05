@@ -4,7 +4,7 @@
 //   npm run smoke -- https://sync.recapflashcards.com
 // It signs a 5-minute token itself, so it needs the Worker's TOKEN_SECRET, and for signing in its
 // REVIEW_CODE, each from the environment or .dev.vars. It uses one fixed test account and removes
-// its test file (that account's small head file stays).
+// its test file (that account's small head file stays), and joins and leaves the leaderboard.
 import { readFileSync } from 'node:fs';
 
 import { SignJWT } from 'jose';
@@ -93,6 +93,17 @@ check(
   'removes the file',
   removed.status === 200 && (await call(`/v1/files/${name}`)).status === 404,
 );
+
+// The leaderboard (its own Durable Object, no Neon): join, see the board, leave again.
+const joined = await call('/v1/board/me', {
+  method: 'PUT',
+  body: JSON.stringify({ displayName: 'Smoke Check', username: 'smoke.check' }),
+});
+check(`joins the leaderboard [${joined.status}]`, joined.status === 200);
+const board = await call('/v1/board');
+check('shows the board', board.status === 200 && (await board.json()).me !== undefined);
+const left = await call('/v1/board/leave', { method: 'POST' });
+check('leaves it again', left.status === 200 && (await call('/v1/board/me')).status === 404);
 
 // Signing in is the one thing that reaches Neon: the review account (never emailed) shows the
 // accounts tables are there.

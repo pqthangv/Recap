@@ -1,6 +1,8 @@
+import { router } from 'expo-router';
 import type { ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { Button } from '@/components/Button';
 import { FlameIcon } from '@/components/FlameIcon';
 import { useLive } from '@/db/live';
 import { getStats } from '@/db/stats';
@@ -95,6 +97,12 @@ export default function StatsScreen() {
         <View style={[styles.swatch, styles.barNew]} />
         <Text style={styles.legendText}>{t('stats.newCards')}</Text>
       </View>
+      <Button
+        variant="secondary"
+        label={t('stats.leaderboard')}
+        onPress={() => router.push('/leaderboard')}
+        style={styles.leaderboard}
+      />
     </ScrollView>
   );
 }
@@ -175,4 +183,5 @@ const makeStyles = (colors: Colors) =>
     swatch: { width: 12, height: 12, borderRadius: 3, marginLeft: 10 },
     swatchReview: { backgroundColor: colors.primary },
     legendText: { fontSize: 13, color: colors.muted },
+    leaderboard: { marginTop: 16 },
   });
