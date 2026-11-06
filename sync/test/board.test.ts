@@ -503,6 +503,37 @@ describe('the board API', () => {
     expect((await viewer.view()).rows.some((r) => r.id === before.id)).toBe(false);
   });
 
+  it('says how many minutes ago the everyone board was worked out; Friends is always fresh', async () => {
+    const w = worker();
+    const a = await w.person();
+    const b = await w.person();
+    await a.join('Anh', 'anh');
+    await b.join('Bình', 'binh');
+    await a.call('board/follow', 'POST', { username: 'binh' });
+    const now = Date.now();
+    const everyone = async (minutes: number) =>
+      (await w.board.view(a.account, 'everyone', 'streak', 0, now + minutes * 60_000))
+        ?.updatedMinutesAgo;
+    expect(await everyone(0)).toBe(0);
+    expect(await everyone(12.5)).toBe(12);
+    // A score sent meanwhile waits for the next working out.
+    await w.board.score(a.account, score(1), now + 13 * 60_000);
+    expect(await everyone(29.9)).toBe(29);
+    // Kept 30 minutes, then worked out again.
+    expect(await everyone(31)).toBe(0);
+    expect(await everyone(40)).toBe(9);
+    // A clock that went back never makes it negative.
+    expect(await everyone(35)).toBe(4);
+    expect(await everyone(30)).toBe(0);
+
+    const friends = await w.board.view(a.account, 'friends', 'streak', 0, now + 45 * 60_000);
+    expect(friends).not.toBeNull();
+    expect(friends).not.toHaveProperty('updatedMinutesAgo');
+    // Through the API.
+    expect((await a.view()).updatedMinutesAgo).toBeGreaterThanOrEqual(0);
+    expect(await a.view('?tab=friends')).not.toHaveProperty('updatedMinutesAgo');
+  });
+
   it('leaving deletes my row; a deleted account can’t come back', async () => {
     const w = worker();
     const a = await w.person();
