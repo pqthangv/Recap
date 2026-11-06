@@ -71,34 +71,100 @@
   <body>
     <main>
       <h1>Recap privacy policy</h1>
-      <p class="date">Last updated: 23 October 2026</p>
+      <p class="date">Last updated: 5 November 2026</p>
 
       <div class="summary">
         <p>
           <strong>In short:</strong> your decks, cards and study history stay on your phone. Recap
-          has no ads, no tracking and no account. Only the material you choose to turn into cards
-          with "Create with AI" leaves your phone, and it is sent to Google's Gemini AI to make the
+          has no ads, no tracking, and you don't need an account. If you choose to sign in to sync
+          your cards between your devices, they are also kept on our sync server, and you can delete
+          them at any time. If you also join the optional leaderboard, other Recap users see the
+          name you choose, your streak and how many cards you studied this week. The material you
+          choose to turn into cards with "Create with AI" is sent to Google's Gemini AI to make the
           cards. If you report an AI-made card, that card is sent to us.
         </p>
       </div>
 
       <h2>What stays on your phone</h2>
       <p>
-        Your decks, cards, pictures, study history, statistics and settings are stored only on your
-        device. Importing files (lists, CSV files, decks in .apkg format), making backups, reminders
-        and reading cards aloud (with your phone's own voices) all work on your phone, without
-        sending anything to us. If you uninstall Recap or clear its data, all of this is deleted.
+        Your decks, cards, pictures, study history, statistics and settings are stored on your
+        device (and, only if you sign in to sync, also on our sync server: see below). Importing
+        files (lists, CSV files, decks in .apkg format), making backups, reminders and reading cards
+        aloud (with your phone's own voices) all work on your phone, without sending anything to us.
+        If you uninstall Recap or clear its data, all of this is deleted.
       </p>
       <p>
-        From version 1.0.7, once a day, the app also downloads a small file from
-        recapflashcards.com to see whether a newer version of Recap is out. Nothing about you or
-        your cards is sent with it.
+        From version 1.0.7, once a day, the app also downloads a small file from recapflashcards.com
+        to see whether a newer version of Recap is out. Nothing about you or your cards is sent with
+        it.
       </p>
       <p>
         <strong>On the web</strong> (recapflashcards.com), Recap works the same way: your decks,
         cards, study history and settings are stored in your browser on that computer, not on our
-        servers. They aren't shared with your phone or other browsers; clearing the site's data in
-        your browser deletes them. "Create with AI" sends the same things as in the app (below).
+        servers. They aren't shared with your phone or other browsers unless you sign in to sync
+        (below); clearing the site's data in your browser deletes them. "Create with AI" sends the
+        same things as in the app (below).
+      </p>
+
+      <h2>Syncing between your devices (optional)</h2>
+      <p>
+        If you sign in under Settings › Sync my cards, Recap copies your decks, cards, study history
+        and study settings (target retention, new cards per day, typing, buttons and reading aloud)
+        to our sync server, so your other phones and recapflashcards.com show the same cards. Your
+        language, look, reminders and your answer about Google Gemini stay on each device, and so
+        does the "How to use Recap" deck. Pictures on cards are synced too, as the small copies
+        Recap keeps (up to 2 MB each; bigger ones stay on the phone that has them), between your
+        phones: the website doesn't show pictures yet. Without signing in, nothing is synced.
+      </p>
+      <p>You can sign in in one of three ways:</p>
+      <ul>
+        <li>
+          <strong>Google</strong>: Google tells our server its ID for you and your email address.
+          The address is shown to you in the app; our server doesn't store it.
+        </li>
+        <li>
+          <strong>Apple</strong>: Apple tells our server its ID for you. Recap doesn't ask Apple for
+          your name or email.
+        </li>
+        <li>
+          <strong>Email</strong>: we email you a 6-digit code. Our server keeps only a scrambled
+          form of your address (a keyed hash), which can't be turned back into the address, and the
+          code (also scrambled) for up to 10 minutes.
+        </li>
+      </ul>
+      <p>
+        Our server stores your account (which way you signed in, with Google's or Apple's ID for you
+        or the scrambled address), the random IDs of the devices that signed in to it with when they
+        did, and your synced cards and history as files. A device stays signed in as long as you
+        open Recap at least once every 3 months.
+      </p>
+      <p>
+        <strong>Deleting.</strong> Settings › Sync my cards › Delete my account (or the same on
+        <a href="/account">recapflashcards.com/account</a>) deletes your account and everything
+        synced to it right away; see <a href="/delete-account">how to delete your account</a>. If
+        you signed in with Apple, Recap also asks Apple to end Recap's "Sign in with Apple" for you.
+        The cards on your devices stay. Signing out only removes the account from that device; the
+        synced copy stays until you delete the account.
+      </p>
+      <p>
+        The sync server runs on Cloudflare, which sees your IP address like any website. Recap uses
+        it only to limit how often someone can try to sign in, and never stores it. Cloudflare's own
+        request logs for our server, kept for a few days, can include it, under
+        <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>.
+      </p>
+
+      <h2>The leaderboard (optional)</h2>
+      <p>
+        If you're signed in and join Statistics › Leaderboard, our sync server keeps the display
+        name and username you choose, whether you chose to be shown as Anonymous, your streak and
+        how many cards you answered this week (counted on your phone: never the cards themselves),
+        who you follow and block, and the names you report, with when. Other people on the
+        leaderboard see your display name, username, streak and cards this week; with Anonymous on,
+        only the streak and the count. Reporting a name emails us that name and username. Leaving
+        the leaderboard (Leaderboard › Edit › Leave the leaderboard) or deleting your account
+        deletes all of it right away. One exception: if we hid your name for good for breaking the
+        leaderboard rules, the server keeps your account's random id after you leave, so your name
+        stays hidden if you join again. Deleting your account deletes that too.
       </p>
 
       <h2>What leaves your phone: "Create with AI"</h2>
@@ -147,8 +213,9 @@
         To share the free AI fairly, each phone can make a limited number of AI cards per day. For
         this, Recap creates a random ID when it's installed. It doesn't contain or reveal who you
         are. Our database stores this ID with the number of AI cards made each day and any cards you
-        report, and nothing else. Uninstalling Recap makes the ID useless (a new install gets a new
-        one), and you can ask us to delete anything we hold by email.
+        report, and nothing else. (If you sign in to sync, your account also lists this ID; see
+        above.) Uninstalling Recap makes the ID useless (a new install gets a new one), and you can
+        ask us to delete anything we hold by email.
       </p>
       <p>
         <strong>On Android</strong> (from version 1.0.7), when you tap "Make cards" Recap also asks
@@ -156,12 +223,22 @@
         from Google Play, on a genuine phone (Google's Play Integrity). With it (and when it asks
         how many AI cards are left), Recap sends a code made from your phone's Android ID by a
         one-way scramble: the Android ID itself never leaves your phone and can't practically be
-        worked out from the code. The code stays the same for
-        Recap on that phone until a factory reset, so the daily AI limit counts per phone, even
-        after reinstalling. Our database stores it with the number of AI cards made each day, and
-        nothing else. Google receives the code with the check and tells our server only whether the
-        check passed. If the check can't be done (for example, without Google Play), Recap works as
-        before with the random ID.
+        worked out from the code. The code stays the same for Recap on that phone until a factory
+        reset, so the daily AI limit counts per phone, even after reinstalling. Our database stores
+        it with the number of AI cards made each day, and nothing else. Google receives the code
+        with the check and tells our server only whether the check passed. If the check can't be
+        done (for example, without Google Play), Recap works as before with the random ID.
+      </p>
+      <p>
+        <strong>On iPhone</strong> (from version 1.0.8), Recap uses Apple's App Attest for the same
+        check. The first time you use "Create with AI", your iPhone makes a key in its security
+        chip, and Apple confirms to our server that it belongs to the real Recap app on a genuine
+        iPhone. Each time you tap "Make cards", Recap signs the request with that key. Our database
+        stores Apple's ID for the key, the key's public half (which can only check a signature, not
+        make one) and a counter, with the number of AI cards made each day, and nothing else. The
+        key never leaves your iPhone and is deleted with the app, so a new install makes a new one.
+        If the check can't be done (for example, on an older iPhone), Recap works as before with the
+        random ID.
       </p>
       <p>
         Our server also sees your IP address, like any website. Recap uses it only in memory to stop
@@ -185,17 +262,32 @@
       <ul>
         <li><strong>Render</strong> hosts our server (Singapore).</li>
         <li>
-          <strong>Neon</strong> hosts the database with the device IDs, daily AI counts and reported
-          cards (Singapore).
+          <strong>Neon</strong> hosts the database with the device IDs, iPhone App Attest keys,
+          daily AI counts and reported cards (Singapore).
         </li>
         <li>
           <strong>Google (Play Integrity)</strong> checks, on Android, that AI requests come from
           the real Recap app, as described above.
         </li>
         <li>
+          <strong>Apple (App Attest)</strong> confirms, on iPhone, that AI requests come from the
+          real Recap app, as described above.
+        </li>
+        <li>
           <strong>Google (Gemini API)</strong> makes the cards from the material you send, as
           described above.
         </li>
+        <li>
+          <strong>Cloudflare</strong> runs the sync server and keeps the synced cards (its R2
+          storage) and the leaderboard, if you sign in to sync. It also serves recapflashcards.com.
+        </li>
+        <li><strong>Neon</strong> also hosts the sync accounts, in a database of their own.</li>
+        <li>
+          <strong>Resend</strong> sends the sign-in codes if you sign in with email. It receives
+          your address to send the email and keeps its own sending logs. It also sends us the emails
+          about reported leaderboard names.
+        </li>
+        <li><strong>Google and Apple</strong> confirm who you are if you sign in with them.</li>
       </ul>
       <p>We don't sell data, show ads, or use analytics or tracking tools.</p>
 
@@ -206,10 +298,7 @@
       </p>
 
       <h2>Changes</h2>
-      <p>
-        If this policy changes (for example, when optional syncing between devices is added), we'll
-        update this page and the date above.
-      </p>
+      <p>If this policy changes, we'll update this page and the date above.</p>
 
       <h2>Contact</h2>
       <p>

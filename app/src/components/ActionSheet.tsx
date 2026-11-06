@@ -2,7 +2,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { t } from '@/lib/i18n';
-import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
+import { type Colors, radius, sheetFrame, touchTarget, useStyles } from '@/lib/theme';
 
 export type SheetOption = {
   label: string;
@@ -79,8 +79,9 @@ export function ActionSheet({
 
 const makeStyles = (colors: Colors) =>
   StyleSheet.create({
-    backdrop: { flex: 1, backgroundColor: colors.backdrop },
+    backdrop: { ...StyleSheet.absoluteFill, backgroundColor: colors.backdrop },
     sheet: {
+      ...sheetFrame,
       backgroundColor: colors.sheet,
       borderTopLeftRadius: radius.card,
       borderTopRightRadius: radius.card,

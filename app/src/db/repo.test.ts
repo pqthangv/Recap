@@ -24,7 +24,7 @@ import {
   updateDeck,
 } from './decks';
 import { setSetting } from './settings';
-import { getStats } from './stats';
+import { getBoardScore, getStats, getStreak } from './stats';
 import {
   answerCard,
   getDailyGoal,
@@ -36,7 +36,7 @@ import {
 } from './study';
 
 import { parseBackup } from '@/lib/backup';
-import { dayStart } from '@/lib/day';
+import { dayStart, dayStartOffset } from '@/lib/day';
 import { setLanguage } from '@/lib/i18n';
 import { previewIntervals, Rating, review, State } from '@/lib/scheduler';
 import { seedIfNeeded, WELCOME_DECKS } from '@/features/onboarding/seed';
@@ -356,6 +356,32 @@ describe('stats', () => {
     expect(stats.lastWeek.map((d) => d.newCards)).toEqual([0, 0, 0, 0, 1, 1, 1]);
     expect(stats.lastWeek.map((d) => d.ms)).toEqual([0, 0, 0, 0, 4000, 4000, 4000]);
     expect(stats.lastWeek.at(-1)?.day).toBe(dayStart(NOW)); // the last one is today
+  });
+
+  it("gives the leaderboard the streak and this week's cards (from Monday 00:00 UTC)", () => {
+    // NOW is Sunday 2026-10-11: its week began Monday 2026-10-05, after the answer 7 days ago.
+    for (const daysAgo of [7, 2, 1, 0]) {
+      const deck = addDeck(`Deck ${daysAgo}`);
+      addCards(deck.id, 1);
+      answerNext(Rating.Good, NOW - daysAgo * DAY, deck.id);
+    }
+    expect(getBoardScore(NOW)).toEqual({
+      streak: 3,
+      streakUntil: dayStartOffset(NOW, 2), // today's goal is met: it lasts through tomorrow
+      week: '2026-10-05',
+      weekCards: 3,
+    });
+    // Tomorrow, before studying: the same streak, until the end of that day.
+    expect(getBoardScore(NOW + DAY)).toMatchObject({
+      streak: 3,
+      streakUntil: dayStartOffset(NOW, 2),
+      week: '2026-10-12',
+      weekCards: 0,
+    });
+    // The same streak as Statistics shows (and the rating request reads).
+    expect(getStreak(NOW)).toBe(3);
+    expect(getStreak(NOW)).toBe(getStats(NOW).streak);
+    expect(getStreak(NOW + 3 * DAY)).toBe(0);
   });
 
   it("counts a streak day only once that day's new-card goal is met", () => {

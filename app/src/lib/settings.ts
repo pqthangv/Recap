@@ -84,6 +84,9 @@ export const AI_CONSENT_KEY = 'ai_consent';
 /** Set once "Remind you to study?" has been offered after a finished session (asked only once). */
 export const REMINDER_OFFERED_KEY = 'reminder_offered';
 
+/** Set once the store's rating sheet has been asked for (features/rating): once per phone. */
+export const RATING_ASKED_KEY = 'rating_asked';
+
 /** "Create with AI"'s last Front / Back language (a `CARD_LANGUAGES` code; null = Auto). Per phone. */
 export const AI_FRONT_LANGUAGE_KEY = 'ai_front_language';
 export const AI_BACK_LANGUAGE_KEY = 'ai_back_language';
@@ -94,14 +97,33 @@ export const UPDATE_CHECKED_KEY = 'update_checked_at';
 export const UPDATE_LATEST_KEY = 'update_latest';
 export const UPDATE_HIDDEN_KEY = 'update_hidden';
 
-/** Settings that belong to this device and are left out of backups (and, later, sync). */
+/** Sync's progress on this device (lib/sync/round.ts SyncState) and when it last finished (ms). */
+export const SYNC_STATE_KEY = 'sync_state';
+export const SYNC_LAST_KEY = 'sync_last_at';
+/** Which pictures this device sent to (or got from) the account (lib/sync/pictures.ts). */
+export const SYNC_PICTURES_KEY = 'sync_pictures';
+/** The leaderboard (lib/leaderboard/score.ts Sent): on it or not, and the score this device last
+ *  sent. Forgotten on signing out. */
+export const BOARD_SENT_KEY = 'board_sent';
+
+/** This iPhone's App Attest key and whether Recap's server took it (lib/appAttest.ts). Per phone:
+ *  the key only works on the iPhone that made it. */
+export const APP_ATTEST_KEY = 'app_attest_key';
+
+/** Settings that belong to this device and are left out of backups and sync. */
 export const DEVICE_SETTING_KEYS: readonly string[] = [
+  SYNC_STATE_KEY,
+  SYNC_LAST_KEY,
+  SYNC_PICTURES_KEY,
+  BOARD_SENT_KEY,
   SEEDED_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,
   DEVICE_ID_KEY,
   AI_CONSENT_KEY,
+  APP_ATTEST_KEY,
   REMINDER_OFFERED_KEY,
+  RATING_ASKED_KEY,
   AI_FRONT_LANGUAGE_KEY,
   AI_BACK_LANGUAGE_KEY,
   UPDATE_CHECKED_KEY,

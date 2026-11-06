@@ -1,11 +1,14 @@
+import { router } from 'expo-router';
 import type { ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { Button } from '@/components/Button';
 import { FlameIcon } from '@/components/FlameIcon';
 import { useLive } from '@/db/live';
 import { getStats } from '@/db/stats';
 import { count, formatStudyTime, formatStudyTimeLong, weekdayShort } from '@/lib/format';
 import { t, tn } from '@/lib/i18n';
+import { isWeb } from '@/lib/platform';
 import { type Colors, radius, useStyles } from '@/lib/theme';
 
 const BAR_MAX_HEIGHT = 140;
@@ -95,6 +98,12 @@ export default function StatsScreen() {
         <View style={[styles.swatch, styles.barNew]} />
         <Text style={styles.legendText}>{t('stats.newCards')}</Text>
       </View>
+      <Button
+        variant="secondary"
+        label={t('stats.leaderboard')}
+        onPress={() => router.push('/leaderboard')}
+        style={styles.leaderboard}
+      />
     </ScrollView>
   );
 }
@@ -103,6 +112,15 @@ export default function StatsScreen() {
 function split(cards: number, newCards: number): string {
   return t('stats.split', { reviews: tn('count.review', cards - newCards), n: newCards });
 }
+
+/**
+ * A tile's value stays on one line, smaller if it must ("2 giờ 13 phút" on an iPhone, "15 days"
+ * on the folded iPhone Duo). The website can't shrink text to fit (it would cut it off), so it
+ * wraps there, in its wider column.
+ */
+const ONE_LINE = isWeb
+  ? {}
+  : { numberOfLines: 1, adjustsFontSizeToFit: true, minimumFontScale: 0.6 };
 
 function Tile({
   label,
@@ -128,7 +146,9 @@ function Tile({
     >
       <View style={styles.tileTop}>
         {icon}
-        <Text style={styles.tileValue}>{value}</Text>
+        <Text style={styles.tileValue} {...ONE_LINE}>
+          {value}
+        </Text>
       </View>
       <Text style={styles.tileLabel}>{label}</Text>
       {detail ? <Text style={styles.tileDetail}>{detail}</Text> : null}
@@ -175,4 +195,5 @@ const makeStyles = (colors: Colors) =>
     swatch: { width: 12, height: 12, borderRadius: 3, marginLeft: 10 },
     swatchReview: { backgroundColor: colors.primary },
     legendText: { fontSize: 13, color: colors.muted },
+    leaderboard: { marginTop: 16 },
   });

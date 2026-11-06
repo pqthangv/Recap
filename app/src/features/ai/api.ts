@@ -7,7 +7,7 @@ import { createAiClient, type GeneratedCard } from '@/lib/ai';
 import type { AiSource } from '@/lib/aiReview';
 import type { SideLanguages } from '@/lib/language';
 
-import { tickets } from './tickets';
+import { ticketsFor } from './tickets';
 
 /** The deployed server (Render). Release builds use it. */
 export const PRODUCTION_API_URL = 'https://recap-api-ictj.onrender.com';
@@ -21,7 +21,11 @@ const LOCAL_API_URL = Platform.OS === 'android' ? 'http://10.0.2.2:8000' : 'http
 export const API_URL =
   process.env.EXPO_PUBLIC_API_URL ?? (__DEV__ ? LOCAL_API_URL : PRODUCTION_API_URL);
 
-export const ai = createAiClient({ baseUrl: API_URL, deviceId: () => getDeviceId(), tickets });
+export const ai = createAiClient({
+  baseUrl: API_URL,
+  deviceId: () => getDeviceId(),
+  tickets: ticketsFor(API_URL),
+});
 
 /** Cards waiting for review. Kept until they're saved or replaced, so nothing is lost by
  *  leaving the review screen (making them used up AI quota). `languages`: what each side was

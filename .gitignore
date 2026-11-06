@@ -15,6 +15,11 @@ ios/
 .env*
 !.env.example
 
+# Sync Worker (sync/): local secrets, Wrangler state, generated types
+.dev.vars*
+.wrangler/
+sync/worker-configuration.d.ts
+
 # Python (server)
 server/.venv/
 server/*.db

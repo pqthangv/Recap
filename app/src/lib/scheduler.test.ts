@@ -8,10 +8,13 @@ import {
   newCard,
   previewIntervals,
   Rating,
+  replayCard,
   resetCard,
   review,
+  scheduleIncludes,
   State,
   TWO_BUTTON_GRADES,
+  type Answer,
   type Grade,
   type SchedulableCard,
 } from './scheduler';
@@ -103,6 +106,69 @@ describe('scheduler', () => {
     expect(reset.reps).toBe(0);
     expect(reset.lapses).toBe(0);
     expect(log.rating).toBe(Rating.Manual);
+  });
+});
+
+describe('replayCard', () => {
+  /** Answers a card live like the study screen does, keeping the logs. */
+  function study(steps: (Grade | 'reset' | 'undo')[]) {
+    const id = 'card-replay';
+    let card = fresh(id);
+    let now = NOW;
+    const history: { card: SchedulableCard; answer: Answer }[] = [];
+    steps.forEach((step, i) => {
+      if (step === 'undo') {
+        card = history.pop()!.card;
+        return;
+      }
+      const result =
+        step === 'reset' ? resetCard(card, now) : review(card, step, now, DEFAULT_RETENTION);
+      history.push({ card, answer: { id: `log-${i}`, ...result.log } });
+      card = { id, ...result.card };
+      now = Math.max(now + 10 * MIN, card.due);
+    });
+    return { id, card, answers: history.map((h) => h.answer) };
+  }
+
+  it('rebuilds the schedule that answering live gave, fuzz included', () => {
+    const { id, card, answers } = study([
+      Rating.Good,
+      Rating.Good,
+      Rating.Again,
+      Rating.Good,
+      Rating.Easy,
+      'reset',
+      Rating.Hard,
+      Rating.Good,
+    ]);
+    const { id: _, ...schedule } = card;
+    expect(replayCard(id, NOW, answers, DEFAULT_RETENTION)).toEqual(schedule);
+    expect(scheduleIncludes(card, answers)).toBe(true);
+  });
+
+  it('leaves out undone answers, like undo does', () => {
+    const { id, card, answers } = study([Rating.Good, Rating.Good, Rating.Again, 'undo']);
+    const { id: _, ...schedule } = card;
+    expect(answers).toHaveLength(2);
+    expect(replayCard(id, NOW, answers, DEFAULT_RETENTION)).toEqual(schedule);
+  });
+
+  it('answers can come in any order', () => {
+    const { id, answers } = study([Rating.Good, Rating.Good, Rating.Good]);
+    const replayed = replayCard(id, NOW, answers, DEFAULT_RETENTION);
+    expect(replayCard(id, NOW, [...answers].reverse(), DEFAULT_RETENTION)).toEqual(replayed);
+  });
+
+  it('notices a schedule that misses an answer from another device', () => {
+    const { card, answers } = study([Rating.Good, Rating.Good]);
+    const fromOtherDevice: Answer = {
+      id: 'log-b',
+      rating: Rating.Good,
+      reviewed_at: NOW + DAY,
+    };
+    expect(scheduleIncludes(card, [...answers, fromOtherDevice])).toBe(false);
+    expect(scheduleIncludes(card, answers.slice(0, 1))).toBe(false);
+    expect(scheduleIncludes(fresh(), [])).toBe(true);
   });
 });
 

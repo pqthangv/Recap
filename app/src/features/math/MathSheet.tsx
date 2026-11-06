@@ -26,7 +26,7 @@ import {
   type MathButton,
   type Selection,
 } from '@/lib/math/templates';
-import { type Colors, radius, touchTarget, useColors, useStyles } from '@/lib/theme';
+import { type Colors, radius, sheetFrame, touchTarget, useColors, useStyles } from '@/lib/theme';
 
 import { drawMath, knowsCommand, useMathReady } from './load';
 import { MathText } from './MathText';
@@ -172,8 +172,9 @@ const MONOSPACE = Platform.select({ ios: 'Menlo', default: 'monospace' });
 const makeStyles = (colors: Colors) =>
   StyleSheet.create({
     fill: { flex: 1 },
-    backdrop: { flex: 1, backgroundColor: colors.backdrop },
+    backdrop: { ...StyleSheet.absoluteFill, backgroundColor: colors.backdrop },
     sheet: {
+      ...sheetFrame,
       backgroundColor: colors.sheet,
       borderTopLeftRadius: radius.card,
       borderTopRightRadius: radius.card,

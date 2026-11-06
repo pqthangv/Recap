@@ -12,6 +12,8 @@ const DAY = 24 * 60 * 60 * 1000;
 
 const DECKS: {
   name: string;
+  /** The name in the Vietnamese store pictures, if it differs. */
+  nameVi?: string;
   color: string;
   languages?: SideLanguages;
   /** Only the first card is due today, so studying the deck always opens on it (screenshots). */
@@ -19,7 +21,7 @@ const DECKS: {
   cards: [string, string][];
 }[] = [
   {
-    name: 'Spanish basics',
+    name: 'Languages › Spanish basics',
     color: '#1A73E8',
     languages: { front: 'es', back: 'en' },
     cards: [
@@ -100,8 +102,8 @@ const DECKS: {
     ],
   },
   {
-    name: 'IELTS vocabulary',
-    color: '#AD1457',
+    name: 'Exam prep › IELTS vocabulary',
+    color: '#5A31D6',
     cards: [
       ['alleviate', 'to make a problem or pain less severe'],
       ['substantial', 'large in amount or importance'],
@@ -120,7 +122,7 @@ const DECKS: {
     ],
   },
   {
-    name: 'SAT words',
+    name: 'Exam prep › SAT words',
     color: '#5A31D6',
     cards: [
       ['ubiquitous', 'found everywhere'],
@@ -139,22 +141,268 @@ const DECKS: {
       ['tenacious', 'holding firmly; persistent'],
     ],
   },
-  // Last, so the decks above keep the same random history. The typed-answer screenshot studies
-  // it: "der Apfel" is the one card due, and "the appel" gets "Almost" with Hard suggested.
+  // 1.0.8: more decks, so Home fills an iPad too, in a few subject groups with one color each
+  // (sciences green, humanities orange, languages blue, exams violet, math and economics red,
+  // arts and psychology magenta, programming grey).
   {
-    name: 'German words',
+    name: 'Chemistry › Elements',
+    color: '#0B8043',
+    cards: [
+      ['Chemical symbol for gold', 'Au'],
+      ['Chemical symbol for sodium', 'Na'],
+      ['Chemical symbol for iron', 'Fe'],
+      ['Chemical symbol for potassium', 'K'],
+      ['Atomic number of carbon', '6'],
+      ['The lightest element', 'Hydrogen'],
+      ['The most common gas in the air', 'Nitrogen'],
+      ['A metal that is liquid at room temperature', 'Mercury'],
+    ],
+  },
+  {
+    name: 'Chemistry › Reactions',
+    color: '#0B8043',
+    cards: [
+      ['What does a catalyst do?', 'Speeds up a reaction without being used up'],
+      ['Acid + base gives…', 'A salt and water'],
+      ['pH of pure water', '7'],
+      ['Rusting is a reaction of iron with…', 'Oxygen and water'],
+      ['A reaction that gives out heat', 'Exothermic'],
+      ['A reaction that takes in heat', 'Endothermic'],
+      ['What burning needs besides fuel and heat', 'Oxygen'],
+      ['Formula of water', 'H₂O'],
+    ],
+  },
+  {
+    name: 'History › Ancient world',
+    color: '#E37400',
+    cards: [
+      ['Where were the pyramids of Giza built?', 'Egypt'],
+      ['Which city was the center of the Roman Empire?', 'Rome'],
+      ['Where did the first Olympic Games take place?', 'Olympia, Greece'],
+      ['What writing did the ancient Egyptians use?', 'Hieroglyphs'],
+      ['Which river was Mesopotamia built around?', 'The Tigris and the Euphrates'],
+      ['Which empire built Machu Picchu?', 'The Inca Empire'],
+      ['Which wall was built to protect China?', 'The Great Wall'],
+      ['Which city was buried by Mount Vesuvius?', 'Pompeii'],
+    ],
+  },
+  {
+    name: 'History › Modern history',
+    color: '#E37400',
+    cards: [
+      ['In which country did the Industrial Revolution begin?', 'Britain'],
+      ['In which year did the Berlin Wall fall?', '1989'],
+      ['Who was the first person to walk on the Moon?', 'Neil Armstrong (1969)'],
+      ['In which year did the United Nations begin?', '1945'],
+      ['Who got the first telephone patent (1876)?', 'Alexander Graham Bell'],
+      ['Who wrote On the Origin of Species (1859)?', 'Charles Darwin'],
+      ['Who first flew a powered airplane (1903)?', 'The Wright brothers'],
+      ['In which year did the French Revolution begin?', '1789'],
+    ],
+  },
+  {
+    name: 'Languages › French phrases',
+    color: '#1A73E8',
+    languages: { front: 'fr', back: 'en' },
+    cards: [
+      ['bonjour', 'hello'],
+      ['merci beaucoup', 'thank you very much'],
+      ['s’il vous plaît', 'please'],
+      ['je ne comprends pas', 'I don’t understand'],
+      ['où est la gare ?', 'where is the station?'],
+      ['l’addition, s’il vous plaît', 'the bill, please'],
+      ['à bientôt', 'see you soon'],
+      ['combien ça coûte ?', 'how much does it cost?'],
+    ],
+  },
+  {
+    name: 'Math › Algebra',
     color: '#C5221F',
-    languages: { front: 'de', back: 'en' },
+    cards: [
+      ['Solve $2x + 3 = 11$', '$x = 4$'],
+      ['Expand $(a + b)^2$', '$a^2 + 2ab + b^2$'],
+      ['Solve $ax^2 + bx + c = 0$', '$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$'],
+      ['$x^a \\cdot x^b$ equals', '$x^{a+b}$'],
+      ['Factor $x^2 - 9$', '$(x - 3)(x + 3)$'],
+      ['Slope of $y = 3x - 2$', '$3$'],
+      ['$\\sqrt{144}$', '$12$'],
+      ['$2^{10}$', '$1024$'],
+    ],
+  },
+  {
+    name: 'Math › Geometry',
+    color: '#C5221F',
+    cards: [
+      ['Area of a circle', '$\\pi r^2$'],
+      ['Circumference of a circle', '$2\\pi r$'],
+      ['Pythagoras: right triangle with legs $a$, $b$', '$c^2 = a^2 + b^2$'],
+      ['Angles in a triangle add up to', '180°'],
+      ['Area of a triangle', '$\\frac{1}{2} \\times$ base $\\times$ height'],
+      ['Volume of a cube with side $a$', '$a^3$'],
+      ['Angles in a square add up to', '360°'],
+      ['Volume of a sphere', '$\\frac{4}{3}\\pi r^3$'],
+    ],
+  },
+  {
+    name: 'Music theory',
+    color: '#AD1457',
+    cards: [
+      ['How many lines does a staff have?', 'Five'],
+      ['How many beats is a whole note in 4/4?', 'Four'],
+      ['Notes of a C major chord', 'C, E and G'],
+      ['What does "forte" mean?', 'Play loudly'],
+      ['What does "piano" mean as a dynamic?', 'Play softly'],
+      ['How many semitones are in an octave?', '12'],
+      ['Which clef is used for low notes?', 'The bass clef'],
+      ['What does a sharp (♯) do?', 'Raises a note by a semitone'],
+    ],
+  },
+  {
+    name: 'Physics',
+    color: '#0B8043',
+    cards: [
+      ['Newton’s second law', '$F = ma$'],
+      ['Speed of light (about)', '300,000 km per second'],
+      ['Unit of force', 'The newton (N)'],
+      ['Unit of electrical resistance', 'The ohm (Ω)'],
+      ['Ohm’s law', '$V = IR$'],
+      ['What pulls objects toward Earth?', 'Gravity'],
+      ['Energy of motion is called…', 'Kinetic energy'],
+      ['Einstein’s mass–energy formula', '$E = mc^2$'],
+    ],
+  },
+  {
+    name: 'Programming › Python basics',
+    color: '#5F6368',
+    cards: [
+      ['Print text in Python', 'print("hello")'],
+      ['Make a list of 1, 2 and 3', '[1, 2, 3]'],
+      ['Number of items in a list', 'len(items)'],
+      ['Loop over a list', 'for item in items:'],
+      ['Start a function', 'def name():'],
+      ['Check a condition', 'if x > 0:'],
+      ['Turn "42" into a number', 'int("42")'],
+      ['A comment starts with…', '#'],
+    ],
+  },
+  {
+    name: 'Programming › JavaScript basics',
+    color: '#5F6368',
+    cards: [
+      ['Print to the console', 'console.log("hello")'],
+      ['A value that can’t be reassigned', 'const x = 1;'],
+      ['Number of items in an array', 'items.length'],
+      ['Strict equality', '==='],
+      ['Arrow function that doubles x', 'x => x * 2'],
+      ['Turn "42" into a number', 'Number("42")'],
+      ['Add an item to the end of an array', 'items.push(item)'],
+      ['A one-line comment starts with…', '//'],
+    ],
+  },
+  // 1.0.8, for the iPad's taller Home: five more rows (Medicine is a group of two).
+  {
+    name: 'Art history',
+    color: '#AD1457',
+    cards: [
+      ['Who painted the Mona Lisa?', 'Leonardo da Vinci'],
+      ['Who painted The Starry Night?', 'Vincent van Gogh'],
+      ['Who carved the statue of David (1504)?', 'Michelangelo'],
+      ['Who painted Guernica?', 'Pablo Picasso'],
+      ['Monet’s art movement', 'Impressionism'],
+      ['Who painted The Persistence of Memory?', 'Salvador Dalí'],
+      ['Who painted Girl with a Pearl Earring?', 'Johannes Vermeer'],
+      ['Who painted The Scream?', 'Edvard Munch'],
+    ],
+  },
+  {
+    name: 'Economics',
+    color: '#C5221F',
+    cards: [
+      ['What is inflation?', 'Prices rising over time'],
+      ['GDP stands for…', 'Gross domestic product'],
+      ['When prices go up, demand usually…', 'Falls'],
+      ['A market with only one seller', 'A monopoly'],
+      ['What you give up when you choose something', 'The opportunity cost'],
+      ['A tax on imported goods', 'A tariff'],
+      ['Two quarters in a row of a shrinking economy', 'A recession'],
+      ['The central bank of the United States', 'The Federal Reserve'],
+    ],
+  },
+  {
+    name: 'Geography',
+    color: '#E37400',
+    cards: [
+      ['The largest ocean', 'The Pacific'],
+      ['The highest mountain above sea level', 'Mount Everest'],
+      ['The largest hot desert', 'The Sahara'],
+      ['How many continents are there?', 'Seven'],
+      ['The largest country by area', 'Russia'],
+      ['The smallest country', 'Vatican City'],
+      ['The largest island', 'Greenland'],
+      ['The line between the Northern and Southern Hemispheres', 'The equator'],
+    ],
+  },
+  {
+    name: 'Medicine › Anatomy',
+    color: '#0B8043',
+    cards: [
+      ['The body’s largest organ', 'The skin'],
+      ['Bones in an adult body', '206'],
+      ['The longest bone', 'The femur (thigh bone)'],
+      ['The smallest bone', 'The stapes, in the ear'],
+      ['What pumps blood around the body', 'The heart'],
+      ['What filters the blood to make urine', 'The kidneys'],
+      ['Where most digestion happens', 'The small intestine'],
+      ['What carries oxygen in the blood', 'Red blood cells'],
+    ],
+  },
+  {
+    name: 'Medicine › Medical terms',
+    color: '#0B8043',
+    cards: [
+      ['cardio-', 'heart'],
+      ['hepat-', 'liver'],
+      ['nephr-', 'kidney'],
+      ['derm-', 'skin'],
+      ['-itis', 'inflammation'],
+      ['-ectomy', 'surgical removal'],
+      ['tachy-', 'fast'],
+      ['brady-', 'slow'],
+    ],
+  },
+  {
+    name: 'Psychology',
+    color: '#AD1457',
+    cards: [
+      ['The founder of psychoanalysis', 'Sigmund Freud'],
+      ['What Pavlov’s dogs showed', 'Classical conditioning'],
+      ['Learning from rewards and punishments', 'Operant conditioning'],
+      ['Maslow’s pyramid is about…', 'Human needs'],
+      ['Looking only for proof of what you already believe', 'Confirmation bias'],
+      ['The brain area key to forming new memories', 'The hippocampus'],
+      ['Who described the stages of child development?', 'Jean Piaget'],
+      ['Miller’s “magical number” for short-term memory', '7, plus or minus 2'],
+    ],
+  },
+  // Last, so the decks above keep the same random history. The typed-answer screenshot studies
+  // it: "apple" is the one card due, and "qua tao" (no accents) gets "Almost: check the accents"
+  // with Hard suggested. English words with Vietnamese meanings: "Vietnamese words" in the English
+  // pictures, "English words" in the Vietnamese ones.
+  {
+    name: 'Languages › Vietnamese words',
+    nameVi: 'Languages › English words',
+    color: '#1A73E8',
+    languages: { front: 'en', back: 'vi' },
     firstCardDueOnly: true,
     cards: [
-      ['der Apfel', 'the apple'],
-      ['das Brot', 'the bread'],
-      ['der Käse', 'the cheese'],
-      ['die Milch', 'the milk'],
-      ['das Wasser', 'the water'],
-      ['der Kaffee', 'the coffee'],
-      ['die Suppe', 'the soup'],
-      ['das Ei', 'the egg'],
+      ['apple', 'quả táo'],
+      ['bread', 'bánh mì'],
+      ['cheese', 'phô mai'],
+      ['milk', 'sữa'],
+      ['water', 'nước'],
+      ['coffee', 'cà phê'],
+      ['rice', 'cơm'],
+      ['egg', 'trứng'],
     ],
   },
 ];
@@ -168,7 +416,8 @@ function random(seed: number) {
   };
 }
 
-export function makeDemo(now: number) {
+/** `language`: the app's language in the store pictures (only one deck's name changes). */
+export function makeDemo(now: number, language: 'en' | 'vi' = 'en') {
   const rnd = random(42);
   // Study days start at 4 AM (lib/day.ts), so "today" is the study day, not the calendar day.
   const today = dayStart(now);
@@ -180,7 +429,7 @@ export function makeDemo(now: number) {
     const created = today - (16 + d) * DAY;
     decks.push({
       id: deckId,
-      name: spec.name,
+      name: (language === 'vi' && spec.nameVi) || spec.name,
       color: spec.color,
       front_lang: spec.languages?.front ?? null,
       back_lang: spec.languages?.back ?? null,

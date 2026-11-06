@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import { router } from 'expo-router';
 import { useState, type ReactNode } from 'react';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -14,6 +15,8 @@ import { hasAiConsent, setAiConsent } from '@/features/ai/consent';
 import { pickAndImportBackup, shareBackup, shareCardsCsv } from '@/features/backup/files';
 import { Chip } from '@/features/import/DeckTarget';
 import { syncReminders, turnOnReminders } from '@/features/reminders/reminders';
+import { syncSoon } from '@/features/sync/engine';
+import { signedInWith, useAccount } from '@/features/sync/session';
 import { setAppearanceChoice, useScheme, type AppearanceChoice } from '@/lib/appearance';
 import { BackupError } from '@/lib/backup';
 import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
@@ -43,6 +46,8 @@ export default function SettingsScreen() {
   const styles = useStyles(makeStyles);
   const settings = useLive(getSettings, ['settings']);
   const [advanced, setAdvanced] = useState(false);
+  // Signed in, the cards are on the sync server too, not only on this device.
+  const synced = useAccount() !== null;
 
   const setReminder = async (enabled: boolean) => {
     if (enabled) {
@@ -68,6 +73,10 @@ export default function SettingsScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.content}>
+      <Section title={t('settings.sync')}>
+        <SyncRow />
+      </Section>
+
       <Section title={t('settings.studying')}>
         <Stepper
           label={t('settings.retention')}
@@ -187,7 +196,7 @@ export default function SettingsScreen() {
       {advanced ? <AdvancedSettings /> : null}
 
       <Text style={styles.footer}>
-        {t(isWeb ? 'settings.footerWeb' : 'settings.footer', {
+        {t(synced ? 'settings.footerSynced' : isWeb ? 'settings.footerWeb' : 'settings.footer', {
           version: Constants.expoConfig?.version ?? '',
         })}
       </Text>
@@ -246,6 +255,7 @@ function AdvancedSettings() {
     run(async () => {
       const result = await pickAndImportBackup();
       if (!result) return;
+      syncSoon();
       const changed = result.decks + result.cards + result.reviews;
       showAlert(
         t('settings.backupImported'),
@@ -312,6 +322,29 @@ function AdvancedSettings() {
   );
 }
 
+/** Opens Sync my cards; says who this device is signed in as. */
+function SyncRow() {
+  const styles = useStyles(makeStyles);
+  const account = useAccount();
+  const status = account
+    ? [signedInWith(account), account.email].filter(Boolean).join(' · ')
+    : t('settings.syncOff');
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${t('screen.account')}, ${status}`}
+      onPress={() => router.push('/account')}
+      style={({ pressed }) => [styles.linkRow, pressed && styles.pressed]}
+    >
+      <View style={styles.flex}>
+        <Text style={styles.label}>{t('screen.account')}</Text>
+        <Text style={styles.description}>{status}</Text>
+      </View>
+      <Text style={styles.chevron}>›</Text>
+    </Pressable>
+  );
+}
+
 function Section({ title, children }: { title: string; children: ReactNode }) {
   const styles = useStyles(makeStyles);
   return (
@@ -342,6 +375,16 @@ const makeStyles = (colors: Colors) =>
       marginBottom: 8,
     },
     chevron: { fontSize: 20, color: colors.primary },
+    linkRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+      minHeight: touchTarget,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      marginHorizontal: -12,
+      borderRadius: radius.button,
+    },
     deckRow: {
       flexDirection: 'row',
       alignItems: 'center',

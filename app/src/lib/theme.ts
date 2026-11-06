@@ -15,12 +15,33 @@ const light = {
   danger: '#B3261E',
   // New cards in the statistics chart (a lighter accent, ≥ 3:1 on white).
   chartNew: '#9A80EC',
-  // The streak flame (an icon, not an accent color).
+  // The streak flame (an icon, not an accent color), with a lighter flame inside it.
   flame: '#D9530F',
+  flameInner: '#FFB067',
+  // The leaderboard's rank badges: gold, silver and bronze medals for the top three (an outline
+  // ≥ 3:1 on the page and on your own row, a lighter fill, the number in `onRank`) on a violet
+  // ribbon in two shades, then grey outlined coins.
+  rankGold: '#A87A00',
+  rankGoldFill: '#FFD35C',
+  rankSilver: '#7D8590',
+  rankSilverFill: '#E3E7EC',
+  rankBronze: '#B0652E',
+  rankBronzeFill: '#F2B485',
+  onRank: '#1A1530',
+  rankOutline: '#C9C5D6',
+  ribbon: '#5A31D6',
+  ribbonShade: '#9A80EC',
   // Dims the screen behind a sheet ("+" menu, choices).
   backdrop: 'rgba(26, 21, 48, 0.35)',
   // A sheet sliding up over the dimmed screen.
   sheet: '#FFFFFF',
+  // "Continue with Google" / "Continue with Apple": their own button colors (Google's and Apple's
+  // sign-in button guidelines), not Recap's.
+  googleButton: '#FFFFFF',
+  googleButtonBorder: '#747775',
+  googleButtonText: '#1F1F1F',
+  appleButton: '#000000',
+  appleButtonText: '#FFFFFF',
 } as const;
 
 export type Colors = { readonly [K in keyof typeof light]: string };
@@ -39,9 +60,25 @@ const dark: Colors = {
   danger: '#FFB4AB',
   chartNew: '#7D63DB',
   flame: '#FF8B4D',
+  flameInner: '#FFD2A8',
+  rankGold: '#E0A82E',
+  rankGoldFill: '#F7CF5E',
+  rankSilver: '#AEB6C0',
+  rankSilverFill: '#D5DAE0',
+  rankBronze: '#D98B4F',
+  rankBronzeFill: '#EDAE7E',
+  onRank: '#1A1530',
+  rankOutline: '#585169',
+  ribbon: '#B5A0FF',
+  ribbonShade: '#7D63DB',
   backdrop: 'rgba(0, 0, 0, 0.6)',
   // Raised a little above the page, so a sheet stands out from the dimmed screen behind it.
   sheet: '#221E2C',
+  googleButton: '#131314',
+  googleButtonBorder: '#8E918F',
+  googleButtonText: '#E3E3E3',
+  appleButton: '#FFFFFF',
+  appleButtonText: '#000000',
 };
 
 export const palettes: Readonly<Record<Scheme, Colors>> = { light, dark };
@@ -111,6 +148,16 @@ export const maxContentWidth = 680;
 export function sideSpace(windowWidth: number): number {
   return Math.max(0, Math.round((windowWidth - maxContentWidth) / 2));
 }
+
+/** A bottom sheet in a Modal: at the bottom, the whole width on a phone, the screens' centered
+ *  column on a tablet. Its backdrop fills the screen behind it (absoluteFill), so the dimming also
+ *  covers both sides of a narrower sheet. */
+export const sheetFrame = {
+  marginTop: 'auto',
+  width: '100%',
+  maxWidth: maxContentWidth,
+  alignSelf: 'center',
+} as const;
 
 // Minimum touch target (dp), per the UX rules.
 export const touchTarget = 48;

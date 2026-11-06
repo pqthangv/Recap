@@ -2,7 +2,7 @@
   "expo": {
     "name": "Recap",
     "slug": "recap",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "recapcards",
@@ -11,7 +11,10 @@
     "ios": {
       "bundleIdentifier": "com.recapcards.app",
       "buildNumber": "1",
-      "supportsTablet": false,
+      "supportsTablet": true,
+      "entitlements": {
+        "com.apple.developer.devicecheck.appattest-environment": "production"
+      },
       "config": {
         "usesNonExemptEncryption": false
       },
@@ -51,7 +54,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 9
+      "versionCode": 10
     },
     "web": {
       "bundler": "metro",
@@ -117,6 +120,13 @@
           "ios": {
             "enableSceneSupport": true
           }
+        }
+      ],
+      "expo-apple-authentication",
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": false
         }
       ]
     ],

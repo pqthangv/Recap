@@ -4,7 +4,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Deck } from '@/db/schema';
 import { t, tn } from '@/lib/i18n';
 import { useScheme } from '@/lib/appearance';
-import { type Colors, radius, shownDeckColor, touchTarget, useStyles } from '@/lib/theme';
+import {
+  type Colors,
+  radius,
+  sheetFrame,
+  shownDeckColor,
+  touchTarget,
+  useStyles,
+} from '@/lib/theme';
 
 type Props = {
   visible: boolean;
@@ -66,8 +73,9 @@ export function MoveCardsSheet({ visible, decks, count, onMove, onClose }: Props
 
 const makeStyles = (colors: Colors) =>
   StyleSheet.create({
-    backdrop: { flex: 1, backgroundColor: colors.backdrop },
+    backdrop: { ...StyleSheet.absoluteFill, backgroundColor: colors.backdrop },
     sheet: {
+      ...sheetFrame,
       backgroundColor: colors.sheet,
       borderTopLeftRadius: radius.card,
       borderTopRightRadius: radius.card,
