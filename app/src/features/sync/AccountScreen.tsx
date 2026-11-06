@@ -1,5 +1,7 @@
 // Settings › Sync my cards (roadmap 6.1): signing in with Google, Apple or an emailed code, and
-// signing out. Signing in is optional; Recap works the same without it.
+// signing out. Signing in is optional; Recap works the same without it. A device with another
+// account's cards asks what to do with them first, on this screen (a browser's own boxes have only
+// OK / Cancel, src/lib/alert.ts).
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -16,12 +18,14 @@ import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/th
 import { accountClient } from './api';
 import { appleAgainForDeleting, signInWithApple } from './apple';
 import { finishBrowserReturn, signInInBrowser } from './browser';
-import { signOut, syncNow, useSyncStatus } from './engine';
+import { otherAccountCards, signIn, signOut, syncNow, useSyncStatus } from './engine';
 import { AppleLogo, GoogleLogo } from './Logos';
-import { getAccount, setAccount, signedInWith, useAccount } from './session';
+import { getAccount, signedInWith, useAccount } from './session';
 
 type Way = 'google' | 'apple' | 'email';
 type EmailStep = 'closed' | 'address' | 'code';
+/** A sign-in waiting for the choice about another account's cards (not saved until then). */
+type Pending = { account: Account; unsent: boolean };
 
 const messageOf = (e: unknown) =>
   e instanceof AccountError ? e.message : t('accountError.failed');
@@ -33,12 +37,13 @@ export default function AccountScreen() {
   const [working, setWorking] = useState<Way | null>(null);
   const [problem, setProblem] = useState<string | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [pending, setPending] = useState<Pending | null>(null);
 
   const run = async (way: Way, task: () => Promise<Account | null>) => {
     setProblem(null);
     setWorking(way);
     try {
-      done(await task());
+      done(await task(), setPending);
     } catch (e) {
       console.warn('Sign-in failed', e);
       setProblem(messageOf(e));
@@ -55,7 +60,7 @@ export default function AccountScreen() {
     if (!code && !error) return;
     finishBrowserReturn({ code, error })
       .then((back) => {
-        if (back && 'signedIn' in back) done(back.signedIn);
+        if (back && 'signedIn' in back) done(back.signedIn, setPending);
         if (back && 'deleteProof' in back) return removeAccount(back.deleteProof, setProblem);
       })
       .catch((e: unknown) => {
@@ -72,7 +77,7 @@ export default function AccountScreen() {
       t(isWeb ? 'account.signOutBodyWeb' : 'account.signOutBody'),
       [
         { text: t('common.cancel'), style: 'cancel' },
-        { text: t('account.signOut'), style: 'destructive', onPress: signOut },
+        { text: t('account.signOut'), style: 'destructive', onPress: () => signOut() },
       ],
     );
 
@@ -117,6 +122,37 @@ export default function AccountScreen() {
       }}
     />
   );
+
+  if (pending && !account) {
+    const choose = (theirCards: 'add' | 'remove') => {
+      setPending(null);
+      finishSignIn(pending.account, theirCards);
+    };
+    return (
+      <ScrollView contentContainerStyle={styles.content}>
+        {header}
+        <Text accessibilityRole="header" style={styles.title}>
+          {t(isWeb ? 'account.otherCardsTitleWeb' : 'account.otherCardsTitle')}
+        </Text>
+        <Text style={styles.body} accessibilityLiveRegion="polite">
+          {t(isWeb ? 'account.otherCardsBodyWeb' : 'account.otherCardsBody')}
+        </Text>
+        {pending.unsent ? (
+          <Text style={styles.problem}>{t('account.otherCardsUnsent')}</Text>
+        ) : null}
+        <Button
+          label={t(isWeb ? 'account.otherCardsRemoveWeb' : 'account.otherCardsRemove')}
+          onPress={() => choose('remove')}
+        />
+        <Button
+          variant="secondary"
+          label={t('account.otherCardsAdd')}
+          onPress={() => choose('add')}
+        />
+        <Button variant="text" label={t('common.cancel')} onPress={() => setPending(null)} />
+      </ScrollView>
+    );
+  }
 
   if (account) {
     return (
@@ -197,16 +233,23 @@ async function removeAccount(apple: AppleProof | undefined, onProblem: (text: st
     onProblem(messageOf(e));
     return;
   }
-  signOut();
+  // The account is gone, so the cards here may be the only copy: they're this device's own now.
+  signOut({ accountGone: true });
   showSnackbar(t(isWeb ? 'account.deletedWeb' : 'account.deleted'));
 }
 
-function done(signedIn: Account | null) {
+/** A sign-in came back: finish it, or first ask about another account's cards here. */
+function done(signedIn: Account | null, ask: (pending: Pending) => void) {
   if (!signedIn) return;
-  setAccount(signedIn);
-  showSnackbar(t('account.signedInSnack'));
+  const other = otherAccountCards(signedIn);
+  if (other) ask({ account: signedIn, ...other });
+  else finishSignIn(signedIn);
+}
+
+function finishSignIn(account: Account, theirCards?: 'add' | 'remove') {
   // The first sync merges this device's cards into the account (nothing here is replaced).
-  void syncNow();
+  signIn(account, theirCards);
+  showSnackbar(t('account.signedInSnack'));
 }
 
 /** "Last synced today at 9:41 AM" (or why it stopped), and Sync now. */

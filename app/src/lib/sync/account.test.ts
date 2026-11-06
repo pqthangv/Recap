@@ -7,6 +7,7 @@ import {
   readTabResult,
   RENEW_AFTER_MS,
   toBase64url,
+  tokenAccount,
   tokenIssuedAt,
 } from './account';
 
@@ -213,5 +214,14 @@ describe('renewing', () => {
     expect(needsRenewal(token, made * 1000 + RENEW_AFTER_MS + 1)).toBe(true);
     // A token that can't be read is renewed (the Worker decides whether it's still good).
     expect(needsRenewal('garbage', made * 1000)).toBe(true);
+  });
+
+  it("reads the token's account id (its sub)", () => {
+    const id = '0f8c7a2e-1b3d-4e5f-9a8b-7c6d5e4f3a2b';
+    const token = `e30.${toBase64url(btoa(JSON.stringify({ sub: id, iat: 1 })))}.sig`;
+    expect(tokenAccount(token)).toBe(id);
+    expect(tokenAccount('garbage')).toBeNull();
+    expect(tokenAccount(`e30.${toBase64url(btoa(JSON.stringify({ iat: 1 })))}.sig`)).toBeNull();
+    expect(tokenAccount(`e30.${toBase64url(btoa('null'))}.sig`)).toBeNull();
   });
 });

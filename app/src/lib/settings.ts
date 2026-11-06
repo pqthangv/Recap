@@ -105,6 +105,9 @@ export const SYNC_PICTURES_KEY = 'sync_pictures';
 /** The leaderboard (lib/leaderboard/score.ts Sent): on it or not, and the score this device last
  *  sent. Forgotten on signing out. */
 export const BOARD_SENT_KEY = 'board_sent';
+/** The account this device's cards last synced with (db/sync.ts SyncOwner), kept after signing
+ *  out, so signing in to another account asks about them first (features/sync/engine.ts). */
+export const SYNC_OWNER_KEY = 'sync_owner';
 
 /** This iPhone's App Attest key and whether Recap's server took it (lib/appAttest.ts). Per phone:
  *  the key only works on the iPhone that made it. */
@@ -116,6 +119,7 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   SYNC_LAST_KEY,
   SYNC_PICTURES_KEY,
   BOARD_SENT_KEY,
+  SYNC_OWNER_KEY,
   SEEDED_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,
