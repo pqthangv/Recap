@@ -1,4 +1,4 @@
-import { DEMO_ME, DEMO_PEOPLE, demoView } from './demo';
+import { DEMO_ME, DEMO_PEOPLE, DEMO_UPDATED_MINUTES_AGO, demoView } from './demo';
 import { displayNameProblem, usernameProblem } from './names';
 
 const me = { streak: 15, weekCards: 180 };
@@ -49,4 +49,9 @@ it('ranks by this week, keeps only followed people on Friends, and filters', () 
   const active = demoView('everyone', 'streak', 50, { streak: 15, weekCards: 20 });
   expect(active.rows.every((r) => r.weekCards >= 50)).toBe(true);
   expect(active.me.rank).toBeNull();
+});
+
+it('says how old Everyone is, like the Worker; Friends is fresh', () => {
+  expect(demoView('everyone', 'week', 0, me).updatedMinutesAgo).toBe(DEMO_UPDATED_MINUTES_AGO);
+  expect(demoView('friends', 'streak', 0, me)).not.toHaveProperty('updatedMinutesAgo');
 });

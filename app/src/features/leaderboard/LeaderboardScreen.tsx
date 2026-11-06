@@ -24,6 +24,7 @@ import { showAlert } from '@/lib/alert';
 import { t, tn, type StringKey } from '@/lib/i18n';
 import type { Profile, Ranking, Row, Tab, View as Board } from '@/lib/leaderboard/client';
 import { cleanUsername } from '@/lib/leaderboard/names';
+import { updatedText } from '@/lib/leaderboard/updated';
 import { radius, touchTarget, useColors, useStyles, type Colors } from '@/lib/theme';
 
 import { boardClient, DEMO_BOARD } from './api';
@@ -82,6 +83,9 @@ export default function LeaderboardScreen() {
   const wanted = `${tab} ${by} ${min} ${reload}`;
   const [answered, setAnswered] = useState('');
   const loading = joined && reload > 0 && answered !== wanted;
+  // When the board came, and the clock for "Updated 12 min ago" (lib/leaderboard/updated.ts).
+  const [answeredAt, setAnsweredAt] = useState(0);
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     if (!joined || reload === 0) return;
     let live = true;
@@ -89,7 +93,10 @@ export default function LeaderboardScreen() {
       .view(tab, by, min)
       .then((next) => {
         if (!live) return;
+        const at = Date.now();
         setBoard(next);
+        setAnsweredAt(at);
+        setNow(at);
         setProblem(null);
       })
       .catch((e: unknown) => {
@@ -101,6 +108,17 @@ export default function LeaderboardScreen() {
       live = false;
     };
   }, [joined, reload, tab, by, min, wanted]);
+
+  // Everyone's scores are worked out again every 30 minutes: say how long ago, counting up while
+  // the screen is open. Friends is worked out on every visit (its answer has no age).
+  const updated =
+    tab === 'everyone' && board ? updatedText(board.updatedMinutesAgo, answeredAt, now) : null;
+  const showsAge = updated !== null;
+  useEffect(() => {
+    if (!showsAge) return;
+    const timer = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(timer);
+  }, [showsAge]);
 
   const refresh = () => void sendScore(true).then(() => setReload((n) => n + 1));
 
@@ -201,6 +219,7 @@ export default function LeaderboardScreen() {
                 />
               ) : null}
             </View>
+            {updated ? <Text style={styles.description}>{updated}</Text> : null}
             {tab === 'friends' ? (
               <FollowByUsername onFollowed={() => setReload((n) => n + 1)} />
             ) : null}

@@ -704,6 +704,9 @@ export const vi: Strings = {
   'board.noFriends':
     'Hỏi bạn bè tên người dùng của họ (ở Bảng xếp hạng › Sửa), rồi theo dõi họ ở đây.',
   'board.notInList': 'Bạn không có trong danh sách này: chỉ gồm người học từ {n} thẻ tuần này.',
+  'board.updatedJustNow': 'Vừa cập nhật',
+  'board.updatedMinutesAgo_one': 'Cập nhật {n} phút trước',
+  'board.updatedMinutesAgo_other': 'Cập nhật {n} phút trước',
   'board.followByUsername': 'Theo dõi bằng tên người dùng',
   'board.usernamePlaceholder': 'tên người dùng',
   'board.follow': 'Theo dõi',
