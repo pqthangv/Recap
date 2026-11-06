@@ -418,6 +418,8 @@ export const vi: Strings = {
     'Recap {version} · Hoàn toàn miễn phí. Thẻ của bạn chỉ lưu trên điện thoại này.',
   'settings.footerWeb':
     'Recap {version} · Hoàn toàn miễn phí. Thẻ của bạn chỉ lưu trên trình duyệt này.',
+  'settings.footerSynced':
+    'Recap {version} · Hoàn toàn miễn phí. Thẻ của bạn được đồng bộ với tài khoản.',
   'settings.feedback': 'Câu hỏi hoặc góp ý? {email}',
   'settings.emailA11y': 'Gửi email đến {email}',
   'settings.emailSubject': 'Góp ý cho Recap',

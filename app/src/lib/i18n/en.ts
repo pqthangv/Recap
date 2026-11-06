@@ -413,6 +413,7 @@ export const en = {
   'settings.advanced': 'Advanced',
   'settings.footer': 'Recap {version} · All free. Your cards stay on this phone.',
   'settings.footerWeb': 'Recap {version} · All free. Your cards stay in this browser.',
+  'settings.footerSynced': 'Recap {version} · All free. Your cards are synced to your account.',
   'settings.feedback': 'Questions or feedback? {email}',
   'settings.emailA11y': 'Email {email}',
   'settings.emailSubject': 'Recap feedback',
