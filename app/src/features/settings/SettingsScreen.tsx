@@ -46,6 +46,8 @@ export default function SettingsScreen() {
   const styles = useStyles(makeStyles);
   const settings = useLive(getSettings, ['settings']);
   const [advanced, setAdvanced] = useState(false);
+  // Signed in, the cards are on the sync server too, not only on this device.
+  const synced = useAccount() !== null;
 
   const setReminder = async (enabled: boolean) => {
     if (enabled) {
@@ -194,7 +196,7 @@ export default function SettingsScreen() {
       {advanced ? <AdvancedSettings /> : null}
 
       <Text style={styles.footer}>
-        {t(isWeb ? 'settings.footerWeb' : 'settings.footer', {
+        {t(synced ? 'settings.footerSynced' : isWeb ? 'settings.footerWeb' : 'settings.footer', {
           version: Constants.expoConfig?.version ?? '',
         })}
       </Text>
