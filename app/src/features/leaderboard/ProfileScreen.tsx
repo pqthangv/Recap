@@ -46,6 +46,10 @@ const USERNAME_TEXT: Record<NameProblem, StringKey> = {
 };
 const LIMITS = { min: USERNAME_MIN, max: USERNAME_MAX, n: DISPLAY_NAME_MAX };
 
+/** Back to the leaderboard after joining, saving or leaving. Opened straight from its address
+ *  (the website after a reload or a link) there's nothing to go back to, so this opens it. */
+const done = () => router.dismissTo('/leaderboard');
+
 /** The Worker's "display_name_too_long" / "username_not_allowed" → which field, and why. */
 function refusedName(code: string): { field: 'name' | 'username'; problem: NameProblem } | null {
   const match = /^(display_name|username)_(too_short|too_long|characters|not_allowed)$/.exec(code);
@@ -108,7 +112,7 @@ export default function ProfileScreen() {
         void sendScore(true);
       }
       showSnackbar(t(profile ? 'board.saved' : 'board.joined'));
-      router.back();
+      done();
     } catch (e) {
       console.warn('Leaderboard', e);
       const refused = e instanceof BoardError ? refusedName(e.code) : null;
@@ -135,7 +139,7 @@ export default function ProfileScreen() {
             .then(() => {
               startOver(false);
               showSnackbar(t('board.left'));
-              router.back();
+              done();
             })
             .catch((e: unknown) => {
               console.warn('Leaderboard', e);
