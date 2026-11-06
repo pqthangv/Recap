@@ -74,5 +74,9 @@ export function demoView(
       streak: me.streak,
       weekCards: me.weekCards,
     },
+    // Like the Worker: Everyone says how old it is ("Updated 4 min ago"); Friends is fresh.
+    ...(tab === 'everyone' ? { updatedMinutesAgo: DEMO_UPDATED_MINUTES_AGO } : {}),
   };
 }
+
+export const DEMO_UPDATED_MINUTES_AGO = 4;

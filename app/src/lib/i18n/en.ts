@@ -702,6 +702,10 @@ export const en = {
   'board.noFriends':
     "Ask friends for their username (it's under Leaderboard › Edit), then follow them here.",
   'board.notInList': "You're not in this list: it shows people with {n}+ cards this week.",
+  // Under Everyone: its scores are worked out again every 30 minutes
+  'board.updatedJustNow': 'Updated just now',
+  'board.updatedMinutesAgo_one': 'Updated {n} min ago',
+  'board.updatedMinutesAgo_other': 'Updated {n} min ago',
   'board.followByUsername': 'Follow by username',
   'board.usernamePlaceholder': 'username',
   'board.follow': 'Follow',
