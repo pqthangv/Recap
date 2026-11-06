@@ -87,16 +87,27 @@ export function base64url(bytes: Uint8Array): string {
 export const toBase64url = (base64: string) =>
   base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 
-/** When the token was made (ms), read from its payload; 0 if it can't be read. */
-export function tokenIssuedAt(token: string): number {
+/** The token's payload (not checked: the Worker does that), or null if it can't be read. */
+function tokenPayload(token: string): { iat?: unknown; sub?: unknown } | null {
   try {
     const part = token.split('.')[1] ?? '';
-    const json = atob(part.replace(/-/g, '+').replace(/_/g, '/'));
-    const iat = (JSON.parse(json) as { iat?: unknown }).iat;
-    return typeof iat === 'number' ? iat * 1000 : 0;
+    const payload: unknown = JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')));
+    return payload && typeof payload === 'object' ? payload : null;
   } catch {
-    return 0;
+    return null;
   }
+}
+
+/** When the token was made (ms), read from its payload; 0 if it can't be read. */
+export function tokenIssuedAt(token: string): number {
+  const iat = tokenPayload(token)?.iat;
+  return typeof iat === 'number' ? iat * 1000 : 0;
+}
+
+/** The account the token is for (its `sub`, the account's id), or null if it can't be read. */
+export function tokenAccount(token: string): string | null {
+  const sub = tokenPayload(token)?.sub;
+  return typeof sub === 'string' && sub !== '' ? sub : null;
 }
 
 export const needsRenewal = (token: string, now = Date.now()) =>

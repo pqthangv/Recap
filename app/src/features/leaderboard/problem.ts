@@ -28,6 +28,6 @@ const TEXT: Record<BoardErrorKind, StringKey> = {
 /** `tooMany`: what "too many" means here (following 200 people, or today's 10 reports). */
 export function problemText(error: unknown, tooMany?: StringKey): string {
   const kind = error instanceof BoardError ? error.kind : 'server';
-  if (kind === 'signedOut') signOut();
+  if (kind === 'signedOut') signOut({ accountGone: true });
   return t(kind === 'tooMany' && tooMany ? tooMany : TEXT[kind]);
 }

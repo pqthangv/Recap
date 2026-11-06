@@ -805,6 +805,17 @@ export const vi: Strings = {
   'account.deleteApple': 'Bạn sẽ đăng nhập bằng Apple thêm một lần để xác nhận.',
   'account.deleted': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên điện thoại này.',
   'account.deletedWeb': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên trình duyệt này.',
+  'account.otherCardsTitle': 'Thiết bị này có thẻ của một tài khoản khác',
+  'account.otherCardsTitleWeb': 'Trình duyệt này có thẻ của một tài khoản khác',
+  'account.otherCardsBody':
+    'Các thẻ này thuộc tài khoản đã đăng nhập ở đây trước đó và vẫn được lưu trong tài khoản đó. Xóa chúng khỏi thiết bị này, hay thêm chúng vào tài khoản bạn vừa đăng nhập?',
+  'account.otherCardsBodyWeb':
+    'Các thẻ này thuộc tài khoản đã đăng nhập ở đây trước đó và vẫn được lưu trong tài khoản đó. Xóa chúng khỏi trình duyệt này, hay thêm chúng vào tài khoản bạn vừa đăng nhập?',
+  'account.otherCardsUnsent':
+    'Một số thay đổi ở đây chưa được đồng bộ lên tài khoản trước đó. Nếu xóa các thẻ, những thay đổi đó sẽ mất.',
+  'account.otherCardsRemove': 'Xóa các thẻ này khỏi thiết bị',
+  'account.otherCardsRemoveWeb': 'Xóa các thẻ này khỏi trình duyệt',
+  'account.otherCardsAdd': 'Thêm các thẻ này vào tài khoản của tôi',
 
   // Lỗi đăng nhập
   'accountError.offline': 'Không kết nối được máy chủ Recap. Hãy kiểm tra mạng rồi thử lại.',

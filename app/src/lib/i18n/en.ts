@@ -800,6 +800,18 @@ export const en = {
   'account.deleteApple': "You'll sign in with Apple once more to confirm.",
   'account.deleted': 'Account deleted. Your cards stay on this phone.',
   'account.deletedWeb': 'Account deleted. Your cards stay in this browser.',
+  // Signing in on a device that has cards from another account (a shared iPad or computer)
+  'account.otherCardsTitle': 'This device has cards from another account',
+  'account.otherCardsTitleWeb': 'This browser has cards from another account',
+  'account.otherCardsBody':
+    "They belong to the account that was signed in here before, and they're still saved there. Remove them from this device, or add them to the account you just signed in to?",
+  'account.otherCardsBodyWeb':
+    "They belong to the account that was signed in here before, and they're still saved there. Remove them from this browser, or add them to the account you just signed in to?",
+  'account.otherCardsUnsent':
+    'Some changes made here were never synced to the previous account. Removing the cards loses those changes.',
+  'account.otherCardsRemove': 'Remove these cards from this device',
+  'account.otherCardsRemoveWeb': 'Remove these cards from this browser',
+  'account.otherCardsAdd': 'Add these cards to my account',
 
   // Sign-in errors
   'accountError.offline':
