@@ -1,0 +1,177 @@
+# Recap's store listing text, every language, to Google Play and the App Store. Run by
+# .github/workflows/store-text.yml on GitHub, never on a PC (the keys are GitHub secrets).
+# Text only: metadata/ (Play: metadata/android/<locale>/, App Store: metadata/<locale>/).
+# Screenshots and graphics are still uploaded by hand.
+#
+#   fastlane play mode:check|upload [version_code:11]
+#   fastlane appstore mode:check|upload [version:1.0.9]
+#
+# mode:check uploads nothing: it shows what would change, and Google checks the change without
+# publishing it.
+require "json"
+require "tmpdir"
+
+APP_ID = "com.recapcards.app"
+STORE = File.expand_path("..", __dir__) # store/
+METADATA = File.join(STORE, "fastlane", "metadata")
+APP_JSON = File.expand_path("../app/app.json", STORE)
+
+def check_only?(options)
+  mode = (options[:mode] || "check").to_s
+  UI.user_error!("mode must be check or upload, not '#{mode}'") unless %w[check upload].include?(mode)
+  mode == "check"
+end
+
+def secret(name)
+  value = ENV[name].to_s
+  UI.user_error!("The GitHub secret #{name} is missing (Settings > Secrets and variables > Actions)") if value.strip.empty?
+  value
+end
+
+# Prints, for each text file Recap keeps in `ours` (these locales only), how the store's copy in
+# `live` differs. Only these files are read: the App Store download also holds the review
+# sign-in details, which must never reach the (public) log.
+def compare(live, ours, locales)
+  changed = 0
+  locales.each do |locale|
+    Dir.glob("*.txt", base: File.join(ours, locale)).sort.each do |name|
+      mine = File.read(File.join(ours, locale, name), encoding: "UTF-8").strip
+      path = File.join(live, locale, name)
+      theirs = File.exist?(path) ? File.read(path, encoding: "UTF-8").strip : ""
+      next if mine == theirs
+
+      changed += 1
+      Dir.mktmpdir do |dir|
+        a = File.join(dir, "store.txt")
+        b = File.join(dir, "repo.txt")
+        File.write(a, "#{theirs}\n")
+        File.write(b, "#{mine}\n")
+        UI.important("#{locale}/#{name} would change:")
+        system("diff", "-u", "--label", "now in the store", "--label", "in the repo", a, b)
+      end
+    end
+  end
+  if changed.zero?
+    UI.success("No differences: the store has exactly this text.")
+  else
+    UI.important("#{changed} field(s) would change.")
+  end
+end
+
+# Whether a version has a setting (a phased release, a ratings reset): Apple's API answers with an
+# error when it has none, as fastlane itself expects. A mistake in this file still stops the run.
+def set_on_version?
+  !yield.nil?
+rescue NoMethodError, NameError
+  raise
+rescue StandardError
+  false
+end
+
+def locales_in(dir)
+  Dir.children(dir).select { |d| File.directory?(File.join(dir, d)) && d != "android" }.sort
+end
+
+# Google Play. Even a text-only upload looks up a release on the production track (fastlane's
+# supply, for its "What's New"), so it needs that release's version code: by default the one in
+# app/app.json, which is the live build's on main. "What's New" itself isn't uploaded: it's pasted
+# into Play's release form (the workflow prints it).
+lane :play do |options|
+  check = check_only?(options)
+  key = secret("PLAY_SERVICE_ACCOUNT_JSON")
+  version_code = (options[:version_code].to_s.strip.empty? ? JSON.parse(File.read(APP_JSON)).dig("expo", "android", "versionCode") : options[:version_code]).to_i
+  play_metadata = File.join(METADATA, "android")
+
+  if check
+    Dir.mktmpdir do |dir|
+      live = File.join(dir, "android")
+      ENV["SUPPLY_JSON_KEY_DATA"] = key
+      begin
+        # Play's listing as it is now (supply init also downloads its images; they aren't compared).
+        sh("fastlane", "supply", "init", "--package_name", APP_ID, "--metadata_path", live, log: false)
+        compare(live, play_metadata, locales_in(play_metadata))
+      rescue StandardError => e
+        UI.important("Couldn't download Play's text to compare (#{e.message}); Google's check below still runs.")
+      ensure
+        ENV.delete("SUPPLY_JSON_KEY_DATA")
+      end
+    end
+  end
+
+  upload_to_play_store(
+    package_name: APP_ID,
+    json_key_data: key,
+    metadata_path: play_metadata,
+    track: "production",
+    version_code: version_code,
+    skip_upload_apk: true,
+    skip_upload_aab: true,
+    skip_upload_changelogs: true,
+    skip_upload_images: true,
+    skip_upload_screenshots: true,
+    validate_only: check
+  )
+  UI.success(check ? "Google accepted the text (nothing was published)." : "Play's listing text is uploaded.")
+end
+
+# App Store. fastlane edits the version being prepared (whatever its number), so an upload names
+# the version it expects and stops if App Store Connect is preparing another one.
+lane :appstore do |options|
+  check = check_only?(options)
+  version = options[:version].to_s.strip
+  UI.user_error!("An upload needs the App Store version being prepared, e.g. version:1.0.9") if !check && version.empty?
+
+  Dir.mktmpdir do |dir|
+    key_path = File.join(dir, "asc-key.json")
+    File.write(key_path, JSON.generate(
+      key_id: secret("ASC_KEY_ID"),
+      issuer_id: secret("ASC_ISSUER_ID"),
+      key: secret("ASC_KEY"),
+      duration: 1200,
+      in_house: false
+    ))
+    File.chmod(0o600, key_path)
+
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from(filepath: key_path)
+    app = Spaceship::ConnectAPI::App.find(APP_ID)
+    UI.user_error!("App Store Connect has no app #{APP_ID} for this key") unless app
+    edit = app.get_edit_app_store_version(platform: Spaceship::ConnectAPI::Platform::IOS)
+    # fastlane turns a phased release or a ratings reset off unless told otherwise: an upload
+    # keeps both as they are on this version.
+    phased = edit && set_on_version? { edit.fetch_app_store_version_phased_release }
+    reset = edit && set_on_version? { edit.fetch_reset_ratings_request }
+    if edit
+      UI.message("Being prepared: #{edit.version_string} (phased release #{phased ? 'on' : 'off'}, ratings reset #{reset ? 'on' : 'off'})")
+    else
+      UI.important("No App Store version is being prepared: an upload would stop here.")
+    end
+
+    if check
+      live = File.join(dir, "live")
+      # The latest version's text (the one being prepared, or else the live one).
+      sh("fastlane", "deliver", "download_metadata", "--api_key_path", key_path,
+         "--app_identifier", APP_ID, "--metadata_path", live, "--force", log: false)
+      compare(live, METADATA, locales_in(METADATA))
+      next
+    end
+
+    UI.user_error!("No App Store version is being prepared: create #{version} in App Store Connect first") unless edit
+    UI.user_error!("App Store Connect is preparing #{edit.version_string}, not #{version}: nothing was uploaded") unless edit.version_string == version
+
+    upload_to_app_store(
+      api_key_path: key_path,
+      app_identifier: APP_ID,
+      platform: "ios",
+      metadata_path: METADATA,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_app_version_update: true,
+      submit_for_review: false,
+      run_precheck_before_submit: false,
+      phased_release: phased,
+      reset_ratings: reset,
+      force: true # no HTML preview to confirm: nobody is watching the screen
+    )
+    UI.success("App Store text for #{version} is uploaded (not submitted for review).")
+  end
+end

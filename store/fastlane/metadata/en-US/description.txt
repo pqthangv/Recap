@@ -1,0 +1,51 @@
+Recap is a flashcard app built for active recall. You type the answer, Recap checks it, and spaced repetition brings each card back just before you would forget it.
+
+TYPE IT. RECAP CHECKS IT.
+• For short answers, type what you remember. Recap marks the letters you got wrong and knows a typo from missing accents ("qua tao" for "quả táo").
+• Then it suggests Again, Hard, Good or Easy. Confirm with one tap, or pick another.
+• Long answers? Tap the card to see them, as usual.
+
+CARDS IN ANY TWO LANGUAGES
+• Create with AI from your notes, a photo of a page, a PDF, or just a topic.
+• Choose each side's language: English words with Vietnamese meanings, Japanese terms with English explanations, and more, in 12 languages.
+• Check every card before you save it: edit, remove, or report anything that isn't right.
+
+HEAR EVERY CARD
+• Cards are read aloud in their own language with your iPhone's voices, in up to 12 languages. Set a deck to Español and English once, and every card sounds right.
+• Turn reading off any time in Settings, or tap the speaker to hear a card again.
+
+ON ALL YOUR DEVICES
+• Sign in with Apple, Google or Email to keep your decks, cards and progress the same on your iPhone, your iPad and at recapflashcards.com.
+• It's optional: without an account, Recap works fully on your device, even offline.
+• Delete your account any time in Settings › Sync my cards.
+
+COMPARE STREAKS WITH FRIENDS
+• Join the leaderboard if you like: streaks and cards studied this week, for everyone or for the friends you follow.
+• Pick your own name, or show up as Anonymous. Block or report any name.
+
+REMEMBER MORE, STUDY LESS
+• FSRS, a modern, research-based memory algorithm, schedules every review for you.
+• One Study button shows everything due today. One setting: how much you want to remember.
+• A daily streak, day-by-day statistics and an optional reminder keep you going.
+
+READY-MADE DECKS
+• English basics for Vietnamese speakers (1,000 everyday words), TOEIC, IELTS and SAT vocabulary, plus the capitals of the world, all written for Recap.
+
+IPHONE, IPAD AND THE WEB
+• Recap fills the iPad's screen as well as the iPhone's, and runs in your browser at recapflashcards.com.
+
+BRING YOUR OWN CARDS
+• Import spreadsheets (.csv and .tsv from Excel, Numbers or Google Sheets), pasted lists, and .apkg decks from the Files app.
+• Math on cards: fractions, roots and powers with "+ Math", no LaTeX needed.
+• Pictures on cards, decks inside decks, and recently deleted decks you can restore for 30 days.
+• In English and Vietnamese.
+
+PRIVATE BY DESIGN
+• No ads, no subscriptions, and no account needed. Your cards live on your device and work offline; they only leave it if you turn on sync.
+• Back up everything to a file, or export your cards as CSV, any time.
+
+"Create with AI" asks before it sends anything: your text goes to Google's Gemini AI to write the cards.
+
+TOEIC, IELTS and SAT are trademarks of their owners; Recap isn't affiliated with them.
+
+Questions or ideas? Email support@recapflashcards.com
