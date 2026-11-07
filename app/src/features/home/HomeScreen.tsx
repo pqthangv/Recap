@@ -11,8 +11,6 @@ import { useLive } from '@/db/live';
 import { getSettings, setSetting } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
 import { DeckRow } from '@/features/deck/DeckRow';
-import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
-import { TutorialTip } from '@/features/onboarding/TutorialTip';
 import { HOME_STEPS } from '@/features/tour/steps';
 import { useTourTarget } from '@/features/tour/targets';
 import { startTour, stopTour, tourDue } from '@/features/tour/tour';
@@ -33,8 +31,6 @@ export default function HomeScreen() {
   const decks = useLive(listDecks, ['decks']);
   const sort = useLive(() => getSettings().deckSort, ['settings']);
   const deletedCount = useLive(() => listDeletedDecks().length, ['decks']);
-  // First launch only: a tip above "How to use Recap" (Start / Skip).
-  const tutorialDeck = useLive(getTutorialDeckId, ['settings', 'decks']);
   // Sub-decks ("SAT › Priority 1", "SAT › Priority 2") show as one "SAT" group.
   const items = sortDeckItems(groupDecks(decks), sort);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -129,27 +125,12 @@ export default function HomeScreen() {
         }
         renderItem={({ item }) =>
           item.kind === 'deck' ? (
-            <>
-              {item.deck.id === tutorialDeck ? (
-                <TutorialTip
-                  onStart={() => {
-                    endTutorial();
-                    router.push({ pathname: '/study', params: { deckId: item.deck.id } });
-                  }}
-                  onSkip={() => endTutorial()}
-                />
-              ) : null}
-              <DeckRow
-                name={item.deck.name}
-                color={item.deck.color}
-                counts={counts.byDeck[item.deck.id]}
-                highlighted={item.deck.id === tutorialDeck}
-                onPress={() => {
-                  if (item.deck.id === tutorialDeck) endTutorial();
-                  router.push({ pathname: '/deck/[id]', params: { id: item.deck.id } });
-                }}
-              />
-            </>
+            <DeckRow
+              name={item.deck.name}
+              color={item.deck.color}
+              counts={counts.byDeck[item.deck.id]}
+              onPress={() => router.push({ pathname: '/deck/[id]', params: { id: item.deck.id } })}
+            />
           ) : (
             <DeckRow
               name={item.name}

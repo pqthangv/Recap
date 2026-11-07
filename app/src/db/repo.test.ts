@@ -1,4 +1,5 @@
 import { clearTestDb, migrateTestDb, rawQuery } from '../../test/db';
+import { makeOldTutorial, OLD_TUTORIAL_FRONTS } from '../../test/oldTutorial';
 
 import { exportBackup, exportCardsCsv, importBackup } from './backup';
 import {
@@ -37,10 +38,7 @@ import {
 
 import { parseBackup } from '@/lib/backup';
 import { dayStart, dayStartOffset } from '@/lib/day';
-import { setLanguage } from '@/lib/i18n';
 import { previewIntervals, Rating, review, State } from '@/lib/scheduler';
-import { seedIfNeeded, WELCOME_DECKS } from '@/features/onboarding/seed';
-import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
 
 // jest.mock factories can't use imports, so this one needs require().
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -70,7 +68,7 @@ function answerNext(rating: Rating.Again | Rating.Good, now: number, deckId?: st
   return { card, logId };
 }
 
-describe('migrations and seed', () => {
+describe('migrations, and the welcome deck of older versions', () => {
   it('creates every table', () => {
     const tables = rawQuery("select name from sqlite_master where type = 'table'").map(
       (r) => r.name,
@@ -78,59 +76,18 @@ describe('migrations and seed', () => {
     expect(tables).toEqual(expect.arrayContaining(['decks', 'cards', 'review_logs', 'settings']));
   });
 
-  it('seeds the welcome decks once, and not again after they are deleted', () => {
-    expect(seedIfNeeded(NOW)).toBe(true);
-    expect(listDecks().map((d) => d.name)).toEqual(WELCOME_DECKS.en.map((d) => d.name));
-    const total = WELCOME_DECKS.en.reduce((n, d) => n + d.cards.length, 0);
-    expect(rawQuery('select count(*) as n from cards')[0].n).toBe(total);
-
-    for (const d of listDecks()) deleteDeck(d.id, NOW);
-    expect(seedIfNeeded(NOW)).toBe(false);
-    expect(listDecks()).toHaveLength(0);
+  it('starts a new install with no decks (the app tour shows the way to Library)', () => {
+    expect(listDecks()).toEqual([]);
   });
 
-  it('points the first-launch tip at "How to use Recap" until it is used or skipped', () => {
-    expect(getTutorialDeckId()).toBeNull(); // installs from before the tip never see it
-    seedIfNeeded(NOW);
-    const howTo = listDecks().find((d) => d.name === WELCOME_DECKS.en[0].name);
-    expect(getTutorialDeckId()).toBe(howTo?.id);
-    endTutorial(NOW);
-    expect(getTutorialDeckId()).toBeNull();
-  });
-
-  it('studies "How to use Recap" in the order written, even after the tip is gone', () => {
-    seedIfNeeded(NOW);
-    const howTo = getTutorialDeckId()!;
-    const written = WELCOME_DECKS.en[0].cards.map(([front]) => front);
-    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
-    endTutorial(NOW);
-    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(written);
+  it('studies an older install\'s "How to use Recap" in the order written', () => {
+    const howTo = makeOldTutorial(NOW);
+    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(OLD_TUTORIAL_FRONTS);
     // Studying everything at once: still in order among themselves.
     const another = addDeck('Other');
     addCards(another.id, 10);
     const mixed = getDueQueue(undefined, NOW).map((c) => c.front);
-    expect(mixed.filter((f) => written.includes(f))).toEqual(written);
-  });
-
-  it('drops the tip when its deck is deleted', () => {
-    seedIfNeeded(NOW);
-    const id = getTutorialDeckId();
-    deleteDeck(id!, NOW);
-    expect(getTutorialDeckId()).toBeNull();
-  });
-
-  it("seeds the welcome deck in the phone's language", () => {
-    setLanguage('vi');
-    try {
-      seedIfNeeded(NOW);
-    } finally {
-      setLanguage('en');
-    }
-    expect(listDecks().map((d) => d.name)).toEqual(['Cách dùng Recap']);
-    const howTo = getTutorialDeckId()!;
-    expect(getDueQueue(howTo, NOW).map((c) => c.front)).toEqual(
-      WELCOME_DECKS.vi[0].cards.map(([front]) => front),
-    );
+    expect(mixed.filter((f) => OLD_TUTORIAL_FRONTS.includes(f))).toEqual(OLD_TUTORIAL_FRONTS);
   });
 });
 

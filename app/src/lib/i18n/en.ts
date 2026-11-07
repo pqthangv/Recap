@@ -132,12 +132,6 @@ export const en = {
   'update.hide': 'Hide until the next version',
 
   // First-launch tip
-  'tip.title': 'New to Recap?',
-  'tip.body': 'Study this deck to learn the app. It takes about a minute.',
-  'tip.start': 'Start',
-  'tip.startA11y': 'Start learning the app',
-  'tip.skip': 'Skip',
-  'tip.skipA11y': 'Skip the tip',
   // The tour (features/tour): Home the first time the app opens, then the first card studied.
   'tour.welcomeTitle': 'Welcome to Recap',
   'tour.welcome': 'A quick look around. It takes half a minute.',

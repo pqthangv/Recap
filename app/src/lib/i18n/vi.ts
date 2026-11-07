@@ -134,12 +134,6 @@ export const vi: Strings = {
   'update.hide': 'Ẩn đến phiên bản sau',
 
   // First-launch tip
-  'tip.title': 'Mới dùng Recap?',
-  'tip.body': 'Học bộ thẻ này để biết cách dùng ứng dụng. Chỉ mất khoảng một phút.',
-  'tip.start': 'Bắt đầu',
-  'tip.startA11y': 'Bắt đầu tìm hiểu ứng dụng',
-  'tip.skip': 'Bỏ qua',
-  'tip.skipA11y': 'Bỏ qua gợi ý',
   'tour.welcomeTitle': 'Chào mừng bạn đến với Recap',
   'tour.welcome': 'Xem nhanh một vòng. Chỉ mất nửa phút.',
   'tour.study': 'Thẻ cần ôn hôm nay. Recap chọn những thẻ bạn sắp quên.',
