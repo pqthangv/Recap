@@ -1,9 +1,11 @@
 // The tour on top of the real screens: everything blurred and dimmed except the button being
 // explained, which stays sharp inside a ring, with a short card next to it (Next, Back, "2 of 6",
 // Skip tour). A blur can't have a hole, so it's four strips around the button, and the dim on top
-// is drawn with a rounded (or round) hole, so the strips' square corners don't show. On Android
-// the blur reads the app through BlurTargetView (app/_layout.tsx); Android 11 and older only dim
-// (their blur is slow). Touches behind the tour are blocked: its buttons move it on.
+// is drawn with a rounded hole, so the strips' square corners don't show. Round buttons get the
+// same rounded square: a round hole leaves the strips' corners showing as a square (Android's blur
+// has a fine grain). On Android the blur reads the app through BlurTargetView (app/_layout.tsx);
+// Android 11 and older only dim (their blur is slow). Touches behind the tour are blocked: its
+// buttons move it on.
 import { BlurView } from 'expo-blur';
 import { router } from 'expo-router';
 import { type RefObject, useEffect, useRef, useState } from 'react';
@@ -41,7 +43,7 @@ import {
 /** Space around the sharp button, and between it and the card. */
 const PAD = 8;
 const GAP = 12;
-/** The sharp part's corners (a round button's is a circle). */
+/** The sharp part's corners. */
 const CORNER = 16;
 const CARD_MAX_WIDTH = 420;
 const EDGE = 16;
@@ -76,7 +78,7 @@ function TourStepView({
   const last = index === steps.length - 1;
   const hole = step.target ? (found?.rect ?? null) : null;
   const ready = step.target === null || found?.id === step.id;
-  const corner = hole ? (step.round ? Math.min(hole.width, hole.height) / 2 : CORNER) : 0;
+  const corner = hole ? CORNER : 0;
 
   useEffect(() => {
     const target = step.target;
@@ -138,8 +140,9 @@ function TourStepView({
               key={i}
               blurTarget={blurTarget}
               blurMethod="dimezisBlurViewSdk31Plus"
-              // Soft: the screen behind stays easy to make out (user, 2026-11-06: "less severe").
-              intensity={15}
+              // Light: the screen behind stays easy to make out (user, 2026-11-06: "less severe",
+              // then 8).
+              intensity={8}
               tint={scheme}
               style={[styles.strip, strip]}
             />
