@@ -1,6 +1,6 @@
 import * as Speech from 'expo-speech';
 
-import { speak } from './speech';
+import { speak, stopSpeaking } from './speech';
 
 // Nothing is ever played: the phone's speech engine is replaced by a recorder.
 jest.mock('expo-speech', () => ({
@@ -29,6 +29,20 @@ describe('speak', () => {
   it('guesses the language without the TeX', async () => {
     speak('Tính $\\frac{1}{2}$');
     expect(await spoken()).toEqual({ text: 'Tính 1 phần 2', language: 'vi-VN' });
+  });
+
+  it('starts only the latest reading', async () => {
+    const calls = (Speech.speak as jest.Mock).mock.calls;
+    const before = calls.length;
+    speak('first card', { language: 'en' });
+    speak('second card', { language: 'en' });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(calls.slice(before).map(([text]) => text)).toEqual(['second card']);
+
+    speak('third card', { language: 'en' });
+    stopSpeaking();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(calls.length).toBe(before + 1);
   });
 
   it('reads text without math as it is', async () => {
