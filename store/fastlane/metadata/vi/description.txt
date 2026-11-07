@@ -1,0 +1,51 @@
+Recap là ứng dụng thẻ ghi nhớ giúp bạn chủ động nhớ lại. Bạn gõ câu trả lời, Recap kiểm tra, và phương pháp lặp lại ngắt quãng đưa mỗi thẻ quay lại ngay trước lúc bạn sắp quên.
+
+GÕ CÂU TRẢ LỜI. RECAP KIỂM TRA.
+• Với câu trả lời ngắn, hãy gõ những gì bạn nhớ. Recap đánh dấu chữ sai và phân biệt lỗi chính tả với thiếu dấu ("qua tao" thay cho "quả táo").
+• Sau đó Recap gợi ý Lại, Khó, Ổn hoặc Dễ. Chạm một lần để xác nhận, hoặc chọn mức khác.
+• Câu trả lời dài? Chạm vào thẻ để xem, như bình thường.
+
+AI TẠO THẺ BẰNG NGÔN NGỮ BẠN CHỌN
+• Tạo bằng AI từ ghi chú, ảnh chụp một trang sách, tệp PDF hoặc chỉ một chủ đề.
+• Chọn ngôn ngữ cho từng mặt thẻ: từ tiếng Anh kèm nghĩa tiếng Việt, thuật ngữ tiếng Nhật kèm giải thích tiếng Anh, và nhiều hơn nữa, với 12 ngôn ngữ.
+• Xem lại từng thẻ trước khi lưu: sửa, bỏ, hoặc báo cáo thẻ chưa đúng.
+
+NGHE TỪNG THẺ
+• Thẻ được đọc thành tiếng bằng đúng ngôn ngữ của nó, với giọng đọc có sẵn trên iPhone, hỗ trợ đến 12 ngôn ngữ. Chọn Español và English cho một bộ thẻ một lần, mọi thẻ đều được đọc đúng.
+• Tắt đọc thành tiếng bất cứ lúc nào trong Cài đặt, hoặc chạm vào loa để nghe lại.
+
+THẺ CỦA BẠN TRÊN MỌI THIẾT BỊ
+• Đăng nhập bằng Apple, Google hoặc Email để bộ thẻ, thẻ và tiến độ học giống nhau trên iPhone, iPad và trên recapflashcards.com.
+• Không bắt buộc: không có tài khoản, Recap vẫn chạy đầy đủ trên thiết bị của bạn, kể cả khi không có mạng.
+• Xóa tài khoản bất cứ lúc nào trong Cài đặt › Đồng bộ thẻ.
+
+SO CHUỖI NGÀY HỌC CÙNG BẠN BÈ
+• Tham gia bảng xếp hạng nếu bạn muốn: chuỗi ngày học và số thẻ đã học tuần này, với mọi người hoặc với bạn bè bạn theo dõi.
+• Tự chọn tên, hoặc hiện là Ẩn danh. Chặn hoặc báo cáo bất kỳ tên nào.
+
+NHỚ LÂU HƠN, HỌC ÍT HƠN
+• FSRS, thuật toán ghi nhớ hiện đại dựa trên nghiên cứu, lên lịch mọi lần ôn tập cho bạn.
+• Một nút Học hiện mọi thẻ cần ôn hôm nay. Chỉ một cài đặt: bạn muốn nhớ được bao nhiêu.
+• Chuỗi ngày học, thống kê theo từng ngày và lời nhắc (tùy chọn) giúp bạn duy trì việc học.
+
+BỘ THẺ CÓ SẴN
+• English basics cho người Việt (1.000 từ tiếng Anh thông dụng), từ vựng TOEIC, IELTS và SAT, cùng thủ đô các nước, đều do Recap biên soạn.
+
+IPHONE, IPAD VÀ WEB
+• Recap hiển thị trọn màn hình iPad cũng như iPhone, và chạy được trên trình duyệt tại recapflashcards.com.
+
+DÙNG THẺ CỦA RIÊNG BẠN
+• Nhập bảng tính (.csv và .tsv từ Excel, Numbers hoặc Google Sheets), danh sách dán vào, và bộ thẻ .apkg từ ứng dụng Tệp.
+• Công thức toán trên thẻ: phân số, căn, lũy thừa với "+ Công thức", không cần biết LaTeX.
+• Ảnh trên thẻ, bộ thẻ lồng nhau, và khôi phục bộ thẻ đã xóa trong 30 ngày.
+• Có tiếng Việt và tiếng Anh.
+
+RIÊNG TƯ NGAY TỪ ĐẦU
+• Không quảng cáo, không gói thuê bao, không cần tài khoản. Thẻ của bạn nằm trên thiết bị và dùng được khi không có mạng; thẻ chỉ rời máy khi bạn bật đồng bộ.
+• Sao lưu mọi thứ vào một tệp, hoặc xuất thẻ ra CSV, bất cứ lúc nào.
+
+"Tạo bằng AI" luôn hỏi trước khi gửi: nội dung của bạn được gửi tới Gemini AI của Google để viết thẻ.
+
+TOEIC, IELTS và SAT là thương hiệu của chủ sở hữu tương ứng; Recap không liên kết với họ.
+
+Câu hỏi hoặc góp ý? Email support@recapflashcards.com

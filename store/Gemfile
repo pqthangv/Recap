@@ -1,0 +1,7 @@
+# fastlane for the store text workflow (.github/workflows/store-text.yml), on GitHub only.
+# Gemfile.lock pins every gem fastlane brings in, so a run installs exactly what was checked.
+# To update fastlane (no Ruby on the PC): change the version here and delete Gemfile.lock; the pull
+# request's run then makes a new lock file ("gemfile-lock" in the run's artifacts) to commit.
+source "https://rubygems.org"
+
+gem "fastlane", "2.241.1"

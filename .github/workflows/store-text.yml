@@ -1,0 +1,156 @@
+name: Store text
+
+# Puts the store listing text in store/fastlane/metadata (every language) on Google Play and the
+# App Store, with fastlane (store/fastlane/Fastfile). Text only: screenshots and graphics are still
+# uploaded by hand.
+#
+# "check" uploads nothing: it shows what would change, and Google checks the change without
+# publishing it. It runs on every pull request that changes the store text, and by hand.
+# "upload" runs only by hand: Actions > Store text > Run workflow (GitHub lists it once this file
+# is on main). Upload a version's text only once that version is live on Play, or (App Store)
+# while App Store Connect is preparing it.
+#
+# Repository secrets it needs (Settings > Secrets and variables > Actions). Pull requests from
+# forks don't get them, so those are skipped:
+#   PLAY_SERVICE_ACCOUNT_JSON   the Google service account's JSON key (in Play Console: access to
+#                               Recap only, store listing permissions, none to publish releases)
+#   ASC_KEY_ID, ASC_ISSUER_ID   the App Store Connect API key (App Manager role) and its issuer
+#   ASC_KEY                     the text of that key's .p8 file
+on:
+  pull_request:
+    paths: ['store/**', '.github/workflows/store-text.yml']
+  workflow_dispatch:
+    inputs:
+      store:
+        description: Which store
+        type: choice
+        options: [both, play, appstore]
+        default: both
+      mode:
+        description: check = show what would change and upload nothing; upload = put the text on the store
+        type: choice
+        options: [check, upload]
+        default: check
+      app_store_version:
+        description: 'App Store upload: the version App Store Connect is preparing, e.g. 1.0.9'
+        type: string
+        required: false
+      play_version_code:
+        description: "Play: the version code of the release on Production (empty = app/app.json's)"
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+# One run at a time: two uploads to the same store would get in each other's way.
+concurrency:
+  group: store-text
+  cancel-in-progress: false
+
+env:
+  # A pull request only ever checks.
+  MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'check' }}
+  # fastlane's version is in store/Gemfile; store/Gemfile.lock pins everything it brings in.
+  BUNDLE_GEMFILE: ${{ github.workspace }}/store/Gemfile
+  FASTLANE_SKIP_UPDATE_CHECK: '1'
+  FASTLANE_HIDE_CHANGELOG: '1'
+  FASTLANE_OPT_OUT_USAGE: 'YES' # no usage statistics sent to fastlane
+  LANG: en_US.UTF-8 # the Vietnamese text is UTF-8
+  LC_ALL: en_US.UTF-8
+
+jobs:
+  play:
+    if: >-
+      inputs.store != 'appstore' && (github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
+    name: Google Play (${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'check' }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: store
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Install fastlane (every gem as pinned in Gemfile.lock)
+        id: install
+        run: bash bundle-install.sh
+      # Only when Gemfile.lock was missing (fastlane updated): the new one, to commit.
+      - name: Keep the new Gemfile.lock
+        if: steps.install.outputs.made_lock == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: gemfile-lock
+          path: store/Gemfile.lock
+      - name: Check or upload the listing text
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          VERSION_CODE: ${{ inputs.play_version_code }}
+        run: |
+          set -euo pipefail
+          args=("mode:$MODE")
+          if [ -n "$VERSION_CODE" ]; then
+            [[ "$VERSION_CODE" =~ ^[0-9]+$ ]] || { echo "play_version_code must be a number"; exit 1; }
+            args+=("version_code:$VERSION_CODE")
+          fi
+          bundle exec fastlane play_text "${args[@]}"
+      # Play's "What's New" goes with the release, so it's pasted there by hand, every language
+      # at once in Play's own format (its code for Vietnamese is "vi").
+      - name: "What's New, for Play's release form"
+        run: |
+          set -euo pipefail
+          {
+            echo "### What's New for Google Play"
+            echo "Paste into Play Console > Production > Create release > Release notes:"
+            echo '```'
+            for dir in fastlane/metadata/android/*/; do
+              file="${dir}changelogs/default.txt"
+              [ -f "$file" ] || continue
+              locale=$(basename "$dir")
+              echo "<$locale>"
+              cat "$file"
+              echo
+              echo "</$locale>"
+            done
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+  appstore:
+    if: >-
+      inputs.store != 'play' && (github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
+    name: App Store (${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'check' }})
+    # fastlane supports its App Store upload on macOS only. Free here: the repo is public.
+    runs-on: macos-26
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: store
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Install fastlane (every gem as pinned in Gemfile.lock)
+        run: bash bundle-install.sh
+      - name: Check or upload the listing text
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY: ${{ secrets.ASC_KEY }}
+          VERSION: ${{ inputs.app_store_version }}
+        run: |
+          set -euo pipefail
+          args=("mode:$MODE")
+          if [ -n "$VERSION" ]; then
+            [[ "$VERSION" =~ ^[0-9]+(\.[0-9]+){1,2}$ ]] || { echo "app_store_version looks like 1.0.9"; exit 1; }
+            args+=("version:$VERSION")
+          fi
+          bundle exec fastlane app_store_text "${args[@]}"
