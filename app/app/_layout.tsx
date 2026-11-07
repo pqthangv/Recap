@@ -56,11 +56,12 @@ export default function RootLayout() {
         // Settings › Language and Appearance, before anything is shown. A new install starts
         // with no decks: the tour (features/tour) shows the way to Library.
         const settings = getSettings();
-        setLanguageChoice(settings.language);
         setAppearanceChoice(settings.appearance);
         sweepPictures(); // before any screen, so it never meets a picture being added
-        setStatus('ready');
+        // On the website a newer language downloads first, so no screen flashes in English.
+        return setLanguageChoice(settings.language);
       })
+      .then(() => setStatus('ready'))
       .catch((e: unknown) => {
         console.error('Database setup failed', e);
         setFailure(innermostError(e));
@@ -80,7 +81,7 @@ export default function RootLayout() {
       }
       // The language can be changed for Recap alone in the phone's settings.
       if (state === 'active') {
-        refreshLanguage();
+        void refreshLanguage();
         void renewIfOld().finally(() => syncOnOpen());
       }
     });
