@@ -138,7 +138,8 @@ function TourStepView({
               key={i}
               blurTarget={blurTarget}
               blurMethod="dimezisBlurViewSdk31Plus"
-              intensity={40}
+              // Soft: the screen behind stays easy to make out (user, 2026-11-06: "less severe").
+              intensity={15}
               tint={scheme}
               style={[styles.strip, strip]}
             />
