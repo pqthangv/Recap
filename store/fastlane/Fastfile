@@ -3,8 +3,8 @@
 # Text only: metadata/ (Play: metadata/android/<locale>/, App Store: metadata/<locale>/).
 # Screenshots and graphics are still uploaded by hand.
 #
-#   fastlane play mode:check|upload [version_code:11]
-#   fastlane appstore mode:check|upload [version:1.0.9]
+#   fastlane play_text mode:check|upload [version_code:11]
+#   fastlane app_store_text mode:check|upload [version:1.0.9]
 #
 # mode:check uploads nothing: it shows what would change, and Google checks the change without
 # publishing it.
@@ -76,7 +76,7 @@ end
 # supply, for its "What's New"), so it needs that release's version code: by default the one in
 # app/app.json, which is the live build's on main. "What's New" itself isn't uploaded: it's pasted
 # into Play's release form (the workflow prints it).
-lane :play do |options|
+lane :play_text do |options|
   check = check_only?(options)
   key = secret("PLAY_SERVICE_ACCOUNT_JSON")
   version_code = (options[:version_code].to_s.strip.empty? ? JSON.parse(File.read(APP_JSON)).dig("expo", "android", "versionCode") : options[:version_code]).to_i
@@ -116,7 +116,7 @@ end
 
 # App Store. fastlane edits the version being prepared (whatever its number), so an upload names
 # the version it expects and stops if App Store Connect is preparing another one.
-lane :appstore do |options|
+lane :app_store_text do |options|
   check = check_only?(options)
   version = options[:version].to_s.strip
   UI.user_error!("An upload needs the App Store version being prepared, e.g. version:1.0.9") if !check && version.empty?

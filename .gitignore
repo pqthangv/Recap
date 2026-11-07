@@ -10,6 +10,8 @@ expo-env.d.ts
 # Generated native projects (Continuous Native Generation)
 android/
 ios/
+# ...but Google Play's store text (fastlane's folder name) is kept.
+!store/fastlane/metadata/android/
 
 # Secrets
 .env*

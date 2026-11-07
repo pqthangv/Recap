@@ -89,7 +89,7 @@ jobs:
             [[ "$VERSION_CODE" =~ ^[0-9]+$ ]] || { echo "play_version_code must be a number"; exit 1; }
             args+=("version_code:$VERSION_CODE")
           fi
-          fastlane play "${args[@]}"
+          fastlane play_text "${args[@]}"
       # Play's "What's New" goes with the release, so it's pasted there by hand, every language
       # at once in Play's own format (its code for Vietnamese is "vi").
       - name: "What's New, for Play's release form"
@@ -144,4 +144,4 @@ jobs:
             [[ "$VERSION" =~ ^[0-9]+(\.[0-9]+){1,2}$ ]] || { echo "app_store_version looks like 1.0.9"; exit 1; }
             args+=("version:$VERSION")
           fi
-          fastlane appstore "${args[@]}"
+          fastlane app_store_text "${args[@]}"
