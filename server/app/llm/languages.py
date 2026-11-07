@@ -7,13 +7,37 @@ checks it.
 
 from typing import Literal
 
-LanguageCode = Literal["en", "vi", "zh", "ja", "ko", "fr", "de", "es", "it", "pt", "ru", "th"]
+LanguageCode = Literal[
+    "en",
+    "vi",
+    "zh",
+    "zh-Hant",
+    "yue",
+    "ja",
+    "ko",
+    "fr",
+    "de",
+    "es",
+    "it",
+    "pt",
+    "ru",
+    "th",
+    "hi",
+    "bn",
+    "id",
+    "ms",
+    "fil",
+]
 
-# What the AI is told (the prompt is in English).
+# What the AI is told (the prompt is in English). No name may contain another one (a test
+# checks that only the chosen languages are named), so Cantonese is just "Cantonese": it's
+# written in Traditional characters anyway.
 LANGUAGE_NAMES: dict[LanguageCode, str] = {
     "en": "English",
     "vi": "Vietnamese",
     "zh": "Simplified Chinese",
+    "zh-Hant": "Traditional Chinese",
+    "yue": "Cantonese",
     "ja": "Japanese",
     "ko": "Korean",
     "fr": "French",
@@ -23,4 +47,9 @@ LANGUAGE_NAMES: dict[LanguageCode, str] = {
     "pt": "Portuguese",
     "ru": "Russian",
     "th": "Thai",
+    "hi": "Hindi",
+    "bn": "Bengali",
+    "id": "Indonesian",
+    "ms": "Malay",
+    "fil": "Filipino",
 }
