@@ -2,7 +2,6 @@ import { clearTestDb, migrateTestDb, rawQuery } from '../../../test/db';
 
 import { deleteDeck, listDecks } from '@/db/decks';
 import { getDueQueue } from '@/db/study';
-import { WELCOME_DECKS } from '@/features/onboarding/seed';
 import { isTypeable } from '@/lib/answerCheck';
 import { hasMath } from '@/lib/math/parse';
 
@@ -173,12 +172,5 @@ describe('math on ready-made cards', () => {
     );
     expect(sides.filter((side) => side.includes('$')).length).toBeGreaterThan(0);
     expect(sides.filter(hasMath)).toEqual([]);
-  });
-
-  it('has one welcome card showing a formula, in each language', () => {
-    for (const decks of Object.values(WELCOME_DECKS)) {
-      const sides = decks.flatMap((d) => d.cards.flat());
-      expect(sides.filter(hasMath)).toEqual([expect.stringContaining('$\\frac{a}{b} + x^2$')]);
-    }
   });
 });

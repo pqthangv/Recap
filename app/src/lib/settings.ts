@@ -56,18 +56,25 @@ export const SETTING_KEYS = {
   appearance: 'app_appearance',
 } as const satisfies Record<keyof Settings, string>;
 
-/** Set once the welcome decks have been created (stops them coming back after you delete them). */
+/** Set by versions before 1.0.9 once the welcome decks were made. Nothing makes them since the
+ *  app tour (features/tour); kept so an old value stays on this device. */
 export const SEEDED_KEY = 'seeded';
 
 /**
- * The "How to use Recap" deck made on first launch. Its cards are studied in the order written
- * (every other deck is mixed), and the first-launch tip points at it. Installs from before 1.0.2
- * have no value: their welcome deck stays mixed and they never see the tip.
+ * The "How to use Recap" deck versions 1.0.2 to 1.0.8 made on a new install. Phones that have it
+ * keep it: its cards are studied in the order written (every other deck is mixed), and sync
+ * leaves it out (db/sync.ts) because each phone made its own.
  */
 export const TUTORIAL_DECK_KEY = 'tutorial_deck';
 
-/** Set once the first-launch tip ("New to Recap? Start / Skip") has been used or skipped. */
+/** Set once the old first-launch tip above that deck was used or skipped (gone since 1.0.9; sync
+ *  still sets it when it drops an unused copy of the deck). */
 export const TUTORIAL_TIP_DONE_KEY = 'tutorial_tip_done';
+
+/** The tour (features/tour): set once its Home part, or its first-study part, has been finished
+ *  or skipped (Skip sets both). Settings › Show the tour again clears them. Per device. */
+export const TOUR_HOME_DONE_KEY = 'tour_home_done';
+export const TOUR_STUDY_DONE_KEY = 'tour_study_done';
 
 /**
  * Random id for this install, sent with AI requests for the daily quota. Never copied to another
@@ -123,6 +130,8 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   SEEDED_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,
+  TOUR_HOME_DONE_KEY,
+  TOUR_STUDY_DONE_KEY,
   DEVICE_ID_KEY,
   AI_CONSENT_KEY,
   APP_ATTEST_KEY,

@@ -1,9 +1,9 @@
 // Sync on the real database (roadmap 6.7, part 4): three installs take turns on the test database
 // (cleared in between, like a fresh install), syncing through an in-memory store.
 import { clearTestDb, migrateTestDb, rawQuery } from '../../test/db';
+import { makeOldTutorial } from '../../test/oldTutorial';
 import { MemoryStore } from '../../test/syncStore';
 
-import { seedIfNeeded } from '@/features/onboarding/seed';
 import { Rating, review, type Grade } from '@/lib/scheduler';
 import { SETTING_KEYS, SYNC_LAST_KEY, SYNC_OWNER_KEY, TUTORIAL_DECK_KEY } from '@/lib/settings';
 import { rowCount } from '@/lib/sync/files';
@@ -63,9 +63,8 @@ describe('sync on the database', () => {
   it('brings a new install up to date, and its changes reach the next one', async () => {
     const store = new Store();
 
-    // Phone A: the welcome deck, a deck of its own, an answer.
-    seedIfNeeded(clock);
-    const tutorial = getRawSetting(TUTORIAL_DECK_KEY) as string;
+    // Phone A, on a version before 1.0.9: the welcome deck, a deck of its own, an answer.
+    const tutorial = makeOldTutorial(clock);
     const words = createDeck({ name: 'Words', color: '#5A31D6' }, tick());
     const cat = createCard(
       { deckId: words.id, front: 'cat', back: 'con mèo', tags: [], reverse: false },
@@ -90,10 +89,10 @@ describe('sync on the database', () => {
     const onA = rows();
     expect(hasUnsentChanges()).toBe(false);
 
-    // Phone B: a fresh install with its own tutorial, signing in to the account.
+    // Phone B: a fresh install of such a version, with its own tutorial, signing in.
     clearTestDb();
     tick();
-    seedIfNeeded(clock);
+    makeOldTutorial(clock);
     expect(databaseDevice.loadState()).toBeNull();
     expect((await syncWith(store)).read).toBeGreaterThan(0);
     expect(dropUnusedTutorial()).toBe(true);
@@ -136,8 +135,7 @@ describe('sync on the database', () => {
   });
 
   it('keeps a tutorial that was studied, and one on an account with nothing yet', async () => {
-    seedIfNeeded(clock);
-    const tutorial = getRawSetting(TUTORIAL_DECK_KEY) as string;
+    const tutorial = makeOldTutorial(clock);
     const first = rawQuery('SELECT id FROM cards WHERE deck_id = ? LIMIT 1', tutorial)[0]!
       .id as string;
     answer(first);
@@ -146,7 +144,7 @@ describe('sync on the database', () => {
 
     // A brand-new account: its first sync reads nothing, so the engine leaves the tutorial.
     clearTestDb();
-    seedIfNeeded(clock);
+    makeOldTutorial(clock);
     expect((await syncWith(new Store())).read).toBe(0);
     expect(listDecks()).toHaveLength(1);
   });
@@ -184,8 +182,7 @@ describe('sync on the database', () => {
 
 describe("another account's cards (1.0.9)", () => {
   it("removes what sync shares, keeping the tutorial and this device's own settings", () => {
-    seedIfNeeded(clock);
-    const tutorial = getRawSetting(TUTORIAL_DECK_KEY) as string;
+    const tutorial = makeOldTutorial(clock);
     const tutorialCard = rawQuery('SELECT id FROM cards WHERE deck_id = ? LIMIT 1', tutorial)[0]!
       .id as string;
     answer(tutorialCard);

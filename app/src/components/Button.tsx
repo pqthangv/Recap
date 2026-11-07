@@ -1,5 +1,12 @@
-import type { ReactNode } from 'react';
-import { Pressable, StyleSheet, Text, type StyleProp, type ViewStyle } from 'react-native';
+import type { ReactNode, Ref } from 'react';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  type StyleProp,
+  type View,
+  type ViewStyle,
+} from 'react-native';
 
 import { type Colors, radius, touchTarget, useStyles } from '@/lib/theme';
 
@@ -17,6 +24,8 @@ type Props = {
   accessibilityHint?: string;
   style?: StyleProp<ViewStyle>;
   children?: ReactNode;
+  /** E.g. the tour's `useTourTarget`, which measures where the button is. */
+  ref?: Ref<View>;
 };
 
 export function Button({
@@ -29,11 +38,13 @@ export function Button({
   accessibilityLabel,
   accessibilityHint,
   style,
+  ref,
 }: Props) {
   const labelColor = useStyles(makeLabelColor);
   const styles = useStyles(makeStyles);
   return (
     <Pressable
+      ref={ref}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? (sublabel ? `${label}, ${sublabel}` : label)}
       accessibilityHint={accessibilityHint}

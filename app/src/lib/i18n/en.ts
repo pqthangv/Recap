@@ -132,12 +132,28 @@ export const en = {
   'update.hide': 'Hide until the next version',
 
   // First-launch tip
-  'tip.title': 'New to Recap?',
-  'tip.body': 'Study this deck to learn the app. It takes about a minute.',
-  'tip.start': 'Start',
-  'tip.startA11y': 'Start learning the app',
-  'tip.skip': 'Skip',
-  'tip.skipA11y': 'Skip the tip',
+  // The tour (features/tour): Home the first time the app opens, then the first card studied.
+  'tour.welcomeTitle': 'Welcome to Recap',
+  'tour.welcome': 'A quick look around. It takes half a minute.',
+  'tour.study': "Your cards for today. Recap picks the ones you're about to forget.",
+  'tour.add': 'Make a deck, add cards, import a file, or make cards with AI from your notes.',
+  'tour.stats': 'Your streak and progress. The leaderboard is in here too, if you want to join.',
+  'tour.settings': 'Sign in to sync your cards, and change the language or dark mode.',
+  'tour.library': 'Pick a ready-made deck to start studying.',
+  'tour.answer': 'Type the answer, then press Check.',
+  'tour.reveal': 'Think of the answer, then tap Show answer.',
+  'tour.speaker': 'Cards are read aloud. Tap here to hear it again.',
+  'tour.grades':
+    "How well did you know it? The highlighted button matches your answer. Each one says when you'll see the card again.",
+  'tour.gradesTwo': "Did you know it? Each button says when you'll see the card again.",
+  'tour.gradesFour': "How well did you know it? Each button says when you'll see the card again.",
+  'tour.next': 'Next',
+  'tour.back': 'Back',
+  'tour.skip': 'Skip tour',
+  'tour.done': 'Done',
+  'tour.openLibrary': 'Open Library',
+  'tour.count': '{n} of {total}',
+  'tour.countA11y': 'Step {n} of {total}',
 
   // Decks
   'deck.nothingDue': 'Nothing due',
@@ -419,6 +435,7 @@ export const en = {
   'settings.emailSubject': 'Recap feedback',
   'settings.contactUs': 'Contact us',
   'settings.help': 'Help',
+  'settings.showTour': 'Show the tour again',
   'settings.privacy': 'Privacy policy',
   'settings.aiConsent': 'Send text to Google Gemini',
   'settings.aiConsentHelp':

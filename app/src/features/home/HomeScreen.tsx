@@ -1,5 +1,5 @@
-import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { FlatList, Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -11,8 +11,9 @@ import { useLive } from '@/db/live';
 import { getSettings, setSetting } from '@/db/settings';
 import { getStudyCounts } from '@/db/study';
 import { DeckRow } from '@/features/deck/DeckRow';
-import { endTutorial, getTutorialDeckId } from '@/features/onboarding/tutorial';
-import { TutorialTip } from '@/features/onboarding/TutorialTip';
+import { HOME_STEPS } from '@/features/tour/steps';
+import { useTourTarget } from '@/features/tour/targets';
+import { startTour, stopTour, tourDue } from '@/features/tour/tour';
 import { APP_STORE_URL, PLAY_STORE_URL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { groupColor, groupCounts, groupDecks, sortDeckItems } from '@/lib/deckGroups';
 import { studyButtonLabel } from '@/lib/format';
@@ -30,11 +31,21 @@ export default function HomeScreen() {
   const decks = useLive(listDecks, ['decks']);
   const sort = useLive(() => getSettings().deckSort, ['settings']);
   const deletedCount = useLive(() => listDeletedDecks().length, ['decks']);
-  // First launch only: a tip above "How to use Recap" (Start / Skip).
-  const tutorialDeck = useLive(getTutorialDeckId, ['settings', 'decks']);
   // Sub-decks ("SAT › Priority 1", "SAT › Priority 2") show as one "SAT" group.
   const items = sortDeckItems(groupDecks(decks), sort);
   const [menuOpen, setMenuOpen] = useState(false);
+  // The tour's first part, the first time the app opens (features/tour).
+  const studyTarget = useTourTarget('study');
+  const addTarget = useTourTarget('add');
+  const libraryTarget = useTourTarget('library');
+  const statsTarget = useTourTarget('stats');
+  const settingsTarget = useTourTarget('settings');
+  useFocusEffect(
+    useCallback(() => {
+      if (tourDue('home')) startTour('home', HOME_STEPS);
+      return () => stopTour('home');
+    }, []),
+  );
 
   return (
     // Only the top: the sides are already kept clear for every screen (app/_layout.tsx).
@@ -48,18 +59,21 @@ export default function HomeScreen() {
         </View>
         <View style={styles.links}>
           <Button
+            ref={libraryTarget}
             variant="text"
             label={t('screen.library')}
             onPress={() => router.push('/library')}
             style={styles.link}
           />
           <Button
+            ref={statsTarget}
             variant="text"
             label={t('screen.stats')}
             onPress={() => router.push('/stats')}
             style={styles.link}
           />
           <Button
+            ref={settingsTarget}
             variant="text"
             label={t('screen.settings')}
             onPress={() => router.push('/settings')}
@@ -75,6 +89,7 @@ export default function HomeScreen() {
         ListHeaderComponent={
           <View style={styles.hero}>
             <Button
+              ref={studyTarget}
               size="lg"
               label={studyButtonLabel(counts.total)}
               disabled={counts.total === 0}
@@ -110,27 +125,12 @@ export default function HomeScreen() {
         }
         renderItem={({ item }) =>
           item.kind === 'deck' ? (
-            <>
-              {item.deck.id === tutorialDeck ? (
-                <TutorialTip
-                  onStart={() => {
-                    endTutorial();
-                    router.push({ pathname: '/study', params: { deckId: item.deck.id } });
-                  }}
-                  onSkip={() => endTutorial()}
-                />
-              ) : null}
-              <DeckRow
-                name={item.deck.name}
-                color={item.deck.color}
-                counts={counts.byDeck[item.deck.id]}
-                highlighted={item.deck.id === tutorialDeck}
-                onPress={() => {
-                  if (item.deck.id === tutorialDeck) endTutorial();
-                  router.push({ pathname: '/deck/[id]', params: { id: item.deck.id } });
-                }}
-              />
-            </>
+            <DeckRow
+              name={item.deck.name}
+              color={item.deck.color}
+              counts={counts.byDeck[item.deck.id]}
+              onPress={() => router.push({ pathname: '/deck/[id]', params: { id: item.deck.id } })}
+            />
           ) : (
             <DeckRow
               name={item.name}
@@ -163,7 +163,7 @@ export default function HomeScreen() {
         }
       />
 
-      <Fab accessibilityLabel={t('home.fab')} onPress={() => setMenuOpen(true)} />
+      <Fab ref={addTarget} accessibilityLabel={t('home.fab')} onPress={() => setMenuOpen(true)} />
       <AddMenu visible={menuOpen} hasDecks={decks.length > 0} onClose={() => setMenuOpen(false)} />
     </SafeAreaView>
   );
