@@ -89,7 +89,7 @@ lane :play_text do |options|
       ENV["SUPPLY_JSON_KEY_DATA"] = key
       begin
         # Play's listing as it is now (supply init also downloads its images; they aren't compared).
-        sh("fastlane", "supply", "init", "--package_name", APP_ID, "--metadata_path", live, log: false)
+        sh("bundle", "exec", "fastlane", "supply", "init", "--package_name", APP_ID, "--metadata_path", live, log: false)
         compare(live, play_metadata, locales_in(play_metadata))
       rescue StandardError => e
         UI.important("Couldn't download Play's text to compare (#{e.message}); Google's check below still runs.")
@@ -150,7 +150,7 @@ lane :app_store_text do |options|
     if check
       live = File.join(dir, "live")
       # The latest version's text (the one being prepared, or else the live one).
-      sh("fastlane", "deliver", "download_metadata", "--api_key_path", key_path,
+      sh("bundle", "exec", "fastlane", "deliver", "download_metadata", "--api_key_path", key_path,
          "--app_identifier", APP_ID, "--metadata_path", live, "--force", log: false)
       # The download includes App Review's sign-in details: gone before anything is compared.
       FileUtils.rm_rf(File.join(live, "review_information"))
