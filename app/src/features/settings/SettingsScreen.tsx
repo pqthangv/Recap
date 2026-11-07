@@ -17,6 +17,7 @@ import { Chip } from '@/features/import/DeckTarget';
 import { syncReminders, turnOnReminders } from '@/features/reminders/reminders';
 import { syncSoon } from '@/features/sync/engine';
 import { signedInWith, useAccount } from '@/features/sync/session';
+import { showTourAgain } from '@/features/tour/tour';
 import { setAppearanceChoice, useScheme, type AppearanceChoice } from '@/lib/appearance';
 import { BackupError } from '@/lib/backup';
 import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
@@ -211,6 +212,17 @@ export default function SettingsScreen() {
         style={styles.contact}
       >
         <Text style={styles.contactText}>{t('settings.feedback', { email: CONTACT_EMAIL })}</Text>
+      </Pressable>
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => {
+          // Both parts of the tour come back: Home's now, studying's with the next card.
+          showTourAgain();
+          router.dismissTo('/');
+        }}
+        style={styles.contact}
+      >
+        <Text style={styles.contactText}>{t('settings.showTour')}</Text>
       </Pressable>
       <Pressable
         accessibilityRole="link"

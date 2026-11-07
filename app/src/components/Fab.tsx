@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import type { Ref } from 'react';
+import { Pressable, StyleSheet, Text, type View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { type Colors, useStyles } from '@/lib/theme';
@@ -7,14 +8,18 @@ import { type Colors, useStyles } from '@/lib/theme';
 export function Fab({
   onPress,
   accessibilityLabel,
+  ref,
 }: {
   onPress: () => void;
   accessibilityLabel: string;
+  /** The tour's `useTourTarget`. */
+  ref?: Ref<View>;
 }) {
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
   return (
     <Pressable
+      ref={ref}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}

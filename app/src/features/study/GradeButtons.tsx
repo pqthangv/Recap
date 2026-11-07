@@ -1,3 +1,4 @@
+import type { Ref } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Button } from '@/components/Button';
@@ -28,6 +29,7 @@ type Props = {
   /** The grade Recap suggests for a typed answer; highlighted instead of Good/Got it. */
   suggested?: Grade | null;
   onGrade: (grade: Grade) => void;
+  ref?: Ref<View>;
 };
 
 /** The button a suggestion lands on: with only two, Hard and Easy count as "Got it". */
@@ -38,11 +40,11 @@ export function highlightedGrade(suggested: Grade | null | undefined, fourButton
 }
 
 /** "Forgot · 1m" / "Got it · 3d", or four buttons with the interval underneath. */
-export function GradeButtons({ previews, fourButtons, suggested, onGrade }: Props) {
+export function GradeButtons({ previews, fourButtons, suggested, onGrade, ref }: Props) {
   const grades: readonly Grade[] = fourButtons ? FOUR_BUTTON_GRADES : TWO_BUTTON_GRADES;
   const highlighted = highlightedGrade(suggested, fourButtons);
   return (
-    <View style={styles.row}>
+    <View ref={ref} style={styles.row}>
       {grades.map((grade) => {
         const key = fourButtons ? FOUR_LABELS[grade] : TWO_LABELS[grade];
         const name = key ? t(key) : '';

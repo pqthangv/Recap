@@ -69,6 +69,11 @@ export const TUTORIAL_DECK_KEY = 'tutorial_deck';
 /** Set once the first-launch tip ("New to Recap? Start / Skip") has been used or skipped. */
 export const TUTORIAL_TIP_DONE_KEY = 'tutorial_tip_done';
 
+/** The tour (features/tour): set once its Home part, or its first-study part, has been finished
+ *  or skipped (Skip sets both). Settings › Show the tour again clears them. Per device. */
+export const TOUR_HOME_DONE_KEY = 'tour_home_done';
+export const TOUR_STUDY_DONE_KEY = 'tour_study_done';
+
 /**
  * Random id for this install, sent with AI requests for the daily quota. Never copied to another
  * phone (two phones would share a quota); Phase 6 links devices to an optional account instead.
@@ -123,6 +128,8 @@ export const DEVICE_SETTING_KEYS: readonly string[] = [
   SEEDED_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,
+  TOUR_HOME_DONE_KEY,
+  TOUR_STUDY_DONE_KEY,
   DEVICE_ID_KEY,
   AI_CONSENT_KEY,
   APP_ATTEST_KEY,

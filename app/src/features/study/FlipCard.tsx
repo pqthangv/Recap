@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent } from 'react';
+import { type Ref, useEffect, useEffectEvent } from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -38,6 +38,8 @@ type Props = {
    */
   imageRef?: string | null;
   imageSide?: 'front' | 'back' | null;
+  /** The speaker button, for the tour (features/tour). */
+  speakerRef?: Ref<View>;
 };
 
 const VERDICT: Record<Exclude<AnswerResult, 'skipped'>, StringKey> = {
@@ -59,6 +61,7 @@ export function FlipCard({
   languages = { front: null, back: null },
   imageRef,
   imageSide,
+  speakerRef,
 }: Props) {
   const styles = useStyles(makeStyles);
   const imageUri = pictureUri(imageRef);
@@ -178,6 +181,7 @@ export function FlipCard({
         </Animated.View>
       </Pressable>
       <Pressable
+        ref={speakerRef}
         accessibilityRole="button"
         accessibilityLabel={t(flipped ? 'study.readAnswer' : 'study.readQuestion')}
         onPress={() =>

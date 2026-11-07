@@ -27,6 +27,14 @@ export type Stats = {
 
 const WEEK = 7;
 const answered = and(gt(reviewLogs.rating, 0), isNull(reviewLogs.deleted_at));
+
+/** Whether a card was ever answered here (the tour shows only before that, features/tour). */
+export function hasStudied(): boolean {
+  return (
+    db.select({ id: reviewLogs.id }).from(reviewLogs).where(answered).limit(1).get() !== undefined
+  );
+}
+
 // Reviews are added up per 15 minutes: every UTC offset is a multiple of 15 minutes, so no slot
 // straddles the 4 AM rollover, and the study day of each slot is worked out in JS.
 const slot = sql`${reviewLogs.reviewed_at} / 900000`;

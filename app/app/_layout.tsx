@@ -1,8 +1,9 @@
+import { BlurTargetView } from 'expo-blur';
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { AppState, Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -10,10 +11,11 @@ import { Button } from '@/components/Button';
 import { SnackbarHost } from '@/components/Snackbar';
 import { getSettings } from '@/db/settings';
 import { setupDatabase } from '@/db/setup';
-import { seedIfNeeded } from '@/features/onboarding/seed';
 import { sweepPictures } from '@/features/pictures/files';
 import { syncReminders } from '@/features/reminders/reminders';
 import { renewIfOld, syncOnLeave, syncOnOpen } from '@/features/sync/engine';
+import { useTourActive } from '@/features/tour/tour';
+import { TourOverlay } from '@/features/tour/TourOverlay';
 import { setAppearanceChoice, useScheme } from '@/lib/appearance';
 import { refreshLanguage, setLanguageChoice, t, useLanguage } from '@/lib/i18n';
 import { isWeb } from '@/lib/platform';
@@ -44,16 +46,18 @@ export default function RootLayout() {
   const styles = useStyles(makeStyles);
   const background = useColors().background;
   const scheme = useScheme();
+  // The tour blurs the screens through this (Android needs it; elsewhere it's a plain View).
+  const blurTarget = useRef<View>(null);
+  const touring = useTourActive();
 
   useEffect(() => {
     setupDatabase()
       .then(() => {
-        // Settings › Language and Appearance, before anything is shown (the welcome deck is
-        // written in the language too).
+        // Settings › Language and Appearance, before anything is shown. A new install starts
+        // with no decks: the tour (features/tour) shows the way to Library.
         const settings = getSettings();
         setLanguageChoice(settings.language);
         setAppearanceChoice(settings.appearance);
-        seedIfNeeded();
         sweepPictures(); // before any screen, so it never meets a picture being added
         setStatus('ready');
       })
@@ -112,7 +116,16 @@ export default function RootLayout() {
 
   return (
     <>
-      <Screens />
+      <BlurTargetView
+        ref={blurTarget}
+        style={styles.screens}
+        // While the tour shows, TalkBack and VoiceOver read only the tour.
+        importantForAccessibility={touring ? 'no-hide-descendants' : 'auto'}
+        accessibilityElementsHidden={touring}
+      >
+        <Screens />
+      </BlurTargetView>
+      <TourOverlay blurTarget={blurTarget} />
       <SnackbarHost />
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
     </>
@@ -180,6 +193,7 @@ function Screens() {
 
 const makeStyles = (colors: Colors) =>
   StyleSheet.create({
+    screens: { flex: 1 },
     error: {
       flex: 1,
       alignItems: 'center',
