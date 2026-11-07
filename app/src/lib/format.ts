@@ -1,4 +1,4 @@
-import { language, localeTag, t, tn } from './i18n';
+import { count, decimal, language, localeTag, t, tn } from './i18n';
 
 export { count } from './i18n';
 
@@ -16,9 +16,7 @@ export function studyButtonLabel(dueCount: number): string {
 /** 2.5 → "2.5" ("2,5" in Vietnamese); whole numbers without a decimal. */
 function oneDecimal(n: number): string {
   const r = Math.round(n * 10) / 10;
-  if (Number.isInteger(r)) return String(r);
-  const text = r.toFixed(1);
-  return language() === 'vi' ? text.replace('.', ',') : text;
+  return Number.isInteger(r) ? count(r) : decimal(r, 1);
 }
 
 /** Short interval for a grade button: "1m", "10m", "3h", "4d", "2.5mo", "1.2y". */

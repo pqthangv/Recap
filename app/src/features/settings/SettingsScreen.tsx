@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { useState, type ReactNode } from 'react';
 import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { ActionSheet } from '@/components/ActionSheet';
 import { Button } from '@/components/Button';
 import { showSnackbar } from '@/components/Snackbar';
 import { Stepper } from '@/components/Stepper';
@@ -23,6 +24,7 @@ import { BackupError } from '@/lib/backup';
 import { CONTACT_EMAIL, PRIVACY_POLICY_URL, SUPPORT_URL } from '@/lib/contact';
 import { formatTimeOfDay } from '@/lib/format';
 import {
+  APP_LANGUAGES,
   LANGUAGE_NAMES,
   setLanguageChoice,
   t,
@@ -36,7 +38,7 @@ import { NEW_PER_DAY_MAX } from '@/lib/settings';
 import { radius, shownDeckColor, touchTarget, useStyles, type Colors } from '@/lib/theme';
 import { showAlert } from '@/lib/alert';
 
-const LANGUAGE_CHOICES: readonly LanguageChoice[] = ['auto', 'en', 'vi'];
+const LANGUAGE_CHOICES: readonly LanguageChoice[] = ['auto', ...APP_LANGUAGES];
 const APPEARANCE_CHOICES: readonly AppearanceChoice[] = ['auto', 'light', 'dark'];
 const APPEARANCE_NAMES: Record<Exclude<AppearanceChoice, 'auto'>, StringKey> = {
   light: 'settings.appearanceLight',
@@ -63,8 +65,9 @@ export default function SettingsScreen() {
 
   const chooseLanguage = (choice: LanguageChoice) => {
     setSetting('language', choice);
-    setLanguageChoice(choice); // every screen shows the new language right away
-    syncReminders(); // reminders already scheduled are in the old language
+    // Every screen shows the new language right away (on the website, once it's downloaded).
+    // Reminders already scheduled are in the old language.
+    void setLanguageChoice(choice).then(syncReminders);
   };
 
   const chooseAppearance = (choice: AppearanceChoice) => {
@@ -144,24 +147,7 @@ export default function SettingsScreen() {
       ) : null}
 
       <Section title={t('settings.language')}>
-        <View
-          style={styles.chips}
-          accessibilityRole="radiogroup"
-          accessibilityLabel={t('settings.language')}
-        >
-          {LANGUAGE_CHOICES.map((choice) => (
-            <Chip
-              key={choice}
-              label={
-                choice === 'auto'
-                  ? t(isWeb ? 'settings.languageAutoWeb' : 'settings.languageAuto')
-                  : LANGUAGE_NAMES[choice]
-              }
-              selected={settings.language === choice}
-              onPress={() => chooseLanguage(choice)}
-            />
-          ))}
-        </View>
+        <LanguageRow value={settings.language} onChange={chooseLanguage} />
       </Section>
 
       <Section title={t('settings.appearance')}>
@@ -354,6 +340,47 @@ function SyncRow() {
       </View>
       <Text style={styles.chevron}>›</Text>
     </Pressable>
+  );
+}
+
+const choiceName = (choice: LanguageChoice) =>
+  choice === 'auto'
+    ? t(isWeb ? 'settings.languageAutoWeb' : 'settings.languageAuto')
+    : LANGUAGE_NAMES[choice];
+
+/** The app's language: the choice, and the list behind it (the phone's first, then each one in
+ * its own name). */
+function LanguageRow({
+  value,
+  onChange,
+}: {
+  value: LanguageChoice;
+  onChange: (choice: LanguageChoice) => void;
+}) {
+  const styles = useStyles(makeStyles);
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${t('settings.language')}, ${choiceName(value)}`}
+        onPress={() => setOpen(true)}
+        style={({ pressed }) => [styles.linkRow, pressed && styles.pressed]}
+      >
+        <Text style={[styles.label, styles.flex]}>{choiceName(value)}</Text>
+        <Text style={styles.chevron}>⌄</Text>
+      </Pressable>
+      <ActionSheet
+        visible={open}
+        title={t('settings.language')}
+        options={LANGUAGE_CHOICES.map((choice) => ({
+          label: choiceName(choice),
+          selected: value === choice,
+          onPress: () => onChange(choice),
+        }))}
+        onClose={() => setOpen(false)}
+      />
+    </>
   );
 }
 

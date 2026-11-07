@@ -5,6 +5,9 @@ import { reminderText } from '@/lib/reminders';
 
 import { en } from './en';
 import {
+  APP_LANGUAGES,
+  decimal,
+  LANGUAGE_NAMES,
   language,
   phoneLanguage,
   refreshLanguage,
@@ -13,6 +16,9 @@ import {
   t,
   tn,
 } from './index';
+import { LANGUAGE_INFO } from './languages';
+import { translationNow } from './load';
+import * as web from './load.web';
 import { vi } from './vi';
 
 jest.mock('expo-localization', () => ({ getLocales: jest.fn(() => [{ languageCode: 'en' }]) }));
@@ -58,6 +64,39 @@ describe('the Vietnamese text', () => {
   });
 });
 
+describe('the app languages', () => {
+  it('each have their own name, a locale and number marks', () => {
+    for (const lang of APP_LANGUAGES) {
+      const info = LANGUAGE_INFO[lang];
+      expect(info.locale).toMatch(new RegExp(`^${lang}-[A-Z]{2}$`));
+      expect(info.thousands).not.toBe(info.decimal);
+      expect(['one', 'other']).toContain(info.plural(1));
+    }
+    const names = APP_LANGUAGES.map((lang) => LANGUAGE_NAMES[lang]);
+    expect(new Set(names).size).toBe(names.length);
+  });
+
+  it('only use keys English has, and the same blanks', () => {
+    for (const lang of APP_LANGUAGES.filter((l) => l !== 'en')) {
+      const text = translationNow(lang)!;
+      for (const key of Object.keys(text) as (keyof typeof en)[]) {
+        expect({ lang, key, known: key in en }).toEqual({ lang, key, known: true });
+        expect({ lang, key, blanks: placeholders(text[key]!) }).toEqual({
+          lang,
+          key,
+          blanks: placeholders(en[key]),
+        });
+      }
+    }
+  });
+
+  it('can all be loaded by the website', async () => {
+    for (const lang of APP_LANGUAGES.filter((l) => l !== 'en')) {
+      await expect(web.fetchTranslation(lang)).resolves.toBe(translationNow(lang));
+    }
+  });
+});
+
 describe('t and tn', () => {
   it('fill in blanks and format numbers', () => {
     expect(t('home.study', { n: 1234 })).toBe('Study · 1,234 due');
@@ -75,6 +114,15 @@ describe('t and tn', () => {
 
   it('leave a blank alone when nothing is given for it', () => {
     expect(t('deck.inside', {})).toBe('Inside “{name}”');
+  });
+
+  it('write decimals with each language’s marks', () => {
+    expect(decimal(2.5, 1)).toBe('2.5');
+    expect(decimal(1234.56, 1)).toBe('1,234.6');
+    expect(decimal(3, 0)).toBe('3');
+    setLanguage('vi');
+    expect(decimal(2.5, 1)).toBe('2,5');
+    expect(decimal(1234.56, 1)).toBe('1.234,6');
   });
 });
 

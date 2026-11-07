@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "test": "jest",
     "db:generate": "drizzle-kit generate && node scripts/bundle-migrations.js",
+    "i18n:missing": "node scripts/i18n-missing.js",
     "web:build": "expo export --platform web && node scripts/rename-web-assets.js",
     "web:preview": "npm run web:build && node scripts/serve-web.js"
   },

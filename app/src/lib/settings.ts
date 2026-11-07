@@ -1,5 +1,6 @@
 import type { AppearanceChoice } from './appearance';
 import type { LanguageChoice } from './i18n';
+import { isLanguage } from './i18n/languages';
 import { clampRetention, DEFAULT_RETENTION } from './scheduler';
 
 export type Settings = {
@@ -186,7 +187,8 @@ export function parseSettings(rows: readonly { key: string; value: string }[]): 
       typeof reminderEnabled === 'boolean' ? reminderEnabled : DEFAULT_SETTINGS.reminderEnabled,
     reminderMinutes: int(get('reminderMinutes'), DEFAULT_SETTINGS.reminderMinutes, 0, 24 * 60 - 1),
     deckSort: deckSort === 'color' ? 'color' : 'name',
-    language: language === 'en' || language === 'vi' ? language : 'auto',
+    // A language this version doesn't have (set by a newer one): the phone's.
+    language: isLanguage(language) ? language : 'auto',
     appearance: appearance === 'light' || appearance === 'dark' ? appearance : 'auto',
   };
 }
