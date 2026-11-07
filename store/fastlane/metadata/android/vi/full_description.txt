@@ -50,8 +50,3 @@ Chính sách quyền riêng tư: https://recapflashcards.com/privacy
 TOEIC, IELTS và SAT là thương hiệu của chủ sở hữu tương ứng; Recap không liên kết với họ.
 
 Câu hỏi hoặc góp ý? Email support@recapflashcards.com
-
-==================================================================
-Release notes (vi, max 500): the <vi> part in store-listing.txt.
-Graphics: feature-graphic-vi.png; phone marketing-vi/, tablets marketing-tablet7-vi/ and
-marketing-tablet10-vi/ (same order as English).

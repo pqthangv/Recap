@@ -8,6 +8,7 @@
 #
 # mode:check uploads nothing: it shows what would change, and Google checks the change without
 # publishing it.
+require "fileutils"
 require "json"
 require "tmpdir"
 
@@ -151,6 +152,8 @@ lane :app_store_text do |options|
       # The latest version's text (the one being prepared, or else the live one).
       sh("fastlane", "deliver", "download_metadata", "--api_key_path", key_path,
          "--app_identifier", APP_ID, "--metadata_path", live, "--force", log: false)
+      # The download includes App Review's sign-in details: gone before anything is compared.
+      FileUtils.rm_rf(File.join(live, "review_information"))
       compare(live, METADATA, locales_in(METADATA))
       next
     end
