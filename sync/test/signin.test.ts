@@ -16,7 +16,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 
 import type { Accounts, Identity } from '../src/accounts';
 import { accountOf, TOKEN_DAYS } from '../src/auth';
-import { EMAIL_LIMITS } from '../src/email';
+import { EMAIL_LIMITS, LANGS, toLang } from '../src/email';
 import { base64url, hex, sha256 } from '../src/hash';
 import { handle } from '../src/index';
 import { today, type Usage } from '../src/limits';
@@ -437,6 +437,26 @@ describe('signing in with email', () => {
     expect(await soon.json()).toEqual({ error: 'wait' });
     expect((await w.post('/v1/auth/email/start', { email: address() })).status).toBe(200);
     expect(w.emails).toHaveLength(2);
+  });
+
+  it('writes the code email in each app language, and English for one it doesn’t know', async () => {
+    const w = worker();
+    const subjects: Record<string, RegExp> = {
+      hi: /^आपका Recap कोड: \d{6}$/,
+      es: /^Tu código de Recap: \d{6}$/,
+      fr: /^Votre code Recap : \d{6}$/,
+      bn: /^আপনার Recap কোড: \d{6}$/,
+      pt: /^Seu código do Recap: \d{6}$/,
+      xx: /^Your Recap code: \d{6}$/,
+    };
+    for (const lang of Object.keys(subjects)) {
+      await w.post('/v1/auth/email/start', { email: address(), lang });
+    }
+    expect(w.emails.map((e) => e.subject)).toEqual(
+      Object.values(subjects).map((s) => expect.stringMatching(s)),
+    );
+    for (const lang of LANGS) expect(toLang(lang)).toBe(lang);
+    expect(toLang('vi-VN')).toBe('en');
   });
 
   it('stops below Resend’s 100 a day for everyone', async () => {

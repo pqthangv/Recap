@@ -26,6 +26,7 @@ import {
   isReviewAddress,
   sendCode,
   startCode,
+  toLang,
   type Lang,
 } from './email';
 import { base64url, hmac, sameText, sha256 } from './hash';
@@ -121,7 +122,7 @@ async function start(provider: Browser, url: URL, env: Env): Promise<Response> {
   const target = returnAddress(url.searchParams.get('return'));
   const challenge = url.searchParams.get('challenge') ?? '';
   if (!target || !CHALLENGE.test(challenge)) return fail('bad_request', 400);
-  const lang: Lang = url.searchParams.get('lang') === 'vi' ? 'vi' : 'en';
+  const lang = toLang(url.searchParams.get('lang'));
   // Signing in again to delete the account: only Apple needs it (its token has to be revoked).
   const deleting = url.searchParams.get('purpose') === 'delete';
   if (deleting && provider !== 'apple') return fail('bad_request', 400);
@@ -265,7 +266,7 @@ async function emailStart(request: Request, env: Env, deps: Deps): Promise<Respo
   if ('refused' in started) return fail(started.refused, 429);
   const everyone = await env.COUNTERS.getByName('emails').charge(today(), 0, EMAIL_LIMITS);
   if (everyone !== 'ok') return fail('email_limit', 429);
-  const lang: Lang = body?.lang === 'vi' ? 'vi' : 'en';
+  const lang = toLang(body?.lang);
   if (!(await sendCode(env, deps.fetch, email, started.code, lang))) {
     return fail('email_failed', 502);
   }
@@ -319,6 +320,11 @@ export async function signIn(
 const PAGE_TEXT: Record<Lang, { going: string; button: string }> = {
   en: { going: 'Going back to Recap…', button: 'Open Recap' },
   vi: { going: 'Đang quay lại Recap…', button: 'Mở Recap' },
+  hi: { going: 'Recap पर वापस जा रहे हैं…', button: 'Recap खोलें' },
+  es: { going: 'Volviendo a Recap…', button: 'Abrir Recap' },
+  fr: { going: 'Retour à Recap…', button: 'Ouvrir Recap' },
+  bn: { going: 'Recap-এ ফিরে যাওয়া হচ্ছে…', button: 'Recap খুলুন' },
+  pt: { going: 'Voltando para o Recap…', button: 'Abrir o Recap' },
 };
 
 const PAGE_HEADERS = {
