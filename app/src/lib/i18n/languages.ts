@@ -35,8 +35,10 @@ export type LanguageInfo = {
 
 /** "1 card", every other count plural: English (and Vietnamese, which has one form, both alike). */
 const onlyOne = (n: number): PluralForm => (n === 1 ? 'one' : 'other');
-/** "0 carte", "1 carte", "2 cartes": 0 and 1 take the singular (French, Portuguese, Hindi, Bengali). */
-const zeroOrOne = (n: number): PluralForm => (n === 0 || n === 1 ? 'one' : 'other');
+/** "0 carte", "1 carte", "1,5 an", "2 ans": everything below 2 takes the singular (French, Portuguese). */
+const belowTwo = (n: number): PluralForm => (n >= 0 && n < 2 ? 'one' : 'other');
+/** 0 and 1 take the singular, and decimals below 1, but not 1.5 (Hindi, Bengali). */
+const zeroOrOne = (n: number): PluralForm => (n === 1 || (n >= 0 && n < 1) ? 'one' : 'other');
 
 export const LANGUAGE_INFO: Record<Language, LanguageInfo> = {
   en: { name: 'English', locale: 'en-US', plural: onlyOne, thousands: ',', decimal: '.' },
@@ -52,7 +54,7 @@ export const LANGUAGE_INFO: Record<Language, LanguageInfo> = {
   // Latin American Spanish, which reads fine in Spain too.
   es: { name: 'Español', locale: 'es-419', plural: onlyOne, thousands: ',', decimal: '.' },
   // A narrow no-break space between thousands, as French writes them: "7\u202f936".
-  fr: { name: 'Français', locale: 'fr-FR', plural: zeroOrOne, thousands: '\u202f', decimal: ',' },
+  fr: { name: 'Français', locale: 'fr-FR', plural: belowTwo, thousands: '\u202f', decimal: ',' },
   bn: {
     name: 'বাংলা',
     locale: 'bn-BD',
@@ -61,5 +63,5 @@ export const LANGUAGE_INFO: Record<Language, LanguageInfo> = {
     decimal: '.',
     lakh: true,
   },
-  pt: { name: 'Português', locale: 'pt-BR', plural: zeroOrOne, thousands: '.', decimal: ',' },
+  pt: { name: 'Português', locale: 'pt-BR', plural: belowTwo, thousands: '.', decimal: ',' },
 };

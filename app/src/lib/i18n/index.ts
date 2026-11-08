@@ -154,10 +154,11 @@ export function tIn(lang: Language, key: StringKey, params?: Params): string {
 
 /**
  * "1 card" / "5 cards": the key's text for the form n takes in this language, {n} filled in. A
- * form no text has (a newer language's extra one) takes the `_other` line.
+ * form no text has (a newer language's extra one) takes the `_other` line. `params.n`, when
+ * given, is shown instead of n (a decimal already written out: "1,5").
  */
 export function tn(key: PluralKey, n: number, params?: Params): string {
   const form = `${key}_${LANGUAGE_INFO[current].plural(n)}` as StringKey;
   const known = textIn(current)?.[form] !== undefined || form in en;
-  return t(known ? form : (`${key}_other` as StringKey), { ...params, n });
+  return t(known ? form : (`${key}_other` as StringKey), { n, ...params });
 }

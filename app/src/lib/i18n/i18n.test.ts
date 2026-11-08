@@ -150,6 +150,15 @@ describe('t and tn', () => {
     for (const lang of ['fr', 'pt', 'hi', 'bn'] as const) {
       expect(forms(lang)).toEqual(['one', 'one', 'other', 'other']);
     }
+    // Decimals (2.5 months): French and Portuguese keep the singular below 2 ("1,5 an").
+    const decimals = (lang: keyof typeof LANGUAGE_INFO) =>
+      [0.5, 1.5, 2.5].map((n) => LANGUAGE_INFO[lang].plural(n));
+    expect(decimals('en')).toEqual(['other', 'other', 'other']);
+    expect(decimals('es')).toEqual(['other', 'other', 'other']);
+    expect(decimals('fr')).toEqual(['one', 'one', 'other']);
+    expect(decimals('pt')).toEqual(['one', 'one', 'other']);
+    expect(decimals('hi')).toEqual(['one', 'other', 'other']);
+    expect(decimals('bn')).toEqual(['one', 'other', 'other']);
   });
 });
 

@@ -56,6 +56,23 @@ describe('formatInterval', () => {
     expect(formatInterval(75 * DAY)).toBe('2,5 tháng');
     expect(formatIntervalLong(4 * DAY)).toBe('sau 4 ngày');
   });
+  it('says 1 month and 1 year, not 1 months', () => {
+    expect(formatIntervalLong(30 * DAY)).toBe('in 1 month');
+    expect(formatIntervalLong(75 * DAY)).toBe('in 2.5 months');
+    expect(formatIntervalLong(365 * DAY)).toBe('in 1 year');
+    expect(formatIntervalLong(800 * DAY)).toBe('in 2.2 years');
+    setLanguage('es');
+    expect(formatInterval(30 * DAY)).toBe('1 mes');
+    expect(formatInterval(75 * DAY)).toBe('2.5 meses');
+    expect(formatIntervalLong(365 * DAY)).toBe('en 1 año');
+    setLanguage('pt');
+    expect(formatInterval(30 * DAY)).toBe('1 mês');
+    expect(formatInterval(75 * DAY)).toBe('2,5 meses');
+    setLanguage('fr');
+    expect(formatInterval(365 * DAY)).toBe('1 an');
+    expect(formatInterval(1.5 * 365 * DAY)).toBe('1,5 an'); // French: singular below 2
+    expect(formatIntervalLong(800 * DAY)).toBe('dans 2,2 ans');
+  });
 });
 
 describe('count', () => {
