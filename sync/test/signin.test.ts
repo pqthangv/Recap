@@ -444,7 +444,7 @@ describe('signing in with email', () => {
     const subjects: Record<string, RegExp> = {
       hi: /^आपका Recap कोड: \d{6}$/,
       es: /^Tu código de Recap: \d{6}$/,
-      fr: /^Votre code Recap : \d{6}$/,
+      fr: /^Votre code Recap\u202f: \d{6}$/,
       bn: /^আপনার Recap কোড: \d{6}$/,
       pt: /^Seu código do Recap: \d{6}$/,
       xx: /^Your Recap code: \d{6}$/,

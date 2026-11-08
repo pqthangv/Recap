@@ -131,17 +131,17 @@ const MESSAGES: Record<Lang, (code: string) => { subject: string; text: string }
   hi: (code) => ({
     subject: `आपका Recap कोड: ${code}`,
     text:
-      `Recap में साइन इन करने के लिए आपका कोड ${code} है।\n\n` +
-      `यह ${CODE_MINUTES} मिनट तक काम करेगा। अगर आपने यह कोड नहीं माँगा था, तो आप इस ईमेल को अनदेखा कर सकते हैं।\n`,
+      `Recap में लॉग इन करने के लिए आपका कोड ${code} है।\n\n` +
+      `यह ${CODE_MINUTES} मिनट तक काम करेगा। अगर आपने यह कोड नहीं माँगा था, तो इस ईमेल को अनदेखा करें।\n`,
   }),
   es: (code) => ({
     subject: `Tu código de Recap: ${code}`,
     text:
       `Tu código para iniciar sesión en Recap es ${code}.\n\n` +
-      `Funciona durante ${CODE_MINUTES} minutos. Si no lo pediste, puedes ignorar este correo.\n`,
+      `Es válido durante ${CODE_MINUTES} minutos. Si no lo pediste, puedes ignorar este correo.\n`,
   }),
   fr: (code) => ({
-    subject: `Votre code Recap : ${code}`,
+    subject: `Votre code Recap\u202f: ${code}`,
     text:
       `Votre code pour vous connecter à Recap est ${code}.\n\n` +
       `Il est valable ${CODE_MINUTES} minutes. Si vous ne l’avez pas demandé, vous pouvez ignorer cet e-mail.\n`,
@@ -149,7 +149,7 @@ const MESSAGES: Record<Lang, (code: string) => { subject: string; text: string }
   bn: (code) => ({
     subject: `আপনার Recap কোড: ${code}`,
     text:
-      `Recap-এ সাইন ইন করার জন্য আপনার কোড ${code}।\n\n` +
+      `Recap-এ লগ ইন করার জন্য আপনার কোড: ${code}\n\n` +
       `এটি ${CODE_MINUTES} মিনিট কাজ করবে। আপনি এই কোড না চেয়ে থাকলে এই ইমেইলটি উপেক্ষা করতে পারেন।\n`,
   }),
   pt: (code) => ({

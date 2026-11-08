@@ -320,7 +320,7 @@ export async function signIn(
 const PAGE_TEXT: Record<Lang, { going: string; button: string }> = {
   en: { going: 'Going back to Recap…', button: 'Open Recap' },
   vi: { going: 'Đang quay lại Recap…', button: 'Mở Recap' },
-  hi: { going: 'Recap पर वापस जा रहे हैं…', button: 'Recap खोलें' },
+  hi: { going: 'Recap खुल रहा है…', button: 'Recap खोलें' },
   es: { going: 'Volviendo a Recap…', button: 'Abrir Recap' },
   fr: { going: 'Retour à Recap…', button: 'Ouvrir Recap' },
   bn: { going: 'Recap-এ ফিরে যাওয়া হচ্ছে…', button: 'Recap খুলুন' },
