@@ -173,8 +173,7 @@ export const vi: Strings = {
   'deck.frontLanguageTitle': 'Đọc mặt trước của thẻ bằng',
   'deck.backLanguageTitle': 'Đọc mặt sau của thẻ bằng',
   'deck.languageAutoOption': 'Tự động: đoán theo từng thẻ',
-  'deck.languagesHelp':
-    'Để mỗi mặt thẻ được đọc bằng đúng giọng. Chế độ Tự động nhận biết tốt nhất tiếng Anh và tiếng Việt.',
+  'deck.languagesHelp': 'Để mỗi mặt thẻ được đọc bằng đúng giọng.',
   'deck.delete': 'Xóa bộ thẻ',
   'deck.wasDeleted': 'Bộ thẻ này đã bị xóa.',
   'deck.selected': 'Đã chọn {n}',
@@ -411,7 +410,7 @@ export const vi: Strings = {
     'Với câu trả lời ngắn, hãy gõ những gì bạn nhớ. Recap sẽ kiểm tra và gợi ý một nút.',
   'settings.readAloud': 'Đọc thẻ thành tiếng',
   'settings.readAloudHelp':
-    'Đọc từng mặt thẻ bằng tiếng Anh hoặc tiếng Việt khi hiện ra. Bạn luôn có thể chạm vào loa trên thẻ.',
+    'Đọc từng mặt thẻ khi hiện ra, bằng ngôn ngữ của bộ thẻ. Bạn luôn có thể chạm vào loa trên thẻ.',
   'settings.reminder': 'Nhắc nhở',
   'settings.dailyReminder': 'Nhắc học hằng ngày',
   'settings.dailyReminderHelp':

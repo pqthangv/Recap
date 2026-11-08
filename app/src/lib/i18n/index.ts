@@ -56,8 +56,10 @@ export function language(): Language {
   return current;
 }
 
+/** For the system's own formatting (a time, a date), with digits 0–9 like every other number. */
 export function localeTag(): string {
-  return LANGUAGE_INFO[current].locale;
+  // Bengali (bn-BD) would write ০–৯ otherwise; the others already use 0–9.
+  return `${LANGUAGE_INFO[current].locale}-u-nu-latn`;
 }
 
 function show(next: Language): void {
@@ -107,19 +109,27 @@ export function useLanguage(): Language {
   return useSyncExternalStore(subscribe, language);
 }
 
-const groupThousands = (digits: string, mark: string) =>
-  digits.replace(/\B(?=(\d{3})+(?!\d))/g, mark);
+/** "1234567" → "1,234,567", or "12,34,567" where the language groups as India does. */
+export function groupDigits(digits: string, mark: string, lakh = false): string {
+  const threes = (text: string) => text.replace(/\B(?=(\d{3})+(?!\d))/g, mark);
+  const m = /^(-?)(\d+)$/.exec(digits);
+  if (!lakh || !m || m[2]!.length <= 3) return threes(digits);
+  const [, sign, all] = m as unknown as [string, string, string];
+  const head = all.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, mark);
+  return `${sign}${head}${mark}${all.slice(-3)}`;
+}
 
 /** 7936 → "7,936" in English, "7.936" in Vietnamese. */
 export function count(n: number): string {
-  return groupThousands(String(n), LANGUAGE_INFO[current].thousands);
+  const { thousands, lakh } = LANGUAGE_INFO[current];
+  return groupDigits(String(n), thousands, lakh);
 }
 
 /** 2.5 → "2.5" in English, "2,5" in Vietnamese; `digits` after the mark. */
 export function decimal(n: number, digits: number): string {
-  const { thousands, decimal: mark } = LANGUAGE_INFO[current];
+  const { thousands, decimal: mark, lakh } = LANGUAGE_INFO[current];
   const [whole = '', part] = n.toFixed(digits).split('.');
-  const grouped = groupThousands(whole, thousands);
+  const grouped = groupDigits(whole, thousands, lakh);
   return part === undefined ? grouped : `${grouped}${mark}${part}`;
 }
 

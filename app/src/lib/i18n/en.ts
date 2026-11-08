@@ -172,8 +172,7 @@ export const en = {
   'deck.frontLanguageTitle': 'Read the front of the cards in',
   'deck.backLanguageTitle': 'Read the back of the cards in',
   'deck.languageAutoOption': 'Auto: guessed from each card',
-  'deck.languagesHelp':
-    'So each side is read in the right voice. Auto knows English and Vietnamese best.',
+  'deck.languagesHelp': 'So each side is read in the right voice.',
   'deck.delete': 'Delete deck',
   'deck.wasDeleted': 'This deck was deleted.',
   'deck.selected': '{n} selected',
@@ -409,7 +408,7 @@ export const en = {
   'settings.fourButtonsHelp': 'Again, Hard, Good and Easy instead of Forgot and Got it.',
   'settings.readAloud': 'Read cards aloud',
   'settings.readAloudHelp':
-    'Reads each side in English or Vietnamese as it appears. You can always tap the speaker on a card.',
+    "Reads each side as it appears, in its deck's language. You can always tap the speaker on a card.",
   'settings.reminder': 'Reminder',
   'settings.dailyReminder': 'Daily reminder',
   'settings.dailyReminderHelp':

@@ -5,6 +5,7 @@ import {
   formatIntervalLong,
   formatStudyTime,
   formatStudyTimeLong,
+  formatTimeOfDay,
   studyButtonLabel,
   weekdayShort,
 } from '@/lib/format';
@@ -100,5 +101,14 @@ describe('weekdayShort', () => {
     setLanguage('vi');
     expect(weekdayShort(monday)).toBe('T2');
     expect(weekdayShort(new Date(2026, 9, 11).getTime())).toBe('CN');
+  });
+});
+
+describe('formatTimeOfDay', () => {
+  it('writes the time with digits 0–9 in every language', () => {
+    setLanguage('bn'); // bn-BD on its own would write ৭:০৫
+    expect(formatTimeOfDay(19 * 60 + 5)).toMatch(/^7:05/);
+    setLanguage('fr');
+    expect(formatTimeOfDay(19 * 60 + 5)).toBe('19:05');
   });
 });
