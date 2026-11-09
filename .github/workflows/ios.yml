@@ -153,10 +153,18 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      # Up to three tries: GitHub, where Maestro comes from, sometimes answers "504" (2026-11-09:
+      # the installer said the download was corrupt, the step still passed, and the screenshot step
+      # then found no maestro).
       - name: Install Maestro
         if: env.SCREENSHOTS == 'true'
         run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          for i in 1 2 3; do
+            curl -fsSL "https://get.maestro.mobile.dev" | bash || true
+            if "$HOME/.maestro/bin/maestro" --version; then break; fi
+            if [ "$i" = 3 ]; then echo "Maestro didn't install"; exit 1; fi
+            sleep 30
+          done
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
       - name: Wake up the server (Render's free plan sleeps)
         if: env.SCREENSHOTS == 'true'
@@ -232,4 +240,5 @@ jobs:
         with:
           name: ios-screenshots-${{ env.DEVICE }}-${{ env.LANGUAGE }}
           path: app/screenshots/
+          retention-days: 7 # gone from GitHub after a week (they're public while kept)
           if-no-files-found: ignore
