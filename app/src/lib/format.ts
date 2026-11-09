@@ -1,4 +1,4 @@
-import { language, localeTag, t, tn } from './i18n';
+import { count, decimal, language, localeTag, type PluralKey, t, tn } from './i18n';
 
 export { count } from './i18n';
 
@@ -16,9 +16,13 @@ export function studyButtonLabel(dueCount: number): string {
 /** 2.5 → "2.5" ("2,5" in Vietnamese); whole numbers without a decimal. */
 function oneDecimal(n: number): string {
   const r = Math.round(n * 10) / 10;
-  if (Number.isInteger(r)) return String(r);
-  const text = r.toFixed(1);
-  return language() === 'vi' ? text.replace('.', ',') : text;
+  return Number.isInteger(r) ? count(r) : decimal(r, 1);
+}
+
+/** "1 month", "2.5 months": the form for the number as it's shown, one decimal at most. */
+function decimalCount(key: PluralKey, n: number): string {
+  const r = Math.round(n * 10) / 10;
+  return tn(key, r, { n: oneDecimal(r) });
 }
 
 /** Short interval for a grade button: "1m", "10m", "3h", "4d", "2.5mo", "1.2y". */
@@ -27,8 +31,8 @@ export function formatInterval(ms: number): string {
   if (ms < HOUR) return t('interval.minutes', { n: Math.round(ms / MINUTE) });
   if (ms < DAY) return t('interval.hours', { n: Math.round(ms / HOUR) });
   if (ms < MONTH) return t('interval.days', { n: Math.round(ms / DAY) });
-  if (ms < YEAR) return t('interval.months', { n: oneDecimal(ms / MONTH) });
-  return t('interval.years', { n: oneDecimal(ms / YEAR) });
+  if (ms < YEAR) return decimalCount('interval.months', ms / MONTH);
+  return decimalCount('interval.years', ms / YEAR);
 }
 
 /** Time spent studying: "<1 min", "12 min", "1 h 5 min", "3 h". */
@@ -63,8 +67,8 @@ export function formatIntervalLong(ms: number): string {
         : ms < MONTH
           ? tn('count.day', Math.round(ms / DAY))
           : ms < YEAR
-            ? t('time.months', { n: oneDecimal(ms / MONTH) })
-            : t('time.years', { n: oneDecimal(ms / YEAR) });
+            ? decimalCount('time.months', ms / MONTH)
+            : decimalCount('time.years', ms / YEAR);
   return t('time.in', { time });
 }
 

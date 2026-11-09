@@ -1,12 +1,14 @@
 import { getLocales } from 'expo-localization';
 
-import { WELCOME_DECKS } from '@/features/onboarding/seed';
 import { errorFromResponse } from '@/lib/ai';
-import { isTypeable } from '@/lib/answerCheck';
 import { reminderText } from '@/lib/reminders';
 
 import { en } from './en';
 import {
+  APP_LANGUAGES,
+  decimal,
+  groupDigits,
+  LANGUAGE_NAMES,
   language,
   phoneLanguage,
   refreshLanguage,
@@ -15,6 +17,9 @@ import {
   t,
   tn,
 } from './index';
+import { LANGUAGE_INFO } from './languages';
+import { translationNow } from './load';
+import * as web from './load.web';
 import { vi } from './vi';
 
 jest.mock('expo-localization', () => ({ getLocales: jest.fn(() => [{ languageCode: 'en' }]) }));
@@ -60,6 +65,41 @@ describe('the Vietnamese text', () => {
   });
 });
 
+describe('the app languages', () => {
+  it('each have their own name, a locale and number marks', () => {
+    for (const lang of APP_LANGUAGES) {
+      const info = LANGUAGE_INFO[lang];
+      expect(info.locale).toMatch(new RegExp(`^${lang}-([A-Z]{2}|419)$`)); // es-419: Latin America
+      expect(info.thousands).not.toBe(info.decimal);
+      expect(['one', 'other']).toContain(info.plural(1));
+    }
+    const names = APP_LANGUAGES.map((lang) => LANGUAGE_NAMES[lang]);
+    expect(new Set(names).size).toBe(names.length);
+  });
+
+  it('only use keys English has, and the same blanks', () => {
+    for (const lang of APP_LANGUAGES.filter((l) => l !== 'en')) {
+      const text = translationNow(lang)!;
+      for (const key of Object.keys(text) as (keyof typeof en)[]) {
+        expect({ lang, key, known: key in en }).toEqual({ lang, key, known: true });
+        expect({ lang, key, blanks: placeholders(text[key]!) }).toEqual({
+          lang,
+          key,
+          blanks: placeholders(en[key]),
+        });
+      }
+    }
+  });
+
+  // The newer ones download on the website (load.web.ts): TypeScript makes sure each has a
+  // loader, but Jest can't run import().
+  it('include Vietnamese in the website’s own file', async () => {
+    expect(web.translationNow('vi')).toBe(vi);
+    await expect(web.fetchTranslation('vi')).resolves.toBe(vi);
+    expect(web.translationNow('hi')).toBeNull();
+  });
+});
+
 describe('t and tn', () => {
   it('fill in blanks and format numbers', () => {
     expect(t('home.study', { n: 1234 })).toBe('Study · 1,234 due');
@@ -78,13 +118,55 @@ describe('t and tn', () => {
   it('leave a blank alone when nothing is given for it', () => {
     expect(t('deck.inside', {})).toBe('Inside “{name}”');
   });
+
+  it('group digits by thousands, or as India does', () => {
+    expect(groupDigits('7936', ',')).toBe('7,936');
+    expect(groupDigits('1234567', '.')).toBe('1.234.567');
+    expect(groupDigits('999', ',', true)).toBe('999');
+    expect(groupDigits('7936', ',', true)).toBe('7,936');
+    expect(groupDigits('123456', ',', true)).toBe('1,23,456');
+    expect(groupDigits('12345678', ',', true)).toBe('1,23,45,678');
+    expect(groupDigits('-1234567', ',', true)).toBe('-12,34,567');
+  });
+
+  it('write decimals with each language’s marks', () => {
+    expect(decimal(2.5, 1)).toBe('2.5');
+    expect(decimal(1234.56, 1)).toBe('1,234.6');
+    expect(decimal(3, 0)).toBe('3');
+    setLanguage('vi');
+    expect(decimal(2.5, 1)).toBe('2,5');
+    expect(decimal(1234.56, 1)).toBe('1.234,6');
+    setLanguage('hi');
+    expect(decimal(1234567.5, 1)).toBe('12,34,567.5');
+    setLanguage('fr');
+    expect(decimal(7936.25, 2)).toBe('7 936,25');
+  });
+
+  it('take the singular for 0 where the language does', () => {
+    const forms = (lang: keyof typeof LANGUAGE_INFO) =>
+      [0, 1, 2, 21].map((n) => LANGUAGE_INFO[lang].plural(n));
+    expect(forms('en')).toEqual(['other', 'one', 'other', 'other']);
+    expect(forms('es')).toEqual(['other', 'one', 'other', 'other']);
+    for (const lang of ['fr', 'pt', 'hi', 'bn'] as const) {
+      expect(forms(lang)).toEqual(['one', 'one', 'other', 'other']);
+    }
+    // Decimals (2.5 months): French and Portuguese keep the singular below 2 ("1,5 an").
+    const decimals = (lang: keyof typeof LANGUAGE_INFO) =>
+      [0.5, 1.5, 2.5].map((n) => LANGUAGE_INFO[lang].plural(n));
+    expect(decimals('en')).toEqual(['other', 'other', 'other']);
+    expect(decimals('es')).toEqual(['other', 'other', 'other']);
+    expect(decimals('fr')).toEqual(['one', 'one', 'other']);
+    expect(decimals('pt')).toEqual(['one', 'one', 'other']);
+    expect(decimals('hi')).toEqual(['one', 'other', 'other']);
+    expect(decimals('bn')).toEqual(['one', 'other', 'other']);
+  });
 });
 
 describe('phoneLanguage', () => {
   it("picks the first of the phone's languages that Recap has", () => {
     mockLocales.mockImplementation(() => [{ languageCode: 'vi' }, { languageCode: 'en' }]);
     expect(phoneLanguage()).toBe('vi');
-    mockLocales.mockImplementation(() => [{ languageCode: 'fr' }, { languageCode: 'vi' }]);
+    mockLocales.mockImplementation(() => [{ languageCode: 'sw' }, { languageCode: 'vi' }]);
     expect(phoneLanguage()).toBe('vi');
     mockLocales.mockImplementation(() => [{ languageCode: 'ja' }]);
     expect(phoneLanguage()).toBe('en');
@@ -138,33 +220,5 @@ describe('Vietnamese around the app', () => {
     expect(errorFromResponse(503, { error: 'new_code', message: 'Busy' }).message).toBe(
       vi['aiError.busy'],
     );
-  });
-
-  it('has welcome cards that name the real buttons', () => {
-    for (const lang of ['en', 'vi'] as const) {
-      setLanguage(lang);
-      const text = WELCOME_DECKS[lang][0].cards.flat().join('\n');
-      for (const grade of ['grade.again', 'grade.hard', 'grade.good', 'grade.easy'] as const) {
-        expect(text).toContain(t(grade));
-      }
-      expect(text).toContain(t('study.check'));
-      expect(text).toContain(t('settings.readAloud'));
-      expect(text).toContain(t('screen.addCard'));
-      expect(text).toContain(t('deck.delete'));
-    }
-    // "3 ngày" on the button has a no-break space; the card text has a plain one.
-    const threeDays = () => t('interval.days', { n: 3 }).replace(/ /g, ' ');
-    setLanguage('vi');
-    expect(WELCOME_DECKS.vi[0].cards.flat().join('\n')).toContain(threeDays());
-    setLanguage('en');
-    expect(WELCOME_DECKS.en[0].cards.flat().join('\n')).toContain(threeDays());
-  });
-
-  it('starts the welcome deck with a card to type, then one to tap', () => {
-    for (const lang of ['en', 'vi'] as const) {
-      const [first, second] = WELCOME_DECKS[lang][0].cards;
-      expect(isTypeable(first[1])).toBe(true);
-      expect(isTypeable(second[1])).toBe(false);
-    }
   });
 });

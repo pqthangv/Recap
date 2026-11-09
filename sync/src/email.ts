@@ -15,7 +15,14 @@ export const EMAILS_PER_ADDRESS = 5;
 /** Everyone together, under Resend's free 100 a day (counted by the "emails" Counter). */
 export const EMAIL_LIMITS: Limits = { writes: 90, bytes: Number.MAX_SAFE_INTEGER };
 
-export type Lang = 'en' | 'vi';
+/** The app's languages (app/src/lib/i18n/languages.ts): the code email and the sign-in pages. */
+export const LANGS = ['en', 'vi', 'hi', 'es', 'fr', 'bn', 'pt'] as const;
+export type Lang = (typeof LANGS)[number];
+
+/** The language the app asked for; one this server doesn't have (a newer app's) gets English. */
+export function toLang(value: unknown): Lang {
+  return LANGS.includes(value as Lang) ? (value as Lang) : 'en';
+}
 
 /** The address as typed, trimmed and lowercased, or null if it isn't one. */
 export function emailAddress(input: unknown): string | null {
@@ -120,6 +127,36 @@ const MESSAGES: Record<Lang, (code: string) => { subject: string; text: string }
     text:
       `Mã đăng nhập Recap của bạn là ${code}.\n\n` +
       `Mã dùng được trong ${CODE_MINUTES} phút. Nếu bạn không yêu cầu mã này, bạn có thể bỏ qua email này.\n`,
+  }),
+  hi: (code) => ({
+    subject: `आपका Recap कोड: ${code}`,
+    text:
+      `Recap में लॉग इन करने के लिए आपका कोड ${code} है।\n\n` +
+      `यह ${CODE_MINUTES} मिनट तक काम करेगा। अगर आपने यह कोड नहीं माँगा था, तो इस ईमेल को अनदेखा करें।\n`,
+  }),
+  es: (code) => ({
+    subject: `Tu código de Recap: ${code}`,
+    text:
+      `Tu código para iniciar sesión en Recap es ${code}.\n\n` +
+      `Es válido durante ${CODE_MINUTES} minutos. Si no lo pediste, puedes ignorar este correo.\n`,
+  }),
+  fr: (code) => ({
+    subject: `Votre code Recap\u202f: ${code}`,
+    text:
+      `Votre code pour vous connecter à Recap est ${code}.\n\n` +
+      `Il est valable ${CODE_MINUTES} minutes. Si vous ne l’avez pas demandé, vous pouvez ignorer cet e-mail.\n`,
+  }),
+  bn: (code) => ({
+    subject: `আপনার Recap কোড: ${code}`,
+    text:
+      `Recap-এ লগ ইন করার জন্য আপনার কোড: ${code}\n\n` +
+      `এটি ${CODE_MINUTES} মিনিট কাজ করবে। আপনি এই কোড না চেয়ে থাকলে এই ইমেইলটি উপেক্ষা করতে পারেন।\n`,
+  }),
+  pt: (code) => ({
+    subject: `Seu código do Recap: ${code}`,
+    text:
+      `Seu código para entrar no Recap é ${code}.\n\n` +
+      `Ele vale por ${CODE_MINUTES} minutos. Se você não pediu este código, pode ignorar este e-mail.\n`,
   }),
 };
 

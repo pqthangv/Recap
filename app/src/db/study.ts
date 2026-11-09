@@ -102,7 +102,8 @@ export function getQueueOrder(scope: StudyScope, now = Date.now()): QueueEntry[]
           .where(and(liveCard, inScope(scope), eq(cards.state, State.New)))
           .all()
       : [];
-  // "How to use Recap" teaches the app step by step, so its new cards keep their written order.
+  // "How to use Recap" (made by versions before 1.0.9) teaches the app step by step, so its new
+  // cards keep their written order.
   const tutorial = getRawSetting(TUTORIAL_DECK_KEY);
   return buildQueue<QueueEntry & Partial<Pick<CardRow, 'deck_id' | 'created_at'>>>(
     [...due, ...fresh],

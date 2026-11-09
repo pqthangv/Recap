@@ -35,7 +35,7 @@ describe('parseSettings', () => {
   it('reads the language choice', () => {
     expect(parseSettings([]).language).toBe('auto');
     expect(parseSettings([row(SETTING_KEYS.language, 'vi')]).language).toBe('vi');
-    expect(parseSettings([row(SETTING_KEYS.language, 'fr')]).language).toBe('auto');
+    expect(parseSettings([row(SETTING_KEYS.language, 'sw')]).language).toBe('auto');
   });
 
   it('reads the appearance choice (light, dark, or the phone’s)', () => {

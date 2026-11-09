@@ -1,19 +1,29 @@
 // Sync on the real database (roadmap 6.7, part 4): three installs take turns on the test database
 // (cleared in between, like a fresh install), syncing through an in-memory store.
 import { clearTestDb, migrateTestDb, rawQuery } from '../../test/db';
+import { makeOldTutorial } from '../../test/oldTutorial';
+import { MemoryStore } from '../../test/syncStore';
 
-import { seedIfNeeded } from '@/features/onboarding/seed';
-import { parseBackup } from '@/lib/backup';
 import { Rating, review, type Grade } from '@/lib/scheduler';
-import { SYNC_LAST_KEY, TUTORIAL_DECK_KEY } from '@/lib/settings';
-import type { Head } from '@/lib/sync/files';
-import { sync, type SyncStore } from '@/lib/sync/round';
+import { SETTING_KEYS, SYNC_LAST_KEY, SYNC_OWNER_KEY, TUTORIAL_DECK_KEY } from '@/lib/settings';
+import { rowCount } from '@/lib/sync/files';
+import { sync } from '@/lib/sync/round';
 
 import { createCard, deleteCards, getCard, updateCard } from './cards';
 import { createDeck, listDecks } from './decks';
 import { getRawSetting, getSettings, setRawSetting, setSetting } from './settings';
 import { answerCard } from './study';
-import { databaseDevice, dropUnusedTutorial, hasUnsentChanges } from './sync';
+import {
+  changedAfter,
+  changedRows,
+  databaseDevice,
+  dropUnusedTutorial,
+  hasUnsentChanges,
+  loadSyncOwner,
+  removeSharedRows,
+  saveSyncOwner,
+  sharedCardCount,
+} from './sync';
 
 // jest.mock factories can't use imports, so this one needs require().
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -23,38 +33,9 @@ const NOW = Date.UTC(2026, 10, 4, 12);
 let clock = NOW;
 const tick = () => (clock += 60_000);
 
-/** The account's files, like R2 behind the Worker: create-only names, a head swapped if unchanged. */
-class Store implements SyncStore {
-  files = new Map<string, string>();
-  head: Head | null = null;
-  async list() {
-    return { head: this.head, names: [...this.files.keys()].sort(), now: clock };
-  }
-  async read(name: string) {
-    return this.files.get(name) ?? null;
-  }
-  async create(name: string, text: string) {
-    if (this.files.has(name)) return false;
-    this.files.set(name, text);
-    return true;
-  }
-  async swapHead(base: number | null, head: Head) {
-    if ((this.head?.base ?? null) !== base) return false;
-    this.head = head;
-    return true;
-  }
-  async remove(names: readonly string[]) {
-    for (const name of names) this.files.delete(name);
-  }
-  /** Every row sent so far, from all change files. */
-  sent() {
-    const backups = [...this.files.values()].map((text) => parseBackup(text));
-    return {
-      decks: backups.flatMap((b) => b.decks),
-      cards: backups.flatMap((b) => b.cards),
-      review_logs: backups.flatMap((b) => b.review_logs),
-      settings: backups.flatMap((b) => b.settings),
-    };
+class Store extends MemoryStore {
+  constructor() {
+    super(() => clock);
   }
 }
 
@@ -82,9 +63,8 @@ describe('sync on the database', () => {
   it('brings a new install up to date, and its changes reach the next one', async () => {
     const store = new Store();
 
-    // Phone A: the welcome deck, a deck of its own, an answer.
-    seedIfNeeded(clock);
-    const tutorial = getRawSetting(TUTORIAL_DECK_KEY) as string;
+    // Phone A, on a version before 1.0.9: the welcome deck, a deck of its own, an answer.
+    const tutorial = makeOldTutorial(clock);
     const words = createDeck({ name: 'Words', color: '#5A31D6' }, tick());
     const cat = createCard(
       { deckId: words.id, front: 'cat', back: 'con mèo', tags: [], reverse: false },
@@ -109,10 +89,10 @@ describe('sync on the database', () => {
     const onA = rows();
     expect(hasUnsentChanges()).toBe(false);
 
-    // Phone B: a fresh install with its own tutorial, signing in to the account.
+    // Phone B: a fresh install of such a version, with its own tutorial, signing in.
     clearTestDb();
     tick();
-    seedIfNeeded(clock);
+    makeOldTutorial(clock);
     expect(databaseDevice.loadState()).toBeNull();
     expect((await syncWith(store)).read).toBeGreaterThan(0);
     expect(dropUnusedTutorial()).toBe(true);
@@ -155,8 +135,7 @@ describe('sync on the database', () => {
   });
 
   it('keeps a tutorial that was studied, and one on an account with nothing yet', async () => {
-    seedIfNeeded(clock);
-    const tutorial = getRawSetting(TUTORIAL_DECK_KEY) as string;
+    const tutorial = makeOldTutorial(clock);
     const first = rawQuery('SELECT id FROM cards WHERE deck_id = ? LIMIT 1', tutorial)[0]!
       .id as string;
     answer(first);
@@ -165,7 +144,7 @@ describe('sync on the database', () => {
 
     // A brand-new account: its first sync reads nothing, so the engine leaves the tutorial.
     clearTestDb();
-    seedIfNeeded(clock);
+    makeOldTutorial(clock);
     expect((await syncWith(new Store())).read).toBe(0);
     expect(listDecks()).toHaveLength(1);
   });
@@ -198,5 +177,94 @@ describe('sync on the database', () => {
     const found = databaseDevice.cardsWithLogs(ids);
     expect(found.cards).toHaveLength(450);
     expect(found.logs).toHaveLength(2);
+  });
+});
+
+describe("another account's cards (1.0.9)", () => {
+  it("removes what sync shares, keeping the tutorial and this device's own settings", () => {
+    const tutorial = makeOldTutorial(clock);
+    const tutorialCard = rawQuery('SELECT id FROM cards WHERE deck_id = ? LIMIT 1', tutorial)[0]!
+      .id as string;
+    answer(tutorialCard);
+    const tutorialCards = rawQuery('SELECT COUNT(*) AS n FROM cards')[0]!.n;
+
+    const words = createDeck({ name: 'Words', color: '#5A31D6' }, tick());
+    const cat = createCard(
+      { deckId: words.id, front: 'cat', back: 'con mèo', tags: [], reverse: true },
+      tick(),
+    );
+    const dog = createCard(
+      { deckId: words.id, front: 'dog', back: 'con chó', tags: [], reverse: false },
+      tick(),
+    );
+    answer(cat.id);
+    deleteCards([dog.id], tick());
+    setSetting('retention', 0.9, tick());
+    setSetting('language', 'vi', tick());
+    saveSyncOwner({ account: 'a', sentAt: clock });
+
+    // The deck, cat and its reverse; not dog (deleted) or the tutorial.
+    expect(sharedCardCount()).toBe(3);
+
+    removeSharedRows();
+    expect(sharedCardCount()).toBe(0);
+    expect(rowCount(changedRows(null))).toBe(0);
+    expect(listDecks().map((d) => d.id)).toEqual([tutorial]);
+    expect(rawQuery('SELECT COUNT(*) AS n FROM cards')[0]!.n).toBe(tutorialCards);
+    expect(rawQuery('SELECT card_id FROM review_logs')).toEqual([{ card_id: tutorialCard }]);
+    expect(getSettings().retention).not.toBe(0.9);
+    expect(getRawSetting(SETTING_KEYS.retention)).toBeUndefined();
+    expect(getSettings().language).toBe('vi');
+    expect(getRawSetting(TUTORIAL_DECK_KEY)).toBe(tutorial);
+    expect(loadSyncOwner()).toEqual({ account: 'a', sentAt: clock });
+  });
+
+  it('removes everything without a tutorial', () => {
+    const deck = createDeck({ name: 'D', color: '#5A31D6' }, tick());
+    const card = createCard(
+      { deckId: deck.id, front: 'a', back: 'b', tags: [], reverse: false },
+      tick(),
+    );
+    answer(card.id);
+    removeSharedRows();
+    expect(rows()).toEqual({ decks: [], cards: [], logs: [] });
+  });
+
+  it('knows what changed after the last send', async () => {
+    const deck = createDeck({ name: 'D', color: '#5A31D6' }, tick());
+    const card = createCard(
+      { deckId: deck.id, front: 'a', back: 'b', tags: [], reverse: false },
+      tick(),
+    );
+    tick();
+    await syncWith(new Store());
+    const sentAt = databaseDevice.loadState()!.sentAt!;
+    expect(sentAt).toBe(clock);
+    expect(changedAfter(sentAt)).toBe(false);
+    expect(changedAfter(null)).toBe(true);
+
+    // A row stamped with the send's own time went in that send (rebuilt cards are).
+    updateCard(
+      card.id,
+      { deckId: deck.id, front: 'a2', back: 'b', tags: [], reverse: false },
+      sentAt,
+    );
+    expect(changedAfter(sentAt)).toBe(false);
+
+    answer(card.id);
+    expect(changedAfter(sentAt)).toBe(true);
+  });
+
+  it('keeps the owner on this device only', () => {
+    expect(loadSyncOwner()).toBeNull();
+    saveSyncOwner({ account: 'a', sentAt: null });
+    expect(loadSyncOwner()).toEqual({ account: 'a', sentAt: null });
+    expect(changedRows(null).settings.map((s) => s.key)).not.toContain(SYNC_OWNER_KEY);
+    saveSyncOwner(null);
+    expect(loadSyncOwner()).toBeNull();
+    setRawSetting(SYNC_OWNER_KEY, { account: '' });
+    expect(loadSyncOwner()).toBeNull();
+    setRawSetting(SYNC_OWNER_KEY, 'garbage');
+    expect(loadSyncOwner()).toBeNull();
   });
 });

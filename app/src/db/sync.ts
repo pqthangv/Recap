@@ -2,10 +2,12 @@
 // since the last send, what's here to merge against, and writing what came in. The "How to use
 // Recap" deck stays on each device (user decision 2026-11-04): its deck, cards and answers are
 // never sent, and a device that signs in to an account with cards drops it if it was never studied.
-import { and, eq, gte, inArray, notInArray, or, type SQL } from 'drizzle-orm';
+// Also which account the cards here belong to, for signing in to another one (1.0.9).
+import { and, eq, gte, inArray, isNull, ne, notInArray, or, sql, type SQL } from 'drizzle-orm';
 
 import {
   DEVICE_SETTING_KEYS,
+  SYNC_OWNER_KEY,
   SYNC_STATE_KEY,
   TUTORIAL_DECK_KEY,
   TUTORIAL_TIP_DONE_KEY,
@@ -107,6 +109,74 @@ export function hasUnsentChanges(): boolean {
 /** Forgets sync's progress (signing out, or a new account): the next sync starts from scratch. */
 export function forgetSyncState(): void {
   db.delete(settings).where(eq(settings.key, SYNC_STATE_KEY)).run();
+}
+
+/**
+ * The account the cards here last synced with, written after each finished sync and kept after
+ * signing out. `sentAt`: that sync's SyncState.sentAt, so changes made after it are known not to
+ * be in that account.
+ */
+export type SyncOwner = { account: string; sentAt: number | null };
+
+export function loadSyncOwner(): SyncOwner | null {
+  const saved = getRawSetting(SYNC_OWNER_KEY) as Partial<SyncOwner> | null | undefined;
+  return saved && typeof saved.account === 'string' && saved.account !== ''
+    ? { account: saved.account, sentAt: typeof saved.sentAt === 'number' ? saved.sentAt : null }
+    : null;
+}
+
+export function saveSyncOwner(owner: SyncOwner | null): void {
+  if (owner) setRawSetting(SYNC_OWNER_KEY, owner);
+  else db.delete(settings).where(eq(settings.key, SYNC_OWNER_KEY)).run();
+}
+
+/** How many decks and cards (not deleted, not the tutorial) sync would share from here. */
+export function sharedCardCount(): number {
+  const tutorial = tutorialDeck();
+  const liveDecks = db
+    .select({ n: sql<number>`count(*)` })
+    .from(decks)
+    .where(and(isNull(decks.deleted_at), tutorial ? ne(decks.id, tutorial) : undefined))
+    .get();
+  const liveCards = db
+    .select({ n: sql<number>`count(*)` })
+    .from(cards)
+    .where(and(isNull(cards.deleted_at), tutorial ? ne(cards.deck_id, tutorial) : undefined))
+    .get();
+  return (liveDecks?.n ?? 0) + (liveCards?.n ?? 0);
+}
+
+/**
+ * Whether anything sync shares changed here after `sentAt` (a SyncState.sentAt; null: never sent).
+ * Strictly after: a sync stamps the cards it rebuilds with its own `now`, which is also that
+ * round's sentAt, and those were sent.
+ */
+export function changedAfter(sentAt: number | null): boolean {
+  return sentAt === null || rowCount(changedRows(sentAt + 1)) > 0;
+}
+
+/**
+ * Removes from this device everything sync shares: decks, cards, answers and the settings that
+ * aren't this device's own. Outright, not marked deleted, so no deletions are ever sent: the
+ * account they came from keeps them. The tutorial stays (it's this device's own and never syncs).
+ */
+export function removeSharedRows(): void {
+  const tutorial = tutorialDeck();
+  transaction(() => {
+    if (tutorial) {
+      const kept = db.select({ id: cards.id }).from(cards).where(eq(cards.deck_id, tutorial));
+      db.delete(reviewLogs).where(notInArray(reviewLogs.card_id, kept)).run();
+      db.delete(cards).where(ne(cards.deck_id, tutorial)).run();
+      db.delete(decks).where(ne(decks.id, tutorial)).run();
+    } else {
+      db.delete(reviewLogs).run();
+      db.delete(cards).run();
+      db.delete(decks).run();
+    }
+    db.delete(settings)
+      .where(notInArray(settings.key, [...DEVICE_SETTING_KEYS]))
+      .run();
+  });
 }
 
 /**

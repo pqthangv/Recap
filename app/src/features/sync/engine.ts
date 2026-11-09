@@ -3,13 +3,28 @@
 // or an import, and from Sync now. One sync at a time, never in the way of studying; offline it
 // waits for next time. Each sync lists the account's files, which counts toward its 150 a day
 // (sync/src/limits.ts), hence the gaps. After a sync the leaderboard gets the score, if it changed.
+//
+// Signing in (1.0.9): cards made here with no account join the account, as do the account's own.
+// Cards that came from another account (on a shared iPad or computer) are asked about first, so
+// one person's decks and streak don't end up in someone else's account.
 import { useSyncExternalStore } from 'react';
 
 import { getRawSetting, setRawSetting } from '@/db/settings';
-import { databaseDevice, dropUnusedTutorial, forgetSyncState, hasUnsentChanges } from '@/db/sync';
+import {
+  changedAfter,
+  databaseDevice,
+  dropUnusedTutorial,
+  forgetSyncState,
+  hasUnsentChanges,
+  loadSyncOwner,
+  removeSharedRows,
+  saveSyncOwner,
+  sharedCardCount,
+  type SyncOwner,
+} from '@/db/sync';
 import { sendScore } from '@/features/leaderboard/score';
-import { BOARD_SENT_KEY, SYNC_LAST_KEY } from '@/lib/settings';
-import { AccountError, needsRenewal } from '@/lib/sync/account';
+import { BOARD_SENT_KEY, SYNC_LAST_KEY, SYNC_PICTURES_KEY } from '@/lib/settings';
+import { AccountError, needsRenewal, tokenAccount, type Account } from '@/lib/sync/account';
 import {
   createHttpStore,
   createPictureStore,
@@ -72,6 +87,11 @@ async function run(): Promise<void> {
   try {
     const result = await sync(store, databaseDevice);
     if (epoch !== started) return forgetSyncState();
+    // The cards here are this account's now (signing in to another one asks about them).
+    const owner = tokenAccount(account.token);
+    if (owner) {
+      saveSyncOwner({ account: owner, sentAt: databaseDevice.loadState()?.sentAt ?? null });
+    }
     // Signed in to an account that already had cards: this device's own tutorial isn't needed.
     if (first && result.read > 0) dropUnusedTutorial();
     // The cards are in; pictures follow. Their problems (offline, today's 500 used up) aren't the
@@ -97,7 +117,7 @@ async function run(): Promise<void> {
         : e instanceof SyncError && e.reason === 'busy'
           ? 'busy'
           : 'server';
-    if (kind === 'signedOut') signOut();
+    if (kind === 'signedOut') signOut({ accountGone: true });
     update({ syncing: false, problem: kind });
   }
 }
@@ -150,16 +170,66 @@ export async function renewIfOld(now = Date.now()): Promise<void> {
     const token = await accountClient.renew(account.token);
     if (getAccount() === account) setAccount({ ...account, token });
   } catch (e) {
-    if (e instanceof AccountError && e.kind === 'signedOut' && getAccount() === account) signOut();
+    if (e instanceof AccountError && e.kind === 'signedOut' && getAccount() === account) {
+      signOut({ accountGone: true });
+    }
   }
 }
 
-/** Forgets the account on this device; the cards stay. The next sign-in starts afresh. */
-export function signOut(): void {
+/** The account the cards here came from, if it isn't `account`'s (null: none, or the same). */
+function otherOwner(account: Account): SyncOwner | null {
+  const owner = loadSyncOwner();
+  const id = tokenAccount(account.token);
+  return owner && id && owner.account !== id ? owner : null;
+}
+
+/**
+ * Signing in with `account` on a device that has another account's cards: ask what to do with
+ * them before syncing (AccountScreen), or null if there's nothing to ask. `unsent`: some changes
+ * here never reached that account, so removing the cards loses them.
+ */
+export function otherAccountCards(account: Account): { unsent: boolean } | null {
+  const owner = otherOwner(account);
+  if (!owner || sharedCardCount() === 0) return null;
+  return { unsent: changedAfter(owner.sentAt) };
+}
+
+/**
+ * Signs in and syncs. Another account's cards here (otherAccountCards) are either added to this
+ * account ('add', as before 1.0.9) or removed from this device first ('remove': that account keeps
+ * them). Without a choice, they're added if any are left, so nothing is ever removed unasked; with
+ * none left, that account's leftovers (deleted cards, their answers, its settings) are removed.
+ */
+export function signIn(account: Account, theirCards?: 'add' | 'remove'): void {
+  if (otherOwner(account)) {
+    const remove = theirCards === 'remove' || (theirCards === undefined && sharedCardCount() === 0);
+    if (remove) removeSharedRows();
+    // Which pictures were sent was about that account's files; so was the owner.
+    setRawSetting(SYNC_PICTURES_KEY, null);
+    saveSyncOwner(null);
+    forgetSyncState();
+  }
+  setAccount(account);
+  void syncNow();
+}
+
+/**
+ * Forgets the account on this device; the cards stay. The next sign-in starts afresh. Signing out
+ * yourself remembers whose cards these are, so signing in to another account asks about them.
+ * `accountGone`: the account was deleted, or the server no longer takes its token; the cards here
+ * may be the only copy, so they count as this device's own again (the next sign-in adds them).
+ * Which pictures were sent goes too: the next account needs them all (sending one the server
+ * already has is harmless).
+ */
+export function signOut({ accountGone = false }: { accountGone?: boolean } = {}): void {
   epoch++;
   clearTimeout(soon);
   setAccount(null);
   forgetSyncState();
+  if (accountGone) {
+    saveSyncOwner(null);
+    setRawSetting(SYNC_PICTURES_KEY, null);
+  }
   setRawSetting(SYNC_LAST_KEY, null);
   setRawSetting(BOARD_SENT_KEY, null);
   update({ syncing: false, lastSyncedAt: null, problem: null });

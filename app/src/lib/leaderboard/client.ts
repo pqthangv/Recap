@@ -21,8 +21,16 @@ export type Row = Person & {
   me?: true;
   following?: true;
 };
-/** The top of a board, and my place on it (`rank` null: a filter leaves me out). */
-export type View = { rows: Row[]; me: { rank: number | null; streak: number; weekCards: number } };
+/**
+ * The top of a board, and my place on it (`rank` null: a filter leaves me out).
+ * `updatedMinutesAgo` (Everyone only, from 1.0.9's Worker): how long ago its scores were worked
+ * out (./updated.ts). An older Worker leaves it out.
+ */
+export type View = {
+  rows: Row[];
+  me: { rank: number | null; streak: number; weekCards: number };
+  updatedMinutesAgo?: number;
+};
 
 export type BoardErrorKind =
   | 'offline'

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Recap",
     "slug": "recap",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "recapcards",
@@ -54,7 +54,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 10
+      "versionCode": 11
     },
     "web": {
       "bundler": "metro",
@@ -110,7 +110,7 @@
       [
         "expo-localization",
         {
-          "supportedLocales": ["en", "vi"],
+          "supportedLocales": ["en", "vi", "hi", "es", "fr", "bn", "pt"],
           "allowDynamicLocaleChangesAndroid": true
         }
       ],
@@ -131,7 +131,12 @@
       ]
     ],
     "locales": {
-      "vi": "./languages/vi.json"
+      "vi": "./languages/vi.json",
+      "hi": "./languages/hi.json",
+      "es": "./languages/es.json",
+      "fr": "./languages/fr.json",
+      "bn": "./languages/bn.json",
+      "pt": "./languages/pt.json"
     },
     "experiments": {
       "typedRoutes": true,

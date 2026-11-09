@@ -49,7 +49,7 @@ appId: com.recapcards.app
 - takeScreenshot: study
 
 # Each deck's own voices: Spanish basics is read in Spanish and English. The shot shows the list
-# of 12 languages open, with Español ticked (nothing is changed).
+# of 19 languages open, with Español ticked (nothing is changed).
 - launchApp
 - extendedWaitUntil:
     visible: 'Study · .* due'

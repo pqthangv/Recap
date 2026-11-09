@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSCameraUsageDescription": "Recap usa la cámara cuando tomas una foto, para agregarla a una tarjeta o para leer el texto de tus notas. Las fotos se quedan en tu teléfono.",
+    "NSPhotoLibraryUsageDescription": "Recap abre la foto que eliges, para agregarla a una tarjeta o para leer el texto de tus notas. Las fotos se quedan en tu teléfono.",
+    "NSMicrophoneUsageDescription": "Recap nunca graba audio. Solo reproduce sonido cuando lee tus tarjetas en voz alta."
+  }
+}

@@ -3,15 +3,15 @@
 //
 //   MAKE_DEMO_DB=path/to/recap.db [DEMO_LANGUAGE=vi] npx jest scripts/demo-db
 //
-// It's made by the app's own migrations and backup import, and marked as already seeded so the
-// welcome decks don't appear. DEMO_LANGUAGE picks the app's language (Settings › Language) for the
-// English or Vietnamese store pictures; the decks stay the same but for one name (demo-data.ts).
+// It's made by the app's own migrations and backup import. Its answers keep the app tour away (it
+// shows only before anything was studied, src/features/tour). DEMO_LANGUAGE picks the app's
+// language (Settings › Language) for the English or Vietnamese store pictures; the decks stay the
+// same but for one name (demo-data.ts).
 // Skipped in normal `npm test` runs.
 import { closeTestDb, migrateTestDb } from '../test/db';
 
 import type * as BackupDb from '@/db/backup';
 import type * as SettingsDb from '@/db/settings';
-import { SEEDED_KEY } from '@/lib/settings';
 
 import { makeDemo } from './demo-data';
 
@@ -39,13 +39,13 @@ jest.mock('@/db/client', () => {
   await migrateTestDb(); // opens the file (the mock above) and runs the app's migrations
   /* eslint-disable @typescript-eslint/no-require-imports */
   const { importBackup } = require('@/db/backup') as typeof BackupDb;
-  const { setRawSetting, setSetting } = require('@/db/settings') as typeof SettingsDb;
+  const { setSetting } = require('@/db/settings') as typeof SettingsDb;
   /* eslint-enable @typescript-eslint/no-require-imports */
   const result = importBackup(makeDemo(Date.now(), LANGUAGE));
-  setRawSetting(SEEDED_KEY, true);
   setSetting('language', LANGUAGE);
   closeTestDb();
   console.log(`${result.decks} decks, ${result.cards} cards, ${result.reviews} reviews → ${OUT}`);
   expect(fs.statSync(OUT as string).size).toBeGreaterThan(0);
   expect(result.cards).toBeGreaterThan(50);
+  expect(result.reviews).toBeGreaterThan(0); // no app tour in the pictures
 });

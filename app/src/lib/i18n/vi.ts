@@ -51,12 +51,16 @@ export const vi: Strings = {
   'interval.minutes': '{n} phút',
   'interval.hours': '{n} giờ',
   'interval.days': '{n} ngày',
-  'interval.months': '{n} tháng',
-  'interval.years': '{n} năm',
+  'interval.months_one': '{n} tháng',
+  'interval.months_other': '{n} tháng',
+  'interval.years_one': '{n} năm',
+  'interval.years_other': '{n} năm',
   'time.in': 'sau {time}',
   'time.inUnderMinute': 'sau chưa đầy một phút',
-  'time.months': '{n} tháng',
-  'time.years': '{n} năm',
+  'time.months_one': '{n} tháng',
+  'time.months_other': '{n} tháng',
+  'time.years_one': '{n} năm',
+  'time.years_other': '{n} năm',
   'time.studyNone': '0 phút',
   'time.studyUnderMinute': '<1 phút',
   'time.studyMinutes': '{m} phút',
@@ -134,12 +138,27 @@ export const vi: Strings = {
   'update.hide': 'Ẩn đến phiên bản sau',
 
   // First-launch tip
-  'tip.title': 'Mới dùng Recap?',
-  'tip.body': 'Học bộ thẻ này để biết cách dùng ứng dụng. Chỉ mất khoảng một phút.',
-  'tip.start': 'Bắt đầu',
-  'tip.startA11y': 'Bắt đầu tìm hiểu ứng dụng',
-  'tip.skip': 'Bỏ qua',
-  'tip.skipA11y': 'Bỏ qua gợi ý',
+  'tour.welcomeTitle': 'Chào mừng bạn đến với Recap',
+  'tour.welcome': 'Xem nhanh một vòng. Chỉ mất nửa phút.',
+  'tour.study': 'Thẻ cần ôn hôm nay. Recap chọn những thẻ bạn sắp quên.',
+  'tour.add': 'Tạo bộ thẻ, thêm thẻ, nhập từ tệp, hoặc dùng AI tạo thẻ từ ghi chú của bạn.',
+  'tour.stats': 'Chuỗi ngày và tiến bộ của bạn. Bảng xếp hạng cũng ở đây, nếu bạn muốn tham gia.',
+  'tour.settings': 'Đăng nhập để đồng bộ thẻ, đổi ngôn ngữ hoặc chọn giao diện tối.',
+  'tour.library': 'Chọn một bộ thẻ có sẵn để bắt đầu học.',
+  'tour.answer': 'Gõ câu trả lời, rồi chạm Kiểm tra.',
+  'tour.reveal': 'Nghĩ câu trả lời trong đầu, rồi chạm Xem đáp án.',
+  'tour.speaker': 'Thẻ được đọc thành tiếng. Chạm vào đây để nghe lại.',
+  'tour.grades':
+    'Bạn nhớ thẻ này đến đâu? Nút được tô sáng hợp với câu trả lời của bạn. Mỗi nút cho biết khi nào bạn gặp lại thẻ.',
+  'tour.gradesTwo': 'Bạn có nhớ không? Mỗi nút cho biết khi nào bạn gặp lại thẻ.',
+  'tour.gradesFour': 'Bạn nhớ thẻ này đến đâu? Mỗi nút cho biết khi nào bạn gặp lại thẻ.',
+  'tour.next': 'Tiếp',
+  'tour.back': 'Quay lại',
+  'tour.skip': 'Bỏ qua hướng dẫn',
+  'tour.done': 'Xong',
+  'tour.openLibrary': 'Mở Thư viện',
+  'tour.count': '{n}/{total}',
+  'tour.countA11y': 'Bước {n} trên {total}',
 
   // Decks
   'deck.nothingDue': 'Không có thẻ cần ôn',
@@ -158,8 +177,7 @@ export const vi: Strings = {
   'deck.frontLanguageTitle': 'Đọc mặt trước của thẻ bằng',
   'deck.backLanguageTitle': 'Đọc mặt sau của thẻ bằng',
   'deck.languageAutoOption': 'Tự động: đoán theo từng thẻ',
-  'deck.languagesHelp':
-    'Để mỗi mặt thẻ được đọc bằng đúng giọng. Chế độ Tự động nhận biết tốt nhất tiếng Anh và tiếng Việt.',
+  'deck.languagesHelp': 'Để mỗi mặt thẻ được đọc bằng đúng giọng.',
   'deck.delete': 'Xóa bộ thẻ',
   'deck.wasDeleted': 'Bộ thẻ này đã bị xóa.',
   'deck.selected': 'Đã chọn {n}',
@@ -396,7 +414,7 @@ export const vi: Strings = {
     'Với câu trả lời ngắn, hãy gõ những gì bạn nhớ. Recap sẽ kiểm tra và gợi ý một nút.',
   'settings.readAloud': 'Đọc thẻ thành tiếng',
   'settings.readAloudHelp':
-    'Đọc từng mặt thẻ bằng tiếng Anh hoặc tiếng Việt khi hiện ra. Bạn luôn có thể chạm vào loa trên thẻ.',
+    'Đọc từng mặt thẻ khi hiện ra, bằng ngôn ngữ của bộ thẻ. Bạn luôn có thể chạm vào loa trên thẻ.',
   'settings.reminder': 'Nhắc nhở',
   'settings.dailyReminder': 'Nhắc học hằng ngày',
   'settings.dailyReminderHelp':
@@ -425,6 +443,7 @@ export const vi: Strings = {
   'settings.emailSubject': 'Góp ý cho Recap',
   'settings.contactUs': 'Liên hệ',
   'settings.help': 'Trợ giúp',
+  'settings.showTour': 'Xem lại hướng dẫn',
   'settings.privacy': 'Chính sách quyền riêng tư',
   'settings.aiConsent': 'Gửi văn bản cho Google Gemini',
   'settings.aiConsentHelp':
@@ -704,6 +723,9 @@ export const vi: Strings = {
   'board.noFriends':
     'Hỏi bạn bè tên người dùng của họ (ở Bảng xếp hạng › Sửa), rồi theo dõi họ ở đây.',
   'board.notInList': 'Bạn không có trong danh sách này: chỉ gồm người học từ {n} thẻ tuần này.',
+  'board.updatedJustNow': 'Vừa cập nhật',
+  'board.updatedMinutesAgo_one': 'Cập nhật {n} phút trước',
+  'board.updatedMinutesAgo_other': 'Cập nhật {n} phút trước',
   'board.followByUsername': 'Theo dõi bằng tên người dùng',
   'board.usernamePlaceholder': 'tên người dùng',
   'board.follow': 'Theo dõi',
@@ -805,6 +827,17 @@ export const vi: Strings = {
   'account.deleteApple': 'Bạn sẽ đăng nhập bằng Apple thêm một lần để xác nhận.',
   'account.deleted': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên điện thoại này.',
   'account.deletedWeb': 'Đã xóa tài khoản. Thẻ của bạn vẫn ở trên trình duyệt này.',
+  'account.otherCardsTitle': 'Thiết bị này có thẻ của một tài khoản khác',
+  'account.otherCardsTitleWeb': 'Trình duyệt này có thẻ của một tài khoản khác',
+  'account.otherCardsBody':
+    'Các thẻ này thuộc tài khoản đã đăng nhập ở đây trước đó và vẫn được lưu trong tài khoản đó. Xóa chúng khỏi thiết bị này, hay thêm chúng vào tài khoản bạn vừa đăng nhập?',
+  'account.otherCardsBodyWeb':
+    'Các thẻ này thuộc tài khoản đã đăng nhập ở đây trước đó và vẫn được lưu trong tài khoản đó. Xóa chúng khỏi trình duyệt này, hay thêm chúng vào tài khoản bạn vừa đăng nhập?',
+  'account.otherCardsUnsent':
+    'Một số thay đổi ở đây chưa được đồng bộ lên tài khoản trước đó. Nếu xóa các thẻ, những thay đổi đó sẽ mất.',
+  'account.otherCardsRemove': 'Xóa các thẻ này khỏi thiết bị',
+  'account.otherCardsRemoveWeb': 'Xóa các thẻ này khỏi trình duyệt',
+  'account.otherCardsAdd': 'Thêm các thẻ này vào tài khoản của tôi',
 
   // Lỗi đăng nhập
   'accountError.offline': 'Không kết nối được máy chủ Recap. Hãy kiểm tra mạng rồi thử lại.',

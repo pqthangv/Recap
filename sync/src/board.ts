@@ -103,8 +103,16 @@ export type Row = {
   me?: true;
   following?: true;
 };
-/** `me.rank` is null when a filter leaves me out. */
-export type View = { rows: Row[]; me: { rank: number | null; streak: number; weekCards: number } };
+/**
+ * `me.rank` is null when a filter leaves me out. `updatedMinutesAgo` (Everyone only): how long ago
+ * its scores were worked out, in whole minutes (it's kept up to CACHE_MS; the app says "Updated 12
+ * min ago"). Friends is worked out on every visit, so it has none.
+ */
+export type View = {
+  rows: Row[];
+  me: { rank: number | null; streak: number; weekCards: number };
+  updatedMinutesAgo?: number;
+};
 export type Report = {
   result: 'ok' | 'already' | 'too_many' | 'not_found' | 'self' | 'not_joined' | 'busy';
   /** What to email about it, when it's one of today's first ten. */
@@ -519,7 +527,7 @@ export class Board extends DurableObject<Env> {
     return 'ok';
   }
 
-  /** Everyone, sorted both ways; worked out again after 10 minutes, a new week or a name change. */
+  /** Everyone, sorted both ways; worked out again after CACHE_MS or in a new week (names: refresh). */
   private sortedEveryone(now: number) {
     const week = weekOf(now);
     const cached = this.everyone;
@@ -551,6 +559,7 @@ export class Board extends DurableObject<Env> {
       ).rows.map((r) => r.id),
     );
     let result: ReturnType<typeof ranked>;
+    let updatedMinutesAgo: number | undefined;
     if (tab === 'friends') {
       // Followed people who are anonymous or hidden drop out until that ends.
       const friends = this.exec<Member>(
@@ -565,6 +574,7 @@ export class Board extends DurableObject<Env> {
     } else {
       const blocked = this.blockedEither(m.id);
       const sorted = this.sortedEveryone(now);
+      updatedMinutesAgo = Math.max(0, Math.floor((now - sorted.at) / 60_000));
       result = ranked(
         by === 'streak' ? sorted.byStreak : sorted.byWeek,
         by,
@@ -590,6 +600,7 @@ export class Board extends DurableObject<Env> {
     return {
       rows,
       me: { rank: result.myRank, streak: mine.streak, weekCards: mine.weekCards },
+      ...(updatedMinutesAgo === undefined ? {} : { updatedMinutesAgo }),
     };
   }
 

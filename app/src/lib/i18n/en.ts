@@ -49,12 +49,16 @@ export const en = {
   'interval.minutes': '{n}m',
   'interval.hours': '{n}h',
   'interval.days': '{n}d',
-  'interval.months': '{n}mo',
-  'interval.years': '{n}y',
+  'interval.months_one': '{n}mo',
+  'interval.months_other': '{n}mo',
+  'interval.years_one': '{n}y',
+  'interval.years_other': '{n}y',
   'time.in': 'in {time}',
   'time.inUnderMinute': 'in less than a minute',
-  'time.months': '{n} months',
-  'time.years': '{n} years',
+  'time.months_one': '{n} month',
+  'time.months_other': '{n} months',
+  'time.years_one': '{n} year',
+  'time.years_other': '{n} years',
   'time.studyNone': '0 min',
   'time.studyUnderMinute': '<1 min',
   'time.studyMinutes': '{m} min',
@@ -132,12 +136,28 @@ export const en = {
   'update.hide': 'Hide until the next version',
 
   // First-launch tip
-  'tip.title': 'New to Recap?',
-  'tip.body': 'Study this deck to learn the app. It takes about a minute.',
-  'tip.start': 'Start',
-  'tip.startA11y': 'Start learning the app',
-  'tip.skip': 'Skip',
-  'tip.skipA11y': 'Skip the tip',
+  // The tour (features/tour): Home the first time the app opens, then the first card studied.
+  'tour.welcomeTitle': 'Welcome to Recap',
+  'tour.welcome': 'A quick look around. It takes half a minute.',
+  'tour.study': "Your cards for today. Recap picks the ones you're about to forget.",
+  'tour.add': 'Make a deck, add cards, import a file, or make cards with AI from your notes.',
+  'tour.stats': 'Your streak and progress. The leaderboard is in here too, if you want to join.',
+  'tour.settings': 'Sign in to sync your cards, and change the language or dark mode.',
+  'tour.library': 'Pick a ready-made deck to start studying.',
+  'tour.answer': 'Type the answer, then press Check.',
+  'tour.reveal': 'Think of the answer, then tap Show answer.',
+  'tour.speaker': 'Cards are read aloud. Tap here to hear it again.',
+  'tour.grades':
+    "How well did you know it? The highlighted button matches your answer. Each one says when you'll see the card again.",
+  'tour.gradesTwo': "Did you know it? Each button says when you'll see the card again.",
+  'tour.gradesFour': "How well did you know it? Each button says when you'll see the card again.",
+  'tour.next': 'Next',
+  'tour.back': 'Back',
+  'tour.skip': 'Skip tour',
+  'tour.done': 'Done',
+  'tour.openLibrary': 'Open Library',
+  'tour.count': '{n} of {total}',
+  'tour.countA11y': 'Step {n} of {total}',
 
   // Decks
   'deck.nothingDue': 'Nothing due',
@@ -156,8 +176,7 @@ export const en = {
   'deck.frontLanguageTitle': 'Read the front of the cards in',
   'deck.backLanguageTitle': 'Read the back of the cards in',
   'deck.languageAutoOption': 'Auto: guessed from each card',
-  'deck.languagesHelp':
-    'So each side is read in the right voice. Auto knows English and Vietnamese best.',
+  'deck.languagesHelp': 'So each side is read in the right voice.',
   'deck.delete': 'Delete deck',
   'deck.wasDeleted': 'This deck was deleted.',
   'deck.selected': '{n} selected',
@@ -393,7 +412,7 @@ export const en = {
   'settings.fourButtonsHelp': 'Again, Hard, Good and Easy instead of Forgot and Got it.',
   'settings.readAloud': 'Read cards aloud',
   'settings.readAloudHelp':
-    'Reads each side in English or Vietnamese as it appears. You can always tap the speaker on a card.',
+    "Reads each side as it appears, in its deck's language. You can always tap the speaker on a card.",
   'settings.reminder': 'Reminder',
   'settings.dailyReminder': 'Daily reminder',
   'settings.dailyReminderHelp':
@@ -419,6 +438,7 @@ export const en = {
   'settings.emailSubject': 'Recap feedback',
   'settings.contactUs': 'Contact us',
   'settings.help': 'Help',
+  'settings.showTour': 'Show the tour again',
   'settings.privacy': 'Privacy policy',
   'settings.aiConsent': 'Send text to Google Gemini',
   'settings.aiConsentHelp':
@@ -702,6 +722,10 @@ export const en = {
   'board.noFriends':
     "Ask friends for their username (it's under Leaderboard › Edit), then follow them here.",
   'board.notInList': "You're not in this list: it shows people with {n}+ cards this week.",
+  // Under Everyone: its scores are worked out again every 30 minutes
+  'board.updatedJustNow': 'Updated just now',
+  'board.updatedMinutesAgo_one': 'Updated {n} min ago',
+  'board.updatedMinutesAgo_other': 'Updated {n} min ago',
   'board.followByUsername': 'Follow by username',
   'board.usernamePlaceholder': 'username',
   'board.follow': 'Follow',
@@ -800,6 +824,18 @@ export const en = {
   'account.deleteApple': "You'll sign in with Apple once more to confirm.",
   'account.deleted': 'Account deleted. Your cards stay on this phone.',
   'account.deletedWeb': 'Account deleted. Your cards stay in this browser.',
+  // Signing in on a device that has cards from another account (a shared iPad or computer)
+  'account.otherCardsTitle': 'This device has cards from another account',
+  'account.otherCardsTitleWeb': 'This browser has cards from another account',
+  'account.otherCardsBody':
+    "They belong to the account that was signed in here before, and they're still saved there. Remove them from this device, or add them to the account you just signed in to?",
+  'account.otherCardsBodyWeb':
+    "They belong to the account that was signed in here before, and they're still saved there. Remove them from this browser, or add them to the account you just signed in to?",
+  'account.otherCardsUnsent':
+    'Some changes made here were never synced to the previous account. Removing the cards loses those changes.',
+  'account.otherCardsRemove': 'Remove these cards from this device',
+  'account.otherCardsRemoveWeb': 'Remove these cards from this browser',
+  'account.otherCardsAdd': 'Add these cards to my account',
 
   // Sign-in errors
   'accountError.offline':

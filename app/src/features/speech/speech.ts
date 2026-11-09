@@ -11,19 +11,48 @@ import { isWeb } from '@/lib/platform';
 import {
   cardLanguageName,
   detectLanguage,
-  SPEECH_LOCALES,
+  speechRequest,
+  voiceReads,
   type CardLanguage,
 } from '@/lib/language';
 
 let voices: Promise<Speech.Voice[]> | undefined;
+let listed: Speech.Voice[] | undefined;
 let audioReady: Promise<void> | undefined;
 const warned = new Set<CardLanguage>();
+// Counts speak() and stopSpeaking() calls, so only the latest reading starts.
+let readings = 0;
+
+/** How long a reading waits for the voice list before it starts with the usual tag. */
+export const VOICES_WAIT_MS = 1500;
+
+function phoneVoices(): Promise<Speech.Voice[]> {
+  voices ??= Speech.getAvailableVoicesAsync()
+    .catch(() => [])
+    .then((list) => (listed = list));
+  return voices;
+}
+
+// A browser can take its time listing voices, or never say it has (expo waits for
+// "voiceschanged"): the reading doesn't wait for it forever. A phone always answers once its
+// speech engine is ready (or has failed), and waiting there keeps the right voice for the first
+// card.
+function voicesForReading(): Promise<Speech.Voice[]> {
+  if (listed) return Promise.resolve(listed);
+  if (!isWeb) return phoneVoices();
+  return new Promise((resolve) => {
+    const timer = setTimeout(() => resolve([]), VOICES_WAIT_MS);
+    void phoneVoices().then((list) => {
+      clearTimeout(timer);
+      resolve(list);
+    });
+  });
+}
 
 function hasVoice(lang: CardLanguage): Promise<boolean> {
-  voices ??= Speech.getAvailableVoicesAsync().catch(() => []);
-  return voices.then(
+  return phoneVoices().then(
     // If the engine reports no voices at all, assume it can still speak.
-    (list) => list.length === 0 || list.some((v) => v.language.toLowerCase().startsWith(lang)),
+    (list) => list.length === 0 || list.some((v) => voiceReads(lang, v.language)),
   );
 }
 
@@ -65,14 +94,18 @@ export function speak(
   const lang = options.language ?? detectLanguage(sideToText(trimmed));
   const words = speakSide(trimmed, lang);
   Speech.stop();
-  void prepareAudio().then(() =>
+  const turn = ++readings;
+  // The voice is picked from the phone's list, which takes a moment the first time.
+  void Promise.all([voicesForReading(), prepareAudio()]).then(([list]) => {
+    // A newer reading or Stop came first: this one never starts.
+    if (turn !== readings) return;
     Speech.speak(words, {
-      language: SPEECH_LOCALES[lang],
+      ...speechRequest(lang, list, Platform.OS === 'android'),
       rate: 0.95,
       onDone: options.onDone,
       onError: options.onDone,
-    }),
-  );
+    });
+  });
   // Every phone has an English voice; for the others, say once if this phone has none.
   if (lang !== 'en' && !warned.has(lang)) {
     hasVoice(lang).then((ok) => {
@@ -85,5 +118,6 @@ export function speak(
 }
 
 export function stopSpeaking(): void {
+  readings++;
   Speech.stop();
 }

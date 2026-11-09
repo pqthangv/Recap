@@ -1,0 +1,51 @@
+O Recap é um app de flashcards feito para a recordação ativa. Você digita a resposta, o Recap confere e a repetição espaçada traz cada cartão de volta pouco antes de você esquecê-lo.
+
+DIGITE. O RECAP CONFERE.
+• Em respostas curtas, digite o que você lembra. O Recap marca as letras que você errou e distingue um erro de digitação da falta de acento (“cafe” em vez de “café”).
+• Depois, ele sugere um botão: De novo, Difícil, Bom ou Fácil. Confirme com um toque ou escolha outro.
+• Respostas longas? Toque no cartão para vê-las, como sempre.
+
+CARTÕES EM QUALQUER PAR DE IDIOMAS
+• Crie cartões com IA a partir das suas anotações, da foto de uma página, de um PDF ou só de um tema.
+• Escolha o idioma de cada lado: palavras em inglês com significados em português, termos em japonês com explicações em inglês e outras combinações, em 19 idiomas.
+• Confira cada cartão antes de salvar: edite, remova ou reporte o que não estiver certo.
+
+OUÇA CADA CARTÃO
+• Os cartões são lidos em voz alta no próprio idioma, com as vozes do seu iPhone, em até 19 idiomas. Escolha English e Português no baralho uma vez, e todos os cartões terão a voz certa.
+• Desative a leitura quando quiser em Configurações ou toque no alto-falante para ouvir um cartão outra vez.
+
+EM TODOS OS SEUS DISPOSITIVOS
+• Entre com Apple, Google ou e-mail para manter seus baralhos, cartões e progresso sincronizados no seu iPhone, no seu iPad e em recapflashcards.com.
+• É opcional: sem conta, o Recap funciona por completo no seu dispositivo, mesmo sem internet.
+• Exclua sua conta quando quiser em Configurações › Sincronizar meus cartões.
+
+COMPARE SEQUÊNCIAS COM AMIGOS
+• Participe do ranking, se quiser: sequências e cartões estudados nesta semana, entre todos ou entre os amigos que você segue.
+• Escolha seu próprio nome ou apareça como Pessoa anônima. Bloqueie ou denuncie qualquer nome.
+
+LEMBRE MAIS, ESTUDE MENOS
+• O FSRS, um algoritmo de memória moderno e baseado em pesquisas, agenda cada revisão para você.
+• Um só botão Estudar mostra tudo o que está pendente hoje. Uma só configuração: quanto você quer lembrar.
+• Uma sequência diária, estatísticas dia a dia e um lembrete opcional ajudam você a manter o ritmo.
+
+BARALHOS PRONTOS
+• English basics para quem fala vietnamita (1.000 palavras do dia a dia), vocabulário de TOEIC, IELTS e SAT, além das capitais do mundo, tudo escrito para o Recap.
+
+IPHONE, IPAD E WEB
+• O Recap ocupa a tela inteira do iPad, assim como a do iPhone, e funciona no seu navegador em recapflashcards.com.
+
+TRAGA SEUS PRÓPRIOS CARTÕES
+• Importe planilhas (.csv e .tsv do Excel, Numbers ou Google Sheets), listas coladas e baralhos .apkg do app Arquivos.
+• Matemática nos cartões: frações, raízes e potências com “+ Fórmula”, sem precisar de LaTeX.
+• Imagens nos cartões, baralhos dentro de baralhos e baralhos excluídos recentemente, que você pode restaurar por 30 dias.
+• O app está em português, inglês, vietnamita, hindi, espanhol, francês e bengali.
+
+PRIVACIDADE DESDE O INÍCIO
+• Sem anúncios, sem assinaturas e sem precisar de conta. Seus cartões ficam no seu dispositivo e funcionam sem internet; só saem dele se você ativar a sincronização.
+• Faça backup de tudo em um arquivo ou exporte seus cartões em CSV, quando quiser.
+
+“Criar com IA” pergunta antes de enviar qualquer coisa: seu texto vai para a IA Gemini do Google, que escreve os cartões.
+
+TOEIC, IELTS e SAT são marcas comerciais de seus respectivos proprietários; o Recap não tem vínculo com eles.
+
+Dúvidas ou sugestões? Envie um e-mail para support@recapflashcards.com

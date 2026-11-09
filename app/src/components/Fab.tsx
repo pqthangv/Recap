@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import type { Ref } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { type Colors, useStyles } from '@/lib/theme';
@@ -7,14 +8,18 @@ import { type Colors, useStyles } from '@/lib/theme';
 export function Fab({
   onPress,
   accessibilityLabel,
+  ref,
 }: {
   onPress: () => void;
   accessibilityLabel: string;
+  /** The tour's `useTourTarget`. */
+  ref?: Ref<View>;
 }) {
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
   return (
     <Pressable
+      ref={ref}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
@@ -24,7 +29,9 @@ export function Fab({
         pressed && { opacity: 0.85 },
       ]}
     >
-      <Text style={styles.plus}>+</Text>
+      {/* Two bars, not a "+" character: fonts put that below the middle of the circle. */}
+      <View style={styles.bar} />
+      <View style={[styles.bar, styles.upright]} />
     </Pressable>
   );
 }
@@ -46,5 +53,12 @@ const makeStyles = (colors: Colors) =>
       shadowRadius: 8,
       shadowOffset: { width: 0, height: 3 },
     },
-    plus: { color: colors.onPrimary, fontSize: 34, lineHeight: 38, fontWeight: '400' },
+    bar: {
+      position: 'absolute',
+      width: 22,
+      height: 3,
+      borderRadius: 1.5,
+      backgroundColor: colors.onPrimary,
+    },
+    upright: { width: 3, height: 22 },
   });

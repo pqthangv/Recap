@@ -1,6 +1,6 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useHeaderHeight } from 'expo-router/react-navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useEffectEvent, useLayoutEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -11,6 +11,16 @@ import { shouldOfferReminder } from '@/features/reminders/offer';
 import { ReminderOffer } from '@/features/reminders/ReminderOffer';
 import { syncReminders } from '@/features/reminders/reminders';
 import { syncSoon } from '@/features/sync/engine';
+import { studySteps } from '@/features/tour/steps';
+import { useTourTarget } from '@/features/tour/targets';
+import {
+  resumeTour,
+  startTour,
+  stopTour,
+  tourDue,
+  useTourActive,
+  useTourWaiting,
+} from '@/features/tour/tour';
 import { decksInGroup } from '@/lib/deckGroups';
 import { t, tn } from '@/lib/i18n';
 import { type Colors, useStyles } from '@/lib/theme';
@@ -38,9 +48,36 @@ export default function StudyScreen() {
   // first laid out gave 0 on iOS 27 (scene life cycle), before the screen was in its window.
   const headerHeight = useHeaderHeight();
 
-  // Web: after checking a typed answer, Enter takes the suggested grade (type, Enter, Enter).
+  // The tour's studying part (features/tour), the first time a card is studied here, with the
+  // steps that fit the first card. A layout effect starts it before the answer box would open the
+  // keyboard. The grades step waits until the answer shows.
+  const [tourSteps] = useState(() =>
+    card && tourDue('study')
+      ? studySteps({ typed: session.typing, readAloud: session.readAloud, fourButtons })
+      : null,
+  );
+  useLayoutEffect(() => {
+    if (tourSteps) startTour('study', tourSteps);
+    return () => stopTour('study');
+  }, [tourSteps]);
+  const touring = useTourActive();
+  const tourWaiting = useTourWaiting('study');
+  // The time to answer starts again once the tour steps aside, so a quick right answer can be Easy.
+  const restartTimer = useEffectEvent(() => session.questionRead(turn));
   useEffect(() => {
-    if (Platform.OS !== 'web' || !previews || !suggested) return;
+    if (!tourWaiting) return;
+    if (previews) resumeTour('study');
+    else restartTimer();
+  }, [tourWaiting, previews]);
+  const speakerTarget = useTourTarget('speaker');
+  const answerTarget = useTourTarget('answer');
+  const revealTarget = useTourTarget('reveal');
+  const gradesTarget = useTourTarget('grades');
+
+  // Web: after checking a typed answer, Enter takes the suggested grade (type, Enter, Enter); not
+  // while a tour step is showing.
+  useEffect(() => {
+    if (Platform.OS !== 'web' || !previews || !suggested || touring) return;
     const grade = highlightedGrade(suggested, fourButtons);
     const onKey = (event: KeyboardEvent) => {
       // Japanese/Chinese keyboards confirm a word with Enter.
@@ -50,7 +87,7 @@ export default function StudyScreen() {
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [previews, suggested, fourButtons, answer]);
+  }, [previews, suggested, fourButtons, answer, touring]);
 
   // Studying can keep the streak, so re-plan the reminders when a session ends or is left (e.g.
   // tonight's "streak ends tonight" goes), not only when the app goes to the background.
@@ -116,10 +153,12 @@ export default function StudyScreen() {
               check={session.typedCheck}
               imageRef={card.image_uri}
               imageSide={card.image_side}
+              speakerRef={speakerTarget}
             />
             <View style={styles.actions}>
               {previews ? (
                 <GradeButtons
+                  ref={gradesTarget}
                   previews={previews}
                   fourButtons={fourButtons}
                   suggested={suggested}
@@ -128,11 +167,14 @@ export default function StudyScreen() {
               ) : session.typing ? (
                 <AnswerBox
                   key={turn}
+                  ref={answerTarget}
+                  waitForTour={tourSteps !== null}
                   onStartTyping={session.startTyping}
                   onCheck={session.checkTyped}
                 />
               ) : (
                 <Button
+                  ref={revealTarget}
                   size="lg"
                   variant="secondary"
                   label={t('study.showAnswer')}
