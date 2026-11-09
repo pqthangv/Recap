@@ -107,11 +107,14 @@ appId: com.recapcards.app
 - takeScreenshot: stats
 # The leaderboard (1.0.8): the screenshot build's made-up board (EXPO_PUBLIC_DEMO_BOARD in the
 # workflow, src/lib/leaderboard/demo.ts), with the demo's own 15-day streak among the others.
-# On the folded iPhone Duo the button is at the bottom edge.
+# On the folded iPhone Duo the button is at the bottom edge, and with longer words (French,
+# Spanish, Portuguese, Hindi, Bengali) the page can't scroll it fully into view: about 60% of it
+# shows (2026-11-09). Half is enough to tap its middle.
 - scrollUntilVisible:
     element:
       text: Ranking
     direction: DOWN
+    visibilityPercentage: 50
 - tapOn: Ranking
 - extendedWaitUntil:
     visible: '.*Ana Clara.*'

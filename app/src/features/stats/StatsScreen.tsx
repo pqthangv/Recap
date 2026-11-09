@@ -1,7 +1,6 @@
 import { router } from 'expo-router';
 import type { ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { FlameIcon } from '@/components/FlameIcon';
@@ -22,7 +21,6 @@ function dayLabel(offset: number, day: number, short = false): string {
 
 export default function StatsScreen() {
   const styles = useStyles(makeStyles);
-  const insets = useSafeAreaInsets();
   // Cards, decks and settings change today's new-card goal.
   const stats = useLive(() => getStats(), ['review_logs', 'cards', 'decks', 'settings']);
   const { done, goal } = stats.goal;
@@ -30,9 +28,7 @@ export default function StatsScreen() {
   const max = Math.max(1, ...stats.lastWeek.map((d) => d.cards));
 
   return (
-    // Room below the Leaderboard button for the phone's bottom edge: on the folded iPhone Duo, with
-    // the longer Bengali lines, it couldn't be scrolled fully into view (2026-11-09).
-    <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 20 }]}>
+    <ScrollView contentContainerStyle={styles.content}>
       <View style={styles.tiles}>
         <Tile
           label={t('stats.newToday')}
