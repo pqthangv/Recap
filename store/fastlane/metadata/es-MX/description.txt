@@ -1,0 +1,51 @@
+Recap es una app de tarjetas de estudio pensada para el recuerdo activo. Tú escribes la respuesta, Recap la comprueba y la repetición espaciada te vuelve a mostrar cada tarjeta justo antes de que la olvides.
+
+ESCRIBE LA RESPUESTA. RECAP LA COMPRUEBA.
+• Si la respuesta es corta, escribe lo que recuerdas. Recap marca las letras que escribiste mal y distingue un error de escritura de un acento que falta (“cancion” en lugar de “canción”).
+• Luego te sugiere Otra vez, Difícil, Bien o Fácil. Confirma con un toque o elige otra opción.
+• ¿Respuestas largas? Toca la tarjeta para verlas, como siempre.
+
+TARJETAS EN LOS DOS IDIOMAS QUE ELIJAS
+• Crea tarjetas con IA a partir de tus notas, la foto de una página, un PDF o solo un tema.
+• Elige el idioma de cada lado: palabras en inglés con su significado en español, términos en japonés con explicaciones en inglés y otras combinaciones entre 19 idiomas.
+• Revisa cada tarjeta antes de guardarla: edita, quita o reporta lo que no esté bien.
+
+ESCUCHA CADA TARJETA
+• Las tarjetas se leen en voz alta en su propio idioma con las voces de tu iPhone, en hasta 19 idiomas. Asigna Español y English a un mazo una sola vez, y cada tarjeta sonará como debe.
+• Desactiva la lectura en Ajustes cuando quieras, o toca el altavoz para volver a escuchar una tarjeta.
+
+EN TODOS TUS DISPOSITIVOS
+• Inicia sesión con Apple, Google o correo electrónico para tener tus mazos, tarjetas y progreso sincronizados en tu iPhone, tu iPad y en recapflashcards.com.
+• Es opcional: sin cuenta, Recap funciona por completo en tu dispositivo, incluso sin conexión.
+• Elimina tu cuenta cuando quieras en Ajustes › Sincronizar mis tarjetas.
+
+COMPARA RACHAS CON TUS AMIGOS
+• Únete a la clasificación si quieres: rachas y tarjetas estudiadas esta semana, con todos o con los amigos que sigues.
+• Elige tu propio nombre o aparece como Anónimo. Bloquea o reporta cualquier nombre.
+
+RECUERDA MÁS, ESTUDIA MENOS
+• FSRS, un algoritmo de memoria moderno y basado en investigaciones, programa cada repaso por ti.
+• Un solo botón, Estudiar, muestra todo lo pendiente para hoy. Un solo ajuste: cuánto quieres recordar.
+• Una racha diaria, estadísticas día a día y un recordatorio opcional te ayudan a mantener el ritmo.
+
+MAZOS YA HECHOS
+• English basics para hablantes de vietnamita (1000 palabras cotidianas en inglés, con su significado en vietnamita), vocabulario de TOEIC, IELTS y SAT, y las capitales del mundo, todos escritos para Recap.
+
+IPHONE, IPAD Y LA WEB
+• Recap ocupa toda la pantalla del iPad, igual que la del iPhone, y funciona en tu navegador en recapflashcards.com.
+
+USA TUS PROPIAS TARJETAS
+• Importa hojas de cálculo (.csv y .tsv de Excel, Numbers o Google Sheets), listas pegadas y mazos .apkg desde la app Archivos.
+• Matemáticas en las tarjetas: fracciones, raíces y potencias con “+ Fórmula”, sin necesidad de LaTeX.
+• Imágenes en las tarjetas, mazos dentro de mazos y mazos eliminados recientemente que puedes restaurar durante 30 días.
+• La app está en español, inglés, vietnamita, hindi, francés, bengalí y portugués.
+
+PRIVACIDAD DESDE EL DISEÑO
+• Sin anuncios, sin suscripciones y sin necesidad de cuenta. Tus tarjetas se guardan en tu dispositivo y funcionan sin conexión; solo salen de él si activas la sincronización.
+• Haz una copia de seguridad de todo en un archivo o exporta tus tarjetas como CSV, cuando quieras.
+
+“Crear con IA” te pregunta antes de enviar nada: tu texto se envía a Gemini, la IA de Google, que escribe las tarjetas.
+
+TOEIC, IELTS y SAT son marcas comerciales de sus respectivos titulares; Recap no está afiliado a ellos.
+
+¿Preguntas o ideas? Escríbenos a support@recapflashcards.com
