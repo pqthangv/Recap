@@ -1,17 +1,18 @@
 // A ready-made Recap database with the demo decks, for App Store screenshots in the iPhone
 // simulator (.github/workflows/ios.yml copies it into the app before Maestro takes the pictures):
 //
-//   MAKE_DEMO_DB=path/to/recap.db [DEMO_LANGUAGE=vi] npx jest scripts/demo-db
+//   MAKE_DEMO_DB=path/to/recap.db [DEMO_LANGUAGE=vi|hi|es|fr|bn|pt] npx jest scripts/demo-db
 //
 // It's made by the app's own migrations and backup import. Its answers keep the app tour away (it
 // shows only before anything was studied, src/features/tour). DEMO_LANGUAGE picks the app's
-// language (Settings › Language) for the English or Vietnamese store pictures; the decks stay the
-// same but for one name (demo-data.ts).
+// language (Settings › Language) for that language's store pictures; the decks stay the same
+// but for the typed-answer deck (demo-data.ts).
 // Skipped in normal `npm test` runs.
 import { closeTestDb, migrateTestDb } from '../test/db';
 
 import type * as BackupDb from '@/db/backup';
 import type * as SettingsDb from '@/db/settings';
+import { APP_LANGUAGES, isLanguage } from '@/lib/i18n/languages';
 
 import { makeDemo } from './demo-data';
 
@@ -21,8 +22,8 @@ const fs = require('fs');
 
 const OUT: string | undefined = process.env.MAKE_DEMO_DB;
 const LANGUAGE = process.env.DEMO_LANGUAGE ?? 'en';
-if (LANGUAGE !== 'en' && LANGUAGE !== 'vi')
-  throw new Error(`DEMO_LANGUAGE: en or vi, not ${LANGUAGE}`);
+if (!isLanguage(LANGUAGE))
+  throw new Error(`DEMO_LANGUAGE: one of ${APP_LANGUAGES.join(', ')}, not ${LANGUAGE}`);
 // jest.mock factories may only use variables whose names start with "mock", and they run when the
 // client is first imported. So the db modules are required inside the test (after mockFile is set),
 // and an old file is removed here, before the database opens: deleting an open file would lose
