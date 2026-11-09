@@ -78,16 +78,55 @@ async function setUpScreen() {
     '--category',
     'com.android.internal.systemui.navbar.gestural',
   );
-  // The tidy status bar of store screenshots: 9:41, full battery, Wi-Fi, no notifications.
+  // Switching the navigation redraws the status bar a moment later: let that happen first.
+  for (
+    let i = 0;
+    i < 20 && shell('settings', 'get', 'secure', 'navigation_mode').trim() !== '2';
+    i++
+  ) {
+    await sleep(500);
+  }
   shell('settings', 'put', 'global', 'sysui_demo_allowed', '1');
+  await sleep(5000);
+}
+
+/**
+ * The tidy status bar of store screenshots ("demo mode"): 9:41, full battery, Wi-Fi, no
+ * notifications. Set again before every screenshot: on GitHub's newly started emulator the status
+ * bar was sometimes redrawn after it was set and showed the real time (2026-11-09), and a redraw
+ * in demo mode can leave a second Wi-Fi icon; leaving demo mode and entering it again clears both.
+ */
+async function tidyStatusBar() {
   const demo = (...a) => shell('am', 'broadcast', '-a', 'com.android.systemui.demo', ...a);
-  demo('-e', 'command', 'enter');
-  demo('-e', 'command', 'clock', '-e', 'hhmm', '0941');
-  demo('-e', 'command', 'network', '-e', 'mobile', 'hide');
-  demo('-e', 'command', 'network', '-e', 'wifi', 'show', '-e', 'level', '4', '-e', 'fully', 'true');
-  demo('-e', 'command', 'battery', '-e', 'level', '100', '-e', 'plugged', 'false');
-  demo('-e', 'command', 'notifications', '-e', 'visible', 'false');
-  await sleep(2000);
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    demo('-e', 'command', 'exit');
+    await sleep(800);
+    demo('-e', 'command', 'enter');
+    demo('-e', 'command', 'clock', '-e', 'hhmm', '0941');
+    demo('-e', 'command', 'network', '-e', 'mobile', 'hide');
+    demo(
+      '-e',
+      'command',
+      'network',
+      '-e',
+      'wifi',
+      'show',
+      '-e',
+      'level',
+      '4',
+      '-e',
+      'fully',
+      'true',
+    );
+    demo('-e', 'command', 'battery', '-e', 'level', '100', '-e', 'plugged', 'false');
+    demo('-e', 'command', 'notifications', '-e', 'visible', 'false');
+    await sleep(1200);
+    const state = shell('dumpsys', 'activity', 'service', 'com.android.systemui');
+    if (/isInDemoMode=true/.test(state)) return;
+    console.log(`   the status bar isn't in demo mode yet (try ${attempt})`);
+    await sleep(2000);
+  }
+  throw new Error("Couldn't set the 9:41 status bar (demo mode)");
 }
 
 async function chooseKeyboard() {
@@ -131,12 +170,19 @@ function dump() {
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
         .replace(/&amp;/g, '&');
-    return [...xml.matchAll(/<node [^>]*>/g)].map((m) => {
-      const attr = (name) =>
-        unescape((m[0].match(new RegExp(` ${name}="([^"]*)"`)) || [])[1] || '');
-      const [x1, y1, x2, y2] = (attr('bounds').match(/\d+/g) || [0, 0, 0, 0]).map(Number);
-      return { text: attr('text'), desc: attr('content-desc'), x: (x1 + x2) / 2, y: (y1 + y2) / 2 };
-    });
+    // Only what's really on the screen. A list row scrolled out of sight is still listed, with its
+    // bottom above its top (e.g. [32,1875][1049,1668]); its "middle" was the Cancel row below the
+    // list, so the tap closed the language list (2026-11-09). A sliver doesn't count either.
+    return [...xml.matchAll(/<node [^>]*>/g)]
+      .map((m) => {
+        const attr = (name) =>
+          unescape((m[0].match(new RegExp(` ${name}="([^"]*)"`)) || [])[1] || '');
+        const [x1, y1, x2, y2] = (attr('bounds').match(/\d+/g) || [0, 0, 0, 0]).map(Number);
+        const shown = x2 - x1 >= 24 && y2 - y1 >= 24;
+        const node = { text: attr('text'), desc: attr('content-desc') };
+        return { ...node, shown, x: (x1 + x2) / 2, y: (y1 + y2) / 2 };
+      })
+      .filter((n) => n.shown);
   } catch {
     return null;
   }
@@ -195,6 +241,21 @@ function swipe(fromY, toY, ms) {
 function swipeUp() {
   const { h } = screenSize();
   swipe(h * 0.75, h * 0.3, 400);
+}
+
+/**
+ * The element once its list has stopped moving: a list keeps gliding a moment after a swipe, and
+ * a tap on a moving list only stops it (2026-11-09: the AI screen's back language stayed "Auto").
+ */
+async function settled(pattern) {
+  let last = await find(pattern);
+  for (let i = 0; i < 10; i++) {
+    await sleep(600);
+    const now = await find(pattern);
+    if (last && now && Math.abs(now.y - last.y) < 3) return now;
+    last = now;
+  }
+  throw new Error(`Still moving after 6 s: ${pattern}`);
 }
 
 /** Types into the focused text box through ADBKeyBoard, then checks the text is there. */
@@ -261,10 +322,11 @@ async function runFlow(steps) {
         node = await find(props.text);
       }
       if (!node) throw new Error(`Not found by scrolling: ${props.text}`);
+      node = await settled(props.text);
       const { h } = screenSize();
       if (props.centerElement === 'true' && node.y > h * 0.55) {
         swipe(node.y, h * 0.5, 600);
-        await sleep(700);
+        await settled(props.text);
       }
     } else if (cmd === 'scroll') {
       swipeUp();
@@ -280,6 +342,7 @@ async function runFlow(steps) {
       await sleep(1800);
     } else if (cmd === 'takeScreenshot') {
       if (!value.startsWith('check-')) {
+        await tidyStatusBar();
         fs.writeFileSync(path.join(args.out, `${value}.png`), adb('exec-out', 'screencap', '-p'));
         console.log(`   saved ${value}.png`);
       }
