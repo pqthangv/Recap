@@ -1,10 +1,9 @@
-# The Vietnamese App Store screenshots: the same steps as screenshots.yaml (keep the two in step),
-# with the app in Vietnamese (the workflow's language "vi" makes the demo database with Settings ›
-# Language = Tiếng Việt) and every label it taps or waits for taken from src/lib/i18n/vi.ts. The
-# demo decks stay as they are, but the study deck is called "English words" (the same cards as the
-# English flow's "Vietnamese words"). Create with AI makes English words with Vietnamese meanings.
-# Generated from screenshots.yaml with every label swapped; the comments below are the English
-# flow's.
+# The App Store screenshots with the app in vi (the workflow's language "vi" makes the
+# demo database with Settings › Language set to it): the same steps as screenshots.yaml, every
+# label it taps or waits for taken from src/lib/i18n/vi.ts. The study deck is "English
+# words", with this language's cards (scripts/demo-data.ts). Made by
+# scripts/screenshot-flows.js: change screenshots.yaml, then run it again. The comments below
+# are the English flow's.
 appId: com.recapcards.app
 ---
 - launchApp
@@ -37,7 +36,7 @@ appId: com.recapcards.app
     visible: 'Câu trả lời của bạn.*'
     timeout: 30000
 - tapOn: 'Câu trả lời của bạn.*'
-- inputText: 'qua tao'
+- inputText: qua tao
 - tapOn: Kiểm tra
 - extendedWaitUntil:
     visible: 'Gần đúng.*'
@@ -84,7 +83,7 @@ appId: com.recapcards.app
     timeout: 60000
 - tapOn: Thư viện
 - extendedWaitUntil:
-    visible: 'Các bộ thẻ có sẵn.*'
+    visible: 'Các bộ thẻ có sẵn để thêm vào bộ thẻ của bạn.*'
     timeout: 30000
 - scrollUntilVisible:
     element:
@@ -101,7 +100,7 @@ appId: com.recapcards.app
     timeout: 60000
 - tapOn: Thống kê
 - extendedWaitUntil:
-    visible: 'Thẻ đã học trong 7 ngày qua'
+    visible: Thẻ đã học trong 7 ngày qua
     timeout: 30000
 - waitForAnimationToEnd:
     timeout: 10000
@@ -191,7 +190,17 @@ appId: com.recapcards.app
 - tapOn: 'Ngôn ngữ mặt trước của thẻ.*'
 - tapOn: 'English(, ✓)?'
 - tapOn: 'Ngôn ngữ mặt sau của thẻ.*'
+- scrollUntilVisible:
+    element:
+      text: '简体中文(, ✓)?'
+    direction: DOWN
 - tapOn: 'Tiếng Việt(, ✓)?'
+# The pick took: the button names the language now. A row half under the list's bottom edge
+# counts as visible, so a tap on it missed (folded Duo and iPhone, 2026-11-09); the other
+# languages' flows scroll to the language after theirs first (scripts/screenshot-flows.js).
+- extendedWaitUntil:
+    visible: 'Ngôn ngữ mặt sau của thẻ: Tiếng Việt.*'
+    timeout: 10000
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: ai

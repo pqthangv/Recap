@@ -192,9 +192,15 @@ appId: com.recapcards.app
 - tapOn: 'Idioma do verso dos cartões.*'
 - scrollUntilVisible:
     element:
-      text: 'Português(, ✓)?'
+      text: 'Русский(, ✓)?'
     direction: DOWN
 - tapOn: 'Português(, ✓)?'
+# The pick took: the button names the language now. A row half under the list's bottom edge
+# counts as visible, so a tap on it missed (folded Duo and iPhone, 2026-11-09); the other
+# languages' flows scroll to the language after theirs first (scripts/screenshot-flows.js).
+- extendedWaitUntil:
+    visible: 'Idioma do verso dos cartões: Português.*'
+    timeout: 10000
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: ai

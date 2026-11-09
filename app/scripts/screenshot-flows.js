@@ -24,6 +24,14 @@ function readStrings(lang) {
   return Object.values(exports)[0];
 }
 
+/** The card languages' own names, in the order the language list shows them. */
+function cardLanguageNames() {
+  const source = fs.readFileSync(path.join(app, 'src', 'lib', 'language.ts'), 'utf8');
+  const list = /export const CARD_LANGUAGES = \[([\s\S]*?)\];/.exec(source);
+  if (!list) throw new Error('No CARD_LANGUAGES in src/lib/language.ts');
+  return [...list[1].matchAll(/name: '([^']+)'/g)].map((m) => m[1]);
+}
+
 // The English flow's label → the key whose text it is. A label ending in ".*" matches the start
 // of the text (its part before any {blank}); "Study · .* due" is a whole text with its blank.
 const LABELS = {
@@ -147,17 +155,28 @@ function flowFor(lang, english, en) {
     if (value === 'Tiếng Việt(, ✓)?' || value === 'English(, ✓)?') {
       picks += 1;
       if (picks === 1) return head + quote('English(, ✓)?');
-      // This language may be far down the list of 19: scroll to it first.
+      // This language may be far down the list of 19: scroll until the one after it shows, so this
+      // one is fully on the screen. A row half under the list's bottom edge counts as visible,
+      // and a tap on it missed (folded Duo and iPhone, 2026-11-09).
+      const names = cardLanguageNames();
+      const at = names.indexOf(extra.name);
+      if (at < 0) throw new Error(`${extra.name} isn't in CARD_LANGUAGES`);
       const pick = quote(`${escape(extra.name)}(, ✓)?`);
+      const scrollTo = quote(`${escape(names[at + 1] ?? extra.name)}(, ✓)?`);
       return (
         `- scrollUntilVisible:
     element:
-      text: ${pick}
+      text: ${scrollTo}
     direction: DOWN
 ` +
         head +
         pick
       );
+    }
+    if (value === 'Language of the card backs: English.*') {
+      // The check that the pick took, with this language's label and name.
+      const [before, after] = text['languages.backA11y'].split('{language}');
+      return head + quote(`${escape(before)}${escape(extra.name)}${escape(after ?? '')}.*`);
     }
     const key = LABELS[value];
     if (!key) return line; // a demo deck's name, or a made-up person: the same in every language

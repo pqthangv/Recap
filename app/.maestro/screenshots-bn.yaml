@@ -192,9 +192,15 @@ appId: com.recapcards.app
 - tapOn: 'কার্ডের পেছনের দিকের ভাষা.*'
 - scrollUntilVisible:
     element:
-      text: 'বাংলা(, ✓)?'
+      text: 'Bahasa Indonesia(, ✓)?'
     direction: DOWN
 - tapOn: 'বাংলা(, ✓)?'
+# The pick took: the button names the language now. A row half under the list's bottom edge
+# counts as visible, so a tap on it missed (folded Duo and iPhone, 2026-11-09); the other
+# languages' flows scroll to the language after theirs first (scripts/screenshot-flows.js).
+- extendedWaitUntil:
+    visible: 'কার্ডের পেছনের দিকের ভাষা: বাংলা.*'
+    timeout: 10000
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: ai
