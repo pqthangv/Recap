@@ -28,12 +28,14 @@ def check_only?(options)
   mode == "check"
 end
 
-# images:yes replaces the store's screenshots (and Play's feature graphic) with ours.
+# images:yes replaces the store's screenshots (and Play's feature graphic) with ours. fastlane
+# turns images:yes into true (and images:no into false) before the lane sees it.
 def images?(options, check)
-  images = (options[:images] || "no").to_s
-  UI.user_error!("images must be yes or no, not '#{images}'") unless %w[yes no].include?(images)
-  UI.user_error!("images:yes goes with mode:upload (a check never uploads pictures)") if check && images == "yes"
-  images == "yes"
+  value = options[:images].nil? ? "no" : options[:images].to_s
+  UI.user_error!("images must be yes or no, not '#{value}'") unless %w[yes no true false].include?(value)
+  images = %w[yes true].include?(value)
+  UI.user_error!("images:yes goes with mode:upload (a check never uploads pictures)") if check && images
+  images
 end
 
 def secret(name)
