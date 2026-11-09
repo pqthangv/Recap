@@ -9,18 +9,9 @@ name: Android screenshots
 # The store slides are made from the screenshots by the store graphics script
 # (Recap-private/Recap-play-listing/tools/make_store_slides.py).
 #
-# Runs when a push to a branch (not main) changes this workflow, its script or what the screenshots
-# show (the flows, the demo decks, the made-up leaderboard), or by hand once it's on main:
-# Actions > Android screenshots > Run workflow (pick a branch, language and size).
+# Runs only by hand: Actions > Android screenshots > Run workflow (pick a branch, language and
+# size). GitHub lists it because this file is on main.
 on:
-  push:
-    branches-ignore: [main]
-    paths:
-      - '.github/workflows/android-screens.yml'
-      - 'app/scripts/android-screens.js'
-      - 'app/.maestro/**'
-      - 'app/scripts/demo-data.ts'
-      - 'app/src/lib/leaderboard/demo.ts'
   workflow_dispatch:
     inputs:
       language:
@@ -37,9 +28,10 @@ on:
 permissions:
   contents: read
 
-# A newer push to the same branch replaces a run that hasn't finished.
+# Starting the same screenshots again (branch, language and size) replaces a run that hasn't
+# finished; different ones run side by side.
 concurrency:
-  group: android-screens-${{ github.ref }}
+  group: android-screens-${{ github.ref }}-${{ inputs.language }}-${{ inputs.size }}
   cancel-in-progress: true
 
 jobs:
