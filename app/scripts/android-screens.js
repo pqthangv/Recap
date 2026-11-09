@@ -101,46 +101,44 @@ async function setUpScreen() {
  * emulator is still working through its start-up broadcasts, and in the normal queue they arrived
  * too late or not at all (2 of 21 jobs, 2026-11-09). Whether they took is checked on the screen:
  * "demo mode on" alone isn't enough (with the System UI Tuner's switch it was on while one job of
- * 21 still showed the real time in every screenshot, 2026-11-09).
+ * 21 still showed the real time in every screenshot, 2026-11-09). The Wi-Fi icon is checked the
+ * same way: the first screenshot sometimes had none (3 of 168, 2026-11-09).
  */
 async function tidyStatusBar() {
   const demo = (...a) =>
     shell('am', 'broadcast', '-f', FOREGROUND, '-a', 'com.android.systemui.demo', ...a);
+  const FULL = ['show', '-e', 'level', '4', '-e', 'fully', 'true']; // full Wi-Fi signal
+  const wifi = (on) => demo('-e', 'command', 'network', '-e', 'wifi', ...(on ? FULL : ['hide']));
   for (let attempt = 1; attempt <= 4; attempt++) {
     demo('-e', 'command', 'exit');
     await sleep(800);
     demo('-e', 'command', 'enter');
     demo('-e', 'command', 'clock', '-e', 'hhmm', '0941');
     demo('-e', 'command', 'network', '-e', 'mobile', 'hide');
-    demo(
-      '-e',
-      'command',
-      'network',
-      '-e',
-      'wifi',
-      'show',
-      '-e',
-      'level',
-      '4',
-      '-e',
-      'fully',
-      'true',
-    );
+    wifi(true);
     demo('-e', 'command', 'battery', '-e', 'level', '100', '-e', 'plugged', 'false');
     demo('-e', 'command', 'notifications', '-e', 'visible', 'false');
     await sleep(1200);
     // The clock follows the commands: at 10:10 it looks different from 9:41.
     demo('-e', 'command', 'clock', '-e', 'hhmm', '1010');
     await sleep(800);
-    const at1010 = clockPixels();
+    const at1010 = statusBarPixels('clock');
     demo('-e', 'command', 'clock', '-e', 'hhmm', '0941');
     await sleep(800);
-    const follows = !clockPixels().equals(at1010);
+    const follows = !statusBarPixels('clock').equals(at1010);
+    // And the Wi-Fi icon: without it the right end looks different.
+    wifi(false);
+    await sleep(800);
+    const noWifi = statusBarPixels('icons');
+    wifi(true);
+    await sleep(800);
+    const hasWifi = !statusBarPixels('icons').equals(noWifi);
     const state = shell('dumpsys', 'activity', 'service', 'com.android.systemui');
-    if (follows && /isInDemoMode=true/.test(state)) return;
+    if (follows && hasWifi && /isInDemoMode=true/.test(state)) return;
     const seen = (state.match(/isDemoModeAllowed=\w+/) || ['(no demo mode state)'])[0];
     const clock = follows ? 'the clock follows' : "the clock doesn't follow";
-    console.log(`   the 9:41 status bar didn't take (try ${attempt}: ${clock}, ${seen})`);
+    const icon = hasWifi ? 'Wi-Fi shows' : "Wi-Fi doesn't show";
+    console.log(`   the 9:41 status bar didn't take (try ${attempt}: ${clock}, ${icon}, ${seen})`);
     // Switching "allowed" off and on makes System UI read it again.
     shell('settings', 'put', 'global', 'sysui_demo_allowed', '0');
     await sleep(1000);
@@ -150,17 +148,17 @@ async function tidyStatusBar() {
   throw new Error("Couldn't set the 9:41 status bar (demo mode)");
 }
 
-/** The left end of the status bar (the clock) as raw pixels. */
-function clockPixels() {
+/** One end of the status bar as raw pixels: the clock (left) or the icons (Wi-Fi, battery: right). */
+function statusBarPixels(end) {
   const raw = adb('exec-out', 'screencap'); // a small header, then width x height RGBA pixels
   const w = raw.readUInt32LE(0);
   const h = raw.readUInt32LE(4);
   const head = raw.length - w * h * 4;
   if (head < 12 || head > 64) throw new Error(`Unexpected screencap size: ${raw.length} bytes`);
-  const right = Math.round(w * 0.2);
+  const [from, to] = end === 'clock' ? [0, Math.round(w * 0.2)] : [Math.round(w * 0.6), w];
   const rows = [];
   for (let y = 0; y < Math.round(h * 0.025); y++) {
-    rows.push(raw.subarray(head + y * w * 4, head + (y * w + right) * 4));
+    rows.push(raw.subarray(head + (y * w + from) * 4, head + (y * w + to) * 4));
   }
   return Buffer.concat(rows);
 }
