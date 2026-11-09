@@ -29,6 +29,8 @@ const SIZES = {
 };
 // The flow's last screenshot here: its next step would send the topic to Gemini.
 const LAST_SHOT = 'ai';
+// FLAG_RECEIVER_FOREGROUND: adb's messages skip the queue of a newly started emulator's broadcasts.
+const FOREGROUND = '0x10000000';
 
 const args = {};
 for (let i = 2; i < process.argv.length; i += 2) {
@@ -95,12 +97,19 @@ async function setUpScreen() {
  * notifications. Set again before every screenshot: on GitHub's newly started emulator the status
  * bar was sometimes redrawn after it was set and showed the real time (2026-11-09), and a redraw
  * in demo mode can leave a second Wi-Fi icon; leaving demo mode and entering it again clears both.
+ * The commands go in Android's priority queue (-f FLAG_RECEIVER_FOREGROUND): a newly started
+ * emulator is still working through its start-up broadcasts, and in the normal queue they arrived
+ * too late or not at all (2 of 21 jobs, 2026-11-09). sysui_tuner_demo_on (the System UI Tuner's
+ * switch) turns demo mode on through a setting as well.
  */
 async function tidyStatusBar() {
-  const demo = (...a) => shell('am', 'broadcast', '-a', 'com.android.systemui.demo', ...a);
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  const demo = (...a) =>
+    shell('am', 'broadcast', '-f', FOREGROUND, '-a', 'com.android.systemui.demo', ...a);
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    shell('settings', 'put', 'global', 'sysui_tuner_demo_on', '0');
     demo('-e', 'command', 'exit');
     await sleep(800);
+    shell('settings', 'put', 'global', 'sysui_tuner_demo_on', '1');
     demo('-e', 'command', 'enter');
     demo('-e', 'command', 'clock', '-e', 'hhmm', '0941');
     demo('-e', 'command', 'network', '-e', 'mobile', 'hide');
@@ -123,8 +132,13 @@ async function tidyStatusBar() {
     await sleep(1200);
     const state = shell('dumpsys', 'activity', 'service', 'com.android.systemui');
     if (/isInDemoMode=true/.test(state)) return;
-    console.log(`   the status bar isn't in demo mode yet (try ${attempt})`);
-    await sleep(2000);
+    const seen = (state.match(/isDemoModeAllowed=\w+/) || ['(no demo mode state)'])[0];
+    console.log(`   the status bar isn't in demo mode yet (try ${attempt}, ${seen})`);
+    // Switching "allowed" off and on makes System UI read it again.
+    shell('settings', 'put', 'global', 'sysui_demo_allowed', '0');
+    await sleep(1000);
+    shell('settings', 'put', 'global', 'sysui_demo_allowed', '1');
+    await sleep(3000);
   }
   throw new Error("Couldn't set the 9:41 status bar (demo mode)");
 }
@@ -263,8 +277,8 @@ async function type(text) {
   const b64 = Buffer.from(text, 'utf8').toString('base64');
   for (let attempt = 1; attempt <= 2; attempt++) {
     // The keyboard may not be attached to the box yet: start clean, then type.
-    shell('am', 'broadcast', '-a', 'ADB_CLEAR_TEXT');
-    shell('am', 'broadcast', '-a', 'ADB_INPUT_B64', '--es', 'msg', b64);
+    shell('am', 'broadcast', '-f', FOREGROUND, '-a', 'ADB_CLEAR_TEXT');
+    shell('am', 'broadcast', '-f', FOREGROUND, '-a', 'ADB_INPUT_B64', '--es', 'msg', b64);
     for (let i = 0; i < 8; i++) {
       await sleep(700);
       if ((await nodes()).some((n) => n.text.includes(text))) return;
