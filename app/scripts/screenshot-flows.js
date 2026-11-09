@@ -13,15 +13,26 @@ const app = path.join(__dirname, '..');
 const i18n = path.join(app, 'src', 'lib', 'i18n');
 const maestro = path.join(app, '.maestro');
 
-/** The text object a language file exports (`export const en = { ... }`). */
-function readStrings(lang) {
-  const source = fs.readFileSync(path.join(i18n, `${lang}.ts`), 'utf8');
+/** What a TypeScript file exports (its imports come back empty: only its plain data is read). */
+function readExports(file) {
+  const source = fs.readFileSync(file, 'utf8');
   const { outputText } = ts.transpileModule(source, {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
   });
   const exports = {};
   new Function('exports', 'require', outputText)(exports, () => ({}));
-  return Object.values(exports)[0];
+  return exports;
+}
+
+/** The text object a language file exports (`export const en = { ... }`). */
+function readStrings(lang) {
+  return Object.values(readExports(path.join(i18n, `${lang}.ts`)))[0];
+}
+
+/** The made-up leaderboard's first person in this app language (src/lib/leaderboard/demo.ts). */
+function boardLeader(lang) {
+  const { DEMO_NAMES } = readExports(path.join(app, 'src', 'lib', 'leaderboard', 'demo.ts'));
+  return (DEMO_NAMES[lang] ?? DEMO_NAMES.en).people[0][0];
 }
 
 /** The card languages' own names, in the order the language list shows them. */
@@ -152,6 +163,8 @@ function flowFor(lang, english, en) {
     if (value === 'Almost.*')
       return head + quote(label(text[extra.almost].split(/[:：]/)[0], true));
     if (value === 'Vietnamese words.*') return head + quote('English words.*');
+    // The made-up leaderboard has this language's names (src/lib/leaderboard/demo.ts).
+    if (value === '.*Minh Anh.*') return head + quote(`.*${escape(boardLeader(lang))}.*`);
     if (value === 'Tiếng Việt(, ✓)?' || value === 'English(, ✓)?') {
       picks += 1;
       if (picks === 1) return head + quote('English(, ✓)?');

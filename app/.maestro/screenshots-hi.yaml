@@ -114,7 +114,7 @@ appId: com.recapcards.app
     direction: DOWN
 - tapOn: 'लीडरबोर्ड'
 - extendedWaitUntil:
-    visible: '.*Minh Anh.*'
+    visible: '.*अनन्या.*'
     timeout: 30000
 - waitForAnimationToEnd:
     timeout: 10000

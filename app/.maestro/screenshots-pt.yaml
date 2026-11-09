@@ -114,7 +114,7 @@ appId: com.recapcards.app
     direction: DOWN
 - tapOn: Ranking
 - extendedWaitUntil:
-    visible: '.*Minh Anh.*'
+    visible: '.*Ana Clara.*'
     timeout: 30000
 - waitForAnimationToEnd:
     timeout: 10000

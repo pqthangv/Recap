@@ -114,7 +114,7 @@ appId: com.recapcards.app
     direction: DOWN
 - tapOn: Clasificación
 - extendedWaitUntil:
-    visible: '.*Minh Anh.*'
+    visible: '.*Lucía.*'
     timeout: 30000
 - waitForAnimationToEnd:
     timeout: 10000
