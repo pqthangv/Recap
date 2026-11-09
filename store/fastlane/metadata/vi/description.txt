@@ -7,11 +7,11 @@ GÕ CÂU TRẢ LỜI. RECAP KIỂM TRA.
 
 AI TẠO THẺ BẰNG NGÔN NGỮ BẠN CHỌN
 • Tạo bằng AI từ ghi chú, ảnh chụp một trang sách, tệp PDF hoặc chỉ một chủ đề.
-• Chọn ngôn ngữ cho từng mặt thẻ: từ tiếng Anh kèm nghĩa tiếng Việt, thuật ngữ tiếng Nhật kèm giải thích tiếng Anh, và nhiều hơn nữa, với 12 ngôn ngữ.
+• Chọn ngôn ngữ cho từng mặt thẻ: từ tiếng Anh kèm nghĩa tiếng Việt, thuật ngữ tiếng Nhật kèm giải thích tiếng Anh, và nhiều hơn nữa, với 19 ngôn ngữ.
 • Xem lại từng thẻ trước khi lưu: sửa, bỏ, hoặc báo cáo thẻ chưa đúng.
 
 NGHE TỪNG THẺ
-• Thẻ được đọc thành tiếng bằng đúng ngôn ngữ của nó, với giọng đọc có sẵn trên iPhone, hỗ trợ đến 12 ngôn ngữ. Chọn Español và English cho một bộ thẻ một lần, mọi thẻ đều được đọc đúng.
+• Thẻ được đọc thành tiếng bằng đúng ngôn ngữ của nó, với giọng đọc có sẵn trên iPhone, hỗ trợ đến 19 ngôn ngữ. Chọn Español và English cho một bộ thẻ một lần, mọi thẻ đều được đọc đúng.
 • Tắt đọc thành tiếng bất cứ lúc nào trong Cài đặt, hoặc chạm vào loa để nghe lại.
 
 THẺ CỦA BẠN TRÊN MỌI THIẾT BỊ
@@ -38,7 +38,7 @@ DÙNG THẺ CỦA RIÊNG BẠN
 • Nhập bảng tính (.csv và .tsv từ Excel, Numbers hoặc Google Sheets), danh sách dán vào, và bộ thẻ .apkg từ ứng dụng Tệp.
 • Công thức toán trên thẻ: phân số, căn, lũy thừa với "+ Công thức", không cần biết LaTeX.
 • Ảnh trên thẻ, bộ thẻ lồng nhau, và khôi phục bộ thẻ đã xóa trong 30 ngày.
-• Có tiếng Việt và tiếng Anh.
+• Có tiếng Việt, tiếng Anh, tiếng Hindi, tiếng Tây Ban Nha, tiếng Pháp, tiếng Bengal và tiếng Bồ Đào Nha.
 
 RIÊNG TƯ NGAY TỪ ĐẦU
 • Không quảng cáo, không gói thuê bao, không cần tài khoản. Thẻ của bạn nằm trên thiết bị và dùng được khi không có mạng; thẻ chỉ rời máy khi bạn bật đồng bộ.

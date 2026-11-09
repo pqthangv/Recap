@@ -7,6 +7,7 @@ import { en } from './en';
 import {
   APP_LANGUAGES,
   decimal,
+  groupDigits,
   LANGUAGE_NAMES,
   language,
   phoneLanguage,
@@ -68,7 +69,7 @@ describe('the app languages', () => {
   it('each have their own name, a locale and number marks', () => {
     for (const lang of APP_LANGUAGES) {
       const info = LANGUAGE_INFO[lang];
-      expect(info.locale).toMatch(new RegExp(`^${lang}-[A-Z]{2}$`));
+      expect(info.locale).toMatch(new RegExp(`^${lang}-([A-Z]{2}|419)$`)); // es-419: Latin America
       expect(info.thousands).not.toBe(info.decimal);
       expect(['one', 'other']).toContain(info.plural(1));
     }
@@ -90,10 +91,12 @@ describe('the app languages', () => {
     }
   });
 
-  it('can all be loaded by the website', async () => {
-    for (const lang of APP_LANGUAGES.filter((l) => l !== 'en')) {
-      await expect(web.fetchTranslation(lang)).resolves.toBe(translationNow(lang));
-    }
+  // The newer ones download on the website (load.web.ts): TypeScript makes sure each has a
+  // loader, but Jest can't run import().
+  it('include Vietnamese in the website’s own file', async () => {
+    expect(web.translationNow('vi')).toBe(vi);
+    await expect(web.fetchTranslation('vi')).resolves.toBe(vi);
+    expect(web.translationNow('hi')).toBeNull();
   });
 });
 
@@ -116,6 +119,16 @@ describe('t and tn', () => {
     expect(t('deck.inside', {})).toBe('Inside “{name}”');
   });
 
+  it('group digits by thousands, or as India does', () => {
+    expect(groupDigits('7936', ',')).toBe('7,936');
+    expect(groupDigits('1234567', '.')).toBe('1.234.567');
+    expect(groupDigits('999', ',', true)).toBe('999');
+    expect(groupDigits('7936', ',', true)).toBe('7,936');
+    expect(groupDigits('123456', ',', true)).toBe('1,23,456');
+    expect(groupDigits('12345678', ',', true)).toBe('1,23,45,678');
+    expect(groupDigits('-1234567', ',', true)).toBe('-12,34,567');
+  });
+
   it('write decimals with each language’s marks', () => {
     expect(decimal(2.5, 1)).toBe('2.5');
     expect(decimal(1234.56, 1)).toBe('1,234.6');
@@ -123,6 +136,29 @@ describe('t and tn', () => {
     setLanguage('vi');
     expect(decimal(2.5, 1)).toBe('2,5');
     expect(decimal(1234.56, 1)).toBe('1.234,6');
+    setLanguage('hi');
+    expect(decimal(1234567.5, 1)).toBe('12,34,567.5');
+    setLanguage('fr');
+    expect(decimal(7936.25, 2)).toBe('7 936,25');
+  });
+
+  it('take the singular for 0 where the language does', () => {
+    const forms = (lang: keyof typeof LANGUAGE_INFO) =>
+      [0, 1, 2, 21].map((n) => LANGUAGE_INFO[lang].plural(n));
+    expect(forms('en')).toEqual(['other', 'one', 'other', 'other']);
+    expect(forms('es')).toEqual(['other', 'one', 'other', 'other']);
+    for (const lang of ['fr', 'pt', 'hi', 'bn'] as const) {
+      expect(forms(lang)).toEqual(['one', 'one', 'other', 'other']);
+    }
+    // Decimals (2.5 months): French and Portuguese keep the singular below 2 ("1,5 an").
+    const decimals = (lang: keyof typeof LANGUAGE_INFO) =>
+      [0.5, 1.5, 2.5].map((n) => LANGUAGE_INFO[lang].plural(n));
+    expect(decimals('en')).toEqual(['other', 'other', 'other']);
+    expect(decimals('es')).toEqual(['other', 'other', 'other']);
+    expect(decimals('fr')).toEqual(['one', 'one', 'other']);
+    expect(decimals('pt')).toEqual(['one', 'one', 'other']);
+    expect(decimals('hi')).toEqual(['one', 'other', 'other']);
+    expect(decimals('bn')).toEqual(['one', 'other', 'other']);
   });
 });
 
@@ -130,7 +166,7 @@ describe('phoneLanguage', () => {
   it("picks the first of the phone's languages that Recap has", () => {
     mockLocales.mockImplementation(() => [{ languageCode: 'vi' }, { languageCode: 'en' }]);
     expect(phoneLanguage()).toBe('vi');
-    mockLocales.mockImplementation(() => [{ languageCode: 'fr' }, { languageCode: 'vi' }]);
+    mockLocales.mockImplementation(() => [{ languageCode: 'sw' }, { languageCode: 'vi' }]);
     expect(phoneLanguage()).toBe('vi');
     mockLocales.mockImplementation(() => [{ languageCode: 'ja' }]);
     expect(phoneLanguage()).toBe('en');

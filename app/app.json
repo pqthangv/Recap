@@ -110,7 +110,7 @@
       [
         "expo-localization",
         {
-          "supportedLocales": ["en", "vi"],
+          "supportedLocales": ["en", "vi", "hi", "es", "fr", "bn", "pt"],
           "allowDynamicLocaleChangesAndroid": true
         }
       ],
@@ -131,7 +131,12 @@
       ]
     ],
     "locales": {
-      "vi": "./languages/vi.json"
+      "vi": "./languages/vi.json",
+      "hi": "./languages/hi.json",
+      "es": "./languages/es.json",
+      "fr": "./languages/fr.json",
+      "bn": "./languages/bn.json",
+      "pt": "./languages/pt.json"
     },
     "experiments": {
       "typedRoutes": true,

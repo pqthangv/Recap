@@ -7,11 +7,11 @@ TYPE IT. RECAP CHECKS IT.
 
 CARDS IN ANY TWO LANGUAGES
 • Create with AI from your notes, a photo of a page, a PDF, or just a topic.
-• Choose each side's language: English words with Vietnamese meanings, Japanese terms with English explanations, and more, in 12 languages.
+• Choose each side's language: English words with Vietnamese meanings, Japanese terms with English explanations, and more, in 19 languages.
 • Check every card before you save it: edit, remove, or report anything that isn't right.
 
 HEAR EVERY CARD
-• Cards are read aloud in their own language with your iPhone's voices, in up to 12 languages. Set a deck to Español and English once, and every card sounds right.
+• Cards are read aloud in their own language with your iPhone's voices, in up to 19 languages. Set a deck to Español and English once, and every card sounds right.
 • Turn reading off any time in Settings, or tap the speaker to hear a card again.
 
 ON ALL YOUR DEVICES
@@ -38,7 +38,7 @@ BRING YOUR OWN CARDS
 • Import spreadsheets (.csv and .tsv from Excel, Numbers or Google Sheets), pasted lists, and .apkg decks from the Files app.
 • Math on cards: fractions, roots and powers with "+ Math", no LaTeX needed.
 • Pictures on cards, decks inside decks, and recently deleted decks you can restore for 30 days.
-• In English and Vietnamese.
+• In English, Vietnamese, Hindi, Spanish, French, Bengali and Portuguese.
 
 PRIVATE BY DESIGN
 • No ads, no subscriptions, and no account needed. Your cards live on your device and work offline; they only leave it if you turn on sync.

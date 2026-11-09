@@ -1,0 +1,52 @@
+Recap est une app de flashcards conçue pour le rappel actif. Vous tapez la réponse, Recap la vérifie, et la répétition espacée fait revenir chaque carte juste avant qu’elle ne vous sorte de la tête.
+
+TAPEZ LA RÉPONSE. RECAP VÉRIFIE.
+• Pour les réponses courtes, tapez ce dont vous vous souvenez. Recap marque les lettres erronées et distingue une faute de frappe d’un simple oubli d’accents (« eleve » pour « élève »).
+• Recap vous suggère ensuite un bouton : À revoir, Dur, Bien ou Facile. Confirmez d’un seul appui, ou choisissez-en un autre.
+• Réponses longues ? Appuyez sur la carte pour les voir, comme d’habitude.
+
+DES CARTES EN DEUX LANGUES AU CHOIX
+• Créez des cartes avec l’IA à partir de vos notes, de la photo d’une page, d’un PDF ou d’un simple sujet.
+• Choisissez la langue de chaque face : des mots anglais avec leur sens en français, des termes japonais expliqués en anglais, et plus encore, parmi 19 langues.
+• Relisez chaque carte avant de l’enregistrer : modifiez, retirez ou signalez ce qui ne va pas.
+
+ÉCOUTEZ CHAQUE CARTE
+• Chaque carte est lue à voix haute dans sa propre langue, avec les voix de votre téléphone (jusqu’à 19 langues). Réglez un paquet une fois pour toutes sur English et Français, et chaque carte sonne juste.
+• Désactivez la lecture à tout moment dans Réglages, ou appuyez sur le haut-parleur pour réécouter une carte.
+
+SUR TOUS VOS APPAREILS
+• Connectez-vous avec Google, Apple ou par e-mail pour retrouver vos paquets, vos cartes et votre progression à l’identique sur vos téléphones, votre tablette et recapflashcards.com.
+• C’est facultatif : sans compte, Recap fonctionne entièrement sur votre appareil, même hors ligne.
+• Supprimez votre compte à tout moment dans Réglages › Synchroniser mes cartes.
+
+COMPAREZ VOS SÉRIES ENTRE AMIS
+• Rejoignez le classement si vous le souhaitez : séries et cartes étudiées cette semaine, avec tout le monde ou avec les amis que vous suivez.
+• Choisissez votre nom, ou affichez-vous comme Anonyme. Bloquez ou signalez n’importe quel nom.
+
+RETENEZ PLUS, RÉVISEZ MOINS
+• FSRS, un algorithme de mémorisation moderne fondé sur la recherche, planifie chaque révision pour vous.
+• Un seul bouton Étudier affiche tout ce qui est à revoir aujourd’hui. Un seul réglage : la part de vos cartes que vous voulez retenir.
+• Une série quotidienne, des statistiques jour par jour et un rappel facultatif vous aident à garder le rythme.
+
+DES PAQUETS TOUT PRÊTS
+• English basics pour les personnes qui parlent vietnamien (1 000 mots anglais du quotidien, avec leur sens en vietnamien), le vocabulaire du TOEIC, de l’IELTS et du SAT, et les capitales du monde (en anglais), tous rédigés pour Recap.
+
+TÉLÉPHONES, TABLETTES ET LE WEB
+• Recap s’adapte aux téléphones et aux tablettes, et fonctionne dans votre navigateur sur recapflashcards.com.
+
+UTILISEZ VOS PROPRES CARTES
+• Importez des feuilles de calcul (.csv et .tsv depuis Excel ou Google Sheets), des listes collées et des paquets .apkg.
+• Des maths sur vos cartes : fractions, racines et puissances avec « + Formule », sans avoir besoin de LaTeX.
+• Des images sur les cartes, des sous-paquets, et les paquets supprimés récemment, que vous pouvez restaurer pendant 30 jours.
+• En français, anglais, vietnamien, hindi, espagnol, bengali et portugais.
+
+SANS PUBLICITÉ, SANS ABONNEMENT
+• Pas de publicité, pas d’abonnement, pas besoin de compte. Vos cartes restent sur votre téléphone et s’utilisent hors ligne ; elles ne le quittent que si vous activez la synchronisation.
+• Sauvegardez tout dans un fichier, ou exportez vos cartes en CSV, à tout moment.
+
+« Créer avec l’IA » vous demande votre accord avant d’envoyer quoi que ce soit : le texte que vous choisissez est traité par le service Gemini de Google pour écrire les cartes.
+Politique de confidentialité : https://recapflashcards.com/privacy
+
+TOEIC, IELTS et SAT sont des marques de leurs propriétaires respectifs ; Recap n’est affilié à aucun d’eux.
+
+Des questions ou des idées ? Écrivez à support@recapflashcards.com

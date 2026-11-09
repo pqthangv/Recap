@@ -1,0 +1,4 @@
+• O Recap agora está em português, hindi, espanhol, francês e bengali.
+• Cartões lidos em voz alta e criados com IA em 19 idiomas, agora também com chinês tradicional, cantonês, indonésio, malaio, hindi, filipino e bengali.
+• Um tour rápido na primeira vez que você abre o Recap.
+• Pequenas correções.

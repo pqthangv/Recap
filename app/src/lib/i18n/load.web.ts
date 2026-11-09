@@ -11,9 +11,15 @@ import { vi } from './vi';
 
 const BUNDLED: Partial<Record<Translated, Translation>> = { vi };
 
-// One line per newer language, e.g. `hi: () => import('./hi').then((m) => m.hi)`. A test
-// (i18n.test.ts) checks that every language is here or in BUNDLED.
-const LOADERS: Partial<Record<Translated, () => Promise<Translation>>> = {};
+// One line per newer language: TypeScript fails until a new one has its line. (Jest can't run
+// these import()s, so try a new language on the website itself.)
+const LOADERS: Record<Exclude<Translated, 'vi'>, () => Promise<Translation>> = {
+  hi: () => import('./hi').then((m) => m.hi),
+  es: () => import('./es').then((m) => m.es),
+  fr: () => import('./fr').then((m) => m.fr),
+  bn: () => import('./bn').then((m) => m.bn),
+  pt: () => import('./pt').then((m) => m.pt),
+};
 
 const downloaded: Partial<Record<Translated, Translation>> = {};
 
@@ -26,7 +32,7 @@ export function translationNow(lang: Translated): Translation | null {
 export function fetchTranslation(lang: Translated): Promise<Translation> {
   const now = translationNow(lang);
   if (now) return Promise.resolve(now);
-  const load = LOADERS[lang];
+  const load = lang === 'vi' ? undefined : LOADERS[lang];
   if (!load) return Promise.reject(new Error(`The website has no ${lang} text`));
   return load().then((text) => (downloaded[lang] = text));
 }
