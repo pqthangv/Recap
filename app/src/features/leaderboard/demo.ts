@@ -2,14 +2,14 @@
 // phone's own score as "me". Everything else does nothing and nothing goes to the server.
 import { getBoardScore } from '@/db/stats';
 import type { BoardClient } from '@/lib/leaderboard/client';
-import { DEMO_ME, demoView } from '@/lib/leaderboard/demo';
+import { demoMe, demoView } from '@/lib/leaderboard/demo';
 
 const nothing = async () => {};
 
 export const demoBoardClient = {
   view: async (tab, by, min = 0) => demoView(tab, by, min, getBoardScore()),
-  me: async () => DEMO_ME,
-  save: async () => DEMO_ME,
+  me: async () => demoMe(),
+  save: async () => demoMe(),
   leave: nothing,
   score: async () => true,
   follow: nothing,

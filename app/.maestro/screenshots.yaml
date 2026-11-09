@@ -110,11 +110,14 @@ appId: com.recapcards.app
 - takeScreenshot: stats
 # The leaderboard (1.0.8): the screenshot build's made-up board (EXPO_PUBLIC_DEMO_BOARD in the
 # workflow, src/lib/leaderboard/demo.ts), with the demo's own 15-day streak among the others.
-# On the folded iPhone Duo the button is at the bottom edge.
+# On the folded iPhone Duo the button is at the bottom edge, and with longer words (French,
+# Spanish, Portuguese, Hindi, Bengali) the page can't scroll it fully into view: about 60% of it
+# shows (2026-11-09). Half is enough to tap its middle.
 - scrollUntilVisible:
     element:
       text: Leaderboard
     direction: DOWN
+    visibilityPercentage: 50
 - tapOn: Leaderboard
 - extendedWaitUntil:
     visible: '.*Minh Anh.*'
@@ -194,6 +197,12 @@ appId: com.recapcards.app
 - tapOn: 'Tiếng Việt(, ✓)?'
 - tapOn: 'Language of the card backs.*'
 - tapOn: 'English(, ✓)?'
+# The pick took: the button names the language now. A row half under the list's bottom edge
+# counts as visible, so a tap on it missed (folded Duo and iPhone, 2026-11-09); the other
+# languages' flows scroll to the language after theirs first (scripts/screenshot-flows.js).
+- extendedWaitUntil:
+    visible: 'Language of the card backs: English.*'
+    timeout: 10000
 - waitForAnimationToEnd:
     timeout: 10000
 - takeScreenshot: ai

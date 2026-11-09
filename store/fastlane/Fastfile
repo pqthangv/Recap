@@ -1,13 +1,18 @@
-# Recap's store listing text, every language, to Google Play and the App Store. Run by
-# .github/workflows/store-text.yml on GitHub, never on a PC (the keys are GitHub secrets).
-# Text only: metadata/ (Play: metadata/android/<locale>/, App Store: metadata/<locale>/).
-# Screenshots and graphics are still uploaded by hand.
+# Recap's store listing, every language, to Google Play and the App Store: the text, and with
+# images:yes the screenshots too. Run by .github/workflows/store-text.yml on GitHub, never on a PC
+# (the keys are GitHub secrets).
+# Text: metadata/ (Play: metadata/android/<locale>/, App Store: metadata/<locale>/).
+# Images, the finished slides (made in Recap-private by make_store_slides.py, copied here by its
+# copy_to_store.py): Play: metadata/android/<locale>/images/ (phoneScreenshots,
+# sevenInchScreenshots, tenInchScreenshots and featureGraphic.png); App Store:
+# screenshots/<locale>/ (fastlane tells the devices apart by each picture's size). Both stores
+# show them in file-name order.
 #
-#   fastlane play_text mode:check|upload [version_code:11]
-#   fastlane app_store_text mode:check|upload [version:1.0.9]
+#   fastlane play_text mode:check|upload [version_code:11] [images:yes]
+#   fastlane app_store_text mode:check|upload [version:1.0.9] [images:yes]
 #
 # mode:check uploads nothing: it shows what would change, and Google checks the change without
-# publishing it.
+# publishing it. images:yes goes with mode:upload only.
 require "fileutils"
 require "json"
 require "tmpdir"
@@ -15,12 +20,20 @@ require "tmpdir"
 APP_ID = "com.recapcards.app"
 STORE = File.expand_path("..", __dir__) # store/
 METADATA = File.join(STORE, "fastlane", "metadata")
-APP_JSON = File.expand_path("../app/app.json", STORE)
+SCREENSHOTS = File.join(STORE, "fastlane", "screenshots")
 
 def check_only?(options)
   mode = (options[:mode] || "check").to_s
   UI.user_error!("mode must be check or upload, not '#{mode}'") unless %w[check upload].include?(mode)
   mode == "check"
+end
+
+# images:yes replaces the store's screenshots (and Play's feature graphic) with ours.
+def images?(options, check)
+  images = (options[:images] || "no").to_s
+  UI.user_error!("images must be yes or no, not '#{images}'") unless %w[yes no].include?(images)
+  UI.user_error!("images:yes goes with mode:upload (a check never uploads pictures)") if check && images == "yes"
+  images == "yes"
 end
 
 def secret(name)
@@ -74,13 +87,22 @@ def locales_in(dir)
 end
 
 # Google Play. Even a text-only upload looks up a release on the production track (fastlane's
-# supply, for its "What's New"), so it needs that release's version code: by default the one in
-# app/app.json, which is the live build's on main. "What's New" itself isn't uploaded: it's pasted
-# into Play's release form (the workflow prints it).
+# supply, for its "What's New"), so it needs a version code Play lists there: by default the newest
+# one. The release is only looked up; nothing about it changes. (app/app.json's can be ahead of
+# Play: on 2026-11-09 main had 1.0.9's 11 while Play's API listed only 1.0.8's 10.) "What's New"
+# itself isn't uploaded: it's pasted into Play's release form (the workflow prints it).
 lane :play_text do |options|
   check = check_only?(options)
+  images = images?(options, check)
   key = secret("PLAY_SERVICE_ACCOUNT_JSON")
-  version_code = (options[:version_code].to_s.strip.empty? ? JSON.parse(File.read(APP_JSON)).dig("expo", "android", "versionCode") : options[:version_code]).to_i
+  version_code = options[:version_code].to_s.strip
+  if version_code.empty?
+    codes = google_play_track_version_codes(package_name: APP_ID, json_key_data: key, track: "production")
+    UI.user_error!("Play lists no release on the production track") if codes.empty?
+    version_code = codes.max.to_s
+    UI.message("Version code #{version_code}: the newest on Play's production track (#{codes.sort.join(', ')})")
+  end
+  version_code = version_code.to_i
   play_metadata = File.join(METADATA, "android")
 
   if check
@@ -108,17 +130,27 @@ lane :play_text do |options|
     skip_upload_apk: true,
     skip_upload_aab: true,
     skip_upload_changelogs: true,
-    skip_upload_images: true,
-    skip_upload_screenshots: true,
+    # Screenshots: each size's are replaced, in file-name order. The feature graphic: replaced.
+    # Play's icon isn't here, so it stays as it is.
+    skip_upload_images: !images,
+    skip_upload_screenshots: !images,
+    sync_image_upload: true, # a picture Play already has (the same file) isn't sent again
     validate_only: check
   )
-  UI.success(check ? "Google accepted the text (nothing was published)." : "Play's listing text is uploaded.")
+  UI.success(
+    if check
+      "Google accepted the text (nothing was published)."
+    else
+      "Play's listing text#{images ? ' and images are' : ' is'} uploaded."
+    end
+  )
 end
 
 # App Store. fastlane edits the version being prepared (whatever its number), so an upload names
 # the version it expects and stops if App Store Connect is preparing another one.
 lane :app_store_text do |options|
   check = check_only?(options)
+  images = images?(options, check)
   version = options[:version].to_s.strip
   UI.user_error!("An upload needs the App Store version being prepared, e.g. version:1.0.9") if !check && version.empty?
 
@@ -167,7 +199,11 @@ lane :app_store_text do |options|
       platform: "ios",
       metadata_path: METADATA,
       skip_binary_upload: true,
-      skip_screenshots: true,
+      # The version's screenshots in these languages, every device, are deleted and ours put
+      # in their place, each device's in file-name order.
+      skip_screenshots: !images,
+      screenshots_path: SCREENSHOTS,
+      overwrite_screenshots: images,
       skip_app_version_update: true,
       submit_for_review: false,
       run_precheck_before_submit: false,
@@ -175,6 +211,6 @@ lane :app_store_text do |options|
       reset_ratings: reset,
       force: true # no HTML preview to confirm: nobody is watching the screen
     )
-    UI.success("App Store text for #{version} is uploaded (not submitted for review).")
+    UI.success("App Store text#{images ? ' and screenshots' : ''} for #{version} uploaded (not submitted for review).")
   end
 end

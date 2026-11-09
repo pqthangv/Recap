@@ -1,11 +1,13 @@
 name: Store text
 
 # Puts the store listing text in store/fastlane/metadata (every language) on Google Play and the
-# App Store, with fastlane (store/fastlane/Fastfile). Text only: screenshots and graphics are still
-# uploaded by hand.
+# App Store, with fastlane (store/fastlane/Fastfile); with "images" yes, the screenshots too (Play:
+# metadata/android/<locale>/images/, with the feature graphic; App Store: store/fastlane/screenshots/),
+# replacing the ones there.
 #
 # "check" uploads nothing: it shows what would change, and Google checks the change without
-# publishing it. It runs on every pull request that changes the store text, and by hand.
+# publishing it. It runs on every pull request that changes the store text, and by hand. It never
+# looks at the pictures.
 # "upload" runs only by hand: Actions > Store text > Run workflow (GitHub lists it once this file
 # is on main). Upload a version's text only once that version is live on Play, or (App Store)
 # while App Store Connect is preparing it.
@@ -27,7 +29,7 @@ on:
         options: [both, play, appstore]
         default: both
       mode:
-        description: check = show what would change and upload nothing; upload = put the text on the store
+        description: check = show what would change and upload nothing; upload = put the text (and the pictures, with images yes) on the store
         type: choice
         options: [check, upload]
         default: check
@@ -36,9 +38,14 @@ on:
         type: string
         required: false
       play_version_code:
-        description: "Play: the version code of the release on Production (empty = app/app.json's)"
+        description: "Play: a version code on Production (empty = the newest one Play lists)"
         type: string
         required: false
+      images:
+        description: 'Upload: also replace the screenshots (and Play''s feature graphic) with the ones in store/fastlane'
+        type: choice
+        options: ['no', 'yes']
+        default: 'no'
 
 permissions:
   contents: read
@@ -66,7 +73,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository)
     name: Google Play (${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'check' }})
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: ${{ inputs.images == 'yes' && 45 || 20 }} # 25 pictures for each of 9 languages
     defaults:
       run:
         working-directory: store
@@ -87,10 +94,11 @@ jobs:
         with:
           name: gemfile-lock
           path: store/Gemfile.lock
-      - name: Check or upload the listing text
+      - name: Check or upload the listing
         env:
           PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           VERSION_CODE: ${{ inputs.play_version_code }}
+          IMAGES: ${{ inputs.images }}
         run: |
           set -euo pipefail
           args=("mode:$MODE")
@@ -98,6 +106,7 @@ jobs:
             [[ "$VERSION_CODE" =~ ^[0-9]+$ ]] || { echo "play_version_code must be a number"; exit 1; }
             args+=("version_code:$VERSION_CODE")
           fi
+          if [ "$IMAGES" = yes ]; then args+=("images:yes"); fi
           bundle exec fastlane play_text "${args[@]}"
       # Play's "What's New" goes with the release, so it's pasted there by hand, every language
       # at once in Play's own format (its code for Vietnamese is "vi").
@@ -127,7 +136,8 @@ jobs:
     name: App Store (${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'check' }})
     # fastlane supports its App Store upload on macOS only. Free here: the repo is public.
     runs-on: macos-26
-    timeout-minutes: 30
+    # Apple processes each of the 288 screenshots before the upload is done.
+    timeout-minutes: ${{ inputs.images == 'yes' && 90 || 30 }}
     defaults:
       run:
         working-directory: store
@@ -140,12 +150,13 @@ jobs:
           ruby-version: '3.3'
       - name: Install fastlane (every gem as pinned in Gemfile.lock)
         run: bash bundle-install.sh
-      - name: Check or upload the listing text
+      - name: Check or upload the listing
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY: ${{ secrets.ASC_KEY }}
           VERSION: ${{ inputs.app_store_version }}
+          IMAGES: ${{ inputs.images }}
         run: |
           set -euo pipefail
           args=("mode:$MODE")
@@ -153,4 +164,5 @@ jobs:
             [[ "$VERSION" =~ ^[0-9]+(\.[0-9]+){1,2}$ ]] || { echo "app_store_version looks like 1.0.9"; exit 1; }
             args+=("version:$VERSION")
           fi
+          if [ "$IMAGES" = yes ]; then args+=("images:yes"); fi
           bundle exec fastlane app_store_text "${args[@]}"

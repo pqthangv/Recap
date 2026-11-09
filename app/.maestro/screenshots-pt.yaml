@@ -1,0 +1,220 @@
+# The App Store screenshots with the app in pt (the workflow's language "pt" makes the
+# demo database with Settings › Language set to it): the same steps as screenshots.yaml, every
+# label it taps or waits for taken from src/lib/i18n/pt.ts. The study deck is "English
+# words", with this language's cards (scripts/demo-data.ts). Made by
+# scripts/screenshot-flows.js: change screenshots.yaml, then run it again. The comments below
+# are the English flow's.
+appId: com.recapcards.app
+---
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 120000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: home
+
+# Typed recall. "Vietnamese words" has one card due, "apple" (scripts/demo-data.ts): type its
+# meaning without the accents and check it. Recap marks the letters missing theirs, says "Almost:
+# check the accents" and highlights Hard. Nothing is graded, so the data stays the same.
+# The demo decks are in groups (scripts/demo-data.ts): Vietnamese words is in Languages.
+# Home has 15 rows: on the folded iPhone Duo, Languages is below the fold.
+- scrollUntilVisible:
+    element:
+      text: 'Languages.*'
+    direction: DOWN
+- tapOn: 'Languages.*'
+- extendedWaitUntil:
+    visible: 'English words.*'
+    timeout: 30000
+- tapOn: 'English words.*'
+- extendedWaitUntil:
+    visible: 'Estudar este baralho.*'
+    timeout: 30000
+- tapOn: 'Estudar este baralho.*'
+- extendedWaitUntil:
+    visible: 'Sua resposta.*'
+    timeout: 30000
+- tapOn: 'Sua resposta.*'
+- inputText: maca
+- tapOn: Verificar
+- extendedWaitUntil:
+    visible: 'Quase.*'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: study
+
+# Each deck's own voices: Spanish basics is read in Spanish and English. The shot shows the list
+# of 19 languages open, with Español ticked (nothing is changed).
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 60000
+# Home has 15 rows: on the folded iPhone Duo, Languages is below the fold.
+- scrollUntilVisible:
+    element:
+      text: 'Languages.*'
+    direction: DOWN
+- tapOn: 'Languages.*'
+- extendedWaitUntil:
+    visible: 'Spanish basics.*'
+    timeout: 30000
+- tapOn: 'Spanish basics.*'
+- extendedWaitUntil:
+    visible: 'Estudar este baralho.*'
+    timeout: 30000
+- tapOn: Editar baralho
+- extendedWaitUntil:
+    visible: Ler em voz alta em
+    timeout: 30000
+- tapOn: 'Idioma da frente dos cartões.*'
+- extendedWaitUntil:
+    visible: Ler a frente dos cartões em
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: voices
+
+# The Library of ready-made decks, scrolled to TOEIC (nothing is added).
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 60000
+- tapOn: Biblioteca
+- extendedWaitUntil:
+    visible: 'Baralhos prontos para adicionar aos seus.*'
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: TOEIC vocabulary
+    direction: DOWN
+    centerElement: true
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: library
+
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 60000
+- tapOn: Estatísticas
+- extendedWaitUntil:
+    visible: Cartões estudados nos últimos 7 dias
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: stats
+# The leaderboard (1.0.8): the screenshot build's made-up board (EXPO_PUBLIC_DEMO_BOARD in the
+# workflow, src/lib/leaderboard/demo.ts), with the demo's own 15-day streak among the others.
+# On the folded iPhone Duo the button is at the bottom edge, and with longer words (French,
+# Spanish, Portuguese, Hindi, Bengali) the page can't scroll it fully into view: about 60% of it
+# shows (2026-11-09). Half is enough to tap its middle.
+- scrollUntilVisible:
+    element:
+      text: Ranking
+    direction: DOWN
+    visibilityPercentage: 50
+- tapOn: Ranking
+- extendedWaitUntil:
+    visible: '.*Ana Clara.*'
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: leaderboard
+
+# Sync (1.0.8): Settings › Sync my cards, signed out: what sync does and the three ways to sign in.
+# Nothing is tapped there.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 60000
+- tapOn: Configurações
+- tapOn: 'Sincronizar meus cartões.*'
+- extendedWaitUntil:
+    visible: Continuar com o Google
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: sync
+
+# Checks, not for the stores (the slides script only takes the names above): the two sheets
+# with the keyboard open, scrolled down, so the screenshots show whether Save can still be
+# reached. On an iPad these open as sheets with space around them. Nothing is typed or saved.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 60000
+- tapOn: Adicionar um baralho ou cartão
+- tapOn: Adicionar cartão
+- extendedWaitUntil:
+    visible: Frente
+    timeout: 30000
+- scroll
+- scroll
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-card-editor
+# Start again rather than tap Cancel: on the folded iPhone Duo the deck form's top bar (title and
+# Cancel) was gone after scrolling with the keyboard open (2026-11-05), and the run stopped there.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 60000
+- tapOn: Adicionar um baralho ou cartão
+- tapOn: Novo baralho
+- extendedWaitUntil:
+    visible: Nome do baralho
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-deck-form-top
+- scroll
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: check-deck-form
+
+# Create with AI in two languages. It uses the real server (the workflow wakes it up first) and
+# the free Gemini quota, so it comes last.
+- launchApp
+- extendedWaitUntil:
+    visible: 'Estudar · .* para hoje'
+    timeout: 60000
+- tapOn: Adicionar um baralho ou cartão
+- tapOn: Criar com IA
+# The tab is "Topic"; its text box has its own label (Android adds the placeholder to it).
+- tapOn: Tema
+- tapOn: 'Tema para criar cartões.*'
+- inputText: Palavras em inglês sobre comida
+# Close the keyboard with its Done key (hideKeyboard is unreliable on iOS; on a small screen like
+# the folded iPhone Duo the keyboard covers the rest of the form, so a tap could land on a key).
+- pressKey: Enter
+# A ticked language reads "Tiếng Việt, ✓" (a second try finds it ticked by the first).
+- tapOn: 'Idioma da frente dos cartões.*'
+- tapOn: 'English(, ✓)?'
+- tapOn: 'Idioma do verso dos cartões.*'
+- scrollUntilVisible:
+    element:
+      text: 'Русский(, ✓)?'
+    direction: DOWN
+- tapOn: 'Português(, ✓)?'
+# The pick took: the button names the language now. A row half under the list's bottom edge
+# counts as visible, so a tap on it missed (folded Duo and iPhone, 2026-11-09); the other
+# languages' flows scroll to the language after theirs first (scripts/screenshot-flows.js).
+- extendedWaitUntil:
+    visible: 'Idioma do verso dos cartões: Português.*'
+    timeout: 10000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: ai
+- tapOn: Criar cartões
+# iPhone asks once before sending text to Google Gemini (src/features/ai/consent.ts).
+- tapOn:
+    text: Permitir
+    optional: true
+- extendedWaitUntil:
+    visible: Revisar cartões
+    timeout: 150000
+- waitForAnimationToEnd:
+    timeout: 10000
+- takeScreenshot: ai-review

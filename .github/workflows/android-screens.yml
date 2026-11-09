@@ -1,0 +1,153 @@
+name: Android screenshots
+
+# Google Play screenshots, in an Android emulator on GitHub's Linux machines (free, because the
+# repo is public). The same steps as the App Store screenshots (.maestro/screenshots.yaml, or
+# screenshots-<language>.yaml from app/scripts/screenshot-flows.js), up to the Create with AI
+# screen, so nothing is sent to Gemini. app/scripts/android-screens.js runs them with adb (Maestro
+# can't type other alphabets on Android) and types through ADBKeyBoard, an input method that types
+# what adb sends it; it's only ever installed in this emulator, never part of the app.
+# The store slides are made from the screenshots by the store graphics script
+# (Recap-private/Recap-play-listing/tools/make_store_slides.py).
+#
+# Runs only by hand: Actions > Android screenshots > Run workflow (pick a branch, language and
+# size). GitHub lists it because this file is on main.
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        description: The app's language in the screenshots (all = every app language)
+        type: choice
+        options: [all, en, vi, hi, es, fr, bn, pt]
+        default: all
+      size:
+        description: The screen (phone 1080 x 1920, tablet7 1215 x 2160, tablet10 1620 x 2880; all = each)
+        type: choice
+        options: [all, phone, tablet7, tablet10]
+        default: all
+
+permissions:
+  contents: read
+
+# Starting the same screenshots again (branch, language and size) replaces a run that hasn't
+# finished; different ones run side by side.
+concurrency:
+  group: android-screens-${{ github.ref }}-${{ inputs.language }}-${{ inputs.size }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build the screenshot app
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: app
+    env:
+      # The made-up leaderboard (src/features/leaderboard/api.ts) and no app tour, built into the
+      # JavaScript bundle. Store builds never set it.
+      EXPO_PUBLIC_DEMO_BOARD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: npm ci
+      - name: Generate the Android project from app.json
+        run: npx expo prebuild --platform android --no-install
+      # Debuggable, so the demo database can be copied into the app (adb run-as). There's no
+      # upload key here, so the release build is signed with the debug key
+      # (plugins/withReleaseSigning.js) and Google Play would refuse it.
+      - name: Make the release build debuggable (screenshots only)
+        run: |
+          sed -i '/buildTypes {/,/release {/ s/release {/release {\n            debuggable true/' android/app/build.gradle
+          test "$(grep -c 'debuggable true' android/app/build.gradle)" = 1
+          grep -n -A3 'buildTypes {' android/app/build.gradle
+      # x86_64 only: the emulator's processor (a phone build makes four).
+      - name: Build (Release, for the emulator)
+        working-directory: app/android
+        run: ./gradlew :app:assembleRelease -PreactNativeArchitectures=x86_64 --no-daemon
+      - uses: actions/upload-artifact@v7
+        with:
+          name: screenshot-app
+          path: app/android/app/build/outputs/apk/release/app-release.apk
+          retention-days: 1
+          if-no-files-found: error
+
+  shots:
+    needs: build
+    # One job per language and size (21 for "all"; GitHub runs up to 20 at once).
+    strategy:
+      fail-fast: false # one failing job doesn't stop the others
+      matrix:
+        language: ${{ fromJSON((inputs.language || 'all') == 'all' && '["en","vi","hi","es","fr","bn","pt"]' || format('["{0}"]', inputs.language)) }}
+        size: ${{ fromJSON((inputs.size || 'all') == 'all' && '["phone","tablet7","tablet10"]' || format('["{0}"]', inputs.size)) }}
+    name: ${{ matrix.language }} ${{ matrix.size }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      # The demo decks (scripts/demo-db.test.ts: the app's own migrations + backup import), with
+      # Settings › Language set to this language and "today" being now.
+      - name: Make the demo database
+        run: MAKE_DEMO_DB="$RUNNER_TEMP/recap.db" DEMO_LANGUAGE="${{ matrix.language }}" npx jest scripts/demo-db --ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: screenshot-app
+          path: ${{ runner.temp }}/app
+      # ADBKeyBoard v2.5-dev (github.com/senzhk/ADBKeyBoard, GPL-2.0; the release that works on
+      # Android 16). The checksum is the one GitHub lists for that release. GitHub's download links
+      # sometimes answer "504" (2026-11-09); its API serves the same file.
+      - name: Download ADBKeyBoard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          apk="$RUNNER_TEMP/ADBKeyBoard.apk"
+          curl -fsSL --retry 5 --retry-all-errors -o "$apk" \
+            https://github.com/senzhk/ADBKeyBoard/releases/download/v2.5-dev/keyboardservice-debug.apk ||
+            gh api repos/senzhk/ADBKeyBoard/releases/assets/403374510 -H 'Accept: application/octet-stream' > "$apk"
+          echo "41a8a0996d7397a2390d1ca16a75cb66c4a7bdaa89cf4e63600a4d3fb346fbbb  $apk" | sha256sum -c -
+      # Without this the emulator runs without hardware help and is far too slow.
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      # The same emulator as the screenshots made on the PC before (Pixel Tablet, Android 16 with
+      # Google Play); the script sets each size with `wm size`. Animations stay on, as on a phone.
+      # The script is one line: the action runs each line of it as a separate command.
+      - name: Screenshots in the emulator
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 36
+          target: google_apis_playstore
+          arch: x86_64
+          profile: pixel_tablet
+          cores: 4 # all of the machine's processors: the emulator draws the screen without a GPU
+          disable-animations: false
+          disable-spellchecker: true
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          working-directory: app
+          script: node scripts/android-screens.js --language ${{ matrix.language }} --size ${{ matrix.size }} --db "${{ runner.temp }}/recap.db" --apk "${{ runner.temp }}/app/app-release.apk" --keyboard "${{ runner.temp }}/ADBKeyBoard.apk" --out screenshots
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: android-screenshots-${{ matrix.language }}-${{ matrix.size }}
+          path: app/screenshots/
+          retention-days: 7
+          if-no-files-found: ignore

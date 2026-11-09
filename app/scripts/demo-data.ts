@@ -5,6 +5,7 @@ import { randomUUID } from 'crypto';
 
 import { buildBackup } from '@/lib/backup';
 import { dayStart } from '@/lib/day';
+import type { Language } from '@/lib/i18n/languages';
 import type { SideLanguages } from '@/lib/language';
 import { newCard, Rating, review, type FsrsFields } from '@/lib/scheduler';
 
@@ -12,8 +13,11 @@ const DAY = 24 * 60 * 60 * 1000;
 
 const DECKS: {
   name: string;
-  /** The name in the Vietnamese store pictures, if it differs. */
-  nameVi?: string;
+  /** In another app language's store pictures, if it differs: its name, and words with that
+   *  language's meanings (the typed-answer deck). */
+  inLanguage?: Partial<
+    Record<Language, { name: string; languages?: SideLanguages; cards?: [string, string][] }>
+  >;
   color: string;
   languages?: SideLanguages;
   /** Only the first card is due today, so studying the deck always opens on it (screenshots). */
@@ -384,13 +388,88 @@ const DECKS: {
       ['Miller’s “magical number” for short-term memory', '7, plus or minus 2'],
     ],
   },
-  // Last, so the decks above keep the same random history. The typed-answer screenshot studies
-  // it: "apple" is the one card due, and "qua tao" (no accents) gets "Almost: check the accents"
-  // with Hard suggested. English words with Vietnamese meanings: "Vietnamese words" in the English
-  // pictures, "English words" in the Vietnamese ones.
+  // Last, so the decks above keep the same random history (every language's version has 8
+  // cards). The typed-answer screenshot studies it: the first card is the one due, and its answer
+  // typed without the accents ("qua tao" for "quả táo") gets "Almost: check the accents" with Hard
+  // suggested. English words with Vietnamese meanings: "Vietnamese words" in the English pictures,
+  // "English words" in the others, with that language's meanings (the .maestro flows type the
+  // answer). Hindi and Bengali cards ask for the English word, typed "aple": "Almost: check the
+  // spelling" (Recap's accent check is for Latin letters).
   {
     name: 'Languages › Vietnamese words',
-    nameVi: 'Languages › English words',
+    inLanguage: {
+      vi: { name: 'Languages › English words' },
+      es: {
+        name: 'Languages › English words',
+        languages: { front: 'en', back: 'es' },
+        cards: [
+          ['lemon', 'limón'],
+          ['apple', 'manzana'],
+          ['bread', 'pan'],
+          ['cheese', 'queso'],
+          ['milk', 'leche'],
+          ['water', 'agua'],
+          ['coffee', 'café'],
+          ['rice', 'arroz'],
+        ],
+      },
+      fr: {
+        name: 'Languages › English words',
+        languages: { front: 'en', back: 'fr' },
+        cards: [
+          ['coffee', 'café'],
+          ['apple', 'pomme'],
+          ['bread', 'pain'],
+          ['cheese', 'fromage'],
+          ['milk', 'lait'],
+          ['water', 'eau'],
+          ['tea', 'thé'],
+          ['rice', 'riz'],
+        ],
+      },
+      pt: {
+        name: 'Languages › English words',
+        languages: { front: 'en', back: 'pt' },
+        cards: [
+          ['apple', 'maçã'],
+          ['bread', 'pão'],
+          ['cheese', 'queijo'],
+          ['milk', 'leite'],
+          ['water', 'água'],
+          ['coffee', 'café'],
+          ['rice', 'arroz'],
+          ['egg', 'ovo'],
+        ],
+      },
+      hi: {
+        name: 'Languages › English words',
+        languages: { front: 'hi', back: 'en' },
+        cards: [
+          ['सेब', 'apple'],
+          ['रोटी', 'bread'],
+          ['पनीर', 'cheese'],
+          ['दूध', 'milk'],
+          ['पानी', 'water'],
+          ['कॉफ़ी', 'coffee'],
+          ['चावल', 'rice'],
+          ['अंडा', 'egg'],
+        ],
+      },
+      bn: {
+        name: 'Languages › English words',
+        languages: { front: 'bn', back: 'en' },
+        cards: [
+          ['আপেল', 'apple'],
+          ['রুটি', 'bread'],
+          ['পনির', 'cheese'],
+          ['দুধ', 'milk'],
+          ['পানি', 'water'],
+          ['কফি', 'coffee'],
+          ['ভাত', 'rice'],
+          ['ডিম', 'egg'],
+        ],
+      },
+    },
     color: '#1A73E8',
     languages: { front: 'en', back: 'vi' },
     firstCardDueOnly: true,
@@ -416,8 +495,8 @@ function random(seed: number) {
   };
 }
 
-/** `language`: the app's language in the store pictures (only one deck's name changes). */
-export function makeDemo(now: number, language: 'en' | 'vi' = 'en') {
+/** `language`: the app's language in the store pictures (only the typed-answer deck changes). */
+export function makeDemo(now: number, language: Language = 'en') {
   const rnd = random(42);
   // Study days start at 4 AM (lib/day.ts), so "today" is the study day, not the calendar day.
   const today = dayStart(now);
@@ -427,17 +506,19 @@ export function makeDemo(now: number, language: 'en' | 'vi' = 'en') {
   for (const [d, spec] of DECKS.entries()) {
     const deckId = randomUUID();
     const created = today - (16 + d) * DAY;
+    const own = spec.inLanguage?.[language];
+    const languages = own?.languages ?? spec.languages;
     decks.push({
       id: deckId,
-      name: (language === 'vi' && spec.nameVi) || spec.name,
+      name: own?.name ?? spec.name,
       color: spec.color,
-      front_lang: spec.languages?.front ?? null,
-      back_lang: spec.languages?.back ?? null,
+      front_lang: languages?.front ?? null,
+      back_lang: languages?.back ?? null,
       created_at: created,
       updated_at: created,
       deleted_at: null,
     });
-    for (const [i, [front, back]] of spec.cards.entries()) {
+    for (const [i, [front, back]] of (own?.cards ?? spec.cards).entries()) {
       const id = randomUUID();
       const cardCreated = created + i * 1000;
       let fields: FsrsFields = newCard(cardCreated);
