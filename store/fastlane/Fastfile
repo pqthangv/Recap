@@ -21,7 +21,6 @@ APP_ID = "com.recapcards.app"
 STORE = File.expand_path("..", __dir__) # store/
 METADATA = File.join(STORE, "fastlane", "metadata")
 SCREENSHOTS = File.join(STORE, "fastlane", "screenshots")
-APP_JSON = File.expand_path("../app/app.json", STORE)
 
 def check_only?(options)
   mode = (options[:mode] || "check").to_s
@@ -88,14 +87,22 @@ def locales_in(dir)
 end
 
 # Google Play. Even a text-only upload looks up a release on the production track (fastlane's
-# supply, for its "What's New"), so it needs that release's version code: by default the one in
-# app/app.json, which is the live build's on main. "What's New" itself isn't uploaded: it's pasted
-# into Play's release form (the workflow prints it).
+# supply, for its "What's New"), so it needs a version code Play lists there: by default the newest
+# one. The release is only looked up; nothing about it changes. (app/app.json's can be ahead of
+# Play: on 2026-11-09 main had 1.0.9's 11 while Play's API listed only 1.0.8's 10.) "What's New"
+# itself isn't uploaded: it's pasted into Play's release form (the workflow prints it).
 lane :play_text do |options|
   check = check_only?(options)
   images = images?(options, check)
   key = secret("PLAY_SERVICE_ACCOUNT_JSON")
-  version_code = (options[:version_code].to_s.strip.empty? ? JSON.parse(File.read(APP_JSON)).dig("expo", "android", "versionCode") : options[:version_code]).to_i
+  version_code = options[:version_code].to_s.strip
+  if version_code.empty?
+    codes = google_play_track_version_codes(package_name: APP_ID, json_key_data: key, track: "production")
+    UI.user_error!("Play lists no release on the production track") if codes.empty?
+    version_code = codes.max.to_s
+    UI.message("Version code #{version_code}: the newest on Play's production track (#{codes.sort.join(', ')})")
+  end
+  version_code = version_code.to_i
   play_metadata = File.join(METADATA, "android")
 
   if check

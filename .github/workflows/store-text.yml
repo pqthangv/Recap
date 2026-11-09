@@ -38,7 +38,7 @@ on:
         type: string
         required: false
       play_version_code:
-        description: "Play: the version code of the release on Production (empty = app/app.json's)"
+        description: "Play: a version code on Production (empty = the newest one Play lists)"
         type: string
         required: false
       images:
