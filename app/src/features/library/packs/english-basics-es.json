@@ -1,0 +1,4104 @@
+{
+  "decks": [
+    {
+      "name": "01 Saludos y lo básico",
+      "cards": [
+        {
+          "front": "hello\n\nHello, my name is Anna.",
+          "back": "hola\n\nHola, me llamo Anna."
+        },
+        {
+          "front": "hi\n\nHi! How are you?",
+          "back": "hola\n\n¡Hola! ¿Cómo estás?"
+        },
+        {
+          "front": "goodbye\n\nGoodbye, see you tomorrow.",
+          "back": "adiós\n\nAdiós, hasta mañana."
+        },
+        {
+          "front": "good morning\n\nGood morning, everyone.",
+          "back": "buenos días\n\nBuenos días a todos."
+        },
+        {
+          "front": "good night\n\nGood night, see you tomorrow.",
+          "back": "buenas noches\n\nBuenas noches, hasta mañana."
+        },
+        {
+          "front": "please\n\nPlease help me.",
+          "back": "por favor\n\nPor favor, ayúdame."
+        },
+        {
+          "front": "thank you\n\nThank you for your help.",
+          "back": "gracias\n\nGracias por tu ayuda."
+        },
+        {
+          "front": "sorry\n\nSorry, I am late.",
+          "back": "lo siento\n\nLo siento, llego tarde.\n\nTambién: perdón"
+        },
+        {
+          "front": "excuse me\n\nExcuse me, where is the bank?",
+          "back": "disculpe\n\nDisculpe, ¿dónde está el banco?\n\nTambién: perdón"
+        },
+        {
+          "front": "yes\n\nYes, I understand.",
+          "back": "sí\n\nSí, entiendo."
+        },
+        {
+          "front": "no\n\nNo, thank you.",
+          "back": "no\n\nNo, gracias."
+        },
+        {
+          "front": "okay\n\nOkay, let's go.",
+          "back": "está bien\n\nEstá bien, vamos.\n\nEn España: vale"
+        },
+        {
+          "front": "welcome\n\nWelcome to our school.",
+          "back": "bienvenido\n\nBienvenidos a nuestra escuela."
+        },
+        {
+          "front": "name\n\nWhat is your name?",
+          "back": "nombre\n\n¿Cuál es tu nombre?"
+        },
+        {
+          "front": "friend\n\nShe is my best friend.",
+          "back": "amigo\n\nElla es mi mejor amiga."
+        },
+        {
+          "front": "you\n\nYou are very kind.",
+          "back": "tú\n\nTú eres muy amable.\n\nTambién: usted"
+        },
+        {
+          "front": "I\n\nI am a student.",
+          "back": "yo\n\nYo soy estudiante."
+        },
+        {
+          "front": "we\n\nWe live in a small town.",
+          "back": "nosotros\n\nNosotros vivimos en un pueblo pequeño."
+        },
+        {
+          "front": "they\n\nThey are my parents.",
+          "back": "ellos\n\nEllos son mis padres."
+        },
+        {
+          "front": "he\n\nHe is my classmate.",
+          "back": "él\n\nÉl es mi compañero de clase."
+        },
+        {
+          "front": "she\n\nShe is a doctor.",
+          "back": "ella\n\nElla es doctora."
+        },
+        {
+          "front": "it\n\nIt is a small cat.",
+          "back": "ello\n\nEs un gato pequeño."
+        },
+        {
+          "front": "this\n\nThis is my bag.",
+          "back": "este\n\nEsta es mi bolsa."
+        },
+        {
+          "front": "that\n\nThat is your phone.",
+          "back": "ese\n\nEse es tu teléfono."
+        },
+        {
+          "front": "here\n\nPlease wait here.",
+          "back": "aquí\n\nPor favor, espera aquí."
+        },
+        {
+          "front": "there\n\nPut the box there.",
+          "back": "ahí\n\nPon la caja ahí.\n\nTambién: allí"
+        },
+        {
+          "front": "what\n\nWhat is this?",
+          "back": "qué\n\n¿Qué es esto?"
+        },
+        {
+          "front": "who\n\nWho is that man?",
+          "back": "quién\n\n¿Quién es ese hombre?"
+        },
+        {
+          "front": "where\n\nWhere do you live?",
+          "back": "dónde\n\n¿Dónde vives?"
+        },
+        {
+          "front": "when\n\nWhen is your birthday?",
+          "back": "cuándo\n\n¿Cuándo es tu cumpleaños?"
+        },
+        {
+          "front": "why\n\nWhy are you sad?",
+          "back": "por qué\n\n¿Por qué estás triste?"
+        },
+        {
+          "front": "how\n\nHow do you make this cake?",
+          "back": "cómo\n\n¿Cómo haces este pastel?"
+        },
+        {
+          "front": "how much\n\nHow much is this shirt?",
+          "back": "cuánto\n\n¿Cuánto cuesta esta camisa?"
+        },
+        {
+          "front": "how many\n\nHow many brothers do you have?",
+          "back": "cuántos\n\n¿Cuántos hermanos tienes?"
+        },
+        {
+          "front": "and\n\nI like tea and coffee.",
+          "back": "y\n\nMe gustan el té y el café."
+        },
+        {
+          "front": "but\n\nIt is small but nice.",
+          "back": "pero\n\nEs pequeño, pero bonito."
+        },
+        {
+          "front": "or\n\nTea or coffee?",
+          "back": "o\n\n¿Té o café?"
+        },
+        {
+          "front": "because\n\nI stay home because it is raining.",
+          "back": "porque\n\nMe quedo en casa porque está lloviendo."
+        },
+        {
+          "front": "very\n\nIt is very hot today.",
+          "back": "muy\n\nHoy está muy caluroso."
+        },
+        {
+          "front": "also\n\nI also like music.",
+          "back": "también\n\nTambién me gusta la música."
+        },
+        {
+          "front": "again\n\nPlease say it again.",
+          "back": "otra vez\n\nPor favor, dilo otra vez.\n\nTambién: de nuevo"
+        },
+        {
+          "front": "maybe\n\nMaybe it will rain.",
+          "back": "tal vez\n\nTal vez llueva.\n\nTambién: quizás"
+        },
+        {
+          "front": "of course\n\nOf course you can come.",
+          "back": "por supuesto\n\nPor supuesto que puedes venir.\n\nTambién: claro"
+        },
+        {
+          "front": "help\n\nCan you help me?",
+          "back": "ayudar\n\n¿Puedes ayudarme?"
+        },
+        {
+          "front": "question\n\nI have a question.",
+          "back": "pregunta\n\nTengo una pregunta."
+        },
+        {
+          "front": "answer\n\nI know the answer.",
+          "back": "respuesta\n\nSé la respuesta."
+        },
+        {
+          "front": "word\n\nWhat does this word mean?",
+          "back": "palabra\n\n¿Qué significa esta palabra?"
+        },
+        {
+          "front": "language\n\nEnglish is a useful language.",
+          "back": "idioma\n\nEl inglés es un idioma útil.\n\nTambién: lengua"
+        },
+        {
+          "front": "understand\n\nI don't understand.",
+          "back": "entender\n\nNo entiendo."
+        },
+        {
+          "front": "speak\n\nDo you speak English?",
+          "back": "hablar\n\n¿Hablas inglés?"
+        }
+      ]
+    },
+    {
+      "name": "02 Personas y familia",
+      "cards": [
+        {
+          "front": "family\n\nMy family is big.",
+          "back": "familia\n\nMi familia es grande."
+        },
+        {
+          "front": "father\n\nMy father is a teacher.",
+          "back": "padre\n\nMi padre es profesor.\n\nTambién: papá"
+        },
+        {
+          "front": "mother\n\nMy mother cooks very well.",
+          "back": "madre\n\nMi madre cocina muy bien.\n\nTambién: mamá"
+        },
+        {
+          "front": "parents\n\nMy parents live near the sea.",
+          "back": "padres\n\nMis padres viven cerca del mar."
+        },
+        {
+          "front": "son\n\nTheir son is five years old.",
+          "back": "hijo\n\nSu hijo tiene cinco años."
+        },
+        {
+          "front": "daughter\n\nShe has one daughter.",
+          "back": "hija\n\nElla tiene una hija."
+        },
+        {
+          "front": "older brother\n\nMy older brother works in a bank.",
+          "back": "hermano mayor\n\nMi hermano mayor trabaja en un banco."
+        },
+        {
+          "front": "younger brother\n\nMy younger brother is ten.",
+          "back": "hermano menor\n\nMi hermano menor tiene diez años."
+        },
+        {
+          "front": "older sister\n\nMy older sister is a nurse.",
+          "back": "hermana mayor\n\nMi hermana mayor es enfermera."
+        },
+        {
+          "front": "younger sister\n\nMy younger sister loves cats.",
+          "back": "hermana menor\n\nA mi hermana menor le encantan los gatos."
+        },
+        {
+          "front": "grandfather\n\nMy grandfather is eighty.",
+          "back": "abuelo\n\nMi abuelo tiene ochenta años."
+        },
+        {
+          "front": "grandmother\n\nMy grandmother lives with us.",
+          "back": "abuela\n\nMi abuela vive con nosotros."
+        },
+        {
+          "front": "grandchild\n\nShe has three grandchildren.",
+          "back": "nieto\n\nElla tiene tres nietos."
+        },
+        {
+          "front": "uncle\n\nMy uncle has a farm.",
+          "back": "tío\n\nMi tío tiene una granja."
+        },
+        {
+          "front": "aunt\n\nMy aunt lives in the city.",
+          "back": "tía\n\nMi tía vive en la ciudad."
+        },
+        {
+          "front": "cousin\n\nMy cousin is my best friend.",
+          "back": "primo\n\nMi primo es mi mejor amigo."
+        },
+        {
+          "front": "husband\n\nHer husband is a doctor.",
+          "back": "esposo\n\nSu esposo es médico.\n\nTambién: marido"
+        },
+        {
+          "front": "wife\n\nHis wife is very kind.",
+          "back": "esposa\n\nSu esposa es muy amable."
+        },
+        {
+          "front": "baby\n\nThe baby is sleeping.",
+          "back": "bebé\n\nEl bebé está durmiendo."
+        },
+        {
+          "front": "child\n\nThe child is playing outside.",
+          "back": "niño\n\nEl niño está jugando afuera."
+        },
+        {
+          "front": "children\n\nThe children are at school.",
+          "back": "niños\n\nLos niños están en la escuela.\n\nTambién significa: hijos"
+        },
+        {
+          "front": "boy\n\nThe boy is reading a book.",
+          "back": "niño\n\nEl niño está leyendo un libro.\n\nTambién: chico"
+        },
+        {
+          "front": "girl\n\nThe girl has long hair.",
+          "back": "niña\n\nLa niña tiene el pelo largo.\n\nTambién: chica"
+        },
+        {
+          "front": "man\n\nThe man is very tall.",
+          "back": "hombre\n\nEl hombre es muy alto."
+        },
+        {
+          "front": "woman\n\nThe woman is my teacher.",
+          "back": "mujer\n\nLa mujer es mi profesora."
+        },
+        {
+          "front": "people\n\nPeople are friendly here.",
+          "back": "gente\n\nAquí la gente es amable."
+        },
+        {
+          "front": "person\n\nShe is a good person.",
+          "back": "persona\n\nElla es una buena persona."
+        },
+        {
+          "front": "adult\n\nTwo adults and one child, please.",
+          "back": "adulto\n\nDos adultos y un niño, por favor."
+        },
+        {
+          "front": "teenager\n\nHe is a teenager now.",
+          "back": "adolescente\n\nAhora es un adolescente."
+        },
+        {
+          "front": "neighbor\n\nOur neighbor is very friendly.",
+          "back": "vecino\n\nNuestro vecino es muy amable."
+        },
+        {
+          "front": "guest\n\nWe have guests tonight.",
+          "back": "invitado\n\nEsta noche tenemos invitados."
+        },
+        {
+          "front": "boyfriend\n\nHer boyfriend is very funny.",
+          "back": "novio\n\nSu novio es muy gracioso."
+        },
+        {
+          "front": "girlfriend\n\nHis girlfriend is a nurse.",
+          "back": "novia\n\nSu novia es enfermera."
+        },
+        {
+          "front": "married\n\nAre you married?",
+          "back": "casado\n\n¿Estás casado?"
+        },
+        {
+          "front": "single\n\nMy brother is still single.",
+          "back": "soltero\n\nMi hermano sigue soltero."
+        },
+        {
+          "front": "age\n\nAge is just a number.",
+          "back": "edad\n\nLa edad es solo un número."
+        },
+        {
+          "front": "old\n\nMy grandfather is old.",
+          "back": "viejo\n\nMi abuelo es viejo.\n\nTambién: mayor"
+        },
+        {
+          "front": "young\n\nShe is young and smart.",
+          "back": "joven\n\nElla es joven e inteligente."
+        },
+        {
+          "front": "birthday\n\nHappy birthday!",
+          "back": "cumpleaños\n\n¡Feliz cumpleaños!"
+        },
+        {
+          "front": "born\n\nI was born in 2005.",
+          "back": "nacido\n\nNací en 2005."
+        },
+        {
+          "front": "live\n\nWe live in a small house.",
+          "back": "vivir\n\nVivimos en una casa pequeña."
+        },
+        {
+          "front": "love\n\nI love my family.",
+          "back": "amar\n\nAmo a mi familia.\n\nTambién: querer"
+        },
+        {
+          "front": "meet\n\nNice to meet you.",
+          "back": "conocer\n\nEncantado de conocerte.\n\nTambién significa: reunirse"
+        },
+        {
+          "front": "visit\n\nWe visit our grandparents every Sunday.",
+          "back": "visitar\n\nVisitamos a nuestros abuelos todos los domingos."
+        },
+        {
+          "front": "call\n\nI call my mother every day.",
+          "back": "llamar\n\nLlamo a mi madre todos los días."
+        },
+        {
+          "front": "together\n\nWe eat dinner together.",
+          "back": "juntos\n\nCenamos juntos."
+        },
+        {
+          "front": "relative\n\nAll my relatives came to the wedding.",
+          "back": "pariente\n\nTodos mis parientes vinieron a la boda."
+        },
+        {
+          "front": "wedding\n\nThe wedding is in May.",
+          "back": "boda\n\nLa boda es en mayo."
+        },
+        {
+          "front": "twins\n\nThey are twins.",
+          "back": "gemelos\n\nSon gemelos."
+        },
+        {
+          "front": "grow up\n\nI grew up in the countryside.",
+          "back": "crecer\n\nCrecí en el campo."
+        }
+      ]
+    },
+    {
+      "name": "03 Números y tiempo",
+      "cards": [
+        {
+          "front": "zero\n\nZero plus five is five.",
+          "back": "cero\n\nCero más cinco es cinco."
+        },
+        {
+          "front": "one\n\nI have one sister.",
+          "back": "uno\n\nTengo una hermana."
+        },
+        {
+          "front": "two\n\nWe have two cats.",
+          "back": "dos\n\nTenemos dos gatos."
+        },
+        {
+          "front": "three\n\nI drink three cups of water.",
+          "back": "tres\n\nTomo tres vasos de agua."
+        },
+        {
+          "front": "four\n\nA car has four wheels.",
+          "back": "cuatro\n\nUn carro tiene cuatro ruedas."
+        },
+        {
+          "front": "five\n\nShe is five years old.",
+          "back": "cinco\n\nElla tiene cinco años."
+        },
+        {
+          "front": "six\n\nThe shop opens at six.",
+          "back": "seis\n\nLa tienda abre a las seis."
+        },
+        {
+          "front": "seven\n\nA week has seven days.",
+          "back": "siete\n\nUna semana tiene siete días."
+        },
+        {
+          "front": "eight\n\nI sleep eight hours a night.",
+          "back": "ocho\n\nDuermo ocho horas cada noche."
+        },
+        {
+          "front": "nine\n\nSchool starts at nine.",
+          "back": "nueve\n\nLas clases empiezan a las nueve."
+        },
+        {
+          "front": "ten\n\nI can count to ten.",
+          "back": "diez\n\nSé contar hasta diez."
+        },
+        {
+          "front": "eleven\n\nA football team has eleven players.",
+          "back": "once\n\nUn equipo de fútbol tiene once jugadores."
+        },
+        {
+          "front": "twelve\n\nA year has twelve months.",
+          "back": "doce\n\nUn año tiene doce meses."
+        },
+        {
+          "front": "twenty\n\nI am twenty years old.",
+          "back": "veinte\n\nTengo veinte años."
+        },
+        {
+          "front": "fifty\n\nMy father is fifty.",
+          "back": "cincuenta\n\nMi padre tiene cincuenta años."
+        },
+        {
+          "front": "hundred\n\nThere are two hundred students here.",
+          "back": "cien\n\nAquí hay doscientos estudiantes."
+        },
+        {
+          "front": "thousand\n\nA thousand people live in this village.",
+          "back": "mil\n\nEn este pueblo viven mil personas."
+        },
+        {
+          "front": "million\n\nThe city has eight million people.",
+          "back": "millón\n\nLa ciudad tiene ocho millones de habitantes."
+        },
+        {
+          "front": "first\n\nThis is my first trip abroad.",
+          "back": "primero\n\nEste es mi primer viaje al extranjero."
+        },
+        {
+          "front": "last\n\nDecember is the last month of the year.",
+          "back": "último\n\nDiciembre es el último mes del año."
+        },
+        {
+          "front": "half\n\nI ate half of the cake.",
+          "back": "mitad\n\nMe comí la mitad del pastel."
+        },
+        {
+          "front": "number\n\nWhat is your phone number?",
+          "back": "número\n\n¿Cuál es tu número de teléfono?"
+        },
+        {
+          "front": "time\n\nI don't have time.",
+          "back": "tiempo\n\nNo tengo tiempo.\n\nTambién significa: hora"
+        },
+        {
+          "front": "hour\n\nThe movie is two hours long.",
+          "back": "hora\n\nLa película dura dos horas."
+        },
+        {
+          "front": "minute\n\nWait a minute, please.",
+          "back": "minuto\n\nEspera un minuto, por favor."
+        },
+        {
+          "front": "second\n\nOne minute has sixty seconds.",
+          "back": "segundo\n\nUn minuto tiene sesenta segundos."
+        },
+        {
+          "front": "day\n\nI study English every day.",
+          "back": "día\n\nEstudio inglés todos los días."
+        },
+        {
+          "front": "week\n\nI go swimming twice a week.",
+          "back": "semana\n\nVoy a nadar dos veces por semana."
+        },
+        {
+          "front": "month\n\nMy birthday is next month.",
+          "back": "mes\n\nMi cumpleaños es el próximo mes."
+        },
+        {
+          "front": "year\n\nI have lived here for ten years.",
+          "back": "año\n\nVivo aquí desde hace diez años."
+        },
+        {
+          "front": "today\n\nToday is Monday.",
+          "back": "hoy\n\nHoy es lunes."
+        },
+        {
+          "front": "tomorrow\n\nSee you tomorrow.",
+          "back": "mañana\n\nHasta mañana."
+        },
+        {
+          "front": "yesterday\n\nI was busy yesterday.",
+          "back": "ayer\n\nAyer estuve ocupado."
+        },
+        {
+          "front": "morning\n\nI drink coffee every morning.",
+          "back": "mañana\n\nTomo café todas las mañanas."
+        },
+        {
+          "front": "afternoon\n\nWe have a meeting this afternoon.",
+          "back": "tarde\n\nTenemos una reunión esta tarde."
+        },
+        {
+          "front": "evening\n\nI watch TV in the evening.",
+          "back": "noche\n\nVeo la tele por la noche.\n\nTambién: tarde"
+        },
+        {
+          "front": "night\n\nThe city is beautiful at night.",
+          "back": "noche\n\nLa ciudad es hermosa de noche."
+        },
+        {
+          "front": "now\n\nI am busy now.",
+          "back": "ahora\n\nAhora estoy ocupado."
+        },
+        {
+          "front": "later\n\nI will call you later.",
+          "back": "más tarde\n\nTe llamo más tarde.\n\nTambién: luego"
+        },
+        {
+          "front": "early\n\nI get up early.",
+          "back": "temprano\n\nMe levanto temprano."
+        },
+        {
+          "front": "late\n\nThe bus is late again.",
+          "back": "tarde\n\nEl autobús llega tarde otra vez."
+        },
+        {
+          "front": "always\n\nShe always smiles.",
+          "back": "siempre\n\nElla siempre sonríe."
+        },
+        {
+          "front": "usually\n\nI usually walk to school.",
+          "back": "normalmente\n\nNormalmente voy caminando a la escuela."
+        },
+        {
+          "front": "sometimes\n\nSometimes I cook dinner.",
+          "back": "a veces\n\nA veces preparo la cena."
+        },
+        {
+          "front": "never\n\nI never drink coffee at night.",
+          "back": "nunca\n\nNunca tomo café de noche."
+        },
+        {
+          "front": "clock\n\nThe clock is on the wall.",
+          "back": "reloj\n\nEl reloj está en la pared."
+        },
+        {
+          "front": "calendar\n\nLook at the calendar.",
+          "back": "calendario\n\nMira el calendario."
+        },
+        {
+          "front": "weekend\n\nWhat do you do at the weekend?",
+          "back": "fin de semana\n\n¿Qué haces el fin de semana?"
+        },
+        {
+          "front": "soon\n\nThe bus will come soon.",
+          "back": "pronto\n\nEl autobús llegará pronto."
+        },
+        {
+          "front": "midnight\n\nI went to bed at midnight.",
+          "back": "medianoche\n\nMe acosté a medianoche."
+        }
+      ]
+    },
+    {
+      "name": "04 Días y estaciones",
+      "cards": [
+        {
+          "front": "Monday\n\nI have English class on Monday.",
+          "back": "lunes\n\nTengo clase de inglés el lunes."
+        },
+        {
+          "front": "Tuesday\n\nThe shop is closed on Tuesday.",
+          "back": "martes\n\nLa tienda está cerrada el martes."
+        },
+        {
+          "front": "Wednesday\n\nWe play football on Wednesday.",
+          "back": "miércoles\n\nJugamos fútbol el miércoles."
+        },
+        {
+          "front": "Thursday\n\nThursday is my busiest day.",
+          "back": "jueves\n\nEl jueves es mi día más ocupado."
+        },
+        {
+          "front": "Friday\n\nSee you on Friday.",
+          "back": "viernes\n\nNos vemos el viernes."
+        },
+        {
+          "front": "Saturday\n\nI sleep late on Saturday.",
+          "back": "sábado\n\nEl sábado duermo hasta tarde."
+        },
+        {
+          "front": "Sunday\n\nWe visit our family on Sunday.",
+          "back": "domingo\n\nEl domingo visitamos a nuestra familia."
+        },
+        {
+          "front": "January\n\nJanuary is the first month of the year.",
+          "back": "enero\n\nEnero es el primer mes del año."
+        },
+        {
+          "front": "February\n\nFebruary is the shortest month.",
+          "back": "febrero\n\nFebrero es el mes más corto."
+        },
+        {
+          "front": "March\n\nMy birthday is in March.",
+          "back": "marzo\n\nMi cumpleaños es en marzo."
+        },
+        {
+          "front": "April\n\nWe moved to a new house in April.",
+          "back": "abril\n\nNos mudamos a una casa nueva en abril."
+        },
+        {
+          "front": "May\n\nMy sister was born in May.",
+          "back": "mayo\n\nMi hermana nació en mayo."
+        },
+        {
+          "front": "June\n\nJune is the sixth month of the year.",
+          "back": "junio\n\nJunio es el sexto mes del año."
+        },
+        {
+          "front": "July\n\nI started a new job in July.",
+          "back": "julio\n\nEmpecé un trabajo nuevo en julio."
+        },
+        {
+          "front": "August\n\nMy cousin is getting married in August.",
+          "back": "agosto\n\nMi primo se casa en agosto."
+        },
+        {
+          "front": "September\n\nWe met in September.",
+          "back": "septiembre\n\nNos conocimos en septiembre."
+        },
+        {
+          "front": "October\n\nThe concert is in October.",
+          "back": "octubre\n\nEl concierto es en octubre."
+        },
+        {
+          "front": "November\n\nMy birthday is in November.",
+          "back": "noviembre\n\nMi cumpleaños es en noviembre."
+        },
+        {
+          "front": "December\n\nChristmas is in December.",
+          "back": "diciembre\n\nLa Navidad es en diciembre."
+        },
+        {
+          "front": "season\n\nWhich season do you like?",
+          "back": "estación\n\n¿Qué estación te gusta?"
+        },
+        {
+          "front": "spring\n\nFlowers bloom in spring.",
+          "back": "primavera\n\nLas flores se abren en primavera."
+        },
+        {
+          "front": "summer\n\nWe swim a lot in summer.",
+          "back": "verano\n\nEn verano nadamos mucho."
+        },
+        {
+          "front": "autumn\n\nAutumn is my favorite season.",
+          "back": "otoño\n\nEl otoño es mi estación favorita.\n\nEn inglés americano: fall"
+        },
+        {
+          "front": "winter\n\nIt rarely snows here in winter.",
+          "back": "invierno\n\nAquí casi nunca nieva en invierno."
+        },
+        {
+          "front": "rainy season\n\nThe rainy season lasts for three months.",
+          "back": "temporada de lluvias\n\nLa temporada de lluvias dura tres meses."
+        },
+        {
+          "front": "dry season\n\nThe dry season is hot and sunny.",
+          "back": "temporada seca\n\nLa temporada seca es calurosa y soleada."
+        },
+        {
+          "front": "holiday\n\nWe have a holiday next week.",
+          "back": "vacaciones\n\nTenemos vacaciones la próxima semana.\n\nEn inglés americano: vacation"
+        },
+        {
+          "front": "Lunar New Year\n\nLunar New Year is a big holiday in Asia.",
+          "back": "Año Nuevo lunar\n\nEl Año Nuevo lunar es una gran fiesta en Asia.\n\nTambién: Año Nuevo chino"
+        },
+        {
+          "front": "Christmas\n\nMerry Christmas!",
+          "back": "Navidad\n\n¡Feliz Navidad!"
+        },
+        {
+          "front": "festival\n\nOur town has a music festival every summer.",
+          "back": "festival\n\nNuestro pueblo tiene un festival de música cada verano."
+        },
+        {
+          "front": "party\n\nCome to my party on Saturday.",
+          "back": "fiesta\n\nVen a mi fiesta el sábado."
+        },
+        {
+          "front": "anniversary\n\nToday is their wedding anniversary.",
+          "back": "aniversario\n\nHoy es su aniversario de bodas."
+        },
+        {
+          "front": "date\n\nWhat is the date today?",
+          "back": "fecha\n\n¿Qué fecha es hoy?\n\nTambién significa: cita"
+        },
+        {
+          "front": "next week\n\nI will see you next week.",
+          "back": "la próxima semana\n\nTe veo la próxima semana.\n\nTambién: la semana que viene"
+        },
+        {
+          "front": "last week\n\nI was sick last week.",
+          "back": "la semana pasada\n\nLa semana pasada estuve enfermo."
+        },
+        {
+          "front": "this year\n\nThis year I want to learn English.",
+          "back": "este año\n\nEste año quiero aprender inglés."
+        },
+        {
+          "front": "next year\n\nI will finish school next year.",
+          "back": "el próximo año\n\nTermino la escuela el próximo año.\n\nTambién: el año que viene"
+        },
+        {
+          "front": "last year\n\nWe moved here last year.",
+          "back": "el año pasado\n\nNos mudamos aquí el año pasado."
+        },
+        {
+          "front": "every day\n\nI walk my dog every day.",
+          "back": "todos los días\n\nSaco a pasear a mi perro todos los días."
+        },
+        {
+          "front": "once\n\nI have been to Japan once.",
+          "back": "una vez\n\nFui a Japón una vez."
+        },
+        {
+          "front": "twice\n\nBrush your teeth twice a day.",
+          "back": "dos veces\n\nCepíllate los dientes dos veces al día."
+        },
+        {
+          "front": "daily\n\nExercise is part of my daily life.",
+          "back": "diario\n\nEl ejercicio es parte de mi vida diaria."
+        },
+        {
+          "front": "weekly\n\nWe have a weekly meeting.",
+          "back": "semanal\n\nTenemos una reunión semanal."
+        },
+        {
+          "front": "monthly\n\nI pay the bills monthly.",
+          "back": "mensualmente\n\nPago las cuentas mensualmente.\n\nTambién: cada mes"
+        },
+        {
+          "front": "century\n\nWe live in the 21st century.",
+          "back": "siglo\n\nVivimos en el siglo veintiuno."
+        },
+        {
+          "front": "past\n\nForget the past.",
+          "back": "pasado\n\nOlvida el pasado."
+        },
+        {
+          "front": "future\n\nWhat are your plans for the future?",
+          "back": "futuro\n\n¿Qué planes tienes para el futuro?"
+        },
+        {
+          "front": "present\n\nLive in the present.",
+          "back": "presente\n\nVive el presente.\n\nTambién significa: regalo"
+        },
+        {
+          "front": "schedule\n\nWhat is your schedule today?",
+          "back": "horario\n\n¿Qué horario tienes hoy?\n\nTambién: agenda"
+        },
+        {
+          "front": "appointment\n\nI have a doctor's appointment at ten.",
+          "back": "cita\n\nTengo una cita con el médico a las diez."
+        }
+      ]
+    },
+    {
+      "name": "05 La comida",
+      "cards": [
+        {
+          "front": "food\n\nWe need food and water.",
+          "back": "comida\n\nNecesitamos comida y agua."
+        },
+        {
+          "front": "rice\n\nWe eat rice every day.",
+          "back": "arroz\n\nComemos arroz todos los días."
+        },
+        {
+          "front": "noodles\n\nI eat noodles for breakfast.",
+          "back": "fideos\n\nComo fideos en el desayuno."
+        },
+        {
+          "front": "bread\n\nI buy bread in the morning.",
+          "back": "pan\n\nCompro pan por la mañana."
+        },
+        {
+          "front": "egg\n\nI eat two eggs for breakfast.",
+          "back": "huevo\n\nComo dos huevos en el desayuno."
+        },
+        {
+          "front": "meat\n\nI don't eat much meat.",
+          "back": "carne\n\nNo como mucha carne."
+        },
+        {
+          "front": "beef\n\nBeef is more expensive than pork.",
+          "back": "carne de res\n\nLa carne de res es más cara que la de cerdo.\n\nEn España: ternera"
+        },
+        {
+          "front": "pork\n\nWe have pork for dinner.",
+          "back": "carne de cerdo\n\nCenamos carne de cerdo."
+        },
+        {
+          "front": "chicken\n\nChicken soup is good when you are sick.",
+          "back": "pollo\n\nLa sopa de pollo es buena cuando estás enfermo."
+        },
+        {
+          "front": "fish\n\nFish is good for your health.",
+          "back": "pescado\n\nEl pescado es bueno para la salud.\n\nTambién significa: pez"
+        },
+        {
+          "front": "shrimp\n\nThese shrimp are very fresh.",
+          "back": "camarón\n\nEstos camarones están muy frescos.\n\nEn España: gamba"
+        },
+        {
+          "front": "crab\n\nCrab soup is delicious.",
+          "back": "cangrejo\n\nLa sopa de cangrejo es deliciosa."
+        },
+        {
+          "front": "vegetable\n\nEat more vegetables.",
+          "back": "verdura\n\nCome más verduras."
+        },
+        {
+          "front": "fruit\n\nI eat fruit after dinner.",
+          "back": "fruta\n\nComo fruta después de la cena."
+        },
+        {
+          "front": "apple\n\nAn apple a day is good for you.",
+          "back": "manzana\n\nUna manzana al día te hace bien."
+        },
+        {
+          "front": "banana\n\nMonkeys love bananas.",
+          "back": "plátano\n\nA los monos les encantan los plátanos.\n\nTambién: banana"
+        },
+        {
+          "front": "orange\n\nI drink orange juice.",
+          "back": "naranja\n\nTomo jugo de naranja."
+        },
+        {
+          "front": "mango\n\nMangoes are sweet in summer.",
+          "back": "mango\n\nLos mangos son dulces en verano."
+        },
+        {
+          "front": "grape\n\nThese grapes are sour.",
+          "back": "uva\n\nEstas uvas están ácidas."
+        },
+        {
+          "front": "watermelon\n\nWatermelon is great on hot days.",
+          "back": "sandía\n\nLa sandía es ideal para los días de calor."
+        },
+        {
+          "front": "lemon\n\nAdd some lemon to the tea.",
+          "back": "limón\n\nAgrégale un poco de limón al té."
+        },
+        {
+          "front": "coconut\n\nCoconut water is cool and sweet.",
+          "back": "coco\n\nEl agua de coco es fresca y dulce."
+        },
+        {
+          "front": "pineapple\n\nI like pineapple on pizza.",
+          "back": "piña\n\nMe gusta la piña en la pizza."
+        },
+        {
+          "front": "tomato\n\nCut the tomatoes into small pieces.",
+          "back": "tomate\n\nCorta los tomates en trozos pequeños."
+        },
+        {
+          "front": "potato\n\nFrench fries are made from potatoes.",
+          "back": "papa\n\nLas papas fritas se hacen con papas.\n\nEn España: patata"
+        },
+        {
+          "front": "carrot\n\nCarrots are good for your eyes.",
+          "back": "zanahoria\n\nLas zanahorias son buenas para la vista."
+        },
+        {
+          "front": "onion\n\nOnions make me cry.",
+          "back": "cebolla\n\nLas cebollas me hacen llorar."
+        },
+        {
+          "front": "garlic\n\nThis dish has a lot of garlic.",
+          "back": "ajo\n\nEste plato tiene mucho ajo."
+        },
+        {
+          "front": "cabbage\n\nWe grow cabbage in the garden.",
+          "back": "repollo\n\nCultivamos repollo en el huerto."
+        },
+        {
+          "front": "corn\n\nGrilled corn is a popular snack.",
+          "back": "maíz\n\nEl maíz asado es muy popular como merienda."
+        },
+        {
+          "front": "bean\n\nI like soup with beans.",
+          "back": "frijol\n\nMe gusta la sopa de frijoles.\n\nEn España: alubia"
+        },
+        {
+          "front": "tofu\n\nTofu is made from soybeans.",
+          "back": "tofu\n\nEl tofu se hace con soya."
+        },
+        {
+          "front": "soup\n\nI eat hot soup when I am sick.",
+          "back": "sopa\n\nTomo sopa caliente cuando estoy enfermo."
+        },
+        {
+          "front": "salt\n\nAdd a little salt.",
+          "back": "sal\n\nAgrega un poco de sal."
+        },
+        {
+          "front": "sugar\n\nI don't take sugar in my coffee.",
+          "back": "azúcar\n\nNo le pongo azúcar al café."
+        },
+        {
+          "front": "pepper\n\nAdd salt and pepper.",
+          "back": "pimienta\n\nAgrega sal y pimienta.\n\nTambién significa: pimiento"
+        },
+        {
+          "front": "sauce\n\nThis sauce is a bit spicy.",
+          "back": "salsa\n\nEsta salsa es un poco picante."
+        },
+        {
+          "front": "fish sauce\n\nFish sauce is very salty.",
+          "back": "salsa de pescado\n\nLa salsa de pescado es muy salada."
+        },
+        {
+          "front": "oil\n\nHeat the oil in the pan.",
+          "back": "aceite\n\nCalienta el aceite en la sartén."
+        },
+        {
+          "front": "butter\n\nPut butter on the bread.",
+          "back": "mantequilla\n\nPonle mantequilla al pan."
+        },
+        {
+          "front": "cheese\n\nThis pizza has a lot of cheese.",
+          "back": "queso\n\nEsta pizza tiene mucho queso."
+        },
+        {
+          "front": "cake\n\nShe made a birthday cake.",
+          "back": "pastel\n\nElla hizo un pastel de cumpleaños.\n\nEn España: tarta"
+        },
+        {
+          "front": "candy\n\nChildren love candy.",
+          "back": "dulce\n\nA los niños les encantan los dulces.\n\nEn inglés británico: sweets"
+        },
+        {
+          "front": "chocolate\n\nI love dark chocolate.",
+          "back": "chocolate\n\nMe encanta el chocolate amargo."
+        },
+        {
+          "front": "ice cream\n\nLet's get some ice cream.",
+          "back": "helado\n\nVamos a comprar helado."
+        },
+        {
+          "front": "snack\n\nI have a snack at four o'clock.",
+          "back": "merienda\n\nA las cuatro tomo la merienda."
+        },
+        {
+          "front": "breakfast\n\nWhat do you eat for breakfast?",
+          "back": "desayuno\n\n¿Qué comes en el desayuno?"
+        },
+        {
+          "front": "lunch\n\nWe have lunch at noon.",
+          "back": "almuerzo\n\nAlmorzamos al mediodía.\n\nTambién: comida"
+        },
+        {
+          "front": "dinner\n\nDinner is ready.",
+          "back": "cena\n\nLa cena está lista."
+        },
+        {
+          "front": "meal\n\nWe have three meals a day.",
+          "back": "comida\n\nHacemos tres comidas al día."
+        }
+      ]
+    },
+    {
+      "name": "06 Bebidas y cocina",
+      "cards": [
+        {
+          "front": "water\n\nDrink more water.",
+          "back": "agua\n\nToma más agua."
+        },
+        {
+          "front": "drink\n\nWhat would you like to drink?",
+          "back": "beber\n\n¿Qué te gustaría beber?\n\nTambién: tomar"
+        },
+        {
+          "front": "tea\n\nWould you like some tea?",
+          "back": "té\n\n¿Quieres un poco de té?"
+        },
+        {
+          "front": "coffee\n\nWould you like some coffee?",
+          "back": "café\n\n¿Quieres un poco de café?"
+        },
+        {
+          "front": "milk\n\nBabies drink milk.",
+          "back": "leche\n\nLos bebés toman leche."
+        },
+        {
+          "front": "juice\n\nApple juice, please.",
+          "back": "jugo\n\nUn jugo de manzana, por favor.\n\nEn España: zumo"
+        },
+        {
+          "front": "beer\n\nHe drinks beer with his friends.",
+          "back": "cerveza\n\nÉl toma cerveza con sus amigos."
+        },
+        {
+          "front": "wine\n\nThey drink red wine with dinner.",
+          "back": "vino\n\nEllos toman vino tinto con la cena."
+        },
+        {
+          "front": "soft drink\n\nToo many soft drinks are bad for you.",
+          "back": "refresco\n\nTomar demasiados refrescos es malo para la salud.\n\nTambién: gaseosa"
+        },
+        {
+          "front": "ice\n\nCan I have some ice, please?",
+          "back": "hielo\n\n¿Me das un poco de hielo, por favor?"
+        },
+        {
+          "front": "bottle\n\nBuy a bottle of water.",
+          "back": "botella\n\nCompra una botella de agua."
+        },
+        {
+          "front": "cup\n\nA cup of tea, please.",
+          "back": "taza\n\nUna taza de té, por favor."
+        },
+        {
+          "front": "glass\n\nPour the juice into a glass.",
+          "back": "vaso\n\nSirve el jugo en un vaso.\n\nTambién significa: vidrio"
+        },
+        {
+          "front": "bowl\n\nI eat two bowls of rice.",
+          "back": "tazón\n\nComo dos tazones de arroz."
+        },
+        {
+          "front": "plate\n\nPut the food on the plate.",
+          "back": "plato\n\nPon la comida en el plato."
+        },
+        {
+          "front": "spoon\n\nEat your soup with a spoon.",
+          "back": "cuchara\n\nCome la sopa con una cuchara."
+        },
+        {
+          "front": "fork\n\nI eat salad with a fork.",
+          "back": "tenedor\n\nComo la ensalada con tenedor."
+        },
+        {
+          "front": "chopsticks\n\nWe eat with chopsticks.",
+          "back": "palillos\n\nComemos con palillos."
+        },
+        {
+          "front": "knife\n\nBe careful with the knife.",
+          "back": "cuchillo\n\nTen cuidado con el cuchillo."
+        },
+        {
+          "front": "pot\n\nCook the rice in a pot.",
+          "back": "olla\n\nCocina el arroz en una olla."
+        },
+        {
+          "front": "pan\n\nFry the egg in a pan.",
+          "back": "sartén\n\nFríe el huevo en una sartén."
+        },
+        {
+          "front": "kitchen\n\nMy mother is in the kitchen.",
+          "back": "cocina\n\nMi madre está en la cocina."
+        },
+        {
+          "front": "cook\n\nMy father likes to cook.",
+          "back": "cocinar\n\nA mi padre le gusta cocinar."
+        },
+        {
+          "front": "boil\n\nBoil the water first.",
+          "back": "hervir\n\nPrimero hierve el agua."
+        },
+        {
+          "front": "fry\n\nFry the fish in oil.",
+          "back": "freír\n\nFríe el pescado en aceite."
+        },
+        {
+          "front": "grill\n\nWe grill meat at the weekend.",
+          "back": "asar\n\nAsamos carne los fines de semana."
+        },
+        {
+          "front": "cut\n\nCut the bread, please.",
+          "back": "cortar\n\nCorta el pan, por favor."
+        },
+        {
+          "front": "wash\n\nWash your hands before eating.",
+          "back": "lavar\n\nLávate las manos antes de comer."
+        },
+        {
+          "front": "mix\n\nMix the eggs and sugar.",
+          "back": "mezclar\n\nMezcla los huevos y el azúcar."
+        },
+        {
+          "front": "taste\n\nTaste the soup.",
+          "back": "probar\n\nPrueba la sopa.\n\nTambién significa: sabor"
+        },
+        {
+          "front": "eat\n\nWhat do you want to eat?",
+          "back": "comer\n\n¿Qué quieres comer?"
+        },
+        {
+          "front": "delicious\n\nThis cake is delicious.",
+          "back": "delicioso\n\nEste pastel está delicioso."
+        },
+        {
+          "front": "hungry\n\nI am hungry.",
+          "back": "tener hambre\n\nTengo hambre.\n\nTambién: hambriento"
+        },
+        {
+          "front": "thirsty\n\nAre you thirsty?",
+          "back": "tener sed\n\n¿Tienes sed?\n\nTambién: sediento"
+        },
+        {
+          "front": "full\n\nI am full, thank you.",
+          "back": "lleno\n\nEstoy lleno, gracias."
+        },
+        {
+          "front": "spicy\n\nThis soup is too spicy.",
+          "back": "picante\n\nEsta sopa está demasiado picante."
+        },
+        {
+          "front": "sweet\n\nThis cake is too sweet.",
+          "back": "dulce\n\nEste pastel está demasiado dulce."
+        },
+        {
+          "front": "sour\n\nLemons are sour.",
+          "back": "ácido\n\nLos limones son ácidos.\n\nTambién: agrio"
+        },
+        {
+          "front": "salty\n\nThe soup is a little salty.",
+          "back": "salado\n\nLa sopa está un poco salada."
+        },
+        {
+          "front": "bitter\n\nCoffee without sugar is bitter.",
+          "back": "amargo\n\nEl café sin azúcar es amargo."
+        },
+        {
+          "front": "hot\n\nBe careful, the tea is hot.",
+          "back": "caliente\n\nCuidado, el té está caliente.\n\nTambién significa: picante"
+        },
+        {
+          "front": "cold\n\nI want a cold drink.",
+          "back": "frío\n\nQuiero una bebida fría."
+        },
+        {
+          "front": "fresh\n\nThe fish is very fresh.",
+          "back": "fresco\n\nEl pescado está muy fresco."
+        },
+        {
+          "front": "raw\n\nDon't eat raw meat.",
+          "back": "crudo\n\nNo comas carne cruda."
+        },
+        {
+          "front": "menu\n\nCan I see the menu?",
+          "back": "menú\n\n¿Puedo ver el menú?"
+        },
+        {
+          "front": "restaurant\n\nLet's eat at a restaurant.",
+          "back": "restaurante\n\nVamos a comer a un restaurante."
+        },
+        {
+          "front": "waiter\n\nThe waiter brings our food.",
+          "back": "mesero\n\nEl mesero nos trae la comida.\n\nEn España: camarero"
+        },
+        {
+          "front": "order\n\nAre you ready to order?",
+          "back": "pedir\n\n¿Están listos para pedir?"
+        },
+        {
+          "front": "bill\n\nCan we have the bill, please?",
+          "back": "cuenta\n\n¿Nos trae la cuenta, por favor?\n\nEn inglés americano: check"
+        },
+        {
+          "front": "recipe\n\nThis is my grandmother's recipe.",
+          "back": "receta\n\nEsta es la receta de mi abuela."
+        }
+      ]
+    },
+    {
+      "name": "07 La casa",
+      "cards": [
+        {
+          "front": "home\n\nI go home at six.",
+          "back": "casa\n\nMe voy a casa a las seis.\n\nTambién: hogar"
+        },
+        {
+          "front": "house\n\nTheir house has a garden.",
+          "back": "casa\n\nSu casa tiene jardín."
+        },
+        {
+          "front": "room\n\nMy room is small.",
+          "back": "cuarto\n\nMi cuarto es pequeño.\n\nEn España: habitación"
+        },
+        {
+          "front": "bedroom\n\nThe house has three bedrooms.",
+          "back": "dormitorio\n\nLa casa tiene tres dormitorios."
+        },
+        {
+          "front": "bathroom\n\nWhere is the bathroom?",
+          "back": "baño\n\n¿Dónde está el baño?"
+        },
+        {
+          "front": "living room\n\nWe watch TV in the living room.",
+          "back": "sala\n\nVemos la tele en la sala.\n\nEn España: salón"
+        },
+        {
+          "front": "door\n\nPlease close the door.",
+          "back": "puerta\n\nPor favor, cierra la puerta."
+        },
+        {
+          "front": "window\n\nOpen the window, please.",
+          "back": "ventana\n\nAbre la ventana, por favor."
+        },
+        {
+          "front": "wall\n\nThere is a picture on the wall.",
+          "back": "pared\n\nHay un cuadro en la pared."
+        },
+        {
+          "front": "floor\n\nThe floor is wet.",
+          "back": "piso\n\nEl piso está mojado.\n\nEn España: suelo"
+        },
+        {
+          "front": "roof\n\nThe roof is red.",
+          "back": "techo\n\nEl techo es rojo."
+        },
+        {
+          "front": "stairs\n\nGo up the stairs.",
+          "back": "escaleras\n\nSube las escaleras."
+        },
+        {
+          "front": "garden\n\nMy grandmother grows flowers in the garden.",
+          "back": "jardín\n\nMi abuela cultiva flores en el jardín."
+        },
+        {
+          "front": "gate\n\nClose the gate behind you.",
+          "back": "portón\n\nCierra el portón después de pasar."
+        },
+        {
+          "front": "key\n\nI lost my key.",
+          "back": "llave\n\nPerdí mi llave."
+        },
+        {
+          "front": "table\n\nThe book is on the table.",
+          "back": "mesa\n\nEl libro está sobre la mesa."
+        },
+        {
+          "front": "chair\n\nSit on this chair.",
+          "back": "silla\n\nSiéntate en esta silla."
+        },
+        {
+          "front": "bed\n\nMy bed is very soft.",
+          "back": "cama\n\nMi cama es muy suave."
+        },
+        {
+          "front": "sofa\n\nThe cat is on the sofa.",
+          "back": "sofá\n\nEl gato está en el sofá."
+        },
+        {
+          "front": "desk\n\nMy computer is on the desk.",
+          "back": "escritorio\n\nMi computadora está en el escritorio."
+        },
+        {
+          "front": "shelf\n\nPut the books on the shelf.",
+          "back": "estante\n\nPon los libros en el estante."
+        },
+        {
+          "front": "wardrobe\n\nMy clothes are in the wardrobe.",
+          "back": "clóset\n\nMi ropa está en el clóset.\n\nEn España: armario"
+        },
+        {
+          "front": "mirror\n\nShe looks in the mirror.",
+          "back": "espejo\n\nElla se mira en el espejo."
+        },
+        {
+          "front": "lamp\n\nTurn on the lamp.",
+          "back": "lámpara\n\nEnciende la lámpara."
+        },
+        {
+          "front": "fan\n\nIt's hot, turn on the fan.",
+          "back": "ventilador\n\nHace calor, enciende el ventilador."
+        },
+        {
+          "front": "air conditioner\n\nThe air conditioner is broken.",
+          "back": "aire acondicionado\n\nEl aire acondicionado está roto."
+        },
+        {
+          "front": "television\n\nWe bought a new television.",
+          "back": "televisor\n\nCompramos un televisor nuevo."
+        },
+        {
+          "front": "fridge\n\nThe milk is in the fridge.",
+          "back": "refrigerador\n\nLa leche está en el refrigerador.\n\nEn España: nevera"
+        },
+        {
+          "front": "washing machine\n\nPut the clothes in the washing machine.",
+          "back": "lavadora\n\nMete la ropa en la lavadora."
+        },
+        {
+          "front": "sink\n\nThe dishes are in the sink.",
+          "back": "fregadero\n\nLos platos están en el fregadero."
+        },
+        {
+          "front": "shower\n\nThe shower is not working.",
+          "back": "ducha\n\nLa ducha no funciona."
+        },
+        {
+          "front": "toilet\n\nWhere is the toilet?",
+          "back": "baño\n\n¿Dónde está el baño?\n\nTambién significa: inodoro"
+        },
+        {
+          "front": "towel\n\nCan I have a clean towel?",
+          "back": "toalla\n\n¿Me das una toalla limpia?"
+        },
+        {
+          "front": "soap\n\nWash your hands with soap.",
+          "back": "jabón\n\nLávate las manos con jabón."
+        },
+        {
+          "front": "toothbrush\n\nI need a new toothbrush.",
+          "back": "cepillo de dientes\n\nNecesito un cepillo de dientes nuevo."
+        },
+        {
+          "front": "toothpaste\n\nWe are out of toothpaste.",
+          "back": "pasta de dientes\n\nSe nos acabó la pasta de dientes."
+        },
+        {
+          "front": "blanket\n\nIt's cold, I need a blanket.",
+          "back": "cobija\n\nHace frío, necesito una cobija.\n\nEn España: manta"
+        },
+        {
+          "front": "pillow\n\nThis pillow is too hard.",
+          "back": "almohada\n\nEsta almohada está demasiado dura."
+        },
+        {
+          "front": "clean\n\nI clean my room on Sunday.",
+          "back": "limpiar\n\nLimpio mi cuarto los domingos.\n\nTambién significa: limpio"
+        },
+        {
+          "front": "sweep\n\nPlease sweep the floor.",
+          "back": "barrer\n\nPor favor, barre el piso."
+        },
+        {
+          "front": "rubbish\n\nTake the rubbish out.",
+          "back": "basura\n\nSaca la basura.\n\nEn inglés americano: trash"
+        },
+        {
+          "front": "apartment\n\nWe live in an apartment.",
+          "back": "apartamento\n\nVivimos en un apartamento.\n\nEn España: piso"
+        },
+        {
+          "front": "rent\n\nI rent a room near my school.",
+          "back": "alquilar\n\nAlquilo un cuarto cerca de mi escuela."
+        },
+        {
+          "front": "address\n\nWhat is your address?",
+          "back": "dirección\n\n¿Cuál es tu dirección?"
+        },
+        {
+          "front": "move\n\nWe will move next month.",
+          "back": "mudarse\n\nNos vamos a mudar el próximo mes.\n\nTambién significa: mover"
+        },
+        {
+          "front": "sleep\n\nBabies sleep a lot.",
+          "back": "dormir\n\nLos bebés duermen mucho."
+        },
+        {
+          "front": "wake up\n\nI wake up at six.",
+          "back": "despertarse\n\nMe despierto a las seis."
+        },
+        {
+          "front": "open\n\nThe shop opens at eight.",
+          "back": "abrir\n\nLa tienda abre a las ocho."
+        },
+        {
+          "front": "close\n\nClose the window, please.",
+          "back": "cerrar\n\nCierra la ventana, por favor."
+        },
+        {
+          "front": "furniture\n\nWe need new furniture.",
+          "back": "muebles\n\nNecesitamos muebles nuevos."
+        }
+      ]
+    },
+    {
+      "name": "08 Ropa y colores",
+      "cards": [
+        {
+          "front": "clothes\n\nI need new clothes.",
+          "back": "ropa\n\nNecesito ropa nueva."
+        },
+        {
+          "front": "shirt\n\nHe wears a white shirt to work.",
+          "back": "camisa\n\nÉl usa camisa blanca para ir al trabajo."
+        },
+        {
+          "front": "T-shirt\n\nThis T-shirt is too big.",
+          "back": "camiseta\n\nEsta camiseta me queda demasiado grande."
+        },
+        {
+          "front": "dress\n\nShe wears a beautiful dress.",
+          "back": "vestido\n\nElla lleva un vestido hermoso."
+        },
+        {
+          "front": "skirt\n\nHer skirt is short.",
+          "back": "falda\n\nSu falda es corta."
+        },
+        {
+          "front": "trousers\n\nI wear black trousers.",
+          "back": "pantalones\n\nUso pantalones negros.\n\nEn inglés americano: pants"
+        },
+        {
+          "front": "jeans\n\nI like wearing jeans.",
+          "back": "jeans\n\nMe gusta usar jeans.\n\nEn España: vaqueros"
+        },
+        {
+          "front": "shorts\n\nKids wear shorts in summer.",
+          "back": "pantalones cortos\n\nLos niños usan pantalones cortos en verano.\n\nTambién: shorts"
+        },
+        {
+          "front": "jacket\n\nTake a jacket, it's cold.",
+          "back": "chaqueta\n\nLlévate una chaqueta, hace frío.\n\nTambién: chamarra"
+        },
+        {
+          "front": "coat\n\nShe wears a long coat in winter.",
+          "back": "abrigo\n\nElla usa un abrigo largo en invierno."
+        },
+        {
+          "front": "sweater\n\nMy grandmother knitted this sweater.",
+          "back": "suéter\n\nMi abuela tejió este suéter.\n\nEn España: jersey"
+        },
+        {
+          "front": "uniform\n\nStudents wear a uniform.",
+          "back": "uniforme\n\nLos estudiantes usan uniforme."
+        },
+        {
+          "front": "shoes\n\nTake off your shoes, please.",
+          "back": "zapatos\n\nQuítate los zapatos, por favor."
+        },
+        {
+          "front": "sandals\n\nI wear sandals in summer.",
+          "back": "sandalias\n\nUso sandalias en verano."
+        },
+        {
+          "front": "socks\n\nWhere are my socks?",
+          "back": "calcetines\n\n¿Dónde están mis calcetines?"
+        },
+        {
+          "front": "hat\n\nWear a hat in the sun.",
+          "back": "sombrero\n\nPonte un sombrero cuando estés al sol."
+        },
+        {
+          "front": "bag\n\nMy bag is heavy.",
+          "back": "bolsa\n\nMi bolsa pesa mucho.\n\nEn España: bolso"
+        },
+        {
+          "front": "backpack\n\nPut your books in your backpack.",
+          "back": "mochila\n\nPon tus libros en la mochila."
+        },
+        {
+          "front": "belt\n\nThis belt is too long.",
+          "back": "cinturón\n\nEste cinturón es demasiado largo."
+        },
+        {
+          "front": "glasses\n\nI can't read without my glasses.",
+          "back": "lentes\n\nNo puedo leer sin mis lentes.\n\nEn España: gafas"
+        },
+        {
+          "front": "watch\n\nMy watch is slow.",
+          "back": "reloj\n\nMi reloj está atrasado."
+        },
+        {
+          "front": "ring\n\nShe has a gold ring.",
+          "back": "anillo\n\nElla tiene un anillo de oro."
+        },
+        {
+          "front": "necklace\n\nThis necklace is a gift from my mother.",
+          "back": "collar\n\nEste collar es un regalo de mi madre."
+        },
+        {
+          "front": "umbrella\n\nTake an umbrella, it's raining.",
+          "back": "paraguas\n\nLlévate un paraguas, está lloviendo."
+        },
+        {
+          "front": "pocket\n\nMy phone is in my pocket.",
+          "back": "bolsillo\n\nMi celular está en el bolsillo."
+        },
+        {
+          "front": "button\n\nA button fell off my shirt.",
+          "back": "botón\n\nSe me cayó un botón de la camisa."
+        },
+        {
+          "front": "size\n\nWhat size do you wear?",
+          "back": "talla\n\n¿Qué talla usas?\n\nTambién significa: tamaño"
+        },
+        {
+          "front": "wear\n\nWhat will you wear to the party?",
+          "back": "usar\n\n¿Qué vas a usar para la fiesta?\n\nTambién: llevar"
+        },
+        {
+          "front": "put on\n\nPut on your coat.",
+          "back": "ponerse\n\nPonte el abrigo."
+        },
+        {
+          "front": "take off\n\nTake off your jacket and sit down.",
+          "back": "quitarse\n\nQuítate la chaqueta y siéntate.\n\nTambién significa: despegar"
+        },
+        {
+          "front": "try on\n\nCan I try on this dress?",
+          "back": "probarse\n\n¿Me puedo probar este vestido?"
+        },
+        {
+          "front": "fashion\n\nShe works in fashion.",
+          "back": "moda\n\nElla trabaja en el mundo de la moda."
+        },
+        {
+          "front": "color\n\nWhat color is your car?",
+          "back": "color\n\n¿De qué color es tu carro?"
+        },
+        {
+          "front": "red\n\nThe flag is red.",
+          "back": "rojo\n\nLa bandera es roja."
+        },
+        {
+          "front": "blue\n\nThe sky is blue.",
+          "back": "azul\n\nEl cielo es azul."
+        },
+        {
+          "front": "green\n\nLeaves are green.",
+          "back": "verde\n\nLas hojas son verdes."
+        },
+        {
+          "front": "yellow\n\nBananas are yellow.",
+          "back": "amarillo\n\nLos plátanos son amarillos."
+        },
+        {
+          "front": "black\n\nHe has black hair.",
+          "back": "negro\n\nÉl tiene el pelo negro."
+        },
+        {
+          "front": "white\n\nSnow is white.",
+          "back": "blanco\n\nLa nieve es blanca."
+        },
+        {
+          "front": "gray\n\nThe sky is gray today.",
+          "back": "gris\n\nHoy el cielo está gris."
+        },
+        {
+          "front": "brown\n\nMy dog is brown.",
+          "back": "marrón\n\nMi perro es marrón.\n\nTambién: café"
+        },
+        {
+          "front": "pink\n\nShe loves pink.",
+          "back": "rosa\n\nA ella le encanta el rosa.\n\nTambién: rosado"
+        },
+        {
+          "front": "purple\n\nPurple is my favorite color.",
+          "back": "morado\n\nEl morado es mi color favorito."
+        },
+        {
+          "front": "dark\n\nI like dark blue.",
+          "back": "oscuro\n\nMe gusta el azul oscuro."
+        },
+        {
+          "front": "light\n\nShe wears a light green dress.",
+          "back": "claro\n\nElla usa un vestido verde claro.\n\nTambién significa: luz"
+        },
+        {
+          "front": "gold\n\nHer necklace is made of gold.",
+          "back": "oro\n\nSu collar es de oro."
+        },
+        {
+          "front": "silver\n\nThis spoon is made of silver.",
+          "back": "plata\n\nEsta cuchara es de plata."
+        },
+        {
+          "front": "cloth\n\nThis cloth is very soft.",
+          "back": "tela\n\nEsta tela es muy suave."
+        },
+        {
+          "front": "pajamas\n\nI put on my pajamas.",
+          "back": "pijama\n\nMe puse el pijama."
+        },
+        {
+          "front": "scarf\n\nWear a scarf in winter.",
+          "back": "bufanda\n\nPonte una bufanda en invierno."
+        }
+      ]
+    },
+    {
+      "name": "09 Cuerpo y salud",
+      "cards": [
+        {
+          "front": "body\n\nExercise is good for your body.",
+          "back": "cuerpo\n\nEl ejercicio es bueno para el cuerpo."
+        },
+        {
+          "front": "head\n\nMy head hurts.",
+          "back": "cabeza\n\nMe duele la cabeza."
+        },
+        {
+          "front": "hair\n\nShe has short hair.",
+          "back": "pelo\n\nElla tiene el pelo corto.\n\nTambién: cabello"
+        },
+        {
+          "front": "face\n\nWash your face.",
+          "back": "cara\n\nLávate la cara."
+        },
+        {
+          "front": "eye\n\nShe has big eyes.",
+          "back": "ojo\n\nElla tiene los ojos grandes."
+        },
+        {
+          "front": "ear\n\nMy ear hurts.",
+          "back": "oreja\n\nMe duele la oreja.\n\nTambién: oído"
+        },
+        {
+          "front": "nose\n\nMy nose is red.",
+          "back": "nariz\n\nTengo la nariz roja."
+        },
+        {
+          "front": "mouth\n\nOpen your mouth.",
+          "back": "boca\n\nAbre la boca."
+        },
+        {
+          "front": "tooth\n\nI have a bad tooth.",
+          "back": "diente\n\nTengo un diente picado."
+        },
+        {
+          "front": "lip\n\nHer lips are dry.",
+          "back": "labio\n\nTiene los labios secos."
+        },
+        {
+          "front": "neck\n\nGiraffes have long necks.",
+          "back": "cuello\n\nLas jirafas tienen el cuello largo."
+        },
+        {
+          "front": "shoulder\n\nMy shoulder hurts.",
+          "back": "hombro\n\nMe duele el hombro."
+        },
+        {
+          "front": "arm\n\nHe broke his arm.",
+          "back": "brazo\n\nSe rompió el brazo."
+        },
+        {
+          "front": "hand\n\nRaise your hand.",
+          "back": "mano\n\nLevanta la mano."
+        },
+        {
+          "front": "finger\n\nI cut my finger.",
+          "back": "dedo\n\nMe corté el dedo."
+        },
+        {
+          "front": "leg\n\nMy legs are tired.",
+          "back": "pierna\n\nTengo las piernas cansadas."
+        },
+        {
+          "front": "foot\n\nMy foot hurts.",
+          "back": "pie\n\nMe duele el pie."
+        },
+        {
+          "front": "knee\n\nI hurt my knee playing football.",
+          "back": "rodilla\n\nMe lastimé la rodilla jugando fútbol."
+        },
+        {
+          "front": "back\n\nMy back hurts.",
+          "back": "espalda\n\nMe duele la espalda.\n\nTambién significa: atrás"
+        },
+        {
+          "front": "stomach\n\nI have a stomach ache.",
+          "back": "estómago\n\nMe duele el estómago."
+        },
+        {
+          "front": "heart\n\nYour heart beats fast when you run.",
+          "back": "corazón\n\nEl corazón te late rápido cuando corres."
+        },
+        {
+          "front": "skin\n\nUse sunscreen to protect your skin.",
+          "back": "piel\n\nUsa protector solar para proteger tu piel."
+        },
+        {
+          "front": "blood\n\nHe gives blood every year.",
+          "back": "sangre\n\nÉl dona sangre todos los años."
+        },
+        {
+          "front": "bone\n\nMilk is good for your bones.",
+          "back": "hueso\n\nLa leche es buena para los huesos."
+        },
+        {
+          "front": "health\n\nHealth is more important than money.",
+          "back": "salud\n\nLa salud es más importante que el dinero."
+        },
+        {
+          "front": "healthy\n\nShe is healthy and happy.",
+          "back": "sano\n\nElla está sana y feliz.\n\nTambién: saludable"
+        },
+        {
+          "front": "sick\n\nI am sick today.",
+          "back": "enfermo\n\nHoy estoy enfermo."
+        },
+        {
+          "front": "pain\n\nI have a pain in my back.",
+          "back": "dolor\n\nTengo un dolor en la espalda."
+        },
+        {
+          "front": "headache\n\nI have a headache.",
+          "back": "dolor de cabeza\n\nTengo dolor de cabeza."
+        },
+        {
+          "front": "fever\n\nThe child has a fever.",
+          "back": "fiebre\n\nEl niño tiene fiebre."
+        },
+        {
+          "front": "cough\n\nI have a bad cough.",
+          "back": "tos\n\nTengo mucha tos."
+        },
+        {
+          "front": "flu\n\nI got the flu last week.",
+          "back": "gripe\n\nLa semana pasada me dio gripe."
+        },
+        {
+          "front": "medicine\n\nTake this medicine twice a day.",
+          "back": "medicina\n\nToma esta medicina dos veces al día.\n\nTambién: medicamento"
+        },
+        {
+          "front": "doctor\n\nYou should see a doctor.",
+          "back": "doctor\n\nDeberías ir al médico.\n\nTambién: médico"
+        },
+        {
+          "front": "nurse\n\nThe nurse is very kind.",
+          "back": "enfermero\n\nLa enfermera es muy amable."
+        },
+        {
+          "front": "hospital\n\nHe is in the hospital.",
+          "back": "hospital\n\nÉl está en el hospital."
+        },
+        {
+          "front": "pharmacy\n\nIs there a pharmacy near here?",
+          "back": "farmacia\n\n¿Hay una farmacia cerca de aquí?"
+        },
+        {
+          "front": "dentist\n\nI go to the dentist twice a year.",
+          "back": "dentista\n\nVoy al dentista dos veces al año."
+        },
+        {
+          "front": "tired\n\nI am very tired today.",
+          "back": "cansado\n\nHoy estoy muy cansado."
+        },
+        {
+          "front": "hurt\n\nMy arm hurts.",
+          "back": "doler\n\nMe duele el brazo.\n\nTambién significa: lastimar"
+        },
+        {
+          "front": "rest\n\nYou need to rest.",
+          "back": "descansar\n\nNecesitas descansar."
+        },
+        {
+          "front": "exercise\n\nI exercise every morning.",
+          "back": "hacer ejercicio\n\nHago ejercicio todas las mañanas.\n\nTambién significa: ejercicio"
+        },
+        {
+          "front": "weight\n\nI want to lose weight.",
+          "back": "peso\n\nQuiero bajar de peso."
+        },
+        {
+          "front": "strong\n\nHe is very strong.",
+          "back": "fuerte\n\nÉl es muy fuerte."
+        },
+        {
+          "front": "weak\n\nI feel weak after the flu.",
+          "back": "débil\n\nMe siento débil después de la gripe."
+        },
+        {
+          "front": "accident\n\nHe had a car accident.",
+          "back": "accidente\n\nTuvo un accidente de carro."
+        },
+        {
+          "front": "ambulance\n\nCall an ambulance!",
+          "back": "ambulancia\n\n¡Llama a una ambulancia!"
+        },
+        {
+          "front": "emergency\n\nIn an emergency, call for help.",
+          "back": "emergencia\n\nEn una emergencia, pide ayuda."
+        },
+        {
+          "front": "breathe\n\nBreathe slowly.",
+          "back": "respirar\n\nRespira despacio."
+        },
+        {
+          "front": "sleepy\n\nI feel sleepy after lunch.",
+          "back": "tener sueño\n\nDespués del almuerzo tengo sueño.\n\nTambién: somnoliento"
+        }
+      ]
+    },
+    {
+      "name": "10 La escuela",
+      "cards": [
+        {
+          "front": "school\n\nMy school is near my house.",
+          "back": "escuela\n\nMi escuela está cerca de mi casa.\n\nTambién: colegio"
+        },
+        {
+          "front": "student\n\nThere are forty students in my class.",
+          "back": "estudiante\n\nHay cuarenta estudiantes en mi clase."
+        },
+        {
+          "front": "teacher\n\nOur teacher is very kind.",
+          "back": "profesor\n\nNuestro profesor es muy amable.\n\nTambién: maestro"
+        },
+        {
+          "front": "class\n\nMy class has thirty students.",
+          "back": "clase\n\nMi clase tiene treinta estudiantes."
+        },
+        {
+          "front": "classroom\n\nOur classroom is on the second floor.",
+          "back": "aula\n\nNuestra aula está en el segundo piso.\n\nTambién: salón de clases"
+        },
+        {
+          "front": "lesson\n\nToday's lesson is about animals.",
+          "back": "lección\n\nLa lección de hoy es sobre los animales."
+        },
+        {
+          "front": "homework\n\nI do my homework after dinner.",
+          "back": "tarea\n\nHago la tarea después de cenar.\n\nEn España: deberes"
+        },
+        {
+          "front": "exam\n\nI have an exam tomorrow.",
+          "back": "examen\n\nMañana tengo un examen."
+        },
+        {
+          "front": "test\n\nWe have a test on Friday.",
+          "back": "prueba\n\nTenemos una prueba el viernes."
+        },
+        {
+          "front": "grade\n\nI got a good grade in English.",
+          "back": "nota\n\nSaqué una buena nota en inglés.\n\nEn inglés británico: mark"
+        },
+        {
+          "front": "book\n\nI am reading a good book.",
+          "back": "libro\n\nEstoy leyendo un buen libro."
+        },
+        {
+          "front": "notebook\n\nWrite it in your notebook.",
+          "back": "cuaderno\n\nEscríbelo en tu cuaderno."
+        },
+        {
+          "front": "pen\n\nCan I borrow your pen?",
+          "back": "bolígrafo\n\n¿Me prestas tu bolígrafo?\n\nTambién: pluma"
+        },
+        {
+          "front": "pencil\n\nDraw with a pencil.",
+          "back": "lápiz\n\nDibuja con lápiz."
+        },
+        {
+          "front": "eraser\n\nCan I use your eraser?",
+          "back": "borrador\n\n¿Puedo usar tu borrador?\n\nTambién: goma"
+        },
+        {
+          "front": "ruler\n\nUse a ruler to draw a line.",
+          "back": "regla\n\nUsa una regla para trazar una línea."
+        },
+        {
+          "front": "board\n\nThe teacher writes on the board.",
+          "back": "pizarrón\n\nEl profesor escribe en el pizarrón.\n\nEn España: pizarra"
+        },
+        {
+          "front": "dictionary\n\nLook it up in the dictionary.",
+          "back": "diccionario\n\nBúscalo en el diccionario."
+        },
+        {
+          "front": "library\n\nI study in the library.",
+          "back": "biblioteca\n\nEstudio en la biblioteca."
+        },
+        {
+          "front": "university\n\nMy sister goes to university.",
+          "back": "universidad\n\nMi hermana va a la universidad."
+        },
+        {
+          "front": "subject\n\nWhat is your favorite subject?",
+          "back": "materia\n\n¿Cuál es tu materia favorita?\n\nEn España: asignatura"
+        },
+        {
+          "front": "math\n\nI am good at math.",
+          "back": "matemáticas\n\nSoy bueno en matemáticas.\n\nEn inglés británico: maths"
+        },
+        {
+          "front": "English\n\nEnglish is an international language.",
+          "back": "inglés\n\nEl inglés es un idioma internacional."
+        },
+        {
+          "front": "history\n\nI love history lessons.",
+          "back": "historia\n\nMe encantan las clases de historia."
+        },
+        {
+          "front": "geography\n\nIn geography we learn about maps.",
+          "back": "geografía\n\nEn geografía aprendemos sobre los mapas."
+        },
+        {
+          "front": "science\n\nScience is interesting.",
+          "back": "ciencia\n\nLa ciencia es interesante."
+        },
+        {
+          "front": "art\n\nWe draw pictures in art class.",
+          "back": "arte\n\nDibujamos en la clase de arte."
+        },
+        {
+          "front": "music\n\nI listen to music every day.",
+          "back": "música\n\nEscucho música todos los días."
+        },
+        {
+          "front": "physics\n\nPhysics is my favorite subject.",
+          "back": "física\n\nLa física es mi materia favorita."
+        },
+        {
+          "front": "chemistry\n\nWe do experiments in chemistry.",
+          "back": "química\n\nHacemos experimentos en la clase de química."
+        },
+        {
+          "front": "biology\n\nIn biology we study plants and animals.",
+          "back": "biología\n\nEn biología estudiamos las plantas y los animales."
+        },
+        {
+          "front": "literature\n\nShe studies literature.",
+          "back": "literatura\n\nElla estudia literatura."
+        },
+        {
+          "front": "learn\n\nI want to learn English.",
+          "back": "aprender\n\nQuiero aprender inglés."
+        },
+        {
+          "front": "study\n\nI study for two hours every night.",
+          "back": "estudiar\n\nEstudio dos horas todas las noches."
+        },
+        {
+          "front": "teach\n\nShe teaches English.",
+          "back": "enseñar\n\nElla enseña inglés."
+        },
+        {
+          "front": "read\n\nI read the news every morning.",
+          "back": "leer\n\nLeo las noticias todas las mañanas."
+        },
+        {
+          "front": "write\n\nWrite your name here.",
+          "back": "escribir\n\nEscribe tu nombre aquí."
+        },
+        {
+          "front": "listen\n\nListen carefully.",
+          "back": "escuchar\n\nEscucha con atención."
+        },
+        {
+          "front": "spell\n\nHow do you spell your name?",
+          "back": "deletrear\n\n¿Cómo se deletrea tu nombre?"
+        },
+        {
+          "front": "count\n\nCount from one to ten.",
+          "back": "contar\n\nCuenta del uno al diez."
+        },
+        {
+          "front": "practice\n\nPractice speaking every day.",
+          "back": "practicar\n\nPractica la conversación todos los días."
+        },
+        {
+          "front": "remember\n\nI can't remember his name.",
+          "back": "recordar\n\nNo recuerdo su nombre.\n\nTambién: acordarse"
+        },
+        {
+          "front": "forget\n\nDon't forget your homework.",
+          "back": "olvidar\n\nNo olvides la tarea."
+        },
+        {
+          "front": "explain\n\nCan you explain this word?",
+          "back": "explicar\n\n¿Puedes explicarme esta palabra?"
+        },
+        {
+          "front": "mistake\n\nEveryone makes mistakes.",
+          "back": "error\n\nTodos cometemos errores."
+        },
+        {
+          "front": "correct\n\nYour answer is correct.",
+          "back": "correcto\n\nTu respuesta es correcta."
+        },
+        {
+          "front": "wrong\n\nThat answer is wrong.",
+          "back": "incorrecto\n\nEsa respuesta es incorrecta."
+        },
+        {
+          "front": "pass\n\nI passed the exam!",
+          "back": "aprobar\n\n¡Aprobé el examen!\n\nTambién significa: pasar"
+        },
+        {
+          "front": "fail\n\nHe failed the test.",
+          "back": "reprobar\n\nÉl reprobó el examen.\n\nEn España: suspender"
+        },
+        {
+          "front": "semester\n\nThe new semester starts next week.",
+          "back": "semestre\n\nEl nuevo semestre empieza la próxima semana."
+        }
+      ]
+    },
+    {
+      "name": "11 Trabajo y profesiones",
+      "cards": [
+        {
+          "front": "work\n\nI work in an office.",
+          "back": "trabajar\n\nTrabajo en una oficina."
+        },
+        {
+          "front": "job\n\nShe has a new job.",
+          "back": "trabajo\n\nElla tiene un trabajo nuevo.\n\nTambién: empleo"
+        },
+        {
+          "front": "office\n\nThe office opens at eight.",
+          "back": "oficina\n\nLa oficina abre a las ocho."
+        },
+        {
+          "front": "company\n\nHe works for a big company.",
+          "back": "empresa\n\nÉl trabaja en una empresa grande."
+        },
+        {
+          "front": "boss\n\nMy boss is very busy.",
+          "back": "jefe\n\nMi jefe está muy ocupado."
+        },
+        {
+          "front": "colleague\n\nMy colleagues are friendly.",
+          "back": "compañero de trabajo\n\nMis compañeros de trabajo son muy amables.\n\nTambién: colega"
+        },
+        {
+          "front": "worker\n\nThe workers start at seven.",
+          "back": "trabajador\n\nLos trabajadores empiezan a las siete."
+        },
+        {
+          "front": "employee\n\nThe company has a hundred employees.",
+          "back": "empleado\n\nLa empresa tiene cien empleados."
+        },
+        {
+          "front": "manager\n\nCan I talk to the manager?",
+          "back": "gerente\n\n¿Puedo hablar con el gerente?"
+        },
+        {
+          "front": "meeting\n\nThe meeting starts at nine.",
+          "back": "reunión\n\nLa reunión empieza a las nueve."
+        },
+        {
+          "front": "salary\n\nHer salary is good.",
+          "back": "salario\n\nSu salario es bueno.\n\nTambién: sueldo"
+        },
+        {
+          "front": "business\n\nMy parents have a small business.",
+          "back": "negocio\n\nMis padres tienen un pequeño negocio."
+        },
+        {
+          "front": "customer\n\nThe customer is always right.",
+          "back": "cliente\n\nEl cliente siempre tiene la razón."
+        },
+        {
+          "front": "interview\n\nI have a job interview tomorrow.",
+          "back": "entrevista\n\nMañana tengo una entrevista de trabajo."
+        },
+        {
+          "front": "engineer\n\nMy brother is an engineer.",
+          "back": "ingeniero\n\nMi hermano es ingeniero."
+        },
+        {
+          "front": "police officer\n\nThe police officer helped us.",
+          "back": "policía\n\nEl policía nos ayudó."
+        },
+        {
+          "front": "farmer\n\nFarmers grow rice.",
+          "back": "agricultor\n\nLos agricultores cultivan arroz.\n\nTambién: granjero"
+        },
+        {
+          "front": "driver\n\nThe taxi driver was friendly.",
+          "back": "conductor\n\nEl conductor del taxi fue muy amable.\n\nTambién: chofer"
+        },
+        {
+          "front": "chef\n\nThe chef cooks delicious food.",
+          "back": "chef\n\nEl cocinero prepara comida deliciosa.\n\nTambién: cocinero"
+        },
+        {
+          "front": "singer\n\nShe is a famous singer.",
+          "back": "cantante\n\nElla es una cantante famosa."
+        },
+        {
+          "front": "actor\n\nHe wants to be an actor.",
+          "back": "actor\n\nÉl quiere ser actor."
+        },
+        {
+          "front": "lawyer\n\nWe need a lawyer.",
+          "back": "abogado\n\nNecesitamos un abogado."
+        },
+        {
+          "front": "shop assistant\n\nThe shop assistant was very helpful.",
+          "back": "vendedor\n\nLa vendedora nos ayudó mucho.\n\nEn España: dependiente"
+        },
+        {
+          "front": "journalist\n\nThe journalist writes for a newspaper.",
+          "back": "periodista\n\nEl periodista escribe para un periódico."
+        },
+        {
+          "front": "scientist\n\nScientists study the world around us.",
+          "back": "científico\n\nLos científicos estudian el mundo que nos rodea."
+        },
+        {
+          "front": "painter\n\nHe is a famous painter.",
+          "back": "pintor\n\nEs un pintor famoso."
+        },
+        {
+          "front": "musician\n\nMy uncle is a musician.",
+          "back": "músico\n\nMi tío es músico."
+        },
+        {
+          "front": "pilot\n\nThe pilot flies the plane.",
+          "back": "piloto\n\nEl piloto pilotea el avión."
+        },
+        {
+          "front": "soldier\n\nMy grandfather was a soldier.",
+          "back": "soldado\n\nMi abuelo fue soldado."
+        },
+        {
+          "front": "firefighter\n\nFirefighters are very brave.",
+          "back": "bombero\n\nLos bomberos son muy valientes."
+        },
+        {
+          "front": "tailor\n\nThe tailor made my suit.",
+          "back": "sastre\n\nEl sastre me hizo el traje."
+        },
+        {
+          "front": "mechanic\n\nThe mechanic fixed my motorbike.",
+          "back": "mecánico\n\nEl mecánico arregló mi moto."
+        },
+        {
+          "front": "hairdresser\n\nI go to the hairdresser every month.",
+          "back": "peluquero\n\nVoy al peluquero cada mes."
+        },
+        {
+          "front": "builder\n\nThe builders are building a new school.",
+          "back": "albañil\n\nLos albañiles están construyendo una escuela nueva."
+        },
+        {
+          "front": "secretary\n\nThe secretary answers the phone.",
+          "back": "secretario\n\nLa secretaria contesta el teléfono."
+        },
+        {
+          "front": "accountant\n\nShe works as an accountant.",
+          "back": "contador\n\nElla trabaja como contadora.\n\nEn España: contable"
+        },
+        {
+          "front": "programmer\n\nHe is a computer programmer.",
+          "back": "programador\n\nÉl es programador de computadoras."
+        },
+        {
+          "front": "designer\n\nShe is a fashion designer.",
+          "back": "diseñador\n\nElla es diseñadora de moda."
+        },
+        {
+          "front": "busy\n\nI am busy at work.",
+          "back": "ocupado\n\nEstoy ocupado en el trabajo."
+        },
+        {
+          "front": "free\n\nAre you free tonight?",
+          "back": "libre\n\n¿Estás libre esta noche?\n\nTambién significa: gratis"
+        },
+        {
+          "front": "plan\n\nWhat is your plan for today?",
+          "back": "plan\n\n¿Cuál es tu plan para hoy?"
+        },
+        {
+          "front": "project\n\nWe are working on a new project.",
+          "back": "proyecto\n\nEstamos trabajando en un proyecto nuevo."
+        },
+        {
+          "front": "email\n\nPlease send me an email.",
+          "back": "correo electrónico\n\nPor favor, envíame un correo electrónico.\n\nTambién: correo"
+        },
+        {
+          "front": "computer\n\nI use a computer at work.",
+          "back": "computadora\n\nUso una computadora en el trabajo.\n\nEn España: ordenador"
+        },
+        {
+          "front": "phone\n\nMy phone is out of battery.",
+          "back": "teléfono\n\nMi teléfono se quedó sin batería.\n\nTambién: celular"
+        },
+        {
+          "front": "retire\n\nMy father will retire next year.",
+          "back": "jubilarse\n\nMi padre se va a jubilar el próximo año."
+        },
+        {
+          "front": "earn\n\nShe earns a lot of money.",
+          "back": "ganar\n\nElla gana mucho dinero."
+        },
+        {
+          "front": "hire\n\nThe company will hire ten people.",
+          "back": "contratar\n\nLa empresa va a contratar a diez personas."
+        },
+        {
+          "front": "factory\n\nMy mother works in a factory.",
+          "back": "fábrica\n\nMi madre trabaja en una fábrica."
+        },
+        {
+          "front": "shift\n\nI work the night shift.",
+          "back": "turno\n\nTrabajo en el turno de noche."
+        }
+      ]
+    },
+    {
+      "name": "12 Ciudad y lugares",
+      "cards": [
+        {
+          "front": "city\n\nI live in a big city.",
+          "back": "ciudad\n\nVivo en una ciudad grande."
+        },
+        {
+          "front": "town\n\nI live in a small town.",
+          "back": "pueblo\n\nVivo en un pueblo pequeño."
+        },
+        {
+          "front": "village\n\nMy grandparents live in a village.",
+          "back": "pueblo\n\nMis abuelos viven en un pueblo.\n\nTambién: aldea"
+        },
+        {
+          "front": "countryside\n\nThe countryside is quiet.",
+          "back": "campo\n\nEl campo es tranquilo."
+        },
+        {
+          "front": "street\n\nThis street is very busy.",
+          "back": "calle\n\nEsta calle tiene mucho tráfico."
+        },
+        {
+          "front": "road\n\nThe road is wet after the rain.",
+          "back": "carretera\n\nLa carretera está mojada después de la lluvia.\n\nTambién: camino"
+        },
+        {
+          "front": "corner\n\nThe shop is on the corner.",
+          "back": "esquina\n\nLa tienda está en la esquina."
+        },
+        {
+          "front": "bridge\n\nWe walk across the bridge.",
+          "back": "puente\n\nCruzamos el puente a pie."
+        },
+        {
+          "front": "park\n\nLet's go to the park.",
+          "back": "parque\n\nVamos al parque."
+        },
+        {
+          "front": "market\n\nMy mother goes to the market every morning.",
+          "back": "mercado\n\nMi madre va al mercado todas las mañanas."
+        },
+        {
+          "front": "supermarket\n\nI buy milk at the supermarket.",
+          "back": "supermercado\n\nCompro leche en el supermercado."
+        },
+        {
+          "front": "shop\n\nThe shop closes at nine.",
+          "back": "tienda\n\nLa tienda cierra a las nueve."
+        },
+        {
+          "front": "mall\n\nWe go to the mall on Sunday.",
+          "back": "centro comercial\n\nEl domingo vamos al centro comercial."
+        },
+        {
+          "front": "bank\n\nThe bank is next to the post office.",
+          "back": "banco\n\nEl banco está al lado de la oficina de correos."
+        },
+        {
+          "front": "post office\n\nWhere is the post office?",
+          "back": "oficina de correos\n\n¿Dónde está la oficina de correos?"
+        },
+        {
+          "front": "police station\n\nThe police station is on this street.",
+          "back": "comisaría\n\nLa comisaría está en esta calle.\n\nTambién: estación de policía"
+        },
+        {
+          "front": "museum\n\nThe museum is open on Sunday.",
+          "back": "museo\n\nEl museo abre los domingos."
+        },
+        {
+          "front": "cinema\n\nLet's go to the cinema tonight.",
+          "back": "cine\n\nVamos al cine esta noche.\n\nEn inglés americano: movie theater"
+        },
+        {
+          "front": "theater\n\nWe saw a play at the theater.",
+          "back": "teatro\n\nVimos una obra en el teatro."
+        },
+        {
+          "front": "church\n\nThere is an old church in the city center.",
+          "back": "iglesia\n\nHay una iglesia antigua en el centro de la ciudad."
+        },
+        {
+          "front": "pagoda\n\nWe visited an old pagoda.",
+          "back": "pagoda\n\nVisitamos una pagoda antigua."
+        },
+        {
+          "front": "temple\n\nThe temple is very old.",
+          "back": "templo\n\nEl templo es muy antiguo."
+        },
+        {
+          "front": "zoo\n\nChildren love the zoo.",
+          "back": "zoológico\n\nA los niños les encanta el zoológico."
+        },
+        {
+          "front": "stadium\n\nThe stadium is full of fans.",
+          "back": "estadio\n\nEl estadio está lleno de aficionados."
+        },
+        {
+          "front": "gym\n\nI go to the gym after work.",
+          "back": "gimnasio\n\nVoy al gimnasio después del trabajo."
+        },
+        {
+          "front": "hotel\n\nOur hotel is near the beach.",
+          "back": "hotel\n\nNuestro hotel está cerca de la playa."
+        },
+        {
+          "front": "café\n\nLet's meet at the café.",
+          "back": "café\n\nNos vemos en la cafetería.\n\nTambién: cafetería"
+        },
+        {
+          "front": "building\n\nThat building has thirty floors.",
+          "back": "edificio\n\nEse edificio tiene treinta pisos."
+        },
+        {
+          "front": "tower\n\nYou can see the whole city from the tower.",
+          "back": "torre\n\nDesde la torre se ve toda la ciudad."
+        },
+        {
+          "front": "square\n\nThere is a big square in the city center.",
+          "back": "plaza\n\nHay una gran plaza en el centro de la ciudad.\n\nTambién significa: cuadrado"
+        },
+        {
+          "front": "parking lot\n\nThe parking lot is full.",
+          "back": "estacionamiento\n\nEl estacionamiento está lleno.\n\nEn España: aparcamiento"
+        },
+        {
+          "front": "gas station\n\nWe need to stop at a gas station.",
+          "back": "gasolinera\n\nTenemos que parar en una gasolinera.\n\nEn inglés británico: petrol station"
+        },
+        {
+          "front": "bus stop\n\nWait for me at the bus stop.",
+          "back": "parada de autobús\n\nEspérame en la parada de autobús."
+        },
+        {
+          "front": "traffic light\n\nStop at the red traffic light.",
+          "back": "semáforo\n\nDetente cuando el semáforo esté en rojo."
+        },
+        {
+          "front": "crossroads\n\nTurn left at the crossroads.",
+          "back": "cruce\n\nGira a la izquierda en el cruce."
+        },
+        {
+          "front": "sidewalk\n\nWalk on the sidewalk.",
+          "back": "acera\n\nCamina por la acera.\n\nEn inglés británico: pavement"
+        },
+        {
+          "front": "left\n\nTurn left here.",
+          "back": "izquierda\n\nAquí gira a la izquierda."
+        },
+        {
+          "front": "right\n\nThe bank is on the right.",
+          "back": "derecha\n\nEl banco está a la derecha.\n\nTambién significa: correcto"
+        },
+        {
+          "front": "straight\n\nGo straight ahead.",
+          "back": "derecho\n\nSigue todo derecho.\n\nEn España: recto"
+        },
+        {
+          "front": "near\n\nIs there a bank near here?",
+          "back": "cerca\n\n¿Hay un banco cerca de aquí?"
+        },
+        {
+          "front": "far\n\nMy school is not far from here.",
+          "back": "lejos\n\nMi escuela no está lejos de aquí."
+        },
+        {
+          "front": "next to\n\nThe café is next to the bank.",
+          "back": "al lado de\n\nLa cafetería está al lado del banco."
+        },
+        {
+          "front": "opposite\n\nThe park is opposite my house.",
+          "back": "enfrente de\n\nEl parque está enfrente de mi casa.\n\nTambién significa: contrario"
+        },
+        {
+          "front": "behind\n\nThe garden is behind the house.",
+          "back": "detrás de\n\nEl jardín está detrás de la casa."
+        },
+        {
+          "front": "in front of\n\nWait in front of the school.",
+          "back": "delante de\n\nEspera delante de la escuela.\n\nTambién: frente a"
+        },
+        {
+          "front": "between\n\nThe bank is between the hotel and the café.",
+          "back": "entre\n\nEl banco está entre el hotel y la cafetería."
+        },
+        {
+          "front": "map\n\nCan you show me on the map?",
+          "back": "mapa\n\n¿Me lo puedes mostrar en el mapa?"
+        },
+        {
+          "front": "neighborhood\n\nOur neighborhood is quiet.",
+          "back": "barrio\n\nNuestro barrio es tranquilo."
+        },
+        {
+          "front": "capital\n\nTokyo is the capital of Japan.",
+          "back": "capital\n\nTokio es la capital de Japón."
+        },
+        {
+          "front": "area\n\nThis area is very safe.",
+          "back": "zona\n\nEsta zona es muy segura."
+        }
+      ]
+    },
+    {
+      "name": "13 Los viajes",
+      "cards": [
+        {
+          "front": "travel\n\nI love to travel.",
+          "back": "viajar\n\nMe encanta viajar."
+        },
+        {
+          "front": "trip\n\nWe had a great trip to the mountains.",
+          "back": "viaje\n\nHicimos un viaje genial a las montañas."
+        },
+        {
+          "front": "tourist\n\nMany tourists visit this beach.",
+          "back": "turista\n\nMuchos turistas visitan esta playa."
+        },
+        {
+          "front": "passport\n\nDon't forget your passport.",
+          "back": "pasaporte\n\nNo olvides tu pasaporte."
+        },
+        {
+          "front": "visa\n\nI need a visa to visit that country.",
+          "back": "visa\n\nNecesito una visa para visitar ese país.\n\nEn España: visado"
+        },
+        {
+          "front": "ticket\n\nI bought two train tickets.",
+          "back": "boleto\n\nCompré dos boletos de tren.\n\nEn España: billete"
+        },
+        {
+          "front": "luggage\n\nHow much luggage do you have?",
+          "back": "equipaje\n\n¿Cuánto equipaje llevas?"
+        },
+        {
+          "front": "suitcase\n\nMy suitcase is very heavy.",
+          "back": "maleta\n\nMi maleta pesa mucho."
+        },
+        {
+          "front": "airport\n\nWe arrived at the airport early.",
+          "back": "aeropuerto\n\nLlegamos temprano al aeropuerto."
+        },
+        {
+          "front": "plane\n\nThe plane leaves at ten.",
+          "back": "avión\n\nEl avión sale a las diez."
+        },
+        {
+          "front": "flight\n\nOur flight is two hours late.",
+          "back": "vuelo\n\nNuestro vuelo tiene dos horas de retraso."
+        },
+        {
+          "front": "train\n\nThe train is slow but cheap.",
+          "back": "tren\n\nEl tren es lento pero barato."
+        },
+        {
+          "front": "station\n\nThe train station is near my house.",
+          "back": "estación\n\nLa estación de tren está cerca de mi casa."
+        },
+        {
+          "front": "bus\n\nI take the bus to school.",
+          "back": "autobús\n\nTomo el autobús para ir a la escuela."
+        },
+        {
+          "front": "taxi\n\nLet's take a taxi.",
+          "back": "taxi\n\nTomemos un taxi."
+        },
+        {
+          "front": "car\n\nMy father drives an old car.",
+          "back": "carro\n\nMi padre maneja un carro viejo.\n\nEn España: coche"
+        },
+        {
+          "front": "motorbike\n\nMy brother has a red motorbike.",
+          "back": "moto\n\nMi hermano tiene una moto roja.\n\nTambién: motocicleta"
+        },
+        {
+          "front": "bicycle\n\nI ride my bicycle to school.",
+          "back": "bicicleta\n\nVoy a la escuela en bicicleta."
+        },
+        {
+          "front": "boat\n\nWe crossed the river by boat.",
+          "back": "bote\n\nCruzamos el río en bote."
+        },
+        {
+          "front": "ship\n\nThe ship is very big.",
+          "back": "barco\n\nEl barco es muy grande."
+        },
+        {
+          "front": "helmet\n\nAlways wear a helmet.",
+          "back": "casco\n\nUsa siempre casco."
+        },
+        {
+          "front": "seat\n\nIs this seat free?",
+          "back": "asiento\n\n¿Está libre este asiento?"
+        },
+        {
+          "front": "drive\n\nCan you drive a car?",
+          "back": "manejar\n\n¿Sabes manejar un carro?\n\nEn España: conducir"
+        },
+        {
+          "front": "ride\n\nI ride a motorbike to work.",
+          "back": "montar\n\nVoy al trabajo en moto."
+        },
+        {
+          "front": "walk\n\nI walk to school every day.",
+          "back": "caminar\n\nVoy caminando a la escuela todos los días."
+        },
+        {
+          "front": "go\n\nWhere are you going?",
+          "back": "ir\n\n¿Adónde vas?"
+        },
+        {
+          "front": "come\n\nCan you come to my party?",
+          "back": "venir\n\n¿Puedes venir a mi fiesta?"
+        },
+        {
+          "front": "arrive\n\nWe arrived at the hotel at noon.",
+          "back": "llegar\n\nLlegamos al hotel al mediodía."
+        },
+        {
+          "front": "leave\n\nThe bus leaves at seven.",
+          "back": "salir\n\nEl autobús sale a las siete.\n\nTambién significa: dejar"
+        },
+        {
+          "front": "return\n\nWe return home on Sunday.",
+          "back": "regresar\n\nRegresamos a casa el domingo.\n\nTambién: volver"
+        },
+        {
+          "front": "wait\n\nPlease wait for me.",
+          "back": "esperar\n\nPor favor, espérame."
+        },
+        {
+          "front": "stop\n\nThe bus stops here.",
+          "back": "parar\n\nEl autobús para aquí."
+        },
+        {
+          "front": "fast\n\nThis train is very fast.",
+          "back": "rápido\n\nEste tren es muy rápido."
+        },
+        {
+          "front": "slow\n\nThe traffic is slow today.",
+          "back": "lento\n\nHoy el tráfico está lento."
+        },
+        {
+          "front": "traffic\n\nThere is a lot of traffic in the city.",
+          "back": "tráfico\n\nHay mucho tráfico en la ciudad."
+        },
+        {
+          "front": "traffic jam\n\nWe were stuck in a traffic jam.",
+          "back": "embotellamiento\n\nNos quedamos atrapados en un embotellamiento.\n\nEn España: atasco"
+        },
+        {
+          "front": "beach\n\nLet's go to the beach.",
+          "back": "playa\n\nVamos a la playa."
+        },
+        {
+          "front": "island\n\nThis island has beautiful beaches.",
+          "back": "isla\n\nEsta isla tiene playas hermosas."
+        },
+        {
+          "front": "reserve\n\nI want to reserve a room.",
+          "back": "reservar\n\nQuiero reservar una habitación."
+        },
+        {
+          "front": "guide\n\nOur guide speaks good English.",
+          "back": "guía\n\nNuestro guía habla bien inglés."
+        },
+        {
+          "front": "camera\n\nI brought my camera.",
+          "back": "cámara\n\nTraje mi cámara."
+        },
+        {
+          "front": "photo\n\nCan you take a photo of us?",
+          "back": "foto\n\n¿Nos puedes tomar una foto?"
+        },
+        {
+          "front": "souvenir\n\nI bought a souvenir for my friend.",
+          "back": "recuerdo\n\nCompré un recuerdo para mi amigo.\n\nTambién: souvenir"
+        },
+        {
+          "front": "abroad\n\nShe wants to study abroad.",
+          "back": "en el extranjero\n\nElla quiere estudiar en el extranjero."
+        },
+        {
+          "front": "country\n\nWhich country are you from?",
+          "back": "país\n\n¿De qué país eres?"
+        },
+        {
+          "front": "foreigner\n\nMany foreigners live in this city.",
+          "back": "extranjero\n\nMuchos extranjeros viven en esta ciudad."
+        },
+        {
+          "front": "tour\n\nWe took a city tour.",
+          "back": "recorrido\n\nHicimos un recorrido por la ciudad.\n\nTambién: tour"
+        },
+        {
+          "front": "journey\n\nThe journey takes three hours.",
+          "back": "viaje\n\nEl viaje dura tres horas."
+        },
+        {
+          "front": "petrol\n\nThe motorbike needs petrol.",
+          "back": "gasolina\n\nLa moto necesita gasolina.\n\nEn inglés americano: gas"
+        },
+        {
+          "front": "lost\n\nWe are lost.",
+          "back": "perdido\n\nEstamos perdidos."
+        }
+      ]
+    },
+    {
+      "name": "14 Compras y dinero",
+      "cards": [
+        {
+          "front": "money\n\nI don't have much money.",
+          "back": "dinero\n\nNo tengo mucho dinero."
+        },
+        {
+          "front": "cash\n\nCan I pay in cash?",
+          "back": "efectivo\n\n¿Puedo pagar en efectivo?"
+        },
+        {
+          "front": "credit card\n\nDo you take credit cards?",
+          "back": "tarjeta de crédito\n\n¿Aceptan tarjetas de crédito?"
+        },
+        {
+          "front": "price\n\nThe price is too high.",
+          "back": "precio\n\nEl precio es demasiado alto."
+        },
+        {
+          "front": "cheap\n\nThis shirt is very cheap.",
+          "back": "barato\n\nEsta camisa es muy barata."
+        },
+        {
+          "front": "expensive\n\nThis phone is too expensive.",
+          "back": "caro\n\nEste teléfono es demasiado caro."
+        },
+        {
+          "front": "buy\n\nI want to buy a new bag.",
+          "back": "comprar\n\nQuiero comprar una bolsa nueva."
+        },
+        {
+          "front": "sell\n\nThey sell fruit at the market.",
+          "back": "vender\n\nVenden fruta en el mercado."
+        },
+        {
+          "front": "pay\n\nCan I pay by card?",
+          "back": "pagar\n\n¿Puedo pagar con tarjeta?"
+        },
+        {
+          "front": "cost\n\nHow much does it cost?",
+          "back": "costar\n\n¿Cuánto cuesta?"
+        },
+        {
+          "front": "change\n\nHere is your change.",
+          "back": "cambio\n\nAquí tiene su cambio."
+        },
+        {
+          "front": "discount\n\nCan I get a discount?",
+          "back": "descuento\n\n¿Me puede hacer un descuento?"
+        },
+        {
+          "front": "sale\n\nEverything is on sale today.",
+          "back": "oferta\n\nHoy todo está en oferta.\n\nTambién significa: venta"
+        },
+        {
+          "front": "receipt\n\nCan I have a receipt, please?",
+          "back": "recibo\n\n¿Me da el recibo, por favor?"
+        },
+        {
+          "front": "shopping\n\nI go shopping on Saturday.",
+          "back": "compras\n\nVoy de compras los sábados."
+        },
+        {
+          "front": "seller\n\nThe seller was very friendly.",
+          "back": "vendedor\n\nEl vendedor fue muy amable."
+        },
+        {
+          "front": "queue\n\nThere is a long queue.",
+          "back": "fila\n\nHay una fila larga.\n\nEn España: cola"
+        },
+        {
+          "front": "basket\n\nPut the fruit in the basket.",
+          "back": "canasta\n\nPon la fruta en la canasta.\n\nEn España: cesta"
+        },
+        {
+          "front": "brand\n\nWhat is your favorite brand?",
+          "back": "marca\n\n¿Cuál es tu marca favorita?"
+        },
+        {
+          "front": "quality\n\nThese shoes are good quality.",
+          "back": "calidad\n\nEstos zapatos son de buena calidad."
+        },
+        {
+          "front": "gift\n\nThis is a gift for you.",
+          "back": "regalo\n\nEste es un regalo para ti."
+        },
+        {
+          "front": "wallet\n\nI left my wallet at home.",
+          "back": "billetera\n\nDejé la billetera en casa.\n\nEn España: cartera"
+        },
+        {
+          "front": "coin\n\nI have some coins in my pocket.",
+          "back": "moneda\n\nTengo unas monedas en el bolsillo."
+        },
+        {
+          "front": "banknote\n\nThis is a new banknote.",
+          "back": "billete\n\nEste es un billete nuevo.\n\nEn inglés americano: bill"
+        },
+        {
+          "front": "ATM\n\nIs there an ATM near here?",
+          "back": "cajero automático\n\n¿Hay un cajero automático cerca de aquí?"
+        },
+        {
+          "front": "save\n\nI save money every month.",
+          "back": "ahorrar\n\nAhorro dinero todos los meses.\n\nTambién significa: guardar"
+        },
+        {
+          "front": "spend\n\nI spend too much money on clothes.",
+          "back": "gastar\n\nGasto demasiado dinero en ropa."
+        },
+        {
+          "front": "borrow\n\nCan I borrow your book?",
+          "back": "pedir prestado\n\n¿Puedo pedirte prestado tu libro?"
+        },
+        {
+          "front": "lend\n\nCan you lend me your bike?",
+          "back": "prestar\n\n¿Me prestas tu bicicleta?"
+        },
+        {
+          "front": "owe\n\nI owe you a coffee.",
+          "back": "deber\n\nTe debo un café."
+        },
+        {
+          "front": "rich\n\nHe is very rich.",
+          "back": "rico\n\nÉl es muy rico."
+        },
+        {
+          "front": "poor\n\nThey are poor but happy.",
+          "back": "pobre\n\nSon pobres pero felices."
+        },
+        {
+          "front": "bargain\n\nYou can bargain at the market.",
+          "back": "regatear\n\nEn el mercado puedes regatear.\n\nTambién significa: ganga"
+        },
+        {
+          "front": "enough\n\nI don't have enough money.",
+          "back": "suficiente\n\nNo tengo suficiente dinero."
+        },
+        {
+          "front": "too much\n\nThis is too much for me.",
+          "back": "demasiado\n\nEsto es demasiado para mí."
+        },
+        {
+          "front": "total\n\nWhat is the total?",
+          "back": "total\n\n¿Cuánto es el total?"
+        },
+        {
+          "front": "online\n\nI buy books online.",
+          "back": "en línea\n\nCompro libros en línea.\n\nTambién: por internet"
+        },
+        {
+          "front": "delivery\n\nIs delivery free?",
+          "back": "envío\n\n¿El envío es gratis?"
+        },
+        {
+          "front": "counter\n\nPlease pay at the counter.",
+          "back": "mostrador\n\nPor favor, pague en el mostrador."
+        },
+        {
+          "front": "cart\n\nPut it in the cart.",
+          "back": "carrito\n\nPonlo en el carrito.\n\nEn inglés británico: trolley"
+        },
+        {
+          "front": "pair\n\nI bought a pair of shoes.",
+          "back": "par\n\nCompré un par de zapatos."
+        },
+        {
+          "front": "dollar\n\nIt costs ten dollars.",
+          "back": "dólar\n\nCuesta diez dólares."
+        },
+        {
+          "front": "worth\n\nThis car is worth a lot of money.",
+          "back": "valer\n\nEste carro vale mucho dinero."
+        },
+        {
+          "front": "afford\n\nI can't afford a new car.",
+          "back": "poder pagar\n\nNo puedo pagar un carro nuevo.\n\nTambién: permitirse"
+        },
+        {
+          "front": "choose\n\nChoose one color.",
+          "back": "elegir\n\nElige un color."
+        },
+        {
+          "front": "want\n\nI want a new phone.",
+          "back": "querer\n\nQuiero un teléfono nuevo."
+        },
+        {
+          "front": "need\n\nI need some help.",
+          "back": "necesitar\n\nNecesito ayuda."
+        },
+        {
+          "front": "compare\n\nCompare the prices first.",
+          "back": "comparar\n\nPrimero compara los precios."
+        },
+        {
+          "front": "sold out\n\nThe tickets are sold out.",
+          "back": "agotado\n\nLos boletos están agotados."
+        },
+        {
+          "front": "package\n\nA package arrived for you.",
+          "back": "paquete\n\nLlegó un paquete para ti."
+        }
+      ]
+    },
+    {
+      "name": "15 Clima y naturaleza",
+      "cards": [
+        {
+          "front": "weather\n\nThe weather is nice today.",
+          "back": "clima\n\nHoy el clima está agradable.\n\nEn España: tiempo"
+        },
+        {
+          "front": "sun\n\nThe sun rises in the east.",
+          "back": "sol\n\nEl sol sale por el este."
+        },
+        {
+          "front": "moon\n\nThe moon is full tonight.",
+          "back": "luna\n\nEsta noche hay luna llena."
+        },
+        {
+          "front": "star\n\nI can see many stars tonight.",
+          "back": "estrella\n\nEsta noche puedo ver muchas estrellas."
+        },
+        {
+          "front": "sky\n\nThe sky is clear.",
+          "back": "cielo\n\nEl cielo está despejado."
+        },
+        {
+          "front": "cloud\n\nThere are no clouds today.",
+          "back": "nube\n\nHoy no hay nubes."
+        },
+        {
+          "front": "rain\n\nIt will rain tomorrow.",
+          "back": "llover\n\nMañana va a llover.\n\nTambién significa: lluvia"
+        },
+        {
+          "front": "snow\n\nThe mountains are covered in snow.",
+          "back": "nieve\n\nLas montañas están cubiertas de nieve.\n\nTambién significa: nevar"
+        },
+        {
+          "front": "wind\n\nThe wind is very strong.",
+          "back": "viento\n\nEl viento está muy fuerte."
+        },
+        {
+          "front": "storm\n\nA big storm is coming.",
+          "back": "tormenta\n\nSe acerca una gran tormenta."
+        },
+        {
+          "front": "thunder\n\nI heard thunder last night.",
+          "back": "trueno\n\nAnoche oí truenos."
+        },
+        {
+          "front": "lightning\n\nLightning lit up the sky.",
+          "back": "relámpago\n\nUn relámpago iluminó el cielo.\n\nTambién: rayo"
+        },
+        {
+          "front": "flood\n\nThe flood damaged many houses.",
+          "back": "inundación\n\nLa inundación dañó muchas casas."
+        },
+        {
+          "front": "sunny\n\nIt is sunny today.",
+          "back": "soleado\n\nHoy está soleado."
+        },
+        {
+          "front": "rainy\n\nTomorrow will be rainy.",
+          "back": "lluvioso\n\nMañana va a estar lluvioso."
+        },
+        {
+          "front": "cloudy\n\nIt is cloudy this morning.",
+          "back": "nublado\n\nEsta mañana está nublado."
+        },
+        {
+          "front": "windy\n\nIt is windy by the sea.",
+          "back": "ventoso\n\nJunto al mar hace viento."
+        },
+        {
+          "front": "warm\n\nIt is warm in spring.",
+          "back": "cálido\n\nEn primavera el clima es cálido."
+        },
+        {
+          "front": "cool\n\nThe evening is cool.",
+          "back": "fresco\n\nLa noche está fresca.\n\nTambién significa: genial"
+        },
+        {
+          "front": "temperature\n\nThe temperature is 35 degrees.",
+          "back": "temperatura\n\nLa temperatura es de 35 grados."
+        },
+        {
+          "front": "degree\n\nIt is 20 degrees outside.",
+          "back": "grado\n\nAfuera hace 20 grados."
+        },
+        {
+          "front": "wet\n\nMy shoes are wet.",
+          "back": "mojado\n\nMis zapatos están mojados."
+        },
+        {
+          "front": "dry\n\nThe clothes are dry now.",
+          "back": "seco\n\nLa ropa ya está seca."
+        },
+        {
+          "front": "nature\n\nI love nature.",
+          "back": "naturaleza\n\nMe encanta la naturaleza."
+        },
+        {
+          "front": "tree\n\nThere is a big tree in the garden.",
+          "back": "árbol\n\nHay un árbol grande en el jardín."
+        },
+        {
+          "front": "flower\n\nShe gave me flowers.",
+          "back": "flor\n\nElla me regaló flores."
+        },
+        {
+          "front": "grass\n\nThe grass is green.",
+          "back": "pasto\n\nEl pasto es verde.\n\nEn España: hierba"
+        },
+        {
+          "front": "leaf\n\nLeaves fall in autumn.",
+          "back": "hoja\n\nLas hojas caen en otoño."
+        },
+        {
+          "front": "forest\n\nMany animals live in the forest.",
+          "back": "bosque\n\nMuchos animales viven en el bosque."
+        },
+        {
+          "front": "mountain\n\nEverest is the highest mountain in the world.",
+          "back": "montaña\n\nEl Everest es la montaña más alta del mundo."
+        },
+        {
+          "front": "hill\n\nThere is a house on the hill.",
+          "back": "colina\n\nHay una casa en la colina."
+        },
+        {
+          "front": "river\n\nA river flows through our town.",
+          "back": "río\n\nUn río atraviesa nuestro pueblo."
+        },
+        {
+          "front": "lake\n\nWe walk around the lake.",
+          "back": "lago\n\nCaminamos alrededor del lago."
+        },
+        {
+          "front": "sea\n\nThe sea is blue.",
+          "back": "mar\n\nEl mar es azul."
+        },
+        {
+          "front": "ocean\n\nThe Pacific is the largest ocean.",
+          "back": "océano\n\nEl Pacífico es el océano más grande."
+        },
+        {
+          "front": "sand\n\nChildren play in the sand.",
+          "back": "arena\n\nLos niños juegan en la arena."
+        },
+        {
+          "front": "stone\n\nThe house is made of stone.",
+          "back": "piedra\n\nLa casa es de piedra."
+        },
+        {
+          "front": "earth\n\nThe earth goes around the sun.",
+          "back": "Tierra\n\nLa Tierra gira alrededor del Sol."
+        },
+        {
+          "front": "land\n\nThis land is good for farming.",
+          "back": "tierra\n\nEsta tierra es buena para cultivar."
+        },
+        {
+          "front": "field\n\nCows eat grass in the field.",
+          "back": "campo\n\nLas vacas comen pasto en el campo."
+        },
+        {
+          "front": "air\n\nFresh air is good for you.",
+          "back": "aire\n\nEl aire fresco te hace bien."
+        },
+        {
+          "front": "fire\n\nDon't play with fire.",
+          "back": "fuego\n\nNo juegues con fuego."
+        },
+        {
+          "front": "environment\n\nWe must protect the environment.",
+          "back": "medio ambiente\n\nDebemos proteger el medio ambiente."
+        },
+        {
+          "front": "pollution\n\nAir pollution is a big problem.",
+          "back": "contaminación\n\nLa contaminación del aire es un gran problema."
+        },
+        {
+          "front": "plant\n\nI plant trees with my father.",
+          "back": "plantar\n\nPlanto árboles con mi padre.\n\nTambién significa: planta"
+        },
+        {
+          "front": "recycle\n\nWe recycle bottles and paper.",
+          "back": "reciclar\n\nReciclamos botellas y papel."
+        },
+        {
+          "front": "waterfall\n\nThe waterfall is beautiful.",
+          "back": "cascada\n\nLa cascada es hermosa."
+        },
+        {
+          "front": "cave\n\nThere are many caves in these mountains.",
+          "back": "cueva\n\nHay muchas cuevas en estas montañas."
+        },
+        {
+          "front": "desert\n\nIt rarely rains in the desert.",
+          "back": "desierto\n\nEn el desierto casi nunca llueve."
+        },
+        {
+          "front": "rainbow\n\nLook, a rainbow!",
+          "back": "arcoíris\n\n¡Mira, un arcoíris!"
+        }
+      ]
+    },
+    {
+      "name": "16 Los animales",
+      "cards": [
+        {
+          "front": "animal\n\nWhat is your favorite animal?",
+          "back": "animal\n\n¿Cuál es tu animal favorito?"
+        },
+        {
+          "front": "dog\n\nThe dog is barking.",
+          "back": "perro\n\nEl perro está ladrando."
+        },
+        {
+          "front": "cat\n\nMy cat sleeps all day.",
+          "back": "gato\n\nMi gato duerme todo el día."
+        },
+        {
+          "front": "bird\n\nBirds can fly.",
+          "back": "pájaro\n\nLos pájaros pueden volar.\n\nTambién: ave"
+        },
+        {
+          "front": "hen\n\nThe hen lays an egg every day.",
+          "back": "gallina\n\nLa gallina pone un huevo todos los días."
+        },
+        {
+          "front": "rooster\n\nThe rooster wakes us up.",
+          "back": "gallo\n\nEl gallo nos despierta."
+        },
+        {
+          "front": "duck\n\nDucks swim in the pond.",
+          "back": "pato\n\nLos patos nadan en el estanque."
+        },
+        {
+          "front": "pig\n\nThe pig is very fat.",
+          "back": "cerdo\n\nEl cerdo está muy gordo."
+        },
+        {
+          "front": "cow\n\nCows give milk.",
+          "back": "vaca\n\nLas vacas dan leche."
+        },
+        {
+          "front": "buffalo\n\nFarmers use buffaloes in the rice fields.",
+          "back": "búfalo\n\nLos agricultores usan búfalos en los arrozales."
+        },
+        {
+          "front": "horse\n\nHe rides a horse.",
+          "back": "caballo\n\nÉl monta a caballo."
+        },
+        {
+          "front": "goat\n\nGoats live in the mountains.",
+          "back": "cabra\n\nLas cabras viven en las montañas."
+        },
+        {
+          "front": "sheep\n\nSheep give us wool.",
+          "back": "oveja\n\nLas ovejas nos dan lana."
+        },
+        {
+          "front": "rabbit\n\nThe rabbit eats carrots.",
+          "back": "conejo\n\nEl conejo come zanahorias."
+        },
+        {
+          "front": "mouse\n\nThere is a mouse in the kitchen.",
+          "back": "ratón\n\nHay un ratón en la cocina."
+        },
+        {
+          "front": "elephant\n\nElephants are very big.",
+          "back": "elefante\n\nLos elefantes son muy grandes."
+        },
+        {
+          "front": "tiger\n\nTigers are dangerous.",
+          "back": "tigre\n\nLos tigres son peligrosos."
+        },
+        {
+          "front": "lion\n\nThe lion is the king of animals.",
+          "back": "león\n\nEl león es el rey de los animales."
+        },
+        {
+          "front": "monkey\n\nMonkeys climb trees.",
+          "back": "mono\n\nLos monos trepan a los árboles."
+        },
+        {
+          "front": "bear\n\nBears love honey.",
+          "back": "oso\n\nA los osos les encanta la miel."
+        },
+        {
+          "front": "snake\n\nI am afraid of snakes.",
+          "back": "serpiente\n\nLes tengo miedo a las serpientes.\n\nTambién: culebra"
+        },
+        {
+          "front": "frog\n\nFrogs live near water.",
+          "back": "rana\n\nLas ranas viven cerca del agua."
+        },
+        {
+          "front": "turtle\n\nTurtles move slowly.",
+          "back": "tortuga\n\nLas tortugas se mueven despacio."
+        },
+        {
+          "front": "crocodile\n\nCrocodiles live in rivers.",
+          "back": "cocodrilo\n\nLos cocodrilos viven en los ríos."
+        },
+        {
+          "front": "giraffe\n\nThe giraffe eats leaves from tall trees.",
+          "back": "jirafa\n\nLa jirafa come hojas de los árboles altos."
+        },
+        {
+          "front": "zebra\n\nZebras have black and white stripes.",
+          "back": "cebra\n\nLas cebras tienen rayas blancas y negras."
+        },
+        {
+          "front": "deer\n\nWe saw a deer in the forest.",
+          "back": "venado\n\nVimos un venado en el bosque.\n\nEn España: ciervo"
+        },
+        {
+          "front": "fox\n\nThe fox is very clever.",
+          "back": "zorro\n\nEl zorro es muy astuto."
+        },
+        {
+          "front": "wolf\n\nWolves live in groups.",
+          "back": "lobo\n\nLos lobos viven en manadas."
+        },
+        {
+          "front": "dolphin\n\nDolphins are very smart.",
+          "back": "delfín\n\nLos delfines son muy inteligentes."
+        },
+        {
+          "front": "whale\n\nThe blue whale is the biggest animal.",
+          "back": "ballena\n\nLa ballena azul es el animal más grande."
+        },
+        {
+          "front": "shark\n\nSharks have sharp teeth.",
+          "back": "tiburón\n\nLos tiburones tienen dientes afilados."
+        },
+        {
+          "front": "octopus\n\nAn octopus has eight arms.",
+          "back": "pulpo\n\nEl pulpo tiene ocho brazos."
+        },
+        {
+          "front": "butterfly\n\nA butterfly is on the flower.",
+          "back": "mariposa\n\nHay una mariposa en la flor."
+        },
+        {
+          "front": "bee\n\nBees make honey.",
+          "back": "abeja\n\nLas abejas hacen miel."
+        },
+        {
+          "front": "ant\n\nAnts are very small.",
+          "back": "hormiga\n\nLas hormigas son muy pequeñas."
+        },
+        {
+          "front": "mosquito\n\nMosquitoes bite at night.",
+          "back": "mosquito\n\nLos mosquitos pican de noche."
+        },
+        {
+          "front": "spider\n\nThere is a spider on the wall.",
+          "back": "araña\n\nHay una araña en la pared."
+        },
+        {
+          "front": "insect\n\nMany insects live in the grass.",
+          "back": "insecto\n\nMuchos insectos viven en el pasto."
+        },
+        {
+          "front": "pet\n\nDo you have a pet?",
+          "back": "mascota\n\n¿Tienes mascota?"
+        },
+        {
+          "front": "tail\n\nThe dog wags its tail.",
+          "back": "cola\n\nEl perro mueve la cola."
+        },
+        {
+          "front": "wing\n\nBirds have two wings.",
+          "back": "ala\n\nLos pájaros tienen dos alas."
+        },
+        {
+          "front": "feather\n\nThis bird has blue feathers.",
+          "back": "pluma\n\nEste pájaro tiene plumas azules."
+        },
+        {
+          "front": "farm\n\nThey keep chickens on the farm.",
+          "back": "granja\n\nTienen gallinas en la granja."
+        },
+        {
+          "front": "wild\n\nTigers are wild animals.",
+          "back": "salvaje\n\nLos tigres son animales salvajes."
+        },
+        {
+          "front": "feed\n\nDon't feed the animals.",
+          "back": "dar de comer\n\nNo les des de comer a los animales.\n\nTambién: alimentar"
+        },
+        {
+          "front": "bark\n\nThe dog barks at strangers.",
+          "back": "ladrar\n\nEl perro les ladra a los desconocidos."
+        },
+        {
+          "front": "nest\n\nThe bird is building a nest.",
+          "back": "nido\n\nEl pájaro está haciendo un nido."
+        },
+        {
+          "front": "kitten\n\nThe kitten is playing with a ball.",
+          "back": "gatito\n\nEl gatito está jugando con una pelota."
+        },
+        {
+          "front": "puppy\n\nWe got a new puppy.",
+          "back": "cachorro\n\nTenemos un cachorro nuevo."
+        }
+      ]
+    },
+    {
+      "name": "17 Sentimientos y personalidad",
+      "cards": [
+        {
+          "front": "happy\n\nI am happy today.",
+          "back": "feliz\n\nHoy estoy feliz.\n\nTambién: contento"
+        },
+        {
+          "front": "sad\n\nThe movie made me sad.",
+          "back": "triste\n\nLa película me puso triste."
+        },
+        {
+          "front": "angry\n\nMy father is angry with me.",
+          "back": "enojado\n\nMi padre está enojado conmigo.\n\nEn España: enfadado"
+        },
+        {
+          "front": "afraid\n\nI am afraid of the dark.",
+          "back": "tener miedo\n\nLe tengo miedo a la oscuridad.\n\nTambién: asustado"
+        },
+        {
+          "front": "worried\n\nMy mother is worried about me.",
+          "back": "preocupado\n\nMi madre está preocupada por mí."
+        },
+        {
+          "front": "excited\n\nI am excited about the trip.",
+          "back": "emocionado\n\nEstoy emocionado por el viaje."
+        },
+        {
+          "front": "bored\n\nI am bored at home.",
+          "back": "aburrido\n\nEstoy aburrido en casa."
+        },
+        {
+          "front": "surprised\n\nI was surprised by the news.",
+          "back": "sorprendido\n\nMe quedé sorprendido con la noticia."
+        },
+        {
+          "front": "nervous\n\nI am nervous before exams.",
+          "back": "nervioso\n\nMe pongo nervioso antes de los exámenes."
+        },
+        {
+          "front": "calm\n\nStay calm.",
+          "back": "tranquilo\n\nMantén la calma."
+        },
+        {
+          "front": "proud\n\nMy parents are proud of me.",
+          "back": "orgulloso\n\nMis padres están orgullosos de mí."
+        },
+        {
+          "front": "shy\n\nShe is shy with new people.",
+          "back": "tímido\n\nElla es tímida con la gente nueva."
+        },
+        {
+          "front": "lonely\n\nHe feels lonely in the big city.",
+          "back": "solo\n\nÉl se siente solo en la gran ciudad."
+        },
+        {
+          "front": "jealous\n\nShe is jealous of her sister.",
+          "back": "celoso\n\nElla está celosa de su hermana.\n\nTambién: envidioso"
+        },
+        {
+          "front": "embarrassed\n\nI was embarrassed by my mistake.",
+          "back": "avergonzado\n\nMe sentí avergonzado por mi error."
+        },
+        {
+          "front": "confused\n\nI am confused, please explain again.",
+          "back": "confundido\n\nEstoy confundido, explícalo otra vez, por favor."
+        },
+        {
+          "front": "relaxed\n\nI feel relaxed on holiday.",
+          "back": "relajado\n\nMe siento relajado en vacaciones."
+        },
+        {
+          "front": "hate\n\nI hate cold weather.",
+          "back": "odiar\n\nOdio el frío."
+        },
+        {
+          "front": "like\n\nI like cats.",
+          "back": "gustar\n\nMe gustan los gatos."
+        },
+        {
+          "front": "feel\n\nHow do you feel today?",
+          "back": "sentir\n\n¿Cómo te sientes hoy?"
+        },
+        {
+          "front": "feeling\n\nI understand your feelings.",
+          "back": "sentimiento\n\nEntiendo tus sentimientos."
+        },
+        {
+          "front": "smile\n\nShe smiles a lot.",
+          "back": "sonreír\n\nElla sonríe mucho."
+        },
+        {
+          "front": "laugh\n\nThe children laugh at the clown.",
+          "back": "reír\n\nLos niños se ríen del payaso."
+        },
+        {
+          "front": "cry\n\nThe baby is crying.",
+          "back": "llorar\n\nEl bebé está llorando."
+        },
+        {
+          "front": "kind\n\nShe is kind to everyone.",
+          "back": "amable\n\nElla es amable con todos.\n\nTambién significa: tipo"
+        },
+        {
+          "front": "friendly\n\nOur new neighbors are friendly.",
+          "back": "amigable\n\nNuestros nuevos vecinos son amigables.\n\nTambién: simpático"
+        },
+        {
+          "front": "funny\n\nHe tells funny stories.",
+          "back": "gracioso\n\nÉl cuenta historias graciosas."
+        },
+        {
+          "front": "honest\n\nPlease be honest with me.",
+          "back": "honesto\n\nPor favor, sé honesto conmigo."
+        },
+        {
+          "front": "polite\n\nBe polite to older people.",
+          "back": "educado\n\nSé educado con las personas mayores."
+        },
+        {
+          "front": "rude\n\nIt is rude to interrupt.",
+          "back": "grosero\n\nEs grosero interrumpir."
+        },
+        {
+          "front": "lazy\n\nDon't be lazy.",
+          "back": "perezoso\n\nNo seas perezoso."
+        },
+        {
+          "front": "hard-working\n\nMy mother is very hard-working.",
+          "back": "trabajador\n\nMi madre es muy trabajadora."
+        },
+        {
+          "front": "clever\n\nShe is a clever student.",
+          "back": "inteligente\n\nElla es una estudiante inteligente.\n\nTambién: listo"
+        },
+        {
+          "front": "brave\n\nThe firefighter was very brave.",
+          "back": "valiente\n\nEl bombero fue muy valiente."
+        },
+        {
+          "front": "patient\n\nA good teacher is patient.",
+          "back": "paciente\n\nUn buen profesor es paciente."
+        },
+        {
+          "front": "careful\n\nBe careful on the road.",
+          "back": "cuidadoso\n\nTen cuidado en la carretera."
+        },
+        {
+          "front": "quiet\n\nHe is a quiet boy.",
+          "back": "callado\n\nEs un niño callado."
+        },
+        {
+          "front": "talkative\n\nMy sister is very talkative.",
+          "back": "hablador\n\nMi hermana es muy habladora."
+        },
+        {
+          "front": "generous\n\nHe is generous with his friends.",
+          "back": "generoso\n\nÉl es generoso con sus amigos."
+        },
+        {
+          "front": "selfish\n\nDon't be selfish, share with others.",
+          "back": "egoísta\n\nNo seas egoísta, comparte con los demás."
+        },
+        {
+          "front": "confident\n\nShe is confident when she speaks English.",
+          "back": "seguro\n\nElla se siente segura cuando habla inglés."
+        },
+        {
+          "front": "creative\n\nChildren are very creative.",
+          "back": "creativo\n\nLos niños son muy creativos."
+        },
+        {
+          "front": "serious\n\nWhy are you so serious?",
+          "back": "serio\n\n¿Por qué estás tan serio?"
+        },
+        {
+          "front": "cheerful\n\nHe is always cheerful.",
+          "back": "alegre\n\nÉl siempre está alegre."
+        },
+        {
+          "front": "gentle\n\nMy grandmother is very gentle.",
+          "back": "dulce\n\nMi abuela es muy dulce.\n\nTambién: tierno"
+        },
+        {
+          "front": "hope\n\nI hope you feel better soon.",
+          "back": "esperar\n\nEspero que te mejores pronto.\n\nTambién significa: esperanza"
+        },
+        {
+          "front": "dream\n\nMy dream is to be a doctor.",
+          "back": "sueño\n\nMi sueño es ser médico."
+        },
+        {
+          "front": "miss\n\nI miss my family.",
+          "back": "extrañar\n\nExtraño a mi familia.\n\nEn España: echar de menos"
+        },
+        {
+          "front": "upset\n\nShe is upset about her exam.",
+          "back": "molesto\n\nElla está molesta por su examen."
+        },
+        {
+          "front": "mood\n\nI am in a good mood today.",
+          "back": "humor\n\nHoy estoy de buen humor."
+        }
+      ]
+    },
+    {
+      "name": "18 Verbos cotidianos 1",
+      "cards": [
+        {
+          "front": "do\n\nI always do my best.",
+          "back": "hacer\n\nSiempre hago lo mejor que puedo."
+        },
+        {
+          "front": "make\n\nMy mother makes cakes.",
+          "back": "hacer\n\nMi madre hace pasteles."
+        },
+        {
+          "front": "have\n\nI have two brothers.",
+          "back": "tener\n\nTengo dos hermanos."
+        },
+        {
+          "front": "get\n\nI got a letter today.",
+          "back": "recibir\n\nHoy recibí una carta.\n\nTambién significa: conseguir"
+        },
+        {
+          "front": "give\n\nGive me the book, please.",
+          "back": "dar\n\nDame el libro, por favor."
+        },
+        {
+          "front": "take\n\nTake an umbrella with you.",
+          "back": "llevar\n\nLlévate un paraguas.\n\nTambién significa: tomar"
+        },
+        {
+          "front": "bring\n\nBring me some water, please.",
+          "back": "traer\n\nTráeme un poco de agua, por favor."
+        },
+        {
+          "front": "put\n\nPut your bag here.",
+          "back": "poner\n\nPon tu bolsa aquí."
+        },
+        {
+          "front": "see\n\nI can see the sea from my window.",
+          "back": "ver\n\nDesde mi ventana puedo ver el mar."
+        },
+        {
+          "front": "look\n\nLook! It's snowing.",
+          "back": "mirar\n\n¡Mira! Está nevando."
+        },
+        {
+          "front": "hear\n\nI can't hear you.",
+          "back": "oír\n\nNo te oigo.\n\nTambién: escuchar"
+        },
+        {
+          "front": "say\n\nWhat did you say?",
+          "back": "decir\n\n¿Qué dijiste?"
+        },
+        {
+          "front": "tell\n\nTell me a story.",
+          "back": "contar\n\nCuéntame un cuento.\n\nTambién significa: decir"
+        },
+        {
+          "front": "ask\n\nCan I ask you a question?",
+          "back": "preguntar\n\n¿Puedo hacerte una pregunta?\n\nTambién significa: pedir"
+        },
+        {
+          "front": "know\n\nI know her name.",
+          "back": "saber\n\nSé su nombre.\n\nTambién: conocer"
+        },
+        {
+          "front": "think\n\nI think it will rain.",
+          "back": "pensar\n\nPienso que va a llover."
+        },
+        {
+          "front": "use\n\nCan I use your phone?",
+          "back": "usar\n\n¿Puedo usar tu teléfono?"
+        },
+        {
+          "front": "find\n\nI can't find my keys.",
+          "back": "encontrar\n\nNo encuentro mis llaves."
+        },
+        {
+          "front": "look for\n\nI am looking for my glasses.",
+          "back": "buscar\n\nEstoy buscando mis lentes."
+        },
+        {
+          "front": "keep\n\nKeep the change.",
+          "back": "quedarse con\n\nQuédate con el cambio.\n\nTambién significa: guardar"
+        },
+        {
+          "front": "start\n\nThe movie starts at eight.",
+          "back": "empezar\n\nLa película empieza a las ocho."
+        },
+        {
+          "front": "finish\n\nDid you finish your homework?",
+          "back": "terminar\n\n¿Terminaste la tarea?"
+        },
+        {
+          "front": "try\n\nTry this cake.",
+          "back": "probar\n\nPrueba este pastel.\n\nTambién significa: intentar"
+        },
+        {
+          "front": "play\n\nThe children play in the park.",
+          "back": "jugar\n\nLos niños juegan en el parque.\n\nTambién significa: tocar"
+        },
+        {
+          "front": "run\n\nI run every morning.",
+          "back": "correr\n\nCorro todas las mañanas."
+        },
+        {
+          "front": "jump\n\nThe cat jumped onto the table.",
+          "back": "saltar\n\nEl gato saltó a la mesa."
+        },
+        {
+          "front": "sit\n\nPlease sit here.",
+          "back": "sentarse\n\nSiéntate aquí, por favor."
+        },
+        {
+          "front": "stand\n\nStand in line, please.",
+          "back": "estar de pie\n\nPonte en la fila, por favor."
+        },
+        {
+          "front": "sing\n\nShe sings very well.",
+          "back": "cantar\n\nElla canta muy bien."
+        },
+        {
+          "front": "dance\n\nLet's dance!",
+          "back": "bailar\n\n¡Vamos a bailar!"
+        },
+        {
+          "front": "swim\n\nI can swim.",
+          "back": "nadar\n\nSé nadar."
+        },
+        {
+          "front": "climb\n\nWe climbed the mountain.",
+          "back": "escalar\n\nEscalamos la montaña."
+        },
+        {
+          "front": "throw\n\nThrow me the ball.",
+          "back": "lanzar\n\nLánzame la pelota."
+        },
+        {
+          "front": "catch\n\nCatch the ball!",
+          "back": "atrapar\n\n¡Atrapa la pelota!"
+        },
+        {
+          "front": "carry\n\nCan you carry this bag?",
+          "back": "cargar\n\n¿Puedes cargar esta bolsa?\n\nEn España: llevar"
+        },
+        {
+          "front": "pull\n\nPull the door.",
+          "back": "jalar\n\nJala la puerta.\n\nEn España: tirar"
+        },
+        {
+          "front": "push\n\nPush the door.",
+          "back": "empujar\n\nEmpuja la puerta."
+        },
+        {
+          "front": "hold\n\nHold my hand.",
+          "back": "agarrar\n\nAgárrame la mano."
+        },
+        {
+          "front": "touch\n\nDon't touch the paint.",
+          "back": "tocar\n\nNo toques la pintura."
+        },
+        {
+          "front": "send\n\nI sent you a message.",
+          "back": "enviar\n\nTe envié un mensaje."
+        },
+        {
+          "front": "receive\n\nDid you receive my email?",
+          "back": "recibir\n\n¿Recibiste mi correo?"
+        },
+        {
+          "front": "show\n\nShow me your photos.",
+          "back": "mostrar\n\nMuéstrame tus fotos."
+        },
+        {
+          "front": "turn on\n\nTurn on the light, please.",
+          "back": "encender\n\nEnciende la luz, por favor.\n\nTambién: prender"
+        },
+        {
+          "front": "turn off\n\nTurn off the TV.",
+          "back": "apagar\n\nApaga la tele."
+        },
+        {
+          "front": "break\n\nDon't break the glass.",
+          "back": "romper\n\nNo rompas el vaso."
+        },
+        {
+          "front": "fix\n\nCan you fix my bike?",
+          "back": "arreglar\n\n¿Puedes arreglar mi bicicleta?"
+        },
+        {
+          "front": "build\n\nThey are building a new bridge.",
+          "back": "construir\n\nEstán construyendo un puente nuevo."
+        },
+        {
+          "front": "draw\n\nShe likes to draw animals.",
+          "back": "dibujar\n\nA ella le gusta dibujar animales."
+        },
+        {
+          "front": "become\n\nI want to become a teacher.",
+          "back": "convertirse en\n\nQuiero ser profesor."
+        },
+        {
+          "front": "happen\n\nWhat happened?",
+          "back": "pasar\n\n¿Qué pasó?"
+        }
+      ]
+    },
+    {
+      "name": "19 Verbos cotidianos 2",
+      "cards": [
+        {
+          "front": "get up\n\nI get up at six every day.",
+          "back": "levantarse\n\nMe levanto a las seis todos los días."
+        },
+        {
+          "front": "brush teeth\n\nBrush your teeth before bed.",
+          "back": "cepillarse los dientes\n\nCepíllate los dientes antes de dormir.\n\nTambién: lavarse los dientes"
+        },
+        {
+          "front": "take a shower\n\nI take a shower every morning.",
+          "back": "bañarse\n\nMe baño todas las mañanas.\n\nEn España: ducharse"
+        },
+        {
+          "front": "get dressed\n\nGet dressed, we are late.",
+          "back": "vestirse\n\nVístete, que llegamos tarde."
+        },
+        {
+          "front": "have breakfast\n\nI have breakfast at seven.",
+          "back": "desayunar\n\nDesayuno a las siete."
+        },
+        {
+          "front": "go to school\n\nI go to school by bike.",
+          "back": "ir al colegio\n\nVoy al colegio en bicicleta.\n\nTambién: ir a la escuela"
+        },
+        {
+          "front": "go to work\n\nMy father goes to work early.",
+          "back": "ir al trabajo\n\nMi padre se va temprano al trabajo."
+        },
+        {
+          "front": "come back\n\nCome back soon!",
+          "back": "volver\n\n¡Vuelve pronto!"
+        },
+        {
+          "front": "go home\n\nLet's go home.",
+          "back": "ir a casa\n\nVámonos a casa."
+        },
+        {
+          "front": "stay\n\nWe stayed at a small hotel.",
+          "back": "quedarse\n\nNos quedamos en un hotel pequeño."
+        },
+        {
+          "front": "go out\n\nLet's go out tonight.",
+          "back": "salir\n\nSalgamos esta noche."
+        },
+        {
+          "front": "come in\n\nCome in, please.",
+          "back": "entrar\n\nEntra, por favor.\n\nTambién: pasar"
+        },
+        {
+          "front": "sit down\n\nPlease sit down.",
+          "back": "sentarse\n\nSiéntate, por favor."
+        },
+        {
+          "front": "stand up\n\nStand up, please.",
+          "back": "ponerse de pie\n\nPonte de pie, por favor.\n\nTambién: levantarse"
+        },
+        {
+          "front": "look at\n\nLook at this picture.",
+          "back": "mirar\n\nMira esta foto."
+        },
+        {
+          "front": "listen to\n\nI listen to the radio.",
+          "back": "escuchar\n\nEscucho la radio."
+        },
+        {
+          "front": "talk\n\nCan we talk?",
+          "back": "hablar\n\n¿Podemos hablar?"
+        },
+        {
+          "front": "chat\n\nWe chat every evening.",
+          "back": "charlar\n\nCharlamos todas las noches.\n\nTambién: platicar"
+        },
+        {
+          "front": "text\n\nText me when you arrive.",
+          "back": "mandar un mensaje\n\nMándame un mensaje cuando llegues.\n\nTambién: escribir"
+        },
+        {
+          "front": "agree\n\nI agree with you.",
+          "back": "estar de acuerdo\n\nEstoy de acuerdo contigo."
+        },
+        {
+          "front": "decide\n\nI can't decide.",
+          "back": "decidir\n\nNo me puedo decidir."
+        },
+        {
+          "front": "believe\n\nI believe you.",
+          "back": "creer\n\nTe creo."
+        },
+        {
+          "front": "check\n\nCheck your answers.",
+          "back": "revisar\n\nRevisa tus respuestas."
+        },
+        {
+          "front": "prepare\n\nI prepare dinner every day.",
+          "back": "preparar\n\nPreparo la cena todos los días."
+        },
+        {
+          "front": "invite\n\nI want to invite you to my party.",
+          "back": "invitar\n\nQuiero invitarte a mi fiesta."
+        },
+        {
+          "front": "join\n\nCan I join you?",
+          "back": "unirse\n\n¿Me puedo unir?"
+        },
+        {
+          "front": "win\n\nOur team won the game.",
+          "back": "ganar\n\nNuestro equipo ganó el partido."
+        },
+        {
+          "front": "lose\n\nWe lost the game.",
+          "back": "perder\n\nPerdimos el partido."
+        },
+        {
+          "front": "pick up\n\nPick up your toys.",
+          "back": "recoger\n\nRecoge tus juguetes."
+        },
+        {
+          "front": "turn\n\nTurn left at the bank.",
+          "back": "girar\n\nGira a la izquierda en el banco.\n\nTambién: doblar"
+        },
+        {
+          "front": "cross\n\nCross the road carefully.",
+          "back": "cruzar\n\nCruza la calle con cuidado."
+        },
+        {
+          "front": "follow\n\nFollow me.",
+          "back": "seguir\n\nSígueme."
+        },
+        {
+          "front": "lead\n\nShe leads the team.",
+          "back": "dirigir\n\nElla dirige el equipo."
+        },
+        {
+          "front": "grow\n\nPlants grow fast in the rainy season.",
+          "back": "crecer\n\nLas plantas crecen rápido en la temporada de lluvias.\n\nTambién significa: cultivar"
+        },
+        {
+          "front": "die\n\nThe flowers died because of the cold.",
+          "back": "morir\n\nLas flores se murieron por el frío."
+        },
+        {
+          "front": "protect\n\nWear a helmet to protect your head.",
+          "back": "proteger\n\nUsa casco para protegerte la cabeza."
+        },
+        {
+          "front": "enjoy\n\nI enjoy reading.",
+          "back": "disfrutar\n\nDisfruto leer."
+        },
+        {
+          "front": "relax\n\nRelax and have a cup of tea.",
+          "back": "relajarse\n\nRelájate y tómate una taza de té."
+        },
+        {
+          "front": "worry\n\nDon't worry.",
+          "back": "preocuparse\n\nNo te preocupes."
+        },
+        {
+          "front": "share\n\nLet's share the cake.",
+          "back": "compartir\n\nCompartamos el pastel."
+        },
+        {
+          "front": "wish\n\nI wish you a happy New Year.",
+          "back": "desear\n\nTe deseo un feliz Año Nuevo."
+        },
+        {
+          "front": "improve\n\nI want to improve my English.",
+          "back": "mejorar\n\nQuiero mejorar mi inglés."
+        },
+        {
+          "front": "do homework\n\nI do homework every evening.",
+          "back": "hacer la tarea\n\nHago la tarea todas las noches.\n\nEn España: hacer los deberes"
+        },
+        {
+          "front": "go shopping\n\nLet's go shopping.",
+          "back": "ir de compras\n\nVamos de compras."
+        },
+        {
+          "front": "take a photo\n\nLet me take a photo.",
+          "back": "tomar una foto\n\nDéjame tomar una foto.\n\nEn España: hacer una foto"
+        },
+        {
+          "front": "go to bed\n\nI go to bed at eleven.",
+          "back": "acostarse\n\nMe acuesto a las once."
+        },
+        {
+          "front": "look after\n\nI look after my little brother.",
+          "back": "cuidar\n\nCuido a mi hermanito."
+        },
+        {
+          "front": "give up\n\nDon't give up!",
+          "back": "rendirse\n\n¡No te rindas!"
+        },
+        {
+          "front": "find out\n\nI want to find out the truth.",
+          "back": "averiguar\n\nQuiero averiguar la verdad."
+        },
+        {
+          "front": "hurry\n\nHurry up, we are late!",
+          "back": "apurarse\n\n¡Apúrate, que llegamos tarde!\n\nEn España: darse prisa"
+        }
+      ]
+    },
+    {
+      "name": "20 Describir cosas",
+      "cards": [
+        {
+          "front": "big\n\nThey live in a big house.",
+          "back": "grande\n\nViven en una casa grande."
+        },
+        {
+          "front": "small\n\nI have a small car.",
+          "back": "pequeño\n\nTengo un carro pequeño."
+        },
+        {
+          "front": "long\n\nShe has long hair.",
+          "back": "largo\n\nElla tiene el pelo largo."
+        },
+        {
+          "front": "short\n\nThis story is short.",
+          "back": "corto\n\nEste cuento es corto.\n\nTambién significa: bajo"
+        },
+        {
+          "front": "tall\n\nMy brother is very tall.",
+          "back": "alto\n\nMi hermano es muy alto."
+        },
+        {
+          "front": "low\n\nThe table is too low.",
+          "back": "bajo\n\nLa mesa es demasiado baja."
+        },
+        {
+          "front": "wide\n\nThe road is wide.",
+          "back": "ancho\n\nLa carretera es ancha."
+        },
+        {
+          "front": "narrow\n\nThis street is very narrow.",
+          "back": "estrecho\n\nEsta calle es muy estrecha.\n\nTambién: angosto"
+        },
+        {
+          "front": "heavy\n\nThis box is heavy.",
+          "back": "pesado\n\nEsta caja es pesada."
+        },
+        {
+          "front": "new\n\nI have a new phone.",
+          "back": "nuevo\n\nTengo un teléfono nuevo."
+        },
+        {
+          "front": "good\n\nHe is a good student.",
+          "back": "bueno\n\nÉl es un buen estudiante."
+        },
+        {
+          "front": "bad\n\nThe weather is bad today.",
+          "back": "malo\n\nHoy hace mal tiempo."
+        },
+        {
+          "front": "beautiful\n\nWhat a beautiful view!",
+          "back": "hermoso\n\n¡Qué vista tan hermosa!\n\nTambién: bonito"
+        },
+        {
+          "front": "ugly\n\nThat building is ugly.",
+          "back": "feo\n\nEse edificio es feo."
+        },
+        {
+          "front": "easy\n\nThis exercise is easy.",
+          "back": "fácil\n\nEste ejercicio es fácil."
+        },
+        {
+          "front": "difficult\n\nEnglish grammar is difficult.",
+          "back": "difícil\n\nLa gramática inglesa es difícil."
+        },
+        {
+          "front": "empty\n\nThe room is empty.",
+          "back": "vacío\n\nEl cuarto está vacío."
+        },
+        {
+          "front": "dirty\n\nMy shoes are dirty.",
+          "back": "sucio\n\nMis zapatos están sucios."
+        },
+        {
+          "front": "tidy\n\nHer room is always tidy.",
+          "back": "ordenado\n\nSu cuarto siempre está ordenado."
+        },
+        {
+          "front": "messy\n\nMy desk is messy.",
+          "back": "desordenado\n\nMi escritorio está desordenado."
+        },
+        {
+          "front": "safe\n\nIs it safe to swim here?",
+          "back": "seguro\n\n¿Es seguro nadar aquí?"
+        },
+        {
+          "front": "dangerous\n\nSwimming here is dangerous.",
+          "back": "peligroso\n\nNadar aquí es peligroso."
+        },
+        {
+          "front": "important\n\nThis is very important.",
+          "back": "importante\n\nEsto es muy importante."
+        },
+        {
+          "front": "interesting\n\nThis book is very interesting.",
+          "back": "interesante\n\nEste libro es muy interesante."
+        },
+        {
+          "front": "boring\n\nThe movie was boring.",
+          "back": "aburrido\n\nLa película fue aburrida."
+        },
+        {
+          "front": "famous\n\nThis singer is very famous.",
+          "back": "famoso\n\nEste cantante es muy famoso."
+        },
+        {
+          "front": "strange\n\nThat is a strange sound.",
+          "back": "raro\n\nEse es un ruido raro.\n\nTambién: extraño"
+        },
+        {
+          "front": "same\n\nWe are in the same class.",
+          "back": "mismo\n\nEstamos en la misma clase."
+        },
+        {
+          "front": "different\n\nMy sister and I are very different.",
+          "back": "diferente\n\nMi hermana y yo somos muy diferentes."
+        },
+        {
+          "front": "real\n\nIs this a real flower?",
+          "back": "real\n\n¿Esta flor es real?"
+        },
+        {
+          "front": "true\n\nIs it true?",
+          "back": "cierto\n\n¿Es cierto?\n\nTambién: verdadero"
+        },
+        {
+          "front": "loud\n\nThe music is too loud.",
+          "back": "fuerte\n\nLa música está demasiado fuerte."
+        },
+        {
+          "front": "soft\n\nThis pillow is soft.",
+          "back": "suave\n\nEsta almohada es suave.\n\nTambién: blando"
+        },
+        {
+          "front": "hard\n\nThis bread is hard.",
+          "back": "duro\n\nEste pan está duro.\n\nTambién significa: difícil"
+        },
+        {
+          "front": "thick\n\nThis book is very thick.",
+          "back": "grueso\n\nEste libro es muy grueso."
+        },
+        {
+          "front": "thin\n\nThe paper is very thin.",
+          "back": "delgado\n\nEl papel es muy delgado."
+        },
+        {
+          "front": "fat\n\nMy cat is too fat.",
+          "back": "gordo\n\nMi gato está demasiado gordo."
+        },
+        {
+          "front": "cute\n\nWhat a cute baby!",
+          "back": "lindo\n\n¡Qué bebé tan lindo!\n\nEn España: mono"
+        },
+        {
+          "front": "nice\n\nIt is a nice place to live.",
+          "back": "agradable\n\nEs un lugar agradable para vivir."
+        },
+        {
+          "front": "great\n\nThat's a great idea!",
+          "back": "genial\n\n¡Es una idea genial!\n\nTambién significa: grande"
+        },
+        {
+          "front": "terrible\n\nThe food was terrible.",
+          "back": "terrible\n\nLa comida estaba terrible."
+        },
+        {
+          "front": "perfect\n\nYour English is perfect.",
+          "back": "perfecto\n\nTu inglés es perfecto."
+        },
+        {
+          "front": "popular\n\nThis song is very popular.",
+          "back": "popular\n\nEsta canción es muy popular."
+        },
+        {
+          "front": "modern\n\nOur city has many modern buildings.",
+          "back": "moderno\n\nNuestra ciudad tiene muchos edificios modernos."
+        },
+        {
+          "front": "traditional\n\nShe wears a traditional dress.",
+          "back": "tradicional\n\nElla lleva un vestido tradicional."
+        },
+        {
+          "front": "convenient\n\nThe bus is very convenient.",
+          "back": "práctico\n\nEl autobús es muy práctico."
+        },
+        {
+          "front": "comfortable\n\nThis chair is comfortable.",
+          "back": "cómodo\n\nEsta silla es cómoda."
+        },
+        {
+          "front": "useful\n\nThis app is very useful.",
+          "back": "útil\n\nEsta aplicación es muy útil."
+        },
+        {
+          "front": "special\n\nToday is a special day.",
+          "back": "especial\n\nHoy es un día especial."
+        },
+        {
+          "front": "simple\n\nThe question is simple.",
+          "back": "simple\n\nLa pregunta es sencilla.\n\nTambién: sencillo"
+        }
+      ]
+    }
+  ]
+}

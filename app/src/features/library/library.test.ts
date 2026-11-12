@@ -150,13 +150,17 @@ describe('the bundled packs', () => {
   // Vocabulary: "(part of speech) definition", a blank line, an example. Capitals: the city,
   // sometimes followed by a blank line and a one-sentence note.
   const VOCAB = /^\((noun|verb|adjective|adverb|phrase)\) [^\n]+\n\n[^\n]+\.$/;
+  // The meaning (no brackets: it's typed), the example in that language, maybe a note.
+  const BASICS = /^[^\n()]+\n\n[^\n]+(\n\n[^\n]+)?$/;
   const FORMAT: Record<string, RegExp> = {
     ielts: VOCAB,
     sat: VOCAB,
     toeic: VOCAB,
     capitals: /^[^\n]+(\n\n[^\n]+\.)?$/,
-    // The Vietnamese meaning (no brackets: it's typed), the example in Vietnamese, maybe a note.
-    'english-basics': /^[^\n()]+\n\n[^\n]+(\n\n[^\n]+)?$/,
+    'english-basics': BASICS,
+    'english-basics-es': BASICS,
+    'english-basics-pt': BASICS,
+    'english-basics-fr': BASICS,
   };
 
   it('every pack has a format check', () => {
@@ -178,13 +182,38 @@ describe('the bundled packs', () => {
     expect(words('toeic').filter((word) => academic.has(word))).toEqual([]);
   });
 
-  describe('English basics', () => {
-    const pack = PACKS.find((p) => p.id === 'english-basics')!;
+  const basics = PACKS.filter((p) => p.id.startsWith('english-basics'));
+  const vietnamese = PACKS.find((p) => p.id === 'english-basics')!;
+  const words = (pack: Pack) => pack.decks.map((d) => d.cards.map((c) => c.front.split('\n')[0]));
+
+  it('has English basics for Vietnamese, Spanish, Portuguese and French speakers', () => {
+    expect(basics.map((p) => p.speakers)).toEqual(['vi', 'es', 'pt', 'fr']);
+    expect(new Set(basics.map((p) => p.name)).size).toBe(basics.length);
+  });
+
+  it('teaches the same words in every English basics, topic by topic', () => {
+    for (const pack of basics) expect(words(pack)).toEqual(words(vietnamese));
+  });
+
+  it('shares one English side in the other languages, with nothing set in Vietnam', () => {
+    const others = basics.filter((p) => p !== vietnamese);
+    const fronts = (pack: Pack) => pack.decks.flatMap((d) => d.cards.map((c) => c.front));
+    for (const pack of others) expect(fronts(pack)).toEqual(fronts(others[0]));
+    const vietnam =
+      /Viet|Ha ?noi|Hà Nội|Hue\b|Huế|Da Nang|Da Lat|Hoi An|Ho Chi Minh|Phu Quoc|Ha Long|Fansipan|Phong Nha|\bpho\b|\bdong\b|\bTet\b|\bLan\b/;
+    const sides = others.flatMap((p) =>
+      p.decks.flatMap((d) => d.cards.flatMap((c) => [c.front, c.back])),
+    );
+    expect(sides.filter((side) => vietnam.test(side))).toEqual([]);
+  });
+
+  describe.each(basics.map((p) => [p.name, p] as const))('%s', (_name, pack) => {
     const cards = pack.decks.flatMap((d) => d.cards);
 
-    it('has 20 topics of 50 words, read in English and Vietnamese', () => {
+    it('has 20 topics of 50 words, read in English and its language', () => {
       expect(pack.decks.map((d) => d.cards.length)).toEqual(new Array(20).fill(50));
-      expect(pack.languages).toEqual({ front: 'en', back: 'vi' });
+      expect(pack.languages).toEqual({ front: 'en', back: pack.speakers });
+      expect(pack.category).toBe('languages');
     });
 
     it('numbers its topics, so they list in learning order', () => {
@@ -207,7 +236,8 @@ describe('the bundled packs', () => {
     });
 
     it('has meanings short enough to type, so every card gets the typed check', () => {
-      expect(cards.filter((c) => !isTypeable(c.back, 'vi')).map((c) => c.back)).toEqual([]);
+      const typeable = (back: string) => isTypeable(back, pack.languages!.back);
+      expect(cards.filter((c) => !typeable(c.back)).map((c) => c.back)).toEqual([]);
     });
   });
 

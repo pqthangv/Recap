@@ -685,6 +685,12 @@ export const es: Translation = {
   'library.added': 'Se agregó {name} · {cards}',
   'pack.englishBasics':
     'Inglés cotidiano con significados en vietnamita: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsEs':
+    'Inglés cotidiano con significados en español: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsPt':
+    'Inglés cotidiano con significados en portugués: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsFr':
+    'Inglés cotidiano con significados en francés: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
   'pack.ielts':
     'Vocabulario académico para el IELTS en 10 temas, desde describir gráficos hasta el medio ambiente (con definiciones en inglés).',
   'pack.sat':

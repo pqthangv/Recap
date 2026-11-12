@@ -684,6 +684,12 @@ export const pt: Translation = {
   'library.added': 'Adicionado: {name} · {cards}',
   'pack.englishBasics':
     'Inglês do dia a dia com significados em vietnamita: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsEs':
+    'Inglês do dia a dia com significados em espanhol: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsPt':
+    'Inglês do dia a dia com significados em português: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsFr':
+    'Inglês do dia a dia com significados em francês: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
   'pack.ielts':
     'Palavras acadêmicas para o IELTS em 10 temas, da descrição de gráficos ao meio ambiente (com explicações em inglês).',
   'pack.sat':

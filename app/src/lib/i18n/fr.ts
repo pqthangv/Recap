@@ -690,6 +690,12 @@ export const fr: Translation = {
   'library.added': 'Ajouté : {name} · {cards}',
   'pack.englishBasics':
     'L’anglais de tous les jours, avec le sens en vietnamien : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsEs':
+    'L’anglais de tous les jours, avec le sens en espagnol : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsPt':
+    'L’anglais de tous les jours, avec le sens en portugais : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsFr':
+    'L’anglais de tous les jours, avec le sens en français : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
   'pack.ielts':
     'Vocabulaire académique pour l’IELTS en 10 thèmes, de la description de graphiques à l’environnement (définitions en anglais).',
   'pack.sat': 'Mots des textes de lecture du SAT, par groupes de 100 (définitions en anglais).',
