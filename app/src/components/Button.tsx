@@ -1,9 +1,11 @@
 import type { ReactNode, Ref } from 'react';
 import {
+  Platform,
   Pressable,
   StyleSheet,
   Text,
   type StyleProp,
+  type TextStyle,
   type View,
   type ViewStyle,
 } from 'react-native';
@@ -60,13 +62,28 @@ export function Button({
         style,
       ]}
     >
-      <Text style={[styles.label, labelColor[variant], size === 'lg' && styles.lgLabel]}>
+      <Text
+        style={[
+          styles.label,
+          labelColor[variant],
+          size === 'lg' && styles.lgLabel,
+          !sublabel && capMiddle,
+        ]}
+      >
         {label}
       </Text>
       {sublabel ? <Text style={[styles.sublabel, labelColor[variant]]}>{sublabel}</Text> : null}
     </Pressable>
   );
 }
+
+/**
+ * The website puts the label's capital letters in the middle of the button. Browser fonts (Windows'
+ * Segoe UI) leave more room above capitals than below, so the word sat a pixel low; phones already
+ * have it in the middle. A browser without `text-box` ignores it.
+ */
+const capMiddle =
+  Platform.OS === 'web' ? ({ textBox: 'trim-both cap alphabetic' } as TextStyle) : null;
 
 const makeLabelColor = (colors: Colors) =>
   StyleSheet.create({
