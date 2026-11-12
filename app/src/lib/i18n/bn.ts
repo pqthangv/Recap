@@ -662,8 +662,12 @@ export const bn: Translation = {
   'aiError.notConfigured': 'Recap-এর AI এখনো চালু করা হয়নি।',
 
   // Library
-  'library.help': 'আপনার ডেকে যোগ করার জন্য আগে থেকে তৈরি ডেক।',
-  'library.add': 'আমার ডেকে যোগ করুন',
+  'library.add': 'যোগ করুন',
+  'library.categoriesA11y': 'ডেকের ধরন',
+  'library.all': 'সব',
+  'library.exams': 'পরীক্ষা',
+  'library.languages': 'ভাষা',
+  'library.geography': 'ভূগোল',
   'library.addA11y': '{name} আমার ডেকে যোগ করুন',
   'library.openA11y': '{name} খুলুন',
   'library.added': '{name} যোগ হয়েছে · {cards}',

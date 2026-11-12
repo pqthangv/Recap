@@ -656,8 +656,12 @@ export const vi: Strings = {
   'aiError.notConfigured': 'AI của Recap chưa được thiết lập.',
 
   // Library
-  'library.help': 'Các bộ thẻ có sẵn để thêm vào bộ thẻ của bạn.',
-  'library.add': 'Thêm vào bộ thẻ của tôi',
+  'library.add': 'Thêm',
+  'library.categoriesA11y': 'Loại bộ thẻ',
+  'library.all': 'Tất cả',
+  'library.exams': 'Luyện thi',
+  'library.languages': 'Ngôn ngữ',
+  'library.geography': 'Địa lý',
   'library.addA11y': 'Thêm {name} vào bộ thẻ của tôi',
   'library.openA11y': 'Mở {name}',
   'library.added': 'Đã thêm {name} · {cards}',

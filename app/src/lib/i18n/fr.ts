@@ -679,8 +679,12 @@ export const fr: Translation = {
   'aiError.notConfigured': 'L’IA de Recap n’est pas encore configurée.',
 
   // Library
-  'library.help': 'Des paquets tout prêts à ajouter aux vôtres.',
-  'library.add': 'Ajouter à mes paquets',
+  'library.add': 'Ajouter',
+  'library.categoriesA11y': 'Types de paquets',
+  'library.all': 'Tous',
+  'library.exams': 'Examens',
+  'library.languages': 'Langues',
+  'library.geography': 'Géographie',
   'library.addA11y': 'Ajouter {name} à mes paquets',
   'library.openA11y': 'Ouvrir {name}',
   'library.added': 'Ajouté : {name} · {cards}',

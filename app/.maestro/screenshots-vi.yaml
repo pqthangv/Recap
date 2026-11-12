@@ -76,14 +76,14 @@ appId: com.recapcards.app
     timeout: 10000
 - takeScreenshot: voices
 
-# The Library of ready-made decks, scrolled to TOEIC (nothing is added).
+# The Library, scrolled to TOEIC (nothing is added).
 - launchApp
 - extendedWaitUntil:
     visible: 'Học · .* thẻ cần ôn'
     timeout: 60000
 - tapOn: Thư viện
 - extendedWaitUntil:
-    visible: 'Các bộ thẻ có sẵn để thêm vào bộ thẻ của bạn.*'
+    visible: Tất cả
     timeout: 30000
 - scrollUntilVisible:
     element:

@@ -8,7 +8,7 @@ import type { ImageSourcePropType } from 'react-native';
 
 import flagUk from '@/assets/images/library/flag-uk.png';
 import flagUs from '@/assets/images/library/flag-us.png';
-import type { StringKey } from '@/lib/i18n';
+import type { Language, StringKey } from '@/lib/i18n';
 import type { SideLanguages } from '@/lib/language';
 import { deckColors } from '@/lib/theme';
 
@@ -24,6 +24,16 @@ export type PackCard = { front: string; back: string };
 export type PackLogo =
   { image: ImageSourcePropType } | { icon: 'public' | 'business-center' | 'translate' };
 
+/** The Library's chips, in this order (after "All"). A chip shows only if a pack is in it. */
+export const PACK_CATEGORIES = ['exams', 'languages', 'geography'] as const;
+export type PackCategory = (typeof PACK_CATEGORIES)[number];
+
+export const CATEGORY_NAMES: Record<PackCategory, StringKey> = {
+  exams: 'library.exams',
+  languages: 'library.languages',
+  geography: 'library.geography',
+};
+
 export type Pack = {
   id: string;
   /** Also the group name: its decks are called "<name> › <deck>". Not translated: the decks on
@@ -32,8 +42,10 @@ export type Pack = {
   description: StringKey;
   color: string;
   logo: PackLogo;
-  /** A few words shown on the Library card; the first deck's first fronts if not set. */
-  examples?: readonly string[];
+  category: PackCategory;
+  /** Made for speakers of this app language (its meanings are in it): listed first when Recap is
+   *  in that language, last otherwise. Not set: for everyone. */
+  speakers?: Language;
   /** What each side is read aloud in, given to the decks when they're added (else Auto). */
   languages?: SideLanguages;
   decks: readonly { name: string; cards: readonly PackCard[] }[];
@@ -46,7 +58,8 @@ export const PACKS: readonly Pack[] = [
     description: 'pack.englishBasics',
     color: deckColors[5],
     logo: { icon: 'translate' },
-    examples: ['hello', 'family', 'apple'],
+    category: 'languages',
+    speakers: 'vi',
     languages: { front: 'en', back: 'vi' },
     decks: englishBasics.decks,
   },
@@ -56,6 +69,7 @@ export const PACKS: readonly Pack[] = [
     description: 'pack.ielts',
     color: deckColors[1],
     logo: { image: flagUk },
+    category: 'exams',
     decks: ielts.decks,
   },
   {
@@ -64,6 +78,7 @@ export const PACKS: readonly Pack[] = [
     description: 'pack.sat',
     color: deckColors[0],
     logo: { image: flagUs },
+    category: 'exams',
     decks: sat.decks,
   },
   {
@@ -72,6 +87,7 @@ export const PACKS: readonly Pack[] = [
     description: 'pack.toeic',
     color: deckColors[3],
     logo: { icon: 'business-center' }, // a briefcase: workplace English
+    category: 'exams',
     decks: toeic.decks,
   },
   {
@@ -80,7 +96,7 @@ export const PACKS: readonly Pack[] = [
     description: 'pack.capitals',
     color: deckColors[2],
     logo: { icon: 'public' }, // a globe
-    examples: ['Japan', 'Brazil', 'Kenya'],
+    category: 'geography',
     decks: capitals.decks,
   },
 ];

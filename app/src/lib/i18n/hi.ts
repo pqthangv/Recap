@@ -668,8 +668,12 @@ export const hi: Translation = {
   'aiError.notConfigured': 'Recap का AI अभी सेट अप नहीं हुआ है।',
 
   // Library
-  'library.help': 'आपके डेक में जोड़ने के लिए तैयार डेक।',
-  'library.add': 'मेरे डेक में जोड़ें',
+  'library.add': 'जोड़ें',
+  'library.categoriesA11y': 'डेक के प्रकार',
+  'library.all': 'सभी',
+  'library.exams': 'परीक्षाएँ',
+  'library.languages': 'भाषाएँ',
+  'library.geography': 'भूगोल',
   'library.addA11y': '{name} को मेरे डेक में जोड़ें',
   'library.openA11y': '{name} खोलें',
   'library.added': '{name} जोड़ा गया · {cards}',

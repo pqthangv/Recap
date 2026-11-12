@@ -654,8 +654,12 @@ export const en = {
   'aiError.notConfigured': "Recap's AI isn't set up yet.",
 
   // Library
-  'library.help': 'Ready-made decks to add to yours.',
-  'library.add': 'Add to my decks',
+  'library.add': 'Add',
+  'library.categoriesA11y': 'Kinds of decks',
+  'library.all': 'All',
+  'library.exams': 'Exams',
+  'library.languages': 'Languages',
+  'library.geography': 'Geography',
   'library.addA11y': 'Add {name} to my decks',
   'library.openA11y': 'Open {name}',
   'library.added': 'Added {name} · {cards}',

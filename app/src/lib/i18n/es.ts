@@ -674,8 +674,12 @@ export const es: Translation = {
   'aiError.notConfigured': 'La IA de Recap todavía no está configurada.',
 
   // Library
-  'library.help': 'Mazos ya hechos para agregar a los tuyos.',
-  'library.add': 'Agregar a mis mazos',
+  'library.add': 'Agregar',
+  'library.categoriesA11y': 'Tipos de mazos',
+  'library.all': 'Todos',
+  'library.exams': 'Exámenes',
+  'library.languages': 'Idiomas',
+  'library.geography': 'Geografía',
   'library.addA11y': 'Agregar {name} a mis mazos',
   'library.openA11y': 'Abrir {name}',
   'library.added': 'Se agregó {name} · {cards}',

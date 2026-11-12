@@ -673,8 +673,12 @@ export const pt: Translation = {
   'aiError.notConfigured': 'A IA do Recap ainda não está configurada.',
 
   // Library
-  'library.help': 'Baralhos prontos para adicionar aos seus.',
-  'library.add': 'Adicionar aos meus baralhos',
+  'library.add': 'Adicionar',
+  'library.categoriesA11y': 'Tipos de baralhos',
+  'library.all': 'Todos',
+  'library.exams': 'Exames',
+  'library.languages': 'Idiomas',
+  'library.geography': 'Geografia',
   'library.addA11y': 'Adicionar {name} aos meus baralhos',
   'library.openA11y': 'Abrir {name}',
   'library.added': 'Adicionado: {name} · {cards}',

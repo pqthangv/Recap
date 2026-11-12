@@ -5,8 +5,15 @@ import { getDueQueue } from '@/db/study';
 import { isTypeable } from '@/lib/answerCheck';
 import { hasMath } from '@/lib/math/parse';
 
-import { addPack, isPackAdded, packCardCount, packDeckNames } from './library';
-import { PACKS, type Pack } from './packs';
+import {
+  addPack,
+  isPackAdded,
+  libraryCategories,
+  libraryPacks,
+  packCardCount,
+  packDeckNames,
+} from './library';
+import { PACK_CATEGORIES, PACKS, type Pack } from './packs';
 
 // jest.mock factories can't use imports, so this one needs require().
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -20,6 +27,7 @@ const PACK: Pack = {
   description: 'pack.sat',
   color: '#1A73E8',
   logo: { icon: 'public' },
+  category: 'exams',
   decks: [
     {
       name: 'Set 1',
@@ -72,6 +80,69 @@ describe('adding a Library pack', () => {
   it('names and counts', () => {
     expect(packDeckNames(PACK)).toEqual(['Test words › Set 1', 'Test words › Set 2']);
     expect(packCardCount(PACK)).toBe(3);
+  });
+});
+
+describe('the Library list', () => {
+  const pack = (id: string, category: Pack['category'], speakers?: Pack['speakers']): Pack => ({
+    ...PACK,
+    id,
+    category,
+    speakers,
+  });
+  const SHELF = [
+    pack('basics-vi', 'languages', 'vi'),
+    pack('ielts', 'exams'),
+    pack('basics-es', 'languages', 'es'),
+    pack('capitals', 'geography'),
+    pack('sat', 'exams'),
+  ];
+  const ids = (packs: readonly Pack[]) => packs.map((p) => p.id);
+
+  it("lists packs for the app's language first and other languages' last", () => {
+    expect(ids(libraryPacks(SHELF, 'all', 'vi'))).toEqual([
+      'basics-vi',
+      'ielts',
+      'capitals',
+      'sat',
+      'basics-es',
+    ]);
+    expect(ids(libraryPacks(SHELF, 'all', 'es'))).toEqual([
+      'basics-es',
+      'ielts',
+      'capitals',
+      'sat',
+      'basics-vi',
+    ]);
+    // No pack for English speakers: the packs for everyone lead, in their own order.
+    expect(ids(libraryPacks(SHELF, 'all', 'en'))).toEqual([
+      'ielts',
+      'capitals',
+      'sat',
+      'basics-vi',
+      'basics-es',
+    ]);
+  });
+
+  it('shows one category per chip, in the same order', () => {
+    expect(ids(libraryPacks(SHELF, 'exams', 'en'))).toEqual(['ielts', 'sat']);
+    expect(ids(libraryPacks(SHELF, 'languages', 'es'))).toEqual(['basics-es', 'basics-vi']);
+  });
+
+  it('has a chip only for categories with a pack', () => {
+    expect(libraryCategories(SHELF)).toEqual(['exams', 'languages', 'geography']);
+    expect(libraryCategories([pack('capitals', 'geography')])).toEqual(['geography']);
+  });
+
+  it('puts every bundled pack in a chip', () => {
+    expect(libraryCategories(PACKS)).toEqual([...PACK_CATEGORIES]);
+    const shown = PACK_CATEGORIES.flatMap((c) => ids(libraryPacks(PACKS, c, 'en')));
+    expect(shown.sort()).toEqual(ids(PACKS).sort());
+  });
+
+  it('starts with English basics in Vietnamese, with the exams in English', () => {
+    expect(libraryPacks(PACKS, 'all', 'vi')[0].id).toBe('english-basics');
+    expect(libraryPacks(PACKS, 'all', 'en')[0].id).toBe('ielts');
   });
 });
 
