@@ -60,12 +60,15 @@ export function isTypeable(back: string, language?: CardLanguage | null): boolea
   return words <= (vietnamese ? MAX_VIETNAMESE_WORDS : MAX_WORDS);
 }
 
-// Lower case, the same Unicode form for accents typed either way, punctuation as spaces
-// (apostrophes and full stops dropped: "don't" = "dont", "D.C." = "DC"), single spaces.
+// Lower case, the same Unicode form for accents typed either way, œ and æ as "oe" and "ae"
+// (French "oeuf" for "œuf"), punctuation as spaces (apostrophes and full stops dropped:
+// "don't" = "dont", "D.C." = "DC"), single spaces.
 function normalize(text: string): string {
   return text
     .normalize('NFC')
     .toLowerCase()
+    .replace(/œ/g, 'oe')
+    .replace(/æ/g, 'ae')
     .replace(/['’‘`.]/g, '')
     .replace(/[,!?:;¿¡"“”«»。、，！？：；…\-–—()[\]{}]/g, ' ')
     .replace(/\s+/g, ' ')

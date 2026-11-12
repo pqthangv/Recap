@@ -89,6 +89,13 @@ describe('checkAnswer', () => {
     expect(checkAnswer(composed, decomposed)).toBe('correct');
   });
 
+  it('takes "oe" and "ae" for œ and æ, as phone keyboards often type them', () => {
+    expect(checkAnswer('oeuf', 'œuf')).toBe('correct');
+    expect(checkAnswer('grande soeur', 'grande sœur')).toBe('correct');
+    expect(checkAnswer('Cœur', 'coeur')).toBe('correct');
+    expect(checkAnswer('aether', 'æther')).toBe('correct');
+  });
+
   it('says "almost" when only the accents are wrong', () => {
     expect(checkAnswer('ha noi', 'Hà Nội')).toBe('accents');
     expect(checkAnswer('ma', 'má')).toBe('accents'); // a different word in Vietnamese
