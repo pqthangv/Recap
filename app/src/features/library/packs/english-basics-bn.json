@@ -1,0 +1,4104 @@
+{
+  "decks": [
+    {
+      "name": "01 সম্ভাষণ ও মৌলিক শব্দ",
+      "cards": [
+        {
+          "front": "hello\n\nHello, my name is Anna.",
+          "back": "হ্যালো\n\nহ্যালো, আমার নাম আনা।\n\nএছাড়াও: আসসালামু আলাইকুম, নমস্কার"
+        },
+        {
+          "front": "hi\n\nHi! How are you?",
+          "back": "হাই\n\nহাই! কেমন আছ?"
+        },
+        {
+          "front": "goodbye\n\nGoodbye, see you tomorrow.",
+          "back": "বিদায়\n\nবিদায়, কাল দেখা হবে।"
+        },
+        {
+          "front": "good morning\n\nGood morning, everyone.",
+          "back": "শুভ সকাল\n\nসবাইকে শুভ সকাল।\n\nএছাড়াও: সুপ্রভাত"
+        },
+        {
+          "front": "good night\n\nGood night, see you tomorrow.",
+          "back": "শুভ রাত্রি\n\nশুভ রাত্রি, কাল দেখা হবে।"
+        },
+        {
+          "front": "please\n\nPlease help me.",
+          "back": "দয়া করে\n\nদয়া করে আমাকে সাহায্য করুন।\n\nএছাড়াও: অনুগ্রহ করে, প্লিজ"
+        },
+        {
+          "front": "thank you\n\nThank you for your help.",
+          "back": "ধন্যবাদ\n\nআপনার সাহায্যের জন্য ধন্যবাদ।"
+        },
+        {
+          "front": "sorry\n\nSorry, I am late.",
+          "back": "দুঃখিত\n\nদুঃখিত, আমার দেরি হয়ে গেছে।"
+        },
+        {
+          "front": "excuse me\n\nExcuse me, where is the bank?",
+          "back": "মাফ করবেন\n\nমাফ করবেন, ব্যাংকটা কোথায়?"
+        },
+        {
+          "front": "yes\n\nYes, I understand.",
+          "back": "হ্যাঁ\n\nহ্যাঁ, আমি বুঝেছি।"
+        },
+        {
+          "front": "no\n\nNo, thank you.",
+          "back": "না\n\nনা, ধন্যবাদ।"
+        },
+        {
+          "front": "okay\n\nOkay, let's go.",
+          "back": "ঠিক আছে\n\nঠিক আছে, চলো যাই।\n\nএছাড়াও: আচ্ছা"
+        },
+        {
+          "front": "welcome\n\nWelcome to our school.",
+          "back": "স্বাগতম\n\nআমাদের স্কুলে স্বাগতম।"
+        },
+        {
+          "front": "name\n\nWhat is your name?",
+          "back": "নাম\n\nতোমার নাম কী?"
+        },
+        {
+          "front": "friend\n\nShe is my best friend.",
+          "back": "বন্ধু\n\nসে আমার সবচেয়ে ভালো বন্ধু।"
+        },
+        {
+          "front": "you\n\nYou are very kind.",
+          "back": "তুমি\n\nতুমি খুব দয়ালু।\n\nএছাড়াও: আপনি, তুই"
+        },
+        {
+          "front": "I\n\nI am a student.",
+          "back": "আমি\n\nআমি একজন ছাত্র।"
+        },
+        {
+          "front": "we\n\nWe live in a small town.",
+          "back": "আমরা\n\nআমরা একটা ছোট শহরে থাকি।"
+        },
+        {
+          "front": "they\n\nThey are my parents.",
+          "back": "তারা\n\nতারা আমার বাবা-মা।"
+        },
+        {
+          "front": "he\n\nHe is my classmate.",
+          "back": "সে\n\nসে আমার সহপাঠী।\n\nএছাড়াও: ও, তিনি (সম্মান করে)"
+        },
+        {
+          "front": "she\n\nShe is a doctor.",
+          "back": "সে\n\nসে একজন ডাক্তার।\n\nএছাড়াও: ও, তিনি (সম্মান করে)"
+        },
+        {
+          "front": "it\n\nIt is a small cat.",
+          "back": "এটা\n\nএটা একটা ছোট বিড়াল।"
+        },
+        {
+          "front": "this\n\nThis is my bag.",
+          "back": "এটা\n\nএটা আমার ব্যাগ।"
+        },
+        {
+          "front": "that\n\nThat is your phone.",
+          "back": "ওটা\n\nওটা তোমার ফোন।"
+        },
+        {
+          "front": "here\n\nPlease wait here.",
+          "back": "এখানে\n\nদয়া করে এখানে অপেক্ষা করুন।"
+        },
+        {
+          "front": "there\n\nPut the box there.",
+          "back": "ওখানে\n\nবাক্সটা ওখানে রাখো।\n\nএছাড়াও: সেখানে"
+        },
+        {
+          "front": "what\n\nWhat is this?",
+          "back": "কী\n\nএটা কী?"
+        },
+        {
+          "front": "who\n\nWho is that man?",
+          "back": "কে\n\nওই লোকটা কে?"
+        },
+        {
+          "front": "where\n\nWhere do you live?",
+          "back": "কোথায়\n\nতুমি কোথায় থাকো?"
+        },
+        {
+          "front": "when\n\nWhen is your birthday?",
+          "back": "কখন\n\nতোমার জন্মদিন কবে?\n\nএছাড়াও: কবে (দিন বা তারিখ জানতে)"
+        },
+        {
+          "front": "why\n\nWhy are you sad?",
+          "back": "কেন\n\nতোমার মন খারাপ কেন?"
+        },
+        {
+          "front": "how\n\nHow do you make this cake?",
+          "back": "কীভাবে\n\nতুমি এই কেকটা কীভাবে বানাও?"
+        },
+        {
+          "front": "how much\n\nHow much is this shirt?",
+          "back": "কত\n\nএই শার্টটার দাম কত?"
+        },
+        {
+          "front": "how many\n\nHow many brothers do you have?",
+          "back": "কয়টা\n\nতোমার কয়জন ভাই আছে?\n\nএছাড়াও: কয়জন (মানুষের বেলায়), কতগুলো"
+        },
+        {
+          "front": "and\n\nI like tea and coffee.",
+          "back": "এবং\n\nআমি চা এবং কফি পছন্দ করি।\n\nএছাড়াও: আর, ও"
+        },
+        {
+          "front": "but\n\nIt is small but nice.",
+          "back": "কিন্তু\n\nএটা ছোট, কিন্তু সুন্দর।"
+        },
+        {
+          "front": "or\n\nTea or coffee?",
+          "back": "অথবা\n\nচা নাকি কফি?\n\nএছাড়াও: নাকি (প্রশ্নে), বা"
+        },
+        {
+          "front": "because\n\nI stay home because it is raining.",
+          "back": "কারণ\n\nআমি বাসায় আছি, কারণ বৃষ্টি হচ্ছে।"
+        },
+        {
+          "front": "very\n\nIt is very hot today.",
+          "back": "খুব\n\nআজ খুব গরম।"
+        },
+        {
+          "front": "also\n\nI also like music.",
+          "back": "ও\n\nআমিও গান পছন্দ করি।\n\nএছাড়াও: এছাড়াও, তাছাড়া"
+        },
+        {
+          "front": "again\n\nPlease say it again.",
+          "back": "আবার\n\nদয়া করে আবার বলুন।"
+        },
+        {
+          "front": "maybe\n\nMaybe it will rain.",
+          "back": "হয়তো\n\nহয়তো বৃষ্টি হবে।\n\nএছাড়াও: সম্ভবত"
+        },
+        {
+          "front": "of course\n\nOf course you can come.",
+          "back": "অবশ্যই\n\nঅবশ্যই তুমি আসতে পারো।"
+        },
+        {
+          "front": "help\n\nCan you help me?",
+          "back": "সাহায্য করা\n\nতুমি কি আমাকে সাহায্য করতে পারবে?"
+        },
+        {
+          "front": "question\n\nI have a question.",
+          "back": "প্রশ্ন\n\nআমার একটা প্রশ্ন আছে।"
+        },
+        {
+          "front": "answer\n\nI know the answer.",
+          "back": "উত্তর\n\nআমি উত্তরটা জানি।"
+        },
+        {
+          "front": "word\n\nWhat does this word mean?",
+          "back": "শব্দ\n\nএই শব্দটার মানে কী?"
+        },
+        {
+          "front": "language\n\nEnglish is a useful language.",
+          "back": "ভাষা\n\nইংরেজি একটা দরকারি ভাষা।"
+        },
+        {
+          "front": "understand\n\nI don't understand.",
+          "back": "বোঝা\n\nআমি বুঝতে পারছি না।"
+        },
+        {
+          "front": "speak\n\nDo you speak English?",
+          "back": "বলা\n\nআপনি কি ইংরেজি বলতে পারেন?"
+        }
+      ]
+    },
+    {
+      "name": "02 মানুষ ও পরিবার",
+      "cards": [
+        {
+          "front": "family\n\nMy family is big.",
+          "back": "পরিবার\n\nআমার পরিবার অনেক বড়।"
+        },
+        {
+          "front": "father\n\nMy father is a teacher.",
+          "back": "বাবা\n\nআমার বাবা একজন শিক্ষক।\n\nএছাড়াও: আব্বা, আব্বু"
+        },
+        {
+          "front": "mother\n\nMy mother cooks very well.",
+          "back": "মা\n\nআমার মা খুব ভালো রান্না করেন।\n\nএছাড়াও: আম্মা, আম্মু"
+        },
+        {
+          "front": "parents\n\nMy parents live near the sea.",
+          "back": "বাবা-মা\n\nআমার বাবা-মা সমুদ্রের কাছে থাকেন।\n\nএছাড়াও: মা-বাবা, পিতামাতা"
+        },
+        {
+          "front": "son\n\nTheir son is five years old.",
+          "back": "ছেলে\n\nতাদের ছেলের বয়স পাঁচ বছর।"
+        },
+        {
+          "front": "daughter\n\nShe has one daughter.",
+          "back": "মেয়ে\n\nতার একটি মেয়ে আছে।"
+        },
+        {
+          "front": "older brother\n\nMy older brother works in a bank.",
+          "back": "বড় ভাই\n\nআমার বড় ভাই একটা ব্যাংকে কাজ করেন।\n\nপশ্চিমবঙ্গে: দাদা"
+        },
+        {
+          "front": "younger brother\n\nMy younger brother is ten.",
+          "back": "ছোট ভাই\n\nআমার ছোট ভাইয়ের বয়স দশ বছর।"
+        },
+        {
+          "front": "older sister\n\nMy older sister is a nurse.",
+          "back": "বড় বোন\n\nআমার বড় বোন একজন নার্স।\n\nপশ্চিমবঙ্গে: দিদি"
+        },
+        {
+          "front": "younger sister\n\nMy younger sister loves cats.",
+          "back": "ছোট বোন\n\nআমার ছোট বোন বিড়াল খুব ভালোবাসে।"
+        },
+        {
+          "front": "grandfather\n\nMy grandfather is eighty.",
+          "back": "দাদা\n\nআমার দাদার বয়স আশি বছর।\n\nএছাড়াও: নানা (মায়ের বাবা), দাদু, ঠাকুরদা (পশ্চিমবঙ্গে)"
+        },
+        {
+          "front": "grandmother\n\nMy grandmother lives with us.",
+          "back": "দাদি\n\nআমার দাদি আমাদের সাথে থাকেন।\n\nএছাড়াও: নানি (মায়ের মা), ঠাকুমা (পশ্চিমবঙ্গে)"
+        },
+        {
+          "front": "grandchild\n\nShe has three grandchildren.",
+          "back": "নাতি\n\nতাঁর তিনজন নাতি-নাতনি আছে।"
+        },
+        {
+          "front": "uncle\n\nMy uncle has a farm.",
+          "back": "চাচা\n\nআমার চাচার একটা খামার আছে।\n\nএছাড়াও: মামা, খালু, ফুপা, কাকা (পশ্চিমবঙ্গে)"
+        },
+        {
+          "front": "aunt\n\nMy aunt lives in the city.",
+          "back": "খালা\n\nআমার খালা শহরে থাকেন।\n\nএছাড়াও: ফুপু, চাচি, মামি, মাসি (পশ্চিমবঙ্গে)"
+        },
+        {
+          "front": "cousin\n\nMy cousin is my best friend.",
+          "back": "কাজিন\n\nআমার কাজিন আমার সবচেয়ে ভালো বন্ধু।\n\nএছাড়াও: চাচাতো ভাই, ফুপাতো ভাই, মামাতো ভাই, খালাতো ভাই"
+        },
+        {
+          "front": "husband\n\nHer husband is a doctor.",
+          "back": "স্বামী\n\nতার স্বামী একজন ডাক্তার।"
+        },
+        {
+          "front": "wife\n\nHis wife is very kind.",
+          "back": "স্ত্রী\n\nতার স্ত্রী খুব দয়ালু।"
+        },
+        {
+          "front": "baby\n\nThe baby is sleeping.",
+          "back": "শিশু\n\nশিশুটি ঘুমাচ্ছে।\n\nএছাড়াও: বাচ্চা, বাবু"
+        },
+        {
+          "front": "child\n\nThe child is playing outside.",
+          "back": "বাচ্চা\n\nবাচ্চাটা বাইরে খেলছে।\n\nএছাড়াও: শিশু"
+        },
+        {
+          "front": "children\n\nThe children are at school.",
+          "back": "বাচ্চারা\n\nবাচ্চারা স্কুলে আছে।"
+        },
+        {
+          "front": "boy\n\nThe boy is reading a book.",
+          "back": "ছেলে\n\nছেলেটা একটা বই পড়ছে।"
+        },
+        {
+          "front": "girl\n\nThe girl has long hair.",
+          "back": "মেয়ে\n\nমেয়েটির চুল লম্বা।"
+        },
+        {
+          "front": "man\n\nThe man is very tall.",
+          "back": "লোক\n\nলোকটা অনেক লম্বা।\n\nএছাড়াও: পুরুষ"
+        },
+        {
+          "front": "woman\n\nThe woman is my teacher.",
+          "back": "মহিলা\n\nমহিলাটি আমার শিক্ষিকা।\n\nএছাড়াও: নারী"
+        },
+        {
+          "front": "people\n\nPeople are friendly here.",
+          "back": "লোকজন\n\nএখানকার লোকজন খুব মিশুক।\n\nএছাড়াও: মানুষ"
+        },
+        {
+          "front": "person\n\nShe is a good person.",
+          "back": "মানুষ\n\nসে একজন ভালো মানুষ।"
+        },
+        {
+          "front": "adult\n\nTwo adults and one child, please.",
+          "back": "প্রাপ্তবয়স্ক\n\nদুজন প্রাপ্তবয়স্ক আর একজন শিশুর টিকিট দিন।"
+        },
+        {
+          "front": "teenager\n\nHe is a teenager now.",
+          "back": "কিশোর\n\nসে এখন কিশোর।"
+        },
+        {
+          "front": "neighbor\n\nOur neighbor is very friendly.",
+          "back": "প্রতিবেশী\n\nআমাদের প্রতিবেশী খুব মিশুক।"
+        },
+        {
+          "front": "guest\n\nWe have guests tonight.",
+          "back": "অতিথি\n\nআজ রাতে আমাদের বাসায় অতিথি আসছে।\n\nএছাড়াও: মেহমান"
+        },
+        {
+          "front": "boyfriend\n\nHer boyfriend is very funny.",
+          "back": "প্রেমিক\n\nতার প্রেমিক খুব মজার মানুষ।"
+        },
+        {
+          "front": "girlfriend\n\nHis girlfriend is a nurse.",
+          "back": "প্রেমিকা\n\nতার প্রেমিকা একজন নার্স।"
+        },
+        {
+          "front": "married\n\nAre you married?",
+          "back": "বিবাহিত\n\nআপনি কি বিবাহিত?"
+        },
+        {
+          "front": "single\n\nMy brother is still single.",
+          "back": "অবিবাহিত\n\nআমার ভাই এখনো অবিবাহিত।"
+        },
+        {
+          "front": "age\n\nAge is just a number.",
+          "back": "বয়স\n\nবয়স শুধু একটা সংখ্যা।"
+        },
+        {
+          "front": "old\n\nMy grandfather is old.",
+          "back": "বৃদ্ধ\n\nআমার দাদা বৃদ্ধ হয়েছেন।\n\nএছাড়াও: বুড়ো, বয়স্ক"
+        },
+        {
+          "front": "young\n\nShe is young and smart.",
+          "back": "তরুণ\n\nসে তরুণী আর বুদ্ধিমতী।"
+        },
+        {
+          "front": "birthday\n\nHappy birthday!",
+          "back": "জন্মদিন\n\nশুভ জন্মদিন!"
+        },
+        {
+          "front": "born\n\nI was born in 2005.",
+          "back": "জন্ম নেওয়া\n\nআমি 2005 সালে জন্মেছি।"
+        },
+        {
+          "front": "live\n\nWe live in a small house.",
+          "back": "বাস করা\n\nআমরা একটা ছোট বাড়িতে থাকি।\n\nএছাড়াও: থাকা, বসবাস করা"
+        },
+        {
+          "front": "love\n\nI love my family.",
+          "back": "ভালোবাসা\n\nআমি আমার পরিবারকে ভালোবাসি।"
+        },
+        {
+          "front": "meet\n\nNice to meet you.",
+          "back": "দেখা করা\n\nআপনার সাথে পরিচিত হয়ে ভালো লাগল।\n\nএছাড়াও: পরিচিত হওয়া, সাক্ষাৎ করা"
+        },
+        {
+          "front": "visit\n\nWe visit our grandparents every Sunday.",
+          "back": "দেখতে যাওয়া\n\nআমরা প্রতি রবিবার দাদা-দাদিকে দেখতে যাই।"
+        },
+        {
+          "front": "call\n\nI call my mother every day.",
+          "back": "ফোন করা\n\nআমি প্রতিদিন মাকে ফোন করি।"
+        },
+        {
+          "front": "together\n\nWe eat dinner together.",
+          "back": "একসাথে\n\nআমরা একসাথে রাতের খাবার খাই।"
+        },
+        {
+          "front": "relative\n\nAll my relatives came to the wedding.",
+          "back": "আত্মীয়\n\nআমার সব আত্মীয় বিয়েতে এসেছিলেন।"
+        },
+        {
+          "front": "wedding\n\nThe wedding is in May.",
+          "back": "বিয়ে\n\nবিয়েটা মে মাসে।"
+        },
+        {
+          "front": "twins\n\nThey are twins.",
+          "back": "যমজ\n\nওরা যমজ।"
+        },
+        {
+          "front": "grow up\n\nI grew up in the countryside.",
+          "back": "বড় হওয়া\n\nআমি গ্রামে বড় হয়েছি।"
+        }
+      ]
+    },
+    {
+      "name": "03 সংখ্যা ও সময়",
+      "cards": [
+        {
+          "front": "zero\n\nZero plus five is five.",
+          "back": "শূন্য\n\nশূন্য যোগ পাঁচ সমান পাঁচ।"
+        },
+        {
+          "front": "one\n\nI have one sister.",
+          "back": "এক\n\nআমার একটা বোন আছে।"
+        },
+        {
+          "front": "two\n\nWe have two cats.",
+          "back": "দুই\n\nআমাদের দুটি বিড়াল আছে।"
+        },
+        {
+          "front": "three\n\nI drink three cups of water.",
+          "back": "তিন\n\nআমি তিন কাপ পানি খাই।"
+        },
+        {
+          "front": "four\n\nA car has four wheels.",
+          "back": "চার\n\nএকটা গাড়ির চারটা চাকা থাকে।"
+        },
+        {
+          "front": "five\n\nShe is five years old.",
+          "back": "পাঁচ\n\nতার বয়স পাঁচ বছর।"
+        },
+        {
+          "front": "six\n\nThe shop opens at six.",
+          "back": "ছয়\n\nদোকানটা ছয়টায় খোলে।"
+        },
+        {
+          "front": "seven\n\nA week has seven days.",
+          "back": "সাত\n\nএক সপ্তাহে সাত দিন।"
+        },
+        {
+          "front": "eight\n\nI sleep eight hours a night.",
+          "back": "আট\n\nআমি রাতে আট ঘণ্টা ঘুমাই।"
+        },
+        {
+          "front": "nine\n\nSchool starts at nine.",
+          "back": "নয়\n\nস্কুল নয়টায় শুরু হয়।"
+        },
+        {
+          "front": "ten\n\nI can count to ten.",
+          "back": "দশ\n\nআমি দশ পর্যন্ত গুনতে পারি।"
+        },
+        {
+          "front": "eleven\n\nA football team has eleven players.",
+          "back": "এগারো\n\nএকটা ফুটবল দলে এগারোজন খেলোয়াড় থাকে।"
+        },
+        {
+          "front": "twelve\n\nA year has twelve months.",
+          "back": "বারো\n\nএক বছরে বারো মাস।"
+        },
+        {
+          "front": "twenty\n\nI am twenty years old.",
+          "back": "বিশ\n\nআমার বয়স বিশ বছর।"
+        },
+        {
+          "front": "fifty\n\nMy father is fifty.",
+          "back": "পঞ্চাশ\n\nআমার বাবার বয়স পঞ্চাশ।"
+        },
+        {
+          "front": "hundred\n\nThere are two hundred students here.",
+          "back": "একশ\n\nএখানে দুইশ শিক্ষার্থী আছে।\n\nএছাড়াও: একশো, শত"
+        },
+        {
+          "front": "thousand\n\nA thousand people live in this village.",
+          "back": "হাজার\n\nএই গ্রামে এক হাজার মানুষ থাকে।"
+        },
+        {
+          "front": "million\n\nThe city has eight million people.",
+          "back": "দশ লাখ\n\nশহরটায় আশি লাখ মানুষ থাকে।\n\nএছাড়াও: মিলিয়ন"
+        },
+        {
+          "front": "first\n\nThis is my first trip abroad.",
+          "back": "প্রথম\n\nএটা আমার প্রথম বিদেশ ভ্রমণ।"
+        },
+        {
+          "front": "last\n\nDecember is the last month of the year.",
+          "back": "শেষ\n\nডিসেম্বর বছরের শেষ মাস।"
+        },
+        {
+          "front": "half\n\nI ate half of the cake.",
+          "back": "অর্ধেক\n\nআমি কেকের অর্ধেকটা খেয়েছি।"
+        },
+        {
+          "front": "number\n\nWhat is your phone number?",
+          "back": "নম্বর\n\nতোমার ফোন নম্বর কত?"
+        },
+        {
+          "front": "time\n\nI don't have time.",
+          "back": "সময়\n\nআমার সময় নেই।"
+        },
+        {
+          "front": "hour\n\nThe movie is two hours long.",
+          "back": "ঘণ্টা\n\nসিনেমাটা দুই ঘণ্টার।"
+        },
+        {
+          "front": "minute\n\nWait a minute, please.",
+          "back": "মিনিট\n\nদয়া করে এক মিনিট অপেক্ষা করুন।"
+        },
+        {
+          "front": "second\n\nOne minute has sixty seconds.",
+          "back": "সেকেন্ড\n\nএক মিনিটে ষাট সেকেন্ড।"
+        },
+        {
+          "front": "day\n\nI study English every day.",
+          "back": "দিন\n\nআমি প্রতিদিন ইংরেজি শিখি।"
+        },
+        {
+          "front": "week\n\nI go swimming twice a week.",
+          "back": "সপ্তাহ\n\nআমি সপ্তাহে দুবার সাঁতার কাটতে যাই।"
+        },
+        {
+          "front": "month\n\nMy birthday is next month.",
+          "back": "মাস\n\nআমার জন্মদিন আগামী মাসে।"
+        },
+        {
+          "front": "year\n\nI have lived here for ten years.",
+          "back": "বছর\n\nআমি দশ বছর ধরে এখানে আছি।"
+        },
+        {
+          "front": "today\n\nToday is Monday.",
+          "back": "আজ\n\nআজ সোমবার।"
+        },
+        {
+          "front": "tomorrow\n\nSee you tomorrow.",
+          "back": "আগামীকাল\n\nআগামীকাল দেখা হবে।\n\nএছাড়াও: কাল"
+        },
+        {
+          "front": "yesterday\n\nI was busy yesterday.",
+          "back": "গতকাল\n\nগতকাল আমি ব্যস্ত ছিলাম।\n\nএছাড়াও: কাল"
+        },
+        {
+          "front": "morning\n\nI drink coffee every morning.",
+          "back": "সকাল\n\nআমি প্রতিদিন সকালে কফি খাই।"
+        },
+        {
+          "front": "afternoon\n\nWe have a meeting this afternoon.",
+          "back": "বিকাল\n\nআজ বিকালে আমাদের একটা মিটিং আছে।\n\nএছাড়াও: বিকেল, দুপুর"
+        },
+        {
+          "front": "evening\n\nI watch TV in the evening.",
+          "back": "সন্ধ্যা\n\nআমি সন্ধ্যায় টিভি দেখি।"
+        },
+        {
+          "front": "night\n\nThe city is beautiful at night.",
+          "back": "রাত\n\nরাতে শহরটা খুব সুন্দর লাগে।"
+        },
+        {
+          "front": "now\n\nI am busy now.",
+          "back": "এখন\n\nআমি এখন ব্যস্ত।"
+        },
+        {
+          "front": "later\n\nI will call you later.",
+          "back": "পরে\n\nআমি তোমাকে পরে ফোন করব।"
+        },
+        {
+          "front": "early\n\nI get up early.",
+          "back": "তাড়াতাড়ি\n\nআমি তাড়াতাড়ি ঘুম থেকে উঠি।"
+        },
+        {
+          "front": "late\n\nThe bus is late again.",
+          "back": "দেরি\n\nবাসটা আবার দেরি করছে।"
+        },
+        {
+          "front": "always\n\nShe always smiles.",
+          "back": "সবসময়\n\nসে সবসময় হাসে।"
+        },
+        {
+          "front": "usually\n\nI usually walk to school.",
+          "back": "সাধারণত\n\nআমি সাধারণত হেঁটে স্কুলে যাই।"
+        },
+        {
+          "front": "sometimes\n\nSometimes I cook dinner.",
+          "back": "মাঝে মাঝে\n\nমাঝে মাঝে আমি রাতের খাবার রান্না করি।\n\nএছাড়াও: কখনো কখনো"
+        },
+        {
+          "front": "never\n\nI never drink coffee at night.",
+          "back": "কখনো না\n\nআমি রাতে কখনো কফি খাই না।"
+        },
+        {
+          "front": "clock\n\nThe clock is on the wall.",
+          "back": "ঘড়ি\n\nঘড়িটা দেয়ালে ঝুলছে।"
+        },
+        {
+          "front": "calendar\n\nLook at the calendar.",
+          "back": "ক্যালেন্ডার\n\nক্যালেন্ডারটা দেখো।"
+        },
+        {
+          "front": "weekend\n\nWhat do you do at the weekend?",
+          "back": "সাপ্তাহিক ছুটি\n\nসাপ্তাহিক ছুটিতে তুমি কী করো?\n\nএছাড়াও: সপ্তাহান্ত, উইকেন্ড, ছুটির দিন"
+        },
+        {
+          "front": "soon\n\nThe bus will come soon.",
+          "back": "শীঘ্রই\n\nবাস শীঘ্রই আসবে।\n\nএছাড়াও: তাড়াতাড়ি, শিগগিরই"
+        },
+        {
+          "front": "midnight\n\nI went to bed at midnight.",
+          "back": "মধ্যরাত\n\nআমি মধ্যরাতে ঘুমাতে গিয়েছিলাম।"
+        }
+      ]
+    },
+    {
+      "name": "04 দিন ও ঋতু",
+      "cards": [
+        {
+          "front": "Monday\n\nI have English class on Monday.",
+          "back": "সোমবার\n\nসোমবার আমার ইংরেজি ক্লাস আছে।"
+        },
+        {
+          "front": "Tuesday\n\nThe shop is closed on Tuesday.",
+          "back": "মঙ্গলবার\n\nমঙ্গলবার দোকানটা বন্ধ থাকে।"
+        },
+        {
+          "front": "Wednesday\n\nWe play football on Wednesday.",
+          "back": "বুধবার\n\nআমরা বুধবার ফুটবল খেলি।"
+        },
+        {
+          "front": "Thursday\n\nThursday is my busiest day.",
+          "back": "বৃহস্পতিবার\n\nবৃহস্পতিবার আমার সবচেয়ে ব্যস্ত দিন।"
+        },
+        {
+          "front": "Friday\n\nSee you on Friday.",
+          "back": "শুক্রবার\n\nশুক্রবার দেখা হবে।"
+        },
+        {
+          "front": "Saturday\n\nI sleep late on Saturday.",
+          "back": "শনিবার\n\nশনিবার আমি দেরি করে ঘুম থেকে উঠি।"
+        },
+        {
+          "front": "Sunday\n\nWe visit our family on Sunday.",
+          "back": "রবিবার\n\nরবিবার আমরা পরিবারের সবাইকে দেখতে যাই।\n\nএছাড়াও: রোববার"
+        },
+        {
+          "front": "January\n\nJanuary is the first month of the year.",
+          "back": "জানুয়ারি\n\nজানুয়ারি বছরের প্রথম মাস।"
+        },
+        {
+          "front": "February\n\nFebruary is the shortest month.",
+          "back": "ফেব্রুয়ারি\n\nফেব্রুয়ারি সবচেয়ে ছোট মাস।"
+        },
+        {
+          "front": "March\n\nMy birthday is in March.",
+          "back": "মার্চ\n\nআমার জন্মদিন মার্চ মাসে।"
+        },
+        {
+          "front": "April\n\nWe moved to a new house in April.",
+          "back": "এপ্রিল\n\nএপ্রিলে আমরা নতুন বাড়িতে উঠেছি।"
+        },
+        {
+          "front": "May\n\nMy sister was born in May.",
+          "back": "মে\n\nআমার বোন মে মাসে জন্মেছে।"
+        },
+        {
+          "front": "June\n\nJune is the sixth month of the year.",
+          "back": "জুন\n\nজুন বছরের ষষ্ঠ মাস।"
+        },
+        {
+          "front": "July\n\nI started a new job in July.",
+          "back": "জুলাই\n\nআমি জুলাইয়ে নতুন চাকরি শুরু করেছি।"
+        },
+        {
+          "front": "August\n\nMy cousin is getting married in August.",
+          "back": "আগস্ট\n\nআগস্টে আমার কাজিনের বিয়ে।"
+        },
+        {
+          "front": "September\n\nWe met in September.",
+          "back": "সেপ্টেম্বর\n\nসেপ্টেম্বরে আমাদের প্রথম দেখা হয়েছিল।"
+        },
+        {
+          "front": "October\n\nThe concert is in October.",
+          "back": "অক্টোবর\n\nকনসার্টটা অক্টোবরে।"
+        },
+        {
+          "front": "November\n\nMy birthday is in November.",
+          "back": "নভেম্বর\n\nনভেম্বরে আমার জন্মদিন।"
+        },
+        {
+          "front": "December\n\nChristmas is in December.",
+          "back": "ডিসেম্বর\n\nবড়দিন ডিসেম্বরে।"
+        },
+        {
+          "front": "season\n\nWhich season do you like?",
+          "back": "ঋতু\n\nতোমার কোন ঋতু ভালো লাগে?"
+        },
+        {
+          "front": "spring\n\nFlowers bloom in spring.",
+          "back": "বসন্তকাল\n\nবসন্তকালে ফুল ফোটে।\n\nএছাড়াও: বসন্ত"
+        },
+        {
+          "front": "summer\n\nWe swim a lot in summer.",
+          "back": "গ্রীষ্মকাল\n\nগ্রীষ্মকালে আমরা অনেক সাঁতার কাটি।\n\nএছাড়াও: গরমকাল, গ্রীষ্ম"
+        },
+        {
+          "front": "autumn\n\nAutumn is my favorite season.",
+          "back": "শরৎকাল\n\nশরৎকাল আমার প্রিয় ঋতু।\n\nএছাড়াও: শরৎ। আমেরিকান ইংরেজিতে: fall"
+        },
+        {
+          "front": "winter\n\nIt rarely snows here in winter.",
+          "back": "শীতকাল\n\nএখানে শীতকালে খুব কম তুষার পড়ে।\n\nএছাড়াও: শীত"
+        },
+        {
+          "front": "rainy season\n\nThe rainy season lasts for three months.",
+          "back": "বর্ষাকাল\n\nবর্ষাকাল তিন মাস থাকে।\n\nএছাড়াও: বর্ষা"
+        },
+        {
+          "front": "dry season\n\nThe dry season is hot and sunny.",
+          "back": "শুষ্ক মৌসুম\n\nশুষ্ক মৌসুমে গরম আর রোদ থাকে।"
+        },
+        {
+          "front": "holiday\n\nWe have a holiday next week.",
+          "back": "ছুটি\n\nআগামী সপ্তাহে আমাদের ছুটি।"
+        },
+        {
+          "front": "Lunar New Year\n\nLunar New Year is a big holiday in Asia.",
+          "back": "চান্দ্র নববর্ষ\n\nচান্দ্র নববর্ষ এশিয়ার একটা বড় উৎসব।\n\nএছাড়াও: চীনা নববর্ষ"
+        },
+        {
+          "front": "Christmas\n\nMerry Christmas!",
+          "back": "বড়দিন\n\nশুভ বড়দিন!"
+        },
+        {
+          "front": "festival\n\nOur town has a music festival every summer.",
+          "back": "উৎসব\n\nআমাদের শহরে প্রতি গ্রীষ্মে একটা সংগীত উৎসব হয়।"
+        },
+        {
+          "front": "party\n\nCome to my party on Saturday.",
+          "back": "পার্টি\n\nশনিবার আমার পার্টিতে এসো।"
+        },
+        {
+          "front": "anniversary\n\nToday is their wedding anniversary.",
+          "back": "বার্ষিকী\n\nআজ তাদের বিবাহবার্ষিকী।"
+        },
+        {
+          "front": "date\n\nWhat is the date today?",
+          "back": "তারিখ\n\nআজ কত তারিখ?"
+        },
+        {
+          "front": "next week\n\nI will see you next week.",
+          "back": "আগামী সপ্তাহ\n\nআগামী সপ্তাহে তোমার সাথে দেখা হবে।"
+        },
+        {
+          "front": "last week\n\nI was sick last week.",
+          "back": "গত সপ্তাহ\n\nগত সপ্তাহে আমি অসুস্থ ছিলাম।"
+        },
+        {
+          "front": "this year\n\nThis year I want to learn English.",
+          "back": "এই বছর\n\nএই বছর আমি ইংরেজি শিখতে চাই।"
+        },
+        {
+          "front": "next year\n\nI will finish school next year.",
+          "back": "আগামী বছর\n\nআগামী বছর আমার স্কুল শেষ হবে।"
+        },
+        {
+          "front": "last year\n\nWe moved here last year.",
+          "back": "গত বছর\n\nগত বছর আমরা এখানে চলে এসেছি।"
+        },
+        {
+          "front": "every day\n\nI walk my dog every day.",
+          "back": "প্রতিদিন\n\nআমি প্রতিদিন আমার কুকুরটাকে নিয়ে হাঁটতে বের হই।"
+        },
+        {
+          "front": "once\n\nI have been to Japan once.",
+          "back": "একবার\n\nআমি একবার জাপানে গিয়েছি।"
+        },
+        {
+          "front": "twice\n\nBrush your teeth twice a day.",
+          "back": "দুবার\n\nদিনে দুবার দাঁত মাজো।"
+        },
+        {
+          "front": "daily\n\nExercise is part of my daily life.",
+          "back": "দৈনন্দিন\n\nব্যায়াম আমার দৈনন্দিন জীবনের অংশ।\n\nএছাড়াও: দৈনিক, প্রতিদিনের"
+        },
+        {
+          "front": "weekly\n\nWe have a weekly meeting.",
+          "back": "সাপ্তাহিক\n\nআমাদের একটা সাপ্তাহিক মিটিং আছে।"
+        },
+        {
+          "front": "monthly\n\nI pay the bills monthly.",
+          "back": "প্রতি মাসে\n\nআমি প্রতি মাসে বিল দিই।\n\nএছাড়াও: মাসিক"
+        },
+        {
+          "front": "century\n\nWe live in the 21st century.",
+          "back": "শতাব্দী\n\nআমরা একবিংশ শতাব্দীতে বাস করি।"
+        },
+        {
+          "front": "past\n\nForget the past.",
+          "back": "অতীত\n\nঅতীত ভুলে যাও।"
+        },
+        {
+          "front": "future\n\nWhat are your plans for the future?",
+          "back": "ভবিষ্যৎ\n\nভবিষ্যতের জন্য তোমার কী পরিকল্পনা?"
+        },
+        {
+          "front": "present\n\nLive in the present.",
+          "back": "বর্তমান\n\nবর্তমানে বাঁচো।\n\nঅন্য অর্থ: উপহার"
+        },
+        {
+          "front": "schedule\n\nWhat is your schedule today?",
+          "back": "সময়সূচি\n\nআজ তোমার সময়সূচি কী?\n\nএছাড়াও: রুটিন, শিডিউল"
+        },
+        {
+          "front": "appointment\n\nI have a doctor's appointment at ten.",
+          "back": "অ্যাপয়েন্টমেন্ট\n\nদশটায় ডাক্তারের সাথে আমার অ্যাপয়েন্টমেন্ট আছে।"
+        }
+      ]
+    },
+    {
+      "name": "05 খাবার",
+      "cards": [
+        {
+          "front": "food\n\nWe need food and water.",
+          "back": "খাবার\n\nআমাদের খাবার আর পানি দরকার।"
+        },
+        {
+          "front": "rice\n\nWe eat rice every day.",
+          "back": "ভাত\n\nআমরা প্রতিদিন ভাত খাই।\n\nঅন্য অর্থ: চাল (রান্নার আগে)"
+        },
+        {
+          "front": "noodles\n\nI eat noodles for breakfast.",
+          "back": "নুডলস\n\nআমি সকালের নাশতায় নুডলস খাই।"
+        },
+        {
+          "front": "bread\n\nI buy bread in the morning.",
+          "back": "পাউরুটি\n\nআমি সকালে পাউরুটি কিনি।\n\nএছাড়াও: রুটি"
+        },
+        {
+          "front": "egg\n\nI eat two eggs for breakfast.",
+          "back": "ডিম\n\nআমি সকালের নাশতায় দুটো ডিম খাই।"
+        },
+        {
+          "front": "meat\n\nI don't eat much meat.",
+          "back": "মাংস\n\nআমি বেশি মাংস খাই না।\n\nএছাড়াও: গোশত, গোস্ত"
+        },
+        {
+          "front": "beef\n\nThis shop sells beef.",
+          "back": "গরুর মাংস\n\nএই দোকানে গরুর মাংস বিক্রি হয়।"
+        },
+        {
+          "front": "pork\n\nSome people don't eat pork.",
+          "back": "শূকরের মাংস\n\nকিছু মানুষ শূকরের মাংস খায় না।"
+        },
+        {
+          "front": "chicken\n\nChicken soup is good when you are sick.",
+          "back": "মুরগির মাংস\n\nঅসুস্থ হলে মুরগির স্যুপ খুব উপকারী।\n\nএছাড়াও: মুরগি"
+        },
+        {
+          "front": "fish\n\nFish is good for your health.",
+          "back": "মাছ\n\nমাছ স্বাস্থ্যের জন্য ভালো।"
+        },
+        {
+          "front": "shrimp\n\nThese shrimp are very fresh.",
+          "back": "চিংড়ি\n\nএই চিংড়িগুলো খুব তাজা।"
+        },
+        {
+          "front": "crab\n\nCrab soup is delicious.",
+          "back": "কাঁকড়া\n\nকাঁকড়ার স্যুপ খুব সুস্বাদু।"
+        },
+        {
+          "front": "vegetable\n\nEat more vegetables.",
+          "back": "সবজি\n\nবেশি করে সবজি খাও।\n\nএছাড়াও: শাকসবজি, তরকারি"
+        },
+        {
+          "front": "fruit\n\nI eat fruit after dinner.",
+          "back": "ফল\n\nআমি রাতের খাবারের পর ফল খাই।"
+        },
+        {
+          "front": "apple\n\nAn apple a day is good for you.",
+          "back": "আপেল\n\nপ্রতিদিন একটা আপেল খাওয়া শরীরের জন্য ভালো।"
+        },
+        {
+          "front": "banana\n\nMonkeys love bananas.",
+          "back": "কলা\n\nবানর কলা খুব ভালোবাসে।"
+        },
+        {
+          "front": "orange\n\nI drink orange juice.",
+          "back": "কমলা\n\nআমি কমলার রস খাই।\n\nপশ্চিমবঙ্গে: কমলালেবু"
+        },
+        {
+          "front": "mango\n\nMangoes are sweet in summer.",
+          "back": "আম\n\nগ্রীষ্মকালে আম খুব মিষ্টি হয়।"
+        },
+        {
+          "front": "grape\n\nThese grapes are sour.",
+          "back": "আঙুর\n\nএই আঙুরগুলো টক।"
+        },
+        {
+          "front": "watermelon\n\nWatermelon is great on hot days.",
+          "back": "তরমুজ\n\nগরমের দিনে তরমুজ খুব ভালো লাগে।"
+        },
+        {
+          "front": "lemon\n\nAdd some lemon to the tea.",
+          "back": "লেবু\n\nচায়ে একটু লেবু দাও।"
+        },
+        {
+          "front": "coconut\n\nCoconut water is cool and sweet.",
+          "back": "নারকেল\n\nডাবের পানি ঠান্ডা আর মিষ্টি।\n\nএছাড়াও: ডাব (কচি নারকেল)"
+        },
+        {
+          "front": "pineapple\n\nI like pineapple on pizza.",
+          "back": "আনারস\n\nআমি পিৎজায় আনারস পছন্দ করি।"
+        },
+        {
+          "front": "tomato\n\nCut the tomatoes into small pieces.",
+          "back": "টমেটো\n\nটমেটোগুলো ছোট ছোট টুকরা করে কাটো।"
+        },
+        {
+          "front": "potato\n\nFrench fries are made from potatoes.",
+          "back": "আলু\n\nফ্রেঞ্চ ফ্রাই আলু দিয়ে বানানো হয়।"
+        },
+        {
+          "front": "carrot\n\nCarrots are good for your eyes.",
+          "back": "গাজর\n\nগাজর চোখের জন্য ভালো।"
+        },
+        {
+          "front": "onion\n\nOnions make me cry.",
+          "back": "পেঁয়াজ\n\nপেঁয়াজ কাটলে আমার চোখে পানি আসে।"
+        },
+        {
+          "front": "garlic\n\nThis dish has a lot of garlic.",
+          "back": "রসুন\n\nএই খাবারটায় অনেক রসুন আছে।"
+        },
+        {
+          "front": "cabbage\n\nWe grow cabbage in the garden.",
+          "back": "বাঁধাকপি\n\nআমরা বাগানে বাঁধাকপি চাষ করি।"
+        },
+        {
+          "front": "corn\n\nGrilled corn is a popular snack.",
+          "back": "ভুট্টা\n\nপোড়া ভুট্টা একটা জনপ্রিয় নাশতা।"
+        },
+        {
+          "front": "bean\n\nI like soup with beans.",
+          "back": "শিম\n\nআমি শিম দেওয়া স্যুপ পছন্দ করি।"
+        },
+        {
+          "front": "tofu\n\nTofu is made from soybeans.",
+          "back": "টোফু\n\nটোফু সয়াবিন দিয়ে তৈরি।"
+        },
+        {
+          "front": "soup\n\nI eat hot soup when I am sick.",
+          "back": "স্যুপ\n\nঅসুস্থ হলে আমি গরম স্যুপ খাই।"
+        },
+        {
+          "front": "salt\n\nAdd a little salt.",
+          "back": "লবণ\n\nএকটু লবণ দাও।\n\nপশ্চিমবঙ্গে: নুন"
+        },
+        {
+          "front": "sugar\n\nI don't take sugar in my coffee.",
+          "back": "চিনি\n\nআমি কফিতে চিনি খাই না।"
+        },
+        {
+          "front": "pepper\n\nAdd salt and pepper.",
+          "back": "গোলমরিচ\n\nলবণ আর গোলমরিচ দাও।"
+        },
+        {
+          "front": "sauce\n\nThis sauce is a bit spicy.",
+          "back": "সস\n\nএই সসটা একটু ঝাল।"
+        },
+        {
+          "front": "fish sauce\n\nFish sauce is very salty.",
+          "back": "ফিশ সস\n\nফিশ সস খুব নোনতা।"
+        },
+        {
+          "front": "oil\n\nHeat the oil in the pan.",
+          "back": "তেল\n\nকড়াইয়ে তেল গরম করো।"
+        },
+        {
+          "front": "butter\n\nPut butter on the bread.",
+          "back": "মাখন\n\nপাউরুটিতে মাখন লাগাও।"
+        },
+        {
+          "front": "cheese\n\nThis pizza has a lot of cheese.",
+          "back": "পনির\n\nএই পিৎজায় অনেক চিজ।\n\nএছাড়াও: চিজ"
+        },
+        {
+          "front": "cake\n\nShe made a birthday cake.",
+          "back": "কেক\n\nসে একটা জন্মদিনের কেক বানিয়েছে।"
+        },
+        {
+          "front": "candy\n\nChildren love candy.",
+          "back": "ক্যান্ডি\n\nবাচ্চারা ক্যান্ডি খুব পছন্দ করে।\n\nএছাড়াও: লজেন্স, চকলেট"
+        },
+        {
+          "front": "chocolate\n\nI love dark chocolate.",
+          "back": "চকলেট\n\nআমি ডার্ক চকলেট খুব পছন্দ করি।"
+        },
+        {
+          "front": "ice cream\n\nLet's get some ice cream.",
+          "back": "আইসক্রিম\n\nচলো আইসক্রিম খাই।"
+        },
+        {
+          "front": "snack\n\nI have a snack at four o'clock.",
+          "back": "নাশতা\n\nআমি চারটায় হালকা নাশতা করি।\n\nএছাড়াও: নাস্তা, জলখাবার (পশ্চিমবঙ্গে)"
+        },
+        {
+          "front": "breakfast\n\nWhat do you eat for breakfast?",
+          "back": "সকালের নাশতা\n\nতুমি সকালের নাশতায় কী খাও?\n\nএছাড়াও: নাশতা, নাস্তা, প্রাতরাশ, জলখাবার (পশ্চিমবঙ্গে)"
+        },
+        {
+          "front": "lunch\n\nWe have lunch at noon.",
+          "back": "দুপুরের খাবার\n\nআমরা বারোটায় দুপুরের খাবার খাই।"
+        },
+        {
+          "front": "dinner\n\nDinner is ready.",
+          "back": "রাতের খাবার\n\nরাতের খাবার তৈরি।"
+        },
+        {
+          "front": "meal\n\nWe have three meals a day.",
+          "back": "খাবার\n\nআমরা দিনে তিন বেলা খাবার খাই।"
+        }
+      ]
+    },
+    {
+      "name": "06 পানীয় ও রান্না",
+      "cards": [
+        {
+          "front": "water\n\nDrink more water.",
+          "back": "পানি\n\nআরও বেশি পানি খাও।\n\nপশ্চিমবঙ্গে: জল"
+        },
+        {
+          "front": "drink\n\nWhat would you like to drink?",
+          "back": "পান করা\n\nআপনি কী পান করবেন?\n\nএছাড়াও: খাওয়া"
+        },
+        {
+          "front": "tea\n\nWould you like some tea?",
+          "back": "চা\n\nআপনি কি একটু চা খাবেন?"
+        },
+        {
+          "front": "coffee\n\nWould you like some coffee?",
+          "back": "কফি\n\nতুমি কি একটু কফি খাবে?"
+        },
+        {
+          "front": "milk\n\nBabies drink milk.",
+          "back": "দুধ\n\nশিশুরা দুধ খায়।"
+        },
+        {
+          "front": "juice\n\nApple juice, please.",
+          "back": "জুস\n\nআমাকে আপেলের জুস দিন।\n\nএছাড়াও: রস"
+        },
+        {
+          "front": "beer\n\nHe drinks beer with his friends.",
+          "back": "বিয়ার\n\nসে বন্ধুদের সাথে বিয়ার খায়।"
+        },
+        {
+          "front": "wine\n\nThey drink red wine with dinner.",
+          "back": "ওয়াইন\n\nতারা রাতের খাবারের সাথে রেড ওয়াইন খায়।"
+        },
+        {
+          "front": "soft drink\n\nToo many soft drinks are bad for you.",
+          "back": "কোমল পানীয়\n\nবেশি কোমল পানীয় খাওয়া শরীরের জন্য খারাপ।\n\nএছাড়াও: কোল্ড ড্রিংকস"
+        },
+        {
+          "front": "ice\n\nCan I have some ice, please?",
+          "back": "বরফ\n\nআমাকে একটু বরফ দিতে পারবেন?"
+        },
+        {
+          "front": "bottle\n\nBuy a bottle of water.",
+          "back": "বোতল\n\nএক বোতল পানি কেনো।"
+        },
+        {
+          "front": "cup\n\nA cup of tea, please.",
+          "back": "কাপ\n\nএক কাপ চা দিন।"
+        },
+        {
+          "front": "glass\n\nPour the juice into a glass.",
+          "back": "গ্লাস\n\nজুসটা একটা গ্লাসে ঢালো।"
+        },
+        {
+          "front": "bowl\n\nI eat two bowls of rice.",
+          "back": "বাটি\n\nআমি দুই বাটি ভাত খাই।"
+        },
+        {
+          "front": "plate\n\nPut the food on the plate.",
+          "back": "প্লেট\n\nখাবারটা প্লেটে রাখো।"
+        },
+        {
+          "front": "spoon\n\nEat your soup with a spoon.",
+          "back": "চামচ\n\nচামচ দিয়ে স্যুপ খাও।"
+        },
+        {
+          "front": "fork\n\nI eat salad with a fork.",
+          "back": "কাঁটাচামচ\n\nআমি কাঁটাচামচ দিয়ে সালাদ খাই।"
+        },
+        {
+          "front": "chopsticks\n\nWe eat with chopsticks.",
+          "back": "চপস্টিক\n\nআমরা চপস্টিক দিয়ে খাই।"
+        },
+        {
+          "front": "knife\n\nBe careful with the knife.",
+          "back": "ছুরি\n\nছুরি নিয়ে সাবধান!"
+        },
+        {
+          "front": "pot\n\nCook the rice in a pot.",
+          "back": "পাতিল\n\nপাতিলে ভাত রান্না করো।\n\nএছাড়াও: হাঁড়ি"
+        },
+        {
+          "front": "pan\n\nFry the egg in a pan.",
+          "back": "কড়াই\n\nকড়াইয়ে ডিম ভাজো।\n\nএছাড়াও: ফ্রাইপ্যান, তাওয়া"
+        },
+        {
+          "front": "kitchen\n\nMy mother is in the kitchen.",
+          "back": "রান্নাঘর\n\nআমার মা রান্নাঘরে আছেন।"
+        },
+        {
+          "front": "cook\n\nMy father likes to cook.",
+          "back": "রান্না করা\n\nআমার বাবা রান্না করতে ভালোবাসেন।"
+        },
+        {
+          "front": "boil\n\nBoil the water first.",
+          "back": "ফোটানো\n\nআগে পানিটা ফুটিয়ে নাও।\n\nএছাড়াও: সেদ্ধ করা (ডিম বা আলু)"
+        },
+        {
+          "front": "fry\n\nFry the fish in oil.",
+          "back": "ভাজা\n\nমাছটা তেলে ভাজো।"
+        },
+        {
+          "front": "grill\n\nWe grill meat at the weekend.",
+          "back": "গ্রিল করা\n\nসাপ্তাহিক ছুটিতে আমরা মাংস গ্রিল করি।"
+        },
+        {
+          "front": "cut\n\nCut the bread, please.",
+          "back": "কাটা\n\nদয়া করে পাউরুটিটা কাটো।"
+        },
+        {
+          "front": "wash\n\nWash your hands before eating.",
+          "back": "ধোয়া\n\nখাওয়ার আগে হাত ধুয়ে নাও।"
+        },
+        {
+          "front": "mix\n\nMix the eggs and sugar.",
+          "back": "মেশানো\n\nডিম আর চিনি একসাথে মেশাও।"
+        },
+        {
+          "front": "taste\n\nTaste the soup.",
+          "back": "চেখে দেখা\n\nস্যুপটা চেখে দেখো।\n\nএছাড়াও: চাখা, স্বাদ নেওয়া"
+        },
+        {
+          "front": "eat\n\nWhat do you want to eat?",
+          "back": "খাওয়া\n\nতুমি কী খেতে চাও?"
+        },
+        {
+          "front": "delicious\n\nThis cake is delicious.",
+          "back": "সুস্বাদু\n\nএই কেকটা খুব সুস্বাদু।\n\nএছাড়াও: মজার, মজা"
+        },
+        {
+          "front": "hungry\n\nI am hungry.",
+          "back": "ক্ষুধার্ত\n\nআমার খুব ক্ষুধা লেগেছে।\n\nএছাড়াও: ক্ষুধা, খিদে"
+        },
+        {
+          "front": "thirsty\n\nAre you thirsty?",
+          "back": "তৃষ্ণার্ত\n\nতোমার কি পিপাসা পেয়েছে?\n\nএছাড়াও: পিপাসা, তেষ্টা"
+        },
+        {
+          "front": "full\n\nI am full, thank you.",
+          "back": "পেট ভরা\n\nআমার পেট ভরে গেছে, ধন্যবাদ।"
+        },
+        {
+          "front": "spicy\n\nThis soup is too spicy.",
+          "back": "ঝাল\n\nএই স্যুপটা খুব বেশি ঝাল।"
+        },
+        {
+          "front": "sweet\n\nThis cake is too sweet.",
+          "back": "মিষ্টি\n\nএই কেকটা খুব বেশি মিষ্টি।"
+        },
+        {
+          "front": "sour\n\nLemons are sour.",
+          "back": "টক\n\nলেবু টক।"
+        },
+        {
+          "front": "salty\n\nThe soup is a little salty.",
+          "back": "নোনতা\n\nস্যুপটা একটু নোনতা।"
+        },
+        {
+          "front": "bitter\n\nCoffee without sugar is bitter.",
+          "back": "তেতো\n\nচিনি ছাড়া কফি তেতো লাগে।"
+        },
+        {
+          "front": "hot\n\nBe careful, the tea is hot.",
+          "back": "গরম\n\nসাবধান, চা গরম।"
+        },
+        {
+          "front": "cold\n\nI want a cold drink.",
+          "back": "ঠান্ডা\n\nআমি একটা ঠান্ডা পানীয় চাই।"
+        },
+        {
+          "front": "fresh\n\nThe fish is very fresh.",
+          "back": "তাজা\n\nমাছটা খুব তাজা।"
+        },
+        {
+          "front": "raw\n\nDon't eat raw meat.",
+          "back": "কাঁচা\n\nকাঁচা মাংস খেয়ো না।"
+        },
+        {
+          "front": "menu\n\nCan I see the menu?",
+          "back": "মেনু\n\nআমি কি মেনুটা দেখতে পারি?"
+        },
+        {
+          "front": "restaurant\n\nLet's eat at a restaurant.",
+          "back": "রেস্টুরেন্ট\n\nচলো, একটা রেস্টুরেন্টে খাই।\n\nএছাড়াও: রেস্তোরাঁ"
+        },
+        {
+          "front": "waiter\n\nThe waiter brings our food.",
+          "back": "ওয়েটার\n\nওয়েটার আমাদের খাবার নিয়ে আসে।"
+        },
+        {
+          "front": "order\n\nAre you ready to order?",
+          "back": "অর্ডার দেওয়া\n\nআপনি কি এখন অর্ডার দেবেন?\n\nএছাড়াও: অর্ডার করা"
+        },
+        {
+          "front": "bill\n\nCan we have the bill, please?",
+          "back": "বিল\n\nদয়া করে আমাদের বিলটা দেবেন?\n\nআমেরিকান ইংরেজিতে: check"
+        },
+        {
+          "front": "recipe\n\nThis is my grandmother's recipe.",
+          "back": "রেসিপি\n\nএটা আমার দাদির রেসিপি।"
+        }
+      ]
+    },
+    {
+      "name": "07 বাড়িঘর",
+      "cards": [
+        {
+          "front": "home\n\nI go home at six.",
+          "back": "বাসা\n\nআমি ছয়টায় বাসায় যাই।\n\nএছাড়াও: বাড়ি, ঘর"
+        },
+        {
+          "front": "house\n\nTheir house has a garden.",
+          "back": "বাড়ি\n\nতাদের বাড়িতে একটা বাগান আছে।"
+        },
+        {
+          "front": "room\n\nMy room is small.",
+          "back": "ঘর\n\nআমার ঘরটা ছোট।\n\nএছাড়াও: রুম, কক্ষ"
+        },
+        {
+          "front": "bedroom\n\nThe house has three bedrooms.",
+          "back": "শোবার ঘর\n\nবাড়িটায় তিনটা শোবার ঘর আছে।\n\nএছাড়াও: বেডরুম"
+        },
+        {
+          "front": "bathroom\n\nWhere is the bathroom?",
+          "back": "বাথরুম\n\nবাথরুমটা কোথায়?"
+        },
+        {
+          "front": "living room\n\nWe watch TV in the living room.",
+          "back": "বসার ঘর\n\nআমরা বসার ঘরে টিভি দেখি।\n\nএছাড়াও: ড্রয়িংরুম"
+        },
+        {
+          "front": "door\n\nPlease close the door.",
+          "back": "দরজা\n\nদয়া করে দরজাটা বন্ধ করুন।"
+        },
+        {
+          "front": "window\n\nOpen the window, please.",
+          "back": "জানালা\n\nদয়া করে জানালাটা খুলে দিন।"
+        },
+        {
+          "front": "wall\n\nThere is a picture on the wall.",
+          "back": "দেয়াল\n\nদেয়ালে একটা ছবি আছে।"
+        },
+        {
+          "front": "floor\n\nThe floor is wet.",
+          "back": "মেঝে\n\nমেঝেটা ভেজা।"
+        },
+        {
+          "front": "roof\n\nThe roof is red.",
+          "back": "ছাদ\n\nছাদটা লাল।"
+        },
+        {
+          "front": "stairs\n\nGo up the stairs.",
+          "back": "সিঁড়ি\n\nসিঁড়ি দিয়ে ওপরে যাও।"
+        },
+        {
+          "front": "garden\n\nMy grandmother grows flowers in the garden.",
+          "back": "বাগান\n\nআমার দাদি বাগানে ফুলগাছ লাগান।"
+        },
+        {
+          "front": "gate\n\nClose the gate behind you.",
+          "back": "গেট\n\nভেতরে ঢুকে গেটটা বন্ধ করে দিয়ো।"
+        },
+        {
+          "front": "key\n\nI lost my key.",
+          "back": "চাবি\n\nআমি আমার চাবি হারিয়ে ফেলেছি।"
+        },
+        {
+          "front": "table\n\nThe book is on the table.",
+          "back": "টেবিল\n\nবইটা টেবিলের ওপর।"
+        },
+        {
+          "front": "chair\n\nSit on this chair.",
+          "back": "চেয়ার\n\nএই চেয়ারটায় বসো।"
+        },
+        {
+          "front": "bed\n\nMy bed is very soft.",
+          "back": "বিছানা\n\nআমার বিছানাটা খুব নরম।"
+        },
+        {
+          "front": "sofa\n\nThe cat is on the sofa.",
+          "back": "সোফা\n\nবিড়ালটা সোফার ওপর।"
+        },
+        {
+          "front": "desk\n\nMy computer is on the desk.",
+          "back": "ডেস্ক\n\nআমার কম্পিউটার ডেস্কের ওপর।"
+        },
+        {
+          "front": "shelf\n\nPut the books on the shelf.",
+          "back": "তাক\n\nবইগুলো তাকে রাখো।"
+        },
+        {
+          "front": "wardrobe\n\nMy clothes are in the wardrobe.",
+          "back": "আলমারি\n\nআমার জামাকাপড় আলমারিতে।"
+        },
+        {
+          "front": "mirror\n\nShe looks in the mirror.",
+          "back": "আয়না\n\nসে আয়নায় নিজেকে দেখছে।"
+        },
+        {
+          "front": "lamp\n\nTurn on the lamp.",
+          "back": "বাতি\n\nবাতিটা জ্বালাও।"
+        },
+        {
+          "front": "fan\n\nIt's hot, turn on the fan.",
+          "back": "ফ্যান\n\nগরম লাগছে, ফ্যানটা চালাও।\n\nএছাড়াও: পাখা"
+        },
+        {
+          "front": "air conditioner\n\nThe air conditioner is broken.",
+          "back": "এসি\n\nএসিটা নষ্ট হয়ে গেছে।"
+        },
+        {
+          "front": "television\n\nWe bought a new television.",
+          "back": "টেলিভিশন\n\nআমরা একটা নতুন টেলিভিশন কিনেছি।\n\nএছাড়াও: টিভি"
+        },
+        {
+          "front": "fridge\n\nThe milk is in the fridge.",
+          "back": "ফ্রিজ\n\nদুধ ফ্রিজে আছে।"
+        },
+        {
+          "front": "washing machine\n\nPut the clothes in the washing machine.",
+          "back": "ওয়াশিং মেশিন\n\nজামাকাপড়গুলো ওয়াশিং মেশিনে দাও।"
+        },
+        {
+          "front": "sink\n\nThe dishes are in the sink.",
+          "back": "সিংক\n\nথালাবাসনগুলো সিংকে আছে।"
+        },
+        {
+          "front": "shower\n\nThe shower is not working.",
+          "back": "শাওয়ার\n\nশাওয়ারটা কাজ করছে না।"
+        },
+        {
+          "front": "toilet\n\nWhere is the toilet?",
+          "back": "টয়লেট\n\nটয়লেটটা কোথায়?"
+        },
+        {
+          "front": "towel\n\nCan I have a clean towel?",
+          "back": "তোয়ালে\n\nআমাকে একটা পরিষ্কার তোয়ালে দেবেন?"
+        },
+        {
+          "front": "soap\n\nWash your hands with soap.",
+          "back": "সাবান\n\nসাবান দিয়ে হাত ধোও।"
+        },
+        {
+          "front": "toothbrush\n\nI need a new toothbrush.",
+          "back": "টুথব্রাশ\n\nআমার একটা নতুন টুথব্রাশ দরকার।"
+        },
+        {
+          "front": "toothpaste\n\nWe are out of toothpaste.",
+          "back": "টুথপেস্ট\n\nআমাদের টুথপেস্ট শেষ হয়ে গেছে।"
+        },
+        {
+          "front": "blanket\n\nIt's cold, I need a blanket.",
+          "back": "কম্বল\n\nঠান্ডা লাগছে, আমার একটা কম্বল দরকার।"
+        },
+        {
+          "front": "pillow\n\nThis pillow is too hard.",
+          "back": "বালিশ\n\nএই বালিশটা খুব শক্ত।"
+        },
+        {
+          "front": "clean\n\nI clean my room on Sunday.",
+          "back": "পরিষ্কার করা\n\nআমি রবিবার আমার ঘর পরিষ্কার করি।"
+        },
+        {
+          "front": "sweep\n\nPlease sweep the floor.",
+          "back": "ঝাড়ু দেওয়া\n\nদয়া করে মেঝেটা ঝাড়ু দাও।\n\nপশ্চিমবঙ্গে: ঝাঁট দেওয়া"
+        },
+        {
+          "front": "rubbish\n\nTake the rubbish out.",
+          "back": "ময়লা\n\nময়লাগুলো বাইরে ফেলে এসো।\n\nএছাড়াও: আবর্জনা"
+        },
+        {
+          "front": "apartment\n\nWe live in an apartment.",
+          "back": "ফ্ল্যাট\n\nআমরা একটা ফ্ল্যাটে থাকি।\n\nএছাড়াও: অ্যাপার্টমেন্ট"
+        },
+        {
+          "front": "rent\n\nI rent a room near my school.",
+          "back": "ভাড়া নেওয়া\n\nআমি স্কুলের কাছে একটা ঘর ভাড়া নিয়ে থাকি।"
+        },
+        {
+          "front": "address\n\nWhat is your address?",
+          "back": "ঠিকানা\n\nতোমার ঠিকানা কী?"
+        },
+        {
+          "front": "move\n\nWe will move next month.",
+          "back": "বাসা বদলানো\n\nআমরা আগামী মাসে বাসা বদলাব।"
+        },
+        {
+          "front": "sleep\n\nBabies sleep a lot.",
+          "back": "ঘুমানো\n\nশিশুরা অনেক ঘুমায়।"
+        },
+        {
+          "front": "wake up\n\nI wake up at six.",
+          "back": "ঘুম ভাঙা\n\nছয়টায় আমার ঘুম ভাঙে।\n\nএছাড়াও: জেগে ওঠা, ঘুম থেকে ওঠা"
+        },
+        {
+          "front": "open\n\nThe shop opens at eight.",
+          "back": "খোলা\n\nদোকানটা আটটায় খোলে।"
+        },
+        {
+          "front": "close\n\nClose the window, please.",
+          "back": "বন্ধ করা\n\nদয়া করে জানালাটা বন্ধ করো।"
+        },
+        {
+          "front": "furniture\n\nWe need new furniture.",
+          "back": "আসবাবপত্র\n\nআমাদের নতুন আসবাবপত্র দরকার।"
+        }
+      ]
+    },
+    {
+      "name": "08 পোশাক ও রং",
+      "cards": [
+        {
+          "front": "clothes\n\nI need new clothes.",
+          "back": "জামাকাপড়\n\nআমার নতুন জামাকাপড় দরকার।\n\nএছাড়াও: কাপড়চোপড়, পোশাক"
+        },
+        {
+          "front": "shirt\n\nHe wears a white shirt to work.",
+          "back": "শার্ট\n\nসে সাদা শার্ট পরে অফিসে যায়।"
+        },
+        {
+          "front": "T-shirt\n\nThis T-shirt is too big.",
+          "back": "টি-শার্ট\n\nএই টি-শার্টটা খুব বড়।"
+        },
+        {
+          "front": "dress\n\nShe wears a beautiful dress.",
+          "back": "জামা\n\nসে একটা সুন্দর জামা পরেছে।\n\nএছাড়াও: পোশাক, ফ্রক"
+        },
+        {
+          "front": "skirt\n\nHer skirt is short.",
+          "back": "স্কার্ট\n\nতার স্কার্টটা ছোট।"
+        },
+        {
+          "front": "trousers\n\nI wear black trousers.",
+          "back": "প্যান্ট\n\nআমি কালো প্যান্ট পরি।\n\nআমেরিকান ইংরেজিতে: pants"
+        },
+        {
+          "front": "jeans\n\nI like wearing jeans.",
+          "back": "জিন্স\n\nআমি জিন্স পরতে পছন্দ করি।"
+        },
+        {
+          "front": "shorts\n\nKids wear shorts in summer.",
+          "back": "হাফপ্যান্ট\n\nগ্রীষ্মকালে বাচ্চারা হাফপ্যান্ট পরে।\n\nএছাড়াও: শর্টস"
+        },
+        {
+          "front": "jacket\n\nTake a jacket, it's cold.",
+          "back": "জ্যাকেট\n\nএকটা জ্যাকেট নিয়ে যাও, ঠান্ডা পড়েছে।"
+        },
+        {
+          "front": "coat\n\nShe wears a long coat in winter.",
+          "back": "কোট\n\nসে শীতকালে লম্বা কোট পরে।"
+        },
+        {
+          "front": "sweater\n\nMy grandmother knitted this sweater.",
+          "back": "সোয়েটার\n\nআমার দাদি এই সোয়েটারটা বুনেছেন।"
+        },
+        {
+          "front": "uniform\n\nStudents wear a uniform.",
+          "back": "ইউনিফর্ম\n\nশিক্ষার্থীরা ইউনিফর্ম পরে।"
+        },
+        {
+          "front": "shoes\n\nTake off your shoes, please.",
+          "back": "জুতা\n\nদয়া করে জুতা খুলুন।"
+        },
+        {
+          "front": "sandals\n\nI wear sandals in summer.",
+          "back": "স্যান্ডেল\n\nআমি গ্রীষ্মকালে স্যান্ডেল পরি।\n\nপশ্চিমবঙ্গে: চটি"
+        },
+        {
+          "front": "socks\n\nWhere are my socks?",
+          "back": "মোজা\n\nআমার মোজা কোথায়?"
+        },
+        {
+          "front": "hat\n\nWear a hat in the sun.",
+          "back": "টুপি\n\nরোদে টুপি পরো।"
+        },
+        {
+          "front": "bag\n\nMy bag is heavy.",
+          "back": "ব্যাগ\n\nআমার ব্যাগটা ভারী।"
+        },
+        {
+          "front": "backpack\n\nPut your books in your backpack.",
+          "back": "ব্যাকপ্যাক\n\nবইগুলো তোমার ব্যাকপ্যাকে রাখো।"
+        },
+        {
+          "front": "belt\n\nThis belt is too long.",
+          "back": "বেল্ট\n\nএই বেল্টটা খুব লম্বা।"
+        },
+        {
+          "front": "glasses\n\nI can't read without my glasses.",
+          "back": "চশমা\n\nচশমা ছাড়া আমি পড়তে পারি না।"
+        },
+        {
+          "front": "watch\n\nMy watch is slow.",
+          "back": "হাতঘড়ি\n\nআমার হাতঘড়িটা ধীরে চলছে।\n\nএছাড়াও: ঘড়ি"
+        },
+        {
+          "front": "ring\n\nShe has a gold ring.",
+          "back": "আংটি\n\nতার একটা সোনার আংটি আছে।"
+        },
+        {
+          "front": "necklace\n\nThis necklace is a gift from my mother.",
+          "back": "গলার হার\n\nএই গলার হারটা আমার মায়ের দেওয়া উপহার।\n\nএছাড়াও: হার, নেকলেস, মালা"
+        },
+        {
+          "front": "umbrella\n\nTake an umbrella, it's raining.",
+          "back": "ছাতা\n\nএকটা ছাতা নিয়ে যাও, বৃষ্টি হচ্ছে।"
+        },
+        {
+          "front": "pocket\n\nMy phone is in my pocket.",
+          "back": "পকেট\n\nআমার ফোন আমার পকেটে।"
+        },
+        {
+          "front": "button\n\nA button fell off my shirt.",
+          "back": "বোতাম\n\nআমার শার্টের একটা বোতাম খুলে পড়ে গেছে।"
+        },
+        {
+          "front": "size\n\nWhat size do you wear?",
+          "back": "সাইজ\n\nআপনি কোন সাইজ পরেন?"
+        },
+        {
+          "front": "wear\n\nWhat will you wear to the party?",
+          "back": "পরা\n\nপার্টিতে তুমি কী পরবে?"
+        },
+        {
+          "front": "put on\n\nPut on your coat.",
+          "back": "পরে নেওয়া\n\nতোমার কোটটা পরে নাও।"
+        },
+        {
+          "front": "take off\n\nTake off your jacket and sit down.",
+          "back": "খুলে ফেলা\n\nজ্যাকেটটা খুলে বসো।"
+        },
+        {
+          "front": "try on\n\nCan I try on this dress?",
+          "back": "পরে দেখা\n\nআমি কি এই জামাটা পরে দেখতে পারি?"
+        },
+        {
+          "front": "fashion\n\nShe works in fashion.",
+          "back": "ফ্যাশন\n\nসে ফ্যাশনের জগতে কাজ করে।"
+        },
+        {
+          "front": "color\n\nWhat color is your car?",
+          "back": "রং\n\nতোমার গাড়ির রং কী?"
+        },
+        {
+          "front": "red\n\nThe flag is red.",
+          "back": "লাল\n\nপতাকাটা লাল।"
+        },
+        {
+          "front": "blue\n\nThe sky is blue.",
+          "back": "নীল\n\nআকাশ নীল।"
+        },
+        {
+          "front": "green\n\nLeaves are green.",
+          "back": "সবুজ\n\nপাতা সবুজ।"
+        },
+        {
+          "front": "yellow\n\nBananas are yellow.",
+          "back": "হলুদ\n\nকলা হলুদ।"
+        },
+        {
+          "front": "black\n\nHe has black hair.",
+          "back": "কালো\n\nতার চুল কালো।"
+        },
+        {
+          "front": "white\n\nSnow is white.",
+          "back": "সাদা\n\nতুষার সাদা।"
+        },
+        {
+          "front": "gray\n\nThe sky is gray today.",
+          "back": "ধূসর\n\nআজ আকাশটা ধূসর।"
+        },
+        {
+          "front": "brown\n\nMy dog is brown.",
+          "back": "বাদামি\n\nআমার কুকুরটা বাদামি।"
+        },
+        {
+          "front": "pink\n\nShe loves pink.",
+          "back": "গোলাপি\n\nসে গোলাপি রং খুব পছন্দ করে।"
+        },
+        {
+          "front": "purple\n\nPurple is my favorite color.",
+          "back": "বেগুনি\n\nবেগুনি আমার প্রিয় রং।"
+        },
+        {
+          "front": "dark\n\nI like dark blue.",
+          "back": "গাঢ়\n\nআমি গাঢ় নীল পছন্দ করি।"
+        },
+        {
+          "front": "light\n\nShe wears a light green dress.",
+          "back": "হালকা\n\nসে হালকা সবুজ রঙের একটা জামা পরেছে।\n\nঅন্য অর্থ: আলো"
+        },
+        {
+          "front": "gold\n\nHer necklace is made of gold.",
+          "back": "সোনা\n\nতার গলার হারটা সোনার তৈরি।"
+        },
+        {
+          "front": "silver\n\nThis spoon is made of silver.",
+          "back": "রুপা\n\nএই চামচটা রুপার তৈরি।"
+        },
+        {
+          "front": "cloth\n\nThis cloth is very soft.",
+          "back": "কাপড়\n\nএই কাপড়টা খুব নরম।"
+        },
+        {
+          "front": "pajamas\n\nI put on my pajamas.",
+          "back": "রাতের পোশাক\n\nআমি রাতের পোশাক পরে নিলাম।\n\nএছাড়াও: ঘুমের পোশাক, পায়জামা, নাইট ড্রেস"
+        },
+        {
+          "front": "scarf\n\nWear a scarf in winter.",
+          "back": "মাফলার\n\nশীতকালে মাফলার পরো।\n\nএছাড়াও: স্কার্ফ"
+        }
+      ]
+    },
+    {
+      "name": "09 শরীর ও স্বাস্থ্য",
+      "cards": [
+        {
+          "front": "body\n\nExercise is good for your body.",
+          "back": "শরীর\n\nব্যায়াম শরীরের জন্য ভালো।"
+        },
+        {
+          "front": "head\n\nMy head hurts.",
+          "back": "মাথা\n\nআমার মাথা ব্যথা করছে।"
+        },
+        {
+          "front": "hair\n\nShe has short hair.",
+          "back": "চুল\n\nতার চুল ছোট।"
+        },
+        {
+          "front": "face\n\nWash your face.",
+          "back": "মুখ\n\nমুখ ধুয়ে নাও।"
+        },
+        {
+          "front": "eye\n\nShe has big eyes.",
+          "back": "চোখ\n\nতার বড় বড় চোখ।"
+        },
+        {
+          "front": "ear\n\nMy ear hurts.",
+          "back": "কান\n\nআমার কানে ব্যথা করছে।"
+        },
+        {
+          "front": "nose\n\nMy nose is red.",
+          "back": "নাক\n\nআমার নাকটা লাল হয়ে গেছে।"
+        },
+        {
+          "front": "mouth\n\nOpen your mouth.",
+          "back": "মুখ\n\nমুখটা খোলো।"
+        },
+        {
+          "front": "tooth\n\nI have a bad tooth.",
+          "back": "দাঁত\n\nআমার একটা দাঁত খারাপ।"
+        },
+        {
+          "front": "lip\n\nHer lips are dry.",
+          "back": "ঠোঁট\n\nতার ঠোঁট শুকনো।"
+        },
+        {
+          "front": "neck\n\nGiraffes have long necks.",
+          "back": "গলা\n\nজিরাফের গলা লম্বা।\n\nএছাড়াও: ঘাড়"
+        },
+        {
+          "front": "shoulder\n\nMy shoulder hurts.",
+          "back": "কাঁধ\n\nআমার কাঁধ ব্যথা করছে।"
+        },
+        {
+          "front": "arm\n\nHe broke his arm.",
+          "back": "হাত\n\nসে তার হাত ভেঙে ফেলেছে।\n\nএছাড়াও: বাহু"
+        },
+        {
+          "front": "hand\n\nRaise your hand.",
+          "back": "হাত\n\nহাত তোলো।"
+        },
+        {
+          "front": "finger\n\nI cut my finger.",
+          "back": "আঙুল\n\nআমার আঙুল কেটে গেছে।"
+        },
+        {
+          "front": "leg\n\nMy legs are tired.",
+          "back": "পা\n\nআমার পা দুটো ক্লান্ত।"
+        },
+        {
+          "front": "foot\n\nMy foot hurts.",
+          "back": "পা\n\nআমার পায়ে ব্যথা।"
+        },
+        {
+          "front": "knee\n\nI hurt my knee playing football.",
+          "back": "হাঁটু\n\nফুটবল খেলতে গিয়ে আমি হাঁটুতে ব্যথা পেয়েছি।"
+        },
+        {
+          "front": "back\n\nMy back hurts.",
+          "back": "পিঠ\n\nআমার পিঠে ব্যথা।"
+        },
+        {
+          "front": "stomach\n\nI have a stomach ache.",
+          "back": "পেট\n\nআমার পেট ব্যথা করছে।"
+        },
+        {
+          "front": "heart\n\nYour heart beats fast when you run.",
+          "back": "হৃৎপিণ্ড\n\nদৌড়ালে হৃৎপিণ্ড দ্রুত চলে।\n\nএছাড়াও: হৃদয়, হার্ট"
+        },
+        {
+          "front": "skin\n\nUse sunscreen to protect your skin.",
+          "back": "ত্বক\n\nত্বক রক্ষা করতে সানস্ক্রিন ব্যবহার করো।\n\nএছাড়াও: চামড়া"
+        },
+        {
+          "front": "blood\n\nHe gives blood every year.",
+          "back": "রক্ত\n\nসে প্রতি বছর রক্ত দেয়।"
+        },
+        {
+          "front": "bone\n\nMilk is good for your bones.",
+          "back": "হাড়\n\nদুধ হাড়ের জন্য ভালো।"
+        },
+        {
+          "front": "health\n\nHealth is more important than money.",
+          "back": "স্বাস্থ্য\n\nটাকার চেয়ে স্বাস্থ্য বেশি গুরুত্বপূর্ণ।"
+        },
+        {
+          "front": "healthy\n\nShe is healthy and happy.",
+          "back": "সুস্থ\n\nসে সুস্থ আর হাসিখুশি।"
+        },
+        {
+          "front": "sick\n\nI am sick today.",
+          "back": "অসুস্থ\n\nআজ আমি অসুস্থ।"
+        },
+        {
+          "front": "pain\n\nI have a pain in my back.",
+          "back": "ব্যথা\n\nআমার পিঠে একটা ব্যথা হচ্ছে।"
+        },
+        {
+          "front": "headache\n\nI have a headache.",
+          "back": "মাথাব্যথা\n\nআমার মাথাব্যথা করছে।"
+        },
+        {
+          "front": "fever\n\nThe child has a fever.",
+          "back": "জ্বর\n\nবাচ্চাটার জ্বর এসেছে।"
+        },
+        {
+          "front": "cough\n\nI have a bad cough.",
+          "back": "কাশি\n\nআমার খুব কাশি হয়েছে।"
+        },
+        {
+          "front": "flu\n\nI got the flu last week.",
+          "back": "ফ্লু\n\nগত সপ্তাহে আমার ফ্লু হয়েছিল।"
+        },
+        {
+          "front": "medicine\n\nTake this medicine twice a day.",
+          "back": "ওষুধ\n\nএই ওষুধটা দিনে দুবার খাবেন।"
+        },
+        {
+          "front": "doctor\n\nYou should see a doctor.",
+          "back": "ডাক্তার\n\nতোমার একজন ডাক্তার দেখানো উচিত।"
+        },
+        {
+          "front": "nurse\n\nThe nurse is very kind.",
+          "back": "নার্স\n\nনার্স খুব দয়ালু।"
+        },
+        {
+          "front": "hospital\n\nHe is in the hospital.",
+          "back": "হাসপাতাল\n\nসে হাসপাতালে আছে।"
+        },
+        {
+          "front": "pharmacy\n\nIs there a pharmacy near here?",
+          "back": "ফার্মেসি\n\nকাছাকাছি কোনো ফার্মেসি আছে?\n\nএছাড়াও: ওষুধের দোকান"
+        },
+        {
+          "front": "dentist\n\nI go to the dentist twice a year.",
+          "back": "দাঁতের ডাক্তার\n\nআমি বছরে দুবার দাঁতের ডাক্তারের কাছে যাই।"
+        },
+        {
+          "front": "tired\n\nI am very tired today.",
+          "back": "ক্লান্ত\n\nআজ আমি খুব ক্লান্ত।"
+        },
+        {
+          "front": "hurt\n\nMy arm hurts.",
+          "back": "ব্যথা করা\n\nআমার হাত ব্যথা করছে।"
+        },
+        {
+          "front": "rest\n\nYou need to rest.",
+          "back": "বিশ্রাম নেওয়া\n\nতোমার বিশ্রাম নেওয়া দরকার।"
+        },
+        {
+          "front": "exercise\n\nI exercise every morning.",
+          "back": "ব্যায়াম করা\n\nআমি প্রতিদিন সকালে ব্যায়াম করি।"
+        },
+        {
+          "front": "weight\n\nI want to lose weight.",
+          "back": "ওজন\n\nআমি ওজন কমাতে চাই।"
+        },
+        {
+          "front": "strong\n\nHe is very strong.",
+          "back": "শক্তিশালী\n\nসে খুব শক্তিশালী।"
+        },
+        {
+          "front": "weak\n\nI feel weak after the flu.",
+          "back": "দুর্বল\n\nফ্লুর পর আমি দুর্বল বোধ করছি।"
+        },
+        {
+          "front": "accident\n\nHe had a car accident.",
+          "back": "দুর্ঘটনা\n\nসে একটা গাড়ি দুর্ঘটনায় পড়েছিল।"
+        },
+        {
+          "front": "ambulance\n\nCall an ambulance!",
+          "back": "অ্যাম্বুলেন্স\n\nএকটা অ্যাম্বুলেন্স ডাকো!"
+        },
+        {
+          "front": "emergency\n\nIn an emergency, call for help.",
+          "back": "জরুরি অবস্থা\n\nজরুরি অবস্থায় সাহায্যের জন্য ফোন করো।"
+        },
+        {
+          "front": "breathe\n\nBreathe slowly.",
+          "back": "শ্বাস নেওয়া\n\nধীরে ধীরে শ্বাস নাও।"
+        },
+        {
+          "front": "sleepy\n\nI feel sleepy after lunch.",
+          "back": "ঘুম ঘুম\n\nদুপুরের খাবারের পর আমার ঘুম ঘুম লাগে।\n\nএছাড়াও: ঘুম আসা, ঘুম পাওয়া"
+        }
+      ]
+    },
+    {
+      "name": "10 স্কুল",
+      "cards": [
+        {
+          "front": "school\n\nMy school is near my house.",
+          "back": "স্কুল\n\nআমার স্কুল আমার বাড়ির কাছে।"
+        },
+        {
+          "front": "student\n\nThere are forty students in my class.",
+          "back": "ছাত্র\n\nআমার ক্লাসে চল্লিশজন শিক্ষার্থী আছে।\n\nএছাড়াও: শিক্ষার্থী, ছাত্রী"
+        },
+        {
+          "front": "teacher\n\nOur teacher is very kind.",
+          "back": "শিক্ষক\n\nআমাদের শিক্ষক খুব দয়ালু।\n\nএছাড়াও: শিক্ষিকা, স্যার, ম্যাডাম"
+        },
+        {
+          "front": "class\n\nMy class has thirty students.",
+          "back": "ক্লাস\n\nআমার ক্লাসে ত্রিশজন ছাত্রছাত্রী।"
+        },
+        {
+          "front": "classroom\n\nOur classroom is on the second floor.",
+          "back": "ক্লাসরুম\n\nআমাদের ক্লাসরুম দোতলায়।"
+        },
+        {
+          "front": "lesson\n\nToday's lesson is about animals.",
+          "back": "পাঠ\n\nআজকের পাঠ পশুপাখি নিয়ে।"
+        },
+        {
+          "front": "homework\n\nI do my homework after dinner.",
+          "back": "বাড়ির কাজ\n\nআমি রাতের খাবারের পর বাড়ির কাজ করি।\n\nএছাড়াও: হোমওয়ার্ক"
+        },
+        {
+          "front": "exam\n\nI have an exam tomorrow.",
+          "back": "পরীক্ষা\n\nআগামীকাল আমার পরীক্ষা।"
+        },
+        {
+          "front": "test\n\nWe have a test on Friday.",
+          "back": "পরীক্ষা\n\nশুক্রবার আমাদের একটা পরীক্ষা আছে।"
+        },
+        {
+          "front": "grade\n\nI got a good grade in English.",
+          "back": "নম্বর\n\nআমি ইংরেজিতে ভালো নম্বর পেয়েছি।\n\nএছাড়াও: গ্রেড"
+        },
+        {
+          "front": "book\n\nI am reading a good book.",
+          "back": "বই\n\nআমি একটা ভালো বই পড়ছি।"
+        },
+        {
+          "front": "notebook\n\nWrite it in your notebook.",
+          "back": "খাতা\n\nএটা তোমার খাতায় লিখে রাখো।"
+        },
+        {
+          "front": "pen\n\nCan I borrow your pen?",
+          "back": "কলম\n\nতোমার কলমটা একটু নিতে পারি?"
+        },
+        {
+          "front": "pencil\n\nDraw with a pencil.",
+          "back": "পেনসিল\n\nপেনসিল দিয়ে আঁকো।"
+        },
+        {
+          "front": "eraser\n\nCan I use your eraser?",
+          "back": "রাবার\n\nতোমার রাবারটা একটু ব্যবহার করতে পারি?\n\nএছাড়াও: ইরেজার"
+        },
+        {
+          "front": "ruler\n\nUse a ruler to draw a line.",
+          "back": "স্কেল\n\nএকটা লাইন টানতে স্কেল ব্যবহার করো।\n\nএছাড়াও: রুলার"
+        },
+        {
+          "front": "board\n\nThe teacher writes on the board.",
+          "back": "বোর্ড\n\nশিক্ষক বোর্ডে লেখেন।"
+        },
+        {
+          "front": "dictionary\n\nLook it up in the dictionary.",
+          "back": "অভিধান\n\nঅভিধানে শব্দটা দেখে নাও।"
+        },
+        {
+          "front": "library\n\nI study in the library.",
+          "back": "লাইব্রেরি\n\nআমি লাইব্রেরিতে পড়াশোনা করি।\n\nএছাড়াও: গ্রন্থাগার, পাঠাগার"
+        },
+        {
+          "front": "university\n\nMy sister goes to university.",
+          "back": "বিশ্ববিদ্যালয়\n\nআমার বোন বিশ্ববিদ্যালয়ে পড়ে।"
+        },
+        {
+          "front": "subject\n\nWhat is your favorite subject?",
+          "back": "বিষয়\n\nতোমার প্রিয় বিষয় কোনটা?"
+        },
+        {
+          "front": "math\n\nI am good at math.",
+          "back": "গণিত\n\nআমি গণিতে ভালো।\n\nএছাড়াও: অঙ্ক"
+        },
+        {
+          "front": "English\n\nEnglish is an international language.",
+          "back": "ইংরেজি\n\nইংরেজি একটি আন্তর্জাতিক ভাষা।"
+        },
+        {
+          "front": "history\n\nI love history lessons.",
+          "back": "ইতিহাস\n\nইতিহাস ক্লাস আমার খুব ভালো লাগে।"
+        },
+        {
+          "front": "geography\n\nIn geography we learn about maps.",
+          "back": "ভূগোল\n\nভূগোলে আমরা মানচিত্র নিয়ে পড়ি।"
+        },
+        {
+          "front": "science\n\nScience is interesting.",
+          "back": "বিজ্ঞান\n\nবিজ্ঞান খুব আকর্ষণীয়।"
+        },
+        {
+          "front": "art\n\nWe draw pictures in art class.",
+          "back": "চারুকলা\n\nআমরা চারুকলা ক্লাসে ছবি আঁকি।\n\nএছাড়াও: আর্ট, শিল্পকলা"
+        },
+        {
+          "front": "music\n\nI listen to music every day.",
+          "back": "সংগীত\n\nআমি প্রতিদিন গান শুনি।\n\nএছাড়াও: গান, মিউজিক"
+        },
+        {
+          "front": "physics\n\nPhysics is my favorite subject.",
+          "back": "পদার্থবিজ্ঞান\n\nপদার্থবিজ্ঞান আমার প্রিয় বিষয়।"
+        },
+        {
+          "front": "chemistry\n\nWe do experiments in chemistry.",
+          "back": "রসায়ন\n\nরসায়ন ক্লাসে আমরা পরীক্ষা-নিরীক্ষা করি।"
+        },
+        {
+          "front": "biology\n\nIn biology we study plants and animals.",
+          "back": "জীববিজ্ঞান\n\nজীববিজ্ঞানে আমরা উদ্ভিদ আর প্রাণী নিয়ে পড়ি।"
+        },
+        {
+          "front": "literature\n\nShe studies literature.",
+          "back": "সাহিত্য\n\nসে সাহিত্য নিয়ে পড়াশোনা করে।"
+        },
+        {
+          "front": "learn\n\nI want to learn English.",
+          "back": "শেখা\n\nআমি ইংরেজি শিখতে চাই।"
+        },
+        {
+          "front": "study\n\nI study for two hours every night.",
+          "back": "পড়াশোনা করা\n\nআমি প্রতি রাতে দুই ঘণ্টা পড়াশোনা করি।\n\nএছাড়াও: পড়া"
+        },
+        {
+          "front": "teach\n\nShe teaches English.",
+          "back": "পড়ানো\n\nসে ইংরেজি পড়ায়।\n\nএছাড়াও: শেখানো"
+        },
+        {
+          "front": "read\n\nI read the news every morning.",
+          "back": "পড়া\n\nআমি প্রতিদিন সকালে খবর পড়ি।"
+        },
+        {
+          "front": "write\n\nWrite your name here.",
+          "back": "লেখা\n\nএখানে তোমার নাম লেখো।"
+        },
+        {
+          "front": "listen\n\nListen carefully.",
+          "back": "শোনা\n\nমন দিয়ে শোনো।"
+        },
+        {
+          "front": "spell\n\nHow do you spell your name?",
+          "back": "বানান করা\n\nতোমার নামের বানান কী?"
+        },
+        {
+          "front": "count\n\nCount from one to ten.",
+          "back": "গোনা\n\nএক থেকে দশ পর্যন্ত গোনো।"
+        },
+        {
+          "front": "practice\n\nPractice speaking every day.",
+          "back": "অনুশীলন করা\n\nপ্রতিদিন কথা বলার অনুশীলন করো।"
+        },
+        {
+          "front": "remember\n\nI can't remember his name.",
+          "back": "মনে রাখা\n\nআমার তার নাম মনে পড়ছে না।\n\nএছাড়াও: মনে পড়া, মনে করা"
+        },
+        {
+          "front": "forget\n\nDon't forget your homework.",
+          "back": "ভুলে যাওয়া\n\nবাড়ির কাজ করতে ভুলো না।"
+        },
+        {
+          "front": "explain\n\nCan you explain this word?",
+          "back": "ব্যাখ্যা করা\n\nআপনি কি এই শব্দটা ব্যাখ্যা করতে পারবেন?\n\nএছাড়াও: বুঝিয়ে বলা"
+        },
+        {
+          "front": "mistake\n\nEveryone makes mistakes.",
+          "back": "ভুল\n\nসবাই ভুল করে।"
+        },
+        {
+          "front": "correct\n\nYour answer is correct.",
+          "back": "সঠিক\n\nতোমার উত্তর সঠিক।\n\nএছাড়াও: ঠিক"
+        },
+        {
+          "front": "wrong\n\nThat answer is wrong.",
+          "back": "ভুল\n\nওই উত্তরটা ভুল।"
+        },
+        {
+          "front": "pass\n\nI passed the exam!",
+          "back": "পাস করা\n\nআমি পরীক্ষায় পাস করেছি!"
+        },
+        {
+          "front": "fail\n\nHe failed the test.",
+          "back": "ফেল করা\n\nসে পরীক্ষায় ফেল করেছে।"
+        },
+        {
+          "front": "semester\n\nThe new semester starts next week.",
+          "back": "সেমিস্টার\n\nনতুন সেমিস্টার আগামী সপ্তাহে শুরু।"
+        }
+      ]
+    },
+    {
+      "name": "11 কাজ ও পেশা",
+      "cards": [
+        {
+          "front": "work\n\nI work in an office.",
+          "back": "কাজ করা\n\nআমি একটা অফিসে কাজ করি।"
+        },
+        {
+          "front": "job\n\nShe has a new job.",
+          "back": "চাকরি\n\nসে একটা নতুন চাকরি পেয়েছে।"
+        },
+        {
+          "front": "office\n\nThe office opens at eight.",
+          "back": "অফিস\n\nঅফিস আটটায় খোলে।"
+        },
+        {
+          "front": "company\n\nHe works for a big company.",
+          "back": "কোম্পানি\n\nসে একটা বড় কোম্পানিতে কাজ করে।"
+        },
+        {
+          "front": "boss\n\nMy boss is very busy.",
+          "back": "বস\n\nআমার বস খুব ব্যস্ত।"
+        },
+        {
+          "front": "colleague\n\nMy colleagues are friendly.",
+          "back": "সহকর্মী\n\nআমার সহকর্মীরা খুব মিশুক।"
+        },
+        {
+          "front": "worker\n\nThe workers start at seven.",
+          "back": "শ্রমিক\n\nশ্রমিকেরা সাতটায় কাজ শুরু করে।"
+        },
+        {
+          "front": "employee\n\nThe company has a hundred employees.",
+          "back": "কর্মচারী\n\nকোম্পানিটিতে একশজন কর্মচারী আছে।"
+        },
+        {
+          "front": "manager\n\nCan I talk to the manager?",
+          "back": "ম্যানেজার\n\nআমি কি ম্যানেজারের সাথে কথা বলতে পারি?"
+        },
+        {
+          "front": "meeting\n\nThe meeting starts at nine.",
+          "back": "মিটিং\n\nমিটিং নয়টায় শুরু হবে।\n\nএছাড়াও: সভা"
+        },
+        {
+          "front": "salary\n\nHer salary is good.",
+          "back": "বেতন\n\nতার বেতন ভালো।"
+        },
+        {
+          "front": "business\n\nMy parents have a small business.",
+          "back": "ব্যবসা\n\nআমার বাবা-মায়ের একটা ছোট ব্যবসা আছে।"
+        },
+        {
+          "front": "customer\n\nThe customer is always right.",
+          "back": "গ্রাহক\n\nগ্রাহক সবসময় ঠিক।"
+        },
+        {
+          "front": "interview\n\nI have a job interview tomorrow.",
+          "back": "ইন্টারভিউ\n\nআগামীকাল আমার একটা চাকরির ইন্টারভিউ আছে।\n\nএছাড়াও: সাক্ষাৎকার"
+        },
+        {
+          "front": "engineer\n\nMy brother is an engineer.",
+          "back": "ইঞ্জিনিয়ার\n\nআমার ভাই একজন ইঞ্জিনিয়ার।\n\nএছাড়াও: প্রকৌশলী"
+        },
+        {
+          "front": "police officer\n\nThe police officer helped us.",
+          "back": "পুলিশ\n\nপুলিশ আমাদের সাহায্য করেছিল।"
+        },
+        {
+          "front": "farmer\n\nFarmers grow rice.",
+          "back": "কৃষক\n\nকৃষকেরা ধান চাষ করে।"
+        },
+        {
+          "front": "driver\n\nThe taxi driver was friendly.",
+          "back": "ড্রাইভার\n\nট্যাক্সি ড্রাইভার খুব মিশুক ছিলেন।"
+        },
+        {
+          "front": "chef\n\nThe chef cooks delicious food.",
+          "back": "বাবুর্চি\n\nবাবুর্চি খুব সুস্বাদু খাবার রান্না করেন।\n\nএছাড়াও: রাঁধুনি, শেফ"
+        },
+        {
+          "front": "singer\n\nShe is a famous singer.",
+          "back": "গায়ক\n\nসে একজন বিখ্যাত গায়িকা।\n\nএছাড়াও: গায়িকা, কণ্ঠশিল্পী"
+        },
+        {
+          "front": "actor\n\nHe wants to be an actor.",
+          "back": "অভিনেতা\n\nসে অভিনেতা হতে চায়।"
+        },
+        {
+          "front": "lawyer\n\nWe need a lawyer.",
+          "back": "আইনজীবী\n\nআমাদের একজন আইনজীবী দরকার।\n\nএছাড়াও: উকিল"
+        },
+        {
+          "front": "shop assistant\n\nThe shop assistant was very helpful.",
+          "back": "বিক্রয়কর্মী\n\nবিক্রয়কর্মী আমাদের অনেক সাহায্য করেছিলেন।"
+        },
+        {
+          "front": "journalist\n\nThe journalist writes for a newspaper.",
+          "back": "সাংবাদিক\n\nসাংবাদিক একটা পত্রিকার জন্য লেখেন।"
+        },
+        {
+          "front": "scientist\n\nScientists study the world around us.",
+          "back": "বিজ্ঞানী\n\nবিজ্ঞানীরা আমাদের চারপাশের পৃথিবী নিয়ে গবেষণা করেন।"
+        },
+        {
+          "front": "painter\n\nHe is a famous painter.",
+          "back": "চিত্রশিল্পী\n\nতিনি একজন বিখ্যাত চিত্রশিল্পী।"
+        },
+        {
+          "front": "musician\n\nMy uncle is a musician.",
+          "back": "সংগীতশিল্পী\n\nআমার চাচা একজন সংগীতশিল্পী।"
+        },
+        {
+          "front": "pilot\n\nThe pilot flies the plane.",
+          "back": "পাইলট\n\nপাইলট বিমান চালান।"
+        },
+        {
+          "front": "soldier\n\nMy grandfather was a soldier.",
+          "back": "সৈনিক\n\nআমার দাদা একজন সৈনিক ছিলেন।"
+        },
+        {
+          "front": "firefighter\n\nFirefighters are very brave.",
+          "back": "দমকলকর্মী\n\nদমকলকর্মীরা খুব সাহসী।"
+        },
+        {
+          "front": "tailor\n\nThe tailor made my suit.",
+          "back": "দর্জি\n\nদর্জি আমার স্যুট বানিয়েছেন।"
+        },
+        {
+          "front": "mechanic\n\nThe mechanic fixed my motorbike.",
+          "back": "মিস্ত্রি\n\nমিস্ত্রি আমার মোটরসাইকেল ঠিক করে দিয়েছেন।"
+        },
+        {
+          "front": "hairdresser\n\nI go to the hairdresser every month.",
+          "back": "নাপিত\n\nআমি প্রতি মাসে নাপিতের কাছে যাই।"
+        },
+        {
+          "front": "builder\n\nThe builders are building a new school.",
+          "back": "রাজমিস্ত্রি\n\nরাজমিস্ত্রিরা একটা নতুন স্কুল বানাচ্ছেন।"
+        },
+        {
+          "front": "secretary\n\nThe secretary answers the phone.",
+          "back": "সেক্রেটারি\n\nসেক্রেটারি ফোন ধরেন।"
+        },
+        {
+          "front": "accountant\n\nShe works as an accountant.",
+          "back": "হিসাবরক্ষক\n\nসে হিসাবরক্ষক হিসেবে কাজ করে।"
+        },
+        {
+          "front": "programmer\n\nHe is a computer programmer.",
+          "back": "প্রোগ্রামার\n\nসে একজন কম্পিউটার প্রোগ্রামার।"
+        },
+        {
+          "front": "designer\n\nShe is a fashion designer.",
+          "back": "ডিজাইনার\n\nসে একজন ফ্যাশন ডিজাইনার।"
+        },
+        {
+          "front": "busy\n\nI am busy at work.",
+          "back": "ব্যস্ত\n\nআমি কাজে ব্যস্ত।"
+        },
+        {
+          "front": "free\n\nAre you free tonight?",
+          "back": "ফ্রি\n\nআজ রাতে কি তুমি ফ্রি আছ?\n\nএছাড়াও: অবসর, ফাঁকা"
+        },
+        {
+          "front": "plan\n\nWhat is your plan for today?",
+          "back": "পরিকল্পনা\n\nআজকের জন্য তোমার পরিকল্পনা কী?"
+        },
+        {
+          "front": "project\n\nWe are working on a new project.",
+          "back": "প্রকল্প\n\nআমরা একটা নতুন প্রকল্পে কাজ করছি।"
+        },
+        {
+          "front": "email\n\nPlease send me an email.",
+          "back": "ইমেইল\n\nদয়া করে আমাকে একটা ইমেইল পাঠান।"
+        },
+        {
+          "front": "computer\n\nI use a computer at work.",
+          "back": "কম্পিউটার\n\nআমি কাজে কম্পিউটার ব্যবহার করি।"
+        },
+        {
+          "front": "phone\n\nMy phone is out of battery.",
+          "back": "ফোন\n\nআমার ফোনে চার্জ নেই।"
+        },
+        {
+          "front": "retire\n\nMy father will retire next year.",
+          "back": "অবসর নেওয়া\n\nআমার বাবা আগামী বছর অবসর নেবেন।"
+        },
+        {
+          "front": "earn\n\nShe earns a lot of money.",
+          "back": "আয় করা\n\nসে অনেক টাকা আয় করে।\n\nএছাড়াও: উপার্জন করা, কামানো"
+        },
+        {
+          "front": "hire\n\nThe company will hire ten people.",
+          "back": "নিয়োগ দেওয়া\n\nকোম্পানিটি দশজন লোক নিয়োগ দেবে।\n\nএছাড়াও: নিয়োগ করা"
+        },
+        {
+          "front": "factory\n\nMy mother works in a factory.",
+          "back": "কারখানা\n\nআমার মা একটা কারখানায় কাজ করেন।"
+        },
+        {
+          "front": "shift\n\nI work the night shift.",
+          "back": "শিফট\n\nআমি রাতের শিফটে কাজ করি।"
+        }
+      ]
+    },
+    {
+      "name": "12 শহর ও নানা জায়গা",
+      "cards": [
+        {
+          "front": "city\n\nI live in a big city.",
+          "back": "শহর\n\nআমি একটা বড় শহরে থাকি।"
+        },
+        {
+          "front": "town\n\nI live in a small town.",
+          "back": "শহর\n\nআমি একটা ছোট শহরে থাকি।\n\nএছাড়াও: মফস্বল"
+        },
+        {
+          "front": "village\n\nMy grandparents live in a village.",
+          "back": "গ্রাম\n\nআমার দাদা-দাদি একটা গ্রামে থাকেন।"
+        },
+        {
+          "front": "countryside\n\nThe countryside is quiet.",
+          "back": "গ্রামাঞ্চল\n\nগ্রামাঞ্চল খুব শান্ত।\n\nএছাড়াও: গ্রাম"
+        },
+        {
+          "front": "street\n\nThis street is very busy.",
+          "back": "রাস্তা\n\nএই রাস্তাটায় খুব ভিড়।"
+        },
+        {
+          "front": "road\n\nThe road is wet after the rain.",
+          "back": "রাস্তা\n\nবৃষ্টির পর রাস্তাটা ভেজা।"
+        },
+        {
+          "front": "corner\n\nThe shop is on the corner.",
+          "back": "মোড়\n\nদোকানটা রাস্তার মোড়ে।"
+        },
+        {
+          "front": "bridge\n\nWe walk across the bridge.",
+          "back": "সেতু\n\nআমরা হেঁটে সেতুটা পার হই।\n\nএছাড়াও: ব্রিজ, পুল"
+        },
+        {
+          "front": "park\n\nLet's go to the park.",
+          "back": "পার্ক\n\nচলো পার্কে যাই।"
+        },
+        {
+          "front": "market\n\nMy mother goes to the market every morning.",
+          "back": "বাজার\n\nআমার মা প্রতিদিন সকালে বাজারে যান।"
+        },
+        {
+          "front": "supermarket\n\nI buy milk at the supermarket.",
+          "back": "সুপারশপ\n\nআমি সুপারশপ থেকে দুধ কিনি।\n\nএছাড়াও: সুপারমার্কেট"
+        },
+        {
+          "front": "shop\n\nThe shop closes at nine.",
+          "back": "দোকান\n\nদোকানটা নয়টায় বন্ধ হয়।"
+        },
+        {
+          "front": "mall\n\nWe go to the mall on Sunday.",
+          "back": "শপিং মল\n\nআমরা রবিবার শপিং মলে যাই।"
+        },
+        {
+          "front": "bank\n\nThe bank is next to the post office.",
+          "back": "ব্যাংক\n\nব্যাংকটা ডাকঘরের পাশে।"
+        },
+        {
+          "front": "post office\n\nWhere is the post office?",
+          "back": "ডাকঘর\n\nডাকঘরটা কোথায়?\n\nএছাড়াও: পোস্ট অফিস"
+        },
+        {
+          "front": "police station\n\nThe police station is on this street.",
+          "back": "থানা\n\nথানাটা এই রাস্তাতেই।"
+        },
+        {
+          "front": "museum\n\nThe museum is open on Sunday.",
+          "back": "জাদুঘর\n\nজাদুঘর রবিবার খোলা থাকে।"
+        },
+        {
+          "front": "cinema\n\nLet's go to the cinema tonight.",
+          "back": "সিনেমা হল\n\nচলো আজ রাতে সিনেমা হলে যাই।"
+        },
+        {
+          "front": "theater\n\nWe saw a play at the theater.",
+          "back": "থিয়েটার\n\nআমরা থিয়েটারে একটা নাটক দেখেছি।"
+        },
+        {
+          "front": "church\n\nThere is an old church in the city center.",
+          "back": "গির্জা\n\nশহরের কেন্দ্রে একটা পুরোনো গির্জা আছে।"
+        },
+        {
+          "front": "pagoda\n\nWe visited an old pagoda.",
+          "back": "প্যাগোডা\n\nআমরা একটা পুরোনো প্যাগোডা দেখতে গিয়েছিলাম।"
+        },
+        {
+          "front": "temple\n\nThe temple is very old.",
+          "back": "মন্দির\n\nমন্দিরটা খুব পুরোনো।"
+        },
+        {
+          "front": "zoo\n\nChildren love the zoo.",
+          "back": "চিড়িয়াখানা\n\nবাচ্চারা চিড়িয়াখানা খুব পছন্দ করে।"
+        },
+        {
+          "front": "stadium\n\nThe stadium is full of fans.",
+          "back": "স্টেডিয়াম\n\nস্টেডিয়াম দর্শকে ভরা।"
+        },
+        {
+          "front": "gym\n\nI go to the gym after work.",
+          "back": "জিম\n\nআমি কাজের পর জিমে যাই।"
+        },
+        {
+          "front": "hotel\n\nOur hotel is near the beach.",
+          "back": "হোটেল\n\nআমাদের হোটেলটা সমুদ্রসৈকতের কাছে।"
+        },
+        {
+          "front": "café\n\nLet's meet at the café.",
+          "back": "ক্যাফে\n\nচলো ক্যাফেতে দেখা করি।"
+        },
+        {
+          "front": "building\n\nThat building has thirty floors.",
+          "back": "ভবন\n\nওই ভবনটা ত্রিশ তলা।\n\nএছাড়াও: বিল্ডিং, দালান"
+        },
+        {
+          "front": "tower\n\nYou can see the whole city from the tower.",
+          "back": "টাওয়ার\n\nটাওয়ার থেকে পুরো শহরটা দেখা যায়।"
+        },
+        {
+          "front": "square\n\nThere is a big square in the city center.",
+          "back": "চত্বর\n\nশহরের কেন্দ্রে একটা বড় চত্বর আছে।"
+        },
+        {
+          "front": "parking lot\n\nThe parking lot is full.",
+          "back": "পার্কিং\n\nপার্কিং ভরে গেছে।\n\nব্রিটিশ ইংরেজিতে: car park"
+        },
+        {
+          "front": "gas station\n\nWe need to stop at a gas station.",
+          "back": "পেট্রল পাম্প\n\nআমাদের একটা পেট্রল পাম্পে থামতে হবে।"
+        },
+        {
+          "front": "bus stop\n\nWait for me at the bus stop.",
+          "back": "বাস স্টপ\n\nবাস স্টপে আমার জন্য অপেক্ষা করো।\n\nএছাড়াও: বাসস্ট্যান্ড, স্টপেজ"
+        },
+        {
+          "front": "traffic light\n\nStop at the red traffic light.",
+          "back": "ট্রাফিক সিগন্যাল\n\nট্রাফিক সিগন্যালে লাল বাতি জ্বললে থামো।\n\nএছাড়াও: ট্রাফিক বাতি, সিগন্যাল"
+        },
+        {
+          "front": "crossroads\n\nTurn left at the crossroads.",
+          "back": "চৌরাস্তা\n\nচৌরাস্তায় গিয়ে বামে ঘুরবে।"
+        },
+        {
+          "front": "sidewalk\n\nWalk on the sidewalk.",
+          "back": "ফুটপাত\n\nফুটপাত দিয়ে হাঁটো।\n\nব্রিটিশ ইংরেজিতে: pavement"
+        },
+        {
+          "front": "left\n\nTurn left here.",
+          "back": "বাম\n\nএখানে বামে ঘোরো।"
+        },
+        {
+          "front": "right\n\nThe bank is on the right.",
+          "back": "ডান\n\nব্যাংকটা ডান দিকে।\n\nঅন্য অর্থ: ঠিক, সঠিক"
+        },
+        {
+          "front": "straight\n\nGo straight ahead.",
+          "back": "সোজা\n\nসোজা সামনে যাও।"
+        },
+        {
+          "front": "near\n\nIs there a bank near here?",
+          "back": "কাছে\n\nকাছেই কি কোনো ব্যাংক আছে?"
+        },
+        {
+          "front": "far\n\nMy school is not far from here.",
+          "back": "দূরে\n\nআমার স্কুল এখান থেকে বেশি দূরে নয়।"
+        },
+        {
+          "front": "next to\n\nThe café is next to the bank.",
+          "back": "পাশে\n\nক্যাফেটা ব্যাংকের পাশে।"
+        },
+        {
+          "front": "opposite\n\nThe park is opposite my house.",
+          "back": "উল্টো দিকে\n\nপার্কটা আমার বাড়ির উল্টো দিকে।\n\nএছাড়াও: বিপরীতে"
+        },
+        {
+          "front": "behind\n\nThe garden is behind the house.",
+          "back": "পেছনে\n\nবাগানটা বাড়ির পেছনে।"
+        },
+        {
+          "front": "in front of\n\nWait in front of the school.",
+          "back": "সামনে\n\nস্কুলের সামনে অপেক্ষা করো।"
+        },
+        {
+          "front": "between\n\nThe bank is between the hotel and the café.",
+          "back": "মাঝখানে\n\nব্যাংকটা হোটেল আর ক্যাফের মাঝখানে।"
+        },
+        {
+          "front": "map\n\nCan you show me on the map?",
+          "back": "মানচিত্র\n\nআপনি কি আমাকে মানচিত্রে দেখাতে পারবেন?\n\nএছাড়াও: ম্যাপ"
+        },
+        {
+          "front": "neighborhood\n\nOur neighborhood is quiet.",
+          "back": "পাড়া\n\nআমাদের পাড়াটা খুব শান্ত।\n\nএছাড়াও: মহল্লা, এলাকা"
+        },
+        {
+          "front": "capital\n\nTokyo is the capital of Japan.",
+          "back": "রাজধানী\n\nটোকিও জাপানের রাজধানী।"
+        },
+        {
+          "front": "area\n\nThis area is very safe.",
+          "back": "এলাকা\n\nএই এলাকাটা খুব নিরাপদ।"
+        }
+      ]
+    },
+    {
+      "name": "13 ভ্রমণ",
+      "cards": [
+        {
+          "front": "travel\n\nI love to travel.",
+          "back": "ভ্রমণ করা\n\nআমি ভ্রমণ করতে ভালোবাসি।\n\nএছাড়াও: বেড়ানো, ঘোরা"
+        },
+        {
+          "front": "trip\n\nWe had a great trip to the mountains.",
+          "back": "সফর\n\nপাহাড়ে আমাদের সফরটা দারুণ হয়েছিল।\n\nএছাড়াও: ভ্রমণ, ট্রিপ"
+        },
+        {
+          "front": "tourist\n\nMany tourists visit this beach.",
+          "back": "পর্যটক\n\nঅনেক পর্যটক এই সৈকতে বেড়াতে আসেন।"
+        },
+        {
+          "front": "passport\n\nDon't forget your passport.",
+          "back": "পাসপোর্ট\n\nতোমার পাসপোর্ট নিতে ভুলো না।"
+        },
+        {
+          "front": "visa\n\nI need a visa to visit that country.",
+          "back": "ভিসা\n\nওই দেশে যেতে আমার ভিসা লাগবে।"
+        },
+        {
+          "front": "ticket\n\nI bought two train tickets.",
+          "back": "টিকিট\n\nআমি দুটো ট্রেনের টিকিট কিনেছি।"
+        },
+        {
+          "front": "luggage\n\nHow much luggage do you have?",
+          "back": "মালপত্র\n\nআপনার সাথে কত মালপত্র আছে?"
+        },
+        {
+          "front": "suitcase\n\nMy suitcase is very heavy.",
+          "back": "সুটকেস\n\nআমার সুটকেসটা খুব ভারী।"
+        },
+        {
+          "front": "airport\n\nWe arrived at the airport early.",
+          "back": "বিমানবন্দর\n\nআমরা তাড়াতাড়ি বিমানবন্দরে পৌঁছেছিলাম।"
+        },
+        {
+          "front": "plane\n\nThe plane leaves at ten.",
+          "back": "বিমান\n\nবিমানটা দশটায় ছাড়বে।"
+        },
+        {
+          "front": "flight\n\nOur flight is two hours late.",
+          "back": "ফ্লাইট\n\nআমাদের ফ্লাইট দুই ঘণ্টা দেরিতে।"
+        },
+        {
+          "front": "train\n\nThe train is slow but cheap.",
+          "back": "ট্রেন\n\nট্রেন ধীরে চলে, কিন্তু ভাড়া কম।"
+        },
+        {
+          "front": "station\n\nThe train station is near my house.",
+          "back": "স্টেশন\n\nরেলস্টেশনটা আমার বাড়ির কাছে।"
+        },
+        {
+          "front": "bus\n\nI take the bus to school.",
+          "back": "বাস\n\nআমি বাসে করে স্কুলে যাই।"
+        },
+        {
+          "front": "taxi\n\nLet's take a taxi.",
+          "back": "ট্যাক্সি\n\nচলো একটা ট্যাক্সি নিই।"
+        },
+        {
+          "front": "car\n\nMy father drives an old car.",
+          "back": "গাড়ি\n\nআমার বাবা একটা পুরোনো গাড়ি চালান।"
+        },
+        {
+          "front": "motorbike\n\nMy brother has a red motorbike.",
+          "back": "মোটরসাইকেল\n\nআমার ভাইয়ের একটা লাল মোটরসাইকেল আছে।"
+        },
+        {
+          "front": "bicycle\n\nI ride my bicycle to school.",
+          "back": "সাইকেল\n\nআমি সাইকেল চালিয়ে স্কুলে যাই।"
+        },
+        {
+          "front": "boat\n\nWe crossed the river by boat.",
+          "back": "নৌকা\n\nআমরা নৌকায় করে নদী পার হয়েছিলাম।"
+        },
+        {
+          "front": "ship\n\nThe ship is very big.",
+          "back": "জাহাজ\n\nজাহাজটা অনেক বড়।"
+        },
+        {
+          "front": "helmet\n\nAlways wear a helmet.",
+          "back": "হেলমেট\n\nসবসময় হেলমেট পরবে।"
+        },
+        {
+          "front": "seat\n\nIs this seat free?",
+          "back": "সিট\n\nএই সিটটা কি খালি?"
+        },
+        {
+          "front": "drive\n\nCan you drive a car?",
+          "back": "গাড়ি চালানো\n\nতুমি কি গাড়ি চালাতে পারো?\n\nএছাড়াও: চালানো"
+        },
+        {
+          "front": "ride\n\nI ride a motorbike to work.",
+          "back": "চড়া\n\nআমি মোটরসাইকেলে চড়ে কাজে যাই।\n\nএছাড়াও: চালানো"
+        },
+        {
+          "front": "walk\n\nI walk to school every day.",
+          "back": "হাঁটা\n\nআমি প্রতিদিন হেঁটে স্কুলে যাই।"
+        },
+        {
+          "front": "go\n\nWhere are you going?",
+          "back": "যাওয়া\n\nতুমি কোথায় যাচ্ছ?"
+        },
+        {
+          "front": "come\n\nCan you come to my party?",
+          "back": "আসা\n\nতুমি কি আমার পার্টিতে আসতে পারবে?"
+        },
+        {
+          "front": "arrive\n\nWe arrived at the hotel at noon.",
+          "back": "পৌঁছানো\n\nআমরা দুপুরে হোটেলে পৌঁছেছিলাম।"
+        },
+        {
+          "front": "leave\n\nThe bus leaves at seven.",
+          "back": "ছেড়ে যাওয়া\n\nবাস সাতটায় ছাড়ে।\n\nএছাড়াও: রওনা দেওয়া, ছাড়া"
+        },
+        {
+          "front": "return\n\nWe return home on Sunday.",
+          "back": "ফেরা\n\nআমরা রবিবার বাড়ি ফিরব।\n\nএছাড়াও: ফিরে আসা, ফিরে যাওয়া"
+        },
+        {
+          "front": "wait\n\nPlease wait for me.",
+          "back": "অপেক্ষা করা\n\nদয়া করে আমার জন্য অপেক্ষা করুন।"
+        },
+        {
+          "front": "stop\n\nThe bus stops here.",
+          "back": "থামা\n\nবাস এখানে থামে।"
+        },
+        {
+          "front": "fast\n\nThis train is very fast.",
+          "back": "দ্রুত\n\nএই ট্রেনটা খুব দ্রুত চলে।"
+        },
+        {
+          "front": "slow\n\nThe traffic is slow today.",
+          "back": "ধীর\n\nআজ রাস্তায় গাড়ি ধীরে চলছে।\n\nএছাড়াও: ধীরে, আস্তে"
+        },
+        {
+          "front": "traffic\n\nThere is a lot of traffic in the city.",
+          "back": "যানবাহন\n\nশহরে অনেক যানবাহন।"
+        },
+        {
+          "front": "traffic jam\n\nWe were stuck in a traffic jam.",
+          "back": "যানজট\n\nআমরা যানজটে আটকে ছিলাম।\n\nএছাড়াও: জ্যাম"
+        },
+        {
+          "front": "beach\n\nLet's go to the beach.",
+          "back": "সমুদ্রসৈকত\n\nচলো সমুদ্রসৈকতে যাই।\n\nএছাড়াও: সৈকত, বিচ"
+        },
+        {
+          "front": "island\n\nThis island has beautiful beaches.",
+          "back": "দ্বীপ\n\nএই দ্বীপে সুন্দর সুন্দর সৈকত আছে।"
+        },
+        {
+          "front": "reserve\n\nI want to reserve a room.",
+          "back": "বুক করা\n\nআমি একটা রুম বুক করতে চাই।"
+        },
+        {
+          "front": "guide\n\nOur guide speaks good English.",
+          "back": "গাইড\n\nআমাদের গাইড ভালো ইংরেজি বলেন।"
+        },
+        {
+          "front": "camera\n\nI brought my camera.",
+          "back": "ক্যামেরা\n\nআমি আমার ক্যামেরা নিয়ে এসেছি।"
+        },
+        {
+          "front": "photo\n\nCan you take a photo of us?",
+          "back": "ছবি\n\nআপনি কি আমাদের একটা ছবি তুলে দেবেন?"
+        },
+        {
+          "front": "souvenir\n\nI bought a souvenir for my friend.",
+          "back": "স্মারক\n\nআমি বন্ধুর জন্য একটা স্মারক কিনেছি।"
+        },
+        {
+          "front": "abroad\n\nShe wants to study abroad.",
+          "back": "বিদেশে\n\nসে বিদেশে পড়াশোনা করতে চায়।"
+        },
+        {
+          "front": "country\n\nWhich country are you from?",
+          "back": "দেশ\n\nতুমি কোন দেশ থেকে এসেছ?"
+        },
+        {
+          "front": "foreigner\n\nMany foreigners live in this city.",
+          "back": "বিদেশি\n\nএই শহরে অনেক বিদেশি থাকেন।"
+        },
+        {
+          "front": "tour\n\nWe took a city tour.",
+          "back": "ট্যুর\n\nআমরা শহর ঘুরে দেখার একটা ট্যুরে গিয়েছিলাম।"
+        },
+        {
+          "front": "journey\n\nThe journey takes three hours.",
+          "back": "যাত্রা\n\nযাত্রায় তিন ঘণ্টা লাগে।"
+        },
+        {
+          "front": "petrol\n\nThe motorbike needs petrol.",
+          "back": "পেট্রল\n\nমোটরসাইকেলে পেট্রল লাগবে।\n\nআমেরিকান ইংরেজিতে: gas"
+        },
+        {
+          "front": "lost\n\nWe are lost.",
+          "back": "পথ হারানো\n\nআমরা পথ হারিয়ে ফেলেছি।\n\nএছাড়াও: হারিয়ে যাওয়া"
+        }
+      ]
+    },
+    {
+      "name": "14 কেনাকাটা ও টাকা",
+      "cards": [
+        {
+          "front": "money\n\nI don't have much money.",
+          "back": "টাকা\n\nআমার কাছে বেশি টাকা নেই।"
+        },
+        {
+          "front": "cash\n\nCan I pay in cash?",
+          "back": "নগদ টাকা\n\nআমি কি নগদ টাকায় দিতে পারি?\n\nএছাড়াও: নগদ, ক্যাশ"
+        },
+        {
+          "front": "credit card\n\nDo you take credit cards?",
+          "back": "ক্রেডিট কার্ড\n\nআপনারা কি ক্রেডিট কার্ড নেন?"
+        },
+        {
+          "front": "price\n\nThe price is too high.",
+          "back": "দাম\n\nদামটা অনেক বেশি।\n\nএছাড়াও: মূল্য"
+        },
+        {
+          "front": "cheap\n\nThis shirt is very cheap.",
+          "back": "সস্তা\n\nএই শার্টটা খুব সস্তা।"
+        },
+        {
+          "front": "expensive\n\nThis phone is too expensive.",
+          "back": "দামি\n\nএই ফোনটা খুব বেশি দামি।"
+        },
+        {
+          "front": "buy\n\nI want to buy a new bag.",
+          "back": "কেনা\n\nআমি একটা নতুন ব্যাগ কিনতে চাই।"
+        },
+        {
+          "front": "sell\n\nThey sell fruit at the market.",
+          "back": "বিক্রি করা\n\nতারা বাজারে ফল বিক্রি করে।"
+        },
+        {
+          "front": "pay\n\nCan I pay by card?",
+          "back": "টাকা দেওয়া\n\nআমি কি কার্ডে টাকা দিতে পারি?\n\nএছাড়াও: পরিশোধ করা"
+        },
+        {
+          "front": "cost\n\nHow much does it cost?",
+          "back": "দাম পড়া\n\nএটার দাম কত পড়বে?\n\nএছাড়াও: খরচ হওয়া"
+        },
+        {
+          "front": "change\n\nHere is your change.",
+          "back": "খুচরা\n\nএই নিন আপনার খুচরা টাকা।\n\nঅন্য অর্থ: পরিবর্তন"
+        },
+        {
+          "front": "discount\n\nCan I get a discount?",
+          "back": "ছাড়\n\nআমি কি কিছু ছাড় পেতে পারি?"
+        },
+        {
+          "front": "sale\n\nEverything is on sale today.",
+          "back": "সেল\n\nআজ সবকিছুতে সেল চলছে।"
+        },
+        {
+          "front": "receipt\n\nCan I have a receipt, please?",
+          "back": "রসিদ\n\nদয়া করে আমাকে একটা রসিদ দেবেন?"
+        },
+        {
+          "front": "shopping\n\nI go shopping on Saturday.",
+          "back": "কেনাকাটা\n\nআমি শনিবার কেনাকাটা করতে যাই।"
+        },
+        {
+          "front": "seller\n\nThe seller was very friendly.",
+          "back": "বিক্রেতা\n\nবিক্রেতা খুব মিশুক ছিলেন।"
+        },
+        {
+          "front": "queue\n\nThere is a long queue.",
+          "back": "লাইন\n\nঅনেক লম্বা লাইন।"
+        },
+        {
+          "front": "basket\n\nPut the fruit in the basket.",
+          "back": "ঝুড়ি\n\nফলগুলো ঝুড়িতে রাখো।"
+        },
+        {
+          "front": "brand\n\nWhat is your favorite brand?",
+          "back": "ব্র্যান্ড\n\nতোমার প্রিয় ব্র্যান্ড কোনটা?"
+        },
+        {
+          "front": "quality\n\nThese shoes are good quality.",
+          "back": "মান\n\nএই জুতাগুলোর মান ভালো।"
+        },
+        {
+          "front": "gift\n\nThis is a gift for you.",
+          "back": "উপহার\n\nএটা তোমার জন্য একটা উপহার।"
+        },
+        {
+          "front": "wallet\n\nI left my wallet at home.",
+          "back": "মানিব্যাগ\n\nআমি আমার মানিব্যাগ বাসায় ফেলে এসেছি।"
+        },
+        {
+          "front": "coin\n\nI have some coins in my pocket.",
+          "back": "কয়েন\n\nআমার পকেটে কয়েকটা কয়েন আছে।\n\nএছাড়াও: মুদ্রা, পয়সা"
+        },
+        {
+          "front": "banknote\n\nThis is a new banknote.",
+          "back": "নোট\n\nএটা একটা নতুন নোট।"
+        },
+        {
+          "front": "ATM\n\nIs there an ATM near here?",
+          "back": "এটিএম\n\nকাছাকাছি কোনো এটিএম আছে?"
+        },
+        {
+          "front": "save\n\nI save money every month.",
+          "back": "জমানো\n\nআমি প্রতি মাসে টাকা জমাই।\n\nএছাড়াও: সঞ্চয় করা"
+        },
+        {
+          "front": "spend\n\nI spend too much money on clothes.",
+          "back": "খরচ করা\n\nআমি জামাকাপড়ের পেছনে অনেক বেশি টাকা খরচ করি।"
+        },
+        {
+          "front": "borrow\n\nCan I borrow your book?",
+          "back": "ধার নেওয়া\n\nআমি কি তোমার বইটা ধার নিতে পারি?"
+        },
+        {
+          "front": "lend\n\nCan you lend me your bike?",
+          "back": "ধার দেওয়া\n\nতুমি কি আমাকে তোমার সাইকেলটা ধার দেবে?"
+        },
+        {
+          "front": "owe\n\nI owe you a coffee.",
+          "back": "ঋণী থাকা\n\nতোমার একটা কফি পাওনা রইল।\n\nএছাড়াও: দেনা থাকা, ধার থাকা"
+        },
+        {
+          "front": "rich\n\nHe is very rich.",
+          "back": "ধনী\n\nতিনি খুব ধনী।"
+        },
+        {
+          "front": "poor\n\nThey are poor but happy.",
+          "back": "গরিব\n\nতারা গরিব, কিন্তু সুখী।"
+        },
+        {
+          "front": "bargain\n\nYou can bargain at the market.",
+          "back": "দরদাম করা\n\nবাজারে তুমি দরদাম করতে পারো।\n\nএছাড়াও: দামাদামি করা"
+        },
+        {
+          "front": "enough\n\nI don't have enough money.",
+          "back": "যথেষ্ট\n\nআমার কাছে যথেষ্ট টাকা নেই।"
+        },
+        {
+          "front": "too much\n\nThis is too much for me.",
+          "back": "অনেক বেশি\n\nএটা আমার জন্য অনেক বেশি।"
+        },
+        {
+          "front": "total\n\nWhat is the total?",
+          "back": "মোট\n\nমোট কত হলো?"
+        },
+        {
+          "front": "online\n\nI buy books online.",
+          "back": "অনলাইনে\n\nআমি অনলাইনে বই কিনি।"
+        },
+        {
+          "front": "delivery\n\nIs delivery free?",
+          "back": "ডেলিভারি\n\nডেলিভারি কি ফ্রি?"
+        },
+        {
+          "front": "counter\n\nPlease pay at the counter.",
+          "back": "কাউন্টার\n\nদয়া করে কাউন্টারে টাকা দিন।"
+        },
+        {
+          "front": "cart\n\nPut it in the cart.",
+          "back": "ট্রলি\n\nএটা ট্রলিতে রাখো।"
+        },
+        {
+          "front": "pair\n\nI bought a pair of shoes.",
+          "back": "জোড়া\n\nআমি এক জোড়া জুতা কিনেছি।"
+        },
+        {
+          "front": "dollar\n\nIt costs ten dollars.",
+          "back": "ডলার\n\nএটার দাম দশ ডলার।"
+        },
+        {
+          "front": "worth\n\nThis car is worth a lot of money.",
+          "back": "মূল্য\n\nএই গাড়িটার মূল্য অনেক টাকা।"
+        },
+        {
+          "front": "afford\n\nI can't afford a new car.",
+          "back": "সামর্থ্য থাকা\n\nনতুন গাড়ি কেনার সামর্থ্য আমার নেই।"
+        },
+        {
+          "front": "choose\n\nChoose one color.",
+          "back": "বেছে নেওয়া\n\nএকটা রং বেছে নাও।"
+        },
+        {
+          "front": "want\n\nI want a new phone.",
+          "back": "চাওয়া\n\nআমি একটা নতুন ফোন চাই।"
+        },
+        {
+          "front": "need\n\nI need some help.",
+          "back": "দরকার\n\nআমার একটু সাহায্য দরকার।\n\nএছাড়াও: প্রয়োজন"
+        },
+        {
+          "front": "compare\n\nCompare the prices first.",
+          "back": "তুলনা করা\n\nআগে দামগুলো তুলনা করে দেখো।"
+        },
+        {
+          "front": "sold out\n\nThe tickets are sold out.",
+          "back": "বিক্রি শেষ\n\nটিকিট সব বিক্রি হয়ে গেছে।"
+        },
+        {
+          "front": "package\n\nA package arrived for you.",
+          "back": "পার্সেল\n\nতোমার জন্য একটা পার্সেল এসেছে।"
+        }
+      ]
+    },
+    {
+      "name": "15 আবহাওয়া ও প্রকৃতি",
+      "cards": [
+        {
+          "front": "weather\n\nThe weather is nice today.",
+          "back": "আবহাওয়া\n\nআজ আবহাওয়া ভালো।"
+        },
+        {
+          "front": "sun\n\nThe sun rises in the east.",
+          "back": "সূর্য\n\nসূর্য পূর্ব দিকে ওঠে।"
+        },
+        {
+          "front": "moon\n\nThe moon is full tonight.",
+          "back": "চাঁদ\n\nআজ রাতে আকাশে পূর্ণ চাঁদ।"
+        },
+        {
+          "front": "star\n\nI can see many stars tonight.",
+          "back": "তারা\n\nআজ রাতে আমি অনেক তারা দেখতে পাচ্ছি।"
+        },
+        {
+          "front": "sky\n\nThe sky is clear.",
+          "back": "আকাশ\n\nআকাশ পরিষ্কার।"
+        },
+        {
+          "front": "cloud\n\nThere are no clouds today.",
+          "back": "মেঘ\n\nআজ আকাশে কোনো মেঘ নেই।"
+        },
+        {
+          "front": "rain\n\nIt will rain tomorrow.",
+          "back": "বৃষ্টি\n\nআগামীকাল বৃষ্টি হবে।"
+        },
+        {
+          "front": "snow\n\nThe mountains are covered in snow.",
+          "back": "তুষার\n\nপাহাড়গুলো তুষারে ঢাকা।\n\nএছাড়াও: বরফ"
+        },
+        {
+          "front": "wind\n\nThe wind is very strong.",
+          "back": "বাতাস\n\nবাতাস খুব জোরে বইছে।"
+        },
+        {
+          "front": "storm\n\nA big storm is coming.",
+          "back": "ঝড়\n\nএকটা বড় ঝড় আসছে।"
+        },
+        {
+          "front": "thunder\n\nI heard thunder last night.",
+          "back": "মেঘের গর্জন\n\nকাল রাতে আমি মেঘের গর্জন শুনেছি।\n\nএছাড়াও: বজ্রধ্বনি, বাজ"
+        },
+        {
+          "front": "lightning\n\nLightning lit up the sky.",
+          "back": "বিদ্যুৎ চমক\n\nবিদ্যুৎ চমকে আকাশ আলোকিত হয়ে গেল।\n\nএছাড়াও: বিজলি, বজ্রপাত"
+        },
+        {
+          "front": "flood\n\nThe flood damaged many houses.",
+          "back": "বন্যা\n\nবন্যায় অনেক বাড়িঘরের ক্ষতি হয়েছে।"
+        },
+        {
+          "front": "sunny\n\nIt is sunny today.",
+          "back": "রোদেলা\n\nআজ দিনটা রোদেলা।"
+        },
+        {
+          "front": "rainy\n\nTomorrow will be rainy.",
+          "back": "বৃষ্টিমুখর\n\nআগামীকাল দিনটা বৃষ্টিমুখর থাকবে।"
+        },
+        {
+          "front": "cloudy\n\nIt is cloudy this morning.",
+          "back": "মেঘলা\n\nআজ সকালের আকাশ মেঘলা।"
+        },
+        {
+          "front": "windy\n\nIt is windy by the sea.",
+          "back": "অনেক বাতাস\n\nসমুদ্রের ধারে অনেক বাতাস।"
+        },
+        {
+          "front": "warm\n\nIt is warm in spring.",
+          "back": "উষ্ণ\n\nবসন্তকালে আবহাওয়া উষ্ণ থাকে।"
+        },
+        {
+          "front": "cool\n\nThe evening is cool.",
+          "back": "শীতল\n\nসন্ধ্যাটা বেশ শীতল।\n\nএছাড়াও: ঠান্ডা, হালকা ঠান্ডা"
+        },
+        {
+          "front": "temperature\n\nThe temperature is 35 degrees.",
+          "back": "তাপমাত্রা\n\nতাপমাত্রা 35 ডিগ্রি।"
+        },
+        {
+          "front": "degree\n\nIt is 20 degrees outside.",
+          "back": "ডিগ্রি\n\nবাইরে 20 ডিগ্রি।"
+        },
+        {
+          "front": "wet\n\nMy shoes are wet.",
+          "back": "ভেজা\n\nআমার জুতা ভেজা।"
+        },
+        {
+          "front": "dry\n\nThe clothes are dry now.",
+          "back": "শুকনো\n\nজামাকাপড়গুলো এখন শুকনো।"
+        },
+        {
+          "front": "nature\n\nI love nature.",
+          "back": "প্রকৃতি\n\nআমি প্রকৃতি ভালোবাসি।"
+        },
+        {
+          "front": "tree\n\nThere is a big tree in the garden.",
+          "back": "গাছ\n\nবাগানে একটা বড় গাছ আছে।"
+        },
+        {
+          "front": "flower\n\nShe gave me flowers.",
+          "back": "ফুল\n\nসে আমাকে ফুল দিয়েছে।"
+        },
+        {
+          "front": "grass\n\nThe grass is green.",
+          "back": "ঘাস\n\nঘাস সবুজ।"
+        },
+        {
+          "front": "leaf\n\nLeaves fall in autumn.",
+          "back": "পাতা\n\nশরৎকালে গাছের পাতা ঝরে।"
+        },
+        {
+          "front": "forest\n\nMany animals live in the forest.",
+          "back": "বন\n\nবনে অনেক প্রাণী থাকে।\n\nএছাড়াও: জঙ্গল, অরণ্য"
+        },
+        {
+          "front": "mountain\n\nEverest is the highest mountain in the world.",
+          "back": "পর্বত\n\nএভারেস্ট পৃথিবীর সবচেয়ে উঁচু পর্বত।\n\nএছাড়াও: পাহাড়"
+        },
+        {
+          "front": "hill\n\nThere is a house on the hill.",
+          "back": "টিলা\n\nটিলার ওপর একটা বাড়ি আছে।\n\nএছাড়াও: পাহাড়"
+        },
+        {
+          "front": "river\n\nA river flows through our town.",
+          "back": "নদী\n\nআমাদের শহরের মধ্য দিয়ে একটা নদী বয়ে গেছে।"
+        },
+        {
+          "front": "lake\n\nWe walk around the lake.",
+          "back": "হ্রদ\n\nআমরা হ্রদের চারপাশে হাঁটি।"
+        },
+        {
+          "front": "sea\n\nThe sea is blue.",
+          "back": "সমুদ্র\n\nসমুদ্র নীল।\n\nএছাড়াও: সাগর"
+        },
+        {
+          "front": "ocean\n\nThe Pacific is the largest ocean.",
+          "back": "মহাসাগর\n\nপ্রশান্ত মহাসাগর সবচেয়ে বড় মহাসাগর।"
+        },
+        {
+          "front": "sand\n\nChildren play in the sand.",
+          "back": "বালি\n\nবাচ্চারা বালিতে খেলছে।"
+        },
+        {
+          "front": "stone\n\nThe house is made of stone.",
+          "back": "পাথর\n\nবাড়িটা পাথরের তৈরি।"
+        },
+        {
+          "front": "earth\n\nThe earth goes around the sun.",
+          "back": "পৃথিবী\n\nপৃথিবী সূর্যের চারপাশে ঘোরে।"
+        },
+        {
+          "front": "land\n\nThis land is good for farming.",
+          "back": "জমি\n\nএই জমি চাষের জন্য ভালো।"
+        },
+        {
+          "front": "field\n\nCows eat grass in the field.",
+          "back": "মাঠ\n\nগরু মাঠে ঘাস খায়।"
+        },
+        {
+          "front": "air\n\nFresh air is good for you.",
+          "back": "বাতাস\n\nনির্মল বাতাস শরীরের জন্য ভালো।"
+        },
+        {
+          "front": "fire\n\nDon't play with fire.",
+          "back": "আগুন\n\nআগুন নিয়ে খেলো না।"
+        },
+        {
+          "front": "environment\n\nWe must protect the environment.",
+          "back": "পরিবেশ\n\nআমাদের পরিবেশ রক্ষা করতে হবে।"
+        },
+        {
+          "front": "pollution\n\nAir pollution is a big problem.",
+          "back": "দূষণ\n\nবায়ুদূষণ একটা বড় সমস্যা।"
+        },
+        {
+          "front": "plant\n\nI plant trees with my father.",
+          "back": "গাছ লাগানো\n\nআমি বাবার সাথে গাছ লাগাই।\n\nএছাড়াও: লাগানো, রোপণ করা"
+        },
+        {
+          "front": "recycle\n\nWe recycle bottles and paper.",
+          "back": "পুনর্ব্যবহার করা\n\nআমরা বোতল আর কাগজ পুনর্ব্যবহার করি।"
+        },
+        {
+          "front": "waterfall\n\nThe waterfall is beautiful.",
+          "back": "জলপ্রপাত\n\nজলপ্রপাতটা খুব সুন্দর।\n\nএছাড়াও: ঝরনা, ঝর্ণা"
+        },
+        {
+          "front": "cave\n\nThere are many caves in these mountains.",
+          "back": "গুহা\n\nএই পাহাড়গুলোতে অনেক গুহা আছে।"
+        },
+        {
+          "front": "desert\n\nIt rarely rains in the desert.",
+          "back": "মরুভূমি\n\nমরুভূমিতে খুব কম বৃষ্টি হয়।"
+        },
+        {
+          "front": "rainbow\n\nLook, a rainbow!",
+          "back": "রংধনু\n\nদেখো, রংধনু!\n\nপশ্চিমবঙ্গে: রামধনু"
+        }
+      ]
+    },
+    {
+      "name": "16 পশুপাখি",
+      "cards": [
+        {
+          "front": "animal\n\nWhat is your favorite animal?",
+          "back": "প্রাণী\n\nতোমার প্রিয় প্রাণী কোনটা?\n\nএছাড়াও: পশু, জন্তু"
+        },
+        {
+          "front": "dog\n\nThe dog is barking.",
+          "back": "কুকুর\n\nকুকুরটা ঘেউ ঘেউ করছে।"
+        },
+        {
+          "front": "cat\n\nMy cat sleeps all day.",
+          "back": "বিড়াল\n\nআমার বিড়ালটা সারাদিন ঘুমায়।"
+        },
+        {
+          "front": "bird\n\nBirds can fly.",
+          "back": "পাখি\n\nপাখিরা উড়তে পারে।"
+        },
+        {
+          "front": "hen\n\nThe hen lays an egg every day.",
+          "back": "মুরগি\n\nমুরগিটা প্রতিদিন একটা করে ডিম পাড়ে।"
+        },
+        {
+          "front": "rooster\n\nThe rooster wakes us up.",
+          "back": "মোরগ\n\nমোরগ আমাদের ঘুম ভাঙায়।"
+        },
+        {
+          "front": "duck\n\nDucks swim in the pond.",
+          "back": "হাঁস\n\nহাঁসগুলো পুকুরে সাঁতার কাটে।"
+        },
+        {
+          "front": "pig\n\nThe pig is very fat.",
+          "back": "শূকর\n\nশূকরটা খুব মোটা।"
+        },
+        {
+          "front": "cow\n\nCows give milk.",
+          "back": "গরু\n\nগরু দুধ দেয়।"
+        },
+        {
+          "front": "buffalo\n\nFarmers use buffaloes in the rice fields.",
+          "back": "মহিষ\n\nকৃষকেরা ধানখেতে মহিষ ব্যবহার করেন।"
+        },
+        {
+          "front": "horse\n\nHe rides a horse.",
+          "back": "ঘোড়া\n\nসে ঘোড়ায় চড়ে।"
+        },
+        {
+          "front": "goat\n\nGoats live in the mountains.",
+          "back": "ছাগল\n\nছাগল পাহাড়ি এলাকায় থাকে।"
+        },
+        {
+          "front": "sheep\n\nSheep give us wool.",
+          "back": "ভেড়া\n\nভেড়া থেকে আমরা উল পাই।"
+        },
+        {
+          "front": "rabbit\n\nThe rabbit eats carrots.",
+          "back": "খরগোশ\n\nখরগোশটা গাজর খায়।"
+        },
+        {
+          "front": "mouse\n\nThere is a mouse in the kitchen.",
+          "back": "ইঁদুর\n\nরান্নাঘরে একটা ইঁদুর আছে।"
+        },
+        {
+          "front": "elephant\n\nElephants are very big.",
+          "back": "হাতি\n\nহাতি অনেক বড়।"
+        },
+        {
+          "front": "tiger\n\nTigers are dangerous.",
+          "back": "বাঘ\n\nবাঘ খুব বিপজ্জনক।"
+        },
+        {
+          "front": "lion\n\nThe lion is the king of animals.",
+          "back": "সিংহ\n\nসিংহ হলো পশুদের রাজা।"
+        },
+        {
+          "front": "monkey\n\nMonkeys climb trees.",
+          "back": "বানর\n\nবানর গাছে চড়ে।\n\nপশ্চিমবঙ্গে: বাঁদর"
+        },
+        {
+          "front": "bear\n\nBears love honey.",
+          "back": "ভালুক\n\nভালুক মধু খুব ভালোবাসে।"
+        },
+        {
+          "front": "snake\n\nI am afraid of snakes.",
+          "back": "সাপ\n\nআমি সাপ ভয় পাই।"
+        },
+        {
+          "front": "frog\n\nFrogs live near water.",
+          "back": "ব্যাঙ\n\nব্যাঙ পানির কাছে থাকে।"
+        },
+        {
+          "front": "turtle\n\nTurtles move slowly.",
+          "back": "কচ্ছপ\n\nকচ্ছপ ধীরে চলে।"
+        },
+        {
+          "front": "crocodile\n\nCrocodiles live in rivers.",
+          "back": "কুমির\n\nকুমির নদীতে থাকে।"
+        },
+        {
+          "front": "giraffe\n\nThe giraffe eats leaves from tall trees.",
+          "back": "জিরাফ\n\nজিরাফ উঁচু গাছের পাতা খায়।"
+        },
+        {
+          "front": "zebra\n\nZebras have black and white stripes.",
+          "back": "জেব্রা\n\nজেব্রার গায়ে কালো আর সাদা ডোরা থাকে।"
+        },
+        {
+          "front": "deer\n\nWe saw a deer in the forest.",
+          "back": "হরিণ\n\nআমরা বনে একটা হরিণ দেখেছি।"
+        },
+        {
+          "front": "fox\n\nThe fox is very clever.",
+          "back": "শিয়াল\n\nশিয়াল খুব চালাক।"
+        },
+        {
+          "front": "wolf\n\nWolves live in groups.",
+          "back": "নেকড়ে\n\nনেকড়েরা দল বেঁধে থাকে।"
+        },
+        {
+          "front": "dolphin\n\nDolphins are very smart.",
+          "back": "ডলফিন\n\nডলফিন খুব বুদ্ধিমান।"
+        },
+        {
+          "front": "whale\n\nThe blue whale is the biggest animal.",
+          "back": "তিমি\n\nনীল তিমি সবচেয়ে বড় প্রাণী।"
+        },
+        {
+          "front": "shark\n\nSharks have sharp teeth.",
+          "back": "হাঙর\n\nহাঙরের দাঁত খুব ধারালো।"
+        },
+        {
+          "front": "octopus\n\nAn octopus has eight arms.",
+          "back": "অক্টোপাস\n\nঅক্টোপাসের আটটা বাহু থাকে।"
+        },
+        {
+          "front": "butterfly\n\nA butterfly is on the flower.",
+          "back": "প্রজাপতি\n\nফুলের ওপর একটা প্রজাপতি বসে আছে।"
+        },
+        {
+          "front": "bee\n\nBees make honey.",
+          "back": "মৌমাছি\n\nমৌমাছি মধু তৈরি করে।"
+        },
+        {
+          "front": "ant\n\nAnts are very small.",
+          "back": "পিঁপড়া\n\nপিঁপড়া খুব ছোট।"
+        },
+        {
+          "front": "mosquito\n\nMosquitoes bite at night.",
+          "back": "মশা\n\nমশা রাতে কামড়ায়।"
+        },
+        {
+          "front": "spider\n\nThere is a spider on the wall.",
+          "back": "মাকড়সা\n\nদেয়ালে একটা মাকড়সা আছে।"
+        },
+        {
+          "front": "insect\n\nMany insects live in the grass.",
+          "back": "পোকা\n\nঘাসের মধ্যে অনেক পোকা থাকে।"
+        },
+        {
+          "front": "pet\n\nDo you have a pet?",
+          "back": "পোষা প্রাণী\n\nতোমার কি কোনো পোষা প্রাণী আছে?"
+        },
+        {
+          "front": "tail\n\nThe dog wags its tail.",
+          "back": "লেজ\n\nকুকুরটা লেজ নাড়ছে।"
+        },
+        {
+          "front": "wing\n\nBirds have two wings.",
+          "back": "ডানা\n\nপাখির দুটো ডানা থাকে।"
+        },
+        {
+          "front": "feather\n\nThis bird has blue feathers.",
+          "back": "পালক\n\nএই পাখিটার পালক নীল।"
+        },
+        {
+          "front": "farm\n\nThey keep chickens on the farm.",
+          "back": "খামার\n\nতারা খামারে মুরগি পালে।"
+        },
+        {
+          "front": "wild\n\nTigers are wild animals.",
+          "back": "বন্য\n\nবাঘ বন্য প্রাণী।"
+        },
+        {
+          "front": "feed\n\nDon't feed the animals.",
+          "back": "খাওয়ানো\n\nপ্রাণীদের খাবার দেবেন না।\n\nএছাড়াও: খাবার দেওয়া"
+        },
+        {
+          "front": "bark\n\nThe dog barks at strangers.",
+          "back": "ঘেউ ঘেউ করা\n\nকুকুরটা অচেনা লোক দেখলে ঘেউ ঘেউ করে।"
+        },
+        {
+          "front": "nest\n\nThe bird is building a nest.",
+          "back": "বাসা\n\nপাখিটা বাসা বানাচ্ছে।"
+        },
+        {
+          "front": "kitten\n\nThe kitten is playing with a ball.",
+          "back": "বিড়ালছানা\n\nবিড়ালছানাটা একটা বল নিয়ে খেলছে।"
+        },
+        {
+          "front": "puppy\n\nWe got a new puppy.",
+          "back": "কুকুরছানা\n\nআমরা একটা নতুন কুকুরছানা এনেছি।"
+        }
+      ]
+    },
+    {
+      "name": "17 অনুভূতি ও স্বভাব",
+      "cards": [
+        {
+          "front": "happy\n\nI am happy today.",
+          "back": "খুশি\n\nআজ আমি খুশি।\n\nএছাড়াও: সুখী, আনন্দিত"
+        },
+        {
+          "front": "sad\n\nThe movie made me sad.",
+          "back": "দুঃখী\n\nসিনেমাটা দেখে আমার মন খারাপ হয়ে গেল।\n\nএছাড়াও: মন খারাপ"
+        },
+        {
+          "front": "angry\n\nMy father is angry with me.",
+          "back": "রাগান্বিত\n\nবাবা আমার ওপর রেগে আছেন।"
+        },
+        {
+          "front": "afraid\n\nI am afraid of the dark.",
+          "back": "ভয় পাওয়া\n\nআমি অন্ধকারকে ভয় পাই।\n\nএছাড়াও: ভীত"
+        },
+        {
+          "front": "worried\n\nMy mother is worried about me.",
+          "back": "চিন্তিত\n\nমা আমাকে নিয়ে চিন্তিত।"
+        },
+        {
+          "front": "excited\n\nI am excited about the trip.",
+          "back": "উৎসাহিত\n\nভ্রমণটা নিয়ে আমি খুব উৎসাহিত।"
+        },
+        {
+          "front": "bored\n\nI am bored at home.",
+          "back": "একঘেয়ে লাগা\n\nবাসায় আমার একঘেয়ে লাগছে।\n\nএছাড়াও: বিরক্ত, বোর"
+        },
+        {
+          "front": "surprised\n\nI was surprised by the news.",
+          "back": "অবাক\n\nখবরটা শুনে আমি অবাক হয়েছিলাম।"
+        },
+        {
+          "front": "nervous\n\nI am nervous before exams.",
+          "back": "নার্ভাস\n\nপরীক্ষার আগে আমি নার্ভাস হয়ে যাই।"
+        },
+        {
+          "front": "calm\n\nStay calm.",
+          "back": "শান্ত\n\nশান্ত থাকো।"
+        },
+        {
+          "front": "proud\n\nMy parents are proud of me.",
+          "back": "গর্বিত\n\nআমার বাবা-মা আমাকে নিয়ে গর্বিত।"
+        },
+        {
+          "front": "shy\n\nShe is shy with new people.",
+          "back": "লাজুক\n\nনতুন মানুষের সাথে সে লাজুক।"
+        },
+        {
+          "front": "lonely\n\nHe feels lonely in the big city.",
+          "back": "নিঃসঙ্গ\n\nবড় শহরে তার নিঃসঙ্গ লাগে।"
+        },
+        {
+          "front": "jealous\n\nShe is jealous of her sister.",
+          "back": "ঈর্ষান্বিত\n\nসে তার বোনকে হিংসা করে।\n\nএছাড়াও: হিংসুটে, হিংসা"
+        },
+        {
+          "front": "embarrassed\n\nI was embarrassed by my mistake.",
+          "back": "লজ্জিত\n\nনিজের ভুলের জন্য আমি লজ্জিত হয়েছিলাম।"
+        },
+        {
+          "front": "confused\n\nI am confused, please explain again.",
+          "back": "বিভ্রান্ত\n\nআমি একটু বিভ্রান্ত, দয়া করে আবার বুঝিয়ে বলুন।"
+        },
+        {
+          "front": "relaxed\n\nI feel relaxed on holiday.",
+          "back": "নিশ্চিন্ত\n\nছুটিতে আমি নিশ্চিন্ত থাকি।"
+        },
+        {
+          "front": "hate\n\nI hate cold weather.",
+          "back": "ঘৃণা করা\n\nআমি ঠান্ডা আবহাওয়া ঘৃণা করি।"
+        },
+        {
+          "front": "like\n\nI like cats.",
+          "back": "পছন্দ করা\n\nআমি বিড়াল পছন্দ করি।"
+        },
+        {
+          "front": "feel\n\nHow do you feel today?",
+          "back": "অনুভব করা\n\nআজ তোমার কেমন লাগছে?\n\nএছাড়াও: লাগা, বোধ করা"
+        },
+        {
+          "front": "feeling\n\nI understand your feelings.",
+          "back": "অনুভূতি\n\nআমি তোমার অনুভূতি বুঝি।"
+        },
+        {
+          "front": "smile\n\nShe smiles a lot.",
+          "back": "মুচকি হাসা\n\nসে প্রায়ই মুচকি হাসে।\n\nএছাড়াও: হাসা, হাসি"
+        },
+        {
+          "front": "laugh\n\nThe children laugh at the clown.",
+          "back": "হাসা\n\nজোকারকে দেখে বাচ্চারা হাসে।"
+        },
+        {
+          "front": "cry\n\nThe baby is crying.",
+          "back": "কাঁদা\n\nশিশুটি কাঁদছে।"
+        },
+        {
+          "front": "kind\n\nShe is kind to everyone.",
+          "back": "দয়ালু\n\nসে সবার প্রতি দয়ালু।"
+        },
+        {
+          "front": "friendly\n\nOur new neighbors are friendly.",
+          "back": "বন্ধুসুলভ\n\nআমাদের নতুন প্রতিবেশীরা খুব বন্ধুসুলভ।\n\nএছাড়াও: মিশুক"
+        },
+        {
+          "front": "funny\n\nHe tells funny stories.",
+          "back": "মজার\n\nসে মজার মজার গল্প বলে।"
+        },
+        {
+          "front": "honest\n\nPlease be honest with me.",
+          "back": "সৎ\n\nদয়া করে আমার সাথে সৎ থাকো।"
+        },
+        {
+          "front": "polite\n\nBe polite to older people.",
+          "back": "ভদ্র\n\nবয়স্কদের সাথে ভদ্র ব্যবহার করো।"
+        },
+        {
+          "front": "rude\n\nIt is rude to interrupt.",
+          "back": "অভদ্র\n\nকথার মাঝখানে বাধা দেওয়া অভদ্রতা।"
+        },
+        {
+          "front": "lazy\n\nDon't be lazy.",
+          "back": "অলস\n\nঅলস হয়ো না।"
+        },
+        {
+          "front": "hard-working\n\nMy mother is very hard-working.",
+          "back": "পরিশ্রমী\n\nআমার মা খুব পরিশ্রমী।"
+        },
+        {
+          "front": "clever\n\nShe is a clever student.",
+          "back": "বুদ্ধিমান\n\nসে একজন বুদ্ধিমান ছাত্রী।\n\nএছাড়াও: চালাক, মেধাবী"
+        },
+        {
+          "front": "brave\n\nThe firefighter was very brave.",
+          "back": "সাহসী\n\nদমকলকর্মী খুব সাহসী ছিলেন।"
+        },
+        {
+          "front": "patient\n\nA good teacher is patient.",
+          "back": "ধৈর্যশীল\n\nএকজন ভালো শিক্ষক ধৈর্যশীল হন।"
+        },
+        {
+          "front": "careful\n\nBe careful on the road.",
+          "back": "সাবধান\n\nরাস্তায় সাবধানে চলো।"
+        },
+        {
+          "front": "quiet\n\nHe is a quiet boy.",
+          "back": "চুপচাপ\n\nসে একটা চুপচাপ ছেলে।\n\nএছাড়াও: শান্ত"
+        },
+        {
+          "front": "talkative\n\nMy sister is very talkative.",
+          "back": "বাচাল\n\nআমার বোন খুব বাচাল।"
+        },
+        {
+          "front": "generous\n\nHe is generous with his friends.",
+          "back": "উদার\n\nসে বন্ধুদের ব্যাপারে খুব উদার।"
+        },
+        {
+          "front": "selfish\n\nDon't be selfish, share with others.",
+          "back": "স্বার্থপর\n\nস্বার্থপর হয়ো না, অন্যদের সাথে ভাগ করে নাও।"
+        },
+        {
+          "front": "confident\n\nShe is confident when she speaks English.",
+          "back": "আত্মবিশ্বাসী\n\nইংরেজি বলার সময় সে আত্মবিশ্বাসী থাকে।"
+        },
+        {
+          "front": "creative\n\nChildren are very creative.",
+          "back": "সৃজনশীল\n\nবাচ্চারা খুব সৃজনশীল।"
+        },
+        {
+          "front": "serious\n\nWhy are you so serious?",
+          "back": "গম্ভীর\n\nতুমি এত গম্ভীর কেন?"
+        },
+        {
+          "front": "cheerful\n\nHe is always cheerful.",
+          "back": "হাসিখুশি\n\nসে সবসময় হাসিখুশি।"
+        },
+        {
+          "front": "gentle\n\nMy grandmother is very gentle.",
+          "back": "নম্র\n\nআমার দাদি খুব নম্র।"
+        },
+        {
+          "front": "hope\n\nI hope you feel better soon.",
+          "back": "আশা করা\n\nআশা করি তুমি শীঘ্রই সুস্থ হয়ে উঠবে।"
+        },
+        {
+          "front": "dream\n\nMy dream is to be a doctor.",
+          "back": "স্বপ্ন\n\nআমার স্বপ্ন ডাক্তার হওয়া।"
+        },
+        {
+          "front": "miss\n\nI miss my family.",
+          "back": "মনে পড়া\n\nআমার পরিবারের কথা খুব মনে পড়ে।\n\nএছাড়াও: মিস করা"
+        },
+        {
+          "front": "upset\n\nShe is upset about her exam.",
+          "back": "মন খারাপ\n\nপরীক্ষা নিয়ে তার মন খারাপ।"
+        },
+        {
+          "front": "mood\n\nI am in a good mood today.",
+          "back": "মেজাজ\n\nআজ আমার মেজাজ খুব ভালো।"
+        }
+      ]
+    },
+    {
+      "name": "18 দৈনন্দিন ক্রিয়া 1",
+      "cards": [
+        {
+          "front": "do\n\nI always do my best.",
+          "back": "করা\n\nআমি সবসময় সাধ্যমতো চেষ্টা করি।"
+        },
+        {
+          "front": "make\n\nMy mother makes cakes.",
+          "back": "বানানো\n\nআমার মা কেক বানান।\n\nএছাড়াও: তৈরি করা"
+        },
+        {
+          "front": "have\n\nI have two brothers.",
+          "back": "থাকা\n\nআমার দুই ভাই আছে।\n\nএছাড়াও: আছে"
+        },
+        {
+          "front": "get\n\nI got a letter today.",
+          "back": "পাওয়া\n\nআজ আমি একটা চিঠি পেয়েছি।"
+        },
+        {
+          "front": "give\n\nGive me the book, please.",
+          "back": "দেওয়া\n\nদয়া করে বইটা আমাকে দাও।"
+        },
+        {
+          "front": "take\n\nTake an umbrella with you.",
+          "back": "নিয়ে যাওয়া\n\nসাথে একটা ছাতা নিয়ে যাও।\n\nএছাড়াও: নেওয়া"
+        },
+        {
+          "front": "bring\n\nBring me some water, please.",
+          "back": "আনা\n\nদয়া করে আমার জন্য একটু পানি আনো।\n\nএছাড়াও: নিয়ে আসা"
+        },
+        {
+          "front": "put\n\nPut your bag here.",
+          "back": "রাখা\n\nতোমার ব্যাগটা এখানে রাখো।"
+        },
+        {
+          "front": "see\n\nI can see the sea from my window.",
+          "back": "দেখতে পাওয়া\n\nআমি আমার জানালা থেকে সমুদ্র দেখতে পাই।\n\nএছাড়াও: দেখা"
+        },
+        {
+          "front": "look\n\nLook! It's snowing.",
+          "back": "দেখা\n\nদেখো! তুষার পড়ছে।\n\nএছাড়াও: তাকানো"
+        },
+        {
+          "front": "hear\n\nI can't hear you.",
+          "back": "শুনতে পাওয়া\n\nআমি তোমার কথা শুনতে পাচ্ছি না।\n\nএছাড়াও: শোনা"
+        },
+        {
+          "front": "say\n\nWhat did you say?",
+          "back": "বলা\n\nতুমি কী বললে?"
+        },
+        {
+          "front": "tell\n\nTell me a story.",
+          "back": "বলা\n\nআমাকে একটা গল্প বলো।"
+        },
+        {
+          "front": "ask\n\nCan I ask you a question?",
+          "back": "জিজ্ঞেস করা\n\nআমি কি আপনাকে একটা প্রশ্ন জিজ্ঞেস করতে পারি?"
+        },
+        {
+          "front": "know\n\nI know her name.",
+          "back": "জানা\n\nআমি তার নাম জানি।"
+        },
+        {
+          "front": "think\n\nI think it will rain.",
+          "back": "ভাবা\n\nআমার মনে হয় বৃষ্টি হবে।\n\nএছাড়াও: মনে করা, চিন্তা করা"
+        },
+        {
+          "front": "use\n\nCan I use your phone?",
+          "back": "ব্যবহার করা\n\nআমি কি তোমার ফোনটা ব্যবহার করতে পারি?"
+        },
+        {
+          "front": "find\n\nI can't find my keys.",
+          "back": "খুঁজে পাওয়া\n\nআমি আমার চাবি খুঁজে পাচ্ছি না।"
+        },
+        {
+          "front": "look for\n\nI am looking for my glasses.",
+          "back": "খোঁজা\n\nআমি আমার চশমা খুঁজছি।"
+        },
+        {
+          "front": "keep\n\nKeep the change.",
+          "back": "রেখে দেওয়া\n\nখুচরাটা রেখে দিন।"
+        },
+        {
+          "front": "start\n\nThe movie starts at eight.",
+          "back": "শুরু হওয়া\n\nসিনেমা আটটায় শুরু হবে।\n\nএছাড়াও: শুরু করা"
+        },
+        {
+          "front": "finish\n\nDid you finish your homework?",
+          "back": "শেষ করা\n\nতুমি কি তোমার বাড়ির কাজ শেষ করেছ?"
+        },
+        {
+          "front": "try\n\nTry this cake.",
+          "back": "খেয়ে দেখা\n\nএই কেকটা একটু খেয়ে দেখো।\n\nঅন্য অর্থ: চেষ্টা করা"
+        },
+        {
+          "front": "play\n\nThe children play in the park.",
+          "back": "খেলা\n\nবাচ্চারা পার্কে খেলছে।"
+        },
+        {
+          "front": "run\n\nI run every morning.",
+          "back": "দৌড়ানো\n\nআমি প্রতিদিন সকালে দৌড়াই।"
+        },
+        {
+          "front": "jump\n\nThe cat jumped onto the table.",
+          "back": "লাফানো\n\nবিড়ালটা লাফ দিয়ে টেবিলে উঠল।\n\nএছাড়াও: লাফ দেওয়া"
+        },
+        {
+          "front": "sit\n\nPlease sit here.",
+          "back": "বসা\n\nদয়া করে এখানে বসুন।"
+        },
+        {
+          "front": "stand\n\nStand in line, please.",
+          "back": "দাঁড়ানো\n\nদয়া করে লাইনে দাঁড়ান।"
+        },
+        {
+          "front": "sing\n\nShe sings very well.",
+          "back": "গান গাওয়া\n\nসে খুব ভালো গান গায়।"
+        },
+        {
+          "front": "dance\n\nLet's dance!",
+          "back": "নাচা\n\nচলো নাচি!"
+        },
+        {
+          "front": "swim\n\nI can swim.",
+          "back": "সাঁতার কাটা\n\nআমি সাঁতার কাটতে পারি।"
+        },
+        {
+          "front": "climb\n\nWe climbed the mountain.",
+          "back": "বেয়ে ওঠা\n\nআমরা পাহাড় বেয়ে উঠেছিলাম।\n\nএছাড়াও: ওঠা, চড়া, আরোহণ করা"
+        },
+        {
+          "front": "throw\n\nThrow me the ball.",
+          "back": "ছোড়া\n\nবলটা আমার দিকে ছুড়ে দাও।"
+        },
+        {
+          "front": "catch\n\nCatch the ball!",
+          "back": "ধরা\n\nবলটা ধরো!"
+        },
+        {
+          "front": "carry\n\nCan you carry this bag?",
+          "back": "বয়ে নেওয়া\n\nতুমি কি এই ব্যাগটা বয়ে নিতে পারবে?\n\nএছাড়াও: বহন করা"
+        },
+        {
+          "front": "pull\n\nPull the door.",
+          "back": "টানা\n\nদরজাটা টানো।"
+        },
+        {
+          "front": "push\n\nPush the door.",
+          "back": "ঠেলা\n\nদরজাটা ঠেলো।"
+        },
+        {
+          "front": "hold\n\nHold my hand.",
+          "back": "ধরা\n\nআমার হাতটা ধরো।"
+        },
+        {
+          "front": "touch\n\nDon't touch the paint.",
+          "back": "ছোঁয়া\n\nরংটা ছুঁয়ো না।"
+        },
+        {
+          "front": "send\n\nI sent you a message.",
+          "back": "পাঠানো\n\nআমি তোমাকে একটা মেসেজ পাঠিয়েছি।"
+        },
+        {
+          "front": "receive\n\nDid you receive my email?",
+          "back": "পাওয়া\n\nতুমি কি আমার ইমেইল পেয়েছ?"
+        },
+        {
+          "front": "show\n\nShow me your photos.",
+          "back": "দেখানো\n\nআমাকে তোমার ছবিগুলো দেখাও।"
+        },
+        {
+          "front": "turn on\n\nTurn on the light, please.",
+          "back": "চালু করা\n\nদয়া করে বাতিটা জ্বালাও।\n\nএছাড়াও: জ্বালানো, অন করা"
+        },
+        {
+          "front": "turn off\n\nTurn off the TV.",
+          "back": "বন্ধ করা\n\nটিভিটা বন্ধ করো।"
+        },
+        {
+          "front": "break\n\nDon't break the glass.",
+          "back": "ভাঙা\n\nগ্লাসটা ভেঙো না।"
+        },
+        {
+          "front": "fix\n\nCan you fix my bike?",
+          "back": "ঠিক করা\n\nতুমি কি আমার সাইকেলটা ঠিক করে দিতে পারবে?"
+        },
+        {
+          "front": "build\n\nThey are building a new bridge.",
+          "back": "নির্মাণ করা\n\nতারা একটা নতুন সেতু নির্মাণ করছে।\n\nএছাড়াও: বানানো, তৈরি করা"
+        },
+        {
+          "front": "draw\n\nShe likes to draw animals.",
+          "back": "আঁকা\n\nসে পশুপাখির ছবি আঁকতে ভালোবাসে।"
+        },
+        {
+          "front": "become\n\nI want to become a teacher.",
+          "back": "হওয়া\n\nআমি শিক্ষক হতে চাই।"
+        },
+        {
+          "front": "happen\n\nWhat happened?",
+          "back": "ঘটা\n\nকী ঘটেছে?"
+        }
+      ]
+    },
+    {
+      "name": "19 দৈনন্দিন ক্রিয়া 2",
+      "cards": [
+        {
+          "front": "get up\n\nI get up at six every day.",
+          "back": "ঘুম থেকে ওঠা\n\nআমি প্রতিদিন ছয়টায় ঘুম থেকে উঠি।\n\nএছাড়াও: ওঠা"
+        },
+        {
+          "front": "brush teeth\n\nBrush your teeth before bed.",
+          "back": "দাঁত মাজা\n\nঘুমানোর আগে দাঁত মাজো।\n\nএছাড়াও: দাঁত ব্রাশ করা"
+        },
+        {
+          "front": "take a shower\n\nI take a shower every morning.",
+          "back": "গোসল করা\n\nআমি প্রতিদিন সকালে গোসল করি।\n\nপশ্চিমবঙ্গে: স্নান করা"
+        },
+        {
+          "front": "get dressed\n\nGet dressed, we are late.",
+          "back": "জামাকাপড় পরা\n\nজামাকাপড় পরে নাও, আমাদের দেরি হয়ে গেছে।"
+        },
+        {
+          "front": "have breakfast\n\nI have breakfast at seven.",
+          "back": "নাশতা করা\n\nআমি সাতটায় নাশতা করি।\n\nপশ্চিমবঙ্গে: জলখাবার খাওয়া"
+        },
+        {
+          "front": "go to school\n\nI go to school by bike.",
+          "back": "স্কুলে যাওয়া\n\nআমি সাইকেলে করে স্কুলে যাই।"
+        },
+        {
+          "front": "go to work\n\nMy father goes to work early.",
+          "back": "কাজে যাওয়া\n\nআমার বাবা সকাল সকাল কাজে যান।"
+        },
+        {
+          "front": "come back\n\nCome back soon!",
+          "back": "ফিরে আসা\n\nতাড়াতাড়ি ফিরে এসো!"
+        },
+        {
+          "front": "go home\n\nLet's go home.",
+          "back": "বাড়ি যাওয়া\n\nচলো বাড়ি যাই।\n\nএছাড়াও: বাসায় যাওয়া"
+        },
+        {
+          "front": "stay\n\nWe stayed at a small hotel.",
+          "back": "থাকা\n\nআমরা একটা ছোট হোটেলে ছিলাম।"
+        },
+        {
+          "front": "go out\n\nLet's go out tonight.",
+          "back": "বাইরে যাওয়া\n\nচলো আজ রাতে বাইরে যাই।"
+        },
+        {
+          "front": "come in\n\nCome in, please.",
+          "back": "ভেতরে আসা\n\nভেতরে আসুন।"
+        },
+        {
+          "front": "sit down\n\nPlease sit down.",
+          "back": "বসে পড়া\n\nদয়া করে বসে পড়ুন।"
+        },
+        {
+          "front": "stand up\n\nStand up, please.",
+          "back": "উঠে দাঁড়ানো\n\nদয়া করে উঠে দাঁড়াও।"
+        },
+        {
+          "front": "look at\n\nLook at this picture.",
+          "back": "তাকানো\n\nএই ছবিটার দিকে তাকাও।\n\nএছাড়াও: দেখা"
+        },
+        {
+          "front": "listen to\n\nI listen to the radio.",
+          "back": "শোনা\n\nআমি রেডিও শুনি।"
+        },
+        {
+          "front": "talk\n\nCan we talk?",
+          "back": "কথা বলা\n\nআমরা কি কথা বলতে পারি?"
+        },
+        {
+          "front": "chat\n\nWe chat every evening.",
+          "back": "গল্প করা\n\nআমরা প্রতি সন্ধ্যায় গল্প করি।\n\nএছাড়াও: আড্ডা দেওয়া, চ্যাট করা"
+        },
+        {
+          "front": "text\n\nText me when you arrive.",
+          "back": "মেসেজ দেওয়া\n\nপৌঁছে আমাকে মেসেজ দিয়ো।\n\nএছাড়াও: মেসেজ করা, মেসেজ পাঠানো, টেক্সট করা"
+        },
+        {
+          "front": "agree\n\nI agree with you.",
+          "back": "একমত হওয়া\n\nআমি তোমার সাথে একমত।"
+        },
+        {
+          "front": "decide\n\nI can't decide.",
+          "back": "সিদ্ধান্ত নেওয়া\n\nআমি সিদ্ধান্ত নিতে পারছি না।"
+        },
+        {
+          "front": "believe\n\nI believe you.",
+          "back": "বিশ্বাস করা\n\nআমি তোমাকে বিশ্বাস করি।"
+        },
+        {
+          "front": "check\n\nCheck your answers.",
+          "back": "যাচাই করা\n\nতোমার উত্তরগুলো যাচাই করে নাও।"
+        },
+        {
+          "front": "prepare\n\nI prepare dinner every day.",
+          "back": "তৈরি করা\n\nআমি প্রতিদিন রাতের খাবার তৈরি করি।"
+        },
+        {
+          "front": "invite\n\nI want to invite you to my party.",
+          "back": "দাওয়াত দেওয়া\n\nআমি তোমাকে আমার পার্টিতে দাওয়াত দিতে চাই।\n\nএছাড়াও: আমন্ত্রণ জানানো, নিমন্ত্রণ করা"
+        },
+        {
+          "front": "join\n\nCan I join you?",
+          "back": "যোগ দেওয়া\n\nআমি কি তোমাদের সাথে যোগ দিতে পারি?"
+        },
+        {
+          "front": "win\n\nOur team won the game.",
+          "back": "জেতা\n\nআমাদের দল খেলায় জিতেছে।"
+        },
+        {
+          "front": "lose\n\nWe lost the game.",
+          "back": "হারা\n\nআমরা খেলায় হেরে গেছি।"
+        },
+        {
+          "front": "pick up\n\nPick up your toys.",
+          "back": "তোলা\n\nতোমার খেলনাগুলো তুলে রাখো।"
+        },
+        {
+          "front": "turn\n\nTurn left at the bank.",
+          "back": "ঘোরা\n\nব্যাংকের কাছে গিয়ে বামে ঘুরবেন।"
+        },
+        {
+          "front": "cross\n\nCross the road carefully.",
+          "back": "পার হওয়া\n\nসাবধানে রাস্তা পার হও।"
+        },
+        {
+          "front": "follow\n\nFollow me.",
+          "back": "অনুসরণ করা\n\nআমাকে অনুসরণ করো।"
+        },
+        {
+          "front": "lead\n\nShe leads the team.",
+          "back": "নেতৃত্ব দেওয়া\n\nসে দলের নেতৃত্ব দেয়।"
+        },
+        {
+          "front": "grow\n\nPlants grow fast in the rainy season.",
+          "back": "বাড়া\n\nবর্ষাকালে গাছপালা দ্রুত বাড়ে।"
+        },
+        {
+          "front": "die\n\nThe flowers died because of the cold.",
+          "back": "মারা যাওয়া\n\nঠান্ডায় ফুলগুলো মরে গেছে।"
+        },
+        {
+          "front": "protect\n\nWear a helmet to protect your head.",
+          "back": "রক্ষা করা\n\nমাথা রক্ষা করতে হেলমেট পরো।"
+        },
+        {
+          "front": "enjoy\n\nI enjoy reading.",
+          "back": "উপভোগ করা\n\nআমি বই পড়া উপভোগ করি।"
+        },
+        {
+          "front": "relax\n\nRelax and have a cup of tea.",
+          "back": "আরাম করা\n\nআরাম করো, এক কাপ চা খাও।"
+        },
+        {
+          "front": "worry\n\nDon't worry.",
+          "back": "চিন্তা করা\n\nচিন্তা কোরো না।"
+        },
+        {
+          "front": "share\n\nLet's share the cake.",
+          "back": "ভাগ করা\n\nচলো কেকটা ভাগ করে খাই।"
+        },
+        {
+          "front": "wish\n\nI wish you a happy New Year.",
+          "back": "শুভেচ্ছা জানানো\n\nতোমাকে নতুন বছরের শুভেচ্ছা জানাই।\n\nএছাড়াও: কামনা করা"
+        },
+        {
+          "front": "improve\n\nI want to improve my English.",
+          "back": "উন্নতি করা\n\nআমি আমার ইংরেজির উন্নতি করতে চাই।"
+        },
+        {
+          "front": "do homework\n\nI do homework every evening.",
+          "back": "বাড়ির কাজ করা\n\nআমি প্রতি সন্ধ্যায় বাড়ির কাজ করি।"
+        },
+        {
+          "front": "go shopping\n\nLet's go shopping.",
+          "back": "কেনাকাটা করা\n\nচলো কেনাকাটা করতে যাই।"
+        },
+        {
+          "front": "take a photo\n\nLet me take a photo.",
+          "back": "ছবি তোলা\n\nদাঁড়াও, আমি একটা ছবি তুলি।"
+        },
+        {
+          "front": "go to bed\n\nI go to bed at eleven.",
+          "back": "ঘুমাতে যাওয়া\n\nআমি এগারোটায় ঘুমাতে যাই।"
+        },
+        {
+          "front": "look after\n\nI look after my little brother.",
+          "back": "দেখাশোনা করা\n\nআমি আমার ছোট ভাইয়ের দেখাশোনা করি।\n\nএছাড়াও: যত্ন নেওয়া"
+        },
+        {
+          "front": "give up\n\nDon't give up!",
+          "back": "হাল ছেড়ে দেওয়া\n\nহাল ছেড়ো না!\n\nএছাড়াও: ছেড়ে দেওয়া"
+        },
+        {
+          "front": "find out\n\nI want to find out the truth.",
+          "back": "খুঁজে বের করা\n\nআমি সত্যটা খুঁজে বের করতে চাই।"
+        },
+        {
+          "front": "hurry\n\nHurry up, we are late!",
+          "back": "তাড়াহুড়া করা\n\nতাড়াতাড়ি করো, আমাদের দেরি হয়ে গেছে!\n\nএছাড়াও: তাড়াতাড়ি করা"
+        }
+      ]
+    },
+    {
+      "name": "20 জিনিসের বর্ণনা",
+      "cards": [
+        {
+          "front": "big\n\nThey live in a big house.",
+          "back": "বড়\n\nতারা একটা বড় বাড়িতে থাকে।"
+        },
+        {
+          "front": "small\n\nI have a small car.",
+          "back": "ছোট\n\nআমার একটা ছোট গাড়ি আছে।"
+        },
+        {
+          "front": "long\n\nShe has long hair.",
+          "back": "লম্বা\n\nতার লম্বা চুল।"
+        },
+        {
+          "front": "short\n\nThis story is short.",
+          "back": "ছোট\n\nগল্পটা ছোট।\n\nঅন্য অর্থ: খাটো (মানুষ)"
+        },
+        {
+          "front": "tall\n\nMy brother is very tall.",
+          "back": "লম্বা\n\nআমার ভাই খুব লম্বা।"
+        },
+        {
+          "front": "low\n\nThe table is too low.",
+          "back": "নিচু\n\nটেবিলটা খুব নিচু।"
+        },
+        {
+          "front": "wide\n\nThe road is wide.",
+          "back": "চওড়া\n\nরাস্তাটা চওড়া।"
+        },
+        {
+          "front": "narrow\n\nThis street is very narrow.",
+          "back": "সরু\n\nএই রাস্তাটা খুব সরু।"
+        },
+        {
+          "front": "heavy\n\nThis box is heavy.",
+          "back": "ভারী\n\nএই বাক্সটা ভারী।"
+        },
+        {
+          "front": "new\n\nI have a new phone.",
+          "back": "নতুন\n\nআমার একটা নতুন ফোন আছে।"
+        },
+        {
+          "front": "good\n\nHe is a good student.",
+          "back": "ভালো\n\nসে একজন ভালো ছাত্র।"
+        },
+        {
+          "front": "bad\n\nThe weather is bad today.",
+          "back": "খারাপ\n\nআজ আবহাওয়া খারাপ।"
+        },
+        {
+          "front": "beautiful\n\nWhat a beautiful view!",
+          "back": "সুন্দর\n\nকী সুন্দর দৃশ্য!"
+        },
+        {
+          "front": "ugly\n\nThat building is ugly.",
+          "back": "কুৎসিত\n\nওই ভবনটা দেখতে কুৎসিত।"
+        },
+        {
+          "front": "easy\n\nThis exercise is easy.",
+          "back": "সহজ\n\nএই অনুশীলনীটা সহজ।"
+        },
+        {
+          "front": "difficult\n\nEnglish grammar is difficult.",
+          "back": "কঠিন\n\nইংরেজি ব্যাকরণ কঠিন।"
+        },
+        {
+          "front": "empty\n\nThe room is empty.",
+          "back": "খালি\n\nঘরটা খালি।"
+        },
+        {
+          "front": "dirty\n\nMy shoes are dirty.",
+          "back": "নোংরা\n\nআমার জুতা নোংরা।"
+        },
+        {
+          "front": "tidy\n\nHer room is always tidy.",
+          "back": "গোছানো\n\nতার ঘর সবসময় গোছানো থাকে।"
+        },
+        {
+          "front": "messy\n\nMy desk is messy.",
+          "back": "অগোছালো\n\nআমার ডেস্কটা অগোছালো।"
+        },
+        {
+          "front": "safe\n\nIs it safe to swim here?",
+          "back": "নিরাপদ\n\nএখানে সাঁতার কাটা কি নিরাপদ?"
+        },
+        {
+          "front": "dangerous\n\nSwimming here is dangerous.",
+          "back": "বিপজ্জনক\n\nএখানে সাঁতার কাটা বিপজ্জনক।"
+        },
+        {
+          "front": "important\n\nThis is very important.",
+          "back": "গুরুত্বপূর্ণ\n\nএটা খুব গুরুত্বপূর্ণ।"
+        },
+        {
+          "front": "interesting\n\nThis book is very interesting.",
+          "back": "আকর্ষণীয়\n\nএই বইটা খুব আকর্ষণীয়।\n\nএছাড়াও: মজার, ইন্টারেস্টিং"
+        },
+        {
+          "front": "boring\n\nThe movie was boring.",
+          "back": "একঘেয়ে\n\nসিনেমাটা একঘেয়ে ছিল।\n\nএছাড়াও: বিরক্তিকর"
+        },
+        {
+          "front": "famous\n\nThis singer is very famous.",
+          "back": "বিখ্যাত\n\nএই গায়ক খুব বিখ্যাত।"
+        },
+        {
+          "front": "strange\n\nThat is a strange sound.",
+          "back": "অদ্ভুত\n\nওটা একটা অদ্ভুত শব্দ।"
+        },
+        {
+          "front": "same\n\nWe are in the same class.",
+          "back": "একই\n\nআমরা একই ক্লাসে পড়ি।"
+        },
+        {
+          "front": "different\n\nMy sister and I are very different.",
+          "back": "আলাদা\n\nআমি আর আমার বোন একদম আলাদা।\n\nএছাড়াও: ভিন্ন"
+        },
+        {
+          "front": "real\n\nIs this a real flower?",
+          "back": "আসল\n\nএটা কি আসল ফুল?"
+        },
+        {
+          "front": "true\n\nIs it true?",
+          "back": "সত্যি\n\nএটা কি সত্যি?"
+        },
+        {
+          "front": "loud\n\nThe music is too loud.",
+          "back": "জোরে\n\nগানটা খুব জোরে বাজছে।"
+        },
+        {
+          "front": "soft\n\nThis pillow is soft.",
+          "back": "নরম\n\nএই বালিশটা নরম।"
+        },
+        {
+          "front": "hard\n\nThis bread is hard.",
+          "back": "শক্ত\n\nএই পাউরুটিটা শক্ত।\n\nঅন্য অর্থ: কঠিন"
+        },
+        {
+          "front": "thick\n\nThis book is very thick.",
+          "back": "মোটা\n\nএই বইটা খুব মোটা।"
+        },
+        {
+          "front": "thin\n\nThe paper is very thin.",
+          "back": "পাতলা\n\nকাগজটা খুব পাতলা।"
+        },
+        {
+          "front": "fat\n\nMy cat is too fat.",
+          "back": "মোটা\n\nআমার বিড়ালটা খুব মোটা।"
+        },
+        {
+          "front": "cute\n\nWhat a cute baby!",
+          "back": "মিষ্টি\n\nকী মিষ্টি বাচ্চা!"
+        },
+        {
+          "front": "nice\n\nIt is a nice place to live.",
+          "back": "চমৎকার\n\nথাকার জন্য এটা একটা চমৎকার জায়গা।\n\nএছাড়াও: ভালো, সুন্দর"
+        },
+        {
+          "front": "great\n\nThat's a great idea!",
+          "back": "দারুণ\n\nএটা একটা দারুণ বুদ্ধি!"
+        },
+        {
+          "front": "terrible\n\nThe food was terrible.",
+          "back": "জঘন্য\n\nখাবারটা জঘন্য ছিল।"
+        },
+        {
+          "front": "perfect\n\nYour English is perfect.",
+          "back": "নিখুঁত\n\nতোমার ইংরেজি একদম নিখুঁত।"
+        },
+        {
+          "front": "popular\n\nThis song is very popular.",
+          "back": "জনপ্রিয়\n\nএই গানটা খুব জনপ্রিয়।"
+        },
+        {
+          "front": "modern\n\nOur city has many modern buildings.",
+          "back": "আধুনিক\n\nআমাদের শহরে অনেক আধুনিক ভবন আছে।"
+        },
+        {
+          "front": "traditional\n\nShe wears a traditional dress.",
+          "back": "ঐতিহ্যবাহী\n\nসে একটা ঐতিহ্যবাহী পোশাক পরেছে।"
+        },
+        {
+          "front": "convenient\n\nThe bus is very convenient.",
+          "back": "সুবিধাজনক\n\nবাস খুব সুবিধাজনক।"
+        },
+        {
+          "front": "comfortable\n\nThis chair is comfortable.",
+          "back": "আরামদায়ক\n\nএই চেয়ারটা আরামদায়ক।"
+        },
+        {
+          "front": "useful\n\nThis app is very useful.",
+          "back": "উপকারী\n\nএই অ্যাপটা খুব উপকারী।\n\nএছাড়াও: কাজের, দরকারি"
+        },
+        {
+          "front": "special\n\nToday is a special day.",
+          "back": "বিশেষ\n\nআজ একটা বিশেষ দিন।"
+        },
+        {
+          "front": "simple\n\nThe question is simple.",
+          "back": "সহজ\n\nপ্রশ্নটা সহজ।\n\nএছাড়াও: সরল"
+        }
+      ]
+    }
+  ]
+}

@@ -197,6 +197,8 @@ describe('the bundled packs', () => {
     'english-basics-es': BASICS,
     'english-basics-pt': BASICS,
     'english-basics-fr': BASICS,
+    'english-basics-hi': BASICS,
+    'english-basics-bn': BASICS,
   };
 
   it('every pack has a format check', () => {
@@ -223,8 +225,8 @@ describe('the bundled packs', () => {
   const words = (pack: Pack) =>
     decksOf(pack).map((d) => d.cards.map((c) => c.front.split('\n')[0]));
 
-  it('has English basics for Vietnamese, Spanish, Portuguese and French speakers', () => {
-    expect(basics.map((p) => p.speakers)).toEqual(['vi', 'es', 'pt', 'fr']);
+  it('has English basics for speakers of every app language but English', () => {
+    expect(basics.map((p) => p.speakers)).toEqual(['vi', 'es', 'pt', 'fr', 'hi', 'bn']);
     expect(new Set(basics.map((p) => p.name)).size).toBe(basics.length);
   });
 
@@ -325,7 +327,14 @@ describe('notes on ready-made cards', () => {
     'em inglês britânico',
     'en anglais américain',
     'en anglais britannique',
-  ];
+    'दूसरा अर्थ',
+    'अमेरिकी अंग्रेज़ी में',
+    'ब्रिटिश अंग्रेज़ी में',
+    'অন্য অর্থ',
+    'আমেরিকান ইংরেজিতে',
+    'ব্রিটিশ ইংরেজিতে',
+  ].map((label) => label.normalize('NFC'));
+  const also = ALSO_LABELS.map((label) => label.normalize('NFC'));
   const notes = PACKS.flatMap((pack) =>
     decksOf(pack).flatMap((d) =>
       d.cards
@@ -337,11 +346,15 @@ describe('notes on ready-made cards', () => {
   it('says for every label whether it gives more right answers', () => {
     const unknown = new Set<string>();
     for (const { note } of notes) {
-      for (const sentence of note.split(/\.\s+/)) {
-        const label = /^([^:]{1,40}?)[\s  ]*:/u.exec(sentence)?.[1].trim().toLowerCase();
+      for (const sentence of note.split(/\.\s+|।\s*/)) {
+        const label = /^([^:]{1,40}?)\s*:/u
+          .exec(sentence)?.[1]
+          .trim()
+          .toLowerCase()
+          .normalize('NFC');
         if (!label) continue;
         const known =
-          ALSO_LABELS.includes(label) ||
+          also.includes(label) ||
           NOT_ANSWERS.includes(label) ||
           // "Với người: thấp", "Khi gọi: thầy, cô": one use of the word
           label.startsWith('với ') ||

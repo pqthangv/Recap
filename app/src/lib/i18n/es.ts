@@ -693,6 +693,10 @@ export const es: Translation = {
     'Inglés cotidiano con significados en portugués: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
   'pack.englishBasicsFr':
     'Inglés cotidiano con significados en francés: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsHi':
+    'Inglés cotidiano con significados en hindi: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsBn':
+    'Inglés cotidiano con significados en bengalí: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
   'pack.ielts':
     'Vocabulario académico para el IELTS en 10 temas, desde describir gráficos hasta el medio ambiente (con definiciones en inglés).',
   'pack.sat':

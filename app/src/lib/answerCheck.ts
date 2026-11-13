@@ -173,6 +173,9 @@ function withoutFirstWord(text: string, optional: OptionalWords): string {
   return trimmed.slice(trimmed.search(/\s/)).trim();
 }
 
+// In one Unicode form: Bengali "এছাড়াও" can be typed with ড় as one character or two.
+const ALSO = new Set(ALSO_LABELS.map((label) => label.normalize('NFC')));
+
 /**
  * The right answers the card's notes give: the items after an "also" label, e.g. "dạ" and "có"
  * from "vâng\n\nVâng, tôi hiểu.\n\nCũng nói: dạ, có" (answerWords.ts has the labels).
@@ -184,13 +187,13 @@ export function noteAnswers(back: string): string[] {
     .slice(1);
   const answers: string[] = [];
   for (const paragraph of paragraphs) {
-    // A note may have two: "Với kính, đồng hồ: đeo. Với mũ: đội".
-    for (const sentence of paragraph.split(/\.\s+/)) {
+    // A note may have two: "Với kính, đồng hồ: đeo. Với mũ: đội" (or with a "।").
+    for (const sentence of paragraph.split(/\.\s+|।\s*/)) {
       // French puts a no-break space before the colon ("Au Québec : chum"); \s takes it.
       const note = /^([^:\n]{1,40}?)\s*:\s*(.+)$/u.exec(sentence.trim());
       if (!note) continue;
-      const label = note[1].replace(/\s+/g, ' ').trim().toLowerCase();
-      if (!ALSO_LABELS.includes(label)) continue;
+      const label = note[1].replace(/\s+/g, ' ').trim().toLowerCase().normalize('NFC');
+      if (!ALSO.has(label)) continue;
       for (const item of note[2].split(/[,;/]/)) {
         // "em… tùy người nghe" → "em", "chúng ta (gồm cả người nghe)" → "chúng ta"
         const answer = item

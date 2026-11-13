@@ -848,12 +848,12 @@
           "back": "viande\n\nJe ne mange pas beaucoup de viande."
         },
         {
-          "front": "beef\n\nBeef is more expensive than pork.",
-          "back": "bœuf\n\nLe bœuf est plus cher que le porc."
+          "front": "beef\n\nThis shop sells beef.",
+          "back": "bœuf\n\nCe magasin vend du bœuf."
         },
         {
-          "front": "pork\n\nWe have pork for dinner.",
-          "back": "porc\n\nCe soir, nous mangeons du porc."
+          "front": "pork\n\nSome people don't eat pork.",
+          "back": "porc\n\nCertaines personnes ne mangent pas de porc."
         },
         {
           "front": "chicken\n\nChicken soup is good when you are sick.",

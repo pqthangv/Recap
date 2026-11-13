@@ -672,6 +672,10 @@ export const en = {
     'Everyday English with Portuguese meanings: 1,000 words in 20 topics, from greetings to food and travel.',
   'pack.englishBasicsFr':
     'Everyday English with French meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.englishBasicsHi':
+    'Everyday English with Hindi meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.englishBasicsBn':
+    'Everyday English with Bengali meanings: 1,000 words in 20 topics, from greetings to food and travel.',
   'pack.ielts': 'Academic words for IELTS in 10 topics, from describing charts to the environment.',
   'pack.sat': 'Words from SAT reading passages, in sets of 100.',
   'pack.toeic': 'Workplace English for TOEIC in 10 topics, from meetings to shipping and housing.',

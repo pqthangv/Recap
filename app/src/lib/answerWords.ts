@@ -167,4 +167,9 @@ export const ALSO_LABELS: readonly string[] = [
   // French
   'aussi',
   'au québec',
+  // Hindi
+  'यह भी',
+  // Bengali
+  'এছাড়াও',
+  'পশ্চিমবঙ্গে',
 ];

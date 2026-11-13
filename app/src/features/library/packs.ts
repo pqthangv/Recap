@@ -99,6 +99,8 @@ export const PACKS: readonly Pack[] = [
   englishBasicsFor('es', 'Inglés básico', 'pack.englishBasicsEs'),
   englishBasicsFor('pt', 'Inglês básico', 'pack.englishBasicsPt'),
   englishBasicsFor('fr', 'Anglais de base', 'pack.englishBasicsFr'),
+  englishBasicsFor('hi', 'बुनियादी अंग्रेज़ी', 'pack.englishBasicsHi'),
+  englishBasicsFor('bn', 'প্রাথমিক ইংরেজি', 'pack.englishBasicsBn'),
   {
     id: 'ielts',
     name: 'IELTS vocabulary',

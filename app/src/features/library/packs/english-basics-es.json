@@ -848,12 +848,12 @@
           "back": "carne\n\nNo como mucha carne."
         },
         {
-          "front": "beef\n\nBeef is more expensive than pork.",
-          "back": "carne de res\n\nLa carne de res es más cara que la de cerdo.\n\nEn España: ternera"
+          "front": "beef\n\nThis shop sells beef.",
+          "back": "carne de res\n\nEsta tienda vende carne de res.\n\nEn España: ternera"
         },
         {
-          "front": "pork\n\nWe have pork for dinner.",
-          "back": "carne de cerdo\n\nCenamos carne de cerdo."
+          "front": "pork\n\nSome people don't eat pork.",
+          "back": "carne de cerdo\n\nAlgunas personas no comen carne de cerdo."
         },
         {
           "front": "chicken\n\nChicken soup is good when you are sick.",
