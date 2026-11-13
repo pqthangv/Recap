@@ -14,13 +14,19 @@ import {
   packCardCount,
   packDeckNames,
 } from './library';
-import { PACK_CATEGORIES, PACKS, type Pack } from './packs';
+import { loadPackDecks } from './packCards';
+import { PACK_CATEGORIES, PACKS, type Pack, type PackDeck } from './packs';
 
 // jest.mock factories can't use imports, so this one needs require().
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 jest.mock('@/db/client', () => require('../../../test/db').createTestClient());
 
 const NOW = new Date(2026, 9, 12, 12, 0, 0).getTime();
+
+/** A bundled pack's cards, read from its file as the phone has it (packCards.ts). */
+const decksOf = (pack: Pack): readonly PackDeck[] =>
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  (require(`./packs/${pack.id}.json`) as { decks: readonly PackDeck[] }).decks;
 
 const PACK: Pack = {
   id: 'test',
@@ -30,16 +36,20 @@ const PACK: Pack = {
   logo: { icon: 'public' },
   category: 'exams',
   decks: [
-    {
-      name: 'Set 1',
-      cards: [
-        { front: 'one', back: '(noun) the first\n\nOne is a number.' },
-        { front: 'two', back: '(noun) the second\n\nTwo comes after one.' },
-      ],
-    },
-    { name: 'Set 2', cards: [{ front: 'three', back: '(noun) the third\n\nThree is odd.' }] },
+    { name: 'Set 1', count: 2 },
+    { name: 'Set 2', count: 1 },
   ],
 };
+const PACK_DECKS: PackDeck[] = [
+  {
+    name: 'Set 1',
+    cards: [
+      { front: 'one', back: '(noun) the first\n\nOne is a number.' },
+      { front: 'two', back: '(noun) the second\n\nTwo comes after one.' },
+    ],
+  },
+  { name: 'Set 2', cards: [{ front: 'three', back: '(noun) the third\n\nThree is odd.' }] },
+];
 
 beforeAll(() => migrateTestDb());
 beforeEach(() => clearTestDb());
@@ -47,7 +57,7 @@ beforeEach(() => clearTestDb());
 describe('adding a Library pack', () => {
   it('adds its decks as one group, in its color, with cards in order', () => {
     expect(isPackAdded(PACK, listDecks())).toBe(false);
-    const summary = addPack(PACK, NOW);
+    const summary = addPack(PACK, PACK_DECKS, NOW);
     expect(summary.added).toBe(3);
     expect(listDecks().map((d) => [d.name, d.color])).toEqual([
       ['Test words › Set 1', '#1A73E8'],
@@ -62,16 +72,16 @@ describe('adding a Library pack', () => {
   });
 
   it('adding again brings back only what is missing', () => {
-    addPack(PACK, NOW);
-    expect(addPack(PACK, NOW + 1).added).toBe(0);
+    addPack(PACK, PACK_DECKS, NOW);
+    expect(addPack(PACK, PACK_DECKS, NOW + 1).added).toBe(0);
     deleteDeck(listDecks()[1].id, NOW);
     expect(isPackAdded(PACK, listDecks())).toBe(false);
-    expect(addPack(PACK, NOW + 2).added).toBe(1);
+    expect(addPack(PACK, PACK_DECKS, NOW + 2).added).toBe(1);
     expect(rawQuery('select count(*) as n from cards where deleted_at is null')[0].n).toBe(3);
   });
 
   it("gives the new decks the pack's languages, to be read aloud in", () => {
-    addPack({ ...PACK, languages: { front: 'en', back: 'vi' } }, NOW);
+    addPack({ ...PACK, languages: { front: 'en', back: 'vi' } }, PACK_DECKS, NOW);
     expect(listDecks().map((d) => [d.front_lang, d.back_lang])).toEqual([
       ['en', 'vi'],
       ['en', 'vi'],
@@ -81,6 +91,31 @@ describe('adding a Library pack', () => {
   it('names and counts', () => {
     expect(packDeckNames(PACK)).toEqual(['Test words › Set 1', 'Test words › Set 2']);
     expect(packCardCount(PACK)).toBe(3);
+  });
+});
+
+describe("a pack's cards", () => {
+  it('loads every pack on the phone, as packIndex.json lists it', async () => {
+    // Out of date after a pack file changed: run `node scripts/pack-index.js`.
+    for (const pack of PACKS) {
+      const decks = await loadPackDecks(pack.id);
+      const sizes = decks.map((d) => ({ name: d.name, count: d.cards.length }));
+      expect([pack.id, sizes]).toEqual([pack.id, pack.decks]);
+    }
+  });
+
+  it('has a line for every pack on the website, which downloads it when added', () => {
+    /* eslint-disable @typescript-eslint/no-require-imports */
+    const fs = require('fs') as typeof import('fs');
+    const path = require('path') as typeof import('path');
+    /* eslint-enable @typescript-eslint/no-require-imports */
+    const web = fs.readFileSync(path.join(__dirname, 'packCards.web.ts'), 'utf8');
+    const missing = PACKS.filter((p) => !web.includes(`import('./packs/${p.id}.json')`));
+    expect(missing.map((p) => p.id)).toEqual([]);
+  });
+
+  it("fails for a pack that isn't there", async () => {
+    await expect(loadPackDecks('nope')).rejects.toThrow('nope');
   });
 });
 
@@ -170,13 +205,13 @@ describe('the bundled packs', () => {
 
   it('TOEIC vocabulary has 10 topics of 40 words', () => {
     const toeic = PACKS.find((p) => p.id === 'toeic')!;
-    expect(toeic.decks.map((d) => d.cards.length)).toEqual(new Array(10).fill(40));
+    expect(toeic.decks.map((d) => d.count)).toEqual(new Array(10).fill(40));
   });
 
   it('gives TOEIC its own words, none already in IELTS or SAT', () => {
     // IELTS and SAT share some academic words on purpose; TOEIC is workplace English.
     const words = (id: string) =>
-      PACKS.find((p) => p.id === id)!.decks.flatMap((d) =>
+      decksOf(PACKS.find((p) => p.id === id)!).flatMap((d) =>
         d.cards.map((c) => c.front.toLowerCase()),
       );
     const academic = new Set([...words('ielts'), ...words('sat')]);
@@ -185,7 +220,8 @@ describe('the bundled packs', () => {
 
   const basics = PACKS.filter((p) => p.id.startsWith('english-basics'));
   const vietnamese = PACKS.find((p) => p.id === 'english-basics')!;
-  const words = (pack: Pack) => pack.decks.map((d) => d.cards.map((c) => c.front.split('\n')[0]));
+  const words = (pack: Pack) =>
+    decksOf(pack).map((d) => d.cards.map((c) => c.front.split('\n')[0]));
 
   it('has English basics for Vietnamese, Spanish, Portuguese and French speakers', () => {
     expect(basics.map((p) => p.speakers)).toEqual(['vi', 'es', 'pt', 'fr']);
@@ -198,21 +234,21 @@ describe('the bundled packs', () => {
 
   it('shares one English side in the other languages, with nothing set in Vietnam', () => {
     const others = basics.filter((p) => p !== vietnamese);
-    const fronts = (pack: Pack) => pack.decks.flatMap((d) => d.cards.map((c) => c.front));
+    const fronts = (pack: Pack) => decksOf(pack).flatMap((d) => d.cards.map((c) => c.front));
     for (const pack of others) expect(fronts(pack)).toEqual(fronts(others[0]));
     const vietnam =
       /Viet|Ha ?noi|Hà Nội|Hue\b|Huế|Da Nang|Da Lat|Hoi An|Ho Chi Minh|Phu Quoc|Ha Long|Fansipan|Phong Nha|\bpho\b|\bdong\b|\bTet\b|\bLan\b/;
     const sides = others.flatMap((p) =>
-      p.decks.flatMap((d) => d.cards.flatMap((c) => [c.front, c.back])),
+      decksOf(p).flatMap((d) => d.cards.flatMap((c) => [c.front, c.back])),
     );
     expect(sides.filter((side) => vietnam.test(side))).toEqual([]);
   });
 
   describe.each(basics.map((p) => [p.name, p] as const))('%s', (_name, pack) => {
-    const cards = pack.decks.flatMap((d) => d.cards);
+    const cards = decksOf(pack).flatMap((d) => d.cards);
 
     it('has 20 topics of 50 words, read in English and its language', () => {
-      expect(pack.decks.map((d) => d.cards.length)).toEqual(new Array(20).fill(50));
+      expect(pack.decks.map((d) => d.count)).toEqual(new Array(20).fill(50));
       expect(pack.languages).toEqual({ front: 'en', back: pack.speakers });
       expect(pack.category).toBe('languages');
     });
@@ -245,17 +281,17 @@ describe('the bundled packs', () => {
   it('World capitals has all 193 UN members', () => {
     const capitals = PACKS.find((p) => p.id === 'capitals')!;
     expect(packCardCount(capitals)).toBe(193);
-    for (const deck of capitals.decks) {
+    for (const deck of decksOf(capitals)) {
       for (const card of deck.cards) expect(card.front).toMatch(/^Capital of \S/);
     }
   });
 
   it.each(PACKS.map((p) => [p.name, p] as const))('%s is well formed', (_name, pack) => {
     expect(pack.decks.length).toBeGreaterThan(0);
-    const fronts = pack.decks.flatMap((d) => d.cards.map((c) => c.front.toLowerCase()));
+    const fronts = decksOf(pack).flatMap((d) => d.cards.map((c) => c.front.toLowerCase()));
     expect(new Set(fronts).size).toBe(fronts.length); // no word twice in a pack
     expect(new Set(pack.decks.map((d) => d.name)).size).toBe(pack.decks.length);
-    for (const deck of pack.decks) {
+    for (const deck of decksOf(pack)) {
       expect(deck.cards.length).toBeGreaterThan(0);
       for (const card of deck.cards) {
         expect(card.front.trim()).toBe(card.front);
@@ -291,7 +327,7 @@ describe('notes on ready-made cards', () => {
     'en anglais britannique',
   ];
   const notes = PACKS.flatMap((pack) =>
-    pack.decks.flatMap((d) =>
+    decksOf(pack).flatMap((d) =>
       d.cards
         .filter((c) => c.back.split('\n\n').length > 2)
         .map((c) => ({ pack, back: c.back, note: c.back.split('\n\n').at(-1)! })),
@@ -331,7 +367,7 @@ describe('math on ready-made cards', () => {
   // Prices like "$500" in the TOEIC pack must stay text (the dollar rule in lib/math/parse.ts).
   it('finds none in the Library', () => {
     const sides = PACKS.flatMap((p) =>
-      p.decks.flatMap((d) => d.cards.flatMap((c) => [c.front, c.back])),
+      decksOf(p).flatMap((d) => d.cards.flatMap((c) => [c.front, c.back])),
     );
     expect(sides.filter((side) => side.includes('$')).length).toBeGreaterThan(0);
     expect(sides.filter(hasMath)).toEqual([]);

@@ -683,6 +683,8 @@ export const es: Translation = {
   'library.addA11y': 'Agregar {name} a mis mazos',
   'library.openA11y': 'Abrir {name}',
   'library.added': 'Se agregó {name} · {cards}',
+  'library.addOffline':
+    'No se pudo descargar {name}. Revisa tu conexión a internet y vuelve a intentarlo.',
   'pack.englishBasics':
     'Inglés cotidiano con significados en vietnamita: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
   'pack.englishBasicsEs':

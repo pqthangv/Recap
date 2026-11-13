@@ -5,7 +5,7 @@ import { transaction } from '@/db/transaction';
 import { DECK_PATH_SEPARATOR } from '@/lib/deckGroups';
 import type { Language } from '@/lib/i18n';
 
-import { PACK_CATEGORIES, type Pack, type PackCategory } from './packs';
+import { PACK_CATEGORIES, type Pack, type PackCategory, type PackDeck } from './packs';
 
 const lower = (name: string) => name.trim().toLowerCase();
 
@@ -40,7 +40,7 @@ export function packDeckNames(pack: Pack): string[] {
 }
 
 export function packCardCount(pack: Pack): number {
-  return pack.decks.reduce((n, deck) => n + deck.cards.length, 0);
+  return pack.decks.reduce((n, deck) => n + deck.count, 0);
 }
 
 /** True when all the pack's decks are on the phone (its button then opens them instead). */
@@ -52,11 +52,11 @@ export function isPackAdded(pack: Pack, decks: readonly { name: string }[]): boo
 
 /**
  * Adds the pack's decks (in the pack's color, read aloud in its languages) and its cards as new
- * cards, in the pack's order.
+ * cards, in the pack's order. `decks`: its cards, from loadPackDecks (packCards.ts).
  * Adding it again only brings back what's missing: cards already in a deck are skipped.
  */
-export function addPack(pack: Pack, now = Date.now()): ImportSummary {
-  const names = packDeckNames(pack);
+export function addPack(pack: Pack, decks: readonly PackDeck[], now = Date.now()): ImportSummary {
+  const names = decks.map((deck) => `${pack.name}${DECK_PATH_SEPARATOR}${deck.name}`);
   return transaction(() => {
     const existing = new Set(listDecks().map((d) => lower(d.name)));
     names.forEach((name, i) => {
@@ -64,7 +64,7 @@ export function addPack(pack: Pack, now = Date.now()): ImportSummary {
         createDeck({ name, color: pack.color, languages: pack.languages }, now + i);
       }
     });
-    const items = pack.decks.flatMap((deck, i) =>
+    const items = decks.flatMap((deck, i) =>
       deck.cards.map((card) => ({ ...card, tags: [], deckName: names[i] })),
     );
     return importCards(items, { kind: 'fromFile', fallbackName: pack.name }, now);

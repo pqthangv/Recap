@@ -665,6 +665,7 @@ export const vi: Strings = {
   'library.addA11y': 'Thêm {name} vào bộ thẻ của tôi',
   'library.openA11y': 'Mở {name}',
   'library.added': 'Đã thêm {name} · {cards}',
+  'library.addOffline': 'Không tải được {name}. Hãy kiểm tra mạng rồi thử lại.',
   'pack.englishBasics':
     'Tiếng Anh thông dụng có nghĩa tiếng Việt: 1.000 từ theo 20 chủ đề, từ chào hỏi đến ăn uống và du lịch.',
   'pack.englishBasicsEs':

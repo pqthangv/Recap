@@ -671,6 +671,7 @@ export const bn: Translation = {
   'library.addA11y': '{name} আমার ডেকে যোগ করুন',
   'library.openA11y': '{name} খুলুন',
   'library.added': '{name} যোগ হয়েছে · {cards}',
+  'library.addOffline': '{name} ডাউনলোড করা গেল না। ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।',
   'pack.englishBasics':
     'প্রতিদিনের ইংরেজি, ভিয়েতনামি অর্থসহ: 20টি বিষয়ে 1,000টি শব্দ, শুভেচ্ছা থেকে খাবার ও ভ্রমণ পর্যন্ত।',
   'pack.englishBasicsEs':

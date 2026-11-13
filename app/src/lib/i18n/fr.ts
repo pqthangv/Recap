@@ -688,6 +688,8 @@ export const fr: Translation = {
   'library.addA11y': 'Ajouter {name} à mes paquets',
   'library.openA11y': 'Ouvrir {name}',
   'library.added': 'Ajouté : {name} · {cards}',
+  'library.addOffline':
+    'Impossible de télécharger {name}. Vérifiez votre connexion Internet et réessayez.',
   'pack.englishBasics':
     'L’anglais de tous les jours, avec le sens en vietnamien : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
   'pack.englishBasicsEs':

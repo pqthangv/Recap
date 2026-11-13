@@ -20,6 +20,7 @@ import {
   packCardCount,
   type LibraryFilter,
 } from './library';
+import { loadPackDecks } from './packCards';
 import { CATEGORY_NAMES, PACKS, type Pack } from './packs';
 
 const CATEGORIES = libraryCategories(PACKS);
@@ -31,16 +32,30 @@ export default function LibraryScreen() {
   const decks = useLive(listDecks, ['decks']);
   const appLanguage = useLanguage();
   const [filter, setFilter] = useState<LibraryFilter>('all');
+  // Packs whose cards are loading (the website downloads them; a phone has them at once).
+  const [loading, setLoading] = useState<ReadonlySet<string>>(new Set());
 
   const open = (pack: Pack) =>
     router.push({ pathname: '/group/[name]', params: { name: pack.name } });
   const add = (pack: Pack) => {
-    const { added } = addPack(pack);
-    syncSoon();
-    showSnackbar(t('library.added', { name: pack.name, cards: tn('count.card', added) }), {
-      label: t('common.open'),
-      onPress: () => open(pack),
-    });
+    if (loading.has(pack.id)) return;
+    const done = () => setLoading((ids) => new Set([...ids].filter((id) => id !== pack.id)));
+    setLoading((ids) => new Set(ids).add(pack.id));
+    loadPackDecks(pack.id).then(
+      (decks) => {
+        done();
+        const { added } = addPack(pack, decks);
+        syncSoon();
+        showSnackbar(t('library.added', { name: pack.name, cards: tn('count.card', added) }), {
+          label: t('common.open'),
+          onPress: () => open(pack),
+        });
+      },
+      () => {
+        done();
+        showSnackbar(t('library.addOffline', { name: pack.name }));
+      },
+    );
   };
 
   return (
@@ -95,6 +110,7 @@ export default function LibraryScreen() {
                 label={t('library.add')}
                 accessibilityLabel={t('library.addA11y', { name: pack.name })}
                 onPress={() => add(pack)}
+                disabled={loading.has(pack.id)}
                 style={styles.button}
               />
             )}

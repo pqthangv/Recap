@@ -677,6 +677,8 @@ export const hi: Translation = {
   'library.addA11y': '{name} को मेरे डेक में जोड़ें',
   'library.openA11y': '{name} खोलें',
   'library.added': '{name} जोड़ा गया · {cards}',
+  'library.addOffline':
+    '{name} डाउनलोड नहीं हो सका। अपना इंटरनेट कनेक्शन जाँचें और फिर से कोशिश करें।',
   'pack.englishBasics':
     'रोज़ की अंग्रेज़ी, वियतनामी अर्थों के साथ: 20 विषयों में 1,000 शब्द, अभिवादन से लेकर खाने और यात्रा तक।',
   'pack.englishBasicsEs':

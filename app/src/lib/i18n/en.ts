@@ -663,6 +663,7 @@ export const en = {
   'library.addA11y': 'Add {name} to my decks',
   'library.openA11y': 'Open {name}',
   'library.added': 'Added {name} · {cards}',
+  'library.addOffline': "Couldn't download {name}. Check your internet connection and try again.",
   'pack.englishBasics':
     'Everyday English with Vietnamese meanings: 1,000 words in 20 topics, from greetings to food and travel.',
   'pack.englishBasicsEs':
