@@ -674,13 +674,37 @@ export const es: Translation = {
   'aiError.notConfigured': 'La IA de Recap todavía no está configurada.',
 
   // Library
-  'library.help': 'Mazos ya hechos para agregar a los tuyos.',
-  'library.add': 'Agregar a mis mazos',
+  'library.add': 'Agregar',
+  'library.categoriesA11y': 'Tipos de mazos',
+  'library.all': 'Todos',
+  'library.exams': 'Exámenes',
+  'library.languages': 'Idiomas',
+  'library.geography': 'Geografía',
   'library.addA11y': 'Agregar {name} a mis mazos',
   'library.openA11y': 'Abrir {name}',
   'library.added': 'Se agregó {name} · {cards}',
+  'library.addOffline':
+    'No se pudo descargar {name}. Revisa tu conexión a internet y vuelve a intentarlo.',
   'pack.englishBasics':
     'Inglés cotidiano con significados en vietnamita: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsEs':
+    'Inglés cotidiano con significados en español: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsPt':
+    'Inglés cotidiano con significados en portugués: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsFr':
+    'Inglés cotidiano con significados en francés: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsHi':
+    'Inglés cotidiano con significados en hindi: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.englishBasicsBn':
+    'Inglés cotidiano con significados en bengalí: 1000 palabras en 20 temas, desde saludos hasta comida y viajes.',
+  'pack.spanishBasics':
+    'Español cotidiano con significados en inglés: 20 temas, desde saludos hasta comida y viajes.',
+  'pack.frenchBasics':
+    'Francés cotidiano con significados en inglés: 20 temas, desde saludos hasta comida y viajes.',
+  'pack.portugueseBasics':
+    'Portugués cotidiano con significados en inglés: 20 temas, desde saludos hasta comida y viajes.',
+  'pack.vietnameseBasics':
+    'Vietnamita cotidiano con significados en inglés: 20 temas, desde saludos hasta comida y viajes.',
   'pack.ielts':
     'Vocabulario académico para el IELTS en 10 temas, desde describir gráficos hasta el medio ambiente (con definiciones en inglés).',
   'pack.sat':

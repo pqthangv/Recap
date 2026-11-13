@@ -654,13 +654,36 @@ export const en = {
   'aiError.notConfigured': "Recap's AI isn't set up yet.",
 
   // Library
-  'library.help': 'Ready-made decks to add to yours.',
-  'library.add': 'Add to my decks',
+  'library.add': 'Add',
+  'library.categoriesA11y': 'Kinds of decks',
+  'library.all': 'All',
+  'library.exams': 'Exams',
+  'library.languages': 'Languages',
+  'library.geography': 'Geography',
   'library.addA11y': 'Add {name} to my decks',
   'library.openA11y': 'Open {name}',
   'library.added': 'Added {name} · {cards}',
+  'library.addOffline': "Couldn't download {name}. Check your internet connection and try again.",
   'pack.englishBasics':
     'Everyday English with Vietnamese meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.englishBasicsEs':
+    'Everyday English with Spanish meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.englishBasicsPt':
+    'Everyday English with Portuguese meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.englishBasicsFr':
+    'Everyday English with French meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.englishBasicsHi':
+    'Everyday English with Hindi meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.englishBasicsBn':
+    'Everyday English with Bengali meanings: 1,000 words in 20 topics, from greetings to food and travel.',
+  'pack.spanishBasics':
+    'Everyday Spanish with English meanings, in 20 topics, from greetings to food and travel.',
+  'pack.frenchBasics':
+    'Everyday French with English meanings, in 20 topics, from greetings to food and travel.',
+  'pack.portugueseBasics':
+    'Everyday Portuguese with English meanings, in 20 topics, from greetings to food and travel.',
+  'pack.vietnameseBasics':
+    'Everyday Vietnamese with English meanings, in 20 topics, from greetings to food and travel.',
   'pack.ielts': 'Academic words for IELTS in 10 topics, from describing charts to the environment.',
   'pack.sat': 'Words from SAT reading passages, in sets of 100.',
   'pack.toeic': 'Workplace English for TOEIC in 10 topics, from meetings to shipping and housing.',

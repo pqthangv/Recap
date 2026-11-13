@@ -679,13 +679,37 @@ export const fr: Translation = {
   'aiError.notConfigured': 'L’IA de Recap n’est pas encore configurée.',
 
   // Library
-  'library.help': 'Des paquets tout prêts à ajouter aux vôtres.',
-  'library.add': 'Ajouter à mes paquets',
+  'library.add': 'Ajouter',
+  'library.categoriesA11y': 'Types de paquets',
+  'library.all': 'Tous',
+  'library.exams': 'Examens',
+  'library.languages': 'Langues',
+  'library.geography': 'Géographie',
   'library.addA11y': 'Ajouter {name} à mes paquets',
   'library.openA11y': 'Ouvrir {name}',
   'library.added': 'Ajouté : {name} · {cards}',
+  'library.addOffline':
+    'Impossible de télécharger {name}. Vérifiez votre connexion Internet et réessayez.',
   'pack.englishBasics':
     'L’anglais de tous les jours, avec le sens en vietnamien : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsEs':
+    'L’anglais de tous les jours, avec le sens en espagnol : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsPt':
+    'L’anglais de tous les jours, avec le sens en portugais : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsFr':
+    'L’anglais de tous les jours, avec le sens en français : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsHi':
+    'L’anglais de tous les jours, avec le sens en hindi : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.englishBasicsBn':
+    'L’anglais de tous les jours, avec le sens en bengali : 1 000 mots en 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.spanishBasics':
+    'L’espagnol de tous les jours, avec le sens en anglais : 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.frenchBasics':
+    'Le français de tous les jours, avec le sens en anglais : 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.portugueseBasics':
+    'Le portugais de tous les jours, avec le sens en anglais : 20 thèmes, des salutations à la nourriture et aux voyages.',
+  'pack.vietnameseBasics':
+    'Le vietnamien de tous les jours, avec le sens en anglais : 20 thèmes, des salutations à la nourriture et aux voyages.',
   'pack.ielts':
     'Vocabulaire académique pour l’IELTS en 10 thèmes, de la description de graphiques à l’environnement (définitions en anglais).',
   'pack.sat': 'Mots des textes de lecture du SAT, par groupes de 100 (définitions en anglais).',

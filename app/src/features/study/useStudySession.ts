@@ -88,7 +88,7 @@ export function useStudySession(scope: StudyScope) {
   /** Checks a typed answer (empty = "Show answer") and turns the card over with a suggestion. */
   const checkTyped = (typed: string) => {
     if (!card || revealed) return;
-    const result = checkAnswer(typed, card.back);
+    const result = checkAnswer(typed, card.back, languages.back);
     const started = startedTypingAt.current;
     const quick = started !== null && started - questionReadyAt.current <= QUICK_START_MS;
     reveal({ check: { typed, result }, suggested: suggestGrade(result, quick) });

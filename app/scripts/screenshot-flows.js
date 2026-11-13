@@ -55,7 +55,7 @@ const LABELS = {
   'Language of the card fronts.*': 'languages.frontA11y',
   'Read the front of the cards in': 'deck.frontLanguageTitle',
   Library: 'screen.library',
-  'Ready-made decks.*': 'library.help',
+  All: 'library.all',
   Statistics: 'screen.stats',
   'Cards studied, last 7 days': 'stats.lastWeek',
   Leaderboard: 'stats.leaderboard',

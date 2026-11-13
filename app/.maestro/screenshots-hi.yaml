@@ -76,14 +76,14 @@ appId: com.recapcards.app
     timeout: 10000
 - takeScreenshot: voices
 
-# The Library of ready-made decks, scrolled to TOEIC (nothing is added).
+# The Library, scrolled to TOEIC (nothing is added).
 - launchApp
 - extendedWaitUntil:
     visible: 'पढ़ें · .* बाकी'
     timeout: 60000
 - tapOn: 'लाइब्रेरी'
 - extendedWaitUntil:
-    visible: 'आपके डेक में जोड़ने के लिए तैयार डेक।.*'
+    visible: 'सभी'
     timeout: 30000
 - scrollUntilVisible:
     element:

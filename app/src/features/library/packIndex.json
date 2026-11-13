@@ -1,0 +1,1118 @@
+{
+  "capitals": [
+    {
+      "name": "Africa",
+      "count": 54
+    },
+    {
+      "name": "Asia",
+      "count": 46
+    },
+    {
+      "name": "Europe",
+      "count": 44
+    },
+    {
+      "name": "North America",
+      "count": 23
+    },
+    {
+      "name": "South America",
+      "count": 12
+    },
+    {
+      "name": "Oceania",
+      "count": 14
+    }
+  ],
+  "english-basics-bn": [
+    {
+      "name": "01 সম্ভাষণ ও মৌলিক শব্দ",
+      "count": 50
+    },
+    {
+      "name": "02 মানুষ ও পরিবার",
+      "count": 50
+    },
+    {
+      "name": "03 সংখ্যা ও সময়",
+      "count": 50
+    },
+    {
+      "name": "04 দিন ও ঋতু",
+      "count": 50
+    },
+    {
+      "name": "05 খাবার",
+      "count": 50
+    },
+    {
+      "name": "06 পানীয় ও রান্না",
+      "count": 50
+    },
+    {
+      "name": "07 বাড়িঘর",
+      "count": 50
+    },
+    {
+      "name": "08 পোশাক ও রং",
+      "count": 50
+    },
+    {
+      "name": "09 শরীর ও স্বাস্থ্য",
+      "count": 50
+    },
+    {
+      "name": "10 স্কুল",
+      "count": 50
+    },
+    {
+      "name": "11 কাজ ও পেশা",
+      "count": 50
+    },
+    {
+      "name": "12 শহর ও নানা জায়গা",
+      "count": 50
+    },
+    {
+      "name": "13 ভ্রমণ",
+      "count": 50
+    },
+    {
+      "name": "14 কেনাকাটা ও টাকা",
+      "count": 50
+    },
+    {
+      "name": "15 আবহাওয়া ও প্রকৃতি",
+      "count": 50
+    },
+    {
+      "name": "16 পশুপাখি",
+      "count": 50
+    },
+    {
+      "name": "17 অনুভূতি ও স্বভাব",
+      "count": 50
+    },
+    {
+      "name": "18 দৈনন্দিন ক্রিয়া 1",
+      "count": 50
+    },
+    {
+      "name": "19 দৈনন্দিন ক্রিয়া 2",
+      "count": 50
+    },
+    {
+      "name": "20 জিনিসের বর্ণনা",
+      "count": 50
+    }
+  ],
+  "english-basics-bn/reversed": [
+    {
+      "name": "01 Greetings & basics",
+      "count": 48
+    },
+    {
+      "name": "02 People & family",
+      "count": 48
+    },
+    {
+      "name": "03 Numbers & time",
+      "count": 50
+    },
+    {
+      "name": "04 Days & seasons",
+      "count": 50
+    },
+    {
+      "name": "05 Food",
+      "count": 49
+    },
+    {
+      "name": "06 Drinks & cooking",
+      "count": 50
+    },
+    {
+      "name": "07 Home",
+      "count": 50
+    },
+    {
+      "name": "08 Clothes & colors",
+      "count": 50
+    },
+    {
+      "name": "09 Body & health",
+      "count": 47
+    },
+    {
+      "name": "10 School",
+      "count": 47
+    },
+    {
+      "name": "11 Work & jobs",
+      "count": 50
+    },
+    {
+      "name": "12 Town & places",
+      "count": 48
+    },
+    {
+      "name": "13 Travel",
+      "count": 50
+    },
+    {
+      "name": "14 Shopping & money",
+      "count": 50
+    },
+    {
+      "name": "15 Weather & nature",
+      "count": 48
+    },
+    {
+      "name": "16 Animals",
+      "count": 49
+    },
+    {
+      "name": "17 Feelings & personality",
+      "count": 50
+    },
+    {
+      "name": "18 Everyday verbs 1",
+      "count": 45
+    },
+    {
+      "name": "19 Everyday verbs 2",
+      "count": 48
+    },
+    {
+      "name": "20 Describing things",
+      "count": 45
+    }
+  ],
+  "english-basics-es": [
+    {
+      "name": "01 Saludos y lo básico",
+      "count": 50
+    },
+    {
+      "name": "02 Personas y familia",
+      "count": 50
+    },
+    {
+      "name": "03 Números y tiempo",
+      "count": 50
+    },
+    {
+      "name": "04 Días y estaciones",
+      "count": 50
+    },
+    {
+      "name": "05 La comida",
+      "count": 50
+    },
+    {
+      "name": "06 Bebidas y cocina",
+      "count": 50
+    },
+    {
+      "name": "07 La casa",
+      "count": 50
+    },
+    {
+      "name": "08 Ropa y colores",
+      "count": 50
+    },
+    {
+      "name": "09 Cuerpo y salud",
+      "count": 50
+    },
+    {
+      "name": "10 La escuela",
+      "count": 50
+    },
+    {
+      "name": "11 Trabajo y profesiones",
+      "count": 50
+    },
+    {
+      "name": "12 Ciudad y lugares",
+      "count": 50
+    },
+    {
+      "name": "13 Los viajes",
+      "count": 50
+    },
+    {
+      "name": "14 Compras y dinero",
+      "count": 50
+    },
+    {
+      "name": "15 Clima y naturaleza",
+      "count": 50
+    },
+    {
+      "name": "16 Los animales",
+      "count": 50
+    },
+    {
+      "name": "17 Sentimientos y personalidad",
+      "count": 50
+    },
+    {
+      "name": "18 Verbos cotidianos 1",
+      "count": 50
+    },
+    {
+      "name": "19 Verbos cotidianos 2",
+      "count": 50
+    },
+    {
+      "name": "20 Describir cosas",
+      "count": 50
+    }
+  ],
+  "english-basics-es/reversed": [
+    {
+      "name": "01 Greetings & basics",
+      "count": 49
+    },
+    {
+      "name": "02 People & family",
+      "count": 49
+    },
+    {
+      "name": "03 Numbers & time",
+      "count": 47
+    },
+    {
+      "name": "04 Days & seasons",
+      "count": 50
+    },
+    {
+      "name": "05 Food",
+      "count": 49
+    },
+    {
+      "name": "06 Drinks & cooking",
+      "count": 49
+    },
+    {
+      "name": "07 Home",
+      "count": 48
+    },
+    {
+      "name": "08 Clothes & colors",
+      "count": 49
+    },
+    {
+      "name": "09 Body & health",
+      "count": 50
+    },
+    {
+      "name": "10 School",
+      "count": 50
+    },
+    {
+      "name": "11 Work & jobs",
+      "count": 50
+    },
+    {
+      "name": "12 Town & places",
+      "count": 48
+    },
+    {
+      "name": "13 Travel",
+      "count": 48
+    },
+    {
+      "name": "14 Shopping & money",
+      "count": 49
+    },
+    {
+      "name": "15 Weather & nature",
+      "count": 47
+    },
+    {
+      "name": "16 Animals",
+      "count": 50
+    },
+    {
+      "name": "17 Feelings & personality",
+      "count": 47
+    },
+    {
+      "name": "18 Everyday verbs 1",
+      "count": 45
+    },
+    {
+      "name": "19 Everyday verbs 2",
+      "count": 43
+    },
+    {
+      "name": "20 Describing things",
+      "count": 47
+    }
+  ],
+  "english-basics-fr": [
+    {
+      "name": "01 Salutations et bases",
+      "count": 50
+    },
+    {
+      "name": "02 Famille et entourage",
+      "count": 50
+    },
+    {
+      "name": "03 Nombres et temps",
+      "count": 50
+    },
+    {
+      "name": "04 Jours et saisons",
+      "count": 50
+    },
+    {
+      "name": "05 Nourriture",
+      "count": 50
+    },
+    {
+      "name": "06 Boissons et cuisine",
+      "count": 50
+    },
+    {
+      "name": "07 Maison",
+      "count": 50
+    },
+    {
+      "name": "08 Vêtements et couleurs",
+      "count": 50
+    },
+    {
+      "name": "09 Corps et santé",
+      "count": 50
+    },
+    {
+      "name": "10 École",
+      "count": 50
+    },
+    {
+      "name": "11 Travail et métiers",
+      "count": 50
+    },
+    {
+      "name": "12 Ville et lieux",
+      "count": 50
+    },
+    {
+      "name": "13 Voyages",
+      "count": 50
+    },
+    {
+      "name": "14 Achats et argent",
+      "count": 50
+    },
+    {
+      "name": "15 Météo et nature",
+      "count": 50
+    },
+    {
+      "name": "16 Animaux",
+      "count": 50
+    },
+    {
+      "name": "17 Émotions et caractère",
+      "count": 50
+    },
+    {
+      "name": "18 Verbes courants 1",
+      "count": 50
+    },
+    {
+      "name": "19 Verbes courants 2",
+      "count": 50
+    },
+    {
+      "name": "20 Décrire les choses",
+      "count": 50
+    }
+  ],
+  "english-basics-fr/reversed": [
+    {
+      "name": "01 Greetings & basics",
+      "count": 47
+    },
+    {
+      "name": "02 People & family",
+      "count": 48
+    },
+    {
+      "name": "03 Numbers & time",
+      "count": 50
+    },
+    {
+      "name": "04 Days & seasons",
+      "count": 49
+    },
+    {
+      "name": "05 Food",
+      "count": 50
+    },
+    {
+      "name": "06 Drinks & cooking",
+      "count": 50
+    },
+    {
+      "name": "07 Home",
+      "count": 48
+    },
+    {
+      "name": "08 Clothes & colors",
+      "count": 50
+    },
+    {
+      "name": "09 Body & health",
+      "count": 50
+    },
+    {
+      "name": "10 School",
+      "count": 50
+    },
+    {
+      "name": "11 Work & jobs",
+      "count": 48
+    },
+    {
+      "name": "12 Town & places",
+      "count": 48
+    },
+    {
+      "name": "13 Travel",
+      "count": 49
+    },
+    {
+      "name": "14 Shopping & money",
+      "count": 47
+    },
+    {
+      "name": "15 Weather & nature",
+      "count": 45
+    },
+    {
+      "name": "16 Animals",
+      "count": 50
+    },
+    {
+      "name": "17 Feelings & personality",
+      "count": 47
+    },
+    {
+      "name": "18 Everyday verbs 1",
+      "count": 45
+    },
+    {
+      "name": "19 Everyday verbs 2",
+      "count": 43
+    },
+    {
+      "name": "20 Describing things",
+      "count": 46
+    }
+  ],
+  "english-basics-hi": [
+    {
+      "name": "01 अभिवादन और ज़रूरी शब्द",
+      "count": 50
+    },
+    {
+      "name": "02 लोग और परिवार",
+      "count": 50
+    },
+    {
+      "name": "03 संख्याएँ और समय",
+      "count": 50
+    },
+    {
+      "name": "04 दिन और ऋतुएँ",
+      "count": 50
+    },
+    {
+      "name": "05 खाना",
+      "count": 50
+    },
+    {
+      "name": "06 पेय और रसोई",
+      "count": 50
+    },
+    {
+      "name": "07 घर",
+      "count": 50
+    },
+    {
+      "name": "08 कपड़े और रंग",
+      "count": 50
+    },
+    {
+      "name": "09 शरीर और सेहत",
+      "count": 50
+    },
+    {
+      "name": "10 स्कूल",
+      "count": 50
+    },
+    {
+      "name": "11 काम और पेशे",
+      "count": 50
+    },
+    {
+      "name": "12 शहर और जगहें",
+      "count": 50
+    },
+    {
+      "name": "13 यात्रा",
+      "count": 50
+    },
+    {
+      "name": "14 ख़रीदारी और पैसा",
+      "count": 50
+    },
+    {
+      "name": "15 मौसम और प्रकृति",
+      "count": 50
+    },
+    {
+      "name": "16 जानवर",
+      "count": 50
+    },
+    {
+      "name": "17 भावनाएँ और स्वभाव",
+      "count": 50
+    },
+    {
+      "name": "18 रोज़मर्रा की क्रियाएँ 1",
+      "count": 50
+    },
+    {
+      "name": "19 रोज़मर्रा की क्रियाएँ 2",
+      "count": 50
+    },
+    {
+      "name": "20 चीज़ों का वर्णन",
+      "count": 50
+    }
+  ],
+  "english-basics-hi/reversed": [
+    {
+      "name": "01 Greetings & basics",
+      "count": 46
+    },
+    {
+      "name": "02 People & family",
+      "count": 49
+    },
+    {
+      "name": "03 Numbers & time",
+      "count": 49
+    },
+    {
+      "name": "04 Days & seasons",
+      "count": 50
+    },
+    {
+      "name": "05 Food",
+      "count": 50
+    },
+    {
+      "name": "06 Drinks & cooking",
+      "count": 49
+    },
+    {
+      "name": "07 Home",
+      "count": 49
+    },
+    {
+      "name": "08 Clothes & colors",
+      "count": 47
+    },
+    {
+      "name": "09 Body & health",
+      "count": 50
+    },
+    {
+      "name": "10 School",
+      "count": 49
+    },
+    {
+      "name": "11 Work & jobs",
+      "count": 50
+    },
+    {
+      "name": "12 Town & places",
+      "count": 49
+    },
+    {
+      "name": "13 Travel",
+      "count": 50
+    },
+    {
+      "name": "14 Shopping & money",
+      "count": 50
+    },
+    {
+      "name": "15 Weather & nature",
+      "count": 45
+    },
+    {
+      "name": "16 Animals",
+      "count": 49
+    },
+    {
+      "name": "17 Feelings & personality",
+      "count": 49
+    },
+    {
+      "name": "18 Everyday verbs 1",
+      "count": 44
+    },
+    {
+      "name": "19 Everyday verbs 2",
+      "count": 45
+    },
+    {
+      "name": "20 Describing things",
+      "count": 44
+    }
+  ],
+  "english-basics-pt": [
+    {
+      "name": "01 Cumprimentos e o básico",
+      "count": 50
+    },
+    {
+      "name": "02 Pessoas e família",
+      "count": 50
+    },
+    {
+      "name": "03 Números e tempo",
+      "count": 50
+    },
+    {
+      "name": "04 Dias e estações",
+      "count": 50
+    },
+    {
+      "name": "05 Comida",
+      "count": 50
+    },
+    {
+      "name": "06 Bebidas e cozinha",
+      "count": 50
+    },
+    {
+      "name": "07 Casa",
+      "count": 50
+    },
+    {
+      "name": "08 Roupas e cores",
+      "count": 50
+    },
+    {
+      "name": "09 Corpo e saúde",
+      "count": 50
+    },
+    {
+      "name": "10 Escola",
+      "count": 50
+    },
+    {
+      "name": "11 Trabalho e profissões",
+      "count": 50
+    },
+    {
+      "name": "12 Cidade e lugares",
+      "count": 50
+    },
+    {
+      "name": "13 Viagens",
+      "count": 50
+    },
+    {
+      "name": "14 Compras e dinheiro",
+      "count": 50
+    },
+    {
+      "name": "15 Clima e natureza",
+      "count": 50
+    },
+    {
+      "name": "16 Animais",
+      "count": 50
+    },
+    {
+      "name": "17 Sentimentos e personalidade",
+      "count": 50
+    },
+    {
+      "name": "18 Verbos do dia a dia 1",
+      "count": 50
+    },
+    {
+      "name": "19 Verbos do dia a dia 2",
+      "count": 50
+    },
+    {
+      "name": "20 Descrevendo coisas",
+      "count": 50
+    }
+  ],
+  "english-basics-pt/reversed": [
+    {
+      "name": "01 Greetings & basics",
+      "count": 49
+    },
+    {
+      "name": "02 People & family",
+      "count": 50
+    },
+    {
+      "name": "03 Numbers & time",
+      "count": 49
+    },
+    {
+      "name": "04 Days & seasons",
+      "count": 49
+    },
+    {
+      "name": "05 Food",
+      "count": 50
+    },
+    {
+      "name": "06 Drinks & cooking",
+      "count": 49
+    },
+    {
+      "name": "07 Home",
+      "count": 47
+    },
+    {
+      "name": "08 Clothes & colors",
+      "count": 48
+    },
+    {
+      "name": "09 Body & health",
+      "count": 50
+    },
+    {
+      "name": "10 School",
+      "count": 50
+    },
+    {
+      "name": "11 Work & jobs",
+      "count": 50
+    },
+    {
+      "name": "12 Town & places",
+      "count": 49
+    },
+    {
+      "name": "13 Travel",
+      "count": 48
+    },
+    {
+      "name": "14 Shopping & money",
+      "count": 47
+    },
+    {
+      "name": "15 Weather & nature",
+      "count": 45
+    },
+    {
+      "name": "16 Animals",
+      "count": 50
+    },
+    {
+      "name": "17 Feelings & personality",
+      "count": 48
+    },
+    {
+      "name": "18 Everyday verbs 1",
+      "count": 44
+    },
+    {
+      "name": "19 Everyday verbs 2",
+      "count": 42
+    },
+    {
+      "name": "20 Describing things",
+      "count": 49
+    }
+  ],
+  "english-basics": [
+    {
+      "name": "01 Greetings & basics",
+      "count": 50
+    },
+    {
+      "name": "02 People & family",
+      "count": 50
+    },
+    {
+      "name": "03 Numbers & time",
+      "count": 50
+    },
+    {
+      "name": "04 Days & seasons",
+      "count": 50
+    },
+    {
+      "name": "05 Food",
+      "count": 50
+    },
+    {
+      "name": "06 Drinks & cooking",
+      "count": 50
+    },
+    {
+      "name": "07 Home",
+      "count": 50
+    },
+    {
+      "name": "08 Clothes & colors",
+      "count": 50
+    },
+    {
+      "name": "09 Body & health",
+      "count": 50
+    },
+    {
+      "name": "10 School",
+      "count": 50
+    },
+    {
+      "name": "11 Work & jobs",
+      "count": 50
+    },
+    {
+      "name": "12 Town & places",
+      "count": 50
+    },
+    {
+      "name": "13 Travel",
+      "count": 50
+    },
+    {
+      "name": "14 Shopping & money",
+      "count": 50
+    },
+    {
+      "name": "15 Weather & nature",
+      "count": 50
+    },
+    {
+      "name": "16 Animals",
+      "count": 50
+    },
+    {
+      "name": "17 Feelings & personality",
+      "count": 50
+    },
+    {
+      "name": "18 Everyday verbs 1",
+      "count": 50
+    },
+    {
+      "name": "19 Everyday verbs 2",
+      "count": 50
+    },
+    {
+      "name": "20 Describing things",
+      "count": 50
+    }
+  ],
+  "english-basics/reversed": [
+    {
+      "name": "01 Greetings & basics",
+      "count": 48
+    },
+    {
+      "name": "02 People & family",
+      "count": 50
+    },
+    {
+      "name": "03 Numbers & time",
+      "count": 49
+    },
+    {
+      "name": "04 Days & seasons",
+      "count": 50
+    },
+    {
+      "name": "05 Food",
+      "count": 50
+    },
+    {
+      "name": "06 Drinks & cooking",
+      "count": 49
+    },
+    {
+      "name": "07 Home",
+      "count": 49
+    },
+    {
+      "name": "08 Clothes & colors",
+      "count": 49
+    },
+    {
+      "name": "09 Body & health",
+      "count": 50
+    },
+    {
+      "name": "10 School",
+      "count": 50
+    },
+    {
+      "name": "11 Work & jobs",
+      "count": 50
+    },
+    {
+      "name": "12 Town & places",
+      "count": 49
+    },
+    {
+      "name": "13 Travel",
+      "count": 50
+    },
+    {
+      "name": "14 Shopping & money",
+      "count": 50
+    },
+    {
+      "name": "15 Weather & nature",
+      "count": 49
+    },
+    {
+      "name": "16 Animals",
+      "count": 50
+    },
+    {
+      "name": "17 Feelings & personality",
+      "count": 49
+    },
+    {
+      "name": "18 Everyday verbs 1",
+      "count": 47
+    },
+    {
+      "name": "19 Everyday verbs 2",
+      "count": 48
+    },
+    {
+      "name": "20 Describing things",
+      "count": 48
+    }
+  ],
+  "ielts": [
+    {
+      "name": "Describing charts and trends",
+      "count": 40
+    },
+    {
+      "name": "Education",
+      "count": 40
+    },
+    {
+      "name": "Work and business",
+      "count": 40
+    },
+    {
+      "name": "Environment",
+      "count": 40
+    },
+    {
+      "name": "Health",
+      "count": 40
+    },
+    {
+      "name": "Technology",
+      "count": 40
+    },
+    {
+      "name": "Society and culture",
+      "count": 40
+    },
+    {
+      "name": "Cities and transport",
+      "count": 40
+    },
+    {
+      "name": "Science and research",
+      "count": 40
+    },
+    {
+      "name": "Government and the economy",
+      "count": 40
+    }
+  ],
+  "sat": [
+    {
+      "name": "Set 1",
+      "count": 100
+    },
+    {
+      "name": "Set 2",
+      "count": 100
+    },
+    {
+      "name": "Set 3",
+      "count": 100
+    },
+    {
+      "name": "Set 4",
+      "count": 100
+    },
+    {
+      "name": "Set 5",
+      "count": 100
+    }
+  ],
+  "toeic": [
+    {
+      "name": "Offices and meetings",
+      "count": 40
+    },
+    {
+      "name": "Hiring and careers",
+      "count": 40
+    },
+    {
+      "name": "Travel and hotels",
+      "count": 40
+    },
+    {
+      "name": "Restaurants and events",
+      "count": 40
+    },
+    {
+      "name": "Shopping and orders",
+      "count": 40
+    },
+    {
+      "name": "Finance and banking",
+      "count": 40
+    },
+    {
+      "name": "Marketing and sales",
+      "count": 40
+    },
+    {
+      "name": "Manufacturing and shipping",
+      "count": 40
+    },
+    {
+      "name": "Health and insurance",
+      "count": 40
+    },
+    {
+      "name": "Housing and property",
+      "count": 40
+    }
+  ]
+}

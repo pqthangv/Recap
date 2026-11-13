@@ -58,6 +58,124 @@ describe('isTypeable with the deck language', () => {
     expect(isTypeable(unaccented)).toBe(false);
     expect(isTypeable(unaccented, 'vi')).toBe(true);
   });
+
+  it('doesn\'t count articles and "se" in Spanish, Portuguese, French, Italian and German', () => {
+    expect(isTypeable('se brosser les dents', 'fr')).toBe(true);
+    expect(isTypeable('ir a la escuela', 'es')).toBe(true);
+    expect(isTypeable('fazer o dever de casa', 'pt')).toBe(false); // still four
+    // English counts them: a definition stays tapped.
+    expect(isTypeable('to give someone a job', 'en')).toBe(false);
+    expect(isTypeable('se brosser les dents')).toBe(false); // no deck language: counted
+  });
+
+  it('counts each of several answers on its own', () => {
+    expect(isTypeable('how much; how many', 'en')).toBe(true);
+    expect(isTypeable('get up / stand up', 'en')).toBe(true);
+    expect(isTypeable('a large amount of money; a lot', 'en')).toBe(false);
+  });
+});
+
+describe('natural answers', () => {
+  const yes = 'vâng\n\nVâng, tôi hiểu.\n\nCũng nói: dạ, có';
+
+  it('takes an article or classifier the typed answer adds', () => {
+    expect(checkAnswer('la familia', 'familia', 'es')).toBe('correct');
+    expect(checkAnswer('a família', 'família', 'pt')).toBe('correct');
+    expect(checkAnswer('l’école', 'école', 'fr')).toBe('correct');
+    expect(checkAnswer("l'ecole", 'école', 'fr')).toBe('accents');
+    expect(checkAnswer('der Apfel', 'Apfel', 'de')).toBe('correct');
+    expect(checkAnswer('to go', 'go', 'en')).toBe('correct');
+    expect(checkAnswer('quả táo', 'táo', 'vi')).toBe('correct');
+    expect(checkAnswer('con mèo', 'mèo', 'vi')).toBe('correct');
+    // A deck without a language: any of the common articles.
+    expect(checkAnswer('la familia', 'familia')).toBe('correct');
+    expect(checkAnswer('der Apfel', 'Apfel')).toBe('correct');
+  });
+
+  it("doesn't take one that makes another word or phrase", () => {
+    expect(checkAnswer('a few', 'few', 'en')).toBe('wrong'); // some, not hardly any
+    expect(checkAnswer('un peu', 'peu', 'fr')).toBe('wrong');
+    expect(checkAnswer('una vez', 'vez', 'es')).toBe('wrong');
+    expect(checkAnswer('trái cây', 'cây', 'vi')).toBe('wrong'); // fruit, not a tree
+    expect(checkAnswer('cây xăng', 'xăng', 'vi')).toBe('wrong'); // a petrol station
+    expect(checkAnswer('tòa nhà', 'nhà', 'vi')).toBe('wrong'); // a building
+    expect(checkAnswer('cây bút', 'bút', 'vi')).toBe('correct');
+  });
+
+  it("says almost when the card's article is left out, which shows if a word is feminine", () => {
+    expect(checkAnswer('libro', 'el libro', 'es')).toBe('typo');
+    expect(checkAnswer('semaine prochaine', 'la semaine prochaine', 'fr')).toBe('typo');
+    expect(checkAnswer('la libro', 'el libro', 'es')).toBe('typo'); // the wrong article
+    expect(checkAnswer('mèo', 'con mèo', 'vi')).toBe('typo');
+    expect(checkAnswer('trai', 'con trai', 'vi')).toBe('typo'); // only almost: a son isn't a boy
+    expect(checkAnswer('few', 'a few', 'en')).toBe('wrong');
+    // "to" says nothing: leaving it out is right.
+    expect(checkAnswer('give up', 'to give up', 'en')).toBe('correct');
+  });
+
+  it('takes the other answers a note gives for the same meaning', () => {
+    expect(checkAnswer('dạ', yes, 'vi')).toBe('correct');
+    expect(checkAnswer('có', yes, 'vi')).toBe('correct');
+    expect(checkAnswer('da', yes, 'vi')).toBe('accents');
+    expect(checkAnswer('zumo', 'jugo\n\nQuiero un jugo.\n\nEn España: zumo', 'es')).toBe('correct');
+    expect(checkAnswer('chum', 'copain\n\nC’est mon copain.\n\nAu Québec : chum', 'fr')).toBe(
+      'correct',
+    );
+    const we = 'chúng tôi\n\nChúng tôi sống ở đây.\n\nCũng nói: chúng ta (gồm cả người nghe)';
+    expect(checkAnswer('chúng ta', we, 'vi')).toBe('correct');
+    const you = 'bạn\n\nBạn thật tốt.\n\nCũng nói: anh, chị, em… tùy người nghe';
+    expect(checkAnswer('em', you, 'vi')).toBe('correct');
+  });
+
+  it("doesn't take another meaning, an English variant, a hint or an opposite from a note", () => {
+    const old = 'già\n\nÔng tôi đã già.\n\nVới đồ vật: cũ';
+    expect(checkAnswer('cũ', old, 'vi')).toBe('wrong'); // old things, not old people
+    const take = 'quitarse\n\nQuítate la chaqueta.\n\nTambién significa: despegar';
+    expect(checkAnswer('despegar', take, 'es')).toBe('wrong');
+    expect(
+      checkAnswer('fall', 'otoño\n\nMe gusta el otoño.\n\nEn inglés americano: fall', 'es'),
+    ).toBe('wrong');
+    expect(checkAnswer('fall', 'mùa thu\n\nMùa thu đẹp.\n\nTiếng Anh Mỹ: fall', 'vi')).toBe(
+      'wrong',
+    );
+    expect(checkAnswer('cold', 'hot\n\nOpposite: cold')).toBe('wrong');
+    expect(checkAnswer('cotonou', 'Porto-Novo\n\nCotonou is the seat of government.')).toBe(
+      'wrong',
+    );
+  });
+
+  it('takes "se tornar" for "tornar-se", and the other way round', () => {
+    expect(checkAnswer('se tornar', 'tornar-se', 'pt')).toBe('correct');
+    expect(checkAnswer('tornar-se', 'se tornar', 'pt')).toBe('correct');
+    expect(checkAnswer('se vestir', 'vestir-se\n\nVai se vestir.', 'pt')).toBe('correct');
+  });
+
+  it('takes spellings that are both right', () => {
+    expect(checkAnswer('Strasse', 'Straße', 'de')).toBe('correct');
+    expect(checkAnswer('fuer', 'für', 'de')).toBe('correct');
+    expect(checkAnswer('Oel', 'Öl', 'de')).toBe('correct');
+    expect(checkAnswer('fur', 'für', 'de')).toBe('accents');
+    expect(checkAnswer('ténis', 'tênis', 'pt')).toBe('correct'); // Portugal, Brazil
+    expect(checkAnswer('avó', 'avô', 'pt')).toBe('accents'); // grandmother, grandfather
+    expect(checkAnswer('khoẻ', 'khỏe', 'vi')).toBe('correct'); // the tone on either vowel
+    expect(checkAnswer('tàu hoả', 'tàu hỏa', 'vi')).toBe('correct');
+    expect(checkAnswer('thuỷ', 'thủy', 'vi')).toBe('correct');
+    expect(checkAnswer('Mĩ', 'Mỹ', 'vi')).toBe('correct');
+    expect(checkAnswer('kì thi', 'kỳ thi', 'vi')).toBe('correct');
+    expect(checkAnswer('li', 'ly', 'vi')).toBe('wrong'); // a millimetre, a glass
+    expect(checkAnswer('tai', 'tay', 'vi')).toBe('wrong'); // an ear, a hand
+    expect(checkAnswer('जरूर', 'ज़रूर', 'hi')).toBe('correct'); // without the dot
+    expect(checkAnswer('हां', 'हाँ', 'hi')).toBe('correct'); // ं for ँ
+    expect(checkAnswer('हिंदी', 'हिन्दी', 'hi')).toBe('correct');
+    expect(checkAnswer('संबंध', 'सम्बन्ध', 'hi')).toBe('correct');
+    expect(checkAnswer('नयी', 'नई', 'hi')).toBe('correct');
+    expect(checkAnswer('गये', 'गए', 'hi')).toBe('correct');
+    expect(checkAnswer('बडा', 'बड़ा', 'hi')).toBe('accents'); // ड़ is another letter: almost
+    expect(checkAnswer('রং', 'রঙ', 'bn')).toBe('correct');
+    expect(checkAnswer('সংগীত', 'সঙ্গীত', 'bn')).toBe('correct');
+    expect(checkAnswer('বড', 'বড়', 'bn')).toBe('accents'); // another letter: almost
+    expect(checkAnswer('কাচা', 'কাঁচা', 'bn')).toBe('accents'); // without the chandrabindu
+  });
 });
 
 describe('expectedAnswer', () => {
@@ -87,6 +205,13 @@ describe('checkAnswer', () => {
     const decomposed = composed.normalize('NFD');
     expect(checkAnswer(decomposed, composed)).toBe('correct');
     expect(checkAnswer(composed, decomposed)).toBe('correct');
+  });
+
+  it('takes "oe" and "ae" for œ and æ, as phone keyboards often type them', () => {
+    expect(checkAnswer('oeuf', 'œuf')).toBe('correct');
+    expect(checkAnswer('grande soeur', 'grande sœur')).toBe('correct');
+    expect(checkAnswer('Cœur', 'coeur')).toBe('correct');
+    expect(checkAnswer('aether', 'æther')).toBe('correct');
   });
 
   it('says "almost" when only the accents are wrong', () => {

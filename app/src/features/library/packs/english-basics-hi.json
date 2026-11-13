@@ -1,0 +1,4104 @@
+{
+  "decks": [
+    {
+      "name": "01 अभिवादन और ज़रूरी शब्द",
+      "cards": [
+        {
+          "front": "hello\n\nHello, my name is Anna.",
+          "back": "नमस्ते\n\nनमस्ते, मेरा नाम अन्ना है।\n\nयह भी: नमस्कार, हैलो"
+        },
+        {
+          "front": "hi\n\nHi! How are you?",
+          "back": "नमस्ते\n\nनमस्ते! तुम कैसे हो?\n\nयह भी: हाय, हैलो"
+        },
+        {
+          "front": "goodbye\n\nGoodbye, see you tomorrow.",
+          "back": "अलविदा\n\nबाय, कल मिलते हैं।\n\nयह भी: बाय"
+        },
+        {
+          "front": "good morning\n\nGood morning, everyone.",
+          "back": "सुप्रभात\n\nसभी को सुप्रभात।\n\nयह भी: गुड मॉर्निंग"
+        },
+        {
+          "front": "good night\n\nGood night, see you tomorrow.",
+          "back": "शुभ रात्रि\n\nशुभ रात्रि, कल मिलेंगे।\n\nयह भी: गुड नाइट"
+        },
+        {
+          "front": "please\n\nPlease help me.",
+          "back": "कृपया\n\nकृपया मेरी मदद कीजिए।\n\nयह भी: प्लीज़"
+        },
+        {
+          "front": "thank you\n\nThank you for your help.",
+          "back": "धन्यवाद\n\nआपकी मदद के लिए धन्यवाद।\n\nयह भी: शुक्रिया, थैंक यू"
+        },
+        {
+          "front": "sorry\n\nSorry, I am late.",
+          "back": "माफ़ करना\n\nमाफ़ करना, मुझे देर हो गई।\n\nयह भी: माफ़ कीजिए, सॉरी"
+        },
+        {
+          "front": "excuse me\n\nExcuse me, where is the bank?",
+          "back": "माफ़ कीजिए\n\nमाफ़ कीजिए, बैंक कहाँ है?\n\nयह भी: माफ़ करना, सुनिए"
+        },
+        {
+          "front": "yes\n\nYes, I understand.",
+          "back": "हाँ\n\nहाँ, मैं समझ गया।"
+        },
+        {
+          "front": "no\n\nNo, thank you.",
+          "back": "नहीं\n\nनहीं, धन्यवाद।"
+        },
+        {
+          "front": "okay\n\nOkay, let's go.",
+          "back": "ठीक है\n\nठीक है, चलो चलते हैं।\n\nयह भी: ओके"
+        },
+        {
+          "front": "welcome\n\nWelcome to our school.",
+          "back": "स्वागत है\n\nहमारे स्कूल में आपका स्वागत है।"
+        },
+        {
+          "front": "name\n\nWhat is your name?",
+          "back": "नाम\n\nआपका नाम क्या है?"
+        },
+        {
+          "front": "friend\n\nShe is my best friend.",
+          "back": "दोस्त\n\nवह मेरी सबसे अच्छी दोस्त है।\n\nयह भी: फ़्रेंड"
+        },
+        {
+          "front": "you\n\nYou are very kind.",
+          "back": "आप\n\nआप बहुत दयालु हैं।\n\nयह भी: तुम, तू"
+        },
+        {
+          "front": "I\n\nI am a student.",
+          "back": "मैं\n\nमैं एक छात्र हूँ।"
+        },
+        {
+          "front": "we\n\nWe live in a small town.",
+          "back": "हम\n\nहम एक छोटे-से क़स्बे में रहते हैं।"
+        },
+        {
+          "front": "they\n\nThey are my parents.",
+          "back": "वे\n\nवे मेरे माता-पिता हैं।\n\nयह भी: वो"
+        },
+        {
+          "front": "he\n\nHe is my classmate.",
+          "back": "वह\n\nवह मेरा सहपाठी है।\n\nयह भी: वो"
+        },
+        {
+          "front": "she\n\nShe is a doctor.",
+          "back": "वह\n\nवह डॉक्टर है।\n\nयह भी: वो"
+        },
+        {
+          "front": "it\n\nIt is a small cat.",
+          "back": "यह\n\nयह एक छोटी बिल्ली है।\n\nयह भी: ये, वह, वो"
+        },
+        {
+          "front": "this\n\nThis is my bag.",
+          "back": "यह\n\nयह मेरा बैग है।\n\nयह भी: ये"
+        },
+        {
+          "front": "that\n\nThat is your phone.",
+          "back": "वह\n\nवह तुम्हारा फ़ोन है।\n\nयह भी: वो"
+        },
+        {
+          "front": "here\n\nPlease wait here.",
+          "back": "यहाँ\n\nकृपया यहाँ इंतज़ार कीजिए।"
+        },
+        {
+          "front": "there\n\nPut the box there.",
+          "back": "वहाँ\n\nडिब्बा वहाँ रख दो।"
+        },
+        {
+          "front": "what\n\nWhat is this?",
+          "back": "क्या\n\nयह क्या है?"
+        },
+        {
+          "front": "who\n\nWho is that man?",
+          "back": "कौन\n\nवह आदमी कौन है?"
+        },
+        {
+          "front": "where\n\nWhere do you live?",
+          "back": "कहाँ\n\nतुम कहाँ रहते हो?"
+        },
+        {
+          "front": "when\n\nWhen is your birthday?",
+          "back": "कब\n\nतुम्हारा जन्मदिन कब है?"
+        },
+        {
+          "front": "why\n\nWhy are you sad?",
+          "back": "क्यों\n\nतुम उदास क्यों हो?"
+        },
+        {
+          "front": "how\n\nHow do you make this cake?",
+          "back": "कैसे\n\nतुम यह केक कैसे बनाते हो?"
+        },
+        {
+          "front": "how much\n\nHow much is this shirt?",
+          "back": "कितना\n\nयह शर्ट कितने की है?"
+        },
+        {
+          "front": "how many\n\nHow many brothers do you have?",
+          "back": "कितने\n\nतुम्हारे कितने भाई हैं?"
+        },
+        {
+          "front": "and\n\nI like tea and coffee.",
+          "back": "और\n\nमुझे चाय और कॉफ़ी पसंद है।"
+        },
+        {
+          "front": "but\n\nIt is small but nice.",
+          "back": "लेकिन\n\nयह छोटा है, लेकिन अच्छा है।\n\nयह भी: पर, मगर"
+        },
+        {
+          "front": "or\n\nTea or coffee?",
+          "back": "या\n\nचाय या कॉफ़ी?"
+        },
+        {
+          "front": "because\n\nI stay home because it is raining.",
+          "back": "क्योंकि\n\nमैं घर पर ही रुक रहा हूँ क्योंकि बारिश हो रही है।"
+        },
+        {
+          "front": "very\n\nIt is very hot today.",
+          "back": "बहुत\n\nआज बहुत गर्मी है।"
+        },
+        {
+          "front": "also\n\nI also like music.",
+          "back": "भी\n\nमुझे संगीत भी पसंद है।"
+        },
+        {
+          "front": "again\n\nPlease say it again.",
+          "back": "फिर से\n\nकृपया इसे फिर से कहिए।\n\nयह भी: दोबारा"
+        },
+        {
+          "front": "maybe\n\nMaybe it will rain.",
+          "back": "शायद\n\nशायद बारिश होगी।"
+        },
+        {
+          "front": "of course\n\nOf course you can come.",
+          "back": "ज़रूर\n\nज़रूर, तुम आ सकते हो।\n\nयह भी: बिल्कुल, बेशक"
+        },
+        {
+          "front": "help\n\nCan you help me?",
+          "back": "मदद करना\n\nक्या तुम मेरी मदद कर सकते हो?\n\nयह भी: मदद"
+        },
+        {
+          "front": "question\n\nI have a question.",
+          "back": "सवाल\n\nमेरा एक सवाल है।\n\nयह भी: प्रश्न"
+        },
+        {
+          "front": "answer\n\nI know the answer.",
+          "back": "जवाब\n\nमुझे जवाब पता है।\n\nयह भी: उत्तर"
+        },
+        {
+          "front": "word\n\nWhat does this word mean?",
+          "back": "शब्द\n\nइस शब्द का क्या मतलब है?"
+        },
+        {
+          "front": "language\n\nEnglish is a useful language.",
+          "back": "भाषा\n\nअंग्रेज़ी एक उपयोगी भाषा है।"
+        },
+        {
+          "front": "understand\n\nI don't understand.",
+          "back": "समझना\n\nमुझे समझ नहीं आया।"
+        },
+        {
+          "front": "speak\n\nDo you speak English?",
+          "back": "बोलना\n\nक्या आप अंग्रेज़ी बोलते हैं?"
+        }
+      ]
+    },
+    {
+      "name": "02 लोग और परिवार",
+      "cards": [
+        {
+          "front": "family\n\nMy family is big.",
+          "back": "परिवार\n\nमेरा परिवार बड़ा है।"
+        },
+        {
+          "front": "father\n\nMy father is a teacher.",
+          "back": "पिता\n\nमेरे पिता शिक्षक हैं।\n\nयह भी: पापा, पिताजी"
+        },
+        {
+          "front": "mother\n\nMy mother cooks very well.",
+          "back": "माँ\n\nमेरी माँ बहुत अच्छा खाना बनाती हैं।\n\nयह भी: माता, मम्मी"
+        },
+        {
+          "front": "parents\n\nMy parents live near the sea.",
+          "back": "माता-पिता\n\nमेरे माता-पिता समुद्र के पास रहते हैं।\n\nयह भी: माँ-बाप, मम्मी-पापा"
+        },
+        {
+          "front": "son\n\nTheir son is five years old.",
+          "back": "बेटा\n\nउनका बेटा पाँच साल का है।"
+        },
+        {
+          "front": "daughter\n\nShe has one daughter.",
+          "back": "बेटी\n\nउसकी एक बेटी है।"
+        },
+        {
+          "front": "older brother\n\nMy older brother works in a bank.",
+          "back": "बड़ा भाई\n\nमेरा बड़ा भाई बैंक में काम करता है।"
+        },
+        {
+          "front": "younger brother\n\nMy younger brother is ten.",
+          "back": "छोटा भाई\n\nमेरा छोटा भाई दस साल का है।"
+        },
+        {
+          "front": "older sister\n\nMy older sister is a nurse.",
+          "back": "बड़ी बहन\n\nमेरी बड़ी बहन नर्स है।"
+        },
+        {
+          "front": "younger sister\n\nMy younger sister loves cats.",
+          "back": "छोटी बहन\n\nमेरी छोटी बहन को बिल्लियाँ बहुत पसंद हैं।"
+        },
+        {
+          "front": "grandfather\n\nMy grandfather is eighty.",
+          "back": "दादा\n\nमेरे दादा अस्सी साल के हैं।\n\nयह भी: दादाजी, नाना (माँ के पिता)"
+        },
+        {
+          "front": "grandmother\n\nMy grandmother lives with us.",
+          "back": "दादी\n\nमेरी दादी हमारे साथ रहती हैं।\n\nयह भी: दादीजी, नानी (माँ की माँ)"
+        },
+        {
+          "front": "grandchild\n\nShe has three grandchildren.",
+          "back": "पोता\n\nउनके तीन पोते-पोतियाँ हैं।\n\nयह भी: पोती, नाती, नातिन"
+        },
+        {
+          "front": "uncle\n\nMy uncle has a farm.",
+          "back": "चाचा\n\nमेरे चाचा का एक खेत है।\n\nयह भी: मामा, ताऊ, मौसा, फूफा, अंकल"
+        },
+        {
+          "front": "aunt\n\nMy aunt lives in the city.",
+          "back": "चाची\n\nमेरी चाची शहर में रहती हैं।\n\nयह भी: बुआ, मौसी, मामी, आंटी"
+        },
+        {
+          "front": "cousin\n\nMy cousin is my best friend.",
+          "back": "चचेरा भाई\n\nमेरा चचेरा भाई मेरा सबसे अच्छा दोस्त है।\n\nयह भी: चचेरी बहन, ममेरा भाई, ममेरी बहन, कज़िन"
+        },
+        {
+          "front": "husband\n\nHer husband is a doctor.",
+          "back": "पति\n\nउसके पति डॉक्टर हैं।\n\nयह भी: हसबैंड"
+        },
+        {
+          "front": "wife\n\nHis wife is very kind.",
+          "back": "पत्नी\n\nउनकी पत्नी बहुत दयालु हैं।\n\nयह भी: वाइफ़"
+        },
+        {
+          "front": "baby\n\nThe baby is sleeping.",
+          "back": "बच्चा\n\nबच्चा सो रहा है।\n\nयह भी: शिशु, बेबी"
+        },
+        {
+          "front": "child\n\nThe child is playing outside.",
+          "back": "बच्चा\n\nबच्चा बाहर खेल रहा है।"
+        },
+        {
+          "front": "children\n\nThe children are at school.",
+          "back": "बच्चे\n\nबच्चे स्कूल में हैं।"
+        },
+        {
+          "front": "boy\n\nThe boy is reading a book.",
+          "back": "लड़का\n\nलड़का किताब पढ़ रहा है।"
+        },
+        {
+          "front": "girl\n\nThe girl has long hair.",
+          "back": "लड़की\n\nलड़की के बाल लंबे हैं।"
+        },
+        {
+          "front": "man\n\nThe man is very tall.",
+          "back": "आदमी\n\nवह आदमी बहुत लंबा है।\n\nयह भी: पुरुष"
+        },
+        {
+          "front": "woman\n\nThe woman is my teacher.",
+          "back": "महिला\n\nवह महिला मेरी शिक्षिका हैं।\n\nयह भी: औरत, स्त्री"
+        },
+        {
+          "front": "people\n\nPeople are friendly here.",
+          "back": "लोग\n\nयहाँ के लोग मिलनसार हैं।"
+        },
+        {
+          "front": "person\n\nShe is a good person.",
+          "back": "इंसान\n\nवह एक अच्छी इंसान है।\n\nयह भी: व्यक्ति"
+        },
+        {
+          "front": "adult\n\nTwo adults and one child, please.",
+          "back": "वयस्क\n\nदो वयस्कों और एक बच्चे का टिकट दीजिए।"
+        },
+        {
+          "front": "teenager\n\nHe is a teenager now.",
+          "back": "किशोर\n\nवह अब किशोर हो गया है।\n\nयह भी: टीनएजर"
+        },
+        {
+          "front": "neighbor\n\nOur neighbor is very friendly.",
+          "back": "पड़ोसी\n\nहमारे पड़ोसी बहुत अच्छे हैं।"
+        },
+        {
+          "front": "guest\n\nWe have guests tonight.",
+          "back": "मेहमान\n\nआज रात हमारे घर मेहमान आ रहे हैं।"
+        },
+        {
+          "front": "boyfriend\n\nHer boyfriend is very funny.",
+          "back": "बॉयफ़्रेंड\n\nउसका बॉयफ़्रेंड बहुत मज़ाकिया है।"
+        },
+        {
+          "front": "girlfriend\n\nHis girlfriend is a nurse.",
+          "back": "गर्लफ़्रेंड\n\nउसकी गर्लफ़्रेंड नर्स है।"
+        },
+        {
+          "front": "married\n\nAre you married?",
+          "back": "शादीशुदा\n\nक्या आप शादीशुदा हैं?\n\nयह भी: विवाहित"
+        },
+        {
+          "front": "single\n\nMy brother is still single.",
+          "back": "कुँवारा\n\nमेरा भाई अभी भी कुँवारा है।\n\nयह भी: सिंगल"
+        },
+        {
+          "front": "age\n\nAge is just a number.",
+          "back": "उम्र\n\nउम्र तो बस एक संख्या है।"
+        },
+        {
+          "front": "old\n\nMy grandfather is old.",
+          "back": "बूढ़ा\n\nमेरे दादा बूढ़े हो गए हैं।\n\nदूसरा अर्थ: पुराना"
+        },
+        {
+          "front": "young\n\nShe is young and smart.",
+          "back": "जवान\n\nवह जवान और होशियार है।"
+        },
+        {
+          "front": "birthday\n\nHappy birthday!",
+          "back": "जन्मदिन\n\nजन्मदिन मुबारक हो!\n\nयह भी: बर्थडे"
+        },
+        {
+          "front": "born\n\nI was born in 2005.",
+          "back": "पैदा होना\n\nमैं 2005 में पैदा हुआ था।"
+        },
+        {
+          "front": "live\n\nWe live in a small house.",
+          "back": "रहना\n\nहम एक छोटे-से घर में रहते हैं।"
+        },
+        {
+          "front": "love\n\nI love my family.",
+          "back": "प्यार करना\n\nमैं अपने परिवार से बहुत प्यार करता हूँ।\n\nयह भी: प्यार, प्रेम करना"
+        },
+        {
+          "front": "meet\n\nNice to meet you.",
+          "back": "मिलना\n\nआपसे मिलकर ख़ुशी हुई।"
+        },
+        {
+          "front": "visit\n\nWe visit our grandparents every Sunday.",
+          "back": "मिलने जाना\n\nहम हर रविवार दादा-दादी से मिलने जाते हैं।"
+        },
+        {
+          "front": "call\n\nI call my mother every day.",
+          "back": "फ़ोन करना\n\nमैं हर दिन अपनी माँ को फ़ोन करता हूँ।\n\nदूसरा अर्थ: बुलाना"
+        },
+        {
+          "front": "together\n\nWe eat dinner together.",
+          "back": "एक साथ\n\nहम एक साथ रात का खाना खाते हैं।\n\nयह भी: साथ में, साथ"
+        },
+        {
+          "front": "relative\n\nAll my relatives came to the wedding.",
+          "back": "रिश्तेदार\n\nमेरे सारे रिश्तेदार शादी में आए।"
+        },
+        {
+          "front": "wedding\n\nThe wedding is in May.",
+          "back": "शादी\n\nशादी मई में है।"
+        },
+        {
+          "front": "twins\n\nThey are twins.",
+          "back": "जुड़वाँ\n\nवे जुड़वाँ हैं।"
+        },
+        {
+          "front": "grow up\n\nI grew up in the countryside.",
+          "back": "बड़ा होना\n\nमैं गाँव में बड़ा हुआ।"
+        }
+      ]
+    },
+    {
+      "name": "03 संख्याएँ और समय",
+      "cards": [
+        {
+          "front": "zero\n\nZero plus five is five.",
+          "back": "शून्य\n\nशून्य और पाँच मिलकर पाँच होते हैं।\n\nयह भी: ज़ीरो"
+        },
+        {
+          "front": "one\n\nI have one sister.",
+          "back": "एक\n\nमेरी एक बहन है।"
+        },
+        {
+          "front": "two\n\nWe have two cats.",
+          "back": "दो\n\nहमारे पास दो बिल्लियाँ हैं।"
+        },
+        {
+          "front": "three\n\nI drink three cups of water.",
+          "back": "तीन\n\nमैं तीन कप पानी पीता हूँ।"
+        },
+        {
+          "front": "four\n\nA car has four wheels.",
+          "back": "चार\n\nकार में चार पहिए होते हैं।"
+        },
+        {
+          "front": "five\n\nShe is five years old.",
+          "back": "पाँच\n\nवह पाँच साल की है।"
+        },
+        {
+          "front": "six\n\nThe shop opens at six.",
+          "back": "छह\n\nदुकान छह बजे खुलती है।\n\nयह भी: छः"
+        },
+        {
+          "front": "seven\n\nA week has seven days.",
+          "back": "सात\n\nहफ़्ते में सात दिन होते हैं।"
+        },
+        {
+          "front": "eight\n\nI sleep eight hours a night.",
+          "back": "आठ\n\nमैं रात में आठ घंटे सोता हूँ।"
+        },
+        {
+          "front": "nine\n\nSchool starts at nine.",
+          "back": "नौ\n\nस्कूल नौ बजे शुरू होता है।"
+        },
+        {
+          "front": "ten\n\nI can count to ten.",
+          "back": "दस\n\nमैं दस तक गिन सकता हूँ।"
+        },
+        {
+          "front": "eleven\n\nA football team has eleven players.",
+          "back": "ग्यारह\n\nफ़ुटबॉल की टीम में ग्यारह खिलाड़ी होते हैं।"
+        },
+        {
+          "front": "twelve\n\nA year has twelve months.",
+          "back": "बारह\n\nसाल में बारह महीने होते हैं।"
+        },
+        {
+          "front": "twenty\n\nI am twenty years old.",
+          "back": "बीस\n\nमैं बीस साल का हूँ।"
+        },
+        {
+          "front": "fifty\n\nMy father is fifty.",
+          "back": "पचास\n\nमेरे पिता पचास साल के हैं।"
+        },
+        {
+          "front": "hundred\n\nThere are two hundred students here.",
+          "back": "सौ\n\nयहाँ दो सौ छात्र हैं।"
+        },
+        {
+          "front": "thousand\n\nA thousand people live in this village.",
+          "back": "हज़ार\n\nइस गाँव में एक हज़ार लोग रहते हैं।"
+        },
+        {
+          "front": "million\n\nThe city has eight million people.",
+          "back": "दस लाख\n\nइस शहर में अस्सी लाख लोग रहते हैं।\n\nयह भी: मिलियन"
+        },
+        {
+          "front": "first\n\nThis is my first trip abroad.",
+          "back": "पहला\n\nयह मेरी पहली विदेश यात्रा है।"
+        },
+        {
+          "front": "last\n\nDecember is the last month of the year.",
+          "back": "आख़िरी\n\nदिसंबर साल का आख़िरी महीना है।\n\nयह भी: अंतिम"
+        },
+        {
+          "front": "half\n\nI ate half of the cake.",
+          "back": "आधा\n\nमैंने आधा केक खा लिया।"
+        },
+        {
+          "front": "number\n\nWhat is your phone number?",
+          "back": "नंबर\n\nआपका फ़ोन नंबर क्या है?"
+        },
+        {
+          "front": "time\n\nI don't have time.",
+          "back": "समय\n\nमेरे पास समय नहीं है।\n\nयह भी: वक़्त, टाइम"
+        },
+        {
+          "front": "hour\n\nThe movie is two hours long.",
+          "back": "घंटा\n\nफ़िल्म दो घंटे की है।"
+        },
+        {
+          "front": "minute\n\nWait a minute, please.",
+          "back": "मिनट\n\nकृपया एक मिनट रुकिए।"
+        },
+        {
+          "front": "second\n\nOne minute has sixty seconds.",
+          "back": "सेकंड\n\nएक मिनट में साठ सेकंड होते हैं।\n\nदूसरा अर्थ: दूसरा"
+        },
+        {
+          "front": "day\n\nI study English every day.",
+          "back": "दिन\n\nमैं हर दिन अंग्रेज़ी पढ़ता हूँ।"
+        },
+        {
+          "front": "week\n\nI go swimming twice a week.",
+          "back": "हफ़्ता\n\nमैं हफ़्ते में दो बार तैरने जाता हूँ।\n\nयह भी: सप्ताह"
+        },
+        {
+          "front": "month\n\nMy birthday is next month.",
+          "back": "महीना\n\nमेरा जन्मदिन अगले महीने है।"
+        },
+        {
+          "front": "year\n\nI have lived here for ten years.",
+          "back": "साल\n\nमैं यहाँ दस साल से रह रहा हूँ।\n\nयह भी: वर्ष"
+        },
+        {
+          "front": "today\n\nToday is Monday.",
+          "back": "आज\n\nआज सोमवार है।"
+        },
+        {
+          "front": "tomorrow\n\nSee you tomorrow.",
+          "back": "कल\n\nकल मिलते हैं।"
+        },
+        {
+          "front": "yesterday\n\nI was busy yesterday.",
+          "back": "कल\n\nमैं कल व्यस्त था।"
+        },
+        {
+          "front": "morning\n\nI drink coffee every morning.",
+          "back": "सुबह\n\nमैं हर सुबह कॉफ़ी पीता हूँ।"
+        },
+        {
+          "front": "afternoon\n\nWe have a meeting this afternoon.",
+          "back": "दोपहर\n\nआज दोपहर हमारी एक मीटिंग है।"
+        },
+        {
+          "front": "evening\n\nI watch TV in the evening.",
+          "back": "शाम\n\nमैं शाम को टीवी देखता हूँ।"
+        },
+        {
+          "front": "night\n\nThe city is beautiful at night.",
+          "back": "रात\n\nरात में शहर बहुत सुंदर लगता है।"
+        },
+        {
+          "front": "now\n\nI am busy now.",
+          "back": "अभी\n\nमैं अभी व्यस्त हूँ।\n\nयह भी: अब"
+        },
+        {
+          "front": "later\n\nI will call you later.",
+          "back": "बाद में\n\nमैं तुम्हें बाद में फ़ोन करूँगा।"
+        },
+        {
+          "front": "early\n\nI get up early.",
+          "back": "जल्दी\n\nमैं जल्दी उठता हूँ।"
+        },
+        {
+          "front": "late\n\nThe bus is late again.",
+          "back": "देर से\n\nबस आज फिर देर से आ रही है।\n\nयह भी: लेट"
+        },
+        {
+          "front": "always\n\nShe always smiles.",
+          "back": "हमेशा\n\nवह हमेशा मुस्कुराती रहती है।"
+        },
+        {
+          "front": "usually\n\nI usually walk to school.",
+          "back": "आमतौर पर\n\nमैं आमतौर पर पैदल स्कूल जाता हूँ।"
+        },
+        {
+          "front": "sometimes\n\nSometimes I cook dinner.",
+          "back": "कभी-कभी\n\nकभी-कभी मैं रात का खाना बनाता हूँ।"
+        },
+        {
+          "front": "never\n\nI never drink coffee at night.",
+          "back": "कभी नहीं\n\nमैं रात को कभी कॉफ़ी नहीं पीता।"
+        },
+        {
+          "front": "clock\n\nThe clock is on the wall.",
+          "back": "घड़ी\n\nघड़ी दीवार पर लगी है।"
+        },
+        {
+          "front": "calendar\n\nLook at the calendar.",
+          "back": "कैलेंडर\n\nकैलेंडर देखो।"
+        },
+        {
+          "front": "weekend\n\nWhat do you do at the weekend?",
+          "back": "वीकेंड\n\nतुम वीकेंड पर क्या करते हो?"
+        },
+        {
+          "front": "soon\n\nThe bus will come soon.",
+          "back": "जल्द ही\n\nबस जल्द ही आएगी।"
+        },
+        {
+          "front": "midnight\n\nI went to bed at midnight.",
+          "back": "आधी रात\n\nमैं आधी रात को सोने गया।"
+        }
+      ]
+    },
+    {
+      "name": "04 दिन और ऋतुएँ",
+      "cards": [
+        {
+          "front": "Monday\n\nI have English class on Monday.",
+          "back": "सोमवार\n\nसोमवार को मेरी अंग्रेज़ी की कक्षा होती है।"
+        },
+        {
+          "front": "Tuesday\n\nThe shop is closed on Tuesday.",
+          "back": "मंगलवार\n\nमंगलवार को दुकान बंद रहती है।"
+        },
+        {
+          "front": "Wednesday\n\nWe play football on Wednesday.",
+          "back": "बुधवार\n\nहम बुधवार को फ़ुटबॉल खेलते हैं।"
+        },
+        {
+          "front": "Thursday\n\nThursday is my busiest day.",
+          "back": "गुरुवार\n\nगुरुवार मेरा सबसे व्यस्त दिन होता है।\n\nयह भी: बृहस्पतिवार"
+        },
+        {
+          "front": "Friday\n\nSee you on Friday.",
+          "back": "शुक्रवार\n\nशुक्रवार को मिलते हैं।"
+        },
+        {
+          "front": "Saturday\n\nI sleep late on Saturday.",
+          "back": "शनिवार\n\nमैं शनिवार को देर तक सोता हूँ।"
+        },
+        {
+          "front": "Sunday\n\nWe visit our family on Sunday.",
+          "back": "रविवार\n\nहम रविवार को अपने परिवार से मिलने जाते हैं।\n\nयह भी: इतवार"
+        },
+        {
+          "front": "January\n\nJanuary is the first month of the year.",
+          "back": "जनवरी\n\nजनवरी साल का पहला महीना है।"
+        },
+        {
+          "front": "February\n\nFebruary is the shortest month.",
+          "back": "फ़रवरी\n\nफ़रवरी सबसे छोटा महीना है।"
+        },
+        {
+          "front": "March\n\nMy birthday is in March.",
+          "back": "मार्च\n\nमेरा जन्मदिन मार्च में है।"
+        },
+        {
+          "front": "April\n\nWe moved to a new house in April.",
+          "back": "अप्रैल\n\nअप्रैल में हम नए घर में चले गए।"
+        },
+        {
+          "front": "May\n\nMy sister was born in May.",
+          "back": "मई\n\nमेरी बहन का जन्म मई में हुआ था।"
+        },
+        {
+          "front": "June\n\nJune is the sixth month of the year.",
+          "back": "जून\n\nजून साल का छठा महीना है।"
+        },
+        {
+          "front": "July\n\nI started a new job in July.",
+          "back": "जुलाई\n\nमैंने जुलाई में नई नौकरी शुरू की।"
+        },
+        {
+          "front": "August\n\nMy cousin is getting married in August.",
+          "back": "अगस्त\n\nमेरे चचेरे भाई की शादी अगस्त में है।"
+        },
+        {
+          "front": "September\n\nWe met in September.",
+          "back": "सितंबर\n\nहम सितंबर में मिले थे।"
+        },
+        {
+          "front": "October\n\nThe concert is in October.",
+          "back": "अक्टूबर\n\nकॉन्सर्ट अक्टूबर में है।"
+        },
+        {
+          "front": "November\n\nMy birthday is in November.",
+          "back": "नवंबर\n\nमेरा जन्मदिन नवंबर में है।"
+        },
+        {
+          "front": "December\n\nChristmas is in December.",
+          "back": "दिसंबर\n\nक्रिसमस दिसंबर में आता है।"
+        },
+        {
+          "front": "season\n\nWhich season do you like?",
+          "back": "मौसम\n\nतुम्हें कौन-सा मौसम पसंद है?\n\nयह भी: ऋतु"
+        },
+        {
+          "front": "spring\n\nFlowers bloom in spring.",
+          "back": "वसंत\n\nवसंत में फूल खिलते हैं।\n\nयह भी: बसंत"
+        },
+        {
+          "front": "summer\n\nWe swim a lot in summer.",
+          "back": "गर्मी\n\nहम गर्मियों में बहुत तैरते हैं।\n\nयह भी: गर्मियाँ"
+        },
+        {
+          "front": "autumn\n\nAutumn is my favorite season.",
+          "back": "पतझड़\n\nपतझड़ मेरा पसंदीदा मौसम है।\n\nअमेरिकी अंग्रेज़ी में: fall"
+        },
+        {
+          "front": "winter\n\nIt rarely snows here in winter.",
+          "back": "सर्दी\n\nयहाँ सर्दियों में बहुत कम बर्फ़ गिरती है।\n\nयह भी: सर्दियाँ, जाड़ा"
+        },
+        {
+          "front": "rainy season\n\nThe rainy season lasts for three months.",
+          "back": "बरसात\n\nबरसात का मौसम तीन महीने चलता है।\n\nयह भी: बारिश का मौसम, मानसून"
+        },
+        {
+          "front": "dry season\n\nThe dry season is hot and sunny.",
+          "back": "सूखा मौसम\n\nसूखे मौसम में गर्मी और धूप रहती है।"
+        },
+        {
+          "front": "holiday\n\nWe have a holiday next week.",
+          "back": "छुट्टी\n\nअगले हफ़्ते हमारी छुट्टी है।\n\nअमेरिकी अंग्रेज़ी में: vacation"
+        },
+        {
+          "front": "Lunar New Year\n\nLunar New Year is a big holiday in Asia.",
+          "back": "चीनी नव वर्ष\n\nचीनी नव वर्ष एशिया का एक बड़ा त्योहार है।\n\nयह भी: चीनी नववर्ष, चंद्र नव वर्ष, चीनी नया साल"
+        },
+        {
+          "front": "Christmas\n\nMerry Christmas!",
+          "back": "क्रिसमस\n\nक्रिसमस की शुभकामनाएँ!"
+        },
+        {
+          "front": "festival\n\nOur town has a music festival every summer.",
+          "back": "उत्सव\n\nहमारे क़स्बे में हर गर्मी में संगीत उत्सव होता है।\n\nयह भी: त्योहार, फ़ेस्टिवल"
+        },
+        {
+          "front": "party\n\nCome to my party on Saturday.",
+          "back": "पार्टी\n\nशनिवार को मेरी पार्टी में आना।"
+        },
+        {
+          "front": "anniversary\n\nToday is their wedding anniversary.",
+          "back": "सालगिरह\n\nआज उनकी शादी की सालगिरह है।"
+        },
+        {
+          "front": "date\n\nWhat is the date today?",
+          "back": "तारीख़\n\nआज क्या तारीख़ है?\n\nदूसरा अर्थ: खजूर। यह भी: डेट"
+        },
+        {
+          "front": "next week\n\nI will see you next week.",
+          "back": "अगले हफ़्ते\n\nमैं तुमसे अगले हफ़्ते मिलूँगा।"
+        },
+        {
+          "front": "last week\n\nI was sick last week.",
+          "back": "पिछले हफ़्ते\n\nमैं पिछले हफ़्ते बीमार था।"
+        },
+        {
+          "front": "this year\n\nThis year I want to learn English.",
+          "back": "इस साल\n\nइस साल मैं अंग्रेज़ी सीखना चाहता हूँ।"
+        },
+        {
+          "front": "next year\n\nI will finish school next year.",
+          "back": "अगले साल\n\nमैं अगले साल स्कूल की पढ़ाई पूरी कर लूँगा।"
+        },
+        {
+          "front": "last year\n\nWe moved here last year.",
+          "back": "पिछले साल\n\nहम पिछले साल यहाँ आए थे।"
+        },
+        {
+          "front": "every day\n\nI walk my dog every day.",
+          "back": "हर दिन\n\nमैं हर दिन अपने कुत्ते को घुमाने ले जाता हूँ।\n\nयह भी: रोज़, रोज़ाना"
+        },
+        {
+          "front": "once\n\nI have been to Japan once.",
+          "back": "एक बार\n\nमैं एक बार जापान गया हूँ।"
+        },
+        {
+          "front": "twice\n\nBrush your teeth twice a day.",
+          "back": "दो बार\n\nदिन में दो बार ब्रश करो।"
+        },
+        {
+          "front": "daily\n\nExercise is part of my daily life.",
+          "back": "रोज़ाना\n\nकसरत मेरी रोज़ाना की ज़िंदगी का हिस्सा है।\n\nयह भी: दैनिक, रोज़मर्रा"
+        },
+        {
+          "front": "weekly\n\nWe have a weekly meeting.",
+          "back": "साप्ताहिक\n\nहमारी एक साप्ताहिक मीटिंग होती है।\n\nयह भी: हर हफ़्ते"
+        },
+        {
+          "front": "monthly\n\nI pay the bills monthly.",
+          "back": "हर महीने\n\nमैं हर महीने बिल भरता हूँ।\n\nयह भी: मासिक"
+        },
+        {
+          "front": "century\n\nWe live in the 21st century.",
+          "back": "सदी\n\nहम 21वीं सदी में रहते हैं।\n\nयह भी: शताब्दी"
+        },
+        {
+          "front": "past\n\nForget the past.",
+          "back": "अतीत\n\nअतीत को भूल जाओ।"
+        },
+        {
+          "front": "future\n\nWhat are your plans for the future?",
+          "back": "भविष्य\n\nभविष्य के लिए तुम्हारी क्या योजनाएँ हैं?"
+        },
+        {
+          "front": "present\n\nLive in the present.",
+          "back": "वर्तमान\n\nवर्तमान में जियो।\n\nदूसरा अर्थ: तोहफ़ा"
+        },
+        {
+          "front": "schedule\n\nWhat is your schedule today?",
+          "back": "कार्यक्रम\n\nआज तुम्हारा क्या कार्यक्रम है?\n\nयह भी: शेड्यूल, प्रोग्राम"
+        },
+        {
+          "front": "appointment\n\nI have a doctor's appointment at ten.",
+          "back": "अपॉइंटमेंट\n\nदस बजे डॉक्टर के पास मेरा अपॉइंटमेंट है।"
+        }
+      ]
+    },
+    {
+      "name": "05 खाना",
+      "cards": [
+        {
+          "front": "food\n\nWe need food and water.",
+          "back": "खाना\n\nहमें खाना और पानी चाहिए।\n\nयह भी: भोजन"
+        },
+        {
+          "front": "rice\n\nWe eat rice every day.",
+          "back": "चावल\n\nहम हर दिन चावल खाते हैं।"
+        },
+        {
+          "front": "noodles\n\nI eat noodles for breakfast.",
+          "back": "नूडल्स\n\nमैं नाश्ते में नूडल्स खाता हूँ।"
+        },
+        {
+          "front": "bread\n\nI buy bread in the morning.",
+          "back": "ब्रेड\n\nमैं सुबह ब्रेड ख़रीदता हूँ।"
+        },
+        {
+          "front": "egg\n\nI eat two eggs for breakfast.",
+          "back": "अंडा\n\nमैं नाश्ते में दो अंडे खाता हूँ।"
+        },
+        {
+          "front": "meat\n\nI don't eat much meat.",
+          "back": "मांस\n\nमैं ज़्यादा मांस नहीं खाता।\n\nयह भी: गोश्त, मीट"
+        },
+        {
+          "front": "beef\n\nThis shop sells beef.",
+          "back": "बीफ़\n\nयह दुकान बीफ़ बेचती है।\n\nयह भी: गोमांस"
+        },
+        {
+          "front": "pork\n\nSome people don't eat pork.",
+          "back": "सूअर का मांस\n\nकुछ लोग सूअर का मांस नहीं खाते।\n\nयह भी: पोर्क"
+        },
+        {
+          "front": "chicken\n\nChicken soup is good when you are sick.",
+          "back": "चिकन\n\nबीमार होने पर चिकन सूप अच्छा रहता है।"
+        },
+        {
+          "front": "fish\n\nFish is good for your health.",
+          "back": "मछली\n\nमछली सेहत के लिए अच्छी होती है।"
+        },
+        {
+          "front": "shrimp\n\nThese shrimp are very fresh.",
+          "back": "झींगा\n\nये झींगे बहुत ताज़े हैं।"
+        },
+        {
+          "front": "crab\n\nCrab soup is delicious.",
+          "back": "केकड़ा\n\nकेकड़े का सूप बहुत स्वादिष्ट होता है।"
+        },
+        {
+          "front": "vegetable\n\nEat more vegetables.",
+          "back": "सब्ज़ी\n\nज़्यादा सब्ज़ियाँ खाओ।"
+        },
+        {
+          "front": "fruit\n\nI eat fruit after dinner.",
+          "back": "फल\n\nमैं रात के खाने के बाद फल खाता हूँ।"
+        },
+        {
+          "front": "apple\n\nAn apple a day is good for you.",
+          "back": "सेब\n\nरोज़ एक सेब खाना सेहत के लिए अच्छा है।"
+        },
+        {
+          "front": "banana\n\nMonkeys love bananas.",
+          "back": "केला\n\nबंदरों को केले बहुत पसंद हैं।"
+        },
+        {
+          "front": "orange\n\nI drink orange juice.",
+          "back": "संतरा\n\nमैं संतरे का जूस पीता हूँ।\n\nयह भी: नारंगी, ऑरेंज"
+        },
+        {
+          "front": "mango\n\nMangoes are sweet in summer.",
+          "back": "आम\n\nगर्मियों में आम मीठे होते हैं।"
+        },
+        {
+          "front": "grape\n\nThese grapes are sour.",
+          "back": "अंगूर\n\nये अंगूर खट्टे हैं।"
+        },
+        {
+          "front": "watermelon\n\nWatermelon is great on hot days.",
+          "back": "तरबूज़\n\nगरम दिनों में तरबूज़ बहुत अच्छा लगता है।"
+        },
+        {
+          "front": "lemon\n\nAdd some lemon to the tea.",
+          "back": "नींबू\n\nचाय में थोड़ा नींबू डालो।"
+        },
+        {
+          "front": "coconut\n\nCoconut water is cool and sweet.",
+          "back": "नारियल\n\nनारियल पानी ठंडा और मीठा होता है।"
+        },
+        {
+          "front": "pineapple\n\nI like pineapple on pizza.",
+          "back": "अनानास\n\nमुझे पिज़्ज़ा पर अनानास पसंद है।"
+        },
+        {
+          "front": "tomato\n\nCut the tomatoes into small pieces.",
+          "back": "टमाटर\n\nटमाटर को छोटे-छोटे टुकड़ों में काटो।"
+        },
+        {
+          "front": "potato\n\nFrench fries are made from potatoes.",
+          "back": "आलू\n\nफ़्रेंच फ़्राइज़ आलू से बनते हैं।"
+        },
+        {
+          "front": "carrot\n\nCarrots are good for your eyes.",
+          "back": "गाजर\n\nगाजर आँखों के लिए अच्छी होती है।"
+        },
+        {
+          "front": "onion\n\nOnions make me cry.",
+          "back": "प्याज़\n\nप्याज़ से मेरी आँखों में आँसू आ जाते हैं।"
+        },
+        {
+          "front": "garlic\n\nThis dish has a lot of garlic.",
+          "back": "लहसुन\n\nइस पकवान में बहुत लहसुन है।"
+        },
+        {
+          "front": "cabbage\n\nWe grow cabbage in the garden.",
+          "back": "पत्ता गोभी\n\nहम बगीचे में पत्ता गोभी उगाते हैं।"
+        },
+        {
+          "front": "corn\n\nGrilled corn is a popular snack.",
+          "back": "मक्का\n\nभुना हुआ भुट्टा एक लोकप्रिय नाश्ता है।\n\nयह भी: भुट्टा, मकई, कॉर्न"
+        },
+        {
+          "front": "bean\n\nI like soup with beans.",
+          "back": "बीन्स\n\nमुझे बीन्स वाला सूप पसंद है।"
+        },
+        {
+          "front": "tofu\n\nTofu is made from soybeans.",
+          "back": "टोफ़ू\n\nटोफ़ू सोयाबीन से बनता है।"
+        },
+        {
+          "front": "soup\n\nI eat hot soup when I am sick.",
+          "back": "सूप\n\nजब मैं बीमार होता हूँ, तो गरम सूप पीता हूँ।"
+        },
+        {
+          "front": "salt\n\nAdd a little salt.",
+          "back": "नमक\n\nथोड़ा नमक डालो।"
+        },
+        {
+          "front": "sugar\n\nI don't take sugar in my coffee.",
+          "back": "चीनी\n\nमैं कॉफ़ी में चीनी नहीं लेता।\n\nयह भी: शक्कर"
+        },
+        {
+          "front": "pepper\n\nAdd salt and pepper.",
+          "back": "काली मिर्च\n\nनमक और काली मिर्च डालो।\n\nदूसरा अर्थ: शिमला मिर्च"
+        },
+        {
+          "front": "sauce\n\nThis sauce is a bit spicy.",
+          "back": "सॉस\n\nयह सॉस थोड़ा तीखा है।"
+        },
+        {
+          "front": "fish sauce\n\nFish sauce is very salty.",
+          "back": "फ़िश सॉस\n\nफ़िश सॉस बहुत नमकीन होता है।"
+        },
+        {
+          "front": "oil\n\nHeat the oil in the pan.",
+          "back": "तेल\n\nपैन में तेल गरम करो।"
+        },
+        {
+          "front": "butter\n\nPut butter on the bread.",
+          "back": "मक्खन\n\nब्रेड पर मक्खन लगाओ।\n\nयह भी: बटर"
+        },
+        {
+          "front": "cheese\n\nThis pizza has a lot of cheese.",
+          "back": "चीज़\n\nइस पिज़्ज़ा में बहुत सारा चीज़ है।\n\nयह भी: पनीर"
+        },
+        {
+          "front": "cake\n\nShe made a birthday cake.",
+          "back": "केक\n\nउसने जन्मदिन का केक बनाया।"
+        },
+        {
+          "front": "candy\n\nChildren love candy.",
+          "back": "टॉफ़ी\n\nबच्चों को टॉफ़ियाँ बहुत पसंद हैं।\n\nब्रिटिश अंग्रेज़ी में: sweets। यह भी: कैंडी"
+        },
+        {
+          "front": "chocolate\n\nI love dark chocolate.",
+          "back": "चॉकलेट\n\nमुझे डार्क चॉकलेट बहुत पसंद है।"
+        },
+        {
+          "front": "ice cream\n\nLet's get some ice cream.",
+          "back": "आइसक्रीम\n\nचलो, आइसक्रीम खाते हैं।"
+        },
+        {
+          "front": "snack\n\nI have a snack at four o'clock.",
+          "back": "स्नैक\n\nमैं चार बजे कुछ स्नैक्स खाता हूँ।\n\nयह भी: स्नैक्स, नाश्ता"
+        },
+        {
+          "front": "breakfast\n\nWhat do you eat for breakfast?",
+          "back": "नाश्ता\n\nतुम नाश्ते में क्या खाते हो?\n\nयह भी: ब्रेकफ़ास्ट"
+        },
+        {
+          "front": "lunch\n\nWe have lunch at noon.",
+          "back": "दोपहर का खाना\n\nहम बारह बजे दोपहर का खाना खाते हैं।\n\nयह भी: लंच"
+        },
+        {
+          "front": "dinner\n\nDinner is ready.",
+          "back": "रात का खाना\n\nरात का खाना तैयार है।\n\nयह भी: डिनर"
+        },
+        {
+          "front": "meal\n\nWe have three meals a day.",
+          "back": "भोजन\n\nहम दिन में तीन बार भोजन करते हैं।\n\nयह भी: खाना"
+        }
+      ]
+    },
+    {
+      "name": "06 पेय और रसोई",
+      "cards": [
+        {
+          "front": "water\n\nDrink more water.",
+          "back": "पानी\n\nज़्यादा पानी पियो।"
+        },
+        {
+          "front": "drink\n\nWhat would you like to drink?",
+          "back": "पीना\n\nआप क्या पीना पसंद करेंगे?"
+        },
+        {
+          "front": "tea\n\nWould you like some tea?",
+          "back": "चाय\n\nक्या आप चाय लेंगे?"
+        },
+        {
+          "front": "coffee\n\nWould you like some coffee?",
+          "back": "कॉफ़ी\n\nक्या आप थोड़ी कॉफ़ी लेंगे?"
+        },
+        {
+          "front": "milk\n\nBabies drink milk.",
+          "back": "दूध\n\nछोटे बच्चे दूध पीते हैं।"
+        },
+        {
+          "front": "juice\n\nApple juice, please.",
+          "back": "जूस\n\nएक सेब का जूस दीजिए।"
+        },
+        {
+          "front": "beer\n\nHe drinks beer with his friends.",
+          "back": "बीयर\n\nवह अपने दोस्तों के साथ बीयर पीता है।"
+        },
+        {
+          "front": "wine\n\nThey drink red wine with dinner.",
+          "back": "वाइन\n\nवे रात के खाने के साथ रेड वाइन पीते हैं।"
+        },
+        {
+          "front": "soft drink\n\nToo many soft drinks are bad for you.",
+          "back": "कोल्ड ड्रिंक\n\nज़्यादा कोल्ड ड्रिंक पीना सेहत के लिए ठीक नहीं है।\n\nयह भी: सॉफ़्ट ड्रिंक"
+        },
+        {
+          "front": "ice\n\nCan I have some ice, please?",
+          "back": "बर्फ़\n\nक्या मुझे थोड़ी बर्फ़ मिल सकती है?"
+        },
+        {
+          "front": "bottle\n\nBuy a bottle of water.",
+          "back": "बोतल\n\nपानी की एक बोतल ख़रीद लो।"
+        },
+        {
+          "front": "cup\n\nA cup of tea, please.",
+          "back": "कप\n\nएक कप चाय दीजिए।"
+        },
+        {
+          "front": "glass\n\nPour the juice into a glass.",
+          "back": "गिलास\n\nजूस गिलास में डालो।\n\nदूसरा अर्थ: काँच"
+        },
+        {
+          "front": "bowl\n\nI eat two bowls of rice.",
+          "back": "कटोरी\n\nमैं दो कटोरी चावल खाता हूँ।"
+        },
+        {
+          "front": "plate\n\nPut the food on the plate.",
+          "back": "प्लेट\n\nखाना प्लेट में रखो।"
+        },
+        {
+          "front": "spoon\n\nEat your soup with a spoon.",
+          "back": "चम्मच\n\nसूप चम्मच से पियो।"
+        },
+        {
+          "front": "fork\n\nI eat salad with a fork.",
+          "back": "काँटा\n\nमैं सलाद काँटे से खाता हूँ।\n\nयह भी: फ़ोर्क"
+        },
+        {
+          "front": "chopsticks\n\nWe eat with chopsticks.",
+          "back": "चॉपस्टिक्स\n\nहम चॉपस्टिक्स से खाते हैं।"
+        },
+        {
+          "front": "knife\n\nBe careful with the knife.",
+          "back": "चाकू\n\nचाकू से सावधान रहना।"
+        },
+        {
+          "front": "pot\n\nCook the rice in a pot.",
+          "back": "पतीला\n\nचावल पतीले में पकाओ।"
+        },
+        {
+          "front": "pan\n\nFry the egg in a pan.",
+          "back": "पैन\n\nअंडा पैन में तलो।\n\nयह भी: कड़ाही, तवा"
+        },
+        {
+          "front": "kitchen\n\nMy mother is in the kitchen.",
+          "back": "रसोई\n\nमेरी माँ रसोई में हैं।\n\nयह भी: रसोईघर, किचन"
+        },
+        {
+          "front": "cook\n\nMy father likes to cook.",
+          "back": "खाना बनाना\n\nमेरे पिताजी को खाना बनाना पसंद है।\n\nयह भी: पकाना, खाना पकाना"
+        },
+        {
+          "front": "boil\n\nBoil the water first.",
+          "back": "उबालना\n\nपहले पानी उबालो।"
+        },
+        {
+          "front": "fry\n\nFry the fish in oil.",
+          "back": "तलना\n\nमछली को तेल में तलो।\n\nयह भी: फ़्राई करना"
+        },
+        {
+          "front": "grill\n\nWe grill meat at the weekend.",
+          "back": "भूनना\n\nहम वीकेंड पर मांस भूनते हैं।\n\nयह भी: सेंकना, ग्रिल करना"
+        },
+        {
+          "front": "cut\n\nCut the bread, please.",
+          "back": "काटना\n\nज़रा ब्रेड काट दो।"
+        },
+        {
+          "front": "wash\n\nWash your hands before eating.",
+          "back": "धोना\n\nखाने से पहले हाथ धो लो।"
+        },
+        {
+          "front": "mix\n\nMix the eggs and sugar.",
+          "back": "मिलाना\n\nअंडे और चीनी मिलाओ।\n\nयह भी: मिक्स करना"
+        },
+        {
+          "front": "taste\n\nTaste the soup.",
+          "back": "चखना\n\nसूप चखकर देखो।"
+        },
+        {
+          "front": "eat\n\nWhat do you want to eat?",
+          "back": "खाना\n\nतुम क्या खाना चाहते हो?"
+        },
+        {
+          "front": "delicious\n\nThis cake is delicious.",
+          "back": "स्वादिष्ट\n\nयह केक बहुत स्वादिष्ट है।\n\nयह भी: टेस्टी"
+        },
+        {
+          "front": "hungry\n\nI am hungry.",
+          "back": "भूखा\n\nमुझे भूख लगी है।"
+        },
+        {
+          "front": "thirsty\n\nAre you thirsty?",
+          "back": "प्यासा\n\nक्या तुम्हें प्यास लगी है?"
+        },
+        {
+          "front": "full\n\nI am full, thank you.",
+          "back": "भरा हुआ\n\nमेरा पेट भर गया है, धन्यवाद।\n\nयह भी: भरा, पेट भरा"
+        },
+        {
+          "front": "spicy\n\nThis soup is too spicy.",
+          "back": "तीखा\n\nयह सूप बहुत तीखा है।\n\nयह भी: मसालेदार"
+        },
+        {
+          "front": "sweet\n\nThis cake is too sweet.",
+          "back": "मीठा\n\nयह केक बहुत ज़्यादा मीठा है।"
+        },
+        {
+          "front": "sour\n\nLemons are sour.",
+          "back": "खट्टा\n\nनींबू खट्टे होते हैं।"
+        },
+        {
+          "front": "salty\n\nThe soup is a little salty.",
+          "back": "नमकीन\n\nसूप थोड़ा नमकीन है।"
+        },
+        {
+          "front": "bitter\n\nCoffee without sugar is bitter.",
+          "back": "कड़वा\n\nबिना चीनी की कॉफ़ी कड़वी होती है।"
+        },
+        {
+          "front": "hot\n\nBe careful, the tea is hot.",
+          "back": "गरम\n\nध्यान से, चाय गरम है।\n\nयह भी: गर्म"
+        },
+        {
+          "front": "cold\n\nI want a cold drink.",
+          "back": "ठंडा\n\nमुझे कुछ ठंडा पीना है।\n\nदूसरा अर्थ: ज़ुकाम"
+        },
+        {
+          "front": "fresh\n\nThe fish is very fresh.",
+          "back": "ताज़ा\n\nमछली बहुत ताज़ी है।"
+        },
+        {
+          "front": "raw\n\nDon't eat raw meat.",
+          "back": "कच्चा\n\nकच्चा मांस मत खाओ।"
+        },
+        {
+          "front": "menu\n\nCan I see the menu?",
+          "back": "मेनू\n\nक्या मैं मेनू देख सकता हूँ?\n\nयह भी: मेन्यू"
+        },
+        {
+          "front": "restaurant\n\nLet's eat at a restaurant.",
+          "back": "रेस्टोरेंट\n\nचलो, किसी रेस्टोरेंट में खाना खाते हैं।\n\nयह भी: रेस्तराँ, होटल"
+        },
+        {
+          "front": "waiter\n\nThe waiter brings our food.",
+          "back": "वेटर\n\nवेटर हमारा खाना लाता है।"
+        },
+        {
+          "front": "order\n\nAre you ready to order?",
+          "back": "ऑर्डर करना\n\nक्या आप ऑर्डर करने के लिए तैयार हैं?\n\nदूसरा अर्थ: आदेश"
+        },
+        {
+          "front": "bill\n\nCan we have the bill, please?",
+          "back": "बिल\n\nकृपया बिल ले आइए।\n\nअमेरिकी अंग्रेज़ी में: check"
+        },
+        {
+          "front": "recipe\n\nThis is my grandmother's recipe.",
+          "back": "रेसिपी\n\nयह मेरी दादी की रेसिपी है।"
+        }
+      ]
+    },
+    {
+      "name": "07 घर",
+      "cards": [
+        {
+          "front": "home\n\nI go home at six.",
+          "back": "घर\n\nमैं छह बजे घर जाता हूँ।"
+        },
+        {
+          "front": "house\n\nTheir house has a garden.",
+          "back": "घर\n\nउनके घर में एक बगीचा है।\n\nयह भी: मकान"
+        },
+        {
+          "front": "room\n\nMy room is small.",
+          "back": "कमरा\n\nमेरा कमरा छोटा है।"
+        },
+        {
+          "front": "bedroom\n\nThe house has three bedrooms.",
+          "back": "बेडरूम\n\nइस घर में तीन बेडरूम हैं।"
+        },
+        {
+          "front": "bathroom\n\nWhere is the bathroom?",
+          "back": "बाथरूम\n\nबाथरूम कहाँ है?"
+        },
+        {
+          "front": "living room\n\nWe watch TV in the living room.",
+          "back": "बैठक\n\nहम बैठक में टीवी देखते हैं।\n\nयह भी: ड्राइंग रूम, लिविंग रूम"
+        },
+        {
+          "front": "door\n\nPlease close the door.",
+          "back": "दरवाज़ा\n\nकृपया दरवाज़ा बंद कीजिए।"
+        },
+        {
+          "front": "window\n\nOpen the window, please.",
+          "back": "खिड़की\n\nज़रा खिड़की खोल दो।"
+        },
+        {
+          "front": "wall\n\nThere is a picture on the wall.",
+          "back": "दीवार\n\nदीवार पर एक तस्वीर टँगी है।"
+        },
+        {
+          "front": "floor\n\nThe floor is wet.",
+          "back": "फ़र्श\n\nफ़र्श गीला है।\n\nदूसरा अर्थ: मंज़िल। यह भी: फ़्लोर"
+        },
+        {
+          "front": "roof\n\nThe roof is red.",
+          "back": "छत\n\nछत लाल है।"
+        },
+        {
+          "front": "stairs\n\nGo up the stairs.",
+          "back": "सीढ़ियाँ\n\nसीढ़ियों से ऊपर जाओ।\n\nयह भी: सीढ़ी"
+        },
+        {
+          "front": "garden\n\nMy grandmother grows flowers in the garden.",
+          "back": "बगीचा\n\nमेरी दादी बगीचे में फूल उगाती हैं।\n\nयह भी: गार्डन"
+        },
+        {
+          "front": "gate\n\nClose the gate behind you.",
+          "back": "गेट\n\nअंदर आकर गेट बंद कर देना।"
+        },
+        {
+          "front": "key\n\nI lost my key.",
+          "back": "चाबी\n\nमेरी चाबी खो गई।"
+        },
+        {
+          "front": "table\n\nThe book is on the table.",
+          "back": "मेज़\n\nकिताब मेज़ पर है।\n\nयह भी: टेबल"
+        },
+        {
+          "front": "chair\n\nSit on this chair.",
+          "back": "कुर्सी\n\nइस कुर्सी पर बैठिए।"
+        },
+        {
+          "front": "bed\n\nMy bed is very soft.",
+          "back": "बिस्तर\n\nमेरा बिस्तर बहुत मुलायम है।\n\nयह भी: पलंग, बेड"
+        },
+        {
+          "front": "sofa\n\nThe cat is on the sofa.",
+          "back": "सोफ़ा\n\nबिल्ली सोफ़े पर है।"
+        },
+        {
+          "front": "desk\n\nMy computer is on the desk.",
+          "back": "डेस्क\n\nमेरा कंप्यूटर डेस्क पर है।"
+        },
+        {
+          "front": "shelf\n\nPut the books on the shelf.",
+          "back": "शेल्फ़\n\nकिताबें शेल्फ़ पर रख दो।"
+        },
+        {
+          "front": "wardrobe\n\nMy clothes are in the wardrobe.",
+          "back": "अलमारी\n\nमेरे कपड़े अलमारी में हैं।\n\nअमेरिकी अंग्रेज़ी में: closet"
+        },
+        {
+          "front": "mirror\n\nShe looks in the mirror.",
+          "back": "शीशा\n\nवह शीशे में देख रही है।\n\nयह भी: आईना"
+        },
+        {
+          "front": "lamp\n\nTurn on the lamp.",
+          "back": "लैंप\n\nलैंप जला दो।"
+        },
+        {
+          "front": "fan\n\nIt's hot, turn on the fan.",
+          "back": "पंखा\n\nगर्मी है, पंखा चला दो।"
+        },
+        {
+          "front": "air conditioner\n\nThe air conditioner is broken.",
+          "back": "एसी\n\nएसी ख़राब हो गया है।\n\nयह भी: एयर कंडीशनर"
+        },
+        {
+          "front": "television\n\nWe bought a new television.",
+          "back": "टीवी\n\nहमने एक नया टीवी ख़रीदा।\n\nयह भी: टेलीविज़न"
+        },
+        {
+          "front": "fridge\n\nThe milk is in the fridge.",
+          "back": "फ़्रिज\n\nदूध फ़्रिज में है।"
+        },
+        {
+          "front": "washing machine\n\nPut the clothes in the washing machine.",
+          "back": "वॉशिंग मशीन\n\nकपड़े वॉशिंग मशीन में डाल दो।"
+        },
+        {
+          "front": "sink\n\nThe dishes are in the sink.",
+          "back": "सिंक\n\nबर्तन सिंक में हैं।"
+        },
+        {
+          "front": "shower\n\nThe shower is not working.",
+          "back": "शावर\n\nशावर काम नहीं कर रहा है।"
+        },
+        {
+          "front": "toilet\n\nWhere is the toilet?",
+          "back": "टॉयलेट\n\nटॉयलेट कहाँ है?\n\nयह भी: शौचालय"
+        },
+        {
+          "front": "towel\n\nCan I have a clean towel?",
+          "back": "तौलिया\n\nक्या मुझे एक साफ़ तौलिया मिल सकता है?"
+        },
+        {
+          "front": "soap\n\nWash your hands with soap.",
+          "back": "साबुन\n\nसाबुन से हाथ धोओ।"
+        },
+        {
+          "front": "toothbrush\n\nI need a new toothbrush.",
+          "back": "टूथब्रश\n\nमुझे एक नया टूथब्रश चाहिए।"
+        },
+        {
+          "front": "toothpaste\n\nWe are out of toothpaste.",
+          "back": "टूथपेस्ट\n\nटूथपेस्ट ख़त्म हो गया है।"
+        },
+        {
+          "front": "blanket\n\nIt's cold, I need a blanket.",
+          "back": "कंबल\n\nठंड है, मुझे एक कंबल चाहिए।"
+        },
+        {
+          "front": "pillow\n\nThis pillow is too hard.",
+          "back": "तकिया\n\nयह तकिया बहुत सख़्त है।"
+        },
+        {
+          "front": "clean\n\nI clean my room on Sunday.",
+          "back": "साफ़ करना\n\nमैं रविवार को अपना कमरा साफ़ करता हूँ।"
+        },
+        {
+          "front": "sweep\n\nPlease sweep the floor.",
+          "back": "झाड़ू लगाना\n\nज़रा फ़र्श पर झाड़ू लगा दो।"
+        },
+        {
+          "front": "rubbish\n\nTake the rubbish out.",
+          "back": "कचरा\n\nकचरा बाहर फेंक आओ।\n\nयह भी: कूड़ा"
+        },
+        {
+          "front": "apartment\n\nWe live in an apartment.",
+          "back": "फ़्लैट\n\nहम एक फ़्लैट में रहते हैं।\n\nब्रिटिश अंग्रेज़ी में: flat। यह भी: अपार्टमेंट"
+        },
+        {
+          "front": "rent\n\nI rent a room near my school.",
+          "back": "किराए पर लेना\n\nमैंने अपने स्कूल के पास एक कमरा किराए पर लिया है।\n\nदूसरा अर्थ: किराया"
+        },
+        {
+          "front": "address\n\nWhat is your address?",
+          "back": "पता\n\nआपका पता क्या है?\n\nयह भी: एड्रेस"
+        },
+        {
+          "front": "move\n\nWe will move next month.",
+          "back": "घर बदलना\n\nहम अगले महीने घर बदलेंगे।\n\nयह भी: शिफ़्ट होना, शिफ़्ट करना"
+        },
+        {
+          "front": "sleep\n\nBabies sleep a lot.",
+          "back": "सोना\n\nछोटे बच्चे बहुत सोते हैं।"
+        },
+        {
+          "front": "wake up\n\nI wake up at six.",
+          "back": "जागना\n\nमैं छह बजे जाग जाता हूँ।\n\nयह भी: उठना"
+        },
+        {
+          "front": "open\n\nThe shop opens at eight.",
+          "back": "खुलना\n\nदुकान आठ बजे खुलती है।\n\nयह भी: खोलना"
+        },
+        {
+          "front": "close\n\nClose the window, please.",
+          "back": "बंद करना\n\nप्लीज़, खिड़की बंद कर दो।"
+        },
+        {
+          "front": "furniture\n\nWe need new furniture.",
+          "back": "फ़र्नीचर\n\nहमें नया फ़र्नीचर चाहिए।"
+        }
+      ]
+    },
+    {
+      "name": "08 कपड़े और रंग",
+      "cards": [
+        {
+          "front": "clothes\n\nI need new clothes.",
+          "back": "कपड़े\n\nमुझे नए कपड़े चाहिए।"
+        },
+        {
+          "front": "shirt\n\nHe wears a white shirt to work.",
+          "back": "शर्ट\n\nवह काम पर सफ़ेद शर्ट पहनता है।"
+        },
+        {
+          "front": "T-shirt\n\nThis T-shirt is too big.",
+          "back": "टी-शर्ट\n\nयह टी-शर्ट बहुत बड़ी है।"
+        },
+        {
+          "front": "dress\n\nShe wears a beautiful dress.",
+          "back": "ड्रेस\n\nउसने एक सुंदर ड्रेस पहनी है।"
+        },
+        {
+          "front": "skirt\n\nHer skirt is short.",
+          "back": "स्कर्ट\n\nउसकी स्कर्ट छोटी है।"
+        },
+        {
+          "front": "trousers\n\nI wear black trousers.",
+          "back": "पैंट\n\nमैं काली पैंट पहनता हूँ।\n\nअमेरिकी अंग्रेज़ी में: pants"
+        },
+        {
+          "front": "jeans\n\nI like wearing jeans.",
+          "back": "जींस\n\nमुझे जींस पहनना पसंद है।"
+        },
+        {
+          "front": "shorts\n\nKids wear shorts in summer.",
+          "back": "शॉर्ट्स\n\nबच्चे गर्मियों में शॉर्ट्स पहनते हैं।\n\nयह भी: निक्कर, हाफ़ पैंट"
+        },
+        {
+          "front": "jacket\n\nTake a jacket, it's cold.",
+          "back": "जैकेट\n\nजैकेट ले लो, ठंड है।"
+        },
+        {
+          "front": "coat\n\nShe wears a long coat in winter.",
+          "back": "कोट\n\nवह सर्दियों में लंबा कोट पहनती है।"
+        },
+        {
+          "front": "sweater\n\nMy grandmother knitted this sweater.",
+          "back": "स्वेटर\n\nमेरी दादी ने यह स्वेटर बुना है।"
+        },
+        {
+          "front": "uniform\n\nStudents wear a uniform.",
+          "back": "यूनिफ़ॉर्म\n\nछात्र यूनिफ़ॉर्म पहनते हैं।\n\nयह भी: वर्दी"
+        },
+        {
+          "front": "shoes\n\nTake off your shoes, please.",
+          "back": "जूते\n\nकृपया अपने जूते उतार दीजिए।"
+        },
+        {
+          "front": "sandals\n\nI wear sandals in summer.",
+          "back": "सैंडल\n\nमैं गर्मियों में सैंडल पहनता हूँ।\n\nयह भी: चप्पल"
+        },
+        {
+          "front": "socks\n\nWhere are my socks?",
+          "back": "मोज़े\n\nमेरे मोज़े कहाँ हैं?"
+        },
+        {
+          "front": "hat\n\nWear a hat in the sun.",
+          "back": "टोपी\n\nधूप में टोपी पहनो।"
+        },
+        {
+          "front": "bag\n\nMy bag is heavy.",
+          "back": "बैग\n\nमेरा बैग भारी है।\n\nयह भी: थैला"
+        },
+        {
+          "front": "backpack\n\nPut your books in your backpack.",
+          "back": "बस्ता\n\nअपनी किताबें बस्ते में रखो।\n\nयह भी: बैकपैक"
+        },
+        {
+          "front": "belt\n\nThis belt is too long.",
+          "back": "बेल्ट\n\nयह बेल्ट बहुत लंबी है।"
+        },
+        {
+          "front": "glasses\n\nI can't read without my glasses.",
+          "back": "चश्मा\n\nमैं चश्मे के बिना पढ़ नहीं सकता।"
+        },
+        {
+          "front": "watch\n\nMy watch is slow.",
+          "back": "घड़ी\n\nमेरी घड़ी पीछे चल रही है।\n\nदूसरा अर्थ: देखना"
+        },
+        {
+          "front": "ring\n\nShe has a gold ring.",
+          "back": "अंगूठी\n\nउसके पास सोने की अंगूठी है।"
+        },
+        {
+          "front": "necklace\n\nThis necklace is a gift from my mother.",
+          "back": "हार\n\nयह हार मेरी माँ का तोहफ़ा है।\n\nयह भी: नेकलेस"
+        },
+        {
+          "front": "umbrella\n\nTake an umbrella, it's raining.",
+          "back": "छाता\n\nछाता ले लो, बारिश हो रही है।\n\nयह भी: छतरी"
+        },
+        {
+          "front": "pocket\n\nMy phone is in my pocket.",
+          "back": "जेब\n\nमेरा फ़ोन मेरी जेब में है।"
+        },
+        {
+          "front": "button\n\nA button fell off my shirt.",
+          "back": "बटन\n\nमेरी शर्ट का एक बटन गिर गया।"
+        },
+        {
+          "front": "size\n\nWhat size do you wear?",
+          "back": "साइज़\n\nआप कौन-सा साइज़ पहनते हैं?"
+        },
+        {
+          "front": "wear\n\nWhat will you wear to the party?",
+          "back": "पहनना\n\nतुम पार्टी में क्या पहनोगे?"
+        },
+        {
+          "front": "put on\n\nPut on your coat.",
+          "back": "पहनना\n\nअपना कोट पहन लो।"
+        },
+        {
+          "front": "take off\n\nTake off your jacket and sit down.",
+          "back": "उतारना\n\nअपनी जैकेट उतारो और बैठ जाओ।"
+        },
+        {
+          "front": "try on\n\nCan I try on this dress?",
+          "back": "पहनकर देखना\n\nक्या मैं यह ड्रेस पहनकर देख सकती हूँ?\n\nयह भी: ट्राई करना"
+        },
+        {
+          "front": "fashion\n\nShe works in fashion.",
+          "back": "फ़ैशन\n\nवह फ़ैशन के क्षेत्र में काम करती है।"
+        },
+        {
+          "front": "color\n\nWhat color is your car?",
+          "back": "रंग\n\nतुम्हारी कार किस रंग की है?\n\nयह भी: कलर"
+        },
+        {
+          "front": "red\n\nThe flag is red.",
+          "back": "लाल\n\nझंडा लाल है।"
+        },
+        {
+          "front": "blue\n\nThe sky is blue.",
+          "back": "नीला\n\nआसमान नीला है।"
+        },
+        {
+          "front": "green\n\nLeaves are green.",
+          "back": "हरा\n\nपत्ते हरे होते हैं।"
+        },
+        {
+          "front": "yellow\n\nBananas are yellow.",
+          "back": "पीला\n\nकेले पीले होते हैं।"
+        },
+        {
+          "front": "black\n\nHe has black hair.",
+          "back": "काला\n\nउसके बाल काले हैं।"
+        },
+        {
+          "front": "white\n\nSnow is white.",
+          "back": "सफ़ेद\n\nबर्फ़ सफ़ेद होती है।"
+        },
+        {
+          "front": "gray\n\nThe sky is gray today.",
+          "back": "स्लेटी\n\nआज आसमान स्लेटी है।\n\nयह भी: ग्रे"
+        },
+        {
+          "front": "brown\n\nMy dog is brown.",
+          "back": "भूरा\n\nमेरा कुत्ता भूरा है।"
+        },
+        {
+          "front": "pink\n\nShe loves pink.",
+          "back": "गुलाबी\n\nउसे गुलाबी रंग बहुत पसंद है।"
+        },
+        {
+          "front": "purple\n\nPurple is my favorite color.",
+          "back": "बैंगनी\n\nबैंगनी मेरा पसंदीदा रंग है।"
+        },
+        {
+          "front": "dark\n\nI like dark blue.",
+          "back": "गहरा\n\nमुझे गहरा नीला रंग पसंद है।\n\nदूसरा अर्थ: अँधेरा"
+        },
+        {
+          "front": "light\n\nShe wears a light green dress.",
+          "back": "हल्का\n\nवह हल्के हरे रंग की ड्रेस पहनती है।\n\nदूसरा अर्थ: रोशनी, बत्ती"
+        },
+        {
+          "front": "gold\n\nHer necklace is made of gold.",
+          "back": "सोना\n\nउसका हार सोने का बना है।"
+        },
+        {
+          "front": "silver\n\nThis spoon is made of silver.",
+          "back": "चाँदी\n\nयह चम्मच चाँदी का बना है।"
+        },
+        {
+          "front": "cloth\n\nThis cloth is very soft.",
+          "back": "कपड़ा\n\nयह कपड़ा बहुत मुलायम है।"
+        },
+        {
+          "front": "pajamas\n\nI put on my pajamas.",
+          "back": "पजामा\n\nमैंने अपना पजामा पहन लिया।\n\nयह भी: पायजामा, नाइट सूट"
+        },
+        {
+          "front": "scarf\n\nWear a scarf in winter.",
+          "back": "स्कार्फ़\n\nसर्दियों में स्कार्फ़ पहनो।\n\nयह भी: मफ़लर"
+        }
+      ]
+    },
+    {
+      "name": "09 शरीर और सेहत",
+      "cards": [
+        {
+          "front": "body\n\nExercise is good for your body.",
+          "back": "शरीर\n\nकसरत शरीर के लिए अच्छी होती है।"
+        },
+        {
+          "front": "head\n\nMy head hurts.",
+          "back": "सिर\n\nमेरा सिर दुख रहा है।"
+        },
+        {
+          "front": "hair\n\nShe has short hair.",
+          "back": "बाल\n\nउसके बाल छोटे हैं।"
+        },
+        {
+          "front": "face\n\nWash your face.",
+          "back": "चेहरा\n\nअपना चेहरा धो लो।"
+        },
+        {
+          "front": "eye\n\nShe has big eyes.",
+          "back": "आँख\n\nउसकी आँखें बड़ी हैं।"
+        },
+        {
+          "front": "ear\n\nMy ear hurts.",
+          "back": "कान\n\nमेरा कान दुख रहा है।"
+        },
+        {
+          "front": "nose\n\nMy nose is red.",
+          "back": "नाक\n\nमेरी नाक लाल है।"
+        },
+        {
+          "front": "mouth\n\nOpen your mouth.",
+          "back": "मुँह\n\nअपना मुँह खोलो।"
+        },
+        {
+          "front": "tooth\n\nI have a bad tooth.",
+          "back": "दाँत\n\nमेरा एक दाँत ख़राब है।"
+        },
+        {
+          "front": "lip\n\nHer lips are dry.",
+          "back": "होंठ\n\nउसके होंठ सूखे हैं।"
+        },
+        {
+          "front": "neck\n\nGiraffes have long necks.",
+          "back": "गर्दन\n\nजिराफ़ की गर्दन लंबी होती है।"
+        },
+        {
+          "front": "shoulder\n\nMy shoulder hurts.",
+          "back": "कंधा\n\nमेरे कंधे में दर्द हो रहा है।"
+        },
+        {
+          "front": "arm\n\nHe broke his arm.",
+          "back": "बाँह\n\nउसकी बाँह टूट गई।\n\nयह भी: हाथ"
+        },
+        {
+          "front": "hand\n\nRaise your hand.",
+          "back": "हाथ\n\nअपना हाथ ऊपर उठाओ।"
+        },
+        {
+          "front": "finger\n\nI cut my finger.",
+          "back": "उँगली\n\nमेरी उँगली कट गई।"
+        },
+        {
+          "front": "leg\n\nMy legs are tired.",
+          "back": "टाँग\n\nमेरी टाँगें थक गई हैं।\n\nयह भी: पैर"
+        },
+        {
+          "front": "foot\n\nMy foot hurts.",
+          "back": "पैर\n\nमेरा पैर दुख रहा है।"
+        },
+        {
+          "front": "knee\n\nI hurt my knee playing football.",
+          "back": "घुटना\n\nफ़ुटबॉल खेलते हुए मेरे घुटने में चोट लग गई।"
+        },
+        {
+          "front": "back\n\nMy back hurts.",
+          "back": "पीठ\n\nमेरी पीठ दुख रही है।\n\nदूसरा अर्थ: वापस"
+        },
+        {
+          "front": "stomach\n\nI have a stomach ache.",
+          "back": "पेट\n\nमेरे पेट में दर्द है।"
+        },
+        {
+          "front": "heart\n\nYour heart beats fast when you run.",
+          "back": "दिल\n\nदौड़ते समय दिल तेज़ धड़कता है।"
+        },
+        {
+          "front": "skin\n\nUse sunscreen to protect your skin.",
+          "back": "त्वचा\n\nअपनी त्वचा को बचाने के लिए सनस्क्रीन लगाओ।\n\nयह भी: स्किन, चमड़ी"
+        },
+        {
+          "front": "blood\n\nHe gives blood every year.",
+          "back": "ख़ून\n\nवह हर साल ख़ून दान करता है।\n\nयह भी: रक्त"
+        },
+        {
+          "front": "bone\n\nMilk is good for your bones.",
+          "back": "हड्डी\n\nदूध हड्डियों के लिए अच्छा होता है।"
+        },
+        {
+          "front": "health\n\nHealth is more important than money.",
+          "back": "सेहत\n\nसेहत पैसे से ज़्यादा ज़रूरी है।\n\nयह भी: स्वास्थ्य"
+        },
+        {
+          "front": "healthy\n\nShe is healthy and happy.",
+          "back": "स्वस्थ\n\nवह स्वस्थ और ख़ुश है।\n\nयह भी: सेहतमंद, तंदुरुस्त"
+        },
+        {
+          "front": "sick\n\nI am sick today.",
+          "back": "बीमार\n\nमैं आज बीमार हूँ।"
+        },
+        {
+          "front": "pain\n\nI have a pain in my back.",
+          "back": "दर्द\n\nमेरी पीठ में दर्द है।"
+        },
+        {
+          "front": "headache\n\nI have a headache.",
+          "back": "सिरदर्द\n\nमुझे सिरदर्द है।"
+        },
+        {
+          "front": "fever\n\nThe child has a fever.",
+          "back": "बुख़ार\n\nबच्चे को बुख़ार है।"
+        },
+        {
+          "front": "cough\n\nI have a bad cough.",
+          "back": "खाँसी\n\nमुझे बहुत खाँसी हो रही है।"
+        },
+        {
+          "front": "flu\n\nI got the flu last week.",
+          "back": "फ़्लू\n\nमुझे पिछले हफ़्ते फ़्लू हो गया था।"
+        },
+        {
+          "front": "medicine\n\nTake this medicine twice a day.",
+          "back": "दवा\n\nयह दवा दिन में दो बार लो।\n\nयह भी: दवाई"
+        },
+        {
+          "front": "doctor\n\nYou should see a doctor.",
+          "back": "डॉक्टर\n\nतुम्हें डॉक्टर को दिखाना चाहिए।"
+        },
+        {
+          "front": "nurse\n\nThe nurse is very kind.",
+          "back": "नर्स\n\nनर्स बहुत दयालु है।"
+        },
+        {
+          "front": "hospital\n\nHe is in the hospital.",
+          "back": "अस्पताल\n\nवह अस्पताल में है।\n\nयह भी: हॉस्पिटल"
+        },
+        {
+          "front": "pharmacy\n\nIs there a pharmacy near here?",
+          "back": "दवा की दुकान\n\nक्या यहाँ पास में कोई दवा की दुकान है?\n\nयह भी: मेडिकल स्टोर, केमिस्ट, फ़ार्मेसी"
+        },
+        {
+          "front": "dentist\n\nI go to the dentist twice a year.",
+          "back": "दाँतों का डॉक्टर\n\nमैं साल में दो बार दाँतों के डॉक्टर के पास जाता हूँ।\n\nयह भी: डेंटिस्ट"
+        },
+        {
+          "front": "tired\n\nI am very tired today.",
+          "back": "थका हुआ\n\nमैं आज बहुत थका हुआ हूँ।"
+        },
+        {
+          "front": "hurt\n\nMy arm hurts.",
+          "back": "दर्द होना\n\nमेरी बाँह में दर्द हो रहा है।\n\nयह भी: चोट लगना"
+        },
+        {
+          "front": "rest\n\nYou need to rest.",
+          "back": "आराम करना\n\nतुम्हें आराम करना चाहिए।"
+        },
+        {
+          "front": "exercise\n\nI exercise every morning.",
+          "back": "कसरत करना\n\nमैं हर सुबह कसरत करता हूँ।\n\nयह भी: व्यायाम करना, एक्सरसाइज़ करना"
+        },
+        {
+          "front": "weight\n\nI want to lose weight.",
+          "back": "वज़न\n\nमैं वज़न कम करना चाहता हूँ।"
+        },
+        {
+          "front": "strong\n\nHe is very strong.",
+          "back": "ताक़तवर\n\nवह बहुत ताक़तवर है।\n\nयह भी: मज़बूत"
+        },
+        {
+          "front": "weak\n\nI feel weak after the flu.",
+          "back": "कमज़ोर\n\nफ़्लू के बाद मुझे कमज़ोरी लग रही है।"
+        },
+        {
+          "front": "accident\n\nHe had a car accident.",
+          "back": "दुर्घटना\n\nउसके साथ एक कार दुर्घटना हो गई।\n\nयह भी: एक्सीडेंट"
+        },
+        {
+          "front": "ambulance\n\nCall an ambulance!",
+          "back": "एंबुलेंस\n\nएंबुलेंस बुलाओ!"
+        },
+        {
+          "front": "emergency\n\nIn an emergency, call for help.",
+          "back": "इमरजेंसी\n\nइमरजेंसी में मदद के लिए फ़ोन करो।\n\nयह भी: आपात स्थिति, आपातकाल"
+        },
+        {
+          "front": "breathe\n\nBreathe slowly.",
+          "back": "साँस लेना\n\nधीरे-धीरे साँस लो।"
+        },
+        {
+          "front": "sleepy\n\nI feel sleepy after lunch.",
+          "back": "नींद आना\n\nदोपहर के खाने के बाद मुझे नींद आती है।\n\nयह भी: नींद, उनींदा"
+        }
+      ]
+    },
+    {
+      "name": "10 स्कूल",
+      "cards": [
+        {
+          "front": "school\n\nMy school is near my house.",
+          "back": "स्कूल\n\nमेरा स्कूल मेरे घर के पास है।"
+        },
+        {
+          "front": "student\n\nThere are forty students in my class.",
+          "back": "छात्र\n\nमेरी कक्षा में चालीस छात्र हैं।\n\nयह भी: विद्यार्थी, स्टूडेंट"
+        },
+        {
+          "front": "teacher\n\nOur teacher is very kind.",
+          "back": "शिक्षक\n\nहमारे शिक्षक बहुत अच्छे हैं।\n\nयह भी: टीचर, अध्यापक, शिक्षिका"
+        },
+        {
+          "front": "class\n\nMy class has thirty students.",
+          "back": "कक्षा\n\nहमारी कक्षा में तीस विद्यार्थी हैं।\n\nयह भी: क्लास"
+        },
+        {
+          "front": "classroom\n\nOur classroom is on the second floor.",
+          "back": "कक्षा\n\nहमारी कक्षा दूसरी मंज़िल पर है।\n\nयह भी: क्लासरूम"
+        },
+        {
+          "front": "lesson\n\nToday's lesson is about animals.",
+          "back": "पाठ\n\nआज का पाठ जानवरों के बारे में है।"
+        },
+        {
+          "front": "homework\n\nI do my homework after dinner.",
+          "back": "होमवर्क\n\nमैं रात के खाने के बाद होमवर्क करता हूँ।"
+        },
+        {
+          "front": "exam\n\nI have an exam tomorrow.",
+          "back": "परीक्षा\n\nकल मेरी परीक्षा है।\n\nयह भी: एग्ज़ाम"
+        },
+        {
+          "front": "test\n\nWe have a test on Friday.",
+          "back": "टेस्ट\n\nशुक्रवार को हमारा टेस्ट है।\n\nयह भी: परीक्षा"
+        },
+        {
+          "front": "grade\n\nI got a good grade in English.",
+          "back": "अंक\n\nमुझे अंग्रेज़ी में अच्छे अंक मिले।\n\nयह भी: नंबर, ग्रेड"
+        },
+        {
+          "front": "book\n\nI am reading a good book.",
+          "back": "किताब\n\nमैं एक अच्छी किताब पढ़ रहा हूँ।\n\nयह भी: पुस्तक"
+        },
+        {
+          "front": "notebook\n\nWrite it in your notebook.",
+          "back": "कॉपी\n\nइसे अपनी कॉपी में लिखो।\n\nयह भी: नोटबुक"
+        },
+        {
+          "front": "pen\n\nCan I borrow your pen?",
+          "back": "पेन\n\nक्या मैं तुम्हारा पेन ले सकता हूँ?"
+        },
+        {
+          "front": "pencil\n\nDraw with a pencil.",
+          "back": "पेंसिल\n\nपेंसिल से चित्र बनाओ।"
+        },
+        {
+          "front": "eraser\n\nCan I use your eraser?",
+          "back": "रबड़\n\nक्या मैं तुम्हारा रबड़ इस्तेमाल कर सकता हूँ?\n\nब्रिटिश अंग्रेज़ी में: rubber। यह भी: इरेज़र, रबर"
+        },
+        {
+          "front": "ruler\n\nUse a ruler to draw a line.",
+          "back": "स्केल\n\nलाइन खींचने के लिए स्केल का इस्तेमाल करो।\n\nयह भी: रूलर"
+        },
+        {
+          "front": "board\n\nThe teacher writes on the board.",
+          "back": "बोर्ड\n\nशिक्षक बोर्ड पर लिखते हैं।"
+        },
+        {
+          "front": "dictionary\n\nLook it up in the dictionary.",
+          "back": "शब्दकोश\n\nइसे शब्दकोश में देखो।\n\nयह भी: डिक्शनरी"
+        },
+        {
+          "front": "library\n\nI study in the library.",
+          "back": "पुस्तकालय\n\nमैं पुस्तकालय में पढ़ाई करता हूँ।\n\nयह भी: लाइब्रेरी"
+        },
+        {
+          "front": "university\n\nMy sister goes to university.",
+          "back": "विश्वविद्यालय\n\nमेरी बहन विश्वविद्यालय में पढ़ती है।\n\nयह भी: यूनिवर्सिटी"
+        },
+        {
+          "front": "subject\n\nWhat is your favorite subject?",
+          "back": "विषय\n\nतुम्हारा पसंदीदा विषय कौन-सा है?\n\nयह भी: सब्जेक्ट"
+        },
+        {
+          "front": "math\n\nI am good at math.",
+          "back": "गणित\n\nमैं गणित में अच्छा हूँ।\n\nब्रिटिश अंग्रेज़ी में: maths। यह भी: मैथ्स"
+        },
+        {
+          "front": "English\n\nEnglish is an international language.",
+          "back": "अंग्रेज़ी\n\nअंग्रेज़ी एक अंतरराष्ट्रीय भाषा है।\n\nयह भी: इंग्लिश"
+        },
+        {
+          "front": "history\n\nI love history lessons.",
+          "back": "इतिहास\n\nमुझे इतिहास की कक्षाएँ बहुत पसंद हैं।"
+        },
+        {
+          "front": "geography\n\nIn geography we learn about maps.",
+          "back": "भूगोल\n\nभूगोल में हम नक्शों के बारे में सीखते हैं।"
+        },
+        {
+          "front": "science\n\nScience is interesting.",
+          "back": "विज्ञान\n\nविज्ञान दिलचस्प है।\n\nयह भी: साइंस"
+        },
+        {
+          "front": "art\n\nWe draw pictures in art class.",
+          "back": "कला\n\nकला की कक्षा में हम चित्र बनाते हैं।"
+        },
+        {
+          "front": "music\n\nI listen to music every day.",
+          "back": "संगीत\n\nमैं हर दिन संगीत सुनता हूँ।\n\nयह भी: म्यूज़िक"
+        },
+        {
+          "front": "physics\n\nPhysics is my favorite subject.",
+          "back": "भौतिकी\n\nभौतिकी मेरा पसंदीदा विषय है।\n\nयह भी: फ़िज़िक्स, भौतिक विज्ञान"
+        },
+        {
+          "front": "chemistry\n\nWe do experiments in chemistry.",
+          "back": "रसायन विज्ञान\n\nहम रसायन विज्ञान में प्रयोग करते हैं।\n\nयह भी: केमिस्ट्री"
+        },
+        {
+          "front": "biology\n\nIn biology we study plants and animals.",
+          "back": "जीव विज्ञान\n\nजीव विज्ञान में हम पौधों और जानवरों के बारे में पढ़ते हैं।\n\nयह भी: बायोलॉजी"
+        },
+        {
+          "front": "literature\n\nShe studies literature.",
+          "back": "साहित्य\n\nवह साहित्य पढ़ती है।"
+        },
+        {
+          "front": "learn\n\nI want to learn English.",
+          "back": "सीखना\n\nमैं अंग्रेज़ी सीखना चाहता हूँ।"
+        },
+        {
+          "front": "study\n\nI study for two hours every night.",
+          "back": "पढ़ाई करना\n\nमैं हर रात दो घंटे पढ़ाई करता हूँ।\n\nयह भी: पढ़ना"
+        },
+        {
+          "front": "teach\n\nShe teaches English.",
+          "back": "पढ़ाना\n\nवह अंग्रेज़ी पढ़ाती है।\n\nयह भी: सिखाना"
+        },
+        {
+          "front": "read\n\nI read the news every morning.",
+          "back": "पढ़ना\n\nमैं हर सुबह ख़बरें पढ़ता हूँ।"
+        },
+        {
+          "front": "write\n\nWrite your name here.",
+          "back": "लिखना\n\nअपना नाम यहाँ लिखो।"
+        },
+        {
+          "front": "listen\n\nListen carefully.",
+          "back": "सुनना\n\nध्यान से सुनो।"
+        },
+        {
+          "front": "spell\n\nHow do you spell your name?",
+          "back": "स्पेलिंग बताना\n\nआपके नाम की स्पेलिंग क्या है?\n\nयह भी: हिज्जे करना, स्पेल करना"
+        },
+        {
+          "front": "count\n\nCount from one to ten.",
+          "back": "गिनना\n\nएक से दस तक गिनो।"
+        },
+        {
+          "front": "practice\n\nPractice speaking every day.",
+          "back": "अभ्यास करना\n\nहर दिन बोलने का अभ्यास करो।\n\nयह भी: प्रैक्टिस करना"
+        },
+        {
+          "front": "remember\n\nI can't remember his name.",
+          "back": "याद रखना\n\nमुझे उसका नाम याद नहीं आ रहा।\n\nयह भी: याद करना, याद आना"
+        },
+        {
+          "front": "forget\n\nDon't forget your homework.",
+          "back": "भूलना\n\nअपना होमवर्क मत भूलना।\n\nयह भी: भूल जाना"
+        },
+        {
+          "front": "explain\n\nCan you explain this word?",
+          "back": "समझाना\n\nक्या आप यह शब्द समझा सकते हैं?"
+        },
+        {
+          "front": "mistake\n\nEveryone makes mistakes.",
+          "back": "ग़लती\n\nहर कोई ग़लतियाँ करता है।"
+        },
+        {
+          "front": "correct\n\nYour answer is correct.",
+          "back": "सही\n\nतुम्हारा जवाब सही है।"
+        },
+        {
+          "front": "wrong\n\nThat answer is wrong.",
+          "back": "ग़लत\n\nवह जवाब ग़लत है।"
+        },
+        {
+          "front": "pass\n\nI passed the exam!",
+          "back": "पास होना\n\nमैं परीक्षा में पास हो गया!"
+        },
+        {
+          "front": "fail\n\nHe failed the test.",
+          "back": "फ़ेल होना\n\nवह टेस्ट में फ़ेल हो गया।"
+        },
+        {
+          "front": "semester\n\nThe new semester starts next week.",
+          "back": "सेमेस्टर\n\nनया सेमेस्टर अगले हफ़्ते शुरू हो रहा है।"
+        }
+      ]
+    },
+    {
+      "name": "11 काम और पेशे",
+      "cards": [
+        {
+          "front": "work\n\nI work in an office.",
+          "back": "काम करना\n\nमैं एक दफ़्तर में काम करता हूँ।"
+        },
+        {
+          "front": "job\n\nShe has a new job.",
+          "back": "नौकरी\n\nउसे नई नौकरी मिली है।\n\nयह भी: जॉब"
+        },
+        {
+          "front": "office\n\nThe office opens at eight.",
+          "back": "दफ़्तर\n\nदफ़्तर आठ बजे खुलता है।\n\nयह भी: ऑफ़िस"
+        },
+        {
+          "front": "company\n\nHe works for a big company.",
+          "back": "कंपनी\n\nवह एक बड़ी कंपनी में काम करता है।"
+        },
+        {
+          "front": "boss\n\nMy boss is very busy.",
+          "back": "बॉस\n\nमेरे बॉस बहुत व्यस्त रहते हैं।"
+        },
+        {
+          "front": "colleague\n\nMy colleagues are friendly.",
+          "back": "सहकर्मी\n\nमेरे सहकर्मी मिलनसार हैं।\n\nयह भी: कलीग"
+        },
+        {
+          "front": "worker\n\nThe workers start at seven.",
+          "back": "मज़दूर\n\nमज़दूर सात बजे काम शुरू करते हैं।"
+        },
+        {
+          "front": "employee\n\nThe company has a hundred employees.",
+          "back": "कर्मचारी\n\nकंपनी में सौ कर्मचारी हैं।"
+        },
+        {
+          "front": "manager\n\nCan I talk to the manager?",
+          "back": "मैनेजर\n\nक्या मैं मैनेजर से बात कर सकता हूँ?"
+        },
+        {
+          "front": "meeting\n\nThe meeting starts at nine.",
+          "back": "मीटिंग\n\nमीटिंग नौ बजे शुरू होती है।\n\nयह भी: बैठक"
+        },
+        {
+          "front": "salary\n\nHer salary is good.",
+          "back": "तनख़्वाह\n\nउसकी तनख़्वाह अच्छी है।\n\nयह भी: वेतन, सैलरी"
+        },
+        {
+          "front": "business\n\nMy parents have a small business.",
+          "back": "व्यापार\n\nमेरे माता-पिता का एक छोटा-सा व्यापार है।\n\nयह भी: कारोबार, धंधा, बिज़नेस"
+        },
+        {
+          "front": "customer\n\nThe customer is always right.",
+          "back": "ग्राहक\n\nग्राहक हमेशा सही होता है।\n\nयह भी: कस्टमर"
+        },
+        {
+          "front": "interview\n\nI have a job interview tomorrow.",
+          "back": "इंटरव्यू\n\nकल मेरा नौकरी का इंटरव्यू है।"
+        },
+        {
+          "front": "engineer\n\nMy brother is an engineer.",
+          "back": "इंजीनियर\n\nमेरा भाई इंजीनियर है।"
+        },
+        {
+          "front": "police officer\n\nThe police officer helped us.",
+          "back": "पुलिस अधिकारी\n\nपुलिस अधिकारी ने हमारी मदद की।\n\nयह भी: पुलिसवाला, पुलिसकर्मी"
+        },
+        {
+          "front": "farmer\n\nFarmers grow rice.",
+          "back": "किसान\n\nकिसान धान उगाते हैं।"
+        },
+        {
+          "front": "driver\n\nThe taxi driver was friendly.",
+          "back": "ड्राइवर\n\nटैक्सी ड्राइवर बहुत मिलनसार था।"
+        },
+        {
+          "front": "chef\n\nThe chef cooks delicious food.",
+          "back": "शेफ़\n\nशेफ़ स्वादिष्ट खाना बनाता है।\n\nयह भी: रसोइया, बावर्ची"
+        },
+        {
+          "front": "singer\n\nShe is a famous singer.",
+          "back": "गायक\n\nवह एक मशहूर गायिका है।\n\nयह भी: गायिका, सिंगर"
+        },
+        {
+          "front": "actor\n\nHe wants to be an actor.",
+          "back": "अभिनेता\n\nवह अभिनेता बनना चाहता है।\n\nयह भी: एक्टर"
+        },
+        {
+          "front": "lawyer\n\nWe need a lawyer.",
+          "back": "वकील\n\nहमें एक वकील की ज़रूरत है।"
+        },
+        {
+          "front": "shop assistant\n\nThe shop assistant was very helpful.",
+          "back": "सेल्समैन\n\nसेल्समैन ने हमारी बहुत मदद की।"
+        },
+        {
+          "front": "journalist\n\nThe journalist writes for a newspaper.",
+          "back": "पत्रकार\n\nपत्रकार एक अख़बार के लिए लिखता है।"
+        },
+        {
+          "front": "scientist\n\nScientists study the world around us.",
+          "back": "वैज्ञानिक\n\nवैज्ञानिक हमारे आसपास की दुनिया का अध्ययन करते हैं।"
+        },
+        {
+          "front": "painter\n\nHe is a famous painter.",
+          "back": "चित्रकार\n\nवह एक मशहूर चित्रकार है।\n\nयह भी: पेंटर"
+        },
+        {
+          "front": "musician\n\nMy uncle is a musician.",
+          "back": "संगीतकार\n\nमेरे चाचा संगीतकार हैं।"
+        },
+        {
+          "front": "pilot\n\nThe pilot flies the plane.",
+          "back": "पायलट\n\nपायलट हवाई जहाज़ उड़ाता है।"
+        },
+        {
+          "front": "soldier\n\nMy grandfather was a soldier.",
+          "back": "सैनिक\n\nमेरे दादा सैनिक थे।\n\nयह भी: फ़ौजी, सिपाही"
+        },
+        {
+          "front": "firefighter\n\nFirefighters are very brave.",
+          "back": "दमकलकर्मी\n\nदमकलकर्मी बहुत बहादुर होते हैं।\n\nयह भी: फ़ायरमैन, अग्निशामक"
+        },
+        {
+          "front": "tailor\n\nThe tailor made my suit.",
+          "back": "दर्ज़ी\n\nदर्ज़ी ने मेरा सूट सिला।\n\nयह भी: टेलर"
+        },
+        {
+          "front": "mechanic\n\nThe mechanic fixed my motorbike.",
+          "back": "मैकेनिक\n\nमैकेनिक ने मेरी मोटरसाइकिल ठीक कर दी।"
+        },
+        {
+          "front": "hairdresser\n\nI go to the hairdresser every month.",
+          "back": "नाई\n\nमैं हर महीने नाई के पास जाता हूँ।"
+        },
+        {
+          "front": "builder\n\nThe builders are building a new school.",
+          "back": "राजमिस्त्री\n\nराजमिस्त्री एक नया स्कूल बना रहे हैं।\n\nयह भी: मिस्त्री"
+        },
+        {
+          "front": "secretary\n\nThe secretary answers the phone.",
+          "back": "सेक्रेटरी\n\nसेक्रेटरी फ़ोन उठाती है।"
+        },
+        {
+          "front": "accountant\n\nShe works as an accountant.",
+          "back": "अकाउंटेंट\n\nवह अकाउंटेंट का काम करती है।"
+        },
+        {
+          "front": "programmer\n\nHe is a computer programmer.",
+          "back": "प्रोग्रामर\n\nवह कंप्यूटर प्रोग्रामर है।"
+        },
+        {
+          "front": "designer\n\nShe is a fashion designer.",
+          "back": "डिज़ाइनर\n\nवह फ़ैशन डिज़ाइनर है।"
+        },
+        {
+          "front": "busy\n\nI am busy at work.",
+          "back": "व्यस्त\n\nमैं काम में व्यस्त हूँ।\n\nयह भी: बिज़ी"
+        },
+        {
+          "front": "free\n\nAre you free tonight?",
+          "back": "ख़ाली\n\nक्या तुम आज रात ख़ाली हो?\n\nदूसरा अर्थ: मुफ़्त। यह भी: फ़्री"
+        },
+        {
+          "front": "plan\n\nWhat is your plan for today?",
+          "back": "योजना\n\nआज के लिए तुम्हारी क्या योजना है?\n\nयह भी: प्लान"
+        },
+        {
+          "front": "project\n\nWe are working on a new project.",
+          "back": "प्रोजेक्ट\n\nहम एक नए प्रोजेक्ट पर काम कर रहे हैं।"
+        },
+        {
+          "front": "email\n\nPlease send me an email.",
+          "back": "ईमेल\n\nकृपया मुझे एक ईमेल भेजिए।"
+        },
+        {
+          "front": "computer\n\nI use a computer at work.",
+          "back": "कंप्यूटर\n\nमैं काम पर कंप्यूटर इस्तेमाल करता हूँ।"
+        },
+        {
+          "front": "phone\n\nMy phone is out of battery.",
+          "back": "फ़ोन\n\nमेरे फ़ोन की बैटरी ख़त्म हो गई है।"
+        },
+        {
+          "front": "retire\n\nMy father will retire next year.",
+          "back": "रिटायर होना\n\nमेरे पिताजी अगले साल रिटायर होंगे।"
+        },
+        {
+          "front": "earn\n\nShe earns a lot of money.",
+          "back": "कमाना\n\nवह बहुत पैसे कमाती है।"
+        },
+        {
+          "front": "hire\n\nThe company will hire ten people.",
+          "back": "नौकरी पर रखना\n\nकंपनी दस लोगों को नौकरी पर रखेगी।\n\nयह भी: भर्ती करना"
+        },
+        {
+          "front": "factory\n\nMy mother works in a factory.",
+          "back": "फ़ैक्ट्री\n\nमेरी माँ एक फ़ैक्ट्री में काम करती हैं।\n\nयह भी: कारख़ाना"
+        },
+        {
+          "front": "shift\n\nI work the night shift.",
+          "back": "शिफ़्ट\n\nमैं रात की शिफ़्ट में काम करता हूँ।"
+        }
+      ]
+    },
+    {
+      "name": "12 शहर और जगहें",
+      "cards": [
+        {
+          "front": "city\n\nI live in a big city.",
+          "back": "शहर\n\nमैं एक बड़े शहर में रहता हूँ।"
+        },
+        {
+          "front": "town\n\nI live in a small town.",
+          "back": "क़स्बा\n\nमैं एक छोटे क़स्बे में रहता हूँ।"
+        },
+        {
+          "front": "village\n\nMy grandparents live in a village.",
+          "back": "गाँव\n\nमेरे दादा-दादी गाँव में रहते हैं।"
+        },
+        {
+          "front": "countryside\n\nThe countryside is quiet.",
+          "back": "ग्रामीण इलाक़ा\n\nग्रामीण इलाक़ा शांत होता है।\n\nयह भी: देहात, गाँव"
+        },
+        {
+          "front": "street\n\nThis street is very busy.",
+          "back": "गली\n\nइस गली में बहुत भीड़ रहती है।"
+        },
+        {
+          "front": "road\n\nThe road is wet after the rain.",
+          "back": "सड़क\n\nबारिश के बाद सड़क गीली है।\n\nयह भी: रोड"
+        },
+        {
+          "front": "corner\n\nThe shop is on the corner.",
+          "back": "कोना\n\nदुकान कोने पर है।"
+        },
+        {
+          "front": "bridge\n\nWe walk across the bridge.",
+          "back": "पुल\n\nहम पैदल पुल पार करते हैं।"
+        },
+        {
+          "front": "park\n\nLet's go to the park.",
+          "back": "पार्क\n\nचलो पार्क चलते हैं।"
+        },
+        {
+          "front": "market\n\nMy mother goes to the market every morning.",
+          "back": "बाज़ार\n\nमेरी माँ हर सुबह बाज़ार जाती हैं।\n\nयह भी: मार्केट"
+        },
+        {
+          "front": "supermarket\n\nI buy milk at the supermarket.",
+          "back": "सुपरमार्केट\n\nमैं सुपरमार्केट से दूध ख़रीदता हूँ।"
+        },
+        {
+          "front": "shop\n\nThe shop closes at nine.",
+          "back": "दुकान\n\nदुकान नौ बजे बंद होती है।\n\nयह भी: शॉप"
+        },
+        {
+          "front": "mall\n\nWe go to the mall on Sunday.",
+          "back": "मॉल\n\nहम रविवार को मॉल जाते हैं।"
+        },
+        {
+          "front": "bank\n\nThe bank is next to the post office.",
+          "back": "बैंक\n\nबैंक डाकघर के बगल में है।"
+        },
+        {
+          "front": "post office\n\nWhere is the post office?",
+          "back": "डाकघर\n\nडाकघर कहाँ है?\n\nयह भी: पोस्ट ऑफ़िस"
+        },
+        {
+          "front": "police station\n\nThe police station is on this street.",
+          "back": "थाना\n\nथाना इसी सड़क पर है।\n\nयह भी: पुलिस स्टेशन"
+        },
+        {
+          "front": "museum\n\nThe museum is open on Sunday.",
+          "back": "संग्रहालय\n\nसंग्रहालय रविवार को खुला रहता है।\n\nयह भी: म्यूज़ियम"
+        },
+        {
+          "front": "cinema\n\nLet's go to the cinema tonight.",
+          "back": "सिनेमाघर\n\nचलो आज रात सिनेमाघर चलते हैं।\n\nयह भी: सिनेमा हॉल, सिनेमा"
+        },
+        {
+          "front": "theater\n\nWe saw a play at the theater.",
+          "back": "थिएटर\n\nहमने थिएटर में एक नाटक देखा।"
+        },
+        {
+          "front": "church\n\nThere is an old church in the city center.",
+          "back": "चर्च\n\nशहर के बीच में एक पुराना चर्च है।\n\nयह भी: गिरजाघर"
+        },
+        {
+          "front": "pagoda\n\nWe visited an old pagoda.",
+          "back": "पगोडा\n\nहम एक पुराना पगोडा देखने गए।"
+        },
+        {
+          "front": "temple\n\nThe temple is very old.",
+          "back": "मंदिर\n\nयह मंदिर बहुत पुराना है।"
+        },
+        {
+          "front": "zoo\n\nChildren love the zoo.",
+          "back": "चिड़ियाघर\n\nबच्चों को चिड़ियाघर बहुत पसंद है।"
+        },
+        {
+          "front": "stadium\n\nThe stadium is full of fans.",
+          "back": "स्टेडियम\n\nस्टेडियम दर्शकों से भरा है।"
+        },
+        {
+          "front": "gym\n\nI go to the gym after work.",
+          "back": "जिम\n\nमैं काम के बाद जिम जाता हूँ।"
+        },
+        {
+          "front": "hotel\n\nOur hotel is near the beach.",
+          "back": "होटल\n\nहमारा होटल समुद्र तट के पास है।"
+        },
+        {
+          "front": "café\n\nLet's meet at the café.",
+          "back": "कैफ़े\n\nचलो कैफ़े में मिलते हैं।"
+        },
+        {
+          "front": "building\n\nThat building has thirty floors.",
+          "back": "इमारत\n\nउस इमारत में तीस मंज़िलें हैं।\n\nयह भी: बिल्डिंग"
+        },
+        {
+          "front": "tower\n\nYou can see the whole city from the tower.",
+          "back": "टावर\n\nटावर से पूरा शहर दिखता है।"
+        },
+        {
+          "front": "square\n\nThere is a big square in the city center.",
+          "back": "चौक\n\nशहर के बीच में एक बड़ा चौक है।"
+        },
+        {
+          "front": "parking lot\n\nThe parking lot is full.",
+          "back": "पार्किंग\n\nपार्किंग भरी हुई है।"
+        },
+        {
+          "front": "gas station\n\nWe need to stop at a gas station.",
+          "back": "पेट्रोल पंप\n\nहमें एक पेट्रोल पंप पर रुकना होगा।\n\nब्रिटिश अंग्रेज़ी में: petrol station"
+        },
+        {
+          "front": "bus stop\n\nWait for me at the bus stop.",
+          "back": "बस स्टॉप\n\nबस स्टॉप पर मेरा इंतज़ार करना।"
+        },
+        {
+          "front": "traffic light\n\nStop at the red traffic light.",
+          "back": "ट्रैफ़िक लाइट\n\nलाल बत्ती पर रुको।\n\nयह भी: सिग्नल, लाल बत्ती"
+        },
+        {
+          "front": "crossroads\n\nTurn left at the crossroads.",
+          "back": "चौराहा\n\nचौराहे से बाएँ मुड़ो।"
+        },
+        {
+          "front": "sidewalk\n\nWalk on the sidewalk.",
+          "back": "फ़ुटपाथ\n\nफ़ुटपाथ पर चलो।\n\nब्रिटिश अंग्रेज़ी में: pavement"
+        },
+        {
+          "front": "left\n\nTurn left here.",
+          "back": "बायाँ\n\nयहाँ से बाएँ मुड़ो।\n\nयह भी: बाएँ, बाईं ओर, लेफ़्ट"
+        },
+        {
+          "front": "right\n\nThe bank is on the right.",
+          "back": "दायाँ\n\nबैंक दाईं ओर है।\n\nदूसरा अर्थ: सही। यह भी: दाएँ, दाहिना, दाईं ओर, राइट"
+        },
+        {
+          "front": "straight\n\nGo straight ahead.",
+          "back": "सीधा\n\nसीधे आगे जाओ।"
+        },
+        {
+          "front": "near\n\nIs there a bank near here?",
+          "back": "पास\n\nक्या यहाँ पास में कोई बैंक है?\n\nयह भी: के पास, नज़दीक, क़रीब"
+        },
+        {
+          "front": "far\n\nMy school is not far from here.",
+          "back": "दूर\n\nमेरा स्कूल यहाँ से दूर नहीं है।"
+        },
+        {
+          "front": "next to\n\nThe café is next to the bank.",
+          "back": "बगल में\n\nकैफ़े बैंक के बगल में है।\n\nयह भी: के बगल में, के पास"
+        },
+        {
+          "front": "opposite\n\nThe park is opposite my house.",
+          "back": "सामने\n\nपार्क मेरे घर के ठीक सामने है।\n\nयह भी: के सामने"
+        },
+        {
+          "front": "behind\n\nThe garden is behind the house.",
+          "back": "पीछे\n\nबगीचा घर के पीछे है।\n\nयह भी: के पीछे"
+        },
+        {
+          "front": "in front of\n\nWait in front of the school.",
+          "back": "सामने\n\nस्कूल के सामने इंतज़ार करो।\n\nयह भी: के सामने, आगे, के आगे"
+        },
+        {
+          "front": "between\n\nThe bank is between the hotel and the café.",
+          "back": "बीच में\n\nबैंक होटल और कैफ़े के बीच में है।\n\nयह भी: के बीच, के बीच में"
+        },
+        {
+          "front": "map\n\nCan you show me on the map?",
+          "back": "नक्शा\n\nक्या आप मुझे नक्शे पर दिखा सकते हैं?\n\nयह भी: मैप"
+        },
+        {
+          "front": "neighborhood\n\nOur neighborhood is quiet.",
+          "back": "मोहल्ला\n\nहमारा मोहल्ला शांत है।\n\nयह भी: पड़ोस, कॉलोनी"
+        },
+        {
+          "front": "capital\n\nTokyo is the capital of Japan.",
+          "back": "राजधानी\n\nटोक्यो जापान की राजधानी है।\n\nदूसरा अर्थ: पूँजी"
+        },
+        {
+          "front": "area\n\nThis area is very safe.",
+          "back": "इलाक़ा\n\nयह इलाक़ा बहुत सुरक्षित है।\n\nयह भी: एरिया"
+        }
+      ]
+    },
+    {
+      "name": "13 यात्रा",
+      "cards": [
+        {
+          "front": "travel\n\nI love to travel.",
+          "back": "यात्रा करना\n\nमुझे यात्रा करना बहुत पसंद है।\n\nयह भी: सफ़र करना, घूमना, ट्रैवल करना"
+        },
+        {
+          "front": "trip\n\nWe had a great trip to the mountains.",
+          "back": "यात्रा\n\nपहाड़ों की हमारी यात्रा बहुत अच्छी रही।\n\nयह भी: सफ़र, ट्रिप"
+        },
+        {
+          "front": "tourist\n\nMany tourists visit this beach.",
+          "back": "पर्यटक\n\nबहुत से पर्यटक इस समुद्र तट पर आते हैं।\n\nयह भी: टूरिस्ट"
+        },
+        {
+          "front": "passport\n\nDon't forget your passport.",
+          "back": "पासपोर्ट\n\nअपना पासपोर्ट मत भूलना।"
+        },
+        {
+          "front": "visa\n\nI need a visa to visit that country.",
+          "back": "वीज़ा\n\nउस देश में जाने के लिए मुझे वीज़ा चाहिए।"
+        },
+        {
+          "front": "ticket\n\nI bought two train tickets.",
+          "back": "टिकट\n\nमैंने ट्रेन के दो टिकट ख़रीदे।"
+        },
+        {
+          "front": "luggage\n\nHow much luggage do you have?",
+          "back": "सामान\n\nआपके पास कितना सामान है?\n\nयह भी: लगेज"
+        },
+        {
+          "front": "suitcase\n\nMy suitcase is very heavy.",
+          "back": "सूटकेस\n\nमेरा सूटकेस बहुत भारी है।\n\nयह भी: अटैची"
+        },
+        {
+          "front": "airport\n\nWe arrived at the airport early.",
+          "back": "हवाई अड्डा\n\nहम हवाई अड्डे पर जल्दी पहुँच गए।\n\nयह भी: एयरपोर्ट"
+        },
+        {
+          "front": "plane\n\nThe plane leaves at ten.",
+          "back": "हवाई जहाज़\n\nहवाई जहाज़ दस बजे उड़ान भरेगा।\n\nयह भी: प्लेन"
+        },
+        {
+          "front": "flight\n\nOur flight is two hours late.",
+          "back": "उड़ान\n\nहमारी उड़ान दो घंटे देरी से है।\n\nयह भी: फ़्लाइट"
+        },
+        {
+          "front": "train\n\nThe train is slow but cheap.",
+          "back": "ट्रेन\n\nट्रेन धीमी है लेकिन सस्ती है।\n\nयह भी: रेलगाड़ी"
+        },
+        {
+          "front": "station\n\nThe train station is near my house.",
+          "back": "स्टेशन\n\nरेलवे स्टेशन मेरे घर के पास है।"
+        },
+        {
+          "front": "bus\n\nI take the bus to school.",
+          "back": "बस\n\nमैं बस से स्कूल जाता हूँ।"
+        },
+        {
+          "front": "taxi\n\nLet's take a taxi.",
+          "back": "टैक्सी\n\nचलो टैक्सी ले लेते हैं।"
+        },
+        {
+          "front": "car\n\nMy father drives an old car.",
+          "back": "कार\n\nमेरे पिताजी एक पुरानी कार चलाते हैं।\n\nयह भी: गाड़ी"
+        },
+        {
+          "front": "motorbike\n\nMy brother has a red motorbike.",
+          "back": "मोटरसाइकिल\n\nमेरे भाई के पास एक लाल मोटरसाइकिल है।\n\nयह भी: बाइक"
+        },
+        {
+          "front": "bicycle\n\nI ride my bicycle to school.",
+          "back": "साइकिल\n\nमैं अपनी साइकिल चलाकर स्कूल जाता हूँ।"
+        },
+        {
+          "front": "boat\n\nWe crossed the river by boat.",
+          "back": "नाव\n\nहमने नाव से नदी पार की।"
+        },
+        {
+          "front": "ship\n\nThe ship is very big.",
+          "back": "जहाज़\n\nजहाज़ बहुत बड़ा है।"
+        },
+        {
+          "front": "helmet\n\nAlways wear a helmet.",
+          "back": "हेलमेट\n\nहमेशा हेलमेट पहनो।"
+        },
+        {
+          "front": "seat\n\nIs this seat free?",
+          "back": "सीट\n\nक्या यह सीट ख़ाली है?"
+        },
+        {
+          "front": "drive\n\nCan you drive a car?",
+          "back": "गाड़ी चलाना\n\nक्या तुम कार चला सकते हो?\n\nयह भी: चलाना, ड्राइव करना"
+        },
+        {
+          "front": "ride\n\nI ride a motorbike to work.",
+          "back": "चलाना\n\nमैं मोटरसाइकिल चलाकर काम पर जाता हूँ।\n\nयह भी: सवारी करना"
+        },
+        {
+          "front": "walk\n\nI walk to school every day.",
+          "back": "पैदल चलना\n\nमैं हर दिन पैदल स्कूल जाता हूँ।\n\nयह भी: चलना"
+        },
+        {
+          "front": "go\n\nWhere are you going?",
+          "back": "जाना\n\nतुम कहाँ जा रहे हो?"
+        },
+        {
+          "front": "come\n\nCan you come to my party?",
+          "back": "आना\n\nक्या तुम मेरी पार्टी में आ सकते हो?"
+        },
+        {
+          "front": "arrive\n\nWe arrived at the hotel at noon.",
+          "back": "पहुँचना\n\nहम दोपहर को होटल पहुँचे।"
+        },
+        {
+          "front": "leave\n\nThe bus leaves at seven.",
+          "back": "निकलना\n\nबस सात बजे निकलती है।\n\nदूसरा अर्थ: छोड़ना। यह भी: रवाना होना, छूटना"
+        },
+        {
+          "front": "return\n\nWe return home on Sunday.",
+          "back": "लौटना\n\nहम रविवार को घर लौटते हैं।\n\nयह भी: वापस आना"
+        },
+        {
+          "front": "wait\n\nPlease wait for me.",
+          "back": "इंतज़ार करना\n\nकृपया मेरा इंतज़ार कीजिए।\n\nयह भी: वेट करना"
+        },
+        {
+          "front": "stop\n\nThe bus stops here.",
+          "back": "रुकना\n\nबस यहाँ रुकती है।\n\nयह भी: रोकना"
+        },
+        {
+          "front": "fast\n\nThis train is very fast.",
+          "back": "तेज़\n\nयह ट्रेन बहुत तेज़ है।\n\nयह भी: फ़ास्ट"
+        },
+        {
+          "front": "slow\n\nThe traffic is slow today.",
+          "back": "धीमा\n\nआज ट्रैफ़िक धीमा है।\n\nयह भी: स्लो"
+        },
+        {
+          "front": "traffic\n\nThere is a lot of traffic in the city.",
+          "back": "ट्रैफ़िक\n\nशहर में बहुत ट्रैफ़िक है।"
+        },
+        {
+          "front": "traffic jam\n\nWe were stuck in a traffic jam.",
+          "back": "ट्रैफ़िक जाम\n\nहम ट्रैफ़िक जाम में फँस गए थे।\n\nयह भी: जाम"
+        },
+        {
+          "front": "beach\n\nLet's go to the beach.",
+          "back": "समुद्र तट\n\nचलो समुद्र तट पर चलते हैं।\n\nयह भी: बीच"
+        },
+        {
+          "front": "island\n\nThis island has beautiful beaches.",
+          "back": "द्वीप\n\nइस द्वीप पर सुंदर समुद्र तट हैं।\n\nयह भी: टापू"
+        },
+        {
+          "front": "reserve\n\nI want to reserve a room.",
+          "back": "बुक करना\n\nमैं एक कमरा बुक करना चाहता हूँ।\n\nयह भी: रिज़र्व करना"
+        },
+        {
+          "front": "guide\n\nOur guide speaks good English.",
+          "back": "गाइड\n\nहमारा गाइड अच्छी अंग्रेज़ी बोलता है।"
+        },
+        {
+          "front": "camera\n\nI brought my camera.",
+          "back": "कैमरा\n\nमैं अपना कैमरा लाया हूँ।"
+        },
+        {
+          "front": "photo\n\nCan you take a photo of us?",
+          "back": "फ़ोटो\n\nक्या आप हमारी एक फ़ोटो खींच देंगे?\n\nयह भी: तस्वीर"
+        },
+        {
+          "front": "souvenir\n\nI bought a souvenir for my friend.",
+          "back": "यादगार\n\nमैंने अपने दोस्त के लिए एक यादगार चीज़ ख़रीदी।\n\nयह भी: निशानी, स्मृति चिह्न"
+        },
+        {
+          "front": "abroad\n\nShe wants to study abroad.",
+          "back": "विदेश\n\nवह विदेश में पढ़ना चाहती है।\n\nयह भी: विदेश में"
+        },
+        {
+          "front": "country\n\nWhich country are you from?",
+          "back": "देश\n\nआप किस देश से हैं?"
+        },
+        {
+          "front": "foreigner\n\nMany foreigners live in this city.",
+          "back": "विदेशी\n\nइस शहर में बहुत से विदेशी रहते हैं।"
+        },
+        {
+          "front": "tour\n\nWe took a city tour.",
+          "back": "टूर\n\nहमने शहर का टूर किया।"
+        },
+        {
+          "front": "journey\n\nThe journey takes three hours.",
+          "back": "सफ़र\n\nसफ़र में तीन घंटे लगते हैं।\n\nयह भी: यात्रा"
+        },
+        {
+          "front": "petrol\n\nThe motorbike needs petrol.",
+          "back": "पेट्रोल\n\nमोटरसाइकिल में पेट्रोल डलवाना है।\n\nअमेरिकी अंग्रेज़ी में: gas"
+        },
+        {
+          "front": "lost\n\nWe are lost.",
+          "back": "खोया हुआ\n\nहम रास्ता भटक गए हैं।\n\nयह भी: भटका हुआ, गुम"
+        }
+      ]
+    },
+    {
+      "name": "14 ख़रीदारी और पैसा",
+      "cards": [
+        {
+          "front": "money\n\nI don't have much money.",
+          "back": "पैसा\n\nमेरे पास ज़्यादा पैसे नहीं हैं।"
+        },
+        {
+          "front": "cash\n\nCan I pay in cash?",
+          "back": "नक़द\n\nक्या मैं नक़द दे सकता हूँ?\n\nयह भी: नक़दी, कैश"
+        },
+        {
+          "front": "credit card\n\nDo you take credit cards?",
+          "back": "क्रेडिट कार्ड\n\nक्या आप क्रेडिट कार्ड लेते हैं?"
+        },
+        {
+          "front": "price\n\nThe price is too high.",
+          "back": "दाम\n\nदाम बहुत ज़्यादा है।\n\nयह भी: क़ीमत"
+        },
+        {
+          "front": "cheap\n\nThis shirt is very cheap.",
+          "back": "सस्ता\n\nयह शर्ट बहुत सस्ती है।"
+        },
+        {
+          "front": "expensive\n\nThis phone is too expensive.",
+          "back": "महँगा\n\nयह फ़ोन बहुत महँगा है।"
+        },
+        {
+          "front": "buy\n\nI want to buy a new bag.",
+          "back": "ख़रीदना\n\nमैं एक नया बैग ख़रीदना चाहता हूँ।"
+        },
+        {
+          "front": "sell\n\nThey sell fruit at the market.",
+          "back": "बेचना\n\nवे बाज़ार में फल बेचते हैं।"
+        },
+        {
+          "front": "pay\n\nCan I pay by card?",
+          "back": "भुगतान करना\n\nक्या मैं कार्ड से भुगतान कर सकता हूँ?\n\nयह भी: पैसे देना, चुकाना, पेमेंट करना"
+        },
+        {
+          "front": "cost\n\nHow much does it cost?",
+          "back": "क़ीमत\n\nइसकी क़ीमत कितनी है?\n\nयह भी: दाम, लागत"
+        },
+        {
+          "front": "change\n\nHere is your change.",
+          "back": "बाक़ी पैसे\n\nये रहे आपके बाक़ी पैसे।\n\nयह भी: छुट्टा, खुले पैसे, चेंज"
+        },
+        {
+          "front": "discount\n\nCan I get a discount?",
+          "back": "छूट\n\nक्या मुझे कुछ छूट मिल सकती है?\n\nयह भी: डिस्काउंट"
+        },
+        {
+          "front": "sale\n\nEverything is on sale today.",
+          "back": "सेल\n\nआज हर चीज़ पर सेल लगी है।\n\nदूसरा अर्थ: बिक्री"
+        },
+        {
+          "front": "receipt\n\nCan I have a receipt, please?",
+          "back": "रसीद\n\nक्या मुझे रसीद मिल सकती है?"
+        },
+        {
+          "front": "shopping\n\nI go shopping on Saturday.",
+          "back": "ख़रीदारी\n\nमैं शनिवार को ख़रीदारी करने जाता हूँ।\n\nयह भी: शॉपिंग"
+        },
+        {
+          "front": "seller\n\nThe seller was very friendly.",
+          "back": "बेचने वाला\n\nबेचने वाला बहुत मिलनसार था।\n\nयह भी: विक्रेता, दुकानदार"
+        },
+        {
+          "front": "queue\n\nThere is a long queue.",
+          "back": "लाइन\n\nयहाँ लंबी लाइन लगी है।\n\nयह भी: क़तार"
+        },
+        {
+          "front": "basket\n\nPut the fruit in the basket.",
+          "back": "टोकरी\n\nफल टोकरी में रख दो।"
+        },
+        {
+          "front": "brand\n\nWhat is your favorite brand?",
+          "back": "ब्रांड\n\nतुम्हारा पसंदीदा ब्रांड कौन-सा है?"
+        },
+        {
+          "front": "quality\n\nThese shoes are good quality.",
+          "back": "क्वालिटी\n\nये जूते अच्छी क्वालिटी के हैं।"
+        },
+        {
+          "front": "gift\n\nThis is a gift for you.",
+          "back": "तोहफ़ा\n\nयह तुम्हारे लिए एक तोहफ़ा है।\n\nयह भी: गिफ़्ट, उपहार"
+        },
+        {
+          "front": "wallet\n\nI left my wallet at home.",
+          "back": "बटुआ\n\nमैं अपना बटुआ घर पर भूल गया।\n\nयह भी: पर्स"
+        },
+        {
+          "front": "coin\n\nI have some coins in my pocket.",
+          "back": "सिक्का\n\nमेरी जेब में कुछ सिक्के हैं।"
+        },
+        {
+          "front": "banknote\n\nThis is a new banknote.",
+          "back": "नोट\n\nयह एक नया नोट है।\n\nअमेरिकी अंग्रेज़ी में: bill"
+        },
+        {
+          "front": "ATM\n\nIs there an ATM near here?",
+          "back": "एटीएम\n\nक्या यहाँ पास में कोई एटीएम है?"
+        },
+        {
+          "front": "save\n\nI save money every month.",
+          "back": "बचत करना\n\nमैं हर महीने पैसों की बचत करता हूँ।\n\nयह भी: बचाना"
+        },
+        {
+          "front": "spend\n\nI spend too much money on clothes.",
+          "back": "ख़र्च करना\n\nमैं कपड़ों पर बहुत ज़्यादा पैसे ख़र्च करता हूँ।"
+        },
+        {
+          "front": "borrow\n\nCan I borrow your book?",
+          "back": "उधार लेना\n\nक्या मैं तुम्हारी किताब उधार ले सकता हूँ?"
+        },
+        {
+          "front": "lend\n\nCan you lend me your bike?",
+          "back": "उधार देना\n\nक्या तुम मुझे अपनी साइकिल उधार दे सकते हो?"
+        },
+        {
+          "front": "owe\n\nI owe you a coffee.",
+          "back": "उधार होना\n\nमुझ पर तुम्हारी एक कॉफ़ी उधार है।\n\nयह भी: क़र्ज़दार होना, ऋणी होना"
+        },
+        {
+          "front": "rich\n\nHe is very rich.",
+          "back": "अमीर\n\nवह बहुत अमीर है।"
+        },
+        {
+          "front": "poor\n\nThey are poor but happy.",
+          "back": "ग़रीब\n\nवे ग़रीब हैं लेकिन ख़ुश हैं।"
+        },
+        {
+          "front": "bargain\n\nYou can bargain at the market.",
+          "back": "मोलभाव करना\n\nबाज़ार में तुम मोलभाव कर सकते हो।"
+        },
+        {
+          "front": "enough\n\nI don't have enough money.",
+          "back": "काफ़ी\n\nमेरे पास काफ़ी पैसे नहीं हैं।\n\nयह भी: पर्याप्त"
+        },
+        {
+          "front": "too much\n\nThis is too much for me.",
+          "back": "बहुत ज़्यादा\n\nयह मेरे लिए बहुत ज़्यादा है।"
+        },
+        {
+          "front": "total\n\nWhat is the total?",
+          "back": "कुल\n\nकुल कितना हुआ?\n\nयह भी: टोटल"
+        },
+        {
+          "front": "online\n\nI buy books online.",
+          "back": "ऑनलाइन\n\nमैं किताबें ऑनलाइन ख़रीदता हूँ।"
+        },
+        {
+          "front": "delivery\n\nIs delivery free?",
+          "back": "डिलीवरी\n\nक्या डिलीवरी मुफ़्त है?"
+        },
+        {
+          "front": "counter\n\nPlease pay at the counter.",
+          "back": "काउंटर\n\nकृपया काउंटर पर भुगतान कीजिए।"
+        },
+        {
+          "front": "cart\n\nPut it in the cart.",
+          "back": "ट्रॉली\n\nइसे ट्रॉली में रख दो।\n\nयह भी: कार्ट"
+        },
+        {
+          "front": "pair\n\nI bought a pair of shoes.",
+          "back": "जोड़ी\n\nमैंने एक जोड़ी जूते ख़रीदे।"
+        },
+        {
+          "front": "dollar\n\nIt costs ten dollars.",
+          "back": "डॉलर\n\nइसकी क़ीमत दस डॉलर है।"
+        },
+        {
+          "front": "worth\n\nThis car is worth a lot of money.",
+          "back": "क़ीमती\n\nयह कार बहुत क़ीमती है।\n\nदूसरा अर्थ: लायक़। यह भी: मूल्यवान"
+        },
+        {
+          "front": "afford\n\nI can't afford a new car.",
+          "back": "ख़र्च उठाना\n\nमैं नई कार का ख़र्च नहीं उठा सकता।\n\nयह भी: ख़रीद पाना, अफ़ोर्ड करना"
+        },
+        {
+          "front": "choose\n\nChoose one color.",
+          "back": "चुनना\n\nएक रंग चुनो।"
+        },
+        {
+          "front": "want\n\nI want a new phone.",
+          "back": "चाहना\n\nमुझे एक नया फ़ोन चाहिए।\n\nयह भी: चाहिए"
+        },
+        {
+          "front": "need\n\nI need some help.",
+          "back": "ज़रूरत होना\n\nमुझे थोड़ी मदद की ज़रूरत है।\n\nयह भी: ज़रूरत, चाहिए"
+        },
+        {
+          "front": "compare\n\nCompare the prices first.",
+          "back": "तुलना करना\n\nपहले दामों की तुलना करो।"
+        },
+        {
+          "front": "sold out\n\nThe tickets are sold out.",
+          "back": "बिक गया\n\nसारे टिकट बिक चुके हैं।"
+        },
+        {
+          "front": "package\n\nA package arrived for you.",
+          "back": "पार्सल\n\nतुम्हारे लिए एक पार्सल आया है।"
+        }
+      ]
+    },
+    {
+      "name": "15 मौसम और प्रकृति",
+      "cards": [
+        {
+          "front": "weather\n\nThe weather is nice today.",
+          "back": "मौसम\n\nआज मौसम अच्छा है।"
+        },
+        {
+          "front": "sun\n\nThe sun rises in the east.",
+          "back": "सूरज\n\nसूरज पूर्व में उगता है।\n\nयह भी: सूर्य"
+        },
+        {
+          "front": "moon\n\nThe moon is full tonight.",
+          "back": "चाँद\n\nआज रात पूरा चाँद है।\n\nयह भी: चंद्रमा"
+        },
+        {
+          "front": "star\n\nI can see many stars tonight.",
+          "back": "तारा\n\nआज रात मुझे बहुत सारे तारे दिख रहे हैं।"
+        },
+        {
+          "front": "sky\n\nThe sky is clear.",
+          "back": "आसमान\n\nआसमान साफ़ है।\n\nयह भी: आकाश"
+        },
+        {
+          "front": "cloud\n\nThere are no clouds today.",
+          "back": "बादल\n\nआज आसमान में एक भी बादल नहीं है।"
+        },
+        {
+          "front": "rain\n\nIt will rain tomorrow.",
+          "back": "बारिश होना\n\nकल बारिश होगी।\n\nयह भी: बारिश, बरसना"
+        },
+        {
+          "front": "snow\n\nThe mountains are covered in snow.",
+          "back": "बर्फ़\n\nपहाड़ बर्फ़ से ढके हुए हैं।"
+        },
+        {
+          "front": "wind\n\nThe wind is very strong.",
+          "back": "हवा\n\nहवा बहुत तेज़ है।"
+        },
+        {
+          "front": "storm\n\nA big storm is coming.",
+          "back": "तूफ़ान\n\nएक बड़ा तूफ़ान आ रहा है।\n\nयह भी: आँधी"
+        },
+        {
+          "front": "thunder\n\nI heard thunder last night.",
+          "back": "गरज\n\nकल रात मैंने बादलों की गरज सुनी।\n\nयह भी: गड़गड़ाहट"
+        },
+        {
+          "front": "lightning\n\nLightning lit up the sky.",
+          "back": "बिजली\n\nबिजली की चमक से आसमान रोशन हो गया।"
+        },
+        {
+          "front": "flood\n\nThe flood damaged many houses.",
+          "back": "बाढ़\n\nबाढ़ ने बहुत से घरों को नुक़सान पहुँचाया।"
+        },
+        {
+          "front": "sunny\n\nIt is sunny today.",
+          "back": "धूप वाला\n\nआज धूप खिली है।\n\nयह भी: धूप"
+        },
+        {
+          "front": "rainy\n\nTomorrow will be rainy.",
+          "back": "बरसाती\n\nकल का दिन बरसाती रहेगा।\n\nयह भी: बारिश वाला"
+        },
+        {
+          "front": "cloudy\n\nIt is cloudy this morning.",
+          "back": "बादलों भरा\n\nआज सुबह बादल छाए हुए हैं।\n\nयह भी: बादल वाला"
+        },
+        {
+          "front": "windy\n\nIt is windy by the sea.",
+          "back": "तेज़ हवा वाला\n\nसमुद्र के किनारे तेज़ हवा चलती है।\n\nयह भी: हवादार"
+        },
+        {
+          "front": "warm\n\nIt is warm in spring.",
+          "back": "गरम\n\nवसंत में हल्की गर्मी होती है।\n\nयह भी: गर्म, हल्का गरम, गुनगुना"
+        },
+        {
+          "front": "cool\n\nThe evening is cool.",
+          "back": "ठंडा\n\nशाम को हल्की ठंडक है।"
+        },
+        {
+          "front": "temperature\n\nThe temperature is 35 degrees.",
+          "back": "तापमान\n\nतापमान 35 डिग्री है।\n\nयह भी: टेम्परेचर"
+        },
+        {
+          "front": "degree\n\nIt is 20 degrees outside.",
+          "back": "डिग्री\n\nबाहर 20 डिग्री है।"
+        },
+        {
+          "front": "wet\n\nMy shoes are wet.",
+          "back": "गीला\n\nमेरे जूते गीले हैं।"
+        },
+        {
+          "front": "dry\n\nThe clothes are dry now.",
+          "back": "सूखा\n\nकपड़े अब सूख गए हैं।"
+        },
+        {
+          "front": "nature\n\nI love nature.",
+          "back": "प्रकृति\n\nमुझे प्रकृति से प्यार है।"
+        },
+        {
+          "front": "tree\n\nThere is a big tree in the garden.",
+          "back": "पेड़\n\nबगीचे में एक बड़ा पेड़ है।"
+        },
+        {
+          "front": "flower\n\nShe gave me flowers.",
+          "back": "फूल\n\nउसने मुझे फूल दिए।"
+        },
+        {
+          "front": "grass\n\nThe grass is green.",
+          "back": "घास\n\nघास हरी है।"
+        },
+        {
+          "front": "leaf\n\nLeaves fall in autumn.",
+          "back": "पत्ता\n\nपतझड़ में पत्ते गिरते हैं।"
+        },
+        {
+          "front": "forest\n\nMany animals live in the forest.",
+          "back": "जंगल\n\nजंगल में बहुत से जानवर रहते हैं।"
+        },
+        {
+          "front": "mountain\n\nEverest is the highest mountain in the world.",
+          "back": "पहाड़\n\nएवरेस्ट दुनिया का सबसे ऊँचा पहाड़ है।"
+        },
+        {
+          "front": "hill\n\nThere is a house on the hill.",
+          "back": "पहाड़ी\n\nपहाड़ी पर एक घर है।"
+        },
+        {
+          "front": "river\n\nA river flows through our town.",
+          "back": "नदी\n\nहमारे क़स्बे से होकर एक नदी बहती है।"
+        },
+        {
+          "front": "lake\n\nWe walk around the lake.",
+          "back": "झील\n\nहम झील के चारों ओर टहलते हैं।"
+        },
+        {
+          "front": "sea\n\nThe sea is blue.",
+          "back": "समुद्र\n\nसमुद्र नीला है।\n\nयह भी: समंदर, सागर"
+        },
+        {
+          "front": "ocean\n\nThe Pacific is the largest ocean.",
+          "back": "महासागर\n\nप्रशांत सबसे बड़ा महासागर है।"
+        },
+        {
+          "front": "sand\n\nChildren play in the sand.",
+          "back": "रेत\n\nबच्चे रेत में खेलते हैं।"
+        },
+        {
+          "front": "stone\n\nThe house is made of stone.",
+          "back": "पत्थर\n\nयह घर पत्थर का बना है।"
+        },
+        {
+          "front": "earth\n\nThe earth goes around the sun.",
+          "back": "पृथ्वी\n\nपृथ्वी सूरज के चारों ओर घूमती है।\n\nयह भी: धरती"
+        },
+        {
+          "front": "land\n\nThis land is good for farming.",
+          "back": "ज़मीन\n\nयह ज़मीन खेती के लिए अच्छी है।"
+        },
+        {
+          "front": "field\n\nCows eat grass in the field.",
+          "back": "खेत\n\nगायें खेत में घास चरती हैं।\n\nयह भी: मैदान"
+        },
+        {
+          "front": "air\n\nFresh air is good for you.",
+          "back": "हवा\n\nताज़ी हवा सेहत के लिए अच्छी होती है।"
+        },
+        {
+          "front": "fire\n\nDon't play with fire.",
+          "back": "आग\n\nआग से मत खेलो।"
+        },
+        {
+          "front": "environment\n\nWe must protect the environment.",
+          "back": "पर्यावरण\n\nहमें पर्यावरण को बचाना चाहिए।"
+        },
+        {
+          "front": "pollution\n\nAir pollution is a big problem.",
+          "back": "प्रदूषण\n\nवायु प्रदूषण एक बड़ी समस्या है।"
+        },
+        {
+          "front": "plant\n\nI plant trees with my father.",
+          "back": "पौधा लगाना\n\nमैं अपने पिताजी के साथ पेड़ लगाता हूँ।\n\nदूसरा अर्थ: पौधा। यह भी: लगाना, रोपना, पेड़ लगाना"
+        },
+        {
+          "front": "recycle\n\nWe recycle bottles and paper.",
+          "back": "रीसायकल करना\n\nहम बोतलें और काग़ज़ रीसायकल करते हैं।"
+        },
+        {
+          "front": "waterfall\n\nThe waterfall is beautiful.",
+          "back": "झरना\n\nझरना बहुत सुंदर है।"
+        },
+        {
+          "front": "cave\n\nThere are many caves in these mountains.",
+          "back": "गुफ़ा\n\nइन पहाड़ों में बहुत सी गुफ़ाएँ हैं।"
+        },
+        {
+          "front": "desert\n\nIt rarely rains in the desert.",
+          "back": "रेगिस्तान\n\nरेगिस्तान में बहुत कम बारिश होती है।"
+        },
+        {
+          "front": "rainbow\n\nLook, a rainbow!",
+          "back": "इंद्रधनुष\n\nदेखो, इंद्रधनुष!"
+        }
+      ]
+    },
+    {
+      "name": "16 जानवर",
+      "cards": [
+        {
+          "front": "animal\n\nWhat is your favorite animal?",
+          "back": "जानवर\n\nतुम्हारा पसंदीदा जानवर कौन-सा है?"
+        },
+        {
+          "front": "dog\n\nThe dog is barking.",
+          "back": "कुत्ता\n\nकुत्ता भौंक रहा है।"
+        },
+        {
+          "front": "cat\n\nMy cat sleeps all day.",
+          "back": "बिल्ली\n\nमेरी बिल्ली पूरे दिन सोती है।"
+        },
+        {
+          "front": "bird\n\nBirds can fly.",
+          "back": "चिड़िया\n\nचिड़ियाँ उड़ सकती हैं।\n\nयह भी: पक्षी, पंछी"
+        },
+        {
+          "front": "hen\n\nThe hen lays an egg every day.",
+          "back": "मुर्ग़ी\n\nमुर्ग़ी हर दिन एक अंडा देती है।"
+        },
+        {
+          "front": "rooster\n\nThe rooster wakes us up.",
+          "back": "मुर्ग़ा\n\nमुर्ग़ा हमें सुबह जगा देता है।"
+        },
+        {
+          "front": "duck\n\nDucks swim in the pond.",
+          "back": "बत्तख़\n\nबत्तख़ें तालाब में तैरती हैं।"
+        },
+        {
+          "front": "pig\n\nThe pig is very fat.",
+          "back": "सूअर\n\nसूअर बहुत मोटा है।"
+        },
+        {
+          "front": "cow\n\nCows give milk.",
+          "back": "गाय\n\nगायें दूध देती हैं।"
+        },
+        {
+          "front": "buffalo\n\nFarmers use buffaloes in the rice fields.",
+          "back": "भैंस\n\nकिसान धान के खेतों में भैंसों से काम लेते हैं।"
+        },
+        {
+          "front": "horse\n\nHe rides a horse.",
+          "back": "घोड़ा\n\nवह घोड़े की सवारी करता है।"
+        },
+        {
+          "front": "goat\n\nGoats live in the mountains.",
+          "back": "बकरी\n\nबकरियाँ पहाड़ों में रहती हैं।"
+        },
+        {
+          "front": "sheep\n\nSheep give us wool.",
+          "back": "भेड़\n\nभेड़ों से हमें ऊन मिलती है।"
+        },
+        {
+          "front": "rabbit\n\nThe rabbit eats carrots.",
+          "back": "ख़रगोश\n\nख़रगोश गाजर खाता है।"
+        },
+        {
+          "front": "mouse\n\nThere is a mouse in the kitchen.",
+          "back": "चूहा\n\nरसोई में एक चूहा है।"
+        },
+        {
+          "front": "elephant\n\nElephants are very big.",
+          "back": "हाथी\n\nहाथी बहुत बड़े होते हैं।"
+        },
+        {
+          "front": "tiger\n\nTigers are dangerous.",
+          "back": "बाघ\n\nबाघ ख़तरनाक होते हैं।"
+        },
+        {
+          "front": "lion\n\nThe lion is the king of animals.",
+          "back": "शेर\n\nशेर जानवरों का राजा है।\n\nयह भी: बब्बर शेर, सिंह"
+        },
+        {
+          "front": "monkey\n\nMonkeys climb trees.",
+          "back": "बंदर\n\nबंदर पेड़ों पर चढ़ते हैं।"
+        },
+        {
+          "front": "bear\n\nBears love honey.",
+          "back": "भालू\n\nभालुओं को शहद बहुत पसंद है।"
+        },
+        {
+          "front": "snake\n\nI am afraid of snakes.",
+          "back": "साँप\n\nमुझे साँपों से डर लगता है।"
+        },
+        {
+          "front": "frog\n\nFrogs live near water.",
+          "back": "मेंढक\n\nमेंढक पानी के पास रहते हैं।"
+        },
+        {
+          "front": "turtle\n\nTurtles move slowly.",
+          "back": "कछुआ\n\nकछुए धीरे-धीरे चलते हैं।"
+        },
+        {
+          "front": "crocodile\n\nCrocodiles live in rivers.",
+          "back": "मगरमच्छ\n\nमगरमच्छ नदियों में रहते हैं।"
+        },
+        {
+          "front": "giraffe\n\nThe giraffe eats leaves from tall trees.",
+          "back": "जिराफ़\n\nजिराफ़ ऊँचे पेड़ों की पत्तियाँ खाता है।"
+        },
+        {
+          "front": "zebra\n\nZebras have black and white stripes.",
+          "back": "ज़ेबरा\n\nज़ेबरा पर काली और सफ़ेद धारियाँ होती हैं।"
+        },
+        {
+          "front": "deer\n\nWe saw a deer in the forest.",
+          "back": "हिरण\n\nहमने जंगल में एक हिरण देखा।"
+        },
+        {
+          "front": "fox\n\nThe fox is very clever.",
+          "back": "लोमड़ी\n\nलोमड़ी बहुत चालाक होती है।"
+        },
+        {
+          "front": "wolf\n\nWolves live in groups.",
+          "back": "भेड़िया\n\nभेड़िये झुंड में रहते हैं।"
+        },
+        {
+          "front": "dolphin\n\nDolphins are very smart.",
+          "back": "डॉल्फ़िन\n\nडॉल्फ़िन बहुत समझदार होती हैं।"
+        },
+        {
+          "front": "whale\n\nThe blue whale is the biggest animal.",
+          "back": "व्हेल\n\nब्लू व्हेल सबसे बड़ा जानवर है।"
+        },
+        {
+          "front": "shark\n\nSharks have sharp teeth.",
+          "back": "शार्क\n\nशार्क के दाँत नुकीले होते हैं।"
+        },
+        {
+          "front": "octopus\n\nAn octopus has eight arms.",
+          "back": "ऑक्टोपस\n\nऑक्टोपस की आठ भुजाएँ होती हैं।"
+        },
+        {
+          "front": "butterfly\n\nA butterfly is on the flower.",
+          "back": "तितली\n\nफूल पर एक तितली बैठी है।"
+        },
+        {
+          "front": "bee\n\nBees make honey.",
+          "back": "मधुमक्खी\n\nमधुमक्खियाँ शहद बनाती हैं।"
+        },
+        {
+          "front": "ant\n\nAnts are very small.",
+          "back": "चींटी\n\nचींटियाँ बहुत छोटी होती हैं।"
+        },
+        {
+          "front": "mosquito\n\nMosquitoes bite at night.",
+          "back": "मच्छर\n\nमच्छर रात में काटते हैं।"
+        },
+        {
+          "front": "spider\n\nThere is a spider on the wall.",
+          "back": "मकड़ी\n\nदीवार पर एक मकड़ी है।"
+        },
+        {
+          "front": "insect\n\nMany insects live in the grass.",
+          "back": "कीड़ा\n\nघास में बहुत से कीड़े रहते हैं।"
+        },
+        {
+          "front": "pet\n\nDo you have a pet?",
+          "back": "पालतू जानवर\n\nक्या तुम्हारे पास कोई पालतू जानवर है?"
+        },
+        {
+          "front": "tail\n\nThe dog wags its tail.",
+          "back": "पूँछ\n\nकुत्ता अपनी पूँछ हिलाता है।"
+        },
+        {
+          "front": "wing\n\nBirds have two wings.",
+          "back": "पंख\n\nचिड़ियों के दो पंख होते हैं।"
+        },
+        {
+          "front": "feather\n\nThis bird has blue feathers.",
+          "back": "पंख\n\nइस चिड़िया के पंख नीले हैं।"
+        },
+        {
+          "front": "farm\n\nThey keep chickens on the farm.",
+          "back": "फ़ार्म\n\nवे फ़ार्म पर मुर्ग़ियाँ पालते हैं।\n\nयह भी: खेत"
+        },
+        {
+          "front": "wild\n\nTigers are wild animals.",
+          "back": "जंगली\n\nबाघ जंगली जानवर हैं।"
+        },
+        {
+          "front": "feed\n\nDon't feed the animals.",
+          "back": "खिलाना\n\nजानवरों को खाना मत खिलाओ।"
+        },
+        {
+          "front": "bark\n\nThe dog barks at strangers.",
+          "back": "भौंकना\n\nकुत्ता अजनबियों पर भौंकता है।"
+        },
+        {
+          "front": "nest\n\nThe bird is building a nest.",
+          "back": "घोंसला\n\nचिड़िया घोंसला बना रही है।"
+        },
+        {
+          "front": "kitten\n\nThe kitten is playing with a ball.",
+          "back": "बिल्ली का बच्चा\n\nबिल्ली का बच्चा गेंद से खेल रहा है।"
+        },
+        {
+          "front": "puppy\n\nWe got a new puppy.",
+          "back": "पिल्ला\n\nहम एक नया पिल्ला लाए हैं।"
+        }
+      ]
+    },
+    {
+      "name": "17 भावनाएँ और स्वभाव",
+      "cards": [
+        {
+          "front": "happy\n\nI am happy today.",
+          "back": "ख़ुश\n\nमैं आज ख़ुश हूँ।"
+        },
+        {
+          "front": "sad\n\nThe movie made me sad.",
+          "back": "उदास\n\nफ़िल्म देखकर मैं उदास हो गया।\n\nयह भी: दुखी"
+        },
+        {
+          "front": "angry\n\nMy father is angry with me.",
+          "back": "नाराज़\n\nमेरे पिताजी मुझसे नाराज़ हैं।\n\nयह भी: ग़ुस्सा, ग़ुस्से में"
+        },
+        {
+          "front": "afraid\n\nI am afraid of the dark.",
+          "back": "डरा हुआ\n\nमुझे अँधेरे से डर लगता है।\n\nयह भी: डर"
+        },
+        {
+          "front": "worried\n\nMy mother is worried about me.",
+          "back": "चिंतित\n\nमेरी माँ को मेरी चिंता है।"
+        },
+        {
+          "front": "excited\n\nI am excited about the trip.",
+          "back": "उत्साहित\n\nमैं यात्रा को लेकर उत्साहित हूँ।\n\nयह भी: एक्साइटेड"
+        },
+        {
+          "front": "bored\n\nI am bored at home.",
+          "back": "बोर\n\nमैं घर पर बोर हो रहा हूँ।\n\nयह भी: ऊबा हुआ"
+        },
+        {
+          "front": "surprised\n\nI was surprised by the news.",
+          "back": "हैरान\n\nख़बर सुनकर मैं हैरान रह गया।"
+        },
+        {
+          "front": "nervous\n\nI am nervous before exams.",
+          "back": "घबराया हुआ\n\nपरीक्षा से पहले मैं घबरा जाता हूँ।\n\nयह भी: नर्वस"
+        },
+        {
+          "front": "calm\n\nStay calm.",
+          "back": "शांत\n\nशांत रहो।"
+        },
+        {
+          "front": "proud\n\nMy parents are proud of me.",
+          "back": "गर्वित\n\nमेरे माता-पिता को मुझ पर गर्व है।\n\nदूसरा अर्थ: घमंडी। यह भी: गर्व"
+        },
+        {
+          "front": "shy\n\nShe is shy with new people.",
+          "back": "शर्मीला\n\nवह नए लोगों के सामने शर्माती है।"
+        },
+        {
+          "front": "lonely\n\nHe feels lonely in the big city.",
+          "back": "अकेला\n\nउसे बड़े शहर में अकेलापन महसूस होता है।"
+        },
+        {
+          "front": "jealous\n\nShe is jealous of her sister.",
+          "back": "ईर्ष्यालु\n\nवह अपनी बहन से जलती है।\n\nयह भी: जलन, ईर्ष्या, जलना"
+        },
+        {
+          "front": "embarrassed\n\nI was embarrassed by my mistake.",
+          "back": "शर्मिंदा\n\nमैं अपनी ग़लती पर शर्मिंदा था।"
+        },
+        {
+          "front": "confused\n\nI am confused, please explain again.",
+          "back": "उलझन में\n\nमैं उलझन में हूँ, कृपया फिर से समझाइए।\n\nयह भी: कंफ़्यूज़"
+        },
+        {
+          "front": "relaxed\n\nI feel relaxed on holiday.",
+          "back": "निश्चिंत\n\nछुट्टी पर मैं निश्चिंत महसूस करता हूँ।\n\nयह भी: बेफ़िक्र, रिलैक्स"
+        },
+        {
+          "front": "hate\n\nI hate cold weather.",
+          "back": "नफ़रत करना\n\nमुझे ठंडे मौसम से नफ़रत है।\n\nयह भी: नफ़रत"
+        },
+        {
+          "front": "like\n\nI like cats.",
+          "back": "पसंद करना\n\nमुझे बिल्लियाँ पसंद हैं।\n\nयह भी: पसंद, अच्छा लगना"
+        },
+        {
+          "front": "feel\n\nHow do you feel today?",
+          "back": "महसूस करना\n\nआज तुम कैसा महसूस कर रहे हो?\n\nयह भी: फ़ील करना"
+        },
+        {
+          "front": "feeling\n\nI understand your feelings.",
+          "back": "भावना\n\nमैं तुम्हारी भावनाएँ समझता हूँ।\n\nयह भी: एहसास"
+        },
+        {
+          "front": "smile\n\nShe smiles a lot.",
+          "back": "मुस्कुराना\n\nवह बहुत मुस्कुराती है।"
+        },
+        {
+          "front": "laugh\n\nThe children laugh at the clown.",
+          "back": "हँसना\n\nबच्चे जोकर पर हँसते हैं।"
+        },
+        {
+          "front": "cry\n\nThe baby is crying.",
+          "back": "रोना\n\nबच्चा रो रहा है।"
+        },
+        {
+          "front": "kind\n\nShe is kind to everyone.",
+          "back": "दयालु\n\nवह सबके साथ दयालु है।\n\nदूसरा अर्थ: प्रकार"
+        },
+        {
+          "front": "friendly\n\nOur new neighbors are friendly.",
+          "back": "मिलनसार\n\nहमारे नए पड़ोसी मिलनसार हैं।"
+        },
+        {
+          "front": "funny\n\nHe tells funny stories.",
+          "back": "मज़ेदार\n\nवह मज़ेदार कहानियाँ सुनाता है।\n\nयह भी: मज़ाकिया"
+        },
+        {
+          "front": "honest\n\nPlease be honest with me.",
+          "back": "ईमानदार\n\nप्लीज़, मेरे साथ ईमानदार रहो।"
+        },
+        {
+          "front": "polite\n\nBe polite to older people.",
+          "back": "विनम्र\n\nबड़ों के साथ विनम्र रहो।"
+        },
+        {
+          "front": "rude\n\nIt is rude to interrupt.",
+          "back": "बदतमीज़\n\nबीच में टोकना बदतमीज़ी है।"
+        },
+        {
+          "front": "lazy\n\nDon't be lazy.",
+          "back": "आलसी\n\nआलसी मत बनो।"
+        },
+        {
+          "front": "hard-working\n\nMy mother is very hard-working.",
+          "back": "मेहनती\n\nमेरी माँ बहुत मेहनती हैं।"
+        },
+        {
+          "front": "clever\n\nShe is a clever student.",
+          "back": "होशियार\n\nवह एक होशियार छात्रा है।\n\nयह भी: चालाक, बुद्धिमान"
+        },
+        {
+          "front": "brave\n\nThe firefighter was very brave.",
+          "back": "बहादुर\n\nदमकलकर्मी बहुत बहादुर था।"
+        },
+        {
+          "front": "patient\n\nA good teacher is patient.",
+          "back": "धैर्यवान\n\nएक अच्छा शिक्षक धैर्यवान होता है।\n\nदूसरा अर्थ: मरीज़"
+        },
+        {
+          "front": "careful\n\nBe careful on the road.",
+          "back": "सावधान\n\nसड़क पर सावधान रहो।"
+        },
+        {
+          "front": "quiet\n\nHe is a quiet boy.",
+          "back": "शांत\n\nवह एक शांत लड़का है।\n\nयह भी: चुप, चुपचाप"
+        },
+        {
+          "front": "talkative\n\nMy sister is very talkative.",
+          "back": "बातूनी\n\nमेरी बहन बहुत बातूनी है।"
+        },
+        {
+          "front": "generous\n\nHe is generous with his friends.",
+          "back": "उदार\n\nवह अपने दोस्तों के साथ उदार है।"
+        },
+        {
+          "front": "selfish\n\nDon't be selfish, share with others.",
+          "back": "स्वार्थी\n\nस्वार्थी मत बनो, दूसरों के साथ बाँटो।\n\nयह भी: मतलबी"
+        },
+        {
+          "front": "confident\n\nShe is confident when she speaks English.",
+          "back": "आत्मविश्वासी\n\nजब वह अंग्रेज़ी बोलती है तो उसमें आत्मविश्वास होता है।\n\nयह भी: कॉन्फ़िडेंट"
+        },
+        {
+          "front": "creative\n\nChildren are very creative.",
+          "back": "रचनात्मक\n\nबच्चे बहुत रचनात्मक होते हैं।\n\nयह भी: क्रिएटिव"
+        },
+        {
+          "front": "serious\n\nWhy are you so serious?",
+          "back": "गंभीर\n\nतुम इतने गंभीर क्यों हो?\n\nयह भी: सीरियस"
+        },
+        {
+          "front": "cheerful\n\nHe is always cheerful.",
+          "back": "हँसमुख\n\nवह हमेशा हँसमुख रहता है।"
+        },
+        {
+          "front": "gentle\n\nMy grandmother is very gentle.",
+          "back": "सौम्य\n\nमेरी दादी का स्वभाव बहुत सौम्य है।\n\nयह भी: नरम, कोमल"
+        },
+        {
+          "front": "hope\n\nI hope you feel better soon.",
+          "back": "उम्मीद करना\n\nमुझे उम्मीद है कि तुम जल्दी ठीक हो जाओगे।\n\nयह भी: उम्मीद, आशा करना"
+        },
+        {
+          "front": "dream\n\nMy dream is to be a doctor.",
+          "back": "सपना\n\nमेरा सपना डॉक्टर बनना है।"
+        },
+        {
+          "front": "miss\n\nI miss my family.",
+          "back": "याद आना\n\nमुझे अपने परिवार की याद आती है।\n\nयह भी: याद करना, मिस करना"
+        },
+        {
+          "front": "upset\n\nShe is upset about her exam.",
+          "back": "परेशान\n\nवह अपनी परीक्षा को लेकर परेशान है।\n\nयह भी: अपसेट"
+        },
+        {
+          "front": "mood\n\nI am in a good mood today.",
+          "back": "मूड\n\nआज मेरा मूड अच्छा है।"
+        }
+      ]
+    },
+    {
+      "name": "18 रोज़मर्रा की क्रियाएँ 1",
+      "cards": [
+        {
+          "front": "do\n\nI always do my best.",
+          "back": "करना\n\nमैं हमेशा अपनी पूरी कोशिश करता हूँ।"
+        },
+        {
+          "front": "make\n\nMy mother makes cakes.",
+          "back": "बनाना\n\nमेरी माँ केक बनाती हैं।"
+        },
+        {
+          "front": "have\n\nI have two brothers.",
+          "back": "होना\n\nमेरे दो भाई हैं।\n\nयह भी: के पास होना, रखना"
+        },
+        {
+          "front": "get\n\nI got a letter today.",
+          "back": "मिलना\n\nआज मुझे एक चिट्ठी मिली।\n\nयह भी: पाना"
+        },
+        {
+          "front": "give\n\nGive me the book, please.",
+          "back": "देना\n\nमुझे किताब दे दो, प्लीज़।"
+        },
+        {
+          "front": "take\n\nTake an umbrella with you.",
+          "back": "ले जाना\n\nअपने साथ छाता ले जाओ।\n\nयह भी: लेना"
+        },
+        {
+          "front": "bring\n\nBring me some water, please.",
+          "back": "लाना\n\nज़रा मेरे लिए थोड़ा पानी ले आओ।\n\nयह भी: ले आना"
+        },
+        {
+          "front": "put\n\nPut your bag here.",
+          "back": "रखना\n\nअपना बैग यहाँ रखो।"
+        },
+        {
+          "front": "see\n\nI can see the sea from my window.",
+          "back": "देखना\n\nमुझे अपनी खिड़की से समुद्र दिखाई देता है।\n\nयह भी: दिखना, दिखाई देना"
+        },
+        {
+          "front": "look\n\nLook! It's snowing.",
+          "back": "देखना\n\nदेखो! बर्फ़ गिर रही है।"
+        },
+        {
+          "front": "hear\n\nI can't hear you.",
+          "back": "सुनना\n\nमुझे तुम्हारी आवाज़ सुनाई नहीं दे रही।\n\nयह भी: सुनाई देना"
+        },
+        {
+          "front": "say\n\nWhat did you say?",
+          "back": "कहना\n\nतुमने क्या कहा?\n\nयह भी: बोलना"
+        },
+        {
+          "front": "tell\n\nTell me a story.",
+          "back": "बताना\n\nमुझे एक कहानी सुनाओ।\n\nयह भी: सुनाना"
+        },
+        {
+          "front": "ask\n\nCan I ask you a question?",
+          "back": "पूछना\n\nक्या मैं आपसे एक सवाल पूछ सकता हूँ?"
+        },
+        {
+          "front": "know\n\nI know her name.",
+          "back": "जानना\n\nमैं उसका नाम जानता हूँ।\n\nयह भी: पता होना"
+        },
+        {
+          "front": "think\n\nI think it will rain.",
+          "back": "सोचना\n\nमुझे लगता है कि बारिश होगी।"
+        },
+        {
+          "front": "use\n\nCan I use your phone?",
+          "back": "इस्तेमाल करना\n\nक्या मैं आपका फ़ोन इस्तेमाल कर सकता हूँ?\n\nयह भी: यूज़ करना, उपयोग करना, प्रयोग करना"
+        },
+        {
+          "front": "find\n\nI can't find my keys.",
+          "back": "ढूँढ लेना\n\nमैं अपनी चाबियाँ ढूँढ नहीं पा रहा हूँ।\n\nयह भी: मिलना, खोज लेना, ढूँढ निकालना"
+        },
+        {
+          "front": "look for\n\nI am looking for my glasses.",
+          "back": "ढूँढना\n\nमैं अपना चश्मा ढूँढ रहा हूँ।\n\nयह भी: खोजना, तलाशना"
+        },
+        {
+          "front": "keep\n\nKeep the change.",
+          "back": "रख लेना\n\nबाक़ी पैसे रख लीजिए।\n\nयह भी: रखना"
+        },
+        {
+          "front": "start\n\nThe movie starts at eight.",
+          "back": "शुरू होना\n\nफ़िल्म आठ बजे शुरू होती है।\n\nयह भी: शुरू करना"
+        },
+        {
+          "front": "finish\n\nDid you finish your homework?",
+          "back": "ख़त्म करना\n\nक्या तुमने अपना होमवर्क ख़त्म कर लिया?\n\nयह भी: पूरा करना"
+        },
+        {
+          "front": "try\n\nTry this cake.",
+          "back": "आज़माना\n\nयह केक खाकर देखो।\n\nदूसरा अर्थ: कोशिश करना। यह भी: चखना, ट्राई करना"
+        },
+        {
+          "front": "play\n\nThe children play in the park.",
+          "back": "खेलना\n\nबच्चे पार्क में खेलते हैं।"
+        },
+        {
+          "front": "run\n\nI run every morning.",
+          "back": "दौड़ना\n\nमैं हर सुबह दौड़ता हूँ।\n\nयह भी: भागना"
+        },
+        {
+          "front": "jump\n\nThe cat jumped onto the table.",
+          "back": "कूदना\n\nबिल्ली कूदकर मेज़ पर चढ़ गई।"
+        },
+        {
+          "front": "sit\n\nPlease sit here.",
+          "back": "बैठना\n\nकृपया यहाँ बैठिए।"
+        },
+        {
+          "front": "stand\n\nStand in line, please.",
+          "back": "खड़ा होना\n\nकृपया लाइन में खड़े हो जाइए।"
+        },
+        {
+          "front": "sing\n\nShe sings very well.",
+          "back": "गाना\n\nवह बहुत अच्छा गाती है।"
+        },
+        {
+          "front": "dance\n\nLet's dance!",
+          "back": "नाचना\n\nचलो नाचते हैं!\n\nयह भी: डांस करना"
+        },
+        {
+          "front": "swim\n\nI can swim.",
+          "back": "तैरना\n\nमुझे तैरना आता है।"
+        },
+        {
+          "front": "climb\n\nWe climbed the mountain.",
+          "back": "चढ़ना\n\nहम पहाड़ पर चढ़े।"
+        },
+        {
+          "front": "throw\n\nThrow me the ball.",
+          "back": "फेंकना\n\nगेंद मेरी तरफ़ फेंको।"
+        },
+        {
+          "front": "catch\n\nCatch the ball!",
+          "back": "पकड़ना\n\nगेंद पकड़ो!"
+        },
+        {
+          "front": "carry\n\nCan you carry this bag?",
+          "back": "उठाना\n\nक्या तुम यह बैग उठा सकते हो?"
+        },
+        {
+          "front": "pull\n\nPull the door.",
+          "back": "खींचना\n\nदरवाज़ा खींचो।"
+        },
+        {
+          "front": "push\n\nPush the door.",
+          "back": "धकेलना\n\nदरवाज़ा धकेलो।\n\nयह भी: धक्का देना"
+        },
+        {
+          "front": "hold\n\nHold my hand.",
+          "back": "थामना\n\nमेरा हाथ थामो।\n\nयह भी: पकड़ना"
+        },
+        {
+          "front": "touch\n\nDon't touch the paint.",
+          "back": "छूना\n\nपेंट को मत छुओ।"
+        },
+        {
+          "front": "send\n\nI sent you a message.",
+          "back": "भेजना\n\nमैंने तुम्हें एक मैसेज भेजा।"
+        },
+        {
+          "front": "receive\n\nDid you receive my email?",
+          "back": "प्राप्त करना\n\nक्या तुम्हें मेरा ईमेल मिला?\n\nयह भी: पाना, मिलना"
+        },
+        {
+          "front": "show\n\nShow me your photos.",
+          "back": "दिखाना\n\nमुझे अपनी फ़ोटो दिखाओ।"
+        },
+        {
+          "front": "turn on\n\nTurn on the light, please.",
+          "back": "चालू करना\n\nप्लीज़, लाइट जला दो।\n\nयह भी: जलाना, ऑन करना"
+        },
+        {
+          "front": "turn off\n\nTurn off the TV.",
+          "back": "बंद करना\n\nटीवी बंद कर दो।\n\nयह भी: ऑफ़ करना"
+        },
+        {
+          "front": "break\n\nDon't break the glass.",
+          "back": "तोड़ना\n\nगिलास मत तोड़ना।"
+        },
+        {
+          "front": "fix\n\nCan you fix my bike?",
+          "back": "ठीक करना\n\nक्या तुम मेरी साइकिल ठीक कर सकते हो?\n\nयह भी: मरम्मत करना, रिपेयर करना"
+        },
+        {
+          "front": "build\n\nThey are building a new bridge.",
+          "back": "बनाना\n\nवे एक नया पुल बना रहे हैं।"
+        },
+        {
+          "front": "draw\n\nShe likes to draw animals.",
+          "back": "चित्र बनाना\n\nउसे जानवरों के चित्र बनाना पसंद है।"
+        },
+        {
+          "front": "become\n\nI want to become a teacher.",
+          "back": "बनना\n\nमैं शिक्षक बनना चाहता हूँ।"
+        },
+        {
+          "front": "happen\n\nWhat happened?",
+          "back": "होना\n\nक्या हुआ?"
+        }
+      ]
+    },
+    {
+      "name": "19 रोज़मर्रा की क्रियाएँ 2",
+      "cards": [
+        {
+          "front": "get up\n\nI get up at six every day.",
+          "back": "उठना\n\nमैं हर दिन छह बजे उठता हूँ।"
+        },
+        {
+          "front": "brush teeth\n\nBrush your teeth before bed.",
+          "back": "दाँत साफ़ करना\n\nसोने से पहले दाँत साफ़ करो।\n\nयह भी: ब्रश करना"
+        },
+        {
+          "front": "take a shower\n\nI take a shower every morning.",
+          "back": "नहाना\n\nमैं हर सुबह नहाता हूँ।"
+        },
+        {
+          "front": "get dressed\n\nGet dressed, we are late.",
+          "back": "कपड़े पहनना\n\nकपड़े पहन लो, हमें देर हो रही है।\n\nयह भी: तैयार होना"
+        },
+        {
+          "front": "have breakfast\n\nI have breakfast at seven.",
+          "back": "नाश्ता करना\n\nमैं सात बजे नाश्ता करता हूँ।"
+        },
+        {
+          "front": "go to school\n\nI go to school by bike.",
+          "back": "स्कूल जाना\n\nमैं साइकिल से स्कूल जाता हूँ।"
+        },
+        {
+          "front": "go to work\n\nMy father goes to work early.",
+          "back": "काम पर जाना\n\nमेरे पिताजी जल्दी काम पर जाते हैं।"
+        },
+        {
+          "front": "come back\n\nCome back soon!",
+          "back": "वापस आना\n\nजल्दी वापस आना!\n\nयह भी: लौट आना"
+        },
+        {
+          "front": "go home\n\nLet's go home.",
+          "back": "घर जाना\n\nचलो घर चलते हैं।"
+        },
+        {
+          "front": "stay\n\nWe stayed at a small hotel.",
+          "back": "ठहरना\n\nहम एक छोटे होटल में ठहरे।\n\nयह भी: रुकना"
+        },
+        {
+          "front": "go out\n\nLet's go out tonight.",
+          "back": "बाहर जाना\n\nचलो आज रात बाहर चलते हैं।"
+        },
+        {
+          "front": "come in\n\nCome in, please.",
+          "back": "अंदर आना\n\nअंदर आइए।"
+        },
+        {
+          "front": "sit down\n\nPlease sit down.",
+          "back": "बैठ जाना\n\nकृपया बैठ जाइए।"
+        },
+        {
+          "front": "stand up\n\nStand up, please.",
+          "back": "खड़ा होना\n\nकृपया खड़े हो जाइए।"
+        },
+        {
+          "front": "look at\n\nLook at this picture.",
+          "back": "देखना\n\nइस तस्वीर को देखो।"
+        },
+        {
+          "front": "listen to\n\nI listen to the radio.",
+          "back": "सुनना\n\nमैं रेडियो सुनता हूँ।"
+        },
+        {
+          "front": "talk\n\nCan we talk?",
+          "back": "बात करना\n\nक्या हम बात कर सकते हैं?"
+        },
+        {
+          "front": "chat\n\nWe chat every evening.",
+          "back": "गपशप करना\n\nहम हर शाम गपशप करते हैं।\n\nयह भी: चैट करना"
+        },
+        {
+          "front": "text\n\nText me when you arrive.",
+          "back": "मैसेज करना\n\nपहुँचकर मुझे मैसेज कर देना।"
+        },
+        {
+          "front": "agree\n\nI agree with you.",
+          "back": "सहमत होना\n\nमैं आपसे सहमत हूँ।"
+        },
+        {
+          "front": "decide\n\nI can't decide.",
+          "back": "तय करना\n\nमैं तय नहीं कर पा रहा हूँ।\n\nयह भी: फ़ैसला करना, निर्णय लेना"
+        },
+        {
+          "front": "believe\n\nI believe you.",
+          "back": "विश्वास करना\n\nमुझे तुम पर विश्वास है।\n\nयह भी: यक़ीन करना, भरोसा करना"
+        },
+        {
+          "front": "check\n\nCheck your answers.",
+          "back": "जाँचना\n\nअपने जवाब जाँच लो।\n\nयह भी: चेक करना"
+        },
+        {
+          "front": "prepare\n\nI prepare dinner every day.",
+          "back": "तैयार करना\n\nमैं हर दिन रात का खाना तैयार करता हूँ।"
+        },
+        {
+          "front": "invite\n\nI want to invite you to my party.",
+          "back": "बुलाना\n\nमैं तुम्हें अपनी पार्टी में बुलाना चाहता हूँ।\n\nयह भी: इनवाइट करना"
+        },
+        {
+          "front": "join\n\nCan I join you?",
+          "back": "शामिल होना\n\nक्या मैं आपके साथ शामिल हो सकता हूँ?\n\nयह भी: जॉइन करना"
+        },
+        {
+          "front": "win\n\nOur team won the game.",
+          "back": "जीतना\n\nहमारी टीम मैच जीत गई।"
+        },
+        {
+          "front": "lose\n\nWe lost the game.",
+          "back": "हारना\n\nहम मैच हार गए।\n\nदूसरा अर्थ: खोना"
+        },
+        {
+          "front": "pick up\n\nPick up your toys.",
+          "back": "उठाना\n\nअपने खिलौने उठाओ।"
+        },
+        {
+          "front": "turn\n\nTurn left at the bank.",
+          "back": "मुड़ना\n\nबैंक के पास बाएँ मुड़ो।"
+        },
+        {
+          "front": "cross\n\nCross the road carefully.",
+          "back": "पार करना\n\nसड़क ध्यान से पार करो।\n\nयह भी: क्रॉस करना"
+        },
+        {
+          "front": "follow\n\nFollow me.",
+          "back": "पीछे चलना\n\nमेरे पीछे आओ।\n\nयह भी: फ़ॉलो करना, पीछे आना"
+        },
+        {
+          "front": "lead\n\nShe leads the team.",
+          "back": "नेतृत्व करना\n\nवह टीम का नेतृत्व करती है।"
+        },
+        {
+          "front": "grow\n\nPlants grow fast in the rainy season.",
+          "back": "बढ़ना\n\nबरसात में पौधे तेज़ी से बढ़ते हैं।\n\nयह भी: उगना"
+        },
+        {
+          "front": "die\n\nThe flowers died because of the cold.",
+          "back": "मरना\n\nठंड की वजह से फूलों के पौधे मर गए।"
+        },
+        {
+          "front": "protect\n\nWear a helmet to protect your head.",
+          "back": "बचाना\n\nअपने सिर को बचाने के लिए हेलमेट पहनो।\n\nयह भी: रक्षा करना"
+        },
+        {
+          "front": "enjoy\n\nI enjoy reading.",
+          "back": "मज़ा लेना\n\nमुझे पढ़ने में मज़ा आता है।\n\nयह भी: एंजॉय करना, मज़ा आना"
+        },
+        {
+          "front": "relax\n\nRelax and have a cup of tea.",
+          "back": "आराम करना\n\nआराम करो और एक कप चाय पियो।\n\nयह भी: रिलैक्स करना"
+        },
+        {
+          "front": "worry\n\nDon't worry.",
+          "back": "चिंता करना\n\nचिंता मत करो।\n\nयह भी: फ़िक्र करना"
+        },
+        {
+          "front": "share\n\nLet's share the cake.",
+          "back": "बाँटना\n\nचलो केक बाँट लेते हैं।\n\nयह भी: शेयर करना"
+        },
+        {
+          "front": "wish\n\nI wish you a happy New Year.",
+          "back": "शुभकामना देना\n\nमैं तुम्हें नए साल की शुभकामनाएँ देता हूँ।\n\nदूसरा अर्थ: इच्छा"
+        },
+        {
+          "front": "improve\n\nI want to improve my English.",
+          "back": "सुधारना\n\nमैं अपनी अंग्रेज़ी सुधारना चाहता हूँ।"
+        },
+        {
+          "front": "do homework\n\nI do homework every evening.",
+          "back": "होमवर्क करना\n\nमैं हर शाम होमवर्क करता हूँ।"
+        },
+        {
+          "front": "go shopping\n\nLet's go shopping.",
+          "back": "ख़रीदारी करना\n\nचलो ख़रीदारी करने चलते हैं।\n\nयह भी: शॉपिंग करना"
+        },
+        {
+          "front": "take a photo\n\nLet me take a photo.",
+          "back": "फ़ोटो खींचना\n\nमुझे एक फ़ोटो खींचने दो।\n\nयह भी: फ़ोटो लेना, तस्वीर खींचना"
+        },
+        {
+          "front": "go to bed\n\nI go to bed at eleven.",
+          "back": "सोने जाना\n\nमैं ग्यारह बजे सोने जाता हूँ।"
+        },
+        {
+          "front": "look after\n\nI look after my little brother.",
+          "back": "देखभाल करना\n\nमैं अपने छोटे भाई की देखभाल करता हूँ।\n\nयह भी: ख़याल रखना"
+        },
+        {
+          "front": "give up\n\nDon't give up!",
+          "back": "हार मानना\n\nहार मत मानो!\n\nयह भी: छोड़ देना"
+        },
+        {
+          "front": "find out\n\nI want to find out the truth.",
+          "back": "पता लगाना\n\nमैं सच का पता लगाना चाहता हूँ।\n\nयह भी: पता करना"
+        },
+        {
+          "front": "hurry\n\nHurry up, we are late!",
+          "back": "जल्दी करना\n\nजल्दी करो, हमें देर हो रही है!"
+        }
+      ]
+    },
+    {
+      "name": "20 चीज़ों का वर्णन",
+      "cards": [
+        {
+          "front": "big\n\nThey live in a big house.",
+          "back": "बड़ा\n\nवे एक बड़े घर में रहते हैं।"
+        },
+        {
+          "front": "small\n\nI have a small car.",
+          "back": "छोटा\n\nमेरे पास एक छोटी कार है।"
+        },
+        {
+          "front": "long\n\nShe has long hair.",
+          "back": "लंबा\n\nउसके बाल लंबे हैं।"
+        },
+        {
+          "front": "short\n\nThis story is short.",
+          "back": "छोटा\n\nयह कहानी छोटी है।"
+        },
+        {
+          "front": "tall\n\nMy brother is very tall.",
+          "back": "लंबा\n\nमेरा भाई बहुत लंबा है।"
+        },
+        {
+          "front": "low\n\nThe table is too low.",
+          "back": "नीचा\n\nमेज़ बहुत नीची है।"
+        },
+        {
+          "front": "wide\n\nThe road is wide.",
+          "back": "चौड़ा\n\nसड़क चौड़ी है।"
+        },
+        {
+          "front": "narrow\n\nThis street is very narrow.",
+          "back": "तंग\n\nयह गली बहुत तंग है।\n\nयह भी: संकरा"
+        },
+        {
+          "front": "heavy\n\nThis box is heavy.",
+          "back": "भारी\n\nयह डिब्बा भारी है।"
+        },
+        {
+          "front": "new\n\nI have a new phone.",
+          "back": "नया\n\nमेरे पास एक नया फ़ोन है।"
+        },
+        {
+          "front": "good\n\nHe is a good student.",
+          "back": "अच्छा\n\nवह एक अच्छा छात्र है।"
+        },
+        {
+          "front": "bad\n\nThe weather is bad today.",
+          "back": "बुरा\n\nआज मौसम ख़राब है।\n\nयह भी: ख़राब"
+        },
+        {
+          "front": "beautiful\n\nWhat a beautiful view!",
+          "back": "सुंदर\n\nकितना सुंदर नज़ारा है!\n\nयह भी: ख़ूबसूरत"
+        },
+        {
+          "front": "ugly\n\nThat building is ugly.",
+          "back": "बदसूरत\n\nवह इमारत बदसूरत है।"
+        },
+        {
+          "front": "easy\n\nThis exercise is easy.",
+          "back": "आसान\n\nयह अभ्यास आसान है।"
+        },
+        {
+          "front": "difficult\n\nEnglish grammar is difficult.",
+          "back": "मुश्किल\n\nअंग्रेज़ी व्याकरण मुश्किल है।\n\nयह भी: कठिन"
+        },
+        {
+          "front": "empty\n\nThe room is empty.",
+          "back": "ख़ाली\n\nकमरा ख़ाली है।"
+        },
+        {
+          "front": "dirty\n\nMy shoes are dirty.",
+          "back": "गंदा\n\nमेरे जूते गंदे हैं।"
+        },
+        {
+          "front": "tidy\n\nHer room is always tidy.",
+          "back": "साफ़-सुथरा\n\nउसका कमरा हमेशा साफ़-सुथरा रहता है।"
+        },
+        {
+          "front": "messy\n\nMy desk is messy.",
+          "back": "बिखरा हुआ\n\nमेरी डेस्क पर सामान बिखरा हुआ है।"
+        },
+        {
+          "front": "safe\n\nIs it safe to swim here?",
+          "back": "सुरक्षित\n\nक्या यहाँ तैरना सुरक्षित है?\n\nयह भी: सेफ़"
+        },
+        {
+          "front": "dangerous\n\nSwimming here is dangerous.",
+          "back": "ख़तरनाक\n\nयहाँ तैरना ख़तरनाक है।"
+        },
+        {
+          "front": "important\n\nThis is very important.",
+          "back": "ज़रूरी\n\nयह बहुत ज़रूरी है।\n\nयह भी: महत्वपूर्ण"
+        },
+        {
+          "front": "interesting\n\nThis book is very interesting.",
+          "back": "दिलचस्प\n\nयह किताब बहुत दिलचस्प है।\n\nयह भी: रोचक"
+        },
+        {
+          "front": "boring\n\nThe movie was boring.",
+          "back": "उबाऊ\n\nफ़िल्म उबाऊ थी।\n\nयह भी: बोरिंग"
+        },
+        {
+          "front": "famous\n\nThis singer is very famous.",
+          "back": "मशहूर\n\nयह गायक बहुत मशहूर है।\n\nयह भी: प्रसिद्ध, फ़ेमस"
+        },
+        {
+          "front": "strange\n\nThat is a strange sound.",
+          "back": "अजीब\n\nवह अजीब-सी आवाज़ है।"
+        },
+        {
+          "front": "same\n\nWe are in the same class.",
+          "back": "एक ही\n\nहम एक ही कक्षा में हैं।\n\nयह भी: वही, समान, सेम"
+        },
+        {
+          "front": "different\n\nMy sister and I are very different.",
+          "back": "अलग\n\nमैं और मेरी बहन बहुत अलग हैं।"
+        },
+        {
+          "front": "real\n\nIs this a real flower?",
+          "back": "असली\n\nक्या यह असली फूल है?"
+        },
+        {
+          "front": "true\n\nIs it true?",
+          "back": "सच\n\nक्या यह सच है?"
+        },
+        {
+          "front": "loud\n\nThe music is too loud.",
+          "back": "तेज़\n\nसंगीत बहुत तेज़ है।"
+        },
+        {
+          "front": "soft\n\nThis pillow is soft.",
+          "back": "मुलायम\n\nयह तकिया मुलायम है।\n\nयह भी: नरम, सॉफ़्ट"
+        },
+        {
+          "front": "hard\n\nThis bread is hard.",
+          "back": "सख़्त\n\nयह ब्रेड सख़्त है।\n\nदूसरा अर्थ: मुश्किल। यह भी: कड़ा"
+        },
+        {
+          "front": "thick\n\nThis book is very thick.",
+          "back": "मोटा\n\nयह किताब बहुत मोटी है।"
+        },
+        {
+          "front": "thin\n\nThe paper is very thin.",
+          "back": "पतला\n\nकाग़ज़ बहुत पतला है।"
+        },
+        {
+          "front": "fat\n\nMy cat is too fat.",
+          "back": "मोटा\n\nमेरी बिल्ली बहुत मोटी है।"
+        },
+        {
+          "front": "cute\n\nWhat a cute baby!",
+          "back": "प्यारा\n\nकितना प्यारा बच्चा है!\n\nयह भी: क्यूट"
+        },
+        {
+          "front": "nice\n\nIt is a nice place to live.",
+          "back": "अच्छा\n\nयह रहने के लिए एक अच्छी जगह है।"
+        },
+        {
+          "front": "great\n\nThat's a great idea!",
+          "back": "बढ़िया\n\nयह तो बढ़िया आइडिया है!\n\nयह भी: शानदार"
+        },
+        {
+          "front": "terrible\n\nThe food was terrible.",
+          "back": "भयानक\n\nखाना बहुत ख़राब था।\n\nयह भी: बहुत बुरा, बहुत ख़राब"
+        },
+        {
+          "front": "perfect\n\nYour English is perfect.",
+          "back": "एकदम सही\n\nआपकी अंग्रेज़ी एकदम सही है।\n\nयह भी: बिल्कुल सही, परफ़ेक्ट"
+        },
+        {
+          "front": "popular\n\nThis song is very popular.",
+          "back": "लोकप्रिय\n\nयह गाना बहुत लोकप्रिय है।"
+        },
+        {
+          "front": "modern\n\nOur city has many modern buildings.",
+          "back": "आधुनिक\n\nहमारे शहर में बहुत सी आधुनिक इमारतें हैं।\n\nयह भी: मॉडर्न"
+        },
+        {
+          "front": "traditional\n\nShe wears a traditional dress.",
+          "back": "पारंपरिक\n\nवह एक पारंपरिक पोशाक पहनती है।"
+        },
+        {
+          "front": "convenient\n\nThe bus is very convenient.",
+          "back": "सुविधाजनक\n\nबस बहुत सुविधाजनक है।"
+        },
+        {
+          "front": "comfortable\n\nThis chair is comfortable.",
+          "back": "आरामदायक\n\nयह कुर्सी आरामदायक है।"
+        },
+        {
+          "front": "useful\n\nThis app is very useful.",
+          "back": "उपयोगी\n\nयह ऐप बहुत उपयोगी है।\n\nयह भी: काम का, फ़ायदेमंद"
+        },
+        {
+          "front": "special\n\nToday is a special day.",
+          "back": "ख़ास\n\nआज एक ख़ास दिन है।\n\nयह भी: स्पेशल"
+        },
+        {
+          "front": "simple\n\nThe question is simple.",
+          "back": "सरल\n\nसवाल सरल है।\n\nयह भी: सिंपल"
+        }
+      ]
+    }
+  ]
+}

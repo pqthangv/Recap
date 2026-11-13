@@ -53,8 +53,10 @@
 
 ## Made for real studying
 
-- Ready-made decks in the Library (English basics, IELTS, SAT and TOEIC vocabulary, world
-  capitals), plus your own for languages, biology, history, medicine and more.
+- Ready-made decks in the Library (English basics for Vietnamese, Spanish, Portuguese, French,
+  Hindi and Bengali speakers; Spanish, French, Portuguese and Vietnamese basics for English
+  speakers; IELTS, SAT and TOEIC vocabulary; world capitals), plus your own for languages, biology,
+  history, medicine and more.
 - Decks inside decks (like "Biology › Cells") to keep things tidy.
 - Cards read aloud in 19 languages, set once for each deck.
 - Math on cards: fractions, roots and powers with "+ Math", no LaTeX needed. Pictures too.

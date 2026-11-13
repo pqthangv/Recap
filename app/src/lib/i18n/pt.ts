@@ -673,13 +673,37 @@ export const pt: Translation = {
   'aiError.notConfigured': 'A IA do Recap ainda não está configurada.',
 
   // Library
-  'library.help': 'Baralhos prontos para adicionar aos seus.',
-  'library.add': 'Adicionar aos meus baralhos',
+  'library.add': 'Adicionar',
+  'library.categoriesA11y': 'Tipos de baralhos',
+  'library.all': 'Todos',
+  'library.exams': 'Exames',
+  'library.languages': 'Idiomas',
+  'library.geography': 'Geografia',
   'library.addA11y': 'Adicionar {name} aos meus baralhos',
   'library.openA11y': 'Abrir {name}',
   'library.added': 'Adicionado: {name} · {cards}',
+  'library.addOffline':
+    'Não foi possível baixar {name}. Verifique sua conexão com a internet e tente de novo.',
   'pack.englishBasics':
     'Inglês do dia a dia com significados em vietnamita: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsEs':
+    'Inglês do dia a dia com significados em espanhol: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsPt':
+    'Inglês do dia a dia com significados em português: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsFr':
+    'Inglês do dia a dia com significados em francês: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsHi':
+    'Inglês do dia a dia com significados em hindi: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.englishBasicsBn':
+    'Inglês do dia a dia com significados em bengali: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.spanishBasics':
+    'Espanhol do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
+  'pack.frenchBasics':
+    'Francês do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
+  'pack.portugueseBasics':
+    'Português do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
+  'pack.vietnameseBasics':
+    'Vietnamita do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
   'pack.ielts':
     'Palavras acadêmicas para o IELTS em 10 temas, da descrição de gráficos ao meio ambiente (com explicações em inglês).',
   'pack.sat':
