@@ -696,6 +696,14 @@ export const pt: Translation = {
     'Inglês do dia a dia com significados em hindi: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
   'pack.englishBasicsBn':
     'Inglês do dia a dia com significados em bengali: 1.000 palavras em 20 temas, de cumprimentos a comida e viagens.',
+  'pack.spanishBasics':
+    'Espanhol do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
+  'pack.frenchBasics':
+    'Francês do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
+  'pack.portugueseBasics':
+    'Português do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
+  'pack.vietnameseBasics':
+    'Vietnamita do dia a dia com significados em inglês: 20 temas, de cumprimentos a comida e viagens.',
   'pack.ielts':
     'Palavras acadêmicas para o IELTS em 10 temas, da descrição de gráficos ao meio ambiente (com explicações em inglês).',
   'pack.sat':

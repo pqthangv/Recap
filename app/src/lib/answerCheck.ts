@@ -71,7 +71,16 @@ export function isTypeable(back: string, language?: CardLanguage | null): boolea
   if (CJK.test(answer) && !answer.includes(' ')) return [...answer].length <= MAX_CJK_CHARS;
   const lang = language ?? detectLanguage(answer);
   const uncounted = new Set(OPTIONAL_WORDS[lang]?.uncounted);
-  const words = answer.split(' ').filter((word) => !uncounted.has(word.toLowerCase())).length;
+  // Each of several answers on its own: "how much; how many" is two words.
+  const words = Math.max(
+    ...answer.split(/[;/]/).map(
+      (option) =>
+        option
+          .trim()
+          .split(' ')
+          .filter((word) => word && !uncounted.has(word.toLowerCase())).length,
+    ),
+  );
   return words <= (lang === 'vi' ? MAX_VIETNAMESE_WORDS : MAX_WORDS);
 }
 

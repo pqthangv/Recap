@@ -62,6 +62,8 @@ export type Pack = {
   /** What each side is read aloud in, given to the decks when they're added (else Auto). */
   languages?: SideLanguages;
   decks: readonly PackDeckSize[];
+  /** Made by turning this pack's cards around (reverse.ts), so the app carries them once. */
+  reverseOf?: string;
 };
 
 /** English basics for speakers of `speakers`, in the family's one color and icon. */
@@ -84,7 +86,61 @@ function englishBasicsFor(
   };
 }
 
+/**
+ * The same words for English speakers learning `language`: English basics for its speakers,
+ * turned around (the meaning to read, the English word to type). Its decks have the English
+ * topic names; packIndex.json counts them after words with one meaning share a card.
+ */
+function basicsForEnglishSpeakers(
+  id: string,
+  language: CardLanguage,
+  name: string,
+  description: StringKey,
+  from: string,
+): Pack {
+  return {
+    id,
+    name,
+    description,
+    color: deckColors[5],
+    logo: { icon: 'translate' },
+    category: 'languages',
+    speakers: 'en',
+    languages: { front: language, back: 'en' },
+    decks: decksOf(`${from}/reversed`),
+    reverseOf: from,
+  };
+}
+
 export const PACKS: readonly Pack[] = [
+  basicsForEnglishSpeakers(
+    'spanish-basics',
+    'es',
+    'Spanish basics',
+    'pack.spanishBasics',
+    'english-basics-es',
+  ),
+  basicsForEnglishSpeakers(
+    'french-basics',
+    'fr',
+    'French basics',
+    'pack.frenchBasics',
+    'english-basics-fr',
+  ),
+  basicsForEnglishSpeakers(
+    'portuguese-basics',
+    'pt',
+    'Portuguese basics',
+    'pack.portugueseBasics',
+    'english-basics-pt',
+  ),
+  basicsForEnglishSpeakers(
+    'vietnamese-basics',
+    'vi',
+    'Vietnamese basics',
+    'pack.vietnameseBasics',
+    'english-basics',
+  ),
   {
     id: 'english-basics',
     name: 'English basics',

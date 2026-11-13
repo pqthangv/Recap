@@ -5,7 +5,9 @@ import { transaction } from '@/db/transaction';
 import { DECK_PATH_SEPARATOR } from '@/lib/deckGroups';
 import type { Language } from '@/lib/i18n';
 
+import { loadPackDecks } from './packCards';
 import { PACK_CATEGORIES, type Pack, type PackCategory, type PackDeck } from './packs';
+import { reverseDecks } from './reverse';
 
 const lower = (name: string) => name.trim().toLowerCase();
 
@@ -39,6 +41,16 @@ export function packDeckNames(pack: Pack): string[] {
   return pack.decks.map((deck) => `${pack.name}${DECK_PATH_SEPARATOR}${deck.name}`);
 }
 
+/**
+ * The pack's decks with their cards: its file (the website downloads it the first time), or the
+ * pack it turns around.
+ */
+export function packDecks(pack: Pack): Promise<readonly PackDeck[]> {
+  if (!pack.reverseOf) return loadPackDecks(pack.id);
+  const topics = pack.decks.map((deck) => deck.name);
+  return loadPackDecks(pack.reverseOf).then((decks) => reverseDecks(decks, topics));
+}
+
 export function packCardCount(pack: Pack): number {
   return pack.decks.reduce((n, deck) => n + deck.count, 0);
 }
@@ -52,7 +64,7 @@ export function isPackAdded(pack: Pack, decks: readonly { name: string }[]): boo
 
 /**
  * Adds the pack's decks (in the pack's color, read aloud in its languages) and its cards as new
- * cards, in the pack's order. `decks`: its cards, from loadPackDecks (packCards.ts).
+ * cards, in the pack's order. `decks`: its cards, from packDecks.
  * Adding it again only brings back what's missing: cards already in a deck are skipped.
  */
 export function addPack(pack: Pack, decks: readonly PackDeck[], now = Date.now()): ImportSummary {

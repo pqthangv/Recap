@@ -13,9 +13,11 @@ import {
   libraryPacks,
   packCardCount,
   packDeckNames,
+  packDecks,
 } from './library';
 import { loadPackDecks } from './packCards';
 import { PACK_CATEGORIES, PACKS, type Pack, type PackDeck } from './packs';
+import { reverseDecks } from './reverse';
 
 // jest.mock factories can't use imports, so this one needs require().
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -24,9 +26,17 @@ jest.mock('@/db/client', () => require('../../../test/db').createTestClient());
 const NOW = new Date(2026, 9, 12, 12, 0, 0).getTime();
 
 /** A bundled pack's cards, read from its file as the phone has it (packCards.ts). */
-const decksOf = (pack: Pack): readonly PackDeck[] =>
+const fileDecks = (id: string): readonly PackDeck[] =>
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  (require(`./packs/${pack.id}.json`) as { decks: readonly PackDeck[] }).decks;
+  (require(`./packs/${id}.json`) as { decks: readonly PackDeck[] }).decks;
+/** Its cards as packDecks gives them: from its file, or the pack it turns around. */
+const decksOf = (pack: Pack): readonly PackDeck[] =>
+  pack.reverseOf
+    ? reverseDecks(
+        fileDecks(pack.reverseOf),
+        pack.decks.map((d) => d.name),
+      )
+    : fileDecks(pack.id);
 
 const PACK: Pack = {
   id: 'test',
@@ -98,7 +108,7 @@ describe("a pack's cards", () => {
   it('loads every pack on the phone, as packIndex.json lists it', async () => {
     // Out of date after a pack file changed: run `node scripts/pack-index.js`.
     for (const pack of PACKS) {
-      const decks = await loadPackDecks(pack.id);
+      const decks = await packDecks(pack);
       const sizes = decks.map((d) => ({ name: d.name, count: d.cards.length }));
       expect([pack.id, sizes]).toEqual([pack.id, pack.decks]);
     }
@@ -110,7 +120,8 @@ describe("a pack's cards", () => {
     const path = require('path') as typeof import('path');
     /* eslint-enable @typescript-eslint/no-require-imports */
     const web = fs.readFileSync(path.join(__dirname, 'packCards.web.ts'), 'utf8');
-    const missing = PACKS.filter((p) => !web.includes(`import('./packs/${p.id}.json')`));
+    const files = PACKS.filter((p) => !p.reverseOf);
+    const missing = files.filter((p) => !web.includes(`import('./packs/${p.id}.json')`));
     expect(missing.map((p) => p.id)).toEqual([]);
   });
 
@@ -176,9 +187,9 @@ describe('the Library list', () => {
     expect(shown.sort()).toEqual(ids(PACKS).sort());
   });
 
-  it('starts with English basics in Vietnamese, with the exams in English', () => {
+  it('starts with English basics in Vietnamese, with Spanish basics in English', () => {
     expect(libraryPacks(PACKS, 'all', 'vi')[0].id).toBe('english-basics');
-    expect(libraryPacks(PACKS, 'all', 'en')[0].id).toBe('ielts');
+    expect(libraryPacks(PACKS, 'all', 'en')[0].id).toBe('spanish-basics');
   });
 });
 
@@ -199,6 +210,11 @@ describe('the bundled packs', () => {
     'english-basics-fr': BASICS,
     'english-basics-hi': BASICS,
     'english-basics-bn': BASICS,
+    // The English word(s) to type, "hello; hi", and the English example.
+    'spanish-basics': /^[^\n()]+\n\n[^\n]+$/,
+    'french-basics': /^[^\n()]+\n\n[^\n]+$/,
+    'portuguese-basics': /^[^\n()]+\n\n[^\n]+$/,
+    'vietnamese-basics': /^[^\n()]+\n\n[^\n]+$/,
   };
 
   it('every pack has a format check', () => {
@@ -301,6 +317,55 @@ describe('the bundled packs', () => {
         expect(card.back).toMatch(FORMAT[pack.id]);
       }
     }
+  });
+});
+
+describe('packs for English speakers', () => {
+  const reversed = PACKS.filter((p) => p.reverseOf);
+  const english = PACKS.find((p) => p.id === 'english-basics')!;
+
+  it('turns around English basics for Spanish, French, Portuguese and Vietnamese speakers', () => {
+    expect(reversed.map((p) => [p.reverseOf, p.languages, p.speakers])).toEqual([
+      ['english-basics-es', { front: 'es', back: 'en' }, 'en'],
+      ['english-basics-fr', { front: 'fr', back: 'en' }, 'en'],
+      ['english-basics-pt', { front: 'pt', back: 'en' }, 'en'],
+      ['english-basics', { front: 'vi', back: 'en' }, 'en'],
+    ]);
+  });
+
+  describe.each(reversed.map((p) => [p.name, p] as const))('%s', (_name, pack) => {
+    const source = decksOf(PACKS.find((p) => p.id === pack.reverseOf)!);
+    const cards = decksOf(pack).flatMap((d) => d.cards);
+    const answers = (back: string) => back.split('\n\n')[0].split('; ');
+
+    it('has the English topics, in the same order', () => {
+      expect(pack.decks.map((d) => d.name)).toEqual(english.decks.map((d) => d.name));
+    });
+
+    it('shows each meaning once, with its example, and asks for every English word', () => {
+      const fronts = cards.map((c) => c.front.split('\n')[0].toLowerCase());
+      expect(new Set(fronts).size).toBe(fronts.length);
+      for (const card of cards) expect(card.front).toMatch(/^[^\n]+\n\n[^\n]+$/);
+      const words = source.flatMap((d) => d.cards.map((c) => c.front.split('\n')[0]));
+      expect(cards.flatMap((c) => answers(c.back)).sort()).toEqual([...words].sort());
+    });
+
+    it('takes any English word of a shared meaning, typed', () => {
+      const shared = cards.find((c) => c.back.split('\n\n')[0].includes('; '))!;
+      for (const word of answers(shared.back)) {
+        expect(checkAnswer(word, shared.back, 'en')).toBe('correct');
+      }
+      expect(cards.filter((c) => !isTypeable(c.back, 'en')).map((c) => c.back)).toEqual([]);
+    });
+  });
+
+  it("keeps the Vietnamese pack's own examples, set in Vietnam", () => {
+    const vietnamese = decksOf(PACKS.find((p) => p.id === 'vietnamese-basics')!);
+    const hello = vietnamese[0].cards.find((c) => c.front.startsWith('xin chào'))!;
+    expect(hello).toEqual({
+      front: 'xin chào\n\nXin chào, tên tôi là Lan.',
+      back: 'hello\n\nHello, my name is Lan.',
+    });
   });
 });
 

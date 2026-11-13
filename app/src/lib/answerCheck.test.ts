@@ -67,6 +67,12 @@ describe('isTypeable with the deck language', () => {
     expect(isTypeable('to give someone a job', 'en')).toBe(false);
     expect(isTypeable('se brosser les dents')).toBe(false); // no deck language: counted
   });
+
+  it('counts each of several answers on its own', () => {
+    expect(isTypeable('how much; how many', 'en')).toBe(true);
+    expect(isTypeable('get up / stand up', 'en')).toBe(true);
+    expect(isTypeable('a large amount of money; a lot', 'en')).toBe(false);
+  });
 });
 
 describe('natural answers', () => {

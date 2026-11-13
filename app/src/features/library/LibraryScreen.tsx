@@ -18,9 +18,9 @@ import {
   libraryCategories,
   libraryPacks,
   packCardCount,
+  packDecks,
   type LibraryFilter,
 } from './library';
-import { loadPackDecks } from './packCards';
 import { CATEGORY_NAMES, PACKS, type Pack } from './packs';
 
 const CATEGORIES = libraryCategories(PACKS);
@@ -41,7 +41,7 @@ export default function LibraryScreen() {
     if (loading.has(pack.id)) return;
     const done = () => setLoading((ids) => new Set([...ids].filter((id) => id !== pack.id)));
     setLoading((ids) => new Set(ids).add(pack.id));
-    loadPackDecks(pack.id).then(
+    packDecks(pack).then(
       (decks) => {
         done();
         const { added } = addPack(pack, decks);
