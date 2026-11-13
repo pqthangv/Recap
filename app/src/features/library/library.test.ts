@@ -2,7 +2,8 @@ import { clearTestDb, migrateTestDb, rawQuery } from '../../../test/db';
 
 import { deleteDeck, listDecks } from '@/db/decks';
 import { getDueQueue } from '@/db/study';
-import { isTypeable } from '@/lib/answerCheck';
+import { checkAnswer, isTypeable, noteAnswers } from '@/lib/answerCheck';
+import { ALSO_LABELS } from '@/lib/answerWords';
 import { hasMath } from '@/lib/math/parse';
 
 import {
@@ -262,6 +263,67 @@ describe('the bundled packs', () => {
         expect(card.back).toMatch(FORMAT[pack.id]);
       }
     }
+  });
+});
+
+describe('notes on ready-made cards', () => {
+  // Labels whose note gives another meaning or use (the card's example asks for one), English
+  // or a hint: not another answer.
+  const NOT_ANSWERS = [
+    'cũng có nghĩa',
+    'también significa',
+    'também significa',
+    'veut aussi dire',
+    'danh từ',
+    'động từ',
+    'tính từ',
+    'con vật',
+    'chưa nấu',
+    'mượn tiền cũng nói',
+    'tiếng anh mỹ',
+    'tiếng anh anh',
+    'ruộng lúa',
+    'en inglés americano',
+    'en inglés británico',
+    'em inglês americano',
+    'em inglês britânico',
+    'en anglais américain',
+    'en anglais britannique',
+  ];
+  const notes = PACKS.flatMap((pack) =>
+    pack.decks.flatMap((d) =>
+      d.cards
+        .filter((c) => c.back.split('\n\n').length > 2)
+        .map((c) => ({ pack, back: c.back, note: c.back.split('\n\n').at(-1)! })),
+    ),
+  );
+
+  it('says for every label whether it gives more right answers', () => {
+    const unknown = new Set<string>();
+    for (const { note } of notes) {
+      for (const sentence of note.split(/\.\s+/)) {
+        const label = /^([^:]{1,40}?)[\s  ]*:/u.exec(sentence)?.[1].trim().toLowerCase();
+        if (!label) continue;
+        const known =
+          ALSO_LABELS.includes(label) ||
+          NOT_ANSWERS.includes(label) ||
+          // "Với người: thấp", "Khi gọi: thầy, cô": one use of the word
+          label.startsWith('với ') ||
+          label.startsWith('khi ');
+        if (!known) unknown.add(label);
+      }
+    }
+    expect([...unknown]).toEqual([]);
+  });
+
+  it('takes the answers they give when typed', () => {
+    const missed = notes.flatMap(({ pack, back }) =>
+      noteAnswers(back)
+        .filter((answer) => checkAnswer(answer, back, pack.languages?.back) !== 'correct')
+        .map((answer) => `${pack.id}: ${answer}`),
+    );
+    expect(missed).toEqual([]);
+    expect(notes.filter(({ back }) => noteAnswers(back).length > 0).length).toBeGreaterThan(500);
   });
 });
 

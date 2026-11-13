@@ -1,29 +1,43 @@
 // "Type the answer": which cards are short enough to type, how close a typed answer is, and the
 // grade Recap suggests for it. You still pick the grade; the suggestion is highlighted.
+import { ALSO_LABELS, ANY_ARTICLE, OPTIONAL_WORDS, type OptionalWords } from './answerWords';
 import { detectLanguage, type CardLanguage } from './language';
 import { hasMath } from './math/parse';
 import { sideToText } from './math/plainText';
 import { Rating, type Grade } from './scheduler';
 
 /**
- * - correct: the same, ignoring letter case, spaces and punctuation
+ * - correct: the same, ignoring letter case, spaces and punctuation. Also right: an answer the
+ *   card's note gives ("Cũng nói: dạ, có"), an added article or classifier ("la familia" for
+ *   "familia", "quả táo" for "táo"), "se tornar" for "tornar-se", and spellings that are both
+ *   right (see normalize and spellings)
  * - accents: right letters, wrong or missing accents ("ma" for "má" — a different word in
  *   Vietnamese, so not correct)
- * - typo: one or two letters off
+ * - typo: one or two letters off, or the card's article left out or another one ("libro" or
+ *   "la libro" for "el libro")
  * - wrong: anything else
  * - skipped: nothing typed (Show answer)
  */
 export type AnswerResult = 'correct' | 'accents' | 'typo' | 'wrong' | 'skipped';
 
+// Characters by code point: combining marks sit on the letter before them, so they're invisible
+// in an editor.
+const fromCode = (code: number) => String.fromCharCode(code);
+const span = (from: number, to: number) => `${fromCode(from)}-${fromCode(to)}`;
+
 // A capital, a word and its meaning, a short term: a few words, not an explanation. Checked on
 // the Library: every capital fits, no IELTS or SAT definition does ("causing harm or damage" is
 // four words). Vietnamese puts a space between syllables, so it gets more ("Thành phố Hồ Chí Minh").
+// Articles and "se" don't count in Spanish, Portuguese, French, Italian and German
+// ("se brosser les dents" is two words); English counts them, or "to give someone a job" fits.
 const MAX_WORDS = 3;
 const MAX_VIETNAMESE_WORDS = 5;
 const MAX_CHARS = 40;
 // Chinese and Japanese don't put spaces between words, so count characters there instead.
 const MAX_CJK_CHARS = 10;
-const CJK = /[぀-ヿ㐀-䶿一-鿿豈-﫿]/;
+const CJK = new RegExp(
+  `[${span(0x3040, 0x30ff)}${span(0x3400, 0x4dbf)}${span(0x4e00, 0x9fff)}${span(0xf900, 0xfaff)}]`,
+);
 
 /** Started typing within this long after the question appeared (or was read aloud): Easy. */
 export const QUICK_START_MS = 3000;
@@ -55,29 +69,148 @@ export function isTypeable(back: string, language?: CardLanguage | null): boolea
   const answer = expectedAnswer(back);
   if (!normalize(answer) || answer.includes('\n') || answer.length > MAX_CHARS) return false;
   if (CJK.test(answer) && !answer.includes(' ')) return [...answer].length <= MAX_CJK_CHARS;
-  const words = answer.split(' ').length;
-  const vietnamese = (language ?? detectLanguage(answer)) === 'vi';
-  return words <= (vietnamese ? MAX_VIETNAMESE_WORDS : MAX_WORDS);
+  const lang = language ?? detectLanguage(answer);
+  const uncounted = new Set(OPTIONAL_WORDS[lang]?.uncounted);
+  const words = answer.split(' ').filter((word) => !uncounted.has(word.toLowerCase())).length;
+  return words <= (lang === 'vi' ? MAX_VIETNAMESE_WORDS : MAX_WORDS);
 }
 
-// Lower case, the same Unicode form for accents typed either way, œ and æ as "oe" and "ae"
-// (French "oeuf" for "œuf"), punctuation as spaces (apostrophes and full stops dropped:
-// "don't" = "dont", "D.C." = "DC"), single spaces.
+// Hindi: the dot under क ख ग ज फ (loan sounds, often left out: "जरूर" for "ज़रूर"), ं for ँ
+// ("हां" for "हाँ"), ं for a nasal with ् before a consonant ("हिंदी" for "हिन्दी"), and ई / ए for
+// यी / ये after a letter ("नई" for "नयी", "गए" for "गये").
+const NUQTA = fromCode(0x093c);
+const VIRAMA = fromCode(0x094d);
+const ANUSVARA = fromCode(0x0902);
+const HI_VOWEL_SIGNS = span(0x093e, 0x094c);
+const HI_LOAN_DOT = new RegExp(`([कखगजफ])${NUQTA}`, 'g');
+const HI_CHANDRABINDU = new RegExp(fromCode(0x0901), 'g');
+const HI_NASAL = new RegExp(`[ङञणनम]${VIRAMA}(?=[क-ह])`, 'g');
+const HI_YI = new RegExp(`([क-ह${HI_VOWEL_SIGNS}])य${fromCode(0x0940)}`, 'g');
+const HI_YE = new RegExp(`([क-ह${HI_VOWEL_SIGNS}])य${fromCode(0x0947)}`, 'g');
+// Bengali: ং for ঙ at the end of a word or before a consonant ("রং" for "রঙ").
+const BN_NGA = new RegExp(`ঙ(?:${fromCode(0x09cd)}(?=[ক-হ])|(?![${span(0x0980, 0x09ff)}]))`, 'g');
+
+// Vietnamese: the tone on either vowel of "oa", "oe", "uy" ending a syllable ("khỏe" = "khoẻ",
+// "thủy" = "thuỷ"), and i for a y with a tone after a consonant ("kỳ" = "kì", "Mỹ" = "Mĩ"). Not
+// "ly" and "li", which are other words.
+const TONED: Record<string, string> = {
+  o: 'òóỏõọ',
+  u: 'ùúủũụ',
+  a: 'àáảãạ',
+  e: 'èéẻẽẹ',
+  y: 'ỳýỷỹỵ',
+  i: 'ìíỉĩị',
+};
+const END = `(?![a-z${span(0x00e0, 0x024f)}${span(0x1e00, 0x1eff)}])`;
+const VI_OA = new RegExp(`([${TONED.o}])([ae])${END}`, 'g');
+const VI_UY = new RegExp(`([${TONED.u}])y${END}`, 'g');
+const VI_Y = new RegExp(`([bcdđghklmnpqrstvx])([${TONED.y}])${END}`, 'g');
+const moveTone = (from: string, toneOn: string, to: string) =>
+  TONED[to][TONED[from].indexOf(toneOn)];
+
+// Lower case, the same Unicode form for accents typed either way, punctuation as spaces
+// (apostrophes and full stops dropped: "don't" = "dont", "D.C." = "DC"), single spaces. Spellings
+// that are both right come out the same: œ/æ as "oe"/"ae" (French "oeuf" for "œuf"), ß as "ss",
+// and the Hindi, Bengali and Vietnamese ones above.
 function normalize(text: string): string {
   return text
     .normalize('NFC')
     .toLowerCase()
     .replace(/œ/g, 'oe')
     .replace(/æ/g, 'ae')
+    .replace(/ß/g, 'ss')
+    .replace(HI_LOAN_DOT, '$1')
+    .replace(HI_CHANDRABINDU, ANUSVARA)
+    .replace(HI_NASAL, ANUSVARA)
+    .replace(HI_YI, '$1ई')
+    .replace(HI_YE, '$1ए')
+    .replace(BN_NGA, fromCode(0x0982))
+    .replace(VI_OA, (_, o: string, vowel: string) => `o${moveTone('o', o, vowel)}`)
+    .replace(VI_UY, (_, u: string) => `u${moveTone('u', u, 'y')}`)
+    .replace(VI_Y, (_, consonant: string, y: string) => `${consonant}${moveTone('y', y, 'i')}`)
     .replace(/['’‘`.]/g, '')
     .replace(/[,!?:;¿¡"“”«»。、，！？：；…\-–—()[\]{}]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
 
-// "Hà Nội" → "ha noi". Explicit ranges, not \p{M}, like language.ts.
+// "Hà Nội" → "ha noi". Explicit ranges, not \p{M}, like language.ts. Also almost: the dot left
+// off Hindi ड़ ढ़ (other letters, unlike क़ ज़), and Bengali without its nukta or chandrabindu
+// ("বড" for "বড়"): those make another letter or sound.
+const ACCENTS = new RegExp(`[${span(0x0300, 0x036f)}]`, 'g');
+const OTHER_LETTER_MARKS = new RegExp(`[${NUQTA}${fromCode(0x09bc)}${fromCode(0x0981)}]`, 'g');
 function withoutAccents(text: string): string {
-  return text.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').normalize('NFC');
+  return text
+    .normalize('NFD')
+    .replace(ACCENTS, '')
+    .replace(OTHER_LETTER_MARKS, '')
+    .replace(/đ/g, 'd')
+    .normalize('NFC');
+}
+
+/**
+ * Other ways to write the same normalized answer in this language: German "fuer" for "für",
+ * Portuguese "ténis" (Portugal) for "tênis" (Brazil).
+ */
+function spellings(text: string, language: CardLanguage | null | undefined): string[] {
+  if (language === 'de') {
+    return [text, text.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue')];
+  }
+  if (language === 'pt') return [text, text.replace(/ê(?=[mn])/g, 'é').replace(/ô(?=[mn])/g, 'ó')];
+  return [text];
+}
+
+/** "la familia" → "familia", "l’école" → "école"; the same text when it has no such first word. */
+function withoutFirstWord(text: string, optional: OptionalWords): string {
+  const trimmed = text.trim();
+  const elided = optional.elided?.find((word) =>
+    new RegExp(`^${word}['’‘]\\s*\\S`, 'iu').test(trimmed),
+  );
+  if (elided) return trimmed.slice(elided.length + 1).trim();
+  const [first, second] = trimmed.toLowerCase().split(/\s+/);
+  if (second === undefined || !optional.words.includes(first)) return trimmed;
+  if (optional.phrases?.[first]?.includes(second)) return trimmed; // "a few" isn't "few"
+  return trimmed.slice(trimmed.search(/\s/)).trim();
+}
+
+/**
+ * The right answers the card's notes give: the items after an "also" label, e.g. "dạ" and "có"
+ * from "vâng\n\nVâng, tôi hiểu.\n\nCũng nói: dạ, có" (answerWords.ts has the labels).
+ */
+export function noteAnswers(back: string): string[] {
+  const paragraphs = sideToText(back)
+    .trim()
+    .split(/\n[ \t]*\n/)
+    .slice(1);
+  const answers: string[] = [];
+  for (const paragraph of paragraphs) {
+    // A note may have two: "Với kính, đồng hồ: đeo. Với mũ: đội".
+    for (const sentence of paragraph.split(/\.\s+/)) {
+      // French puts a no-break space before the colon ("Au Québec : chum"); \s takes it.
+      const note = /^([^:\n]{1,40}?)\s*:\s*(.+)$/u.exec(sentence.trim());
+      if (!note) continue;
+      const label = note[1].replace(/\s+/g, ' ').trim().toLowerCase();
+      if (!ALSO_LABELS.includes(label)) continue;
+      for (const item of note[2].split(/[,;/]/)) {
+        // "em… tùy người nghe" → "em", "chúng ta (gồm cả người nghe)" → "chúng ta"
+        const answer = item
+          .split(/…|\.\.\./)[0]
+          .replace(/\([^)]*\)/g, ' ')
+          .replace(/\.$/, '')
+          .trim();
+        if (answer) answers.push(answer);
+      }
+    }
+  }
+  return answers;
+}
+
+/** "tornar-se" and "se tornar" are the same verb in Portuguese. */
+function bothOrders(option: string): string[] {
+  const after = /^(\S+)-se$/u.exec(option.trim());
+  if (after) return [option, `se ${after[1]}`];
+  const before = /^se (\S+)$/u.exec(option.trim());
+  return before ? [option, `${before[1]}-se`] : [option];
 }
 
 // Letters that may differ for "typo": none in very short answers, more in long ones.
@@ -102,17 +235,43 @@ export function editDistance(a: string, b: string): number {
   return d[x.length][y.length];
 }
 
-/** How close `typed` is to the card's answer. "dog; hound" or "dog / hound" accept either. */
-export function checkAnswer(typed: string, back: string): AnswerResult {
+/**
+ * How close `typed` is to the card's answer. "dog; hound" or "dog / hound" accept either, and so
+ * does a note "Also: hound". `language`: the back's language when the deck sets one; without it,
+ * any article may be added but leaving one out gets no help.
+ */
+export function checkAnswer(
+  typed: string,
+  back: string,
+  language?: CardLanguage | null,
+): AnswerResult {
   const given = normalize(typed);
   if (!given) return 'skipped';
-  const options = expectedAnswer(back).split(/[;/]/).map(normalize).filter(Boolean);
-  if (options.includes(given)) return 'correct';
-  const plain = withoutAccents(given);
+  const optional = (language ? OPTIONAL_WORDS[language] : ANY_ARTICLE) ?? { words: [] };
+  const variants = (texts: string[]) =>
+    [...new Set(texts.flatMap((text) => spellings(text, language)))].filter(Boolean);
+  const raw = [...expectedAnswer(back).split(/[;/]/), ...noteAnswers(back)]
+    .flatMap(bothOrders)
+    .filter((option) => normalize(option));
+  const options = variants(raw.map(normalize));
+  // As typed, and without an article or classifier the typed answer added.
+  const forms = variants([given, normalize(withoutFirstWord(typed, optional))]);
+  if (forms.some((form) => options.includes(form))) return 'correct';
+  // The card's first word left out: right for some ("to"), almost for articles.
+  const leftOut = raw
+    .filter((option) => withoutFirstWord(option, optional) !== option.trim())
+    .map((option) => ({
+      word: option.trim().split(/\s+/)[0].toLowerCase(),
+      rest: variants([normalize(withoutFirstWord(option, optional))]),
+    }))
+    .filter(({ rest }) => rest.some((option) => forms.includes(option)));
+  if (leftOut.some(({ word }) => optional.leftOutIsRight?.includes(word))) return 'correct';
+  const plainForms = forms.map(withoutAccents);
   const plainOptions = options.map(withoutAccents);
-  if (plainOptions.includes(plain)) return 'accents';
-  const close = plainOptions.some(
-    (option) => editDistance(plain, option) <= allowedTypos([...option].length),
+  if (plainForms.some((form) => plainOptions.includes(form))) return 'accents';
+  if (optional.leftOutIsAlmost && leftOut.length > 0) return 'typo';
+  const close = plainOptions.some((option) =>
+    plainForms.some((form) => editDistance(form, option) <= allowedTypos([...option].length)),
   );
   return close ? 'typo' : 'wrong';
 }

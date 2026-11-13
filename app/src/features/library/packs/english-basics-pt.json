@@ -29,7 +29,7 @@
         },
         {
           "front": "thank you\n\nThank you for your help.",
-          "back": "obrigado\n\nObrigado pela ajuda.\n\nTambém: obrigada, quando quem fala é mulher"
+          "back": "obrigado\n\nObrigado pela ajuda.\n\nTambém: obrigada (quando quem fala é mulher)"
         },
         {
           "front": "sorry\n\nSorry, I am late.",
@@ -77,7 +77,7 @@
         },
         {
           "front": "they\n\nThey are my parents.",
-          "back": "eles\n\nEles são meus pais.\n\nTambém: elas, para um grupo só de mulheres"
+          "back": "eles\n\nEles são meus pais.\n\nTambém: elas (para um grupo só de mulheres)"
         },
         {
           "front": "he\n\nHe is my classmate.",
@@ -1194,7 +1194,7 @@
         },
         {
           "front": "cold\n\nI want a cold drink.",
-          "back": "frio\n\nEu quero uma bebida gelada.\n\nTambém: gelado, para bebidas"
+          "back": "frio\n\nEu quero uma bebida gelada.\n\nTambém: gelado (para bebidas)"
         },
         {
           "front": "fresh\n\nThe fish is very fresh.",
@@ -1665,7 +1665,7 @@
         },
         {
           "front": "ear\n\nMy ear hurts.",
-          "back": "orelha\n\nMinha orelha está doendo.\n\nTambém: ouvido, a parte de dentro"
+          "back": "orelha\n\nMinha orelha está doendo.\n\nTambém: ouvido (a parte de dentro)"
         },
         {
           "front": "nose\n\nMy nose is red.",
@@ -3546,7 +3546,7 @@
         },
         {
           "front": "know\n\nI know her name.",
-          "back": "saber\n\nEu sei o nome dela.\n\nTambém: conhecer, para pessoas e lugares"
+          "back": "saber\n\nEu sei o nome dela.\n\nTambém: conhecer (para pessoas e lugares)"
         },
         {
           "front": "think\n\nI think it will rain.",
