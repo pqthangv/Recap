@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://recapflashcards.com/sitemap.xml

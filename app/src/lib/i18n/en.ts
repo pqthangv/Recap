@@ -689,6 +689,14 @@ export const en = {
   'pack.toeic': 'Workplace English for TOEIC in 10 topics, from meetings to shipping and housing.',
   'pack.capitals': 'The capital of every UN member country, by continent.',
 
+  // The website's page for each Library pack (scripts/pack-pages.ts), in the pack's language
+  'site.flashcards_one': '{n} flashcard',
+  'site.flashcards_other': '{n} flashcards',
+  'site.studyOnline': 'Study in your browser',
+  'site.about':
+    "Recap is a flashcard app: type each answer and Recap checks it, hear it read aloud, and see every card again just before you'd forget it. No ads, no account needed.",
+  'site.packsTitle': 'Ready-made flashcard decks',
+
   // Statistics
   'stats.today': 'Today',
   // Under a bar of the 7-day chart (narrow).

@@ -694,6 +694,14 @@ export const vi: Strings = {
   'pack.capitals':
     'Thủ đô của mọi quốc gia thành viên Liên Hợp Quốc, theo châu lục (bằng tiếng Anh).',
 
+  // The website's page for each Library pack (scripts/pack-pages.ts), in the pack's language
+  'site.flashcards_one': '{n} thẻ ghi nhớ',
+  'site.flashcards_other': '{n} thẻ ghi nhớ',
+  'site.studyOnline': 'Học ngay trên trình duyệt',
+  'site.about':
+    'Recap là ứng dụng thẻ ghi nhớ: bạn gõ câu trả lời và Recap kiểm tra, nghe thẻ được đọc to, và gặp lại mỗi thẻ ngay trước khi bạn sắp quên. Không quảng cáo, không cần tài khoản.',
+  'site.packsTitle': 'Bộ thẻ có sẵn',
+
   // Statistics
   'stats.today': 'Hôm nay',
   'stats.todayShort': 'Nay',
